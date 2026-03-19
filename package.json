@@ -11,7 +11,9 @@
   "scripts": {
     "build": "npm run build:components && npm run build:react && npm run build:docs",
     "dev:docs": "npm run docs:dev --workspace @fdic-ds/docs",
+    "dev:storybook": "npm run storybook --workspace @fdic-ds/storybook",
     "build:docs": "npm run build --workspace @fdic-ds/docs",
+    "build:storybook": "npm run build --workspace @fdic-ds/storybook",
     "build:components": "npm run build --workspace @fdic-ds/components",
     "build:react": "npm run build --workspace @fdic-ds/react"
   }

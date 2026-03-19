@@ -12,6 +12,7 @@ Private workspace scaffold for an FDIC design system.
 
 - `npm install`
 - `npm run dev:docs`
+- `npm run dev:storybook`
 - `npm run build`
 
 ## Notes
@@ -20,3 +21,4 @@ All implementation code is placeholder-only at this stage.
 
 Framework-specific packages should adapt the first-party component APIs rather than becoming the source of truth for design decisions.
 
+Storybook is available as a component workbench for local development. VitePress remains the primary documentation site.
