@@ -5,6 +5,7 @@ Private workspace scaffold for an FDIC design system.
 ## Packages
 
 - `packages/components`: TypeScript + Web Components implementation
+- `packages/react`: placeholder React adapter package for future framework-specific delivery
 - `apps/docs`: VitePress documentation site for GitHub Pages
 
 ## Commands
@@ -16,4 +17,6 @@ Private workspace scaffold for an FDIC design system.
 ## Notes
 
 All implementation code is placeholder-only at this stage.
+
+Framework-specific packages should adapt the first-party component APIs rather than becoming the source of truth for design decisions.
 

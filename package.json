@@ -9,9 +9,10 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build:components && npm run build:docs",
+    "build": "npm run build:components && npm run build:react && npm run build:docs",
     "dev:docs": "npm run docs:dev --workspace @fdic-ds/docs",
     "build:docs": "npm run build --workspace @fdic-ds/docs",
-    "build:components": "npm run build --workspace @fdic-ds/components"
+    "build:components": "npm run build --workspace @fdic-ds/components",
+    "build:react": "npm run build --workspace @fdic-ds/react"
   }
 }
