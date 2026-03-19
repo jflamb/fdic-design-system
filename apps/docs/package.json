@@ -1,0 +1,17 @@
+{
+  "name": "@fdic-ds/docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev .",
+    "build": "vitepress build ."
+  },
+  "dependencies": {
+    "@fdic-ds/components": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "vitepress": "^1.6.3"
+  }
+}

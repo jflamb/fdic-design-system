@@ -1,0 +1,17 @@
+{
+  "name": "fdic-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build:components && npm run build:docs",
+    "dev:docs": "npm run docs:dev --workspace @fdic-ds/docs",
+    "build:docs": "npm run build --workspace @fdic-ds/docs",
+    "build:components": "npm run build --workspace @fdic-ds/components"
+  }
+}
