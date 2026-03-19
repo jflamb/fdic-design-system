@@ -20,11 +20,19 @@ Build an open source design system for government websites in the financial sect
 
 The system must prioritize accessibility, trust, clarity, security, and long-term maintainability over visual novelty.
 
+## Source of Truth
+
+- FDIC design specifications in Figma are the primary source of truth for visual design, component anatomy, layout, and interaction intent.
+- Implement FDIC components as first-party Web Components in this repository.
+- Do not wrap `uswds-elements`.
+- Use USWDS as a secondary reference for government UX conventions, accessibility expectations, trust patterns, and content guidance.
+- If FDIC design differs from USWDS, follow FDIC design unless doing so would create an accessibility, usability, or policy problem.
+
 ## Primary Standards
 
 Use these as defaults unless the maintainer explicitly chooses otherwise:
 
-- USWDS as the baseline reference for government design patterns and accessibility expectations
+- USWDS as a secondary reference for government design patterns, accessibility expectations, and trust conventions
 - Section 508 compliance as a minimum requirement
 - WCAG 2.2 AA as the target standard where feasible
 - Plain language for all public-facing guidance and examples
@@ -72,7 +80,7 @@ This system is for government and financial-sector use. Optimize for trust and c
 
 Prefer this order of operations:
 
-1. Define tokens
+1. Translate FDIC design decisions into tokens
 2. Define semantics and usage guidance
 3. Define component APIs
 4. Implement components
@@ -90,6 +98,7 @@ Before introducing non-trivial components, clarify:
 - SSR and hydration expectations if relevant
 - form-associated behavior if relevant
 - whether a pattern should stay native HTML instead of becoming a custom element
+- where USWDS guidance is relevant and where FDIC intentionally diverges
 
 ## Documentation Rules
 
