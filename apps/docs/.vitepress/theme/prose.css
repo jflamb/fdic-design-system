@@ -330,7 +330,7 @@
 .prose blockquote {
   font-size: var(--fdic-font-size-body, 1.125rem);
   line-height: 1.6;
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--fdic-text-primary, #212123);
   border-left: 4px solid var(--fdic-brand-core-default, #0d6191);
   padding: var(--fdic-spacing-sm, 12px) var(--fdic-spacing-xl, 1.25rem);
   margin-left: 0;
@@ -1476,6 +1476,18 @@ html {
 /* VitePress sets explicit line-height on p, overriding inherited value */
 .prose p {
   line-height: var(--fdic-line-height-body, 1.5);
+}
+
+/* VitePress sets font-size:16px on blockquote>p and color on blockquote */
+.prose blockquote {
+  font-size: var(--fdic-font-size-body, 1.125rem);
+  line-height: 1.6;
+  color: var(--fdic-text-primary, #212123);
+  border-left: 4px solid var(--fdic-brand-core-default, #0d6191);
+}
+
+.prose blockquote > p {
+  font-size: inherit;
 }
 
 /* ===========================================================================
