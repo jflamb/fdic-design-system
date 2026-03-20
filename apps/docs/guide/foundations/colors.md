@@ -475,7 +475,7 @@ Do not assume:
 
 ## Known gaps
 
-- Semantic hue ramp intermediate steps (200/600/900) are placeholder values pending OKLCH refinement.
+- Semantic hue ramp intermediate steps (200/600/900) are placeholder values pending <dfn><abbr title="Oklab Lightness, Chroma, Hue">OKLCH</abbr></dfn> refinement. OKLCH is a perceptually uniform color space that produces evenly spaced lightness ramps without the hue shifts common in sRGB or HSL interpolation.
 - Component-level color tokens are deferred.
 - Dark mode activation strategy (media query vs. class toggle) not finalized.
 - Contrast validation at the component/pattern level not yet documented.
