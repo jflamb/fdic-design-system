@@ -36,7 +36,7 @@
   padding: 1rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 12px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   color: var(--fdic-docs-ink);
 }
 
@@ -72,7 +72,7 @@
   overflow: hidden;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   color: var(--fdic-docs-ink);
 }
 
@@ -120,7 +120,7 @@
   padding: 1rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: linear-gradient(180deg, #fff, var(--fdic-docs-surface));
+  background: linear-gradient(180deg, var(--ds-color-bg-surface), var(--fdic-docs-surface));
   color: var(--fdic-docs-ink);
 }
 
@@ -128,7 +128,7 @@
   margin-top: 0.75rem;
   padding: 1rem;
   border-radius: 12px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   border: 1px solid var(--fdic-docs-border);
 }
 
@@ -151,7 +151,7 @@
   padding: 1rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   color: var(--fdic-docs-ink);
 }
 
@@ -170,7 +170,7 @@
   padding: 1rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   color: var(--fdic-docs-ink);
 }
 
@@ -197,7 +197,7 @@
   border-radius: 10px;
   display: flex;
   align-items: flex-end;
-  border: 1px solid rgba(31, 41, 51, 0.08);
+  border: 1px solid var(--fdic-docs-border);
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -213,7 +213,7 @@
   padding: 1rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: linear-gradient(180deg, #fff, var(--fdic-docs-surface));
+  background: linear-gradient(180deg, var(--ds-color-bg-surface), var(--fdic-docs-surface));
   color: var(--fdic-docs-ink);
 }
 
@@ -232,11 +232,11 @@
   padding: 0.9rem;
   border-radius: 12px;
   border: 1px solid var(--fdic-docs-border);
-  background: #fff;
+  background: var(--ds-color-bg-surface);
 }
 
 .fdic-role-demo[data-role="background"] {
-  background: linear-gradient(180deg, #ffffff, #f7f9fb);
+  background: linear-gradient(180deg, var(--ds-color-bg-surface), var(--ds-color-bg-container));
 }
 
 .fdic-role-demo[data-role="text"] p {
@@ -258,7 +258,7 @@
 .fdic-example-card {
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   overflow: hidden;
   color: var(--fdic-docs-ink);
 }
@@ -293,7 +293,8 @@
   padding: 0.35rem 0.6rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 999px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
+  color: var(--fdic-docs-ink);
   font-size: 0.88rem;
 }
 
@@ -326,7 +327,7 @@
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
   overflow: hidden;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
 }
 
 .fdic-type-row {
@@ -409,17 +410,17 @@
 
 .fdic-surface-card[data-surface="base"] {
   border: 1px solid var(--fdic-docs-border);
-  background: #fff;
+  background: var(--ds-color-bg-surface);
 }
 
 .fdic-surface-card[data-surface="raised"] {
   border: 1px solid rgba(13, 97, 145, 0.12);
-  background: linear-gradient(180deg, #fff, var(--fdic-docs-surface));
+  background: linear-gradient(180deg, var(--ds-color-bg-surface), var(--fdic-docs-surface));
   box-shadow: 0 10px 30px rgba(31, 41, 51, 0.06);
 }
 
 .fdic-surface-card[data-surface="overlay"] {
-  color: #fff;
+  color: var(--ds-color-text-inverted);
   background: linear-gradient(180deg, rgba(15, 35, 49, 0.92), rgba(15, 35, 49, 0.82));
 }
 
@@ -434,7 +435,7 @@
   overflow: hidden;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   color: var(--fdic-docs-ink);
 }
 
@@ -443,7 +444,7 @@
 }
 
 .fdic-mode-frame[data-mode="light"] {
-  background: linear-gradient(180deg, #ffffff, #f5f8fb);
+  background: linear-gradient(180deg, #FFFFFF, #F5F5F7);
   color: var(--fdic-docs-ink);
 }
 
@@ -467,7 +468,7 @@
 }
 
 .fdic-mode-frame[data-mode="light"] .fdic-mode-panel {
-  background: #fff;
+  background: var(--ds-color-bg-surface);
   border: 1px solid var(--fdic-docs-border);
 }
 
