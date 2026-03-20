@@ -1057,6 +1057,8 @@
 
 .prose progress,
 .prose meter {
+  appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   height: 0.75rem;
   border: none;
