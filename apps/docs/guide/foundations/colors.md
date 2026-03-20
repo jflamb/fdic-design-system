@@ -104,7 +104,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch" style="background:#E0E0E2; color:#212123;">200 #E0E0E2</div>
       <div class="fdic-palette-swatch" style="background:#D6D6D8; color:#212123;">300 #D6D6D8</div>
       <div class="fdic-palette-swatch" style="background:#BDBDBF; color:#212123;">400 #BDBDBF</div>
-      <div class="fdic-palette-swatch" style="background:#9E9EA0; color:#FFFFFF;">500 #9E9EA0</div>
+      <div class="fdic-palette-swatch" style="background:#9E9EA0; color:#212123;">500 #9E9EA0</div>
       <div class="fdic-palette-swatch" style="background:#595961; color:#FFFFFF;">700 #595961</div>
       <div class="fdic-palette-swatch" style="background:#424244; color:#FFFFFF;">800 #424244</div>
       <div class="fdic-palette-swatch" style="background:#212123; color:#FFFFFF;">900 #212123</div>
@@ -132,9 +132,9 @@ Palette tokens are source values for the system. They should be documented visua
     <div class="fdic-palette-swatches">
       <div class="fdic-palette-swatch" style="background:#F8EFDA; color:#60511B;">050 #F8EFDA</div>
       <div class="fdic-palette-swatch" style="background:#EBD49B; color:#60511B;">300 #EBD49B</div>
-      <div class="fdic-palette-swatch" style="background:#E1C16E; color:#60511B;">400 #E1C16E</div>
-      <div class="fdic-palette-swatch" style="background:#D9AF45; color:#60511B;">500 #D9AF45</div>
-      <div class="fdic-palette-swatch" style="background:#BD9327; color:#FFFFFF;">600 #BD9327</div>
+      <div class="fdic-palette-swatch" style="background:#E1C16E; color:#2A2110;">400 #E1C16E</div>
+      <div class="fdic-palette-swatch" style="background:#D9AF45; color:#2A2110;">500 #D9AF45</div>
+      <div class="fdic-palette-swatch" style="background:#BD9327; color:#212123;">600 #BD9327</div>
       <div class="fdic-palette-swatch" style="background:#88691C; color:#FFFFFF;">800 #88691C</div>
       <div class="fdic-palette-swatch" style="background:#60511B; color:#FFFFFF;">900 #60511B</div>
     </div>
@@ -223,15 +223,15 @@ Semantic tokens are the only color tokens that should carry status meaning.
   <div class="fdic-example-card">
     <div class="fdic-example-header">Success</div>
     <div class="fdic-example-body" style="background:#E8F5E9;">
-      <p><strong style="color:#4CAF50;">Your information was submitted.</strong></p>
-      <p style="color:#4CAF50;">Use semantic success tokens only when the message communicates a favorable outcome.</p>
+      <p><strong style="color:#2E7D32;">Your information was submitted.</strong></p>
+      <p style="color:#2E7D32;">Use semantic success tokens only when the message communicates a favorable outcome.</p>
     </div>
   </div>
   <div class="fdic-example-card">
     <div class="fdic-example-header">Warning</div>
     <div class="fdic-example-body" style="background:#FCF7EE;">
-      <p><strong style="color:#F49F00;">Review this section before continuing.</strong></p>
-      <p style="color:#F49F00;">Warnings should help prevent mistakes before they become errors.</p>
+      <p><strong style="color:#8B5E00;">Review this section before continuing.</strong></p>
+      <p style="color:#8B5E00;">Warnings should help prevent mistakes before they become errors.</p>
     </div>
   </div>
   <div class="fdic-example-card">
@@ -244,8 +244,8 @@ Semantic tokens are the only color tokens that should carry status meaning.
   <div class="fdic-example-card">
     <div class="fdic-example-header">Info</div>
     <div class="fdic-example-body" style="background:#F1F8FE;">
-      <p><strong style="color:#0776CB;">We ask for this information to protect your account.</strong></p>
-      <p style="color:#0776CB;">Informational states should add clarity without reading as success or warning.</p>
+      <p><strong style="color:#0B4F82;">We ask for this information to protect your account.</strong></p>
+      <p style="color:#0B4F82;">Informational states should add clarity without reading as success or warning.</p>
     </div>
   </div>
 </div>
