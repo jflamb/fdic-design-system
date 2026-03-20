@@ -151,10 +151,17 @@ Role tokens are the main implementation layer for non-semantic UI.
     <h3>Surface and emphasis</h3>
     <p>Background tokens describe where color sits: base surface, container surface, or brand surface.</p>
     <div class="fdic-role-demo" data-role="background">
-      <span class="fdic-token-label">Examples</span>
-      <code>--ds-color-bg-base</code><br />
-      <code>--ds-color-bg-container</code><br />
-      <code>--ds-color-bg-brand</code>
+      <div class="fdic-bg-demo-row">
+        <div class="fdic-bg-demo-swatch" style="background:var(--ds-color-bg-base); border:1px solid var(--ds-color-border-divider);">
+          <span>base</span>
+        </div>
+        <div class="fdic-bg-demo-swatch" style="background:var(--ds-color-bg-container);">
+          <span>container</span>
+        </div>
+        <div class="fdic-bg-demo-swatch" style="background:var(--ds-color-bg-brand); color:var(--ds-color-text-inverted);">
+          <span>brand</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="fdic-role-card">
@@ -162,9 +169,9 @@ Role tokens are the main implementation layer for non-semantic UI.
     <h3>Reading hierarchy</h3>
     <p>Text tokens should support primary, secondary, inverse, and brand-linked content without weakening readability.</p>
     <div class="fdic-role-demo" data-role="text">
-      <strong style="color:#212123;">Primary text</strong>
-      <p style="color:#595961;">Secondary text</p>
-      <p style="color:#0D6191;">Brand-linked text</p>
+      <strong style="color:var(--ds-color-text-primary);">Primary text</strong>
+      <p style="color:var(--ds-color-text-secondary);">Secondary text</p>
+      <p style="color:var(--ds-color-text-brand);">Brand-linked text</p>
     </div>
   </div>
   <div class="fdic-role-card">
@@ -172,10 +179,16 @@ Role tokens are the main implementation layer for non-semantic UI.
     <h3>Structure and control states</h3>
     <p>Border tokens define separation, input affordance, and focus visibility.</p>
     <div class="fdic-role-demo" data-role="border">
-      <div class="fdic-chip-row">
-        <span class="fdic-chip">divider</span>
-        <span class="fdic-chip">input</span>
-        <span class="fdic-chip">focus</span>
+      <div class="fdic-border-demo-row">
+        <div class="fdic-border-demo" style="border:1px solid var(--ds-color-border-divider);">
+          <span>divider</span>
+        </div>
+        <div class="fdic-border-demo" style="border:1px solid var(--ds-color-border-input);">
+          <span>input</span>
+        </div>
+        <div class="fdic-border-demo" style="border:2px solid var(--ds-color-border-input-focus);">
+          <span>focus</span>
+        </div>
       </div>
     </div>
   </div>
@@ -185,9 +198,9 @@ Role tokens are the main implementation layer for non-semantic UI.
     <p>Icon tokens should align with surrounding text and status cues rather than invent separate meaning.</p>
     <div class="fdic-role-demo" data-role="icon">
       <div class="fdic-chip-row">
-        <span class="fdic-chip">primary</span>
-        <span class="fdic-chip">secondary</span>
-        <span class="fdic-chip" data-tone="brand">brand</span>
+        <span class="fdic-chip" style="color:var(--ds-color-icon-primary);">&#9679; primary</span>
+        <span class="fdic-chip" style="color:var(--ds-color-icon-secondary);">&#9679; secondary</span>
+        <span class="fdic-chip" data-tone="brand">&#9679; brand</span>
       </div>
     </div>
   </div>

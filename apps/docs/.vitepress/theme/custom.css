@@ -235,10 +235,6 @@
   background: var(--ds-color-bg-surface);
 }
 
-.fdic-role-demo[data-role="background"] {
-  background: linear-gradient(180deg, var(--ds-color-bg-surface), var(--ds-color-bg-container));
-}
-
 .fdic-role-demo[data-role="text"] p {
   margin: 0.35rem 0 0;
 }
@@ -246,6 +242,32 @@
 .fdic-role-demo[data-role="icon"] .fdic-chip-row,
 .fdic-role-demo[data-role="border"] .fdic-chip-row {
   margin-top: 0;
+}
+
+.fdic-bg-demo-row,
+.fdic-border-demo-row {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.fdic-bg-demo-swatch {
+  padding: 0.75rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--fdic-docs-ink);
+  text-align: center;
+}
+
+.fdic-border-demo {
+  padding: 0.75rem 0.6rem;
+  border-radius: 8px;
+  background: var(--ds-color-bg-surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--fdic-docs-ink);
+  text-align: center;
 }
 
 .fdic-example-grid {
