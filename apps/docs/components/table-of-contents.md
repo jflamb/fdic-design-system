@@ -1,169 +1,95 @@
 # Table of Contents
 
-The `.prose-toc` component provides in-page navigation for long-form content. It lists anchor links to section headings so readers can scan the page structure and jump directly to a topic.
+The table of contents provides in-page navigation for long-form documents. It helps readers scan the structure of a page and jump directly to the section they need.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Navigation component</span>
-  <p>Use <code>.prose-toc</code> at the top of long articles or regulatory documents to give readers an overview of the page and direct access to each section.</p>
+  <p>Use the TOC component on pages with three or more sections to help readers orient themselves and navigate directly to the content they need.</p>
 </div>
 
-## Live example
+## When to use
+
+- **The page has three or more distinct sections with headings** — Fewer than three sections rarely justifies the added navigation overhead.
+- **Readers are likely looking for specific information rather than reading top-to-bottom** — regulatory guidance, procedural manuals, reference documents, and policy summaries.
+- **The document is long enough that scrolling to find a section is inconvenient** — If the full page fits comfortably on one or two screens, a TOC adds clutter without value.
+
+## Live examples
 
 <div class="prose">
   <nav class="prose-toc" aria-label="Table of contents">
     <p class="prose-toc-title" id="demo-toc">On this page</p>
     <ul>
-      <li><a href="#html-pattern">HTML Pattern</a></li>
-      <li><a href="#styling-details">Styling Details</a></li>
-      <li><a href="#active-state">Active State</a></li>
+      <li><a href="#when-to-use">When to Use</a></li>
+      <li><a href="#live-examples">Live Examples</a></li>
+      <li><a href="#best-practices">Best Practices</a></li>
+      <li><a href="#interaction-behavior">Interaction Behavior</a></li>
       <li><a href="#accessibility">Accessibility</a></li>
     </ul>
   </nav>
 </div>
 
-## HTML pattern
+<StoryEmbed storyId="prose-toc--default" caption="Table of contents with section links" />
+<StoryEmbed storyId="prose-toc--active-state" caption="TOC with active section highlighted during scroll" />
 
-The component uses a `<nav>` element with an `aria-label` for assistive technology. The title is a `<p>` tag — not a heading — so it does not appear in the document outline or interfere with the heading hierarchy of the article itself.
+## Best practices
 
-```html
-<nav class="prose-toc" aria-label="Table of contents">
-  <p class="prose-toc-title" id="toc">On this page</p>
-  <ul>
-    <li><a href="#deposit-insurance">Deposit Insurance Coverage</a></li>
-    <li><a href="#account-types">Covered Account Types</a></li>
-    <li><a href="#ownership-categories">Ownership Categories</a></li>
-    <li><a href="#coverage-limits">Standard Coverage Limits</a></li>
-    <li><a href="#filing-claims">Filing a Claim</a></li>
-  </ul>
-</nav>
-```
-
-## Styling details
-
-<div class="fdic-roles-table">
-  <div class="fdic-roles-row fdic-roles-header">
-    <span>Property</span>
-    <span>Token</span>
-    <span>Value</span>
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Place the TOC near the top</h4>
+    <p>Position the TOC after any introductory content and before the first section. Readers need it before they start navigating.</p>
   </div>
-  <div class="fdic-roles-row">
-    <span>Background</span>
-    <span><code>--fdic-background-container</code></span>
-    <span>#f5f5f7</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Border</span>
-    <span><code>--fdic-border-divider</code></span>
-    <span>#bdbdbf (1px solid)</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Border radius</span>
-    <span><code>--fdic-corner-radius-lg</code></span>
-    <span>7px</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Title font size</span>
-    <span><code>--fdic-font-size-h3</code></span>
-    <span>1.4063rem, weight 600</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Link underline (default)</span>
-    <span>--</span>
-    <span>None</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Link underline (hover/focus)</span>
-    <span>--</span>
-    <span>Underline</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Focus ring</span>
-    <span><code>--fdic-border-input-focus</code></span>
-    <span>2px solid #38b6ff, offset 2px</span>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't bury it mid-page</h4>
+    <p>A TOC placed in the middle or at the bottom of a document is too late to help readers orient themselves.</p>
   </div>
 </div>
 
-### Title element
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Mirror the exact heading text</h4>
+    <p>TOC links should use the same wording as the section headings they point to. Consistent labels help readers match what they see in the TOC with what they find on the page.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't paraphrase or abbreviate headings</h4>
+    <p>Inconsistency between the TOC link text and the actual heading confuses readers looking for a match — especially screen reader users navigating by heading.</p>
+  </div>
+</div>
 
-The `.prose-toc-title` class styles the title at h3 size with weight 600. It uses a `<p>` element deliberately: a heading here would pollute the document outline with "On this page" alongside the article's real headings, creating a confusing experience for screen reader users who navigate by heading.
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Limit to top-level sections</h4>
+    <p>List only h2-level headings in the TOC to keep it scannable. A short, focused list lets readers find what they need at a glance.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't include every sub-heading</h4>
+    <p>A deeply nested TOC that includes h3s and h4s defeats its purpose as a quick-scan navigation aid and becomes as overwhelming as the document itself.</p>
+  </div>
+</div>
 
-### Link styles
+## Interaction behavior
 
-TOC links suppress the default underline to keep the list visually clean. Underline appears on `:hover` and `:focus-visible`, matching the interaction model readers expect from navigation lists.
-
-## Active state
-
-The `.prose-toc-active` class highlights the link corresponding to the currently visible section. When applied, the link switches to primary color (`#212123`) and weight 600, with a `color` transition at `0.2s ease`.
-
-This state requires JavaScript. A minimal implementation uses `IntersectionObserver` to detect which section heading is in view:
-
-```js
-const tocLinks = document.querySelectorAll('.prose-toc a');
-const sections = document.querySelectorAll('.prose h2[id], .prose h3[id]');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      tocLinks.forEach((link) => {
-        link.classList.toggle(
-          'prose-toc-active',
-          link.getAttribute('href') === '#' + entry.target.id
-        );
-      });
-    }
-  });
-}, { rootMargin: '0px 0px -60% 0px' });
-
-sections.forEach((section) => observer.observe(section));
-```
-
-::: info Smooth scrolling
-The `.prose-toc` pattern expects `html { scroll-behavior: smooth }` to be set globally. Under `prefers-reduced-motion: reduce`, scroll behavior falls back to `auto` (instant jump) to respect user preferences.
-:::
+- **Smooth scroll** — Clicking a TOC link smooth-scrolls to the target section. Users who prefer reduced motion see an instant jump instead.
+- **Active section highlight** — As the reader scrolls, the active section highlights in the TOC, showing which section is currently in view. The active state updates automatically based on scroll position — no manual interaction needed.
+- **Keyboard navigation** — TOC links are keyboard navigable — users can Tab through them and activate with Enter, following the standard link interaction model.
 
 ## Accessibility
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Landmark</span>
-    <p>The <code>&lt;nav&gt;</code> element with <code>aria-label="Table of contents"</code> creates a named navigation landmark. Screen reader users can jump directly to it from their landmarks list.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Title semantics</span>
-    <p>The title uses <code>&lt;p class="prose-toc-title"&gt;</code>, not a heading. This avoids polluting the document outline with navigation chrome that is not part of the article's content hierarchy.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Focus visibility</span>
-    <p>All TOC links use the standard focus ring: <code>outline: 2px solid var(--fdic-border-input-focus)</code>, <code>outline-offset: 2px</code>, <code>border-radius: 2px</code>.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Motion sensitivity</span>
-    <p>The active-state color transition (0.2s ease) is suppressed under <code>prefers-reduced-motion: reduce</code>. Smooth scrolling also falls back to instant navigation.</p>
-  </div>
-</div>
+- The TOC is wrapped in a `<nav>` landmark with `aria-label="Table of contents"`, so screen reader users can find it quickly from their landmarks list.
+- The title uses a `<p>` element, not a heading. This avoids polluting the document outline with a "Table of contents" entry that would appear alongside the actual content headings.
+- TOC links use the same text as the target headings, so screen reader users hear consistent labels when navigating between the TOC and the document sections.
 
-## Print and responsive behavior
+## Design specs
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Print</span>
-    <p>The TOC is hidden entirely in print stylesheets. In a printed document, the table of contents serves no navigational purpose and would waste space.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Responsive</span>
-    <p>The TOC renders at full width within <code>.prose</code> and respects the container's <code>max-width: 65ch</code>. No layout changes at the 640px breakpoint — the component is already single-column.</p>
-  </div>
-</div>
+<FigmaEmbed url="" caption="TOC layout — default state and active section highlight" />
 
-## Usage guidance
+## Related components
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do</span>
-    <p>Use the TOC for articles with three or more sections. Place it after the lead paragraph and before the first <code>&lt;h2&gt;</code>.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do not</span>
-    <p>Do not nest a TOC inside a callout or sidebar. It is a standalone navigation block that should sit in the main content flow.</p>
-  </div>
-</div>
+<ul class="fdic-related-list">
+  <li><a href="./footnotes">Footnotes</a> — Both are document navigation aids. TOC navigates between sections; footnotes navigate between references and their sources.</li>
+</ul>

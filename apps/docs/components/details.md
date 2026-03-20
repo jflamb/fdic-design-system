@@ -1,13 +1,26 @@
 # Details / Accordion
 
-The native `<details>` element provides a disclosure widget for expandable content. The prose component styles it as a polished accordion suitable for FAQs, supplementary guidance, and progressive disclosure of regulatory information.
+The native `<details>` element provides a disclosure widget for expandable content — FAQs, supplementary guidance, and progressive disclosure of regulatory information.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Disclosure component</span>
-  <p>Use <code>&lt;details&gt;</code> when content is useful but not essential on first read. It reduces page length without hiding information behind navigation, keeping regulatory and procedural content accessible on demand.</p>
+  <span class="fdic-eyebrow">Component</span>
+  <p>Use <code>&lt;details&gt;</code> to let readers opt in to additional content without leaving the page. It reduces page length while keeping procedural details, eligibility criteria, and regulatory definitions accessible on demand.</p>
 </div>
 
-## Live example
+## When to use
+
+- **Content is useful but not essential on first read** — procedural details, eligibility criteria, regulatory definitions, and background context that supports but does not replace the main narrative.
+- **You want to reduce page length without hiding information behind navigation** — accordions keep content on the same page, one interaction away.
+- **The reader should opt in to seeing the content** — it enriches understanding but does not block the reader from completing their task.
+- **Building an FAQ section with multiple expandable questions** — sequential accordions create a scannable question-and-answer format.
+
+## When not to use
+
+- **Don't hide critical warnings or required actions inside a collapsed accordion** — if the user must see it, it belongs in the visible flow. Use a [callout](./callouts) instead.
+- **Don't use a single accordion to hide content you think is "too long"** — if the content is essential, show it. If it's not, consider removing it entirely.
+- **Don't use accordions for primary navigation** — use the [table of contents](./table-of-contents) for document-level navigation.
+
+## Live examples
 
 <div class="prose">
   <details>
@@ -26,233 +39,134 @@ The native `<details>` element provides a disclosure widget for expandable conte
   </details>
 </div>
 
-## HTML pattern
+<StoryEmbed storyId="prose-details--default" caption="Default accordion — single disclosure widget" />
+<StoryEmbed storyId="prose-details--faq-group" caption="FAQ group — multiple accordions in sequence" />
 
-The component uses the native `<details>` and `<summary>` elements with no wrapper classes required. The `.prose` container scopes all styling automatically.
+## Best practices
 
-```html
-<details>
-  <summary>What is FDIC deposit insurance?</summary>
-  <p>
-    The Federal Deposit Insurance Corporation (FDIC) insures deposits
-    at member banks up to $250,000 per depositor, per insured bank,
-    for each account ownership category.
-  </p>
-</details>
-```
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Write clear, specific summary text</h4>
+    <p>Tell the reader what they'll find inside. Specific labels improve scanning and help users decide whether to expand.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't use vague labels</h4>
+    <p>Labels like "More information" or "Click here" force the reader to expand the accordion just to find out what it contains.</p>
+  </div>
+</div>
 
-Place multiple `<details>` elements in sequence to create an FAQ or accordion group. Each operates independently -- there is no exclusive-open behavior built in.
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Use multiple accordions in sequence for FAQ content</h4>
+    <p>Each accordion operates independently, letting readers open only the questions they care about.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't nest accordions inside accordions</h4>
+    <p>One level of disclosure is enough. Nesting creates a confusing interaction pattern and buries content too deeply.</p>
+  </div>
+</div>
 
-```html
-<details>
-  <summary>What types of accounts are insured?</summary>
-  <p>FDIC insurance covers checking accounts, savings accounts,
-  money market deposit accounts, and certificates of deposit (CDs)
-  at insured institutions.</p>
-</details>
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Put substantive content inside</h4>
+    <p>Paragraphs, lists, tables, and even callouts all work well inside an accordion. The component is designed for meaningful content blocks.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't put a single sentence inside an accordion</h4>
+    <p>If the content is that short, just show it inline. The interaction cost of expanding an accordion is not worth a single line of text.</p>
+  </div>
+</div>
 
-<details>
-  <summary>Are joint accounts insured separately?</summary>
-  <p>Yes. Joint accounts are insured separately from single-ownership
-  accounts. Each co-owner's share is insured up to $250,000.</p>
-</details>
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Group related questions with a heading above</h4>
+    <p>A heading like "Frequently asked questions" or "Coverage details" gives the accordion set context and aids scanning.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't scatter individual accordions throughout body text</h4>
+    <p>Isolated accordions break reading flow. Group them together or use a different component for inline supplementary content.</p>
+  </div>
+</div>
 
-<details>
-  <summary>How do I verify my bank is FDIC-insured?</summary>
-  <p>Use the FDIC's BankFind tool at
-  <code>research.fdic.gov/bankfind</code> to confirm whether a
-  specific institution carries FDIC insurance.</p>
-</details>
-```
+## Interaction behavior
 
-## Summary styling
+- **Click or tap** the summary bar to toggle the content open and closed.
+- **Enter and Space** keys toggle the accordion when the summary is focused.
+- The **chevron rotates** to point upward when open, providing a visual cue for the current state.
+- Content **animates open** with a smooth reveal. Users who prefer reduced motion see the content appear instantly.
+- **Focus stays on the summary** after toggling — the user decides whether to Tab into the revealed content.
+- Each accordion **operates independently** — opening one does not close others.
 
-The `<summary>` element is styled as a flex container with a pill-shaped background.
+## Content guidelines
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Background</span>
-    <h3>Container surface</h3>
-    <p>The summary uses <code>background-container</code> (<code>#F5F5F7</code>) to distinguish it from surrounding body text and signal interactivity.</p>
-    <div style="margin-top:0.75rem;">
-      <code style="font-size:0.75rem; color:var(--fdic-docs-muted);">--fdic-background-container</code>
+<div class="fdic-content-rule">
+  <strong>Write summaries as specific questions or descriptive labels.</strong>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>What types of accounts are covered by FDIC insurance?</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>Click to learn more about accounts</p>
     </div>
   </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Weight</span>
-    <h3>Semi-bold 600</h3>
-    <p>Summary text uses <code>font-weight: 600</code> to create a clear visual anchor that distinguishes the clickable trigger from expanded content below.</p>
+</div>
+
+<div class="fdic-content-rule">
+  <strong>Don't start with verbs like "Click to see" or "Expand for."</strong>
+  <p>The interaction is self-evident from the component's appearance.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>Eligibility requirements for pass-through insurance</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>Click here to expand eligibility requirements</p>
+    </div>
   </div>
 </div>
 
-Key summary properties:
-
-- **Layout:** `display: flex` with `align-items: center`
-- **Background:** `var(--fdic-background-container, #f5f5f7)`
-- **Padding:** horizontal and vertical padding using spacing tokens
-- **Border radius:** `var(--fdic-corner-radius-lg, 7px)` for the pill shape
-- **Cursor:** `pointer`
-- **Default marker:** the browser's native disclosure triangle is hidden (`list-style: none` and `::-webkit-details-marker { display: none }`)
-
-## Chevron indicator
-
-A Phosphor CaretDown icon is rendered via the `::after` pseudo-element on `<summary>`, using an inline SVG data URI as a `background-image`.
-
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Collapsed</span>
-    <h3>Caret points down</h3>
-    <p>In the default closed state, the chevron points downward, indicating that content can be expanded.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Expanded</span>
-    <h3>Caret rotates 180 degrees</h3>
-    <p>When the <code>&lt;details&gt;</code> element has the <code>[open]</code> attribute, the chevron rotates to point upward via <code>transform: rotate(180deg)</code>.</p>
+<div class="fdic-content-rule">
+  <strong>Keep summary text to one line.</strong>
+  <p>Long summaries break the visual pattern and make the accordion group harder to scan.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>How are joint account deposits insured?</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>How are deposits in joint accounts at FDIC-insured banks calculated for insurance coverage purposes?</p>
+    </div>
   </div>
 </div>
-
-The rotation transition uses `0.2s ease`. The chevron is pushed to the trailing edge of the summary with `margin-left: auto`.
-
-## Content reveal
-
-When `<details>` is opened, the content area animates in with a combined opacity and max-height transition.
-
-- **Technique:** `interpolate-size: allow-keywords` enables transitioning `max-height` from `0` to the intrinsic content height without a fixed pixel value
-- **Duration:** `0.25s ease` for both `opacity` and `max-height`
-- **Opacity:** content fades from `0` to `1` as it expands
-
-This creates a smooth accordion open effect that adapts to any content length.
-
-## Micro-interactions
-
-<div class="fdic-roles-table">
-  <div class="fdic-roles-row fdic-roles-header">
-    <span>State</span>
-    <span>Treatment</span>
-    <span>Value</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Hover</span>
-    <span>Overlay box-shadow</span>
-    <span><code>inset 0 0 0 100px rgba(0, 0, 0, 0.04)</code></span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Active / pressed</span>
-    <span>Overlay box-shadow</span>
-    <span><code>inset 0 0 0 100px rgba(0, 0, 0, 0.08)</code></span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Focus-visible</span>
-    <span>Border + blue glow</span>
-    <span><code>outline: 2px solid #38b6ff; outline-offset: 2px</code></span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Chevron rotation</span>
-    <span>Transform on <code>[open]</code></span>
-    <span><code>rotate(180deg)</code> over <code>0.2s ease</code></span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Content reveal</span>
-    <span>Opacity + max-height</span>
-    <span><code>0.25s ease</code></span>
-  </div>
-</div>
-
-The overlay box-shadow pattern darkens the pill background on interaction without changing the actual `background-color` value, which keeps the effect composable and avoids specificity conflicts.
 
 ## Accessibility
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Keyboard</span>
-    <h3>Native toggle behavior</h3>
-    <p>The <code>&lt;summary&gt;</code> element is focusable by default. Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> toggles the open state. No JavaScript or ARIA attributes are needed.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Screen readers</span>
-    <h3>Built-in semantics</h3>
-    <p>Assistive technology announces <code>&lt;summary&gt;</code> as a disclosure button with its expanded or collapsed state. No additional <code>role</code> or <code>aria-expanded</code> is required.</p>
-  </div>
-</div>
+- The accordion is **fully keyboard accessible** with no additional setup — Enter and Space toggle it, and screen readers announce the expanded or collapsed state automatically.
+- **Write summary text that makes sense on its own** — screen reader users navigate by summary labels, so "More details" is meaningless without visual context.
+- **Don't hide critical information** inside a collapsed accordion. Screen reader users may not realize important content is hidden.
+- The **chevron is decorative** — its rotation conveys state visually but is not announced to assistive technology. The expanded/collapsed state is announced through the native element semantics.
 
-### Focus management
+## Design specs
 
-The focus ring follows the standard prose pattern:
+<FigmaEmbed url="" caption="Accordion states — collapsed, expanded, hover, and focus" />
 
-- `outline: 2px solid var(--fdic-border-input-focus, #38b6ff)`
-- `outline-offset: 2px`
-- `border-radius: 2px`
-- Applied only on `:focus-visible` to avoid showing focus rings on mouse click
+## Related components
 
-### Content inside details
+<div class="fdic-related-list">
 
-Expanded content inherits all `.prose` typography styles. Headings, lists, tables, callouts, and code blocks inside `<details>` render identically to their top-level counterparts.
+- [Callouts](./callouts) — Use when the information is urgent or the reader should not miss it. Callouts are always visible; accordions require interaction.
+- [Table of Contents](./table-of-contents) — Use for document-level navigation rather than content disclosure.
 
-```html
-<details>
-  <summary>How are coverage limits calculated for trust accounts?</summary>
-  <p>Trust accounts are insured based on the number of unique
-  beneficiaries, subject to specific rules:</p>
-  <ul>
-    <li>Each qualifying beneficiary adds up to $250,000 in coverage</li>
-    <li>The owner must have an ownership interest in the trust</li>
-    <li>Beneficiaries must be natural persons or recognized charities</li>
-  </ul>
-  <p>For irrevocable trusts, coverage is determined by each
-  beneficiary's non-contingent interest.</p>
-</details>
-```
-
-## Adaptive behavior
-
-### Reduced motion
-
-When `prefers-reduced-motion: reduce` is active, all transitions are suppressed:
-
-- Chevron rotation is instant (no `0.2s` transition)
-- Content reveal is instant (no `0.25s` opacity/max-height transition)
-- Hover and active box-shadow overlays apply without transition
-
-The component remains fully functional -- only the animated transitions are removed.
-
-### Forced colors (Windows High Contrast)
-
-Under `forced-colors: active`:
-
-- Summary borders use `ButtonText` system color so the interactive boundary remains visible
-- Background decorations are removed (the system enforces its own surface colors)
-- The chevron icon uses `forced-color-adjust: none` to remain visible since it conveys open/closed state via rotation
-
-### Print
-
-When printing:
-
-- All `<details>` elements are forced open (`details[open]` is not needed -- the print stylesheet sets `display: block` on the content)
-- Summary pill backgrounds are removed for clean output
-- Chevron icons are hidden since the open/closed distinction is irrelevant on paper
-- Content flows naturally in document order
-
-### Responsive
-
-The details component does not have breakpoint-specific overrides at 640px. The summary pill and content area are block-level and naturally adapt to narrow viewports.
-
-## Usage guidance
-
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do</span>
-    <p>Use details for supplementary information that supports but does not replace the main content -- FAQs, procedural steps, regulatory definitions, and eligibility criteria.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do not</span>
-    <p>Do not hide critical actions, warnings, or required steps inside a collapsed details element. If the user must see it, it belongs in the visible flow.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do</span>
-    <p>Write summary text as a clear question or descriptive label. The user should know what they will find before they expand.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do not</span>
-    <p>Do not use vague summary text like "More information" or "Click here." Specific labels improve scanning and assistive technology navigation.</p>
-  </div>
 </div>

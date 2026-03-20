@@ -1,17 +1,26 @@
 # Aside / Pull Quote
 
-Asides surface supplementary content alongside the main narrative — key facts, regulatory highlights, deposit insurance limits, and other information that supports but does not replace the surrounding text.
+Asides present supplementary content that relates to a specific passage in the main text. They float alongside the body content on desktop and linearize to full width on mobile.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>The <code>&lt;aside&gt;</code> element floats right at 40% width on desktop, providing a pull-quote or sidebar effect within prose content. It linearizes to full width on small screens and in print.</p>
+  <p>Use asides for extended commentary, historical context, or regulatory background that enriches the main text without being essential to understanding it.</p>
 </div>
 
-## Live example
+## When to use
 
-### Aside
+- **Providing historical context or background that enriches a specific passage** — "The FDIC was created in 1933 in response to thousands of bank failures during the Great Depression."
+- **Highlighting a related policy, regulation, or definition** — The aside supports but doesn't replace the main text, giving readers deeper context without derailing the narrative.
+- **Pulling out a key quote or statistic that deserves visual emphasis** — A notable figure or finding that relates directly to the passage it sits beside.
 
-An `<aside>` floats right at 40% width, surfacing supplementary content alongside the main narrative without interrupting reading flow.
+## When not to use
+
+- **Don't use an aside for short tips or warnings** — That's a [callout](./callouts). Asides are for longer supplementary content (a paragraph or more).
+- **Don't use an aside for content the reader must see** — If it's required reading, put it in the body text. Asides can be skipped.
+- **Don't use more than one aside per page section** — Multiple floating elements create layout collisions and visual clutter.
+- **Don't use an aside as a sidebar navigation element** — It's for content, not for links or menus.
+
+## Live examples
 
 <div class="prose">
   <p>When evaluating deposit insurance coverage, it is important to understand how the FDIC categorizes account ownership. Each ownership category — single accounts, joint accounts, revocable trust accounts, and certain retirement accounts — is insured separately up to the standard maximum amount.</p>
@@ -21,123 +30,94 @@ An `<aside>` floats right at 40% width, surfacing supplementary content alongsid
   <p>This means a depositor with accounts in multiple ownership categories at the same insured bank can potentially be insured for more than $250,000 in total. For example, funds in a single account, a joint account, and an IRA at the same bank are each insured separately.</p>
 </div>
 
-### Blockquote (pull quote)
+<StoryEmbed storyId="prose-aside--default" caption="Aside — supplementary content floating alongside body text" />
 
-A `<blockquote>` is full-width and inline with the text flow, used to quote or excerpt text from another source. It uses secondary text color and a slightly airier line-height (1.6) compared to the aside.
+## Best practices
 
-<div class="prose">
-  <p>The Federal Deposit Insurance Corporation was created in 1933 in response to the thousands of bank failures that occurred in the 1920s and early 1930s. Since the start of FDIC insurance on January 1, 1934, no depositor has lost a single cent of insured funds as a result of a failure.</p>
-  <blockquote>
-    <p>The confidence of the depositor is just as important to the strength of the banking system as the capital that stands behind it.</p>
-  </blockquote>
-  <p>This foundational principle continues to guide the FDIC's approach to deposit insurance. By guaranteeing deposits up to the standard maximum, the FDIC removes the incentive for depositors to withdraw funds during periods of uncertainty, stabilizing the banking system as a whole.</p>
-</div>
-
-## Styling
-
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Layout</span>
-    <h3>Float right, 40% width</h3>
-    <p>The aside floats to the right of surrounding text, occupying 40% of the prose container width. Body text wraps around it naturally.</p>
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Place the aside near the paragraph it relates to</h4>
+    <p>Proximity creates the visual and semantic connection between the aside and its context.</p>
   </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Border</span>
-    <h3>Brand-blue left accent</h3>
-    <p>A 4px solid left border in brand blue (<code>#0d6191</code>) visually connects the aside to the FDIC brand and distinguishes it from blockquotes and callouts.</p>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Put asides at the top or bottom of a page as general context</h4>
+    <p>Use a lead paragraph or callout for page-level introductions and disclaimers.</p>
   </div>
 </div>
 
-## HTML pattern
-
-The `<aside>` element is semantic HTML — no additional wrapper classes are required. Add `aria-label` to distinguish multiple asides on the same page.
-
-```html
-<aside aria-label="Key fact about deposit insurance">
-  <p>The standard maximum deposit insurance amount is
-  $250,000 per depositor, per insured bank, for each
-  account ownership category.</p>
-</aside>
-```
-
-When a page contains only one aside, the `aria-label` is optional but recommended:
-
-```html
-<aside aria-label="Reporting deadline reminder">
-  <p>Institutions must file Call Reports within 30
-  calendar days after the last business day of each
-  calendar quarter.</p>
-</aside>
-```
-
-## Responsive behavior
-
-At `max-width: 640px`, the aside linearizes — the float is removed and the element spans the full width of the prose container. This prevents narrow, hard-to-read columns on small screens.
-
-<div class="fdic-roles-table">
-  <div class="fdic-roles-row fdic-roles-header">
-    <span>Property</span>
-    <span>Desktop</span>
-    <span>Mobile (640px)</span>
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Keep asides to 1-2 short paragraphs</h4>
+    <p>Brief supplementary content works best in a floated 40%-width container.</p>
   </div>
-  <div class="fdic-roles-row">
-    <span>Float</span>
-    <span><code>right</code></span>
-    <span><code>none</code></span>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Put lengthy multi-paragraph content in an aside</h4>
+    <p>If it needs that much space, it should be a full section with its own heading.</p>
   </div>
-  <div class="fdic-roles-row">
-    <span>Width</span>
-    <span><code>40%</code></span>
-    <span><code>100%</code></span>
+</div>
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Use asides for content that enriches without duplicating</h4>
+    <p>The aside should add new perspective — historical context, a related statistic, or a regulatory reference.</p>
   </div>
-  <div class="fdic-roles-row">
-    <span>Margin</span>
-    <span>Left margin for text clearance</span>
-    <span>Standard block margins</span>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Repeat information from the main text in an aside</h4>
+    <p>The aside should add new perspective, not echo what's already been said.</p>
+  </div>
+</div>
+
+## Content guidelines
+
+<div class="fdic-content-rule">
+  <strong>Write aside content in the same voice as the main text.</strong>
+  <p>The aside should feel like a natural extension of the document, not a jarring interruption.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>The 2008 financial crisis led to the largest number of bank failures since the savings and loan crisis of the 1980s, reinforcing the importance of deposit insurance reform.</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>FUN FACT: Did you know that 465 banks failed between 2008 and 2012?</p>
+    </div>
+  </div>
+</div>
+
+<div class="fdic-content-rule">
+  <strong>Aside content should make sense without reading the surrounding text.</strong>
+  <p>A reader who notices the aside first should understand it on its own.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>The FDIC's Deposit Insurance Fund (DIF) maintained a reserve ratio of 1.38% as of Q4 2025, above the statutory minimum of 1.35%.</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>This ratio exceeded the minimum described above.</p>
+    </div>
   </div>
 </div>
 
 ## Accessibility
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">WCAG 1.3.1, 2.4.1</span>
-    <h3>Landmark semantics</h3>
-    <p>The <code>&lt;aside&gt;</code> element is an ARIA landmark. Screen readers list it alongside <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, and other landmarks, giving users a way to jump directly to supplementary content.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Labeling</span>
-    <h3>aria-label for multiple asides</h3>
-    <p>When a page contains more than one <code>&lt;aside&gt;</code>, each must have a distinct <code>aria-label</code> so screen reader users can distinguish between them in the landmarks list.</p>
-  </div>
-</div>
+- The `<aside>` element is an ARIA landmark — screen reader users can navigate to it directly from the page's landmark list.
+- Give each aside a descriptive `aria-label` that tells screen reader users what the supplementary content is about — for example, `aria-label="Historical context on deposit insurance"`.
+- On small screens and in print, the aside linearizes to full width — content authors should ensure the aside reads well in both floated and stacked layouts.
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Supplementary only</span>
-    <p>The aside must contain content that is related to but not essential for understanding the surrounding text. Do not use it for primary content or navigation.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Label multiple asides</span>
-    <p>When a page contains more than one aside, each needs a distinct <code>aria-label</code>: "Key fact about deposit insurance", "Reporting deadline reminder", etc.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Keep it concise</span>
-    <p>Asides work best with short, focused content — a key statistic, a regulatory citation, or a brief clarification. Long content in a floated 40%-width container becomes difficult to read.</p>
-  </div>
-</div>
+## Design specs
 
-## Print behavior
+<FigmaEmbed url="" caption="Aside layout — desktop float, mobile stack, and brand-blue border" />
 
-When the page is printed, the aside linearizes to full width with no float, matching the mobile behavior. The brand-blue left border is preserved for visual structure on paper.
+## Related components
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do</span>
-    <p>Use asides for key facts, regulatory highlights, insurance limits, and brief supplementary context that supports the surrounding narrative.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do not</span>
-    <p>Do not use asides for primary content, navigation, form elements, or long passages. Do not nest asides within other asides or within blockquotes.</p>
-  </div>
-</div>
+<ul class="fdic-related-list">
+  <li><a href="./callouts">Callouts</a> — Use for short, urgent supplementary information (1-3 sentences) that the reader should not miss. Callouts use color and icons to signal severity; asides use position and border.</li>
+  <li><a href="./details">Details / Accordion</a> — Use when supplementary content should be hidden by default and revealed on demand. Asides are always visible; accordions require interaction.</li>
+</ul>

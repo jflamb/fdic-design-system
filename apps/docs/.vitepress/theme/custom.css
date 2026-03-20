@@ -663,3 +663,257 @@
   font-size: 0.875rem;
   color: var(--fdic-docs-muted);
 }
+
+/* ------------------------------------------------------------------ */
+/* Storybook embed                                                     */
+/* ------------------------------------------------------------------ */
+
+.fdic-story-embed {
+  margin: 1.25rem 0 2rem;
+}
+
+.fdic-story-embed-frame {
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fdic-story-embed-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.fdic-story-embed-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  border: 2px dashed var(--fdic-docs-border);
+  border-radius: 12px;
+  background: var(--fdic-docs-surface);
+  color: var(--fdic-docs-muted);
+  text-align: center;
+  padding: 2rem;
+}
+
+.fdic-story-embed-placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.4;
+}
+
+.fdic-story-embed-placeholder-hint {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.fdic-story-embed-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--fdic-docs-muted);
+}
+
+.fdic-story-embed-link {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Figma embed                                                         */
+/* ------------------------------------------------------------------ */
+
+.fdic-figma-embed {
+  margin: 1.25rem 0 2rem;
+}
+
+.fdic-figma-embed-frame {
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fdic-figma-embed-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.fdic-figma-embed-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  border: 2px dashed var(--fdic-docs-border);
+  border-radius: 12px;
+  background: var(--fdic-docs-surface);
+  color: var(--fdic-docs-muted);
+  text-align: center;
+  padding: 2rem;
+}
+
+.fdic-figma-embed-placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.4;
+}
+
+.fdic-figma-embed-placeholder-hint {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.fdic-figma-embed-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--fdic-docs-muted);
+}
+
+.fdic-figma-embed-link {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Do / Don't card pairs                                               */
+/* ------------------------------------------------------------------ */
+
+.fdic-do-dont-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.fdic-do-card,
+.fdic-dont-card {
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--ds-color-bg-surface, #FFFFFF);
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-do-card {
+  border: 1px solid rgba(30, 130, 50, 0.3);
+  border-top: 3px solid var(--fdic-docs-success);
+}
+
+.fdic-dont-card {
+  border: 1px solid rgba(190, 40, 40, 0.25);
+  border-top: 3px solid var(--fdic-docs-danger);
+}
+
+.fdic-do-card > .fdic-eyebrow {
+  color: var(--fdic-docs-success);
+}
+
+.fdic-dont-card > .fdic-eyebrow {
+  color: var(--fdic-docs-danger);
+}
+
+.fdic-do-card > p:last-child,
+.fdic-dont-card > p:last-child {
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Content guideline examples                                          */
+/* ------------------------------------------------------------------ */
+
+.fdic-content-rule {
+  margin: 1.5rem 0;
+  padding: 0 0 1.5rem;
+  border-bottom: 1px solid var(--fdic-docs-border);
+}
+
+.fdic-content-rule:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.fdic-content-rule > strong:first-child {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-content-rule > p {
+  color: var(--fdic-docs-muted);
+  margin-bottom: 0.75rem;
+}
+
+.fdic-content-example {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.fdic-content-do,
+.fdic-content-dont {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.fdic-content-do {
+  background: rgba(30, 130, 50, 0.06);
+  border-left: 3px solid var(--fdic-docs-success);
+}
+
+.fdic-content-dont {
+  background: rgba(190, 40, 40, 0.06);
+  border-left: 3px solid var(--fdic-docs-danger);
+}
+
+.fdic-content-do > .fdic-eyebrow,
+.fdic-content-dont > .fdic-eyebrow {
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.fdic-content-do > .fdic-eyebrow {
+  color: var(--fdic-docs-success);
+}
+
+.fdic-content-dont > .fdic-eyebrow {
+  color: var(--fdic-docs-danger);
+}
+
+.fdic-content-do > p,
+.fdic-content-dont > p {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Related components list                                             */
+/* ------------------------------------------------------------------ */
+
+.fdic-related-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 2rem;
+}
+
+.fdic-related-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--fdic-docs-border);
+}
+
+.fdic-related-list li:last-child {
+  border-bottom: 0;
+}
+
+.fdic-related-list a {
+  font-weight: 600;
+}
