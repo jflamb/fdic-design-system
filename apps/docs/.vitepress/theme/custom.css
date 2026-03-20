@@ -139,25 +139,64 @@
   gap: 0.75rem;
 }
 
-.fdic-decision-grid {
-  display: grid;
-  gap: 1rem;
+.fdic-decision-flow {
+  list-style: none;
+  counter-reset: decision-step;
   margin: 1.25rem 0 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  padding: 0;
 }
 
-.fdic-decision-step {
+.fdic-decision-flow li {
+  counter-increment: decision-step;
   position: relative;
-  padding: 1rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: var(--ds-color-bg-surface);
+  padding: 0 0 1.5rem 2.5rem;
   color: var(--fdic-docs-ink);
 }
 
-.fdic-decision-step strong {
+.fdic-decision-flow li:last-child {
+  padding-bottom: 0;
+}
+
+.fdic-decision-flow li::before {
+  content: counter(decision-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--ds-color-text-brand);
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fdic-decision-flow li::after {
+  content: "";
+  position: absolute;
+  left: 0.8125rem;
+  top: 1.75rem;
+  bottom: 0;
+  width: 2px;
+  background: var(--fdic-docs-border);
+}
+
+.fdic-decision-flow li:last-child::after {
+  display: none;
+}
+
+.fdic-decision-flow li strong {
   display: block;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.fdic-decision-flow li p {
+  margin: 0;
+  color: var(--fdic-docs-muted);
+  font-size: 0.9rem;
 }
 
 .fdic-palette-ramp {

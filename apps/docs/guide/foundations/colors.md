@@ -64,23 +64,20 @@ That maps the current groups into a documentation model:
 
 ## Applying color with tokens
 
-<div class="fdic-decision-grid">
-  <div class="fdic-decision-step">
-    <span class="fdic-eyebrow">Step 1</span>
+<ol class="fdic-decision-flow">
+  <li>
     <strong>Does the color carry meaning?</strong>
-    <p>If yes, use a semantic token such as success, warning, error, or info.</p>
-  </div>
-  <div class="fdic-decision-step">
-    <span class="fdic-eyebrow">Step 2</span>
+    <p>If yes, use a <em>semantic</em> token such as <code>--ds-color-semantic-bg-success</code>.</p>
+  </li>
+  <li>
     <strong>If not, where is it applied?</strong>
-    <p>Choose a role token such as <code>background</code>, <code>text</code>, <code>border</code>, or <code>icon</code>.</p>
-  </div>
-  <div class="fdic-decision-step">
-    <span class="fdic-eyebrow">Step 3</span>
+    <p>Choose a <em>role</em> token for <code>background</code>, <code>text</code>, <code>border</code>, or <code>icon</code>.</p>
+  </li>
+  <li>
     <strong>Use palette tokens only as source values</strong>
     <p>Palette tokens define the system. They are not the first choice for most consumers.</p>
-  </div>
-</div>
+  </li>
+</ol>
 
 Examples of the naming model:
 
