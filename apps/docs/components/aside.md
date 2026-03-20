@@ -9,12 +9,28 @@ Asides surface supplementary content alongside the main narrative — key facts,
 
 ## Live example
 
+### Aside
+
+An `<aside>` floats right at 40% width, surfacing supplementary content alongside the main narrative without interrupting reading flow.
+
 <div class="prose">
   <p>When evaluating deposit insurance coverage, it is important to understand how the FDIC categorizes account ownership. Each ownership category — single accounts, joint accounts, revocable trust accounts, and certain retirement accounts — is insured separately up to the standard maximum amount.</p>
   <aside aria-label="Key fact about deposit insurance">
     <p>The standard maximum deposit insurance amount is $250,000 per depositor, per insured bank, for each account ownership category.</p>
   </aside>
   <p>This means a depositor with accounts in multiple ownership categories at the same insured bank can potentially be insured for more than $250,000 in total. For example, funds in a single account, a joint account, and an IRA at the same bank are each insured separately.</p>
+</div>
+
+### Blockquote (pull quote)
+
+A `<blockquote>` is full-width and inline with the text flow, used to quote or excerpt text from another source. It uses secondary text color and a slightly airier line-height (1.6) compared to the aside.
+
+<div class="prose">
+  <p>The Federal Deposit Insurance Corporation was created in 1933 in response to the thousands of bank failures that occurred in the 1920s and early 1930s. Since the start of FDIC insurance on January 1, 1934, no depositor has lost a single cent of insured funds as a result of a failure.</p>
+  <blockquote>
+    <p>The confidence of the depositor is just as important to the strength of the banking system as the capital that stands behind it.</p>
+  </blockquote>
+  <p>This foundational principle continues to guide the FDIC's approach to deposit insurance. By guaranteeing deposits up to the standard maximum, the FDIC removes the incentive for depositors to withdraw funds during periods of uncertainty, stabilizing the banking system as a whole.</p>
 </div>
 
 ## Styling
