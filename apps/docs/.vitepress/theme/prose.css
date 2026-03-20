@@ -1417,6 +1417,64 @@ html {
   border-color: rgba(30, 130, 50, 0.3);
 }
 
+/* --- VitePress conflict overrides ----------------------------------------
+   When .prose is nested inside VitePress's .vp-doc, some VitePress rules
+   leak through due to equal or higher specificity. These overrides ensure
+   prose components render correctly inside the docs site.
+   -------------------------------------------------------------------------- */
+
+/* VitePress sets display:block on tables, breaking layout and a11y */
+.prose table {
+  display: table;
+}
+
+/* VitePress adds border-top to all tr */
+.prose tr {
+  border-top: none;
+}
+
+/* VitePress adds border-top and padding-top to h2 */
+.prose h2 {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* VitePress sets font-weight:500 on links */
+.prose a {
+  font-weight: inherit;
+}
+
+/* VitePress adds external link icon via ::after; prose uses background-image */
+.prose a[href^="http"]::after,
+.prose a[href^="//"]::after {
+  content: none !important;
+}
+
+/* VitePress styles inline code with higher specificity via :not(pre) > code */
+.prose :not(pre) > code {
+  font-family: var(--fdic-font-family-mono, ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace);
+  font-size: 0.8em;
+  background: var(--fdic-background-container, #f5f5f7);
+  border-radius: var(--fdic-corner-radius-sm, 3px);
+  padding: 0.125em 0.35em;
+  color: inherit;
+}
+
+/* VitePress sets margin on summary elements */
+.prose summary {
+  margin: 0;
+}
+
+/* VitePress li+li has higher specificity (0,1,2) than .prose li (0,1,1) */
+.prose li + li {
+  margin-top: var(--fdic-spacing-2xs, 0.25rem);
+}
+
+/* VitePress sets explicit line-height on p, overriding inherited value */
+.prose p {
+  line-height: var(--fdic-line-height-body, 1.5);
+}
+
 /* ===========================================================================
    4. RESPONSIVE TYPE SCALING
    Reduce heading sizes on narrow viewports to prevent overflow.
