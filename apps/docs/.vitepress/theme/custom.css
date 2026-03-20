@@ -278,6 +278,8 @@
 }
 
 .fdic-example-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
   background: var(--ds-color-bg-surface);
@@ -294,6 +296,7 @@
 }
 
 .fdic-example-body {
+  flex: 1;
   padding: 1rem;
   color: var(--fdic-docs-ink);
 }
