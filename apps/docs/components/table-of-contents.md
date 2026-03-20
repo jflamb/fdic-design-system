@@ -9,20 +9,9 @@ The table of contents provides in-page navigation for long-form documents. It he
 
 ## When to use
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Multiple sections</span>
-    <p>The page has three or more distinct sections with headings. Fewer than three sections rarely justifies the added navigation overhead.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Reference-style reading</span>
-    <p>Readers are likely looking for specific information rather than reading top-to-bottom — regulatory guidance, procedural manuals, reference documents, and policy summaries.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Long documents</span>
-    <p>The document is long enough that scrolling to find a section is inconvenient. If the full page fits comfortably on one or two screens, a TOC adds clutter without value.</p>
-  </div>
-</div>
+- **The page has three or more distinct sections with headings** — Fewer than three sections rarely justifies the added navigation overhead.
+- **Readers are likely looking for specific information rather than reading top-to-bottom** — regulatory guidance, procedural manuals, reference documents, and policy summaries.
+- **The document is long enough that scrolling to find a section is inconvenient** — If the full page fits comfortably on one or two screens, a TOC adds clutter without value.
 
 ## Live examples
 
@@ -85,37 +74,15 @@ The table of contents provides in-page navigation for long-form documents. It he
 
 ## Interaction behavior
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Smooth scroll</span>
-    <p>Clicking a TOC link smooth-scrolls to the target section. Users who prefer reduced motion see an instant jump instead.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Active section highlight</span>
-    <p>As the reader scrolls, the active section highlights in the TOC, showing which section is currently in view. The active state updates automatically based on scroll position — no manual interaction needed.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Keyboard navigation</span>
-    <p>TOC links are keyboard navigable — users can Tab through them and activate with Enter, following the standard link interaction model.</p>
-  </div>
-</div>
+- **Smooth scroll** — Clicking a TOC link smooth-scrolls to the target section. Users who prefer reduced motion see an instant jump instead.
+- **Active section highlight** — As the reader scrolls, the active section highlights in the TOC, showing which section is currently in view. The active state updates automatically based on scroll position — no manual interaction needed.
+- **Keyboard navigation** — TOC links are keyboard navigable — users can Tab through them and activate with Enter, following the standard link interaction model.
 
 ## Accessibility
 
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Navigation landmark</span>
-    <p>The TOC is wrapped in a <code>&lt;nav&gt;</code> landmark with <code>aria-label="Table of contents"</code>, so screen reader users can find it quickly from their landmarks list.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Title semantics</span>
-    <p>The title uses a <code>&lt;p&gt;</code> element, not a heading. This avoids polluting the document outline with a "Table of contents" entry that would appear alongside the actual content headings.</p>
-  </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Consistent labels</span>
-    <p>TOC links use the same text as the target headings, so screen reader users hear consistent labels when navigating between the TOC and the document sections.</p>
-  </div>
-</div>
+- The TOC is wrapped in a `<nav>` landmark with `aria-label="Table of contents"`, so screen reader users can find it quickly from their landmarks list.
+- The title uses a `<p>` element, not a heading. This avoids polluting the document outline with a "Table of contents" entry that would appear alongside the actual content headings.
+- TOC links use the same text as the target headings, so screen reader users hear consistent labels when navigating between the TOC and the document sections.
 
 ## Design specs
 

@@ -58,7 +58,7 @@ Displaying a measurement within a known range — a bank's capital ratio against
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
     <h4>Don't show a bar without context</h4>
-    <p>Show a bar without any text — users need to know what is being measured and how far along it is.</p>
+    <p>A bare bar is ambiguous — users cannot tell what is being measured, what the scale is, or how far along the task is without a label and value.</p>
   </div>
 </div>
 
@@ -71,7 +71,7 @@ Displaying a measurement within a known range — a bank's capital ratio against
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
     <h4>Don't use progress for values that aren't progressing</h4>
-    <p>Use progress for values that aren't progressing — progress implies a task that will eventually reach 100%.</p>
+    <p>Progress implies a task moving toward completion. A static measurement like a compliance score should use meter instead.</p>
   </div>
 </div>
 
@@ -84,7 +84,7 @@ Displaying a measurement within a known range — a bank's capital ratio against
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
     <h4>Don't fake a percentage</h4>
-    <p>Show a fake percentage that doesn't reflect actual progress — an honest indeterminate bar is better than a misleading number.</p>
+    <p>A fabricated number erodes trust. An honest indeterminate bar tells the user the task is running without making promises about when it will finish.</p>
   </div>
 </div>
 
@@ -97,33 +97,37 @@ Displaying a measurement within a known range — a bank's capital ratio against
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
     <h4>Don't rely on color alone</h4>
-    <p>Rely on color alone — always include the numeric value as text alongside the meter.</p>
+    <p>Color-blind users and those in high-contrast mode cannot distinguish green from red. The numeric value and label text must convey the same status information the color does.</p>
   </div>
 </div>
 
 ## Content guidelines
 
 <div class="fdic-content-rule">
-  <p>Write labels that describe what is being measured.</p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>"Call Reports submitted — 847 of 1,200 (71%)"</p>
-  </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>"Progress: 71%"</p>
+  <strong>Write labels that describe what is being measured.</strong>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>"Call Reports submitted — 847 of 1,200 (71%)"</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>"Progress: 71%"</p>
+    </div>
   </div>
 </div>
 
 <div class="fdic-content-rule">
-  <p>Include both the current value and the total or range in the text.</p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>"Tier 1 capital ratio: 12.4% (well-capitalized minimum: 6%)"</p>
-  </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>"Ratio: 12.4%"</p>
+  <strong>Include both the current value and the total or range in the text.</strong>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>"Tier 1 capital ratio: 12.4% (well-capitalized minimum: 6%)"</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>"Ratio: 12.4%"</p>
+    </div>
   </div>
 </div>
 

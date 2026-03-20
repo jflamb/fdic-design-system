@@ -90,38 +90,46 @@ Footnotes provide a way to cite sources, add clarifications, or include suppleme
 ## Content guidelines
 
 <div class="fdic-content-rule">
-  <p><strong>Footnote text should stand alone.</strong> A reader jumping to the footnote shouldn't need to re-read the surrounding paragraph to understand it.</p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>"12 C.F.R. § 330.1 defines 'deposit' for insurance purposes."</p>
-  </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>"See the above section for context on this definition."</p>
-  </div>
-</div>
-
-<div class="fdic-content-rule">
-  <p><strong>Lead with the source or fact, not filler.</strong></p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>"Federal Register, Vol. 89, No. 42 (March 2024)."</p>
-  </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>"For more information, please refer to the Federal Register, Vol. 89, No. 42 (March 2024), which contains additional details."</p>
+  <strong>Footnote text should stand alone.</strong>
+  <p>A reader jumping to the footnote shouldn't need to re-read the surrounding paragraph to understand it.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>"12 C.F.R. § 330.1 defines 'deposit' for insurance purposes."</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>"See the above section for context on this definition."</p>
+    </div>
   </div>
 </div>
 
 <div class="fdic-content-rule">
-  <p><strong>Use consistent citation formatting throughout a document.</strong> Pick a citation style and stick with it.</p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>Consistent "12 C.F.R. § 330.1" format throughout.</p>
+  <strong>Lead with the source or fact, not filler.</strong>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>"Federal Register, Vol. 89, No. 42 (March 2024)."</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>"For more information, please refer to the Federal Register, Vol. 89, No. 42 (March 2024), which contains additional details."</p>
+    </div>
   </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>Mixing "12 CFR 330.1", "Title 12, Section 330.1", and "§330.1" in the same document.</p>
+</div>
+
+<div class="fdic-content-rule">
+  <strong>Use consistent citation formatting throughout a document.</strong>
+  <p>Pick a citation style and stick with it.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>Consistent "12 C.F.R. § 330.1" format throughout.</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>Mixing "12 CFR 330.1", "Title 12, Section 330.1", and "§330.1" in the same document.</p>
+    </div>
   </div>
 </div>
 

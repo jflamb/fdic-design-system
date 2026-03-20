@@ -108,38 +108,46 @@ The native `<details>` element provides a disclosure widget for expandable conte
 ## Content guidelines
 
 <div class="fdic-content-rule">
-  <p><strong>Write summaries as specific questions or descriptive labels.</strong></p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>What types of accounts are covered by FDIC insurance?</p>
-  </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>Click to learn more about accounts</p>
-  </div>
-</div>
-
-<div class="fdic-content-rule">
-  <p><strong>Don't start with verbs like "Click to see" or "Expand for."</strong> The interaction is self-evident from the component's appearance.</p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>Eligibility requirements for pass-through insurance</p>
-  </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>Click here to expand eligibility requirements</p>
+  <strong>Write summaries as specific questions or descriptive labels.</strong>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>What types of accounts are covered by FDIC insurance?</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>Click to learn more about accounts</p>
+    </div>
   </div>
 </div>
 
 <div class="fdic-content-rule">
-  <p><strong>Keep summary text to one line.</strong> Long summaries break the visual pattern and make the accordion group harder to scan.</p>
-  <div class="fdic-content-example fdic-content-do">
-    <span class="fdic-eyebrow">Do</span>
-    <p>How are joint account deposits insured?</p>
+  <strong>Don't start with verbs like "Click to see" or "Expand for."</strong>
+  <p>The interaction is self-evident from the component's appearance.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>Eligibility requirements for pass-through insurance</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>Click here to expand eligibility requirements</p>
+    </div>
   </div>
-  <div class="fdic-content-example fdic-content-dont">
-    <span class="fdic-eyebrow">Don't</span>
-    <p>How are deposits in joint accounts at FDIC-insured banks calculated for insurance coverage purposes?</p>
+</div>
+
+<div class="fdic-content-rule">
+  <strong>Keep summary text to one line.</strong>
+  <p>Long summaries break the visual pattern and make the accordion group harder to scan.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span>
+      <p>How are joint account deposits insured?</p>
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span>
+      <p>How are deposits in joint accounts at FDIC-insured banks calculated for insurance coverage purposes?</p>
+    </div>
   </div>
 </div>
 

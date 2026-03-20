@@ -96,7 +96,7 @@ Asides present supplementary content that relates to a specific passage in the m
   <div class="fdic-content-example">
     <div class="fdic-content-do">
       <span class="fdic-eyebrow">Do</span>
-      <p>The FDIC's Deposit Insurance Fund (DIF) maintained a reserve ratio of 1.28% as of Q4 2025, above the statutory minimum of 1.35%.</p>
+      <p>The FDIC's Deposit Insurance Fund (DIF) maintained a reserve ratio of 1.38% as of Q4 2025, above the statutory minimum of 1.35%.</p>
     </div>
     <div class="fdic-content-dont">
       <span class="fdic-eyebrow">Don't</span>
@@ -119,6 +119,5 @@ Asides present supplementary content that relates to a specific passage in the m
 
 <ul class="fdic-related-list">
   <li><a href="./callouts">Callouts</a> — Use for short, urgent supplementary information (1-3 sentences) that the reader should not miss. Callouts use color and icons to signal severity; asides use position and border.</li>
-  <li><a href="./callouts">Blockquote</a> — Use for direct quotations. Blockquotes cite someone else's words; asides present your own supplementary commentary.</li>
   <li><a href="./details">Details / Accordion</a> — Use when supplementary content should be hidden by default and revealed on demand. Asides are always visible; accordions require interaction.</li>
 </ul>

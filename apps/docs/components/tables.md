@@ -139,7 +139,7 @@ Tables present structured data in rows and columns. They are the right choice wh
 ## Content guidelines
 
 <div class="fdic-content-rule">
-  <h3>Write descriptive column headers</h3>
+  <strong>Write descriptive column headers</strong>
   <p>Headers should label the data clearly and specifically. A header read in isolation should tell the reader what values appear in that column.</p>
   <div class="fdic-content-example">
     <div class="fdic-content-do">
@@ -152,7 +152,7 @@ Tables present structured data in rows and columns. They are the right choice wh
 </div>
 
 <div class="fdic-content-rule">
-  <h3>Include units in headers, not in every cell</h3>
+  <strong>Include units in headers, not in every cell</strong>
   <p>Putting units in the header keeps cells clean and avoids redundant text that clutters the table.</p>
   <div class="fdic-content-example">
     <div class="fdic-content-do">
@@ -165,7 +165,7 @@ Tables present structured data in rows and columns. They are the right choice wh
 </div>
 
 <div class="fdic-content-rule">
-  <h3>Use consistent formatting within a column</h3>
+  <strong>Use consistent formatting within a column</strong>
   <p>All dates should use the same format, all currencies the same precision. Inconsistent formatting forces readers to mentally translate values.</p>
   <div class="fdic-content-example">
     <div class="fdic-content-do">
