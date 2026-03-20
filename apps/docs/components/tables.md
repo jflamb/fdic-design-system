@@ -1,13 +1,26 @@
 # Tables
 
-Accessible, scrollable data tables for presenting structured financial and regulatory content within `.prose` containers.
+Tables present structured data in rows and columns. They are the right choice when readers need to compare values, scan for specific entries, or understand relationships between data points.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>The <code>.prose-table-wrapper</code> component preserves native table semantics while enabling horizontal scroll on narrow viewports. It provides striped rows, hover highlights, numeric column alignment, and totals rows out of the box.</p>
+  <p>The table wrapper component provides accessible horizontal scrolling for wide tables while preserving native table semantics for screen readers.</p>
 </div>
 
-## Live example
+## When to use
+
+- **Data has a clear tabular structure** — rows represent items, columns represent attributes.
+- **Readers need to compare values across rows** — bank financial metrics, deposit limits by category, quarterly filing statistics.
+- **The data has consistent attributes** — every row shares the same columns.
+- **Presenting regulatory data, filing statistics, or financial summaries** where precision and scannability matter.
+
+## When not to use
+
+- **Don't use tables for layout.** Tables are for data, not for positioning content side by side.
+- **Don't use a table for a single column of items.** A bulleted or numbered list is simpler and more accessible.
+- **Don't use a table when each "row" needs rich content** (paragraphs, images, nested lists). Use a card layout or definition list instead.
+
+## Live examples
 
 <div class="prose">
   <div class="prose-table-wrapper" role="region" aria-label="Quarterly deposit summary by account type" tabindex="0">
@@ -59,225 +72,118 @@ Accessible, scrollable data tables for presenting structured financial and regul
   </div>
 </div>
 
-## HTML pattern
+<StoryEmbed storyId="prose-table--default" caption="Default table with striped rows and hover highlights" />
 
-Wrap every `<table>` in a `.prose-table-wrapper` div. The wrapper handles overflow — never put `display: block` on the `<table>` element itself, as this breaks screen reader table navigation.
+<StoryEmbed storyId="prose-table--numeric" caption="Table with right-aligned numeric columns" />
 
-```html
-<div class="prose-table-wrapper"
-     role="region"
-     aria-label="Quarterly deposit summary by account type"
-     tabindex="0">
-  <table>
-    <caption>FDIC-insured deposit balances, Q4 2025</caption>
-    <thead>
-      <tr>
-        <th>Account type</th>
-        <th>Interest rate</th>
-        <th>Total deposits</th>
-        <th>Change from Q3</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Checking</td>
-        <td class="prose-td-numeric">0.07%</td>
-        <td class="prose-td-numeric">$5,842,300,000</td>
-        <td class="prose-td-numeric">+2.1%</td>
-      </tr>
-      <tr>
-        <td>Savings</td>
-        <td class="prose-td-numeric">0.46%</td>
-        <td class="prose-td-numeric">$3,217,600,000</td>
-        <td class="prose-td-numeric">+1.8%</td>
-      </tr>
-      <tr>
-        <td>Money market</td>
-        <td class="prose-td-numeric">4.25%</td>
-        <td class="prose-td-numeric">$1,985,400,000</td>
-        <td class="prose-td-numeric">+5.3%</td>
-      </tr>
-      <tr>
-        <td>Certificates of deposit</td>
-        <td class="prose-td-numeric">4.80%</td>
-        <td class="prose-td-numeric">$2,641,900,000</td>
-        <td class="prose-td-numeric">+8.7%</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td><strong>Total</strong></td>
-        <td></td>
-        <td class="prose-td-numeric"><strong>$13,687,200,000</strong></td>
-        <td class="prose-td-numeric"><strong>+3.9%</strong></td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
-```
+## Best practices
 
-## Wrapper requirements
-
-The wrapper div needs three attributes to be accessible and functional:
-
-<div class="fdic-roles-table">
-  <div class="fdic-roles-row fdic-roles-header">
-    <span>Attribute</span>
-    <span>Value</span>
-    <span>Purpose</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span><code>role="region"</code></span>
-    <span>Fixed</span>
-    <span>Announces the scrollable area as a landmark to screen readers</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span><code>aria-label</code></span>
-    <span>Descriptive text</span>
-    <span>Gives screen readers context about the table content (do not repeat the caption)</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span><code>tabindex="0"</code></span>
-    <span>Fixed</span>
-    <span>Makes the overflow region keyboard-scrollable</span>
-  </div>
-</div>
-
-The wrapper applies `overflow-x: auto` so that wide tables scroll horizontally without breaking the page layout. When the wrapper receives keyboard focus, it shows a visible focus ring: `outline: 2px solid var(--fdic-border-input-focus, #38b6ff)` with `outline-offset: 2px`.
-
-## Visual features
-
-### Striped rows
-
-Even rows in `<tbody>` receive a subtle background via `nth-child(even)`, using `var(--fdic-background-container, #f5f5f7)`. This improves scanability in dense data tables without adding visual noise.
-
-### Hover highlight
-
-Table rows transition their background color on hover (`0.15s ease`), giving users a visual anchor when scanning across wide columns. This transition is suppressed under `prefers-reduced-motion: reduce`.
-
-### Rounded header corners
-
-The first and last `<th>` in `<thead>` receive rounded top corners using `var(--fdic-corner-radius-lg, 7px)`, giving the table header a contained appearance.
-
-### Numeric columns
-
-Add `.prose-td-numeric` to any `<td>` that contains numeric data (dollar amounts, percentages, counts). This right-aligns the content and uses tabular-nums for consistent digit width:
-
-```html
-<td class="prose-td-numeric">$5,842,300,000</td>
-```
-
-Right alignment is the standard convention for financial data, as it keeps decimal points and digit places visually aligned for comparison.
-
-### Totals rows with tfoot
-
-Use `<tfoot>` for summary or totals rows. The footer receives distinct styling to separate it from body data, making aggregate figures easy to locate.
-
-```html
-<tfoot>
-  <tr>
-    <td><strong>Total insured deposits</strong></td>
-    <td class="prose-td-numeric"><strong>$13,687,200,000</strong></td>
-  </tr>
-</tfoot>
-```
-
-## Semantic structure
-
-Use real table elements for their intended purpose. Screen readers rely on this structure to navigate rows and columns:
-
-<div class="fdic-card-grid">
-  <div class="fdic-card fdic-doc-card-copy">
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
     <span class="fdic-eyebrow">Do</span>
-    <p>Use <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and <code>&lt;tfoot&gt;</code> to group header, data, and summary rows. Use <code>&lt;th&gt;</code> for all header cells. Use <code>&lt;caption&gt;</code> when the table needs a visible title.</p>
+    <h4>Include a descriptive caption</h4>
+    <p>Include a caption that describes what the table contains — "FDIC-insured deposit balances by ownership category." The caption serves as the table's accessible name.</p>
   </div>
-  <div class="fdic-card fdic-doc-card-copy">
-    <span class="fdic-eyebrow">Do not</span>
-    <p>Do not apply <code>display: block</code> to <code>&lt;table&gt;</code> elements. Do not use tables for layout. Do not omit <code>&lt;thead&gt;</code> or use <code>&lt;td&gt;</code> where <code>&lt;th&gt;</code> belongs.</p>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't omit or use vague captions</h4>
+    <p>Don't omit the caption or use vague text like "Data table." Without a meaningful caption, screen reader users cannot tell what data the table presents before navigating into it.</p>
+  </div>
+</div>
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Right-align numeric columns</h4>
+    <p>Right-align numeric columns using the <code>.prose-td-numeric</code> class so decimal points and digit places line up for easy comparison.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't left-align financial figures</h4>
+    <p>Left-aligned numbers are harder to compare visually. Misaligned decimal points force readers to count digits manually.</p>
+  </div>
+</div>
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Keep tables scannable</h4>
+    <p>Aim for 3 to 7 columns. Focused tables are easier to read and less likely to require horizontal scrolling.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't cram too many columns</h4>
+    <p>Dozens of columns in one table overwhelm readers. Split complex datasets into multiple focused tables, each answering a specific question.</p>
+  </div>
+</div>
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Use the table footer for summary values</h4>
+    <p>Use <code>&lt;tfoot&gt;</code> for totals, averages, or summary values. The footer row receives distinct styling that separates it from individual entries.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't put summaries inline as regular rows</h4>
+    <p>Placing summary calculations as regular body rows makes it difficult to distinguish aggregate data from individual entries.</p>
+  </div>
+</div>
+
+## Interaction behavior
+
+- **Horizontal scrolling** — Tables wider than their container become horizontally scrollable. The wrapper provides keyboard-accessible scrolling: users can Tab to the table area and scroll with arrow keys.
+- **Row hover highlight** — On hover, table rows receive a subtle background highlight to help readers track across columns. The transition is suppressed under `prefers-reduced-motion`.
+- **Striped rows** — Alternating row backgrounds provide a visual guide for scanning long tables without adding visual noise.
+
+## Content guidelines
+
+<div class="fdic-content-rule">
+  <h3>Write descriptive column headers</h3>
+  <p>Headers should label the data clearly and specifically. A header read in isolation should tell the reader what values appear in that column.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span> "Quarterly Net Income ($000s)"
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span> "Income"
+    </div>
+  </div>
+</div>
+
+<div class="fdic-content-rule">
+  <h3>Include units in headers, not in every cell</h3>
+  <p>Putting units in the header keeps cells clean and avoids redundant text that clutters the table.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span> Header says "Total Deposits ($M)" with cells showing "1,234.5"
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span> Every cell says "$1,234.5M"
+    </div>
+  </div>
+</div>
+
+<div class="fdic-content-rule">
+  <h3>Use consistent formatting within a column</h3>
+  <p>All dates should use the same format, all currencies the same precision. Inconsistent formatting forces readers to mentally translate values.</p>
+  <div class="fdic-content-example">
+    <div class="fdic-content-do">
+      <span class="fdic-eyebrow">Do</span> "03/31/2026, 06/30/2026, 09/30/2026"
+    </div>
+    <div class="fdic-content-dont">
+      <span class="fdic-eyebrow">Don't</span> "March 31, 2026, 6/30/26, 2026-09-30"
+    </div>
   </div>
 </div>
 
 ## Accessibility
 
-<div class="fdic-roles-table">
-  <div class="fdic-roles-row fdic-roles-header">
-    <span>Requirement</span>
-    <span>Implementation</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Keyboard scrolling</span>
-    <span><code>tabindex="0"</code> on <code>.prose-table-wrapper</code> enables arrow-key scrolling when focused</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Screen reader landmark</span>
-    <span><code>role="region"</code> + descriptive <code>aria-label</code> announces the scrollable container</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Table semantics preserved</span>
-    <span>The <code>&lt;table&gt;</code> element keeps its default display — never override with <code>display: block</code></span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Focus visibility</span>
-    <span><code>:focus-visible</code> on the wrapper shows a <code>2px solid #38b6ff</code> outline with <code>2px</code> offset</span>
-  </div>
-  <div class="fdic-roles-row">
-    <span>Column headers</span>
-    <span>Use <code>&lt;th scope="col"&gt;</code> in <code>&lt;thead&gt;</code> and <code>&lt;th scope="row"&gt;</code> for row headers when applicable</span>
-  </div>
-</div>
+- **Every table needs a descriptive label.** Use a `<caption>` element or give the scrollable wrapper an `aria-label` that describes what data the table contains.
+- **Screen reader users navigate tables cell by cell.** Column and row headers tell them where they are — make sure headers are specific enough to be useful in isolation.
+- **The scrollable wrapper is keyboard accessible.** Readers can Tab to it and scroll with arrow keys without a mouse. The wrapper shows a visible focus ring when focused.
+- **Don't merge cells unless the data genuinely spans multiple columns or rows.** Merged cells confuse screen reader navigation and break the predictable row-column grid.
 
-::: warning Never use display: block on tables
-Applying `display: block` to a `<table>` element destroys the implicit ARIA table role. Screen readers will no longer announce row/column positions, making the data inaccessible. Always use the `.prose-table-wrapper` pattern to handle overflow instead.
-:::
+## Design specs
 
-## Print styles
-
-In print output, decorative table styles are stripped for clean reproduction:
-
-- **Row striping** is removed (no alternating backgrounds)
-- **Hover highlights** are removed
-- **Header row** retains a black background with white text for clear visual separation
-- **Borders** are preserved for cell delineation
-- Tables respect `break-inside: avoid` on rows where possible
-
-## Forced-colors mode
-
-Under `@media (forced-colors: active)` (Windows High Contrast), table borders use system colors (`ButtonText` for cell borders, `LinkText` for header backgrounds) so that table structure remains visible regardless of the user's color scheme. Striping and hover backgrounds are suppressed since they cannot be guaranteed to meet contrast in forced-colors mode.
-
-## Minimal example
-
-A simple two-column table with no footer:
-
-```html
-<div class="prose-table-wrapper"
-     role="region"
-     aria-label="Current FDIC insurance coverage limits"
-     tabindex="0">
-  <table>
-    <thead>
-      <tr>
-        <th>Account category</th>
-        <th>Coverage limit per depositor</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Single accounts</td>
-        <td class="prose-td-numeric">$250,000</td>
-      </tr>
-      <tr>
-        <td>Joint accounts</td>
-        <td class="prose-td-numeric">$250,000 per co-owner</td>
-      </tr>
-      <tr>
-        <td>Retirement accounts</td>
-        <td class="prose-td-numeric">$250,000</td>
-      </tr>
-      <tr>
-        <td>Trust accounts</td>
-        <td class="prose-td-numeric">$250,000 per beneficiary</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-```
+<FigmaEmbed url="" caption="Table anatomy — headers, striped rows, numeric alignment, and footer" />
