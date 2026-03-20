@@ -188,20 +188,42 @@
   display: grid;
   gap: 0.5rem;
   margin-top: 0.875rem;
-  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
 }
 
 .fdic-palette-swatch {
-  min-height: 5.5rem;
-  padding: 0.5rem;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   border: 1px solid var(--fdic-docs-border);
-  font-size: 0.75rem;
-  font-weight: 700;
   overflow: hidden;
+}
+
+.fdic-swatch-color {
+  min-height: 4rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.fdic-palette-swatch .fdic-swatch-meta {
+  padding: 0.35rem 0.5rem;
+  background: var(--ds-color-bg-surface);
+  border-top: 1px solid var(--fdic-docs-border);
+}
+
+.fdic-swatch-hex {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-swatch-token {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--fdic-docs-muted);
+  font-weight: 400;
 }
 
 .fdic-role-map {
@@ -557,15 +579,6 @@
   vertical-align: middle;
 }
 
-.fdic-swatch-token {
-  display: block;
-  font-size: 0.6rem;
-  opacity: 0.75;
-  font-weight: 400;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 .fdic-state-demo {
   display: flex;

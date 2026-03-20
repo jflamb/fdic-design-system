@@ -158,17 +158,17 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Default system backbone</h3>
     <p>Use the neutral ramp to support text hierarchy, borders, surfaces, and dark-mode mapping.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#FFFFFF; color:#212123;">000 #FFFFFF<br><span class="fdic-swatch-token">--ds-color-neutral-000</span></div>
-      <div class="fdic-palette-swatch" style="background:#FAFAFC; color:#212123;">050 #FAFAFC<br><span class="fdic-swatch-token">--ds-color-neutral-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#F5F5F7; color:#212123;">100 #F5F5F7<br><span class="fdic-swatch-token">--ds-color-neutral-100</span></div>
-      <div class="fdic-palette-swatch" style="background:#E0E0E2; color:#212123;">200 #E0E0E2<br><span class="fdic-swatch-token">--ds-color-neutral-200</span></div>
-      <div class="fdic-palette-swatch" style="background:#D6D6D8; color:#212123;">300 #D6D6D8<br><span class="fdic-swatch-token">--ds-color-neutral-300</span></div>
-      <div class="fdic-palette-swatch" style="background:#BDBDBF; color:#212123;">400 #BDBDBF<br><span class="fdic-swatch-token">--ds-color-neutral-400</span></div>
-      <div class="fdic-palette-swatch" style="background:#9E9EA0; color:#212123;">500 #9E9EA0<br><span class="fdic-swatch-token">--ds-color-neutral-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#595961; color:#FFFFFF;">700 #595961<br><span class="fdic-swatch-token">--ds-color-neutral-700</span></div>
-      <div class="fdic-palette-swatch" style="background:#424244; color:#FFFFFF;">800 #424244<br><span class="fdic-swatch-token">--ds-color-neutral-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#212123; color:#FFFFFF;">900 #212123<br><span class="fdic-swatch-token">--ds-color-neutral-900</span></div>
-      <div class="fdic-palette-swatch" style="background:#000000; color:#FFFFFF;">1000 #000000<br><span class="fdic-swatch-token">--ds-color-neutral-1000</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#FFFFFF; color:#212123;">000</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#FFFFFF</span><span class="fdic-swatch-token">--ds-color-neutral-000</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#FAFAFC; color:#212123;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#FAFAFC</span><span class="fdic-swatch-token">--ds-color-neutral-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#F5F5F7; color:#212123;">100</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#F5F5F7</span><span class="fdic-swatch-token">--ds-color-neutral-100</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#E0E0E2; color:#212123;">200</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#E0E0E2</span><span class="fdic-swatch-token">--ds-color-neutral-200</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#D6D6D8; color:#212123;">300</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#D6D6D8</span><span class="fdic-swatch-token">--ds-color-neutral-300</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#BDBDBF; color:#212123;">400</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#BDBDBF</span><span class="fdic-swatch-token">--ds-color-neutral-400</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#9E9EA0; color:#212123;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#9E9EA0</span><span class="fdic-swatch-token">--ds-color-neutral-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#595961; color:#FFFFFF;">700</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#595961</span><span class="fdic-swatch-token">--ds-color-neutral-700</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#424244; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#424244</span><span class="fdic-swatch-token">--ds-color-neutral-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#212123; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#212123</span><span class="fdic-swatch-token">--ds-color-neutral-900</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#000000; color:#FFFFFF;">1000</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#000000</span><span class="fdic-swatch-token">--ds-color-neutral-1000</span></div></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -176,13 +176,13 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Institutional emphasis</h3>
     <p>Use for key actions, official identifiers, and moments where FDIC ownership should be explicit.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#E6F4FA; color:#003256;">050 #E6F4FA<br><span class="fdic-swatch-token">--ds-color-primary-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#84DBFF; color:#003256;">200 #84DBFF<br><span class="fdic-swatch-token">--ds-color-primary-200</span></div>
-      <div class="fdic-palette-swatch" style="background:#38B6FF; color:#003256;">400 #38B6FF<br><span class="fdic-swatch-token">--ds-color-primary-400</span></div>
-      <div class="fdic-palette-swatch" style="background:#0D6191; color:#FFFFFF;">500 #0D6191<br><span class="fdic-swatch-token">--ds-color-primary-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#09496D; color:#FFFFFF;">700 #09496D<br><span class="fdic-swatch-token">--ds-color-primary-700</span></div>
-      <div class="fdic-palette-swatch" style="background:#073C5B; color:#FFFFFF;">800 #073C5B<br><span class="fdic-swatch-token">--ds-color-primary-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#003256; color:#FFFFFF;">900 #003256<br><span class="fdic-swatch-token">--ds-color-primary-900</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#E6F4FA; color:#003256;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#E6F4FA</span><span class="fdic-swatch-token">--ds-color-primary-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#84DBFF; color:#003256;">200</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#84DBFF</span><span class="fdic-swatch-token">--ds-color-primary-200</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#38B6FF; color:#003256;">400</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#38B6FF</span><span class="fdic-swatch-token">--ds-color-primary-400</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#0D6191; color:#FFFFFF;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#0D6191</span><span class="fdic-swatch-token">--ds-color-primary-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#09496D; color:#FFFFFF;">700</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#09496D</span><span class="fdic-swatch-token">--ds-color-primary-700</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#073C5B; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#073C5B</span><span class="fdic-swatch-token">--ds-color-primary-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#003256; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#003256</span><span class="fdic-swatch-token">--ds-color-primary-900</span></div></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -190,13 +190,13 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Secondary emphasis</h3>
     <p>Use more sparingly than the primary brand. It should support hierarchy without becoming semantic status color.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#F8EFDA; color:#60511B;">050 #F8EFDA<br><span class="fdic-swatch-token">--ds-color-secondary-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#EBD49B; color:#60511B;">300 #EBD49B<br><span class="fdic-swatch-token">--ds-color-secondary-300</span></div>
-      <div class="fdic-palette-swatch" style="background:#E1C16E; color:#2A2110;">400 #E1C16E<br><span class="fdic-swatch-token">--ds-color-secondary-400</span></div>
-      <div class="fdic-palette-swatch" style="background:#D9AF45; color:#2A2110;">500 #D9AF45<br><span class="fdic-swatch-token">--ds-color-secondary-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#BD9327; color:#212123;">600 #BD9327<br><span class="fdic-swatch-token">--ds-color-secondary-600</span></div>
-      <div class="fdic-palette-swatch" style="background:#88691C; color:#FFFFFF;">800 #88691C<br><span class="fdic-swatch-token">--ds-color-secondary-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#60511B; color:#FFFFFF;">900 #60511B<br><span class="fdic-swatch-token">--ds-color-secondary-900</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#F8EFDA; color:#60511B;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#F8EFDA</span><span class="fdic-swatch-token">--ds-color-secondary-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#EBD49B; color:#60511B;">300</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#EBD49B</span><span class="fdic-swatch-token">--ds-color-secondary-300</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#E1C16E; color:#2A2110;">400</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#E1C16E</span><span class="fdic-swatch-token">--ds-color-secondary-400</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#D9AF45; color:#2A2110;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#D9AF45</span><span class="fdic-swatch-token">--ds-color-secondary-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#BD9327; color:#212123;">600</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#BD9327</span><span class="fdic-swatch-token">--ds-color-secondary-600</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#88691C; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#88691C</span><span class="fdic-swatch-token">--ds-color-secondary-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#60511B; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#60511B</span><span class="fdic-swatch-token">--ds-color-secondary-900</span></div></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -204,12 +204,12 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Favorable outcomes</h3>
     <p>Confirmations, successful submissions, and positive status.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#E8F5E9; color:#1B3A1B;">050 #E8F5E9<br><span class="fdic-swatch-token">--ds-color-success-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#A5D6A7; color:#1B3A1B;">200 #A5D6A7<br><span class="fdic-swatch-token">--ds-color-success-200</span></div>
-      <div class="fdic-palette-swatch" style="background:#2E7D32; color:#FFFFFF;">500 #2E7D32<br><span class="fdic-swatch-token">--ds-color-success-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#1B5E20; color:#FFFFFF;">600 #1B5E20<br><span class="fdic-swatch-token">--ds-color-success-600</span></div>
-      <div class="fdic-palette-swatch" style="background:#204520; color:#FFFFFF;">800 #204520<br><span class="fdic-swatch-token">--ds-color-success-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#1B3A1B; color:#FFFFFF;">900 #1B3A1B<br><span class="fdic-swatch-token">--ds-color-success-900</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#E8F5E9; color:#1B3A1B;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#E8F5E9</span><span class="fdic-swatch-token">--ds-color-success-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#A5D6A7; color:#1B3A1B;">200</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#A5D6A7</span><span class="fdic-swatch-token">--ds-color-success-200</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#2E7D32; color:#FFFFFF;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#2E7D32</span><span class="fdic-swatch-token">--ds-color-success-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#1B5E20; color:#FFFFFF;">600</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#1B5E20</span><span class="fdic-swatch-token">--ds-color-success-600</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#204520; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#204520</span><span class="fdic-swatch-token">--ds-color-success-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#1B3A1B; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#1B3A1B</span><span class="fdic-swatch-token">--ds-color-success-900</span></div></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -217,12 +217,12 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Caution and prevention</h3>
     <p>Review steps, potential issues, and time-sensitive guidance.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#FCF7EE; color:#4D2E00;">050 #FCF7EE<br><span class="fdic-swatch-token">--ds-color-warning-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#FFCC80; color:#4D2E00;">200 #FFCC80<br><span class="fdic-swatch-token">--ds-color-warning-200</span></div>
-      <div class="fdic-palette-swatch" style="background:#8B5E00; color:#FFFFFF;">500 #8B5E00<br><span class="fdic-swatch-token">--ds-color-warning-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#6D4A00; color:#FFFFFF;">600 #6D4A00<br><span class="fdic-swatch-token">--ds-color-warning-600</span></div>
-      <div class="fdic-palette-swatch" style="background:#663D00; color:#FFFFFF;">800 #663D00<br><span class="fdic-swatch-token">--ds-color-warning-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#4D2E00; color:#FFFFFF;">900 #4D2E00<br><span class="fdic-swatch-token">--ds-color-warning-900</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#FCF7EE; color:#4D2E00;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#FCF7EE</span><span class="fdic-swatch-token">--ds-color-warning-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#FFCC80; color:#4D2E00;">200</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#FFCC80</span><span class="fdic-swatch-token">--ds-color-warning-200</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#8B5E00; color:#FFFFFF;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#8B5E00</span><span class="fdic-swatch-token">--ds-color-warning-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#6D4A00; color:#FFFFFF;">600</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#6D4A00</span><span class="fdic-swatch-token">--ds-color-warning-600</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#663D00; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#663D00</span><span class="fdic-swatch-token">--ds-color-warning-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#4D2E00; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#4D2E00</span><span class="fdic-swatch-token">--ds-color-warning-900</span></div></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -230,12 +230,12 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Problems and destructive actions</h3>
     <p>Validation errors, failed operations, and irreversible actions.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#FDEDEA; color:#331919;">050 #FDEDEA<br><span class="fdic-swatch-token">--ds-color-error-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#F5A3A3; color:#331919;">200 #F5A3A3<br><span class="fdic-swatch-token">--ds-color-error-200</span></div>
-      <div class="fdic-palette-swatch" style="background:#B10B2D; color:#FFFFFF;">500 #B10B2D<br><span class="fdic-swatch-token">--ds-color-error-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#D80E3A; color:#FFFFFF;">600 #D80E3A<br><span class="fdic-swatch-token">--ds-color-error-600</span></div>
-      <div class="fdic-palette-swatch" style="background:#442121; color:#FFFFFF;">800 #442121<br><span class="fdic-swatch-token">--ds-color-error-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#331919; color:#FFFFFF;">900 #331919<br><span class="fdic-swatch-token">--ds-color-error-900</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#FDEDEA; color:#331919;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#FDEDEA</span><span class="fdic-swatch-token">--ds-color-error-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#F5A3A3; color:#331919;">200</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#F5A3A3</span><span class="fdic-swatch-token">--ds-color-error-200</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#B10B2D; color:#FFFFFF;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#B10B2D</span><span class="fdic-swatch-token">--ds-color-error-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#D80E3A; color:#FFFFFF;">600</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#D80E3A</span><span class="fdic-swatch-token">--ds-color-error-600</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#442121; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#442121</span><span class="fdic-swatch-token">--ds-color-error-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#331919; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#331919</span><span class="fdic-swatch-token">--ds-color-error-900</span></div></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -243,12 +243,12 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Informational context</h3>
     <p>Guidance, context, and non-urgent information.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#F1F8FE; color:#162D4A;">050 #F1F8FE<br><span class="fdic-swatch-token">--ds-color-info-050</span></div>
-      <div class="fdic-palette-swatch" style="background:#90CAF9; color:#162D4A;">200 #90CAF9<br><span class="fdic-swatch-token">--ds-color-info-200</span></div>
-      <div class="fdic-palette-swatch" style="background:#0B4F82; color:#FFFFFF;">500 #0B4F82<br><span class="fdic-swatch-token">--ds-color-info-500</span></div>
-      <div class="fdic-palette-swatch" style="background:#0D4B7A; color:#FFFFFF;">600 #0D4B7A<br><span class="fdic-swatch-token">--ds-color-info-600</span></div>
-      <div class="fdic-palette-swatch" style="background:#1E3A5F; color:#FFFFFF;">800 #1E3A5F<br><span class="fdic-swatch-token">--ds-color-info-800</span></div>
-      <div class="fdic-palette-swatch" style="background:#162D4A; color:#FFFFFF;">900 #162D4A<br><span class="fdic-swatch-token">--ds-color-info-900</span></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#F1F8FE; color:#162D4A;">050</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#F1F8FE</span><span class="fdic-swatch-token">--ds-color-info-050</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#90CAF9; color:#162D4A;">200</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#90CAF9</span><span class="fdic-swatch-token">--ds-color-info-200</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#0B4F82; color:#FFFFFF;">500</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#0B4F82</span><span class="fdic-swatch-token">--ds-color-info-500</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#0D4B7A; color:#FFFFFF;">600</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#0D4B7A</span><span class="fdic-swatch-token">--ds-color-info-600</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#1E3A5F; color:#FFFFFF;">800</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#1E3A5F</span><span class="fdic-swatch-token">--ds-color-info-800</span></div></div>
+      <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#162D4A; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#162D4A</span><span class="fdic-swatch-token">--ds-color-info-900</span></div></div>
     </div>
   </div>
 </div>
