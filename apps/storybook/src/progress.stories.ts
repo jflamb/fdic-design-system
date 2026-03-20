@@ -12,7 +12,7 @@ const meta = {
   title: "Prose/Progress",
   tags: ["autodocs"],
   argTypes: {
-    value: { control: { type: "range", min: 0, max: 100, step: 1 } },
+    value: { control: { type: "range", min: 0, max: 5, step: 1 } },
     max: { control: "number" },
     label: { control: "text" },
     valueText: { control: "text" }

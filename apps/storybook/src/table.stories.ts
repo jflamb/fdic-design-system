@@ -17,7 +17,7 @@ const meta = {
   },
   args: {
     caption: "FDIC-insured deposit balances, Q4 2025",
-    showNumeric: true,
+    showNumeric: false,
     showFooter: true
   },
   render: (args: TableArgs) => {
