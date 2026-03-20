@@ -188,18 +188,20 @@
   display: grid;
   gap: 0.5rem;
   margin-top: 0.875rem;
-  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
 }
 
 .fdic-palette-swatch {
-  min-height: 4.5rem;
-  padding: 0.6rem;
+  min-height: 5.5rem;
+  padding: 0.5rem;
   border-radius: 10px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
   border: 1px solid var(--fdic-docs-border);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  overflow: hidden;
 }
 
 .fdic-role-map {
@@ -556,9 +558,13 @@
 }
 
 .fdic-swatch-token {
-  font-size: 0.65rem;
-  opacity: 0.8;
+  display: block;
+  font-size: 0.6rem;
+  opacity: 0.75;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fdic-state-demo {
