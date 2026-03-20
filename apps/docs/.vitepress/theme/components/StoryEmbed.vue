@@ -6,7 +6,7 @@ const props = withDefaults(defineProps<{
   storybookBaseUrl?: string
 }>(), {
   height: '300',
-  storybookBaseUrl: ''
+  storybookBaseUrl: import.meta.env.VITE_STORYBOOK_URL || ''
 })
 
 const iframeSrc = props.storybookBaseUrl
