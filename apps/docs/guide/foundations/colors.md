@@ -88,6 +88,66 @@ Examples of the naming model:
 - role: <code>--ds-color-text-primary</code>
 - semantic: <code>--ds-color-semantic-bg-error</code>
 
+## Color roles
+
+<div class="fdic-roles-table">
+  <div class="fdic-roles-row fdic-roles-header">
+    <span>Role</span>
+    <span>Token prefix</span>
+    <span>Usage</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-neutral-500);"></span> Neutral</span>
+    <span><code>--ds-color-neutral-*</code></span>
+    <span>Text, surfaces, borders, and structural UI</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-primary-500);"></span> Brand</span>
+    <span><code>--ds-color-primary-*</code></span>
+    <span>Institutional emphasis, key actions, trust markers</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-secondary-500);"></span> Secondary</span>
+    <span><code>--ds-color-secondary-*</code></span>
+    <span>Supporting emphasis without semantic meaning</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-semantic-fg-success);"></span> Success</span>
+    <span><code>--ds-color-success-*</code></span>
+    <span>Favorable outcomes, confirmations</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-semantic-fg-warning);"></span> Warning</span>
+    <span><code>--ds-color-warning-*</code></span>
+    <span>Caution, prevention, review needed</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-semantic-fg-error);"></span> Error</span>
+    <span><code>--ds-color-error-*</code></span>
+    <span>Errors, destructive actions, serious alerts</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-semantic-fg-info);"></span> Info</span>
+    <span><code>--ds-color-info-*</code></span>
+    <span>Informational context, guidance</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-text-link);"></span> Link</span>
+    <span><code>--ds-color-link-*</code></span>
+    <span>Hyperlinks and visited state</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-bg-inverted);"></span> Inverse</span>
+    <span><code>--ds-color-*-inverted</code></span>
+    <span>Elements on inverted or brand backgrounds</span>
+  </div>
+  <div class="fdic-roles-row">
+    <span><span class="fdic-role-dot" style="background:var(--ds-color-border-input);"></span> Input</span>
+    <span><code>--ds-color-border-input-*</code></span>
+    <span>Form field borders and interaction states</span>
+  </div>
+</div>
+
 ## Palette tokens
 
 Palette tokens are source values for the system. They should be documented visually, but used sparingly in consumer guidance.
@@ -98,17 +158,17 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Default system backbone</h3>
     <p>Use the neutral ramp to support text hierarchy, borders, surfaces, and dark-mode mapping.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#FFFFFF; color:#212123;">000 #FFFFFF</div>
-      <div class="fdic-palette-swatch" style="background:#FAFAFC; color:#212123;">050 #FAFAFC</div>
-      <div class="fdic-palette-swatch" style="background:#F5F5F7; color:#212123;">100 #F5F5F7</div>
-      <div class="fdic-palette-swatch" style="background:#E0E0E2; color:#212123;">200 #E0E0E2</div>
-      <div class="fdic-palette-swatch" style="background:#D6D6D8; color:#212123;">300 #D6D6D8</div>
-      <div class="fdic-palette-swatch" style="background:#BDBDBF; color:#212123;">400 #BDBDBF</div>
-      <div class="fdic-palette-swatch" style="background:#9E9EA0; color:#212123;">500 #9E9EA0</div>
-      <div class="fdic-palette-swatch" style="background:#595961; color:#FFFFFF;">700 #595961</div>
-      <div class="fdic-palette-swatch" style="background:#424244; color:#FFFFFF;">800 #424244</div>
-      <div class="fdic-palette-swatch" style="background:#212123; color:#FFFFFF;">900 #212123</div>
-      <div class="fdic-palette-swatch" style="background:#000000; color:#FFFFFF;">1000 #000000</div>
+      <div class="fdic-palette-swatch" style="background:#FFFFFF; color:#212123;">000 #FFFFFF<br><span class="fdic-swatch-token">--ds-color-neutral-000</span></div>
+      <div class="fdic-palette-swatch" style="background:#FAFAFC; color:#212123;">050 #FAFAFC<br><span class="fdic-swatch-token">--ds-color-neutral-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#F5F5F7; color:#212123;">100 #F5F5F7<br><span class="fdic-swatch-token">--ds-color-neutral-100</span></div>
+      <div class="fdic-palette-swatch" style="background:#E0E0E2; color:#212123;">200 #E0E0E2<br><span class="fdic-swatch-token">--ds-color-neutral-200</span></div>
+      <div class="fdic-palette-swatch" style="background:#D6D6D8; color:#212123;">300 #D6D6D8<br><span class="fdic-swatch-token">--ds-color-neutral-300</span></div>
+      <div class="fdic-palette-swatch" style="background:#BDBDBF; color:#212123;">400 #BDBDBF<br><span class="fdic-swatch-token">--ds-color-neutral-400</span></div>
+      <div class="fdic-palette-swatch" style="background:#9E9EA0; color:#212123;">500 #9E9EA0<br><span class="fdic-swatch-token">--ds-color-neutral-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#595961; color:#FFFFFF;">700 #595961<br><span class="fdic-swatch-token">--ds-color-neutral-700</span></div>
+      <div class="fdic-palette-swatch" style="background:#424244; color:#FFFFFF;">800 #424244<br><span class="fdic-swatch-token">--ds-color-neutral-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#212123; color:#FFFFFF;">900 #212123<br><span class="fdic-swatch-token">--ds-color-neutral-900</span></div>
+      <div class="fdic-palette-swatch" style="background:#000000; color:#FFFFFF;">1000 #000000<br><span class="fdic-swatch-token">--ds-color-neutral-1000</span></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -116,13 +176,13 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Institutional emphasis</h3>
     <p>Use for key actions, official identifiers, and moments where FDIC ownership should be explicit.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#E6F4FA; color:#003256;">050 #E6F4FA</div>
-      <div class="fdic-palette-swatch" style="background:#84DBFF; color:#003256;">200 #84DBFF</div>
-      <div class="fdic-palette-swatch" style="background:#38B6FF; color:#003256;">400 #38B6FF</div>
-      <div class="fdic-palette-swatch" style="background:#0D6191; color:#FFFFFF;">500 #0D6191</div>
-      <div class="fdic-palette-swatch" style="background:#09496D; color:#FFFFFF;">700 #09496D</div>
-      <div class="fdic-palette-swatch" style="background:#073C5B; color:#FFFFFF;">800 #073C5B</div>
-      <div class="fdic-palette-swatch" style="background:#003256; color:#FFFFFF;">900 #003256</div>
+      <div class="fdic-palette-swatch" style="background:#E6F4FA; color:#003256;">050 #E6F4FA<br><span class="fdic-swatch-token">--ds-color-primary-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#84DBFF; color:#003256;">200 #84DBFF<br><span class="fdic-swatch-token">--ds-color-primary-200</span></div>
+      <div class="fdic-palette-swatch" style="background:#38B6FF; color:#003256;">400 #38B6FF<br><span class="fdic-swatch-token">--ds-color-primary-400</span></div>
+      <div class="fdic-palette-swatch" style="background:#0D6191; color:#FFFFFF;">500 #0D6191<br><span class="fdic-swatch-token">--ds-color-primary-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#09496D; color:#FFFFFF;">700 #09496D<br><span class="fdic-swatch-token">--ds-color-primary-700</span></div>
+      <div class="fdic-palette-swatch" style="background:#073C5B; color:#FFFFFF;">800 #073C5B<br><span class="fdic-swatch-token">--ds-color-primary-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#003256; color:#FFFFFF;">900 #003256<br><span class="fdic-swatch-token">--ds-color-primary-900</span></div>
     </div>
   </div>
   <div class="fdic-palette-group">
@@ -130,13 +190,65 @@ Palette tokens are source values for the system. They should be documented visua
     <h3>Secondary emphasis</h3>
     <p>Use more sparingly than the primary brand. It should support hierarchy without becoming semantic status color.</p>
     <div class="fdic-palette-swatches">
-      <div class="fdic-palette-swatch" style="background:#F8EFDA; color:#60511B;">050 #F8EFDA</div>
-      <div class="fdic-palette-swatch" style="background:#EBD49B; color:#60511B;">300 #EBD49B</div>
-      <div class="fdic-palette-swatch" style="background:#E1C16E; color:#2A2110;">400 #E1C16E</div>
-      <div class="fdic-palette-swatch" style="background:#D9AF45; color:#2A2110;">500 #D9AF45</div>
-      <div class="fdic-palette-swatch" style="background:#BD9327; color:#212123;">600 #BD9327</div>
-      <div class="fdic-palette-swatch" style="background:#88691C; color:#FFFFFF;">800 #88691C</div>
-      <div class="fdic-palette-swatch" style="background:#60511B; color:#FFFFFF;">900 #60511B</div>
+      <div class="fdic-palette-swatch" style="background:#F8EFDA; color:#60511B;">050 #F8EFDA<br><span class="fdic-swatch-token">--ds-color-secondary-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#EBD49B; color:#60511B;">300 #EBD49B<br><span class="fdic-swatch-token">--ds-color-secondary-300</span></div>
+      <div class="fdic-palette-swatch" style="background:#E1C16E; color:#2A2110;">400 #E1C16E<br><span class="fdic-swatch-token">--ds-color-secondary-400</span></div>
+      <div class="fdic-palette-swatch" style="background:#D9AF45; color:#2A2110;">500 #D9AF45<br><span class="fdic-swatch-token">--ds-color-secondary-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#BD9327; color:#212123;">600 #BD9327<br><span class="fdic-swatch-token">--ds-color-secondary-600</span></div>
+      <div class="fdic-palette-swatch" style="background:#88691C; color:#FFFFFF;">800 #88691C<br><span class="fdic-swatch-token">--ds-color-secondary-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#60511B; color:#FFFFFF;">900 #60511B<br><span class="fdic-swatch-token">--ds-color-secondary-900</span></div>
+    </div>
+  </div>
+  <div class="fdic-palette-group">
+    <span class="fdic-eyebrow">Success</span>
+    <h3>Favorable outcomes</h3>
+    <p>Confirmations, successful submissions, and positive status.</p>
+    <div class="fdic-palette-swatches">
+      <div class="fdic-palette-swatch" style="background:#E8F5E9; color:#1B3A1B;">050 #E8F5E9<br><span class="fdic-swatch-token">--ds-color-success-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#A5D6A7; color:#1B3A1B;">200 #A5D6A7<br><span class="fdic-swatch-token">--ds-color-success-200</span></div>
+      <div class="fdic-palette-swatch" style="background:#2E7D32; color:#FFFFFF;">500 #2E7D32<br><span class="fdic-swatch-token">--ds-color-success-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#1B5E20; color:#FFFFFF;">600 #1B5E20<br><span class="fdic-swatch-token">--ds-color-success-600</span></div>
+      <div class="fdic-palette-swatch" style="background:#204520; color:#FFFFFF;">800 #204520<br><span class="fdic-swatch-token">--ds-color-success-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#1B3A1B; color:#FFFFFF;">900 #1B3A1B<br><span class="fdic-swatch-token">--ds-color-success-900</span></div>
+    </div>
+  </div>
+  <div class="fdic-palette-group">
+    <span class="fdic-eyebrow">Warning</span>
+    <h3>Caution and prevention</h3>
+    <p>Review steps, potential issues, and time-sensitive guidance.</p>
+    <div class="fdic-palette-swatches">
+      <div class="fdic-palette-swatch" style="background:#FCF7EE; color:#4D2E00;">050 #FCF7EE<br><span class="fdic-swatch-token">--ds-color-warning-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#FFCC80; color:#4D2E00;">200 #FFCC80<br><span class="fdic-swatch-token">--ds-color-warning-200</span></div>
+      <div class="fdic-palette-swatch" style="background:#8B5E00; color:#FFFFFF;">500 #8B5E00<br><span class="fdic-swatch-token">--ds-color-warning-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#6D4A00; color:#FFFFFF;">600 #6D4A00<br><span class="fdic-swatch-token">--ds-color-warning-600</span></div>
+      <div class="fdic-palette-swatch" style="background:#663D00; color:#FFFFFF;">800 #663D00<br><span class="fdic-swatch-token">--ds-color-warning-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#4D2E00; color:#FFFFFF;">900 #4D2E00<br><span class="fdic-swatch-token">--ds-color-warning-900</span></div>
+    </div>
+  </div>
+  <div class="fdic-palette-group">
+    <span class="fdic-eyebrow">Error</span>
+    <h3>Problems and destructive actions</h3>
+    <p>Validation errors, failed operations, and irreversible actions.</p>
+    <div class="fdic-palette-swatches">
+      <div class="fdic-palette-swatch" style="background:#FDEDEA; color:#331919;">050 #FDEDEA<br><span class="fdic-swatch-token">--ds-color-error-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#F5A3A3; color:#331919;">200 #F5A3A3<br><span class="fdic-swatch-token">--ds-color-error-200</span></div>
+      <div class="fdic-palette-swatch" style="background:#B10B2D; color:#FFFFFF;">500 #B10B2D<br><span class="fdic-swatch-token">--ds-color-error-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#D80E3A; color:#FFFFFF;">600 #D80E3A<br><span class="fdic-swatch-token">--ds-color-error-600</span></div>
+      <div class="fdic-palette-swatch" style="background:#442121; color:#FFFFFF;">800 #442121<br><span class="fdic-swatch-token">--ds-color-error-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#331919; color:#FFFFFF;">900 #331919<br><span class="fdic-swatch-token">--ds-color-error-900</span></div>
+    </div>
+  </div>
+  <div class="fdic-palette-group">
+    <span class="fdic-eyebrow">Info</span>
+    <h3>Informational context</h3>
+    <p>Guidance, context, and non-urgent information.</p>
+    <div class="fdic-palette-swatches">
+      <div class="fdic-palette-swatch" style="background:#F1F8FE; color:#162D4A;">050 #F1F8FE<br><span class="fdic-swatch-token">--ds-color-info-050</span></div>
+      <div class="fdic-palette-swatch" style="background:#90CAF9; color:#162D4A;">200 #90CAF9<br><span class="fdic-swatch-token">--ds-color-info-200</span></div>
+      <div class="fdic-palette-swatch" style="background:#0B4F82; color:#FFFFFF;">500 #0B4F82<br><span class="fdic-swatch-token">--ds-color-info-500</span></div>
+      <div class="fdic-palette-swatch" style="background:#0D4B7A; color:#FFFFFF;">600 #0D4B7A<br><span class="fdic-swatch-token">--ds-color-info-600</span></div>
+      <div class="fdic-palette-swatch" style="background:#1E3A5F; color:#FFFFFF;">800 #1E3A5F<br><span class="fdic-swatch-token">--ds-color-info-800</span></div>
+      <div class="fdic-palette-swatch" style="background:#162D4A; color:#FFFFFF;">900 #162D4A<br><span class="fdic-swatch-token">--ds-color-info-900</span></div>
     </div>
   </div>
 </div>
@@ -214,6 +326,35 @@ Role token families:
 - <code>--ds-color-border-*</code>
 - <code>--ds-color-overlay-*</code>
 - <code>--ds-color-effect-*</code>
+
+### Interaction states
+
+Role tokens support state suffixes for interactive elements:
+
+<div class="fdic-state-demo">
+  <div class="fdic-state-item">
+    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-interactive);">rest</div>
+    <code>--ds-color-bg-interactive</code>
+  </div>
+  <div class="fdic-state-item">
+    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-interactive); box-shadow:inset 0 0 0 100px var(--ds-color-bg-hovered);">hovered</div>
+    <code>+ -hovered</code>
+  </div>
+  <div class="fdic-state-item">
+    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-interactive); box-shadow:inset 0 0 0 100px var(--ds-color-bg-pressed);">pressed</div>
+    <code>+ -pressed</code>
+  </div>
+  <div class="fdic-state-item">
+    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-selected);">selected</div>
+    <code>--ds-color-bg-selected</code>
+  </div>
+  <div class="fdic-state-item">
+    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-readonly);">readonly</div>
+    <code>--ds-color-bg-readonly</code>
+  </div>
+</div>
+
+Supported state suffixes: `-hovered`, `-pressed`, `-focused`, `-disabled`, `-readonly`
 
 ## Semantic tokens
 
