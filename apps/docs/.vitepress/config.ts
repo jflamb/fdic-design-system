@@ -7,6 +7,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/" },
+      { text: "Foundations", link: "/guide/foundations/" },
       { text: "Components", link: "/components/" }
     ],
     sidebar: [
@@ -14,13 +15,32 @@ export default defineConfig({
         text: "Guide",
         items: [
           { text: "Overview", link: "/guide/" },
-          { text: "Getting Started", link: "/guide/getting-started" }
+          { text: "Getting Started", link: "/guide/getting-started" },
+          { text: "Accessibility", link: "/guide/accessibility" }
+        ]
+      },
+      {
+        text: "Foundations",
+        items: [
+          { text: "Overview", link: "/guide/foundations/" },
+          { text: "Colors", link: "/guide/foundations/colors" },
+          { text: "Typography", link: "/guide/foundations/typography" },
+          { text: "Spacing and Layout", link: "/guide/foundations/spacing-layout" },
+          { text: "Surfaces and Effects", link: "/guide/foundations/surfaces-effects" },
+          { text: "Modes and Responsiveness", link: "/guide/foundations/modes" }
         ]
       },
       {
         text: "Components",
         items: [
-          { text: "Placeholder", link: "/components/placeholder" }
+          { text: "Callouts", link: "/components/callouts" },
+          { text: "Table of Contents", link: "/components/table-of-contents" },
+          { text: "Tables", link: "/components/tables" },
+          { text: "Footnotes", link: "/components/footnotes" },
+          { text: "Details / Accordion", link: "/components/details" },
+          { text: "Code Blocks", link: "/components/code-blocks" },
+          { text: "Progress and Meter", link: "/components/progress-meter" },
+          { text: "Aside / Pull Quote", link: "/components/aside" }
         ]
       }
     ],
@@ -29,4 +49,3 @@ export default defineConfig({
     ]
   }
 });
-

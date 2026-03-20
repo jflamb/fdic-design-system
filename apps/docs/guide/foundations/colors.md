@@ -17,20 +17,6 @@ The token inventory defines three practical layers:
 - role tokens for where color is applied
 - semantic tokens for status and meaning
 
-That maps the current groups into a documentation model:
-
-- `Neutral`
-- `Brand`
-  - primary brand
-  - secondary brand
-- `Background`
-- `Text`
-- `Icon`
-- `Border`
-- `Semantic`
-- `Overlay`
-- `Effect`
-
 <div class="fdic-swatch-grid">
   <div class="fdic-swatch-card">
     <div class="fdic-swatch-sample" style="background:#212123; color:#FFFFFF;">Neutral</div>
@@ -150,7 +136,7 @@ Examples of the naming model:
 Palette tokens are source values for the system. They should be documented visually, but used sparingly in consumer guidance.
 
 <div class="fdic-palette-ramp">
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Neutral</span>
     <h3>Default system backbone</h3>
     <p>Use the neutral ramp to support text hierarchy, borders, surfaces, and dark-mode mapping.</p>
@@ -168,7 +154,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#000000; color:#FFFFFF;">1000</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#000000</span><span class="fdic-swatch-token">--ds-color-neutral-1000</span></div></div>
     </div>
   </div>
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Primary brand</span>
     <h3>Institutional emphasis</h3>
     <p>Use for key actions, official identifiers, and moments where FDIC ownership should be explicit.</p>
@@ -182,7 +168,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#003256; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#003256</span><span class="fdic-swatch-token">--ds-color-primary-900</span></div></div>
     </div>
   </div>
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Secondary brand</span>
     <h3>Secondary emphasis</h3>
     <p>Use more sparingly than the primary brand. It should support hierarchy without becoming semantic status color.</p>
@@ -196,7 +182,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#60511B; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#60511B</span><span class="fdic-swatch-token">--ds-color-secondary-900</span></div></div>
     </div>
   </div>
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Success</span>
     <h3>Favorable outcomes</h3>
     <p>Confirmations, successful submissions, and positive status.</p>
@@ -209,7 +195,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#1B3A1B; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#1B3A1B</span><span class="fdic-swatch-token">--ds-color-success-900</span></div></div>
     </div>
   </div>
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Warning</span>
     <h3>Caution and prevention</h3>
     <p>Review steps, potential issues, and time-sensitive guidance.</p>
@@ -222,7 +208,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#4D2E00; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#4D2E00</span><span class="fdic-swatch-token">--ds-color-warning-900</span></div></div>
     </div>
   </div>
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Error</span>
     <h3>Problems and destructive actions</h3>
     <p>Validation errors, failed operations, and irreversible actions.</p>
@@ -235,7 +221,7 @@ Palette tokens are source values for the system. They should be documented visua
       <div class="fdic-palette-swatch"><div class="fdic-swatch-color" style="background:#331919; color:#FFFFFF;">900</div><div class="fdic-swatch-meta"><span class="fdic-swatch-hex">#331919</span><span class="fdic-swatch-token">--ds-color-error-900</span></div></div>
     </div>
   </div>
-  <div class="fdic-palette-group">
+  <div class="fdic-palette-group fdic-doc-card-copy">
     <span class="fdic-eyebrow">Info</span>
     <h3>Informational context</h3>
     <p>Guidance, context, and non-urgent information.</p>
@@ -255,7 +241,7 @@ Palette tokens are source values for the system. They should be documented visua
 Role tokens are the main implementation layer for non-semantic UI.
 
 <div class="fdic-role-map">
-  <div class="fdic-role-card">
+  <div class="fdic-role-card fdic-doc-card-copy">
     <span class="fdic-eyebrow">Background</span>
     <h3>Surface and emphasis</h3>
     <p>Background tokens describe where color sits: base surface, container surface, or brand surface.</p>
@@ -273,7 +259,7 @@ Role tokens are the main implementation layer for non-semantic UI.
       </div>
     </div>
   </div>
-  <div class="fdic-role-card">
+  <div class="fdic-role-card fdic-doc-card-copy">
     <span class="fdic-eyebrow">Text</span>
     <h3>Reading hierarchy</h3>
     <p>Text tokens should support primary, secondary, inverse, and brand-linked content without weakening readability.</p>
@@ -283,7 +269,7 @@ Role tokens are the main implementation layer for non-semantic UI.
       <p style="color:var(--ds-color-text-brand);">Brand-linked text</p>
     </div>
   </div>
-  <div class="fdic-role-card">
+  <div class="fdic-role-card fdic-doc-card-copy">
     <span class="fdic-eyebrow">Border</span>
     <h3>Structure and control states</h3>
     <p>Border tokens define separation, input affordance, and focus visibility.</p>
@@ -301,7 +287,7 @@ Role tokens are the main implementation layer for non-semantic UI.
       </div>
     </div>
   </div>
-  <div class="fdic-role-card">
+  <div class="fdic-role-card fdic-doc-card-copy">
     <span class="fdic-eyebrow">Icon</span>
     <h3>Supporting emphasis</h3>
     <p>Icon tokens should align with surrounding text and status cues rather than invent separate meaning.</p>
@@ -328,25 +314,27 @@ Role token families:
 
 Role tokens support state suffixes for interactive elements:
 
-<div class="fdic-state-demo">
-  <div class="fdic-state-item">
-    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-interactive);">rest</div>
+<div class="fdic-doc-card-copy">
+  <p class="fdic-state-group-label"><strong>Derived from a base role token</strong></p>
+  <div class="fdic-state-row">
+    <div class="fdic-state-chip" style="background:var(--ds-color-bg-interactive);">rest</div>
     <code>--ds-color-bg-interactive</code>
   </div>
-  <div class="fdic-state-item">
-    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-interactive); box-shadow:inset 0 0 0 100px var(--ds-color-bg-hovered);">hovered</div>
-    <code>+ -hovered</code>
+  <div class="fdic-state-row">
+    <div class="fdic-state-chip" style="background:var(--ds-color-bg-interactive); box-shadow:inset 0 0 0 100px var(--ds-color-bg-hovered);">hovered</div>
+    <code>--ds-color-bg-interactive-hovered</code>
   </div>
-  <div class="fdic-state-item">
-    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-interactive); box-shadow:inset 0 0 0 100px var(--ds-color-bg-pressed);">pressed</div>
-    <code>+ -pressed</code>
+  <div class="fdic-state-row">
+    <div class="fdic-state-chip" style="background:var(--ds-color-bg-interactive); box-shadow:inset 0 0 0 100px var(--ds-color-bg-pressed);">pressed</div>
+    <code>--ds-color-bg-interactive-pressed</code>
   </div>
-  <div class="fdic-state-item">
-    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-selected);">selected</div>
+  <p class="fdic-state-group-label"><strong>Standalone state tokens</strong></p>
+  <div class="fdic-state-row">
+    <div class="fdic-state-chip" style="background:var(--ds-color-bg-selected);">selected</div>
     <code>--ds-color-bg-selected</code>
   </div>
-  <div class="fdic-state-item">
-    <div class="fdic-state-swatch" style="background:var(--ds-color-bg-readonly);">readonly</div>
+  <div class="fdic-state-row">
+    <div class="fdic-state-chip" style="background:var(--ds-color-bg-readonly);">readonly</div>
     <code>--ds-color-bg-readonly</code>
   </div>
 </div>
@@ -395,11 +383,11 @@ Semantic token families:
 - <code>--ds-color-semantic-border-success</code> / warning / error / info
 
 <div class="fdic-card-grid">
-  <div class="fdic-card">
+  <div class="fdic-card fdic-doc-card-copy">
     <span class="fdic-eyebrow">Do</span>
     <p>Use semantic colors to reinforce meaning that is already communicated by labels, headings, helper text, and icons.</p>
   </div>
-  <div class="fdic-card">
+  <div class="fdic-card fdic-doc-card-copy">
     <span class="fdic-eyebrow">Do not</span>
     <p>Do not use primary or secondary brand colors to imply warning, error, or other status meaning.</p>
   </div>
