@@ -222,30 +222,30 @@ Semantic tokens are the only color tokens that should carry status meaning.
 <div class="fdic-example-grid">
   <div class="fdic-example-card">
     <div class="fdic-example-header">Success</div>
-    <div class="fdic-example-body" style="background:#E8F5E9;">
-      <p><strong style="color:#2E7D32;">Your information was submitted.</strong></p>
-      <p style="color:#2E7D32;">Use semantic success tokens only when the message communicates a favorable outcome.</p>
+    <div class="fdic-example-body" style="background:var(--ds-color-semantic-bg-success);">
+      <p><strong style="color:var(--ds-color-semantic-fg-success);">Your information was submitted.</strong></p>
+      <p style="color:var(--ds-color-semantic-fg-success);">Use semantic success tokens only when the message communicates a favorable outcome.</p>
     </div>
   </div>
   <div class="fdic-example-card">
     <div class="fdic-example-header">Warning</div>
-    <div class="fdic-example-body" style="background:#FCF7EE;">
-      <p><strong style="color:#8B5E00;">Review this section before continuing.</strong></p>
-      <p style="color:#8B5E00;">Warnings should help prevent mistakes before they become errors.</p>
+    <div class="fdic-example-body" style="background:var(--ds-color-semantic-bg-warning);">
+      <p><strong style="color:var(--ds-color-semantic-fg-warning);">Review this section before continuing.</strong></p>
+      <p style="color:var(--ds-color-semantic-fg-warning);">Warnings should help prevent mistakes before they become errors.</p>
     </div>
   </div>
   <div class="fdic-example-card">
     <div class="fdic-example-header">Error</div>
-    <div class="fdic-example-body" style="background:#FDEDEA;">
-      <p><strong style="color:#B10B2D;">There is a problem with this entry.</strong></p>
-      <p style="color:#B10B2D;">Errors need explicit recovery guidance, not color alone.</p>
+    <div class="fdic-example-body" style="background:var(--ds-color-semantic-bg-error);">
+      <p><strong style="color:var(--ds-color-semantic-fg-error);">There is a problem with this entry.</strong></p>
+      <p style="color:var(--ds-color-semantic-fg-error);">Errors need explicit recovery guidance, not color alone.</p>
     </div>
   </div>
   <div class="fdic-example-card">
     <div class="fdic-example-header">Info</div>
-    <div class="fdic-example-body" style="background:#F1F8FE;">
-      <p><strong style="color:#0B4F82;">We ask for this information to protect your account.</strong></p>
-      <p style="color:#0B4F82;">Informational states should add clarity without reading as success or warning.</p>
+    <div class="fdic-example-body" style="background:var(--ds-color-semantic-bg-info);">
+      <p><strong style="color:var(--ds-color-semantic-fg-info);">We ask for this information to protect your account.</strong></p>
+      <p style="color:var(--ds-color-semantic-fg-info);">Informational states should add clarity without reading as success or warning.</p>
     </div>
   </div>
 </div>
