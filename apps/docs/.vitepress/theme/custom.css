@@ -1,0 +1,490 @@
+:root {
+  --fdic-docs-ink: var(--ds-color-text-primary);
+  --fdic-docs-muted: var(--ds-color-text-secondary);
+  --fdic-docs-border: var(--ds-color-border-divider);
+  --fdic-docs-surface: var(--ds-color-bg-container);
+  --fdic-docs-surface-strong: var(--ds-color-bg-surface);
+  --fdic-docs-brand: var(--ds-color-text-brand);
+  --fdic-docs-accent: var(--ds-color-text-warm);
+  --fdic-docs-success: var(--ds-color-semantic-fg-success);
+  --fdic-docs-warning: var(--ds-color-semantic-fg-warning);
+  --fdic-docs-danger: var(--ds-color-semantic-fg-error);
+}
+
+.fdic-foundation-intro {
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(13, 97, 145, 0.08), rgba(217, 175, 69, 0.1)),
+    var(--fdic-docs-surface);
+}
+
+.fdic-foundation-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.fdic-card-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.fdic-card {
+  padding: 1rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-card h3,
+.fdic-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.fdic-card p:last-child,
+.fdic-card ul:last-child {
+  margin-bottom: 0;
+}
+
+.fdic-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: var(--fdic-docs-brand);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fdic-swatch-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.fdic-swatch-card {
+  overflow: hidden;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-swatch-sample {
+  min-height: 7rem;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-end;
+  font-weight: 700;
+}
+
+.fdic-swatch-meta {
+  padding: 0.875rem 1rem 1rem;
+}
+
+.fdic-swatch-meta code {
+  font-size: 0.82rem;
+}
+
+.fdic-swatch-meta strong,
+.fdic-token-label {
+  display: block;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-token-label {
+  margin-bottom: 0.25rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.fdic-token-meta {
+  color: var(--fdic-docs-muted);
+  font-size: 0.9rem;
+}
+
+.fdic-anatomy {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.fdic-anatomy-panel {
+  padding: 1rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff, var(--fdic-docs-surface));
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-anatomy-demo {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--fdic-docs-border);
+}
+
+.fdic-anatomy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.fdic-decision-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.fdic-decision-step {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-decision-step strong {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.fdic-palette-ramp {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.fdic-palette-group {
+  padding: 1rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-palette-group h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-palette-group p {
+  color: var(--fdic-docs-muted);
+}
+
+.fdic-palette-swatches {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.875rem;
+  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+}
+
+.fdic-palette-swatch {
+  min-height: 4.5rem;
+  padding: 0.6rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid rgba(31, 41, 51, 0.08);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.fdic-role-map {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.fdic-role-card {
+  padding: 1rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fff, var(--fdic-docs-surface));
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-role-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-role-card p {
+  color: var(--fdic-docs-muted);
+}
+
+.fdic-role-demo {
+  margin-top: 0.875rem;
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--fdic-docs-border);
+  background: #fff;
+}
+
+.fdic-role-demo[data-role="background"] {
+  background: linear-gradient(180deg, #ffffff, #f7f9fb);
+}
+
+.fdic-role-demo[data-role="text"] p {
+  margin: 0.35rem 0 0;
+}
+
+.fdic-role-demo[data-role="icon"] .fdic-chip-row,
+.fdic-role-demo[data-role="border"] .fdic-chip-row {
+  margin-top: 0;
+}
+
+.fdic-example-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.fdic-example-card {
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-example-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--fdic-docs-border);
+  background: var(--fdic-docs-surface);
+  font-weight: 700;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-example-body {
+  padding: 1rem;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-example-body p:last-child {
+  margin-bottom: 0;
+}
+
+.fdic-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.fdic-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.88rem;
+}
+
+.fdic-chip[data-tone="brand"] {
+  border-color: rgba(13, 97, 145, 0.3);
+  background: rgba(13, 97, 145, 0.08);
+  color: var(--fdic-docs-brand);
+}
+
+.fdic-chip[data-tone="warning"] {
+  border-color: rgba(159, 91, 0, 0.25);
+  background: rgba(159, 91, 0, 0.08);
+  color: var(--fdic-docs-warning);
+}
+
+.fdic-chip[data-tone="success"] {
+  border-color: rgba(47, 111, 79, 0.25);
+  background: rgba(47, 111, 79, 0.08);
+  color: var(--fdic-docs-success);
+}
+
+.fdic-chip[data-tone="danger"] {
+  border-color: rgba(180, 35, 24, 0.2);
+  background: rgba(180, 35, 24, 0.08);
+  color: var(--fdic-docs-danger);
+}
+
+.fdic-type-specimen {
+  margin: 1.25rem 0 2rem;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.fdic-type-row {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid var(--fdic-docs-border);
+  grid-template-columns: minmax(0, 1fr) 8rem;
+}
+
+.fdic-type-row:first-child {
+  border-top: 0;
+}
+
+.fdic-type-preview {
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-type-preview[data-role="display"] {
+  font-size: 3rem;
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.fdic-type-preview[data-role="heading"] {
+  font-size: 2rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.fdic-type-preview[data-role="body"] {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.fdic-type-preview[data-role="supporting"] {
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: var(--fdic-docs-muted);
+}
+
+.fdic-scale-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.fdic-scale-row {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  grid-template-columns: 8rem minmax(0, 1fr) 5rem;
+}
+
+.fdic-scale-bar {
+  height: 0.875rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--fdic-docs-brand), #7ca8c0);
+}
+
+.fdic-scale-bar[data-size="sm"] { width: 1rem; }
+.fdic-scale-bar[data-size="md"] { width: 2rem; }
+.fdic-scale-bar[data-size="lg"] { width: 3rem; }
+.fdic-scale-bar[data-size="xl"] { width: 4rem; }
+.fdic-scale-bar[data-size="2xl"] { width: 5rem; }
+
+.fdic-surface-demo {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.fdic-surface-card {
+  padding: 1rem;
+  border-radius: 14px;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-surface-card[data-surface="base"] {
+  border: 1px solid var(--fdic-docs-border);
+  background: #fff;
+}
+
+.fdic-surface-card[data-surface="raised"] {
+  border: 1px solid rgba(13, 97, 145, 0.12);
+  background: linear-gradient(180deg, #fff, var(--fdic-docs-surface));
+  box-shadow: 0 10px 30px rgba(31, 41, 51, 0.06);
+}
+
+.fdic-surface-card[data-surface="overlay"] {
+  color: #fff;
+  background: linear-gradient(180deg, rgba(15, 35, 49, 0.92), rgba(15, 35, 49, 0.82));
+}
+
+.fdic-mode-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.fdic-mode-card {
+  overflow: hidden;
+  border: 1px solid var(--fdic-docs-border);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-mode-frame {
+  padding: 1rem;
+}
+
+.fdic-mode-frame[data-mode="light"] {
+  background: linear-gradient(180deg, #ffffff, #f5f8fb);
+  color: var(--fdic-docs-ink);
+}
+
+.fdic-mode-frame[data-mode="dark"] {
+  background: linear-gradient(180deg, #10212d, #1b2f3d);
+  color: #f8fbff;
+}
+
+.fdic-mode-frame[data-mode="mobile"] {
+  max-width: 18rem;
+}
+
+.fdic-mode-header {
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.fdic-mode-panel {
+  padding: 0.875rem;
+  border-radius: 12px;
+}
+
+.fdic-mode-frame[data-mode="light"] .fdic-mode-panel {
+  background: #fff;
+  border: 1px solid var(--fdic-docs-border);
+}
+
+.fdic-mode-frame[data-mode="dark"] .fdic-mode-panel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.fdic-mode-meta {
+  padding: 0.875rem 1rem 1rem;
+  border-top: 1px solid var(--fdic-docs-border);
+  color: var(--fdic-docs-ink);
+}
+
+@media (max-width: 640px) {
+  .fdic-type-row,
+  .fdic-scale-row {
+    grid-template-columns: 1fr;
+  }
+}
