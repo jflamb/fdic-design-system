@@ -213,13 +213,19 @@
   color: var(--fdic-docs-ink);
 }
 
+.fdic-palette-group .fdic-eyebrow {
+  margin-bottom: 0.15rem;
+}
+
 .fdic-palette-group h3 {
   margin-top: 0;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
   color: var(--fdic-docs-ink);
 }
 
 .fdic-palette-group p {
+  margin-top: 0;
+  margin-bottom: 0;
   color: var(--fdic-docs-muted);
 }
 
