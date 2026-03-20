@@ -140,7 +140,7 @@
 }
 
 .fdic-decision-flow {
-  list-style: none;
+  list-style: none !important;
   counter-reset: decision-step;
   margin: 1.25rem 0 2rem;
   padding: 0;
