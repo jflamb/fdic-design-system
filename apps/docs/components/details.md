@@ -20,24 +20,7 @@ The native `<details>` element provides a disclosure widget for expandable conte
 - **Don't use a single accordion to hide content you think is "too long"** — if the content is essential, show it. If it's not, consider removing it entirely.
 - **Don't use accordions for primary navigation** — use the [table of contents](./table-of-contents) for document-level navigation.
 
-## Live examples
-
-<div class="prose">
-  <details>
-    <summary>What is FDIC deposit insurance?</summary>
-    <p>The Federal Deposit Insurance Corporation (FDIC) insures deposits at member banks up to $250,000 per depositor, per insured bank, for each account ownership category.</p>
-  </details>
-
-  <details>
-    <summary>What types of accounts are insured?</summary>
-    <p>FDIC insurance covers checking accounts, savings accounts, money market deposit accounts, and certificates of deposit (CDs) at insured institutions.</p>
-  </details>
-
-  <details>
-    <summary>Are joint accounts insured separately?</summary>
-    <p>Yes. Joint accounts are insured separately from single-ownership accounts. Each co-owner's share is insured up to $250,000.</p>
-  </details>
-</div>
+## Examples
 
 <StoryEmbed storyId="prose-details--default" caption="Default accordion — single disclosure widget" />
 <StoryEmbed storyId="prose-details--faq-group" caption="FAQ group — multiple accordions in sequence" />

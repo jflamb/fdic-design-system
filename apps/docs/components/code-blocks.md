@@ -14,17 +14,7 @@ Code blocks display formatted code snippets, configuration examples, and technic
 - **Displaying sample data formats (JSON, XML, CSV) that accompany technical documentation** — Structured data is easier to scan in a code block than in running prose.
 - **Any content where exact characters, spacing, and formatting matter** — Code blocks preserve whitespace and prevent line-wrapping by default, keeping the structure intact.
 
-## Live examples
-
-<div class="prose">
-  <p>Set the <code>max-width</code> property to <code>65ch</code> for optimal reading comfort.</p>
-
-  <pre><code class="language-css">.prose {
-  max-width: var(--prose-max-width, 65ch);
-  line-height: var(--fdic-line-height-body, 1.5);
-  color: var(--fdic-text-primary, #212123);
-}</code></pre>
-</div>
+## Examples
 
 <StoryEmbed storyId="prose-code-block--default" caption="Fenced code block with syntax formatting" />
 <StoryEmbed storyId="prose-code-block--with-copy" caption="Code block with copy-to-clipboard button" />

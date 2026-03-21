@@ -21,27 +21,7 @@ A task is running but the duration is unknown — waiting for a server response,
 
 Displaying a measurement within a known range — a bank's capital ratio against regulatory minimums, storage capacity, compliance score.
 
-## Live examples
-
-<div class="prose">
-  <div class="prose-progress-group">
-    <label for="demo-app-progress">Application completion</label>
-    <progress id="demo-app-progress" value="3" max="5" aria-label="Application completion: 60%">60%</progress>
-    <span class="prose-progress-value">3 of 5 steps (60%)</span>
-  </div>
-
-  <div class="prose-progress-group">
-    <label for="demo-validation">Validating filing data</label>
-    <progress id="demo-validation" aria-label="Validating filing data">Processing...</progress>
-    <span class="prose-progress-value">Processing...</span>
-  </div>
-
-  <div class="prose-progress-group">
-    <label for="demo-tier1">Tier 1 leverage ratio</label>
-    <meter id="demo-tier1" value="12.4" min="0" max="20" low="4" high="5" optimum="10" aria-label="Tier 1 leverage ratio: 12.4%">12.4%</meter>
-    <span class="prose-progress-value">12.4% (well-capitalized)</span>
-  </div>
-</div>
+## Examples
 
 <StoryEmbed storyId="prose-progress--determinate" caption="Determinate progress — known completion percentage" />
 <StoryEmbed storyId="prose-progress--indeterminate" caption="Indeterminate progress — unknown duration with animated stripes" />

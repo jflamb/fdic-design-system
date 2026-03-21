@@ -13,20 +13,7 @@ The table of contents provides in-page navigation for long-form documents. It he
 - **Readers are likely looking for specific information rather than reading top-to-bottom** — regulatory guidance, procedural manuals, reference documents, and policy summaries.
 - **The document is long enough that scrolling to find a section is inconvenient** — If the full page fits comfortably on one or two screens, a TOC adds clutter without value.
 
-## Live examples
-
-<div class="prose">
-  <nav class="prose-toc" aria-label="Table of contents">
-    <p class="prose-toc-title" id="demo-toc">On this page</p>
-    <ul>
-      <li><a href="#when-to-use">When to Use</a></li>
-      <li><a href="#live-examples">Live Examples</a></li>
-      <li><a href="#best-practices">Best Practices</a></li>
-      <li><a href="#interaction-behavior">Interaction Behavior</a></li>
-      <li><a href="#accessibility">Accessibility</a></li>
-    </ul>
-  </nav>
-</div>
+## Examples
 
 <StoryEmbed storyId="prose-toc--default" caption="Table of contents with section links" />
 <StoryEmbed storyId="prose-toc--active-state" caption="TOC with active section highlighted during scroll" />

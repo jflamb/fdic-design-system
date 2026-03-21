@@ -20,68 +20,13 @@ Callouts draw attention to important information within a page. They use color, 
 - **Don't use a callout where a [details/accordion](./details) would work** — If the information is useful but not urgent, let the reader opt in rather than interrupting their flow.
 - **Don't use danger for anything less than irreversible or legally consequential** — Overusing danger trains readers to ignore it. Reserve it for situations involving data loss, legal liability, or safety.
 
-## Live examples
+## Examples
 
-<div class="prose">
-  <div class="prose-callout" role="note" aria-label="Tip">
-    <span class="prose-callout-icon" aria-hidden="true"></span>
-    <div class="prose-callout-content">
-      <p>Deposit insurance coverage is determined by the ownership category of the depositor's accounts, not by the number of accounts held.</p>
-    </div>
-  </div>
-</div>
-
-**Default** — General-purpose tips and supplementary context.
-
-<div class="prose">
-  <div class="prose-callout prose-callout-info" role="note" aria-label="Information">
-    <span class="prose-callout-icon" aria-hidden="true"></span>
-    <div class="prose-callout-content">
-      <p>The standard maximum deposit insurance amount is $250,000 per depositor, per insured bank, for each account ownership category.</p>
-    </div>
-  </div>
-</div>
-
-**Info** — Helpful context that enriches understanding but isn't required to proceed.
-
-<div class="prose">
-  <div class="prose-callout prose-callout-warning" role="note" aria-label="Warning">
-    <span class="prose-callout-icon" aria-hidden="true"></span>
-    <div class="prose-callout-content">
-      <p>If your combined deposits at a single institution exceed $250,000, amounts above the limit may not be insured. Review your account ownership categories before the reporting deadline.</p>
-    </div>
-  </div>
-</div>
-
-**Warning** — Actions that could lead to financial loss, missed deadlines, or compliance issues if ignored.
-
-<div class="prose">
-  <div class="prose-callout prose-callout-success" role="note" aria-label="Success">
-    <span class="prose-callout-icon" aria-hidden="true"></span>
-    <div class="prose-callout-content">
-      <p>Your Call Report has been submitted and accepted. A confirmation number has been sent to the contact email on file.</p>
-    </div>
-  </div>
-</div>
-
-**Success** — Confirms a completed process or met requirement.
-
-<div class="prose">
-  <div class="prose-callout prose-callout-danger" role="status" aria-label="Critical alert">
-    <span class="prose-callout-icon" aria-hidden="true"></span>
-    <div class="prose-callout-content">
-      <p>This action will permanently close the account and cannot be reversed. All associated records will be archived according to retention policy.</p>
-    </div>
-  </div>
-</div>
-
-**Danger** — Irreversible actions or situations with legal or safety consequences. Use sparingly.
-
-<StoryEmbed storyId="prose-callout--default" caption="Default callout — general tips and supplementary notes" />
-<StoryEmbed storyId="prose-callout--info" caption="Info — helpful context that enriches understanding" />
-<StoryEmbed storyId="prose-callout--warning" caption="Warning — risk of financial loss, missed deadlines, or compliance issues" />
+<StoryEmbed storyId="prose-callout--default" caption="Default — general-purpose tips and supplementary context" />
+<StoryEmbed storyId="prose-callout--info" caption="Info — helpful context that enriches understanding but isn't required to proceed" />
+<StoryEmbed storyId="prose-callout--warning" caption="Warning — actions that could lead to financial loss, missed deadlines, or compliance issues if ignored" />
 <StoryEmbed storyId="prose-callout--success" caption="Success — confirms a completed process or met requirement" />
-<StoryEmbed storyId="prose-callout--danger" caption="Danger — irreversible actions or legal consequences" />
+<StoryEmbed storyId="prose-callout--danger" caption="Danger — irreversible actions or situations with legal or safety consequences; use sparingly" />
 
 ## Best practices
 

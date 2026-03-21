@@ -20,15 +20,7 @@ Asides present supplementary content that relates to a specific passage in the m
 - **Don't use more than one aside per page section** — Multiple floating elements create layout collisions and visual clutter.
 - **Don't use an aside as a sidebar navigation element** — It's for content, not for links or menus.
 
-## Live examples
-
-<div class="prose">
-  <p>When evaluating deposit insurance coverage, it is important to understand how the FDIC categorizes account ownership. Each ownership category — single accounts, joint accounts, revocable trust accounts, and certain retirement accounts — is insured separately up to the standard maximum amount.</p>
-  <aside aria-label="Key fact about deposit insurance">
-    <p>The standard maximum deposit insurance amount is $250,000 per depositor, per insured bank, for each account ownership category.</p>
-  </aside>
-  <p>This means a depositor with accounts in multiple ownership categories at the same insured bank can potentially be insured for more than $250,000 in total. For example, funds in a single account, a joint account, and an IRA at the same bank are each insured separately.</p>
-</div>
+## Examples
 
 <StoryEmbed storyId="prose-aside--default" caption="Aside — supplementary content floating alongside body text" />
 

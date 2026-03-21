@@ -19,23 +19,7 @@ Footnotes provide a way to cite sources, add clarifications, or include suppleme
 - **Don't use footnotes as a dumping ground for tangential thoughts** — If the information isn't worth citing, it's not worth footnoting.
 - **Don't use footnotes when a parenthetical aside would work** — Short inline clarifications are easier to read than jumping to the bottom of the page.
 
-## Live examples
-
-<div class="prose">
-  <p>Deposit insurance covers up to $250,000 per depositor, per insured bank, for each account ownership category.<sup><a href="#demo-fn1" id="demo-ref1" role="doc-noteref">[1]</a></sup> Joint accounts receive separate coverage from single-ownership accounts.<sup><a href="#demo-fn2" id="demo-ref2" role="doc-noteref">[2]</a></sup></p>
-
-  <section class="prose-footnotes" role="doc-endnotes" aria-label="Footnotes">
-    <hr />
-    <ol>
-      <li id="demo-fn1" role="doc-footnote">
-        Federal Deposit Insurance Corporation. "Deposit Insurance FAQs." Coverage limits were last adjusted by the Dodd-Frank Act of 2010. <a href="#demo-ref1" role="doc-backlink" title="Back to reference">&#x21a9;</a>
-      </li>
-      <li id="demo-fn2" role="doc-footnote">
-        12 C.F.R. Part 330 governs the general rules for deposit insurance coverage. <a href="#demo-ref2" role="doc-backlink" title="Back to reference">&#x21a9;</a>
-      </li>
-    </ol>
-  </section>
-</div>
+## Examples
 
 <StoryEmbed storyId="prose-footnotes--default" caption="Footnotes section with bidirectional navigation" />
 
