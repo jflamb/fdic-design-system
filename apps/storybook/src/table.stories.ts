@@ -22,6 +22,7 @@ const meta = {
   },
   render: (args: TableArgs) => {
     const nc = args.showNumeric ? "prose-td-numeric" : "";
+    const nhc = args.showNumeric ? "prose-th-numeric" : "";
     return html`
       <div class="prose-table-wrapper" role="region"
         aria-label="Quarterly deposit summary by account type" tabindex="0">
@@ -30,9 +31,9 @@ const meta = {
           <thead>
             <tr>
               <th>Account type</th>
-              <th>Interest rate</th>
-              <th>Total deposits</th>
-              <th>Change from Q3</th>
+              <th class=${nhc}>Interest rate</th>
+              <th class=${nhc}>Total deposits</th>
+              <th class=${nhc}>Change from Q3</th>
             </tr>
           </thead>
           <tbody>

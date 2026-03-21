@@ -44,7 +44,7 @@ Tables present structured data in rows and columns. They are the right choice wh
   <div class="fdic-do-card">
     <span class="fdic-eyebrow">Do</span>
     <h4>Right-align numeric columns</h4>
-    <p>Right-align numeric columns using the <code>.prose-td-numeric</code> class so decimal points and digit places line up for easy comparison.</p>
+    <p>Right-align numeric columns using the <code>.prose-td-numeric</code> class on data cells and <code>.prose-th-numeric</code> on their headers so decimal points and digit places line up for easy comparison.</p>
   </div>
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
