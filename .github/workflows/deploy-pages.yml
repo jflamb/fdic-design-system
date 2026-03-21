@@ -34,6 +34,12 @@ jobs:
       - name: Build workspace
         run: npm run build
 
+      - name: Build Storybook
+        run: npm run build:storybook
+
+      - name: Copy Storybook into docs output
+        run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
