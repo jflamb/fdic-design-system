@@ -115,6 +115,14 @@ When adding real guidance, document:
 
 Keep docs plain, direct, and task-oriented.
 
+For planning and decision capture:
+
+- Do not create ad hoc dated planning files in `docs/plans/` by default.
+- Use GitHub Issues for scoped proposals, implementation plans, and task tracking when the work benefits from review or decision history.
+- Use repository docs only for durable records that should remain true after implementation, such as architecture notes, ADR-style decisions, or stable reference material.
+- If you cannot create the GitHub artifact directly in the current environment, summarize the proposed issue body in your response instead of creating a new one-off markdown planning file unless the user explicitly asks you to persist it in the repo.
+- If a temporary local planning note is explicitly requested, mark it as temporary, keep it short, and avoid date-stamped file sprawl.
+
 ## Open Source Governance
 
 Favor lightweight but explicit governance.
@@ -182,9 +190,10 @@ Do not treat a fixed startup command checklist as mandatory for every task. Scal
 GitHub artifacts are useful when relevant, but they are not the default source of truth over the repository and FDIC design inputs.
 
 - Use Issues, PRs, and Discussions when the work benefits from explicit tracking, review, or decision history.
+- Prefer the existing GitHub issue templates for proposals, maintenance work, and bugs instead of inventing one-off planning documents in the repo.
 - Do not assume every non-trivial change requires a PR, Issue, or Discussion in this early-stage solo repository unless the maintainer asks for that workflow.
 - If GitHub artifacts exist for the task, align with them and note meaningful conflicts.
-- If a change is architectural, breaking, or likely to affect future contributors, record the rationale in the most appropriate lightweight form available.
+- If a change is architectural, breaking, or likely to affect future contributors, record the lasting rationale in a durable repo doc and keep the step-by-step execution plan in GitHub.
 
 When sources conflict, use this priority order:
 

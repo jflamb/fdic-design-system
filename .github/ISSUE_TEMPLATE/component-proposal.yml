@@ -1,0 +1,110 @@
+name: Component proposal
+description: Propose a new component or component-family API, accessibility model, and implementation scope.
+title: "[Component Proposal]: "
+labels:
+  - "type:planning"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for new component work that needs a clear problem statement, durable design decisions, and acceptance criteria before implementation.
+  - type: input
+    id: component_name
+    attributes:
+      label: Component or pattern name
+      placeholder: fd-button, fd-icon, pagination, alert dialog
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What user, product, or design-system gap does this component address?
+      placeholder: Describe the need and why existing HTML, tokens, or components are not enough.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful component shape to introduce now.
+      placeholder: Include the element name, major API decisions, rendering model, and composition approach.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale and tradeoffs
+      description: Why is this the right shape now, and what alternatives were rejected?
+      placeholder: Call out dependency, accessibility, semantics, and reversibility tradeoffs.
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: List attributes, properties, slots, events, CSS custom properties, and parts as needed.
+      placeholder: |
+        Attributes/properties:
+        - ...
+
+        Slots:
+        - ...
+
+        CSS custom properties:
+        - ...
+
+        Shadow parts:
+        - ...
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility impact
+      description: Note semantics, keyboard behavior, focus treatment, screen reader behavior, contrast, zoom, reflow, motion, and forced-colors considerations.
+      placeholder: Explain how native semantics are preserved and what constraints consumers must follow.
+    validations:
+      required: true
+  - type: textarea
+    id: tokens
+    attributes:
+      label: Token and styling impact
+      description: What semantic or component tokens are required, and what styling hooks should be exposed?
+      placeholder: Note mappings to existing semantic tokens and any new component-scoped tokens.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the conditions that should be true when this proposal is complete.
+      placeholder: |
+        - Component API is documented
+        - Stories cover the supported states
+        - Tests cover semantics and keyboard behavior
+    validations:
+      required: true
+  - type: textarea
+    id: docs
+    attributes:
+      label: Docs impact
+      description: What docs, examples, Storybook stories, or usage guidance should be added or updated?
+      placeholder: Include intended use, when not to use, accessibility notes, and known limitations.
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope boundaries
+      description: What is explicitly out of scope for v1?
+      placeholder: Keep adjacent features, states, or compound patterns out unless they are required.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link Figma frames, existing docs, related issues, PRs, or standards references.
+      placeholder: Figma node, USWDS guidance, local architecture note, related proposal
