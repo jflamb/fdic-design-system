@@ -33,17 +33,24 @@ export default defineConfig({
       {
         text: "Components",
         items: [
+          { text: "Overview", link: "/components/" },
           { text: "Icon", link: "/components/icon" },
           { text: "Button", link: "/components/button" },
           { text: "Menu", link: "/components/menu" },
-          { text: "Callouts", link: "/components/callouts" },
-          { text: "Table of Contents", link: "/components/table-of-contents" },
-          { text: "Tables", link: "/components/tables" },
-          { text: "Footnotes", link: "/components/footnotes" },
-          { text: "Details / Accordion", link: "/components/details" },
-          { text: "Code Blocks", link: "/components/code-blocks" },
-          { text: "Progress and Meter", link: "/components/progress-meter" },
-          { text: "Aside / Pull Quote", link: "/components/aside" }
+          {
+            text: "Prose",
+            items: [
+              { text: "Overview", link: "/components/prose" },
+              { text: "Callouts", link: "/components/callouts" },
+              { text: "Tables", link: "/components/tables" },
+              { text: "Code Blocks", link: "/components/code-blocks" },
+              { text: "Details / Accordion", link: "/components/details" },
+              { text: "Aside / Pull Quote", link: "/components/aside" },
+              { text: "Table of Contents", link: "/components/table-of-contents" },
+              { text: "Footnotes", link: "/components/footnotes" },
+              { text: "Progress and Meter", link: "/components/progress-meter" }
+            ]
+          }
         ]
       }
     ],

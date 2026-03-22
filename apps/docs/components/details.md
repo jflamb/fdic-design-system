@@ -3,8 +3,8 @@
 The native `<details>` element provides a disclosure widget for expandable content — FAQs, supplementary guidance, and progressive disclosure of regulatory information.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>&lt;details&gt;</code> to let readers opt in to additional content without leaving the page. It reduces page length while keeping procedural details, eligibility criteria, and regulatory definitions accessible on demand.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use <code>&lt;details&gt;</code> inside <a href="./prose">Prose</a> content to let readers opt in to additional content without leaving the page. It reduces page length while keeping procedural details, eligibility criteria, and regulatory definitions accessible on demand.</p>
 </div>
 
 ## When to use
@@ -22,8 +22,12 @@ The native `<details>` element provides a disclosure widget for expandable conte
 
 ## Examples
 
-<StoryEmbed storyId="prose-details--default" caption="Default accordion — single disclosure widget" />
-<StoryEmbed storyId="prose-details--faq-group" caption="FAQ group — multiple accordions in sequence" />
+<StoryEmbed
+  storyId="prose-details--docs-overview"
+  linkStoryId="prose-details--default"
+  height="360"
+  caption="Overview — a single disclosure and an FAQ-style group in one preview. Open Storybook to test expanded and collapsed states directly."
+/>
 
 ## Best practices
 

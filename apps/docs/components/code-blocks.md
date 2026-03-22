@@ -3,8 +3,8 @@
 Code blocks display formatted code snippets, configuration examples, and technical output. They use a monospace font, syntax-appropriate formatting, and an optional copy button for easy reuse.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use code blocks to present API examples, configuration snippets, file paths, and technical output that readers may need to copy or reference exactly as shown.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use code blocks inside <a href="./prose">Prose</a> content to present API examples, configuration snippets, file paths, and technical output that readers may need to copy or reference exactly as shown.</p>
 </div>
 
 ## When to use
@@ -16,8 +16,12 @@ Code blocks display formatted code snippets, configuration examples, and technic
 
 ## Examples
 
-<StoryEmbed storyId="prose-code-block--default" caption="Fenced code block with syntax formatting" />
-<StoryEmbed storyId="prose-code-block--with-copy" caption="Code block with copy-to-clipboard button" />
+<StoryEmbed
+  storyId="prose-code-block--docs-overview"
+  linkStoryId="prose-code-block--with-copy"
+  height="250"
+  caption="Overview — compare a standard fenced block with a copy-enabled variant. Open Storybook to inspect the copy interaction in isolation."
+/>
 
 ## Best practices
 

@@ -3,8 +3,8 @@
 Asides present supplementary content that relates to a specific passage in the main text. They float alongside the body content on desktop and linearize to full width on mobile.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use asides for extended commentary, historical context, or regulatory background that enriches the main text without being essential to understanding it.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use asides inside <a href="./prose">Prose</a> content for extended commentary, historical context, or regulatory background that enriches the main text without being essential to understanding it.</p>
 </div>
 
 ## When to use

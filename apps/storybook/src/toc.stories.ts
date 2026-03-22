@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html, nothing } from "lit";
+import { DOCS_OVERVIEW_STACK_STYLE } from "./docs-overview";
 
 type TocItem = { label: string; href: string };
 
@@ -57,4 +58,26 @@ export const ActiveState: Story = {
   args: {
     activeIndex: 2
   }
+};
+
+export const DocsOverview: Story = {
+  render: () => html`
+    <div style=${`${DOCS_OVERVIEW_STACK_STYLE} max-width: 22.5rem;`}>
+      <nav class="prose-toc" aria-label="Table of contents">
+        <p class="prose-toc-title">On this page</p>
+        <ul>
+          ${defaultItems.map(
+            (item, i) => html`
+              <li>
+                <a
+                  href=${item.href}
+                  class=${i === 2 ? "prose-toc-active" : nothing}
+                >${item.label}</a>
+              </li>
+            `
+          )}
+        </ul>
+      </nav>
+    </div>
+  `
 };

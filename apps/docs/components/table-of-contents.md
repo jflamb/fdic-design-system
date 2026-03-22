@@ -3,8 +3,8 @@
 The table of contents provides in-page navigation for long-form documents. It helps readers scan the structure of a page and jump directly to the section they need.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Navigation component</span>
-  <p>Use the TOC component on pages with three or more sections to help readers orient themselves and navigate directly to the content they need.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use the TOC pattern inside <a href="./prose">Prose</a> content on pages with three or more sections to help readers orient themselves and navigate directly to the content they need.</p>
 </div>
 
 ## When to use
@@ -15,8 +15,12 @@ The table of contents provides in-page navigation for long-form documents. It he
 
 ## Examples
 
-<StoryEmbed storyId="prose-toc--default" caption="Table of contents with section links" />
-<StoryEmbed storyId="prose-toc--active-state" caption="TOC with active section highlighted during scroll" />
+<StoryEmbed
+  storyId="prose-toc--docs-overview"
+  linkStoryId="prose-toc--active-state"
+  height="250"
+  caption="Overview — the TOC pattern with an active section highlight. Open Storybook to inspect the active-state variant directly."
+/>
 
 ## Best practices
 

@@ -3,8 +3,8 @@
 Footnotes provide a way to cite sources, add clarifications, or include supplementary detail without interrupting the main text. They connect inline references to notes at the bottom of the page with bidirectional navigation.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use footnotes for citations, legal references, and clarifications that support the main text but would break the reading flow if included inline.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use footnotes inside <a href="./prose">Prose</a> content for citations, legal references, and clarifications that support the main text but would break the reading flow if included inline.</p>
 </div>
 
 ## When to use

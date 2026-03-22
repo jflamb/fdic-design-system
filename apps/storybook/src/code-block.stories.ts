@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { DOCS_OVERVIEW_STACK_STYLE } from "./docs-overview";
 
 type CodeBlockArgs = {
   code: string;
@@ -46,4 +47,24 @@ export const WithCopy: Story = {
   args: {
     showCopyButton: true
   }
+};
+
+export const DocsOverview: Story = {
+  render: () => html`
+    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+      <pre><code class="language-css">.prose {
+  max-width: var(--prose-max-width, 65ch);
+  line-height: var(--fdic-line-height-body, 1.5);
+  color: var(--fdic-text-primary, #212123);
+}</code></pre>
+
+      <pre style="position: relative;"><code class="language-bash">npm run build
+npm run test:components
+npm run build:docs</code><button
+          class="prose-copy-btn"
+          type="button"
+          aria-label="Copy code to clipboard"
+        >Copy</button></pre>
+    </div>
+  `
 };

@@ -23,40 +23,24 @@ An action menu surfaces a list of actions triggered by a button or other control
 ## Examples
 
 <StoryEmbed
-  storyId="components-menu--default"
+  storyId="components-menu--docs-overview"
   linkStoryId="components-menu--default"
-  height="280"
-  caption="Default menu with three actions. Click or use keyboard (Enter, Space, ArrowDown) to open."
-/>
-
-<StoryEmbed
-  storyId="components-menu--with-icons"
-  linkStoryId="components-menu--with-icons"
-  height="320"
-  caption="Menu items with leading icons using the icon-start slot."
-/>
-
-<StoryEmbed
-  storyId="components-menu--destructive-item"
-  linkStoryId="components-menu--destructive-item"
-  height="280"
-  caption="A destructive action at the end of the menu. The red color signals risk."
-/>
-
-<StoryEmbed
-  storyId="components-menu--disabled-items"
-  linkStoryId="components-menu--disabled-items"
-  height="300"
-  caption="Disabled items remain visible and discoverable via arrow keys but cannot be activated."
+  height="520"
+  caption="Menu overview — compare default actions, icon usage, destructive ordering, and disabled items in one compact preview. Open each menu in Storybook for interaction details."
 />
 
 <StoryEmbed
   storyId="components-menu--long-menu"
   linkStoryId="components-menu--long-menu"
   height="400"
-  caption="When items exceed the max-height, the menu scrolls internally."
+  caption="Long list behavior — when actions exceed the max-height, the menu scrolls internally instead of expanding indefinitely."
 />
 
+The second embed is intentional. The long-menu state demonstrates internal scrolling behavior that the overview story cannot communicate clearly in a single compact preview.
+
+- Label the trigger with what the menu contains so the action list is predictable before opening.
+- Keep destructive actions last and visually distinct.
+- Leave disabled actions visible when discoverability matters, but avoid filling a menu with mostly unavailable items.
 ## Best practices
 
 <div class="fdic-do-dont-grid">

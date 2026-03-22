@@ -3,8 +3,8 @@
 Tables present structured data in rows and columns. They are the right choice when readers need to compare values, scan for specific entries, or understand relationships between data points.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>The table wrapper component provides accessible horizontal scrolling for wide tables while preserving native table semantics for screen readers.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>The prose table wrapper provides accessible horizontal scrolling for wide tables while preserving native table semantics for screen readers.</p>
 </div>
 
 ## When to use
@@ -22,8 +22,12 @@ Tables present structured data in rows and columns. They are the right choice wh
 
 ## Examples
 
-<StoryEmbed storyId="prose-table--default" caption="Default table with striped rows and hover highlights" />
-<StoryEmbed storyId="prose-table--numeric" caption="Table with right-aligned numeric columns" />
+<StoryEmbed
+  storyId="prose-table--docs-overview"
+  linkStoryId="prose-table--numeric"
+  height="360"
+  caption="Overview — striped rows, right-aligned numeric columns, and a summary footer in one representative table. Open Storybook for isolated variants."
+/>
 
 ## Best practices
 

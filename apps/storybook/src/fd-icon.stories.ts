@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { expect } from "storybook/test";
 import "@fdic-ds/components";
+import {
+  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_SECTION_STYLE,
+  DOCS_OVERVIEW_STACK_STYLE,
+} from "./docs-overview";
 
 type IconArgs = {
   name: string;
@@ -73,4 +78,38 @@ export const AllIcons: Story = {
       )}
     </div>
   `,
+};
+
+export const DocsOverview: Story = {
+  render: () => html`
+    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Inline with text</strong>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <fd-icon name="info"></fd-icon>
+          <span>Deposit insurance coverage details</span>
+        </div>
+      </section>
+
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Semantic standalone icon</strong>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <fd-icon name="warning" label="Warning"></fd-icon>
+          <span>Use a label only when the icon carries meaning on its own.</span>
+        </div>
+      </section>
+
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Inside controls and custom sizes</strong>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+          <fd-button>
+            Download report
+            <fd-icon slot="icon-end" name="download"></fd-icon>
+          </fd-button>
+          <fd-icon name="star" style="--fd-icon-size: 32px;"></fd-icon>
+          <fd-icon name="magnifying-glass" style="--fd-icon-size: 24px;"></fd-icon>
+        </div>
+      </section>
+    </div>
+  `
 };
