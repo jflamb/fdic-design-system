@@ -37,6 +37,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 - **Primary** carries the main action on the page or section. Limit it to one primary button per section.
 - **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.
 - **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.
+- **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.
 - **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.
 - **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable.
 
@@ -143,7 +144,7 @@ Use the `loading` attribute when an action is in progress and you need to preven
 
 - `fd-button` renders a **native `<button>` element** inside its shadow DOM. Native buttons are focusable, keyboard-operable (Enter and Space), and announced correctly by screen readers without extra ARIA.
 - When `href` is set, the component renders a **native `<a>` element** instead. This preserves link semantics — screen reader link lists, right-click context menus, and cmd/ctrl-click for new tabs all work as expected.
-- **Icon-only buttons require a name on `fd-button`** — Set `aria-label` or `aria-labelledby` on the `fd-button` element itself, not on the `fd-icon` inside it. The component forwards that accessible name to the internal native control, and the icon should remain decorative (`aria-hidden="true"`).
+- **Icon-only buttons require a name on `fd-button`** — Set `aria-label` or `aria-labelledby` on the `fd-button` element itself, not on the `fd-icon` inside it. The component forwards that accessible name to the internal native control, and the icon should remain decorative (`aria-hidden="true"`). Icon-only buttons render as square controls so the icon remains centered and the hit target stays predictable.
 - **Disabled state**: On `<button>`, the native `disabled` attribute is used. On `<a>` (link mode), `aria-disabled="true"` is set instead, since anchor elements don't support native `disabled`.
 - **External link safety**: When link-mode buttons use `target="_blank"`, `fd-button` adds `rel="noopener noreferrer"` automatically and preserves any extra `rel` tokens you supply.
 - All interactive states use the standard focus ring: `outline: 2px solid` with `outline-offset: 2px` on `:focus-visible`.

@@ -59,6 +59,18 @@ export class FdButton extends LitElement {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+    .icon-only {
+      width: var(
+        --fd-button-icon-only-size,
+        var(--fd-button-height, 44px)
+      );
+      height: var(
+        --fd-button-icon-only-size,
+        var(--fd-button-height, 44px)
+      );
+      gap: 0;
+      padding-inline: 0;
+    }
 
     /* --- Focus --- */
     .base:focus {
@@ -196,6 +208,10 @@ export class FdButton extends LitElement {
       display: inline-flex;
       align-items: center;
       padding-inline: 6px;
+    }
+    .icon-only .label,
+    .icon-only .loading-label {
+      padding-inline: 0;
     }
 
     /* --- Loading --- */
@@ -337,10 +353,18 @@ export class FdButton extends LitElement {
     ></span>`;
   }
 
+  private _isIconOnly() {
+    const hasVisibleLabel = this.textContent?.trim().length;
+    const hasIcon = this.querySelector('[slot="icon-start"], [slot="icon-end"]');
+
+    return !hasVisibleLabel && Boolean(hasIcon);
+  }
+
   render() {
     const isLink = this.href !== undefined;
     const isLoading = this.loading;
     const isInert = this.disabled || isLoading;
+    const isIconOnly = this._isIconOnly();
     const { ariaLabel, ariaLabelledby } = this._getAccessibleNameAttributes();
 
     // When loading-label is active, override the accessible name and
@@ -354,6 +378,7 @@ export class FdButton extends LitElement {
       [this.variant]: !this.disabled,
       disabled: this.disabled,
       loading: isLoading && !this.disabled,
+      "icon-only": isIconOnly,
       outline: this.variant === "outline",
     };
 
