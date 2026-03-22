@@ -41,7 +41,6 @@ The second embed is intentional. The long-menu state demonstrates internal scrol
 - Label the trigger with what the menu contains so the action list is predictable before opening.
 - Keep destructive actions last and visually distinct.
 - Leave disabled actions visible when discoverability matters, but avoid filling a menu with mostly unavailable items.
-
 ## Best practices
 
 <div class="fdic-do-dont-grid">
