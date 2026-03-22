@@ -392,7 +392,7 @@ These text-rendering and wrapping defaults are currently applied through the `.p
 | `text-rendering` | `optimizeLegibility` | Enables kerning and ligatures |
 | `max-width` | `65ch` | Optimal line length for sustained reading (45–75ch range) |
 
-See [Prose](../../components/prose.md) for the container API, supporting patterns, and long-form authoring guidance. Override `--prose-max-width` only in layouts that have a documented need for a different reading measure.
+See [Prose](../../components/prose) for the container API, supporting patterns, and long-form authoring guidance. Override `--prose-max-width` only in layouts that have a documented need for a different reading measure.
 
 ## Content guidance
 
