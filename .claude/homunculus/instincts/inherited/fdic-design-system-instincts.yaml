@@ -1,0 +1,338 @@
+# Instincts generated from https://github.com/jflamb/fdic-design-system
+# Generated: 2026-03-22T12:48:17.919Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: fdic-design-system-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, fix, docs, chore, refactor
+
+## Evidence
+
+- 74 commits analyzed
+- Detected conventional commit pattern
+- Examples: docs: add icon and button component documentation, feat(storybook): add icon and button component stories
+
+---
+id: fdic-design-system-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Commit Length
+
+## Action
+
+Write moderate-length commit messages (~57 characters)
+
+## Evidence
+
+- Average commit message length: 57 chars
+- Based on 74 commits
+
+---
+id: fdic-design-system-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: fdic-design-system-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Export Style
+
+## Action
+
+Prefer mixed exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: mixed
+
+---
+id: fdic-design-system-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: 
+
+---
+id: fdic-design-system-test-framework
+trigger: "when writing tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Test Framework
+
+## Action
+
+Use vitest as the test framework
+
+## Evidence
+
+- Test framework detected: vitest
+- File pattern: *.test.ts
+
+---
+id: fdic-design-system-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: fdic-design-system-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~21x per month
+- Files: apps/docs/.vitepress/theme/*, apps/docs/components/*, apps/docs/.vitepress/*
+
+---
+id: fdic-design-system-workflow-refactoring
+trigger: "when refactoring code"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Refactoring
+
+## Action
+
+Follow the refactoring workflow:
+1. Ensure tests pass before refactor
+2. Refactor code structure
+3. Verify tests still pass
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/**/*
+
+---
+id: fdic-design-system-workflow-add-or-update-component-documentation
+trigger: "when doing add or update component documentation"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Component Documentation
+
+## Action
+
+Follow the add-or-update-component-documentation workflow:
+1. Create or update Markdown file(s) under apps/docs/components/{component}.md
+2. Follow guidance-focused template: Overview, When to use, When not to use, Examples, Best practices, etc.
+3. Optionally update VitePress sidebar or navigation config (apps/docs/.vitepress/config.ts)
+4. Optionally add or update live rendered examples
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: apps/docs/components/*.md, apps/docs/.vitepress/config.ts
+
+---
+id: fdic-design-system-workflow-add-or-update-storybook-stories-for-component
+trigger: "when doing add or update storybook stories for component"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Storybook Stories For Component
+
+## Action
+
+Follow the add-or-update-storybook-stories-for-component workflow:
+1. Create or update a file apps/storybook/src/{component}.stories.ts
+2. Implement stories for all relevant variants and states
+3. Optionally update Storybook preview config or decorators
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: apps/storybook/src/*.stories.ts, apps/storybook/.storybook/preview.ts
+
+---
+id: fdic-design-system-workflow-component-implementation-with-tests-and-exports
+trigger: "when doing component implementation with tests and exports"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Component Implementation With Tests And Exports
+
+## Action
+
+Follow the component-implementation-with-tests-and-exports workflow:
+1. Create {component}.ts and {component}.test.ts in packages/components/src/components/
+2. Export the component in packages/components/src/index.ts
+3. Implement tests covering rendering, accessibility, and edge cases
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: packages/components/src/components/*.ts, packages/components/src/components/*.test.ts, packages/components/src/index.ts
+
+---
+id: fdic-design-system-workflow-add-or-update-style-or-theme-css
+trigger: "when doing add or update style or theme css"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Style Or Theme Css
+
+## Action
+
+Follow the add-or-update-style-or-theme-css workflow:
+1. Edit apps/docs/.vitepress/theme/prose.css or custom.css for prose/component-specific styles
+2. Optionally update Vue theme/index.ts for component registration
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: apps/docs/.vitepress/theme/prose.css, apps/docs/.vitepress/theme/custom.css, apps/docs/.vitepress/theme/index.ts
+
+---
+id: fdic-design-system-workflow-add-or-update-docs-site-foundations-section
+trigger: "when doing add or update docs site foundations section"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Docs Site Foundations Section
+
+## Action
+
+Follow the add-or-update-docs-site-foundations-section workflow:
+1. Create or update Markdown files under apps/docs/guide/foundations/
+2. Update sidebar/navigation in apps/docs/.vitepress/config.ts
+3. Optionally update or remove apps/docs/guide/tokens.md
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: apps/docs/guide/foundations/*.md, apps/docs/.vitepress/config.ts, apps/docs/guide/tokens.md
+
+---
+id: fdic-design-system-workflow-add-or-update-ci-cd-workflow
+trigger: "when doing add or update ci cd workflow"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Ci Cd Workflow
+
+## Action
+
+Follow the add-or-update-ci-cd-workflow workflow:
+1. Edit or add YAML files under .github/workflows/
+2. Optionally update related config files or environment variables
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: .github/workflows/*.yml
+
