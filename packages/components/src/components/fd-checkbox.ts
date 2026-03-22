@@ -42,7 +42,7 @@ export class FdCheckbox extends LitElement {
     }
 
     label {
-      display: inline-flex;
+      display: flex;
       align-items: flex-start;
       gap: var(--fd-checkbox-gap, var(--fdic-spacing-xs, 8px));
       max-inline-size: 100%;
