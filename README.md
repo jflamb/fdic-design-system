@@ -1,6 +1,6 @@
 # FDIC Design System
 
-Private workspace scaffold for an FDIC design system.
+Early-stage open source scaffold for an FDIC design system.
 
 ## Packages
 
@@ -22,3 +22,9 @@ All implementation code is placeholder-only at this stage.
 Framework-specific packages should adapt the first-party component APIs rather than becoming the source of truth for design decisions.
 
 Storybook is available as a component workbench for local development. VitePress remains the primary documentation site.
+
+## Collaboration
+
+Use [CONTRIBUTING.md](./CONTRIBUTING.md) for issue, label, and pull request workflow guidance.
+
+Use [SECURITY.md](./SECURITY.md) for vulnerability reporting expectations.

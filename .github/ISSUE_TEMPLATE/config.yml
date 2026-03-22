@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contribution Guide
+    url: https://github.com/jflamb/fdic-design-system/blob/main/CONTRIBUTING.md
+    about: Review the repository workflow, label taxonomy, and PR expectations before opening work.
+  - name: Security Report
+    url: https://github.com/jflamb/fdic-design-system/security
+    about: Use private vulnerability reporting for security issues. Do not open a public issue.

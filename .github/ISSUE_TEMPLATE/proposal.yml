@@ -1,0 +1,82 @@
+name: Proposal
+description: Propose a component, token, docs, architecture, content, or planning change.
+title: "[Proposal]: "
+labels:
+  - "type:planning"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when the work needs rationale, acceptance criteria, or a lightweight decision record before implementation.
+  - type: dropdown
+    id: proposal_type
+    attributes:
+      label: Proposal type
+      options:
+        - component or pattern
+        - token
+        - docs or content guidance
+        - accessibility guidance
+        - architecture or package structure
+        - security hardening
+        - repo workflow or planning
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What gap, risk, or opportunity does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change that would address the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Explain why this is the right change now and any tradeoffs worth noting.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the conditions that should be true when this work is done.
+      placeholder: |
+        - ...
+        - ...
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility impact
+      description: Note keyboard, focus, semantics, screen reader, contrast, zoom, reflow, and motion considerations.
+    validations:
+      required: true
+  - type: textarea
+    id: docs
+    attributes:
+      label: Docs impact
+      description: What docs, examples, or content guidance should change?
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope boundaries
+      description: What is explicitly out of scope?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, FDIC design references, USWDS references, or local docs.

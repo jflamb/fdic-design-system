@@ -1,0 +1,76 @@
+name: Maintenance task
+description: Track dependency, tooling, CI, security-hardening, or repo-workflow work.
+title: "[Maintenance]: "
+labels:
+  - "type:maintenance"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for upkeep work that should stay visible and reviewable without turning into broad catch-all cleanup.
+  - type: dropdown
+    id: maintenance_type
+    attributes:
+      label: Maintenance type
+      options:
+        - dependencies
+        - CI or GitHub Actions
+        - build or tooling
+        - security hardening
+        - docs cleanup
+        - repository workflow
+        - release prep
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Proposed task
+      description: Describe the change that should be made.
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why this matters
+      description: What risk, friction, or ambiguity does this remove?
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility or trust impact
+      description: Note any user-facing, trust-sensitive, or accessibility-related consequences.
+      placeholder: No direct user-facing impact, or describe the impact.
+    validations:
+      required: true
+  - type: dropdown
+    id: docs
+    attributes:
+      label: Docs impact
+      options:
+        - No docs change expected
+        - Docs should be updated
+        - Unsure
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: What should be checked before this is considered complete?
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope boundaries
+      description: What should not be included in this task?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, docs, release notes, or advisories.

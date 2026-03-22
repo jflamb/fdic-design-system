@@ -1,0 +1,95 @@
+name: Bug report
+description: Report incorrect behavior, regressions, or missing behavior.
+title: "[Bug]: "
+labels:
+  - "type:bug"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep the report scoped to one problem. Link related issues or specs instead of combining multiple changes here.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is broken, and why does it matter?
+      placeholder: Briefly describe the problem and its user impact.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Primary area
+      options:
+        - components
+        - tokens
+        - docs
+        - accessibility
+        - content guidance
+        - architecture
+        - security
+        - tooling
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Affected package, file, page, or story
+      placeholder: packages/components, apps/docs, Storybook story, specific file, or URL
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction
+      description: List the shortest set of steps that reproduces the issue.
+      placeholder: |
+        1. Go to ...
+        2. Interact with ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: accessibility
+    attributes:
+      label: Accessibility impact
+      description: Call out keyboard, focus, semantics, screen reader, contrast, zoom, or motion impact when relevant.
+      options:
+        - None known
+        - Yes, accessibility is affected
+        - Unsure
+    validations:
+      required: true
+  - type: dropdown
+    id: docs
+    attributes:
+      label: Docs impact
+      options:
+        - No docs change expected
+        - Docs should be updated
+        - Unsure
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation already performed
+      description: Include builds, tests, browser checks, or manual verification already tried.
+      placeholder: npm run build, manual keyboard test, Storybook check, none yet
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Scope boundaries
+      description: What should stay out of scope for this fix?
+      placeholder: Leave broader refactors, new features, and unrelated cleanup out of this issue.
