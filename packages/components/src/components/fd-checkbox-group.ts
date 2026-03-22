@@ -43,12 +43,12 @@ export class FdCheckboxGroup extends LitElement {
       margin: 0;
       min-inline-size: 0;
       display: grid;
-      gap: var(--fdic-spacing-2xs, 4px);
+      gap: 0;
     }
 
     [part="legend"] {
       padding: 0;
-      margin: 0;
+      margin: 0 0 var(--fd-checkbox-group-section-gap, 0.5em) 0;
       float: none;
       width: 100%;
       font-size: var(--fdic-font-size-body, 18px);
