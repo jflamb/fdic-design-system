@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fdic Design System"
+  short_description: "Repo-specific patterns and workflows for fdic-design-system"
+  default_prompt: "Use the fdic-design-system repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true

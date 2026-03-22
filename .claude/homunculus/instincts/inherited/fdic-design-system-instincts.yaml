@@ -1,0 +1,314 @@
+# Instincts generated from https://github.com/jflamb/fdic-design-system
+# Generated: 2026-03-22T13:21:36.371Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: fdic-design-system-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, fix, docs, chore, refactor
+
+## Evidence
+
+- 77 commits analyzed
+- Detected conventional commit pattern
+- Examples: docs(icon): remove unsupported forced-colors claim (#12), fix(button): align a11y, link safety, and v1 type contract (#9 #10 #11)
+
+---
+id: fdic-design-system-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Commit Length
+
+## Action
+
+Write moderate-length commit messages (~57 characters)
+
+## Evidence
+
+- Average commit message length: 57 chars
+- Based on 77 commits
+
+---
+id: fdic-design-system-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: fdic-design-system-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Export Style
+
+## Action
+
+Prefer mixed exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: mixed
+
+---
+id: fdic-design-system-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: 
+
+---
+id: fdic-design-system-test-framework
+trigger: "when writing tests"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Test Framework
+
+## Action
+
+Use vitest as the test framework
+
+## Evidence
+
+- Test framework detected: vitest
+- File pattern: *.test.ts
+
+---
+id: fdic-design-system-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: fdic-design-system-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~20x per month
+- Files: apps/docs/.vitepress/theme/*, apps/docs/components/*, apps/docs/.vitepress/*
+
+---
+id: fdic-design-system-workflow-add-or-update-component-documentation
+trigger: "when doing add or update component documentation"
+confidence: 0.7
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Component Documentation
+
+## Action
+
+Follow the add-or-update-component-documentation workflow:
+1. Edit or create markdown file for the component in apps/docs/components/
+2. Add or update live example section in the markdown file
+3. Update or add related CSS in apps/docs/.vitepress/theme/prose.css or custom.css as needed
+4. Optionally update navigation in apps/docs/.vitepress/config.ts
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~4x per month
+- Files: apps/docs/components/*.md, apps/docs/.vitepress/theme/prose.css, apps/docs/.vitepress/theme/custom.css
+
+---
+id: fdic-design-system-workflow-add-or-update-storybook-stories-for-component
+trigger: "when doing add or update storybook stories for component"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Storybook Stories For Component
+
+## Action
+
+Follow the add-or-update-storybook-stories-for-component workflow:
+1. Create or edit a .stories.ts file in apps/storybook/src/ for the component
+2. Optionally update global Storybook config in apps/storybook/.storybook/preview.ts
+3. Run/build Storybook to verify stories render correctly
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: apps/storybook/src/*.stories.ts, apps/storybook/.storybook/preview.ts
+
+---
+id: fdic-design-system-workflow-add-or-update-web-component-implementation
+trigger: "when doing add or update web component implementation"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Web Component Implementation
+
+## Action
+
+Follow the add-or-update-web-component-implementation workflow:
+1. Create or edit the component TypeScript file in packages/components/src/components/
+2. Create or update the corresponding test file in the same directory
+3. Update packages/components/src/index.ts to export/register the component
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: packages/components/src/components/*.ts, packages/components/src/components/*.test.ts, packages/components/src/index.ts
+
+---
+id: fdic-design-system-workflow-add-or-update-icon-set-or-registry
+trigger: "when doing add or update icon set or registry"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Icon Set Or Registry
+
+## Action
+
+Follow the add-or-update-icon-set-or-registry workflow:
+1. Create or edit icon set file in packages/components/src/icons/
+2. Create or update registry logic in packages/components/src/icons/registry.ts
+3. Add or update corresponding test files
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: packages/components/src/icons/*.ts, packages/components/src/icons/*.test.ts
+
+---
+id: fdic-design-system-workflow-add-or-update-design-or-implementation-plan
+trigger: "when doing add or update design or implementation plan"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Add Or Update Design Or Implementation Plan
+
+## Action
+
+Follow the add-or-update-design-or-implementation-plan workflow:
+1. Create or edit a markdown file in docs/plans/ with a date and topic in the filename
+2. Describe design or implementation details in the markdown file
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: docs/plans/*.md
+
+---
+id: fdic-design-system-workflow-update-github-actions-or-workflows
+trigger: "when doing update github actions or workflows"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/jflamb/fdic-design-system
+---
+
+# Fdic Design System Workflow Update Github Actions Or Workflows
+
+## Action
+
+Follow the update-github-actions-or-workflows workflow:
+1. Edit workflow YAML files in .github/workflows/
+2. Commit and push changes to trigger workflow runs
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: .github/workflows/*.yml
+
