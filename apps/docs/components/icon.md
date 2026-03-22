@@ -29,7 +29,7 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
 - Icons are **decorative by default** — `fd-icon` sets `aria-hidden="true"` automatically. Screen readers will skip the icon entirely, which is correct when the icon accompanies visible text.
 - **Set the `label` attribute for semantic icons** — When an icon conveys meaning that isn't available in surrounding text (e.g., a standalone status indicator), set `label="Description"` on the `fd-icon` element. This adds an accessible name via `aria-label` and removes `aria-hidden`.
 - **Don't put labels on icons inside labeled controls** — If the icon is inside an `fd-button` that already has visible text or its own `aria-label`, the icon should remain decorative. Doubling up labels creates redundant announcements.
-- In **forced-colors mode** (Windows High Contrast), icons use `forced-color-adjust: none` to remain visible since they rely on fill color.
+- In **forced-colors mode** (Windows High Contrast), `fd-icon` continues to inherit `currentColor` from the surrounding text or control. The component does not add a special forced-colors override today, so verify standalone semantic icons in context instead of assuming extra high-contrast treatment.
 
 ## Content guidance
 
