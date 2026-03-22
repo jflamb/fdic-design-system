@@ -76,6 +76,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Playground: Story = {};
+
 export const Primary: Story = {};
 
 export const Neutral: Story = {
@@ -142,6 +144,42 @@ export const AllVariants: Story = {
       <fd-button variant="subtle">Subtle</fd-button>
       <fd-button variant="outline">Outline</fd-button>
       <fd-button variant="destructive">Destructive</fd-button>
+    </div>
+  `,
+};
+
+export const DocsOverview: Story = {
+  render: () => html`
+    <div
+      style="
+        display: grid;
+        gap: 16px;
+        align-items: start;
+      "
+    >
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <fd-button variant="primary">Primary</fd-button>
+        <fd-button variant="neutral">Neutral</fd-button>
+        <fd-button variant="subtle">Subtle</fd-button>
+        <fd-button variant="outline">Outline</fd-button>
+        <fd-button variant="destructive">Destructive</fd-button>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <fd-button variant="primary">
+          <fd-icon slot="icon-start" name="download"></fd-icon>
+          Download report
+        </fd-button>
+        <fd-button variant="subtle" aria-label="Close dialog">
+          <fd-icon slot="icon-start" name="x"></fd-icon>
+        </fd-button>
+        <fd-button variant="outline" href="https://www.fdic.gov" target="_blank">
+          Visit FDIC.gov
+          <fd-icon slot="icon-end" name="arrow-square-out"></fd-icon>
+        </fd-button>
+        <fd-button variant="primary" loading loading-label="Submitting...">
+          Submit application
+        </fd-button>
+      </div>
     </div>
   `,
 };

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
   storyId: string
+  linkStoryId?: string
   height?: string
   caption?: string
   storybookBaseUrl?: string
@@ -14,7 +15,7 @@ const iframeSrc = props.storybookBaseUrl
   : ''
 
 const storybookLink = props.storybookBaseUrl
-  ? `${props.storybookBaseUrl}/?path=/story/${props.storyId}`
+  ? `${props.storybookBaseUrl}/?path=/story/${props.linkStoryId || props.storyId}`
   : ''
 </script>
 
