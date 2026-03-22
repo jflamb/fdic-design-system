@@ -140,6 +140,79 @@ Before introducing non-trivial components, clarify:
 - whether a pattern should stay native HTML instead of becoming a custom element
 - where USWDS guidance is relevant and where FDIC intentionally diverges
 
+## New Component Workflow
+
+The following workflow is required for requests to create a new design-system component. It is not the default workflow for every repository task.
+
+### 1. Gather design inputs first
+
+- If the user has not already provided the relevant Figma links, ask for them before doing component discovery or proposing APIs.
+- Treat those Figma links as the visual design specification and the primary reference for anatomy, layout, states, and interaction intent.
+- If the provided Figma context is incomplete or ambiguous, ask follow-up questions before drafting the proposal.
+
+### 2. Open a GitHub Discussion for design discovery
+
+- Open a new GitHub Discussion for the component or pattern.
+- In the Discussion body, include a draft problem statement, a general description of the component, and links to the relevant Figma frames.
+- Research best practices for that component type before proposing implementation details. This should cover usability, accessibility, interaction design, motion or micro-interactions when relevant, trust considerations, and consistency with the design system and government UX conventions.
+- Post the resulting design proposal as a comment on the Discussion rather than in the conversation.
+
+The design proposal comment should cover at minimum:
+
+- the problem being solved
+- intended use and when not to use the component
+- semantic HTML strategy and accessibility expectations
+- interaction model, keyboard behavior, focus behavior, and important states
+- content and trust guidance where relevant
+- proposed API shape
+- token and styling impact
+- open questions, tradeoffs, and explicit v1 boundaries
+
+### 3. Pause for maintainer feedback
+
+- After posting the design proposal comment, stop and ask the maintainer for feedback before starting implementation.
+- Provide a reusable review prompt the maintainer can send to another agent to review the design proposal critically.
+- That prompt should call out the highest-value review areas such as accessibility risk, usability risk, API shape, consistency with the rest of the design system, and alignment with the supplied Figma references.
+
+### 4. Create the implementation issue only after approval
+
+- Once the maintainer approves the design proposal, create an implementation issue from the Discussion.
+- Use the existing component proposal issue template when practical, adapting it into an implementation-ready issue with a detailed execution plan.
+- Ensure the issue links back to the Discussion and any other relevant artifacts.
+- Put the issue into the GitHub project board state `In progress` while implementation is active.
+
+The implementation issue should include:
+
+- a concise summary of the approved design direction
+- acceptance criteria
+- a detailed implementation plan
+- explicit sub-tasks as checklist items
+- validation expectations covering tests, docs, stories, and accessibility verification
+- references to the Figma frames, Discussion, and any relevant standards guidance
+
+### 5. Track implementation live in the issue
+
+- As work is completed, update the issue checklist items as each sub-task is finished. Do not wait until the end.
+- If additional implementation work is needed after review feedback, move the project board state back to `In progress` while making changes.
+- When implementation is ready for review, move the issue to the GitHub project board state `In review`.
+
+### 6. Handoff for implementation review
+
+- When the issue is in `In review`, provide a reusable review prompt the maintainer can send to another agent for a thorough implementation review.
+- If the work is happening directly on `main`, use the issue as the primary review location and ask the reviewer to comment there.
+- If a PR exists, use the PR for code-specific review comments and keep the issue updated with summary status as needed.
+- After follow-up fixes are completed, move the issue back to `In review` and provide an updated review prompt if another review pass is needed.
+
+### 7. Finish and close the work
+
+- Commit and push only after the maintainer is satisfied that the work is complete.
+- Wait for the relevant verification checks to pass before marking the work done.
+- When the work is fully complete, move the issue to the GitHub project board state `Done`.
+
+Project board note:
+
+- `In progress`, `In review`, and `Done` are GitHub project board states for this repository, not issue labels.
+
 ## Documentation Rules
 
 Docs are part of the product, not an afterthought.
@@ -277,6 +350,7 @@ GitHub artifacts are useful when relevant, but they are not the default source o
 - Use Issues, PRs, and Discussions when the work benefits from explicit tracking, review, or decision history.
 - Prefer the existing GitHub issue templates for proposals, maintenance work, and bugs instead of inventing one-off planning documents in the repo.
 - Do not assume every non-trivial change requires a PR, Issue, or Discussion in this early-stage solo repository unless the maintainer asks for that workflow.
+- Exception: follow the required `New Component Workflow` above for requests to create new design-system components.
 - If GitHub artifacts exist for the task, align with them and note meaningful conflicts.
 - If a change is architectural, breaking, or likely to affect future contributors, record the lasting rationale in a durable repo doc and keep the step-by-step execution plan in GitHub.
 - When opening a PR as part of an agent workflow, wait for requested or relevant validation checks to complete and resolve actionable failures before handing off. Do not merge unless the user explicitly asks.
