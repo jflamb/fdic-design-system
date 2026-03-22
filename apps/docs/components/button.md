@@ -21,19 +21,25 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 
 ## Examples
 
-<StoryEmbed storyId="components-button--primary" caption="Primary — the main action on the page or section; limit to one per section" />
-<StoryEmbed storyId="components-button--neutral" caption="Neutral — secondary actions that don't compete with the primary action" />
-<StoryEmbed storyId="components-button--outline" caption="Outline — lower-emphasis alternative, useful alongside a primary button" />
-<StoryEmbed storyId="components-button--subtle" caption="Subtle — minimal visual weight for tertiary actions like 'Cancel' or 'Skip'" />
-<StoryEmbed storyId="components-button--destructive" caption="Destructive — irreversible actions like deleting records or revoking access; always pair with confirmation" />
-<StoryEmbed storyId="components-button--with-icons" caption="With icons — use icon-start and icon-end slots to add fd-icon elements alongside the label" />
-<StoryEmbed storyId="components-button--icon-only" caption="Icon-only — for compact UI; requires aria-label on fd-button for accessibility" />
-<StoryEmbed storyId="components-button--as-link" caption="As link — setting href renders a native anchor element, preserving link semantics" />
-<StoryEmbed storyId="components-button--loading" caption="Loading — shows a spinner and suppresses activation to prevent duplicate submissions" />
-<StoryEmbed storyId="components-button--loading-with-label" caption="Loading with label — optionally replaces the visible label during loading for clarity" />
-<StoryEmbed storyId="components-button--loading-icon-only" caption="Loading icon-only — spinner replaces the icon; accessible name is preserved" />
-<StoryEmbed storyId="components-button--loading-link" caption="Loading link — navigation is suppressed while the action is in progress" />
-<StoryEmbed storyId="components-button--all-variants-loading" caption="All variants loading — every variant supports the loading state" />
+<StoryEmbed
+  storyId="components-button--all-variants"
+  linkStoryId="components-button--playground"
+  caption="Variant comparison — primary, neutral, subtle, outline, and destructive. Open Storybook to switch variants and states with controls."
+/>
+
+<StoryEmbed
+  storyId="components-button--docs-overview"
+  linkStoryId="components-button--playground"
+  height="220"
+  caption="Common patterns — icons, icon-only actions, link mode, and loading state in one compact preview. Open Storybook for the full set of dedicated examples."
+/>
+
+- **Primary** carries the main action on the page or section. Limit it to one primary button per section.
+- **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.
+- **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.
+- **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.
+- **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.
+- **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable.
 
 ## Best practices
 
@@ -138,7 +144,7 @@ Use the `loading` attribute when an action is in progress and you need to preven
 
 - `fd-button` renders a **native `<button>` element** inside its shadow DOM. Native buttons are focusable, keyboard-operable (Enter and Space), and announced correctly by screen readers without extra ARIA.
 - When `href` is set, the component renders a **native `<a>` element** instead. This preserves link semantics — screen reader link lists, right-click context menus, and cmd/ctrl-click for new tabs all work as expected.
-- **Icon-only buttons require a name on `fd-button`** — Set `aria-label` or `aria-labelledby` on the `fd-button` element itself, not on the `fd-icon` inside it. The component forwards that accessible name to the internal native control, and the icon should remain decorative (`aria-hidden="true"`).
+- **Icon-only buttons require a name on `fd-button`** — Set `aria-label` or `aria-labelledby` on the `fd-button` element itself, not on the `fd-icon` inside it. The component forwards that accessible name to the internal native control, and the icon should remain decorative (`aria-hidden="true"`). Icon-only buttons render as square controls so the icon remains centered and the hit target stays predictable.
 - **Disabled state**: On `<button>`, the native `disabled` attribute is used. On `<a>` (link mode), `aria-disabled="true"` is set instead, since anchor elements don't support native `disabled`.
 - **External link safety**: When link-mode buttons use `target="_blank"`, `fd-button` adds `rel="noopener noreferrer"` automatically and preserves any extra `rel` tokens you supply.
 - All interactive states use the standard focus ring: `outline: 2px solid` with `outline-offset: 2px` on `:focus-visible`.

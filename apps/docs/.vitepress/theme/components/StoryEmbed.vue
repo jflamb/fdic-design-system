@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
   storyId: string
+  linkStoryId?: string
   height?: string
   caption?: string
   storybookBaseUrl?: string
@@ -14,7 +15,7 @@ const iframeSrc = props.storybookBaseUrl
   : ''
 
 const storybookLink = props.storybookBaseUrl
-  ? `${props.storybookBaseUrl}/?path=/story/${props.storyId}`
+  ? `${props.storybookBaseUrl}/?path=/story/${props.linkStoryId || props.storyId}`
   : ''
 </script>
 
@@ -35,6 +36,7 @@ const storybookLink = props.storybookBaseUrl
     <div v-else class="fdic-story-embed-placeholder">
       <span class="fdic-story-embed-placeholder-icon" aria-hidden="true">⬡</span>
       <p>Storybook example: <code>{{ storyId }}</code></p>
+      <p v-if="linkStoryId && linkStoryId !== storyId">Storybook link target: <code>{{ linkStoryId }}</code></p>
       <p class="fdic-story-embed-placeholder-hint">Connect a Storybook instance to see live examples</p>
     </div>
     <figcaption v-if="caption" class="fdic-story-embed-caption">

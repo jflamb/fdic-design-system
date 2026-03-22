@@ -189,6 +189,26 @@ describe("fd-button", () => {
     expect(slotNames).toContain("icon-end");
   });
 
+  it("applies an icon-only class when the button only contains an icon", async () => {
+    const el = await createButton(
+      { "aria-label": "Close dialog" },
+      '<fd-icon slot="icon-start" name="x"></fd-icon>',
+    );
+    const inner = getInternal(el);
+
+    expect(inner.classList.contains("icon-only")).toBe(true);
+  });
+
+  it("does not apply icon-only when the button has visible label text", async () => {
+    const el = await createButton(
+      {},
+      '<fd-icon slot="icon-start" name="download"></fd-icon>Download report',
+    );
+    const inner = getInternal(el);
+
+    expect(inner.classList.contains("icon-only")).toBe(false);
+  });
+
   /* --- Loading state --- */
 
   it("renders a spinner element when loading", async () => {
@@ -362,5 +382,6 @@ describe("fd-button", () => {
     );
     const inner = getInternal(el);
     expect(inner.getAttribute("aria-label")).toBe("Close dialog");
+    expect(inner.classList.contains("icon-only")).toBe(true);
   });
 });
