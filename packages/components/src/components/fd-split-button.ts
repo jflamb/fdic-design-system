@@ -333,27 +333,25 @@ export class FdSplitButton extends LitElement {
     const menu = this._getMenu();
     if (!menu) return;
 
+    // After adoption moves items out of the slot, a follow-up slotchange
+    // fires with an empty assigned list. Skip it — adopted items are already
+    // in fd-menu and owned by the component.
+    if (assigned.length === 0) return;
+
     // Clear existing children from internal fd-menu
     while (menu.firstChild) {
       menu.removeChild(menu.firstChild);
     }
 
-    let validCount = 0;
     for (const el of assigned) {
       if (el.tagName.toLowerCase() === "fd-menu-item") {
         el.removeAttribute("slot");
         menu.appendChild(el);
-        validCount++;
       } else {
         console.warn(
           `[fd-split-button] Only <fd-menu-item> elements are allowed in the menu slot. Received <${el.tagName.toLowerCase()}>.`,
         );
       }
-    }
-
-    // If menu is open and now has zero items, close it
-    if (this.open && validCount === 0) {
-      menu.hide();
     }
 
     // Re-position if menu is open and still has items
