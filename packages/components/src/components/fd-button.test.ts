@@ -46,11 +46,11 @@ describe("fd-button", () => {
     expect(inner.getAttribute("role")).toBeNull();
   });
 
-  it("reflects type attribute on <button>", async () => {
+  it("keeps the rendered control as type='button' even when submit is requested", async () => {
     const el = await createButton({ type: "submit" });
     const inner = getInternal(el);
     expect(inner.tagName).toBe("BUTTON");
-    expect(inner.getAttribute("type")).toBe("submit");
+    expect(inner.getAttribute("type")).toBe("button");
   });
 
   it("ignores type when href is set", async () => {
@@ -61,6 +61,24 @@ describe("fd-button", () => {
     const inner = getInternal(el);
     expect(inner.tagName).toBe("A");
     expect(inner.hasAttribute("type")).toBe(false);
+  });
+
+  it("does not submit a light-DOM form when host type='submit' is set", async () => {
+    const form = document.createElement("form");
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    form.addEventListener("submit", submitSpy);
+    form.innerHTML = '<fd-button type="submit">Submit filing</fd-button>';
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-button") as any;
+    await el.updateComplete;
+
+    const inner = getInternal(el);
+    inner.click();
+
+    expect(inner.tagName).toBe("BUTTON");
+    expect(inner.getAttribute("type")).toBe("button");
+    expect(submitSpy).not.toHaveBeenCalled();
   });
 
   it("applies native disabled on <button>", async () => {
@@ -92,6 +110,57 @@ describe("fd-button", () => {
     el.addEventListener("click", spy);
     inner.click();
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it("forwards aria-label to the rendered native control", async () => {
+    const el = await createButton({ "aria-label": "Close dialog" }, "");
+    const inner = getInternal(el);
+
+    expect(inner.getAttribute("aria-label")).toBe("Close dialog");
+  });
+
+  it("forwards aria-labelledby to the rendered native control", async () => {
+    const label = document.createElement("span");
+    label.id = "button-label";
+    label.textContent = "Close dialog";
+    document.body.appendChild(label);
+
+    const el = await createButton({ "aria-labelledby": "button-label" }, "");
+    const inner = getInternal(el);
+
+    expect(inner.getAttribute("aria-labelledby")).toBe("button-label");
+  });
+
+  it("adds noopener and noreferrer for _blank links by default", async () => {
+    const el = await createButton({
+      href: "https://example.com",
+      target: "_blank",
+    });
+    const inner = getInternal(el);
+
+    expect(inner.getAttribute("rel")).toBe("noopener noreferrer");
+  });
+
+  it("preserves explicit rel tokens while adding missing _blank protections", async () => {
+    const el = await createButton({
+      href: "https://example.com",
+      target: "_blank",
+      rel: "external noopener",
+    });
+    const inner = getInternal(el);
+
+    expect(inner.getAttribute("rel")).toBe("external noopener noreferrer");
+  });
+
+  it("does not duplicate noopener/noreferrer when already present", async () => {
+    const el = await createButton({
+      href: "https://example.com",
+      target: "_blank",
+      rel: "noreferrer noopener",
+    });
+    const inner = getInternal(el);
+
+    expect(inner.getAttribute("rel")).toBe("noreferrer noopener");
   });
 
   it("defaults to primary variant", async () => {

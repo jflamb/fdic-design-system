@@ -4,12 +4,12 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-button</code> to let users take actions — submitting forms, confirming decisions, navigating to new pages, or triggering operations. Five variants communicate the weight and risk of each action. The component renders a native <code>&lt;button&gt;</code> by default, or an <code>&lt;a&gt;</code> when an <code>href</code> is provided.</p>
+  <p>Use <code>fd-button</code> to let users take actions — confirming decisions, navigating to new pages, or triggering client-side operations. Five variants communicate the weight and risk of each action. The component renders a native <code>&lt;button type="button"&gt;</code> by default, or an <code>&lt;a&gt;</code> when an <code>href</code> is provided.</p>
 </div>
 
 ## When to use
 
-- **The user needs to take an action** — Submitting data, confirming a decision, starting a process, or navigating to a destination that feels like an action ("Apply now," "Download report").
+- **The user needs to take an action** — Confirming a decision, starting a process, opening a dialog, or navigating to a destination that feels like an action ("Apply now," "Download report").
 - **You need to communicate the importance of an action** — Primary for the main action, neutral or subtle for secondary actions, destructive for irreversible operations.
 - **You need a link that looks and feels like a button** — Set the `href` attribute and `fd-button` renders an `<a>` element, preserving link semantics (right-click, cmd-click, screen reader link lists) while providing button styling.
 
@@ -122,13 +122,14 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 
 - `fd-button` renders a **native `<button>` element** inside its shadow DOM. Native buttons are focusable, keyboard-operable (Enter and Space), and announced correctly by screen readers without extra ARIA.
 - When `href` is set, the component renders a **native `<a>` element** instead. This preserves link semantics — screen reader link lists, right-click context menus, and cmd/ctrl-click for new tabs all work as expected.
-- **Icon-only buttons require `aria-label`** — Set `aria-label` on the `fd-button` element itself, not on the `fd-icon` inside it. The icon should remain decorative (`aria-hidden="true"`).
+- **Icon-only buttons require a name on `fd-button`** — Set `aria-label` or `aria-labelledby` on the `fd-button` element itself, not on the `fd-icon` inside it. The component forwards that accessible name to the internal native control, and the icon should remain decorative (`aria-hidden="true"`).
 - **Disabled state**: On `<button>`, the native `disabled` attribute is used. On `<a>` (link mode), `aria-disabled="true"` is set instead, since anchor elements don't support native `disabled`.
+- **External link safety**: When link-mode buttons use `target="_blank"`, `fd-button` adds `rel="noopener noreferrer"` automatically and preserves any extra `rel` tokens you supply.
 - All interactive states use the standard focus ring: `outline: 2px solid` with `outline-offset: 2px` on `:focus-visible`.
 
 ## Known limitations
 
-- **Shadow DOM and form submission** — Because `fd-button` renders its `<button>` inside a shadow DOM boundary, it cannot natively participate in form submission for forms in the light DOM. If you need a submit button inside a `<form>`, use a native `<button type="submit">` instead, or use the `ElementInternals` API to associate the component with its form.
+- **Form submission is out of scope in v1** — `fd-button` always renders an internal `<button type="button">` when it is not in link mode. Because the component is not form-associated, use a native `<button type="submit">` or `<button type="reset">` inside light-DOM forms until a future version explicitly adds form association.
 
 ## Related components
 

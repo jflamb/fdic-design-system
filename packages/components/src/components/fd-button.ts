@@ -10,6 +10,10 @@ export type ButtonVariant =
   | "destructive";
 
 export class FdButton extends LitElement {
+  static override get observedAttributes() {
+    return [...super.observedAttributes, "aria-label", "aria-labelledby"];
+  }
+
   static styles = css`
     :host {
       display: inline-flex;
@@ -235,14 +239,57 @@ export class FdButton extends LitElement {
     this.rel = undefined;
   }
 
+  override attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null,
+  ) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    if (
+      oldValue !== newValue &&
+      (name === "aria-label" || name === "aria-labelledby")
+    ) {
+      this.requestUpdate();
+    }
+  }
+
   private _handleDisabledClick(e: Event) {
     e.preventDefault();
     e.stopImmediatePropagation();
   }
 
+  private _getAccessibleNameAttributes() {
+    return {
+      ariaLabel: ifDefined(this.getAttribute("aria-label") ?? undefined),
+      ariaLabelledby: ifDefined(
+        this.getAttribute("aria-labelledby") ?? undefined,
+      ),
+    };
+  }
+
+  private _getNormalizedRel() {
+    if (this.target !== "_blank") {
+      return this.rel;
+    }
+
+    const tokens = new Set(
+      (this.rel ?? "")
+        .split(/\s+/)
+        .map((token) => token.trim().toLowerCase())
+        .filter(Boolean),
+    );
+
+    tokens.add("noopener");
+    tokens.add("noreferrer");
+
+    return [...tokens].join(" ");
+  }
+
   render() {
     const isLink = this.href !== undefined;
     const isDisabled = this.disabled;
+    const { ariaLabel, ariaLabelledby } = this._getAccessibleNameAttributes();
 
     const classes = {
       base: true,
@@ -263,6 +310,8 @@ export class FdButton extends LitElement {
           part="base"
           class=${classMap(classes)}
           aria-disabled="true"
+          aria-label=${ariaLabel}
+          aria-labelledby=${ariaLabelledby}
           tabindex="-1"
           @click=${this._handleDisabledClick}
           >${content}</a
@@ -273,7 +322,9 @@ export class FdButton extends LitElement {
         class=${classMap(classes)}
         href=${ifDefined(this.href)}
         target=${ifDefined(this.target)}
-        rel=${ifDefined(this.rel)}
+        rel=${ifDefined(this._getNormalizedRel())}
+        aria-label=${ariaLabel}
+        aria-labelledby=${ariaLabelledby}
         >${content}</a
       >`;
     }
@@ -281,7 +332,9 @@ export class FdButton extends LitElement {
     return html`<button
       part="base"
       class=${classMap(classes)}
-      type=${this.type}
+      type="button"
+      aria-label=${ariaLabel}
+      aria-labelledby=${ariaLabelledby}
       ?disabled=${isDisabled}
     >
       ${content}

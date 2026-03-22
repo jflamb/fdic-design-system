@@ -9,6 +9,8 @@ type ButtonArgs = {
   iconStart: string;
   iconEnd: string;
   href: string;
+  target: string;
+  rel: string;
 };
 
 const meta = {
@@ -30,6 +32,8 @@ const meta = {
       options: ["", "caret-down", "arrow-square-out", "caret-right"],
     },
     href: { control: "text" },
+    target: { control: "text" },
+    rel: { control: "text" },
   },
   args: {
     variant: "primary",
@@ -38,12 +42,16 @@ const meta = {
     iconStart: "",
     iconEnd: "",
     href: "",
+    target: "",
+    rel: "",
   },
   render: (args: ButtonArgs) => html`
     <fd-button
       variant=${args.variant}
       ?disabled=${args.disabled}
       href=${args.href || undefined}
+      target=${args.target || undefined}
+      rel=${args.rel || undefined}
     >
       ${args.iconStart
         ? html`<fd-icon slot="icon-start" name=${args.iconStart}></fd-icon>`
@@ -99,6 +107,7 @@ export const AsLink: Story = {
     variant: "outline",
     label: "Visit FDIC.gov",
     href: "https://www.fdic.gov",
+    target: "_blank",
     iconEnd: "arrow-square-out",
   },
 };

@@ -38,7 +38,8 @@ Implementation task breakdown should live in GitHub Issues or PRs, not here.
 - Render `<button>` when `href` is absent.
 - Render `<a>` when `href` is present, preserving link semantics. Do not apply `role="button"` to links.
 - For disabled links, remove `href`, add `aria-disabled="true"` and `tabindex="-1"`, and suppress activation defensively.
-- For icon-only buttons, require the accessible name on `<fd-button>` itself, typically via `aria-label`.
+- For icon-only buttons, require the accessible name on `<fd-button>` itself via `aria-label` or `aria-labelledby`, and forward that name to the rendered native control.
+- When rendering `target="_blank"` links, ensure `noopener` and `noreferrer` are present by default.
 
 ## Accessibility Constraints
 
@@ -56,10 +57,11 @@ Implementation task breakdown should live in GitHub Issues or PRs, not here.
 - toggle or pressed states
 - automatic external-link icon insertion
 - form association through `ElementInternals`
+- submit or reset semantics on the custom element before form association exists
 - dark-mode-specific variants
 
 ## Follow-Up Work
 
 - Add implementation tracking in GitHub using the existing proposal or maintenance issue templates.
-- Document the shadow-DOM form submission limitation on the button docs page.
+- Document the action-only v1 button contract and the shadow-DOM form submission limitation on the button docs page.
 - Add tests for icon registration, missing icon behavior, anchor vs button rendering, disabled link behavior, and icon-only accessible naming.
