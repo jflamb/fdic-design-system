@@ -3,8 +3,8 @@
 Callouts draw attention to important information within a page. They use color, icons, and placement to signal how critical the message is — from helpful tips to urgent warnings.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use callouts to surface supplementary information that the reader should not miss — regulatory notes, compliance warnings, confirmation messages, and critical alerts. Five variants map to increasing levels of urgency.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use callouts inside <a href="./prose">Prose</a> content to surface supplementary information that the reader should not miss — regulatory notes, compliance warnings, confirmation messages, and critical alerts. Five variants map to increasing levels of urgency.</p>
 </div>
 
 ## When to use

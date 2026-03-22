@@ -1,10 +1,10 @@
 # Typography
 
-This page documents the type system for the FDIC design system prose component — font families, the size scale, line heights, letter spacing, text rendering, heading and body styles, inline element treatments, and link behavior.
+This page documents the FDIC design system's foundational type rules: font families, the size scale, line heights, letter spacing, text rendering, heading and body styles, inline semantics, and link behavior.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Typography foundations</span>
-  <p>Typography decisions optimize for readability, plain-language presentation, clear scanning in public-service workflows, and predictable behavior across zoom and reflow.</p>
+  <p>Typography decisions optimize for readability, plain-language presentation, clear scanning in public-service workflows, and predictable behavior across zoom and reflow. For the authored-content container, page-level utilities, and specialized long-form patterns, see <a href="../../components/prose">Prose</a>.</p>
 </div>
 
 ## Font families
@@ -205,7 +205,7 @@ Wrap attributions in `<footer><cite>` — do not use blockquotes for visual inde
 
 ## Inline element styles
 
-These styles apply to inline semantic HTML elements within `.prose`:
+These styles describe the baseline treatment for inline semantic HTML in authored content. The current implementation is most visible inside `.prose`, but the rules here are foundational rather than page-specific:
 
 <div class="fdic-roles-table">
   <div class="fdic-roles-row fdic-roles-header">
@@ -381,7 +381,7 @@ All spacing tokens use `rem` — never `px`.
 
 ## Text rendering and wrapping
 
-The `.prose` container applies these global text behaviors:
+These text-rendering and wrapping defaults are currently applied through the `.prose` content container. They are documented here because they reflect the underlying reading model rather than a one-off component decision:
 
 | Property | Value | Purpose |
 |----------|-------|---------|
@@ -392,7 +392,7 @@ The `.prose` container applies these global text behaviors:
 | `text-rendering` | `optimizeLegibility` | Enables kerning and ligatures |
 | `max-width` | `65ch` | Optimal line length for sustained reading (45–75ch range) |
 
-Override `--prose-max-width` if your layout requires a different measure.
+See [Prose](../../components/prose.md) for the container API, supporting patterns, and long-form authoring guidance. Override `--prose-max-width` only in layouts that have a documented need for a different reading measure.
 
 ## Content guidance
 

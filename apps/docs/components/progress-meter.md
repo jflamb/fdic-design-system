@@ -3,8 +3,8 @@
 Progress bars and meters visualize completion and measurement. Progress tracks how far a task has advanced toward completion; meter displays a value within a known range.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use progress for tasks that have a beginning and end — file uploads, form completion, processing steps. Use meter for static measurements within a defined range — compliance scores, capacity utilization, threshold levels.</p>
+  <span class="fdic-eyebrow">Prose sub-topic</span>
+  <p>Use progress for tasks that have a beginning and end, and meter for static measurements within a defined range, when authored technical or reporting content inside <a href="./prose">Prose</a> needs a native visual indicator.</p>
 </div>
 
 ## When to use
