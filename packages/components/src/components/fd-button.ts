@@ -71,6 +71,12 @@ export class FdButton extends LitElement {
       gap: 0;
       padding-inline: 0;
     }
+    .has-leading-visual:not(.icon-only) {
+      padding-inline-start: var(--fd-button-icon-edge-padding, 11px);
+    }
+    .has-icon-end:not(.icon-only) {
+      padding-inline-end: var(--fd-button-icon-edge-padding, 11px);
+    }
 
     /* --- Focus --- */
     .base:focus {
@@ -365,6 +371,9 @@ export class FdButton extends LitElement {
     const isLoading = this.loading;
     const isInert = this.disabled || isLoading;
     const isIconOnly = this._isIconOnly();
+    const hasIconStart = Boolean(this.querySelector('[slot="icon-start"]'));
+    const hasIconEnd = Boolean(this.querySelector('[slot="icon-end"]'));
+    const hasLeadingVisual = hasIconStart || isLoading;
     const { ariaLabel, ariaLabelledby } = this._getAccessibleNameAttributes();
 
     // When loading-label is active, override the accessible name and
@@ -379,6 +388,9 @@ export class FdButton extends LitElement {
       disabled: this.disabled,
       loading: isLoading && !this.disabled,
       "icon-only": isIconOnly,
+      "has-leading-visual": hasLeadingVisual,
+      "has-icon-start": hasIconStart,
+      "has-icon-end": hasIconEnd,
       outline: this.variant === "outline",
     };
 

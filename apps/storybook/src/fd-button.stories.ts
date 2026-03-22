@@ -223,7 +223,7 @@ export const DocsOverview: Story = {
         Visit FDIC.gov
         <fd-icon slot="icon-end" name="arrow-square-out"></fd-icon>
       </fd-button>
-      <fd-button variant="primary" loading loading-label="Submitting...">
+      <fd-button variant="primary" loading loading-label="Submitting…">
         Submit application
       </fd-button>
     </div>

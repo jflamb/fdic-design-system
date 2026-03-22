@@ -210,6 +210,26 @@ describe("fd-button", () => {
     expect(inner.classList.contains("icon-only")).toBe(false);
   });
 
+  it("applies icon-edge spacing classes when leading or trailing icons are present", async () => {
+    const el = await createButton(
+      {},
+      '<fd-icon slot="icon-start" name="download"></fd-icon>Download report<fd-icon slot="icon-end" name="caret-down"></fd-icon>',
+    );
+    const inner = getInternal(el);
+
+    expect(inner.classList.contains("has-leading-visual")).toBe(true);
+    expect(inner.classList.contains("has-icon-start")).toBe(true);
+    expect(inner.classList.contains("has-icon-end")).toBe(true);
+  });
+
+  it("applies leading-visual spacing when loading without a start icon", async () => {
+    const el = await createButton({ loading: "" }, "Submit filing");
+    const inner = getInternal(el);
+
+    expect(inner.classList.contains("has-leading-visual")).toBe(true);
+    expect(inner.classList.contains("has-icon-start")).toBe(false);
+  });
+
   /* --- Loading state --- */
 
   it("renders a spinner element when loading", async () => {
