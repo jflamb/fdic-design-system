@@ -343,9 +343,11 @@ export class FdButton extends LitElement {
     const isInert = this.disabled || isLoading;
     const { ariaLabel, ariaLabelledby } = this._getAccessibleNameAttributes();
 
-    // When loading-label is active, override the accessible name
-    const effectiveAriaLabel =
-      isLoading && this.loadingLabel ? this.loadingLabel : ariaLabel;
+    // When loading-label is active, override the accessible name and
+    // suppress aria-labelledby so it doesn't take precedence over aria-label
+    const hasLoadingLabel = isLoading && this.loadingLabel;
+    const effectiveAriaLabel = hasLoadingLabel ? this.loadingLabel : ariaLabel;
+    const effectiveAriaLabelledby = hasLoadingLabel ? nothing : ariaLabelledby;
 
     const classes = {
       base: true,
@@ -376,7 +378,7 @@ export class FdButton extends LitElement {
           aria-disabled="true"
           aria-busy=${isLoading ? "true" : nothing}
           aria-label=${effectiveAriaLabel}
-          aria-labelledby=${ariaLabelledby}
+          aria-labelledby=${effectiveAriaLabelledby}
           tabindex="-1"
           @click=${this._handleDisabledClick}
           >${content}</a
@@ -399,7 +401,7 @@ export class FdButton extends LitElement {
       class=${classMap(classes)}
       type="button"
       aria-label=${effectiveAriaLabel}
-      aria-labelledby=${ariaLabelledby}
+      aria-labelledby=${effectiveAriaLabelledby}
       aria-busy=${isLoading ? "true" : nothing}
       ?disabled=${isInert}
     >

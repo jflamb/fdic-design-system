@@ -299,6 +299,62 @@ describe("fd-button", () => {
     expect(iconSlot!.style.display).toBe("none");
   });
 
+  it("loading-label suppresses aria-labelledby so aria-label takes effect", async () => {
+    const label = document.createElement("span");
+    label.id = "ext-label";
+    label.textContent = "Submit filing";
+    document.body.appendChild(label);
+
+    const el = await createButton(
+      {
+        loading: "",
+        "loading-label": "Submitting…",
+        "aria-labelledby": "ext-label",
+      },
+      "Submit",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-label")).toBe("Submitting…");
+    expect(inner.hasAttribute("aria-labelledby")).toBe(false);
+  });
+
+  it("loading-label suppresses aria-labelledby in link mode", async () => {
+    const label = document.createElement("span");
+    label.id = "ext-label-link";
+    label.textContent = "Go to dashboard";
+    document.body.appendChild(label);
+
+    const el = await createButton(
+      {
+        href: "https://example.com",
+        loading: "",
+        "loading-label": "Loading…",
+        "aria-labelledby": "ext-label-link",
+      },
+      "Dashboard",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-label")).toBe("Loading…");
+    expect(inner.hasAttribute("aria-labelledby")).toBe(false);
+  });
+
+  it("preserves aria-labelledby when loading without loading-label", async () => {
+    const label = document.createElement("span");
+    label.id = "ext-label-keep";
+    label.textContent = "Submit filing";
+    document.body.appendChild(label);
+
+    const el = await createButton(
+      {
+        loading: "",
+        "aria-labelledby": "ext-label-keep",
+      },
+      "Submit",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-labelledby")).toBe("ext-label-keep");
+  });
+
   it("icon-only loading: preserves accessible name", async () => {
     const el = await createButton(
       { loading: "", "aria-label": "Close dialog" },
