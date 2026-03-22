@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import type { PropertyValues } from "lit";
+import { classMap } from "lit/directives/class-map.js";
 import type { ButtonVariant } from "./fd-button.js";
 import type { Placement } from "./placement.js";
 import type { FdMenu } from "./fd-menu.js";
@@ -402,9 +403,6 @@ export class FdSplitButton extends LitElement {
         }
         break;
       case "Enter":
-        e.preventDefault();
-        menu.toggle();
-        break;
       case " ":
         e.preventDefault();
         menu.toggle();
@@ -416,18 +414,23 @@ export class FdSplitButton extends LitElement {
 
   private _onMenuOpen(e: CustomEvent) {
     if (this._disconnecting) return;
-    this._openSetInternally = true;
-    this.open = e.detail.open;
+    const newOpen = e.detail.open;
+    if (this.open !== newOpen) {
+      this._openSetInternally = true;
+      this.open = newOpen;
+    }
     this.dispatchEvent(
       new CustomEvent("fd-split-open", {
         bubbles: true,
         composed: true,
-        detail: { open: e.detail.open },
+        detail: { open: newOpen },
       }),
     );
   }
 
-  // --- Read-only open guard ---
+  // --- Read-only open guard & disabled transitions ---
+
+  private _needsMenuHide = false;
 
   override willUpdate(changed: Map<string, unknown>) {
     if (changed.has("open") && !this._openSetInternally) {
@@ -438,19 +441,28 @@ export class FdSplitButton extends LitElement {
       }
     }
     this._openSetInternally = false;
-  }
 
-  // --- Task 6: Disabled Transitions ---
-
-  override updated(changed: PropertyValues) {
-    super.updated(changed);
-    const menu = this._getMenu();
-
+    // Close menu when disabled or trigger-disabled while open
     if (changed.has("disabled") && this.disabled && this.open) {
-      menu?.hide();
+      this.open = false;
+      this._needsMenuHide = true;
     }
     if (changed.has("triggerDisabled") && this.triggerDisabled && this.open) {
-      menu?.hide();
+      this.open = false;
+      this._needsMenuHide = true;
+    }
+  }
+
+  override updated(_changed: PropertyValues) {
+    super.updated(_changed);
+
+    if (this._needsMenuHide) {
+      this._needsMenuHide = false;
+      const menu = this._getMenu();
+      if (menu) {
+        this._openSetInternally = true;
+        menu.hide();
+      }
     }
   }
 
@@ -467,16 +479,15 @@ export class FdSplitButton extends LitElement {
     const isDisabled = this.disabled;
     const isTriggerDisabled = this.triggerDisabled || isDisabled;
 
-    const containerClasses = [
-      "container",
-      isDisabled ? "disabled" : this.variant,
-      isDisabled ? "" : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
+    const containerClasses = {
+      container: true,
+      [this.variant]: true,
+      disabled: isDisabled,
+      "trigger-disabled": !isDisabled && this.triggerDisabled,
+    };
 
     return html`
-      <div part="container" class=${containerClasses}>
+      <div part="container" class=${classMap(containerClasses)}>
         <button
           part="primary"
           class="primary-segment"

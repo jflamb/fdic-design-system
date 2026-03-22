@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import "./fd-split-button.js";
 import "./fd-menu.js";
 import "./fd-menu-item.js";
+import "../icons/phosphor-regular.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createSplitButton(
@@ -155,6 +156,13 @@ describe("fd-split-button", () => {
     const el = await createSplitButton({ disabled: "" });
     const container = getContainer(el);
     expect(container.classList.contains("disabled")).toBe(true);
+  });
+
+  it("disabled outline variant has both 'disabled' and 'outline' classes on container", async () => {
+    const el = await createSplitButton({ disabled: "", variant: "outline" });
+    const container = getContainer(el);
+    expect(container.classList.contains("disabled")).toBe(true);
+    expect(container.classList.contains("outline")).toBe(true);
   });
 
   it("trigger-disabled disables only the trigger", async () => {
