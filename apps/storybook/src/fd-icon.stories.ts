@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { expect } from "storybook/test";
 import "@fdic-ds/components";
 
 type IconArgs = {
@@ -44,6 +45,15 @@ export const Default: Story = {};
 
 export const Semantic: Story = {
   args: { name: "warning", label: "Warning" },
+};
+
+Semantic.play = async ({ canvasElement }) => {
+  const icon = canvasElement.querySelector("fd-icon");
+  const svg = icon?.shadowRoot?.querySelector("svg");
+
+  expect(icon?.getAttribute("role")).toBe("img");
+  expect(icon?.getAttribute("aria-label")).toBe("Warning");
+  expect(svg?.tagName.toLowerCase()).toBe("svg");
 };
 
 export const CustomSize: Story = {

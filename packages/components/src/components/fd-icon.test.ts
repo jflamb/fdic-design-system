@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { iconRegistry } from "../icons/registry.js";
+import { expectNoAxeViolations } from "./test-a11y.js";
 
 // Register a test icon before component import
 iconRegistry.register(
@@ -78,6 +79,29 @@ describe("fd-icon", () => {
     expect(el.getAttribute("role")).toBe("img");
     expect(el.getAttribute("aria-label")).toBe("Test icon label");
     expect(el.hasAttribute("aria-hidden")).toBe(false);
+
+    document.body.removeChild(el);
+  });
+
+  it("has no axe violations in decorative mode", async () => {
+    const el = document.createElement("fd-icon");
+    el.setAttribute("name", "test-icon");
+    document.body.appendChild(el);
+    await (el as any).updateComplete;
+
+    await expectNoAxeViolations(el);
+
+    document.body.removeChild(el);
+  });
+
+  it("has no axe violations in semantic mode", async () => {
+    const el = document.createElement("fd-icon");
+    el.setAttribute("name", "test-icon");
+    el.setAttribute("label", "Warning");
+    document.body.appendChild(el);
+    await (el as any).updateComplete;
+
+    await expectNoAxeViolations(el);
 
     document.body.removeChild(el);
   });

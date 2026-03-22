@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { expect } from "storybook/test";
 import "@fdic-ds/components";
 
 type ButtonArgs = {
@@ -80,6 +81,25 @@ export const Playground: Story = {};
 
 export const Primary: Story = {};
 
+Primary.play = async ({ canvasElement, userEvent }) => {
+  const host = canvasElement.querySelector("fd-button") as HTMLElement | null;
+  const control = host?.shadowRoot?.querySelector("[part=base]") as
+    | HTMLButtonElement
+    | undefined;
+  let clickCount = 0;
+
+  host?.addEventListener("click", () => {
+    clickCount += 1;
+  });
+
+  control?.focus();
+  await userEvent.keyboard("{Enter}");
+
+  expect(control).toBeDefined();
+  expect(host?.shadowRoot?.activeElement === control).toBe(true);
+  expect(clickCount).toBe(1);
+};
+
 export const Neutral: Story = {
   args: { variant: "neutral", label: "Save as draft" },
 };
@@ -113,6 +133,18 @@ export const IconOnly: Story = {
   `,
 };
 
+IconOnly.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-button") as HTMLElement | null;
+  const control = host?.shadowRoot?.querySelector("[part=base]") as
+    | HTMLButtonElement
+    | undefined;
+  control?.focus();
+
+  expect(control).toBeDefined();
+  expect(control?.getAttribute("aria-label")).toBe("Close dialog");
+  expect(host?.shadowRoot?.activeElement === control).toBe(true);
+};
+
 export const AsLink: Story = {
   args: {
     variant: "outline",
@@ -123,8 +155,37 @@ export const AsLink: Story = {
   },
 };
 
+AsLink.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-button") as HTMLElement | null;
+  const control = host?.shadowRoot?.querySelector("[part=base]") as
+    | HTMLAnchorElement
+    | undefined;
+
+  expect(control?.tagName).toBe("A");
+  expect(control?.getAttribute("href")).toBe("https://www.fdic.gov");
+  expect(control?.getAttribute("target")).toBe("_blank");
+  expect(control?.getAttribute("rel")).toBe("noopener noreferrer");
+};
+
 export const Disabled: Story = {
   args: { disabled: true, label: "Not available" },
+};
+
+Disabled.play = async ({ canvasElement, userEvent }) => {
+  const host = canvasElement.querySelector("fd-button") as HTMLElement | null;
+  const control = host?.shadowRoot?.querySelector("[part=base]") as
+    | HTMLButtonElement
+    | undefined;
+  let clickCount = 0;
+
+  host?.addEventListener("click", () => {
+    clickCount += 1;
+  });
+
+  control?.click();
+
+  expect(control?.disabled).toBe(true);
+  expect(clickCount).toBe(0);
 };
 
 export const DisabledLink: Story = {

@@ -5,7 +5,7 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.stories.ts"],
   framework: {
     name: "@storybook/web-components-vite",
-    options: {}
+    options: {},
   },
   async viteFinal(existingConfig) {
     existingConfig.resolve ??= {};
@@ -18,17 +18,18 @@ const config: StorybookConfig = {
     if (Array.isArray(alias)) {
       alias.push({
         find: "@fdic-ds/components",
-        replacement: componentSource
+        replacement: componentSource,
       });
     } else {
       existingConfig.resolve.alias = {
         ...(alias ?? {}),
-        "@fdic-ds/components": componentSource
+        "@fdic-ds/components": componentSource,
       };
     }
 
     return existingConfig;
-  }
+  },
+  addons: ["@storybook/addon-vitest"],
 };
 
 export default config;
