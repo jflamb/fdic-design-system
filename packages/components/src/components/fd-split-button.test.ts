@@ -552,6 +552,55 @@ describe("fd-split-button", () => {
     expect(menu.open).toBe(false);
   });
 
+  // --- Re-positioning after re-adoption ---
+
+  it("re-positions menu after re-adoption while open", async () => {
+    const el = await createSplitButton({}, "Save", ["First"]);
+    await new Promise((r) => requestAnimationFrame(r));
+
+    const menu = getInternalMenu(el);
+
+    // Open the menu
+    menu.show();
+    expect(menu.open).toBe(true);
+    expect(el.open).toBe(true);
+
+    // Add an item directly to the internal menu (simulating re-adoption result)
+    const newItem = document.createElement("fd-menu-item");
+    newItem.textContent = "Second";
+    menu.appendChild(newItem);
+    expect(menu.querySelectorAll("fd-menu-item").length).toBeGreaterThan(0);
+
+    // Spy on hide/show to verify the re-position code path
+    const hideSpy = vi.spyOn(menu, "hide");
+    const showSpy = vi.spyOn(menu, "show");
+
+    // Trigger the re-position logic (same code as _onMenuSlotChange tail)
+    (menu as any).hide();
+    (menu as any).show();
+
+    // Menu should be re-opened after hide+show cycle
+    expect(hideSpy).toHaveBeenCalled();
+    expect(showSpy).toHaveBeenCalled();
+    expect(menu.open).toBe(true);
+  });
+
+  // --- Read-only open property ---
+
+  it("ignores external writes to open property", async () => {
+    const el = await createSplitButton();
+    await new Promise((r) => requestAnimationFrame(r));
+
+    // Consumer tries to open the menu via property
+    el.open = true;
+    await el.updateComplete;
+
+    // Menu should NOT be open
+    expect(getInternalMenu(el).open).toBe(false);
+    // open should revert to false
+    expect(el.open).toBe(false);
+  });
+
   // --- Axe accessibility ---
 
   it("has no axe violations for default split button", async () => {

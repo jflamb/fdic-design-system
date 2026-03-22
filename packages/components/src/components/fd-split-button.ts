@@ -306,6 +306,7 @@ export class FdSplitButton extends LitElement {
   declare open: boolean;
 
   private _disconnecting = false;
+  private _openSetInternally = false;
 
   constructor() {
     super();
@@ -352,6 +353,12 @@ export class FdSplitButton extends LitElement {
     // If menu is open and now has zero items, close it
     if (this.open && validCount === 0) {
       menu.hide();
+    }
+
+    // Re-position if menu is open and still has items
+    if (this.open && menu.querySelectorAll("fd-menu-item").length > 0) {
+      (menu as any).hide();
+      (menu as any).show();
     }
   }
 
@@ -409,6 +416,7 @@ export class FdSplitButton extends LitElement {
 
   private _onMenuOpen(e: CustomEvent) {
     if (this._disconnecting) return;
+    this._openSetInternally = true;
     this.open = e.detail.open;
     this.dispatchEvent(
       new CustomEvent("fd-split-open", {
@@ -417,6 +425,19 @@ export class FdSplitButton extends LitElement {
         detail: { open: e.detail.open },
       }),
     );
+  }
+
+  // --- Read-only open guard ---
+
+  override willUpdate(changed: Map<string, unknown>) {
+    if (changed.has("open") && !this._openSetInternally) {
+      // External write — revert to match actual menu state
+      const menu = this.shadowRoot?.querySelector("fd-menu") as any;
+      if (menu) {
+        this.open = menu.open ?? false;
+      }
+    }
+    this._openSetInternally = false;
   }
 
   // --- Task 6: Disabled Transitions ---
