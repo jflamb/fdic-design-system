@@ -14,6 +14,15 @@ Early-stage open source scaffold for an FDIC design system.
 - `npm run dev:docs`
 - `npm run dev:storybook`
 - `npm run build`
+- `npm run test:components`
+- `npm run test:storybook`
+- `npm run build:storybook`
+
+## Validation
+
+- `npm run test:components` runs the fast `packages/components` Vitest suite, including reusable `axe-core` audits for structural accessibility issues that `happy-dom` can catch reliably.
+- `npm run test:storybook` runs browser-backed Storybook interaction tests for component stories, covering keyboard flow and rendered output in Chromium.
+- `npm run build:storybook` verifies the Storybook workbench still builds cleanly for review and deployment.
 
 ## Notes
 

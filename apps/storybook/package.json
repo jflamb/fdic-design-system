@@ -5,14 +5,20 @@
   "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build": "storybook build"
+    "build": "storybook build",
+    "test": "vitest --project=storybook run"
   },
   "dependencies": {
     "@fdic-ds/components": "0.1.0"
   },
   "devDependencies": {
+    "@storybook/addon-vitest": "^10.3.1",
     "@storybook/web-components-vite": "^10.3.1",
     "storybook": "^10.3.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^4.1.0",
+    "playwright": "^1.58.2",
+    "@vitest/browser-playwright": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0"
   }
 }

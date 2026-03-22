@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import "./fd-button.js";
+import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createButton(
   attrs: Record<string, string> = {},
@@ -383,5 +384,35 @@ describe("fd-button", () => {
     const inner = getInternal(el);
     expect(inner.getAttribute("aria-label")).toBe("Close dialog");
     expect(inner.classList.contains("icon-only")).toBe(true);
+  });
+
+  it("has no axe violations for a primary text button", async () => {
+    const el = await createButton({}, "Submit application");
+
+    await expectNoAxeViolations(getInternal(el));
+  });
+
+  it("has no axe violations for an icon-only named button", async () => {
+    const el = await createButton(
+      { "aria-label": "Close dialog" },
+      '<fd-icon slot="icon-start" name="x"></fd-icon>',
+    );
+
+    await expectNoAxeViolations(getInternal(el));
+  });
+
+  it("has no axe violations for a disabled button", async () => {
+    const el = await createButton({ disabled: "" }, "Not available");
+
+    await expectNoAxeViolations(getInternal(el));
+  });
+
+  it("has no axe violations for link mode", async () => {
+    const el = await createButton(
+      { href: "https://www.fdic.gov" },
+      "Visit FDIC.gov",
+    );
+
+    await expectNoAxeViolations(getInternal(el));
   });
 });
