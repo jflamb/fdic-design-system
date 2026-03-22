@@ -259,6 +259,7 @@ When in doubt, choose the path that improves:
 - Preserve existing conventions unless there is a clear reason to change them.
 - Validate relevant behavior before claiming completion.
 - Update documentation when behavior, APIs, or guidance materially change.
+- When implementation tasks are tracked in a GitHub Issue (as checklist items or sub-tasks), update them as each task is completed — do not wait until all work is finished. This keeps the issue as a live progress tracker and ensures anyone watching the issue can see current status without reading commits or PRs.
 
 At task start, inspect the local context that is relevant to the request. This usually includes:
 
