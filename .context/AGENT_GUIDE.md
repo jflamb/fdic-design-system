@@ -122,6 +122,7 @@ For planning and decision capture:
 - Use repository docs only for durable records that should remain true after implementation, such as architecture notes, ADR-style decisions, or stable reference material.
 - If you cannot create the GitHub artifact directly in the current environment, summarize the proposed issue body in your response instead of creating a new one-off markdown planning file unless the user explicitly asks you to persist it in the repo.
 - If a temporary local planning note is explicitly requested, mark it as temporary, keep it short, and avoid date-stamped file sprawl.
+- **Design proposals and approach recommendations belong in GitHub**, not in the conversation. Post design proposals as comments on the relevant Discussion or Issue so they are reviewable, linkable, and persist beyond the conversation. Do not output design proposals inline in conversation unless the maintainer explicitly asks for it.
 
 ## Open Source Governance
 
@@ -194,6 +195,11 @@ GitHub artifacts are useful when relevant, but they are not the default source o
 - Do not assume every non-trivial change requires a PR, Issue, or Discussion in this early-stage solo repository unless the maintainer asks for that workflow.
 - If GitHub artifacts exist for the task, align with them and note meaningful conflicts.
 - If a change is architectural, breaking, or likely to affect future contributors, record the lasting rationale in a durable repo doc and keep the step-by-step execution plan in GitHub.
+- When opening a PR as part of an agent workflow, wait for requested or relevant validation checks to complete and resolve actionable failures before handing off. Do not merge unless the user explicitly asks.
+- After opening a PR, add a concise review-request comment written as a well-formed AI agent prompt. The comment should ask for review, identify the highest-value areas to inspect, and call out open questions, assumptions, and any points that need clarification before merge.
+- Keep that PR handoff comment specific to the change set. Prefer concrete reviewer focus areas over generic requests for feedback.
+- When an issue is related to a GitHub Discussion, ensure the issue body or issue comment links to the relevant discussion so the relationship is explicit and traceable.
+- When creating or updating GitHub artifacts that reference each other, prefer direct cross-links between the issue, PR, and discussion where those links add useful context.
 
 When sources conflict, use this priority order:
 

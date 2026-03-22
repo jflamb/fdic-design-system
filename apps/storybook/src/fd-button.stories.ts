@@ -6,6 +6,8 @@ type ButtonArgs = {
   variant: "primary" | "neutral" | "subtle" | "outline" | "destructive";
   label: string;
   disabled: boolean;
+  loading: boolean;
+  loadingLabel: string;
   iconStart: string;
   iconEnd: string;
   href: string;
@@ -23,6 +25,8 @@ const meta = {
     },
     label: { control: "text" },
     disabled: { control: "boolean" },
+    loading: { control: "boolean" },
+    loadingLabel: { control: "text" },
     iconStart: {
       control: "select",
       options: ["", "star", "download", "trash", "pencil", "plus"],
@@ -39,6 +43,8 @@ const meta = {
     variant: "primary",
     label: "Submit application",
     disabled: false,
+    loading: false,
+    loadingLabel: "",
     iconStart: "",
     iconEnd: "",
     href: "",
@@ -49,6 +55,8 @@ const meta = {
     <fd-button
       variant=${args.variant}
       ?disabled=${args.disabled}
+      ?loading=${args.loading}
+      loading-label=${args.loadingLabel || undefined}
       href=${args.href || undefined}
       target=${args.target || undefined}
       rel=${args.rel || undefined}
@@ -145,6 +153,48 @@ export const AllVariantsDisabled: Story = {
       <fd-button variant="subtle" disabled>Subtle</fd-button>
       <fd-button variant="outline" disabled>Outline</fd-button>
       <fd-button variant="destructive" disabled>Destructive</fd-button>
+    </div>
+  `,
+};
+
+export const Loading: Story = {
+  args: { loading: true, label: "Submit application" },
+};
+
+export const LoadingWithLabel: Story = {
+  args: {
+    loading: true,
+    label: "Submit application",
+    loadingLabel: "Submitting…",
+  },
+};
+
+export const LoadingIconOnly: Story = {
+  render: () => html`
+    <fd-button variant="subtle" loading aria-label="Close dialog">
+      <fd-icon slot="icon-start" name="x"></fd-icon>
+    </fd-button>
+  `,
+};
+
+export const LoadingLink: Story = {
+  args: {
+    variant: "outline",
+    label: "Download report",
+    loading: true,
+    href: "https://www.fdic.gov",
+    iconEnd: "arrow-square-out",
+  },
+};
+
+export const AllVariantsLoading: Story = {
+  render: () => html`
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <fd-button variant="primary" loading>Primary</fd-button>
+      <fd-button variant="neutral" loading>Neutral</fd-button>
+      <fd-button variant="subtle" loading>Subtle</fd-button>
+      <fd-button variant="outline" loading>Outline</fd-button>
+      <fd-button variant="destructive" loading>Destructive</fd-button>
     </div>
   `,
 };

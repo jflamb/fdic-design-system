@@ -29,6 +29,9 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 <StoryEmbed storyId="components-button--with-icons" caption="With icons — use icon-start and icon-end slots to add fd-icon elements alongside the label" />
 <StoryEmbed storyId="components-button--icon-only" caption="Icon-only — for compact UI; requires aria-label on fd-button for accessibility" />
 <StoryEmbed storyId="components-button--as-link" caption="As link — setting href renders a native anchor element, preserving link semantics" />
+<StoryEmbed storyId="components-button--loading" caption="Loading — shows a spinner and suppresses activation to prevent duplicate submissions" />
+<StoryEmbed storyId="components-button--loading-with-label" caption="Loading with label — optionally replaces the visible label during loading for clarity" />
+<StoryEmbed storyId="components-button--all-variants-loading" caption="All variants loading — every variant supports the loading state" />
 
 ## Best practices
 
@@ -118,6 +121,17 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
   </div>
 </div>
 
+## Loading state
+
+Use the `loading` attribute when an action is in progress and you need to prevent duplicate submissions — for example, after the user clicks "Submit filing" and the request is still processing.
+
+- **Loading is not disabled.** Loading means "your action is in progress, please wait." Disabled means "this action is not available right now." Use the right one.
+- **The label stays visible by default.** The spinner appears alongside the text so the user can still read what action is pending.
+- **Use `loading-label` for long-running actions.** If the wait may be noticeable, changing the label can improve clarity: `loading-label="Submitting…"` while the original label is "Submit filing."
+- **Icon-only buttons** show the spinner in place of the icon. The accessible name (`aria-label`) is preserved.
+- **Link-mode buttons** (`href`) suppress navigation while loading using the same inert pattern as disabled links.
+- **Reduced motion:** The spinner animation is suppressed under `prefers-reduced-motion: reduce`. The static spinner icon and `aria-busy` state still communicate progress.
+
 ## Accessibility
 
 - `fd-button` renders a **native `<button>` element** inside its shadow DOM. Native buttons are focusable, keyboard-operable (Enter and Space), and announced correctly by screen readers without extra ARIA.
@@ -126,10 +140,12 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 - **Disabled state**: On `<button>`, the native `disabled` attribute is used. On `<a>` (link mode), `aria-disabled="true"` is set instead, since anchor elements don't support native `disabled`.
 - **External link safety**: When link-mode buttons use `target="_blank"`, `fd-button` adds `rel="noopener noreferrer"` automatically and preserves any extra `rel` tokens you supply.
 - All interactive states use the standard focus ring: `outline: 2px solid` with `outline-offset: 2px` on `:focus-visible`.
+- **Loading state**: When `loading` is set, the native control becomes inert (`disabled` on `<button>`, `aria-disabled="true"` on `<a>`) and receives `aria-busy="true"` as a supplemental signal. The spinner icon is decorative (`aria-hidden="true"`). If `loading-label` is provided, the accessible name updates to match the visible loading label.
 
 ## Known limitations
 
 - **Form submission is out of scope in v1** — `fd-button` always renders an internal `<button type="button">` when it is not in link mode. Because the component is not form-associated, use a native `<button type="submit">` or `<button type="reset">` inside light-DOM forms until a future version explicitly adds form association.
+- **`aria-busy` AT coverage varies** — `aria-busy` on `<button>` is not consistently announced across all screen reader / browser combinations. The primary inert signal is the native `disabled` attribute (or `aria-disabled` for links), with `aria-busy` as supplemental. Verify with your target AT combinations.
 
 ## Related components
 

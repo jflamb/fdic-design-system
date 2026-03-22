@@ -19,6 +19,7 @@ describe("phosphor-regular built-in icons", () => {
     "minus",
     "pencil",
     "plus",
+    "spinner-gap",
     "star",
     "trash",
     "upload",

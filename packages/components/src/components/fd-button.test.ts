@@ -188,4 +188,179 @@ describe("fd-button", () => {
     expect(slotNames).toContain("icon-start");
     expect(slotNames).toContain("icon-end");
   });
+
+  /* --- Loading state --- */
+
+  it("renders a spinner element when loading", async () => {
+    const el = await createButton({ loading: "" });
+    const spinner = el.shadowRoot!.querySelector("[part=spinner]");
+    expect(spinner).not.toBeNull();
+    expect(spinner!.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("does not render a spinner when not loading", async () => {
+    const el = await createButton();
+    const spinner = el.shadowRoot!.querySelector("[part=spinner]");
+    expect(spinner).toBeNull();
+  });
+
+  it("sets disabled on native <button> when loading", async () => {
+    const el = await createButton({ loading: "" });
+    const inner = getInternal(el);
+    expect(inner.tagName).toBe("BUTTON");
+    expect(inner.hasAttribute("disabled")).toBe(true);
+  });
+
+  it("sets aria-busy on native <button> when loading", async () => {
+    const el = await createButton({ loading: "" });
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-busy")).toBe("true");
+  });
+
+  it("does not set aria-busy when not loading", async () => {
+    const el = await createButton();
+    const inner = getInternal(el);
+    expect(inner.hasAttribute("aria-busy")).toBe(false);
+  });
+
+  it("preserves the variant class when loading (not disabled styling)", async () => {
+    const el = await createButton({ loading: "", variant: "primary" });
+    const inner = getInternal(el);
+    expect(inner.classList.contains("primary")).toBe(true);
+    expect(inner.classList.contains("loading")).toBe(true);
+    expect(inner.classList.contains("disabled")).toBe(false);
+  });
+
+  it("loading-label replaces visible text during loading", async () => {
+    const el = await createButton(
+      { loading: "", "loading-label": "Submitting…" },
+      "Submit",
+    );
+    const loadingLabel = el.shadowRoot!.querySelector(".loading-label");
+    expect(loadingLabel).not.toBeNull();
+    expect(loadingLabel!.textContent).toBe("Submitting…");
+  });
+
+  it("loading-label updates the accessible name on the native control", async () => {
+    const el = await createButton(
+      {
+        loading: "",
+        "loading-label": "Submitting…",
+        "aria-label": "Submit filing",
+      },
+      "",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-label")).toBe("Submitting…");
+  });
+
+  it("loading link-mode: removes href, sets aria-disabled, tabindex=-1", async () => {
+    const el = await createButton({
+      href: "https://example.com",
+      loading: "",
+    });
+    const inner = getInternal(el);
+    expect(inner.tagName).toBe("A");
+    expect(inner.hasAttribute("href")).toBe(false);
+    expect(inner.getAttribute("aria-disabled")).toBe("true");
+    expect(inner.getAttribute("tabindex")).toBe("-1");
+  });
+
+  it("loading link-mode: sets aria-busy", async () => {
+    const el = await createButton({
+      href: "https://example.com",
+      loading: "",
+    });
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-busy")).toBe("true");
+  });
+
+  it("loading link-mode: suppresses clicks", async () => {
+    const el = await createButton({
+      href: "https://example.com",
+      loading: "",
+    });
+    const inner = getInternal(el);
+    const spy = vi.fn();
+    el.addEventListener("click", spy);
+    inner.click();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it("icon-only loading: hides icon-start slot", async () => {
+    const el = await createButton(
+      { loading: "", "aria-label": "Close dialog" },
+      '<fd-icon slot="icon-start" name="x"></fd-icon>',
+    );
+    const iconSlot = el.shadowRoot!.querySelector(
+      'slot[name="icon-start"]',
+    ) as HTMLSlotElement;
+    expect(iconSlot).not.toBeNull();
+    expect(iconSlot!.style.display).toBe("none");
+  });
+
+  it("loading-label suppresses aria-labelledby so aria-label takes effect", async () => {
+    const label = document.createElement("span");
+    label.id = "ext-label";
+    label.textContent = "Submit filing";
+    document.body.appendChild(label);
+
+    const el = await createButton(
+      {
+        loading: "",
+        "loading-label": "Submitting…",
+        "aria-labelledby": "ext-label",
+      },
+      "Submit",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-label")).toBe("Submitting…");
+    expect(inner.hasAttribute("aria-labelledby")).toBe(false);
+  });
+
+  it("loading-label suppresses aria-labelledby in link mode", async () => {
+    const label = document.createElement("span");
+    label.id = "ext-label-link";
+    label.textContent = "Go to dashboard";
+    document.body.appendChild(label);
+
+    const el = await createButton(
+      {
+        href: "https://example.com",
+        loading: "",
+        "loading-label": "Loading…",
+        "aria-labelledby": "ext-label-link",
+      },
+      "Dashboard",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-label")).toBe("Loading…");
+    expect(inner.hasAttribute("aria-labelledby")).toBe(false);
+  });
+
+  it("preserves aria-labelledby when loading without loading-label", async () => {
+    const label = document.createElement("span");
+    label.id = "ext-label-keep";
+    label.textContent = "Submit filing";
+    document.body.appendChild(label);
+
+    const el = await createButton(
+      {
+        loading: "",
+        "aria-labelledby": "ext-label-keep",
+      },
+      "Submit",
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-labelledby")).toBe("ext-label-keep");
+  });
+
+  it("icon-only loading: preserves accessible name", async () => {
+    const el = await createButton(
+      { loading: "", "aria-label": "Close dialog" },
+      '<fd-icon slot="icon-start" name="x"></fd-icon>',
+    );
+    const inner = getInternal(el);
+    expect(inner.getAttribute("aria-label")).toBe("Close dialog");
+  });
 });

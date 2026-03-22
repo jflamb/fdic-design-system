@@ -1,6 +1,7 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { iconRegistry } from "../icons/registry.js";
 
 export type ButtonVariant =
   | "primary"
@@ -19,7 +20,8 @@ export class FdButton extends LitElement {
       display: inline-flex;
       vertical-align: middle;
     }
-    :host([disabled]) {
+    :host([disabled]),
+    :host([loading]) {
       pointer-events: none;
     }
 
@@ -196,6 +198,39 @@ export class FdButton extends LitElement {
       padding-inline: 6px;
     }
 
+    /* --- Loading --- */
+    @keyframes fd-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .spinner {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      width: var(--fd-button-spinner-size, 1em);
+      height: var(--fd-button-spinner-size, 1em);
+      animation: fd-spin var(--fd-button-spinner-speed, 0.8s) linear infinite;
+    }
+    .spinner svg {
+      width: 100%;
+      height: 100%;
+    }
+    .loading .label {
+      /* keep label visible alongside spinner by default */
+    }
+    .loading-label {
+      display: inline-flex;
+      align-items: center;
+      padding-inline: 6px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spinner {
+        animation: none;
+      }
+    }
+
     /* --- Forced colors --- */
     @media (forced-colors: active) {
       .base {
@@ -220,6 +255,8 @@ export class FdButton extends LitElement {
     href: { reflect: true },
     target: { reflect: true },
     rel: { reflect: true },
+    loading: { type: Boolean, reflect: true },
+    loadingLabel: { attribute: "loading-label", reflect: true },
   };
 
   declare variant: ButtonVariant;
@@ -228,6 +265,8 @@ export class FdButton extends LitElement {
   declare href: string | undefined;
   declare target: string | undefined;
   declare rel: string | undefined;
+  declare loading: boolean;
+  declare loadingLabel: string | undefined;
 
   constructor() {
     super();
@@ -237,6 +276,8 @@ export class FdButton extends LitElement {
     this.href = undefined;
     this.target = undefined;
     this.rel = undefined;
+    this.loading = false;
+    this.loadingLabel = undefined;
   }
 
   override attributeChangedCallback(
@@ -286,32 +327,58 @@ export class FdButton extends LitElement {
     return [...tokens].join(" ");
   }
 
+  private _renderSpinner() {
+    const svg = iconRegistry.get("spinner-gap") ?? "";
+    return html`<span
+      part="spinner"
+      class="spinner"
+      aria-hidden="true"
+      .innerHTML=${svg}
+    ></span>`;
+  }
+
   render() {
     const isLink = this.href !== undefined;
-    const isDisabled = this.disabled;
+    const isLoading = this.loading;
+    const isInert = this.disabled || isLoading;
     const { ariaLabel, ariaLabelledby } = this._getAccessibleNameAttributes();
+
+    // When loading-label is active, override the accessible name and
+    // suppress aria-labelledby so it doesn't take precedence over aria-label
+    const hasLoadingLabel = isLoading && this.loadingLabel;
+    const effectiveAriaLabel = hasLoadingLabel ? this.loadingLabel : ariaLabel;
+    const effectiveAriaLabelledby = hasLoadingLabel ? nothing : ariaLabelledby;
 
     const classes = {
       base: true,
-      [this.variant]: !isDisabled,
-      disabled: isDisabled,
+      [this.variant]: !this.disabled,
+      disabled: this.disabled,
+      loading: isLoading && !this.disabled,
       outline: this.variant === "outline",
     };
 
     const content = html`
-      <slot name="icon-start"></slot>
-      <span part="label" class="label"><slot></slot></span>
+      ${isLoading ? this._renderSpinner() : nothing}
+      ${isLoading
+        ? html`<slot name="icon-start" style="display:none"></slot>`
+        : html`<slot name="icon-start"></slot>`}
+      ${isLoading && this.loadingLabel
+        ? html`<span part="label" class="loading-label"
+              >${this.loadingLabel}</span
+            ><span class="label" style="display:none"><slot></slot></span>`
+        : html`<span part="label" class="label"><slot></slot></span>`}
       <slot name="icon-end"></slot>
     `;
 
     if (isLink) {
-      if (isDisabled) {
+      if (isInert) {
         return html`<a
           part="base"
           class=${classMap(classes)}
           aria-disabled="true"
-          aria-label=${ariaLabel}
-          aria-labelledby=${ariaLabelledby}
+          aria-busy=${isLoading ? "true" : nothing}
+          aria-label=${effectiveAriaLabel}
+          aria-labelledby=${effectiveAriaLabelledby}
           tabindex="-1"
           @click=${this._handleDisabledClick}
           >${content}</a
@@ -333,9 +400,10 @@ export class FdButton extends LitElement {
       part="base"
       class=${classMap(classes)}
       type="button"
-      aria-label=${ariaLabel}
-      aria-labelledby=${ariaLabelledby}
-      ?disabled=${isDisabled}
+      aria-label=${effectiveAriaLabel}
+      aria-labelledby=${effectiveAriaLabelledby}
+      aria-busy=${isLoading ? "true" : nothing}
+      ?disabled=${isInert}
     >
       ${content}
     </button>`;
