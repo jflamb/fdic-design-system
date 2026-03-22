@@ -22,8 +22,12 @@ The native `<details>` element provides a disclosure widget for expandable conte
 
 ## Examples
 
-<StoryEmbed storyId="prose-details--default" caption="Default accordion — single disclosure widget" />
-<StoryEmbed storyId="prose-details--faq-group" caption="FAQ group — multiple accordions in sequence" />
+<StoryEmbed
+  storyId="prose-details--docs-overview"
+  linkStoryId="prose-details--default"
+  height="360"
+  caption="Overview — a single disclosure and an FAQ-style group in one preview. Open Storybook to test expanded and collapsed states directly."
+/>
 
 ## Best practices
 

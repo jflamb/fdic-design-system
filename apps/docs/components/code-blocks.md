@@ -16,8 +16,12 @@ Code blocks display formatted code snippets, configuration examples, and technic
 
 ## Examples
 
-<StoryEmbed storyId="prose-code-block--default" caption="Fenced code block with syntax formatting" />
-<StoryEmbed storyId="prose-code-block--with-copy" caption="Code block with copy-to-clipboard button" />
+<StoryEmbed
+  storyId="prose-code-block--docs-overview"
+  linkStoryId="prose-code-block--with-copy"
+  height="250"
+  caption="Overview — compare a standard fenced block with a copy-enabled variant. Open Storybook to inspect the copy interaction in isolation."
+/>
 
 ## Best practices
 

@@ -21,8 +21,12 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
 
 ## Examples
 
-<StoryEmbed storyId="components-icon--default" caption="Default — a decorative icon rendered at the default 18px size" />
-<StoryEmbed storyId="components-icon--all-icons" caption="All built-in icons — the full set of Phosphor Regular icons included in the registry" />
+<StoryEmbed
+  storyId="components-icon--docs-overview"
+  linkStoryId="components-icon--all-icons"
+  height="260"
+  caption="Overview — decorative, semantic, and control-integrated icon usage in one preview. Open Storybook for the full icon registry."
+/>
 
 ## Accessibility
 

@@ -23,9 +23,16 @@ Displaying a measurement within a known range — a bank's capital ratio against
 
 ## Examples
 
-<StoryEmbed storyId="prose-progress--determinate" caption="Determinate progress — known completion percentage" />
-<StoryEmbed storyId="prose-progress--indeterminate" caption="Indeterminate progress — unknown duration with animated stripes" />
-<StoryEmbed storyId="prose-meter--default" caption="Meter — value within a known range with optimum/suboptimum states" />
+<StoryEmbed
+  storyId="prose-progress--docs-overview"
+  linkStoryId="prose-progress--determinate"
+  height="360"
+  caption="Overview — determinate progress, indeterminate progress, and meter in one representative example. Open Storybook for isolated controls."
+/>
+
+- **Determinate progress** communicates known completion toward a finish line.
+- **Indeterminate progress** is honest about work in flight when you cannot predict duration.
+- **Meter** communicates a current value within a range rather than progress toward completion.
 
 ## Best practices
 

@@ -22,8 +22,12 @@ Tables present structured data in rows and columns. They are the right choice wh
 
 ## Examples
 
-<StoryEmbed storyId="prose-table--default" caption="Default table with striped rows and hover highlights" />
-<StoryEmbed storyId="prose-table--numeric" caption="Table with right-aligned numeric columns" />
+<StoryEmbed
+  storyId="prose-table--docs-overview"
+  linkStoryId="prose-table--numeric"
+  height="360"
+  caption="Overview — striped rows, right-aligned numeric columns, and a summary footer in one representative table. Open Storybook for isolated variants."
+/>
 
 ## Best practices
 

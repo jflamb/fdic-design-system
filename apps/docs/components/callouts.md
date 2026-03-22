@@ -22,11 +22,18 @@ Callouts draw attention to important information within a page. They use color, 
 
 ## Examples
 
-<StoryEmbed storyId="prose-callout--default" caption="Default — general-purpose tips and supplementary context" />
-<StoryEmbed storyId="prose-callout--info" caption="Info — helpful context that enriches understanding but isn't required to proceed" />
-<StoryEmbed storyId="prose-callout--warning" caption="Warning — actions that could lead to financial loss, missed deadlines, or compliance issues if ignored" />
-<StoryEmbed storyId="prose-callout--success" caption="Success — confirms a completed process or met requirement" />
-<StoryEmbed storyId="prose-callout--danger" caption="Danger — irreversible actions or situations with legal or safety consequences; use sparingly" />
+<StoryEmbed
+  storyId="prose-callout--docs-overview"
+  linkStoryId="prose-callout--docs-overview"
+  height="620"
+  caption="Variant overview — compare default, info, warning, success, and danger in one place. Open Storybook for isolated variants and controls."
+/>
+
+- **Default** supports general-purpose tips and supplementary context.
+- **Info** adds helpful background that enriches understanding but is not required to proceed.
+- **Warning** signals real risk, such as missed deadlines, compliance problems, or financial consequences.
+- **Success** confirms that a process completed as expected.
+- **Danger** is reserved for irreversible or legally consequential situations.
 
 ## Best practices
 

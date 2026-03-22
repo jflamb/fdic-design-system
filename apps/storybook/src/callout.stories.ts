@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { DOCS_OVERVIEW_STACK_STYLE } from "./docs-overview";
 
 type CalloutArgs = {
   variant: "default" | "info" | "warning" | "success" | "danger";
@@ -83,4 +84,56 @@ export const Danger: Story = {
       "This action will permanently close the account and cannot be reversed. All associated records will be archived according to retention policy.",
     label: "Critical alert"
   }
+};
+
+export const DocsOverview: Story = {
+  render: () => html`
+    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+      ${[
+        {
+          variant: "default",
+          label: "Tip",
+          content:
+            "Use default callouts for helpful guidance that supports the main task without interrupting it."
+        },
+        {
+          variant: "info",
+          label: "Information",
+          content:
+            "Use info when the reader benefits from context, such as how deposit insurance categories affect coverage."
+        },
+        {
+          variant: "warning",
+          label: "Warning",
+          content:
+            "Use warning for real risk, such as a filing deadline that could trigger compliance follow-up if missed."
+        },
+        {
+          variant: "success",
+          label: "Success",
+          content:
+            "Use success to confirm completed work, such as an accepted submission with a confirmation number."
+        },
+        {
+          variant: "danger",
+          label: "Critical alert",
+          content:
+            "Use danger sparingly for irreversible actions or situations with legal, financial, or safety consequences."
+        }
+      ].map(
+        (item) => html`
+          <div
+            class=${`prose-callout${variantClass(item.variant)}`}
+            role=${variantRole(item.variant)}
+            aria-label=${item.label}
+          >
+            <span class="prose-callout-icon" aria-hidden="true"></span>
+            <div class="prose-callout-content">
+              <p>${item.content}</p>
+            </div>
+          </div>
+        `
+      )}
+    </div>
+  `
 };

@@ -162,7 +162,7 @@ Component doc pages live in `apps/docs/components/` and follow a consistent stru
 1. `# Component Name` — title heading
 2. Intro block with `.fdic-foundation-intro` wrapper and `.fdic-eyebrow` span
 3. `## When to use` / `## When not to use`
-4. `## Examples` — with `<StoryEmbed storyId="..." caption="..." />` components referencing Storybook story IDs
+4. `## Examples` — with curated `<StoryEmbed storyId="..." caption="..." />` components referencing Storybook story IDs
 5. `## Best practices` — do/don't cards
 6. `## Content guidelines`
 7. `## Accessibility`
@@ -170,6 +170,16 @@ Component doc pages live in `apps/docs/components/` and follow a consistent stru
 9. `## Related components`
 
 Story IDs follow the pattern `components-{name}--{variant-kebab-case}` (e.g., `components-button--loading-with-label` maps to the `LoadingWithLabel` story export).
+
+For docs embeds:
+
+- Treat VitePress docs as curated guidance, not a 1:1 mirror of Storybook.
+- Apply the same rule when documenting a brand-new component or topic for the first time.
+- Default to one representative Storybook embed per docs page.
+- A second embed is acceptable only when it covers a materially different behavior that the first embed cannot communicate well.
+- If multiple variants matter, prefer adding a consolidated Storybook story such as `DocsOverview` or `AllVariants` instead of embedding each state separately.
+- Use `linkStoryId` to send readers to Storybook for exhaustive exploration, controls, and edge-case states.
+- When editing an existing docs page with multiple embeds, reduce iframe count unless each remaining embed has a clear instructional reason to exist.
 
 ### Storybook Story Conventions
 
