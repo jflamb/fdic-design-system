@@ -158,6 +158,7 @@ Use the `loading` attribute when an action is in progress and you need to preven
 ## Related components
 
 <ul class="fdic-related-list">
+  <li><a href="./button-group">Button Group</a> — Use <code>fd-button-group</code> when several independent actions need consistent spacing, ordering, and responsive stacking.</li>
   <li><a href="./icon">Icon</a> — Use <code>fd-icon</code> in the <code>icon-start</code> and <code>icon-end</code> slots to add icons to buttons.</li>
   <li><a href="./callouts">Callouts</a> — For communicating information that doesn't require user action. If you're tempted to put a button inside a callout, consider whether the callout should be a standalone action section instead.</li>
 </ul>
