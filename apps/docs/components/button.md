@@ -30,9 +30,15 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 <StoryEmbed
   storyId="components-button--docs-overview"
   linkStoryId="components-button--playground"
-  height="260"
+  height="220"
   caption="Common patterns — icons, icon-only actions, link mode, and loading state in one compact preview. Open Storybook for the full set of dedicated examples."
 />
+
+- **Primary** carries the main action on the page or section. Limit it to one primary button per section.
+- **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.
+- **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.
+- **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.
+- **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable.
 
 ## Best practices
 
