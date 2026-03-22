@@ -1,15 +1,13 @@
-import { LitElement, css, html, nothing } from "lit";
+import { LitElement, css, html } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { attachInternalsCompat, type ElementInternalsLike } from "./internals.js";
-import "./fd-icon.js";
 
-export class FdCheckbox extends LitElement {
+export class FdRadio extends LitElement {
   static formAssociated = true;
 
   static properties = {
     checked: { type: Boolean, reflect: true },
-    indeterminate: { type: Boolean, reflect: true },
     disabled: { type: Boolean, reflect: true },
     required: { type: Boolean, reflect: true },
     name: { reflect: true },
@@ -44,7 +42,7 @@ export class FdCheckbox extends LitElement {
     label {
       display: flex;
       align-items: flex-start;
-      gap: var(--fd-checkbox-gap, var(--fdic-spacing-xs, 8px));
+      gap: var(--fd-radio-gap, var(--fdic-spacing-xs, 8px));
       max-inline-size: 100%;
       cursor: pointer;
       position: relative;
@@ -61,9 +59,9 @@ export class FdCheckbox extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      inline-size: var(--fd-checkbox-size, 24px);
-      block-size: var(--fd-checkbox-size, 24px);
-      color: var(--fd-checkbox-border-color, var(--fdic-text-primary, #212123));
+      inline-size: var(--fd-radio-size, 24px);
+      block-size: var(--fd-radio-size, 24px);
+      color: var(--fd-radio-icon-color, var(--fdic-text-primary, #212123));
       flex-shrink: 0;
     }
 
@@ -80,57 +78,81 @@ export class FdCheckbox extends LitElement {
       opacity: 0;
     }
 
-    .icon {
+    .visual {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       inline-size: 100%;
       block-size: 100%;
-      border-radius: var(
-        --fd-checkbox-radius,
-        var(--fdic-corner-radius-sm, 3px)
-      );
+      border-radius: 9999px;
       box-sizing: border-box;
+      --fd-radio-focus-shadow: none;
+      --fd-radio-state-shadow: none;
+      box-shadow: var(--fd-radio-focus-shadow), var(--fd-radio-state-shadow);
       transition:
         box-shadow 120ms ease,
         color 120ms ease,
         opacity 120ms ease;
     }
 
-    .icon fd-icon {
-      --fd-icon-size: var(--fd-checkbox-icon-size, 24px);
+    .outer {
+      inline-size: var(--fd-radio-glyph-size, 22px);
+      block-size: var(--fd-radio-glyph-size, 22px);
+      border-radius: 9999px;
+      border: var(--fd-radio-border-width, 2px) solid currentColor;
+      box-sizing: border-box;
     }
 
-    [part="control"]:has(input:focus-visible) .icon {
-      box-shadow: inset 0 0 0 2.5px
+    .dot {
+      position: absolute;
+      inline-size: var(--fd-radio-dot-size, 8px);
+      block-size: var(--fd-radio-dot-size, 8px);
+      border-radius: 9999px;
+      background: currentColor;
+      opacity: 0;
+      transform: scale(0.75);
+      transition:
+        opacity 120ms ease,
+        transform 120ms ease;
+    }
+
+    :host([checked]) .dot {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    [part="control"]:has(input:focus-visible) .visual,
+    [part="control"] input:focus-visible + .visual {
+      --fd-radio-focus-shadow: inset 0 0 0 2.5px
         var(
-          --fd-checkbox-focus-color,
+          --fd-radio-focus-color,
           var(--fdic-border-input-focus, #38b6ff)
         );
     }
 
-    :host(:hover:not([disabled])) .icon {
-      box-shadow: inset 0 0 0 999px
+    :host(:hover:not([disabled])) .visual {
+      --fd-radio-state-shadow: inset 0 0 0 999px
         var(
-          --fd-checkbox-overlay-hover,
+          --fd-radio-overlay-hover,
           var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
         );
     }
 
-    :host(:active:not([disabled])) .icon {
-      box-shadow: inset 0 0 0 999px
+    :host(:active:not([disabled])) .visual {
+      --fd-radio-state-shadow: inset 0 0 0 999px
         var(
-          --fd-checkbox-overlay-active,
+          --fd-radio-overlay-active,
           var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))
         );
     }
 
     :host([disabled]) [part="control"] {
-      color: var(--fdic-text-disabled, #9e9ea0);
+      color: var(--fd-radio-icon-disabled, var(--fdic-text-disabled, #9e9ea0));
     }
 
     :host([data-user-invalid]) [part="control"] {
-      color: var(--fd-checkbox-invalid-color, rgb(190, 40, 40));
+      color: var(--fd-radio-invalid-color, rgb(190, 40, 40));
     }
 
     [part="label"] {
@@ -156,41 +178,41 @@ export class FdCheckbox extends LitElement {
     }
 
     :host([disabled]) [part="label"] {
-      color: var(--fdic-text-disabled, #9e9ea0);
+      color: var(--fdic-text-disabled, var(--ds-color-text-disabled, #9e9ea0));
     }
 
     @media (forced-colors: active) {
-      .icon {
+      .visual {
         forced-color-adjust: none;
         box-shadow: none;
         color: ButtonText;
       }
 
-      :host([disabled]) .icon {
+      :host([disabled]) .visual {
         color: GrayText;
       }
 
-      :host([checked]) .icon,
-      :host([indeterminate]) .icon {
-        background: Highlight;
-        color: HighlightText;
+      :host([checked]) .outer,
+      :host([checked]) .dot {
+        color: Highlight;
       }
 
-      [part="control"]:has(input:focus-visible) .icon {
+      [part="control"]:has(input:focus-visible) .visual,
+      [part="control"] input:focus-visible + .visual {
         outline: 2px solid LinkText;
         outline-offset: 2px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .icon {
+      .visual,
+      .dot {
         transition: none !important;
       }
     }
   `;
 
   declare checked: boolean;
-  declare indeterminate: boolean;
   declare disabled: boolean;
   declare required: boolean;
   declare name: string;
@@ -205,7 +227,6 @@ export class FdCheckbox extends LitElement {
   constructor() {
     super();
     this.checked = false;
-    this.indeterminate = false;
     this.disabled = false;
     this.required = false;
     this.name = "";
@@ -239,7 +260,10 @@ export class FdCheckbox extends LitElement {
   override firstUpdated() {
     this._input = this.shadowRoot?.querySelector("input") ?? null;
     this._syncInputFromHost();
-    this._syncFormState();
+    if (this.checked) {
+      this._uncheckGroupPeers();
+    }
+    this._syncGroupValidity();
   }
 
   override connectedCallback() {
@@ -257,32 +281,66 @@ export class FdCheckbox extends LitElement {
   override updated(changed: PropertyValues<this>) {
     if (
       changed.has("checked") ||
-      changed.has("indeterminate") ||
       changed.has("disabled") ||
       changed.has("required") ||
       changed.has("name") ||
       changed.has("value")
     ) {
       this._syncInputFromHost();
-      this._syncFormState();
+      if (this.checked) {
+        this._uncheckGroupPeers();
+      }
+      this._syncGroupValidity();
     }
   }
 
   formResetCallback() {
     this.checked = this._defaultChecked;
-    this.indeterminate = false;
     this._userHasInteracted = false;
     this.removeAttribute("data-user-invalid");
     this._syncInputFromHost();
-    this._syncFormState();
+    if (this.checked) {
+      this._uncheckGroupPeers();
+    }
+    this._syncGroupValidity();
   }
 
   checkValidity() {
+    this._syncGroupValidity();
     return this._internals.checkValidity();
   }
 
   reportValidity() {
+    this._syncGroupValidity();
     return this._internals.reportValidity();
+  }
+
+  private _getAllRadios() {
+    const root = this.getRootNode() as Document | ShadowRoot;
+    return Array.from(root.querySelectorAll("fd-radio")) as FdRadio[];
+  }
+
+  private _isInSameGroup(other: FdRadio) {
+    if (other === this) return true;
+    if (other.name !== this.name) return false;
+
+    if (this.form || other.form) {
+      return this.form === other.form;
+    }
+
+    return this.getRootNode() === other.getRootNode();
+  }
+
+  private _getGroupRadios() {
+    if (!this.name) {
+      return [this];
+    }
+
+    return this._getAllRadios().filter((radio) => this._isInSameGroup(radio));
+  }
+
+  private _getEnabledGroupRadios() {
+    return this._getGroupRadios().filter((radio) => !radio.disabled);
   }
 
   private _syncInputFromHost() {
@@ -291,20 +349,21 @@ export class FdCheckbox extends LitElement {
     }
 
     this._input.checked = this.checked;
-    this._input.indeterminate = this.indeterminate;
     this._input.disabled = this.disabled;
     this._input.required = this.required;
     this._input.name = this.name;
     this._input.value = this.value;
   }
 
-  private _syncFormState() {
+  private _syncOwnFormState() {
     this._internals.setFormValue(this.checked ? this.value : null);
 
-    if (this.required && !this.checked) {
+    const hasGroupSelection = this._getGroupRadios().some((radio) => radio.checked);
+
+    if (this.required && !hasGroupSelection) {
       this._internals.setValidity(
         { valueMissing: true },
-        "This checkbox is required.",
+        "Please select an option.",
         this._input ?? undefined,
       );
       if (this._userHasInteracted) {
@@ -317,16 +376,23 @@ export class FdCheckbox extends LitElement {
     this.removeAttribute("data-user-invalid");
   }
 
-  private _getIconName() {
-    if (this.indeterminate) {
-      return "minus-square";
+  private _syncGroupValidity() {
+    for (const radio of this._getGroupRadios()) {
+      radio._syncOwnFormState();
+    }
+  }
+
+  private _uncheckGroupPeers() {
+    if (!this.checked || !this.name) {
+      return;
     }
 
-    if (this.checked) {
-      return "check-square";
+    for (const radio of this._getGroupRadios()) {
+      if (radio !== this && radio.checked) {
+        radio.checked = false;
+        radio._syncInputFromHost();
+      }
     }
-
-    return "square";
   }
 
   private _slotHasContent(name: string) {
@@ -339,21 +405,45 @@ export class FdCheckbox extends LitElement {
     this._descriptionHasContent = this._slotHasContent("description");
   }
 
-  private _syncFromInput(input: HTMLInputElement) {
-    this.checked = input.checked;
-    this.indeterminate = false;
+  private _commitUserSelection() {
+    this.checked = true;
     this._userHasInteracted = true;
-    this._syncFormState();
+    this._uncheckGroupPeers();
+    this._syncGroupValidity();
   }
 
-  private _onInput(event: Event) {
-    this._syncFromInput(event.target as HTMLInputElement);
+  private _onInput() {
+    this._commitUserSelection();
     this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
   }
 
-  private _onChange(event: Event) {
-    this._syncFromInput(event.target as HTMLInputElement);
+  private _onChange() {
+    this._commitUserSelection();
     this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+  }
+
+  private _onKeydown(event: KeyboardEvent) {
+    if (!["ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight"].includes(event.key)) {
+      return;
+    }
+
+    const radios = this._getEnabledGroupRadios();
+    if (radios.length < 2) {
+      return;
+    }
+
+    event.preventDefault();
+    const currentIndex = Math.max(0, radios.indexOf(this));
+    const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (currentIndex + direction + radios.length) % radios.length;
+    const nextRadio = radios[nextIndex];
+
+    nextRadio._commitUserSelection();
+    nextRadio.focus();
+    // Shadow-root-separated radios do not get the browser's native group event
+    // behavior, so mirror both events for consumers listening at the host level.
+    nextRadio.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    nextRadio.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
   }
 
   private _onInvalid = () => {
@@ -367,13 +457,15 @@ export class FdCheckbox extends LitElement {
       <label>
         <span part="control">
           <input
-            type="checkbox"
+            type="radio"
             aria-describedby=${ifDefined(describedBy)}
             @input=${this._onInput}
             @change=${this._onChange}
+            @keydown=${this._onKeydown}
           />
-          <span class="icon" aria-hidden="true">
-            <fd-icon name=${this._getIconName()}></fd-icon>
+          <span class="visual" aria-hidden="true">
+            <span class="outer"></span>
+            <span class="dot"></span>
           </span>
         </span>
         <span part="label">
@@ -391,6 +483,6 @@ export class FdCheckbox extends LitElement {
   }
 }
 
-if (!customElements.get("fd-checkbox")) {
-  customElements.define("fd-checkbox", FdCheckbox);
+if (!customElements.get("fd-radio")) {
+  customElements.define("fd-radio", FdRadio);
 }
