@@ -4,8 +4,8 @@ Instructions for AI agents working in this repository.
 
 ## Current Stage
 
-- This repository is in early scaffold stage.
-- Placeholder code is allowed.
+- This repository has working components (`fd-button`, `fd-icon`), real tests, Storybook, a VitePress docs site deployed via GitHub Pages, and multiple merged PRs with proper conventional commits.
+- Placeholder code is allowed for new scaffolding, but existing components follow production-quality standards including tests, docs, stories, and accessibility.
 - Do not introduce production-ready visual language, brand styling, or complex component behavior unless explicitly asked.
 - Favor minimal, reversible structure over premature implementation.
 - The maintainer is working solo for now. Do not assume branch protection, CODEOWNERS, or multi-review workflows are enabled.
@@ -76,6 +76,46 @@ This system is for government and financial-sector use. Optimize for trust and c
 - Treat error prevention, confirmation, and recovery as first-class UX requirements.
 - Preserve or encourage established government trust markers such as official identifiers, clear ownership, and policy links.
 
+## Tech Stack
+
+- **Component authoring**: Lit (LitElement) — all first-party components use Lit.
+- **Build**: tsup for component and React wrapper packages.
+- **Testing**: Vitest with happy-dom environment. Test files are co-located with source (`*.test.ts` alongside `*.ts` in `src/components/`).
+- **Documentation site**: VitePress (`apps/docs/`).
+- **Component workbench**: Storybook (`apps/storybook/`).
+- **React wrappers**: `packages/react/` — auto-generated wrappers for React consumers.
+- **Icons**: Phosphor Icons embedded as inline SVG strings in an icon registry (`src/icons/`).
+
+## Monorepo Structure and Build Order
+
+This is an npm-workspaces monorepo. Build order matters because downstream packages depend on upstream outputs:
+
+```
+npm run build:components  →  npm run build:react  →  npm run build:docs
+```
+
+Key workspace scripts (run from the repo root):
+
+| Script | Purpose |
+|--------|---------|
+| `npm run test:components` | Run all component tests (Vitest + happy-dom) |
+| `npm run build` | Full sequential build (components → react → docs) |
+| `npm run dev:docs` | Start VitePress dev server |
+| `npm run dev:storybook` | Start Storybook dev server |
+| `npm run build:storybook` | Build Storybook for deployment |
+
+## Commit Message Conventions
+
+Use conventional commits with a scope:
+
+```
+feat(button): add loading state with spinner
+fix(button): suppress aria-labelledby when loading-label is active
+docs(button): add loading state usage guidance
+```
+
+Common types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`. Scope is typically the component or area name.
+
 ## Design and Architecture Rules
 
 Prefer this order of operations:
@@ -114,6 +154,39 @@ When adding real guidance, document:
 - known limitations
 
 Keep docs plain, direct, and task-oriented.
+
+### VitePress Component Doc Pages
+
+Component doc pages live in `apps/docs/components/` and follow a consistent structure:
+
+1. `# Component Name` — title heading
+2. Intro block with `.fdic-foundation-intro` wrapper and `.fdic-eyebrow` span
+3. `## When to use` / `## When not to use`
+4. `## Examples` — with `<StoryEmbed storyId="..." caption="..." />` components referencing Storybook story IDs
+5. `## Best practices` — do/don't cards
+6. `## Content guidelines`
+7. `## Accessibility`
+8. `## Known limitations`
+9. `## Related components`
+
+Story IDs follow the pattern `components-{name}--{variant-kebab-case}` (e.g., `components-button--loading-with-label` maps to the `LoadingWithLabel` story export).
+
+### Storybook Story Conventions
+
+- Stories live in `apps/storybook/src/` as `fd-{component}.stories.ts`.
+- Use `@storybook/web-components-vite` with Lit `html` tagged templates.
+- Use `ifDefined()` from `lit/directives/if-defined.js` for optional attribute bindings to avoid rendering `"undefined"` as a literal string.
+- Story exports use PascalCase (e.g., `LoadingWithLabel`), which Storybook converts to kebab-case IDs.
+- Every story embedded in VitePress docs via `<StoryEmbed>` must have a corresponding export in the stories file.
+- Cover edge-case combinations (e.g., loading + disabled, loading-label + aria-labelledby) when they have distinct behavior.
+
+### Component Testing Patterns
+
+- Test files are co-located: `fd-{component}.test.ts` alongside `fd-{component}.ts` in `packages/components/src/components/`.
+- Tests run in Vitest with happy-dom environment (configured in `packages/components/vitest.config.ts`).
+- Use a factory helper pattern (e.g., `createButton(attrs, innerHTML)`) that creates the element, sets attributes, appends to `document.body`, and awaits `updateComplete`.
+- Use `getInternal(el)` to query the shadow DOM for the native control via `[part=base]`.
+- Clean up the DOM in `beforeEach` with `document.body.innerHTML = ""`.
 
 For planning and decision capture:
 
@@ -200,6 +273,34 @@ GitHub artifacts are useful when relevant, but they are not the default source o
 - Keep that PR handoff comment specific to the change set. Prefer concrete reviewer focus areas over generic requests for feedback.
 - When an issue is related to a GitHub Discussion, ensure the issue body or issue comment links to the relevant discussion so the relationship is explicit and traceable.
 - When creating or updating GitHub artifacts that reference each other, prefer direct cross-links between the issue, PR, and discussion where those links add useful context.
+
+### PR Review Workflow
+
+When addressing PR review feedback:
+
+- Read all review comments before starting changes.
+- Verify each comment's technical claim independently — do not assume feedback is correct without checking the code.
+- Make targeted fixes addressing the feedback. Add regression tests for bugs identified in review.
+- After pushing fixes, add a summary comment on the PR explaining what changed and why, referencing the specific feedback addressed.
+
+### Post-Merge Cleanup
+
+After a PR is merged:
+
+- Delete the remote feature branch (use `--delete-branch` with `gh pr merge`, or delete manually).
+- Delete the local feature branch and switch back to `main`.
+- Pull the latest `main` to ensure the local copy is current.
+- Run `npm run test:components` and `npm run build` to verify the merge didn't introduce issues.
+- Clean up any other stale local branches that have already been merged.
+
+### Pre-Merge Validation
+
+Before merging a PR, ensure at minimum:
+
+- `npm run test:components` passes
+- `npm run build` succeeds (full build: components → react → docs)
+- Documentation is updated if the change affects component APIs or behavior
+- Storybook stories are updated if the change adds or modifies visual states
 
 When sources conflict, use this priority order:
 

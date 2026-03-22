@@ -31,6 +31,8 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 <StoryEmbed storyId="components-button--as-link" caption="As link — setting href renders a native anchor element, preserving link semantics" />
 <StoryEmbed storyId="components-button--loading" caption="Loading — shows a spinner and suppresses activation to prevent duplicate submissions" />
 <StoryEmbed storyId="components-button--loading-with-label" caption="Loading with label — optionally replaces the visible label during loading for clarity" />
+<StoryEmbed storyId="components-button--loading-icon-only" caption="Loading icon-only — spinner replaces the icon; accessible name is preserved" />
+<StoryEmbed storyId="components-button--loading-link" caption="Loading link — navigation is suppressed while the action is in progress" />
 <StoryEmbed storyId="components-button--all-variants-loading" caption="All variants loading — every variant supports the loading state" />
 
 ## Best practices
@@ -140,7 +142,7 @@ Use the `loading` attribute when an action is in progress and you need to preven
 - **Disabled state**: On `<button>`, the native `disabled` attribute is used. On `<a>` (link mode), `aria-disabled="true"` is set instead, since anchor elements don't support native `disabled`.
 - **External link safety**: When link-mode buttons use `target="_blank"`, `fd-button` adds `rel="noopener noreferrer"` automatically and preserves any extra `rel` tokens you supply.
 - All interactive states use the standard focus ring: `outline: 2px solid` with `outline-offset: 2px` on `:focus-visible`.
-- **Loading state**: When `loading` is set, the native control becomes inert (`disabled` on `<button>`, `aria-disabled="true"` on `<a>`) and receives `aria-busy="true"` as a supplemental signal. The spinner icon is decorative (`aria-hidden="true"`). If `loading-label` is provided, the accessible name updates to match the visible loading label.
+- **Loading state**: When `loading` is set, the native control becomes inert (`disabled` on `<button>`, `aria-disabled="true"` on `<a>`) and receives `aria-busy="true"` as a supplemental signal. The spinner icon is decorative (`aria-hidden="true"`). If `loading-label` is provided, the accessible name updates to match the visible loading label, and any `aria-labelledby` on the host is suppressed so the loading label takes precedence. When `loading-label` is not set, `aria-labelledby` is forwarded normally.
 
 ## Known limitations
 

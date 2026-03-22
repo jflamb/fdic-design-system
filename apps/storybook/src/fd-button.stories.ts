@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
-import { html } from "lit";
+import { html, nothing } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
 import "@fdic-ds/components";
 
 type ButtonArgs = {
@@ -56,10 +57,10 @@ const meta = {
       variant=${args.variant}
       ?disabled=${args.disabled}
       ?loading=${args.loading}
-      loading-label=${args.loadingLabel || undefined}
-      href=${args.href || undefined}
-      target=${args.target || undefined}
-      rel=${args.rel || undefined}
+      loading-label=${ifDefined(args.loadingLabel || undefined)}
+      href=${ifDefined(args.href || undefined)}
+      target=${ifDefined(args.target || undefined)}
+      rel=${ifDefined(args.rel || undefined)}
     >
       ${args.iconStart
         ? html`<fd-icon slot="icon-start" name=${args.iconStart}></fd-icon>`
@@ -184,6 +185,14 @@ export const LoadingLink: Story = {
     loading: true,
     href: "https://www.fdic.gov",
     iconEnd: "arrow-square-out",
+  },
+};
+
+export const LoadingDisabled: Story = {
+  args: {
+    loading: true,
+    disabled: true,
+    label: "Submit application",
   },
 };
 
