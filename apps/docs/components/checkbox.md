@@ -1,0 +1,83 @@
+# Checkbox
+
+Checkboxes let users make one or more explicit selections. Use them when each option is independent and users may choose zero, one, or many.
+
+<div class="fdic-foundation-intro">
+  <span class="fdic-eyebrow">Component</span>
+  <p>Use <code>fd-checkbox</code> for standalone consent patterns, select-all controls, and individual options inside a <code>fd-checkbox-group</code>. The component keeps a real native checkbox input in Shadow DOM so keyboard behavior, label association, and screen reader announcements remain native.</p>
+</div>
+
+## When to use
+
+- **Users may select multiple options** — Communication preferences, account types, disclosure acknowledgements, and similar independent choices.
+- **A single acknowledgement needs explicit consent** — Terms acceptance, privacy notices, or confirmation of a statement before continuing.
+- **You need a parent “select all” control** — Use the indeterminate state only for aggregate patterns where some child options are checked.
+
+## When not to use
+
+- **Don’t use a checkbox for a single forced choice between alternatives** — Use radios when only one option may be selected.
+- **Don’t use a checkbox as a switch** — If the UI is representing an immediate on/off system state, use a switch pattern when the design system has one.
+- **Don’t use indeterminate as a third business-state value** — Mixed state is for aggregate selection, not for “maybe” or “pending.”
+
+## Examples
+
+<StoryEmbed
+  storyId="components-checkbox--docs-overview"
+  linkStoryId="components-checkbox--playground"
+  height="420"
+  caption="Checkbox overview — default, checked, indeterminate, description, and disabled states. Open Storybook for interactive controls and form examples."
+/>
+
+## Best practices
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Keep labels explicit and scannable</h4>
+    <p>Users should know what will happen when the box is checked without reading surrounding paragraphs.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Hide the meaning in surrounding copy</h4>
+    <p>If the label is vague, users may miss legal or financial consequences of the selection.</p>
+  </div>
+</div>
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Use indeterminate only for aggregate controls</h4>
+    <p>“Select all accounts” is a good fit because the state reflects child selections.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Treat indeterminate as a third data value</h4>
+    <p>Users do not reliably understand a mixed checkbox as a stable business state.</p>
+  </div>
+</div>
+
+## Content guidelines
+
+- **Use sentence case.**
+- **Lead with the action or commitment.** Example: “I agree to the terms and conditions.”
+- **Use the description slot only when the option needs clarification.** Most checkbox labels should stand on their own.
+
+## Accessibility
+
+- `fd-checkbox` contains a real native `<input type="checkbox">` as its semantic and interaction foundation.
+- Clicking anywhere on the label row toggles the checkbox because the row uses a real `<label>` wrapper.
+- The visual icon is decorative only. Screen readers rely on the native checkbox input and slotted label text.
+- The description is linked with `aria-describedby` only when the `description` slot has actual content.
+- Required standalone checkboxes participate in native constraint validation through `ElementInternals`, with the validation anchor on the internal input.
+
+## Known limitations
+
+- **No size variants in v1** — The component ships with one accessible default size.
+- **No custom standalone error styling** — Required standalone checkboxes rely on native browser validation UI.
+- **Manual AT validation is still required** — Automated checks do not replace VoiceOver and NVDA verification for description and validation announcement behavior.
+
+## Related components
+
+<ul class="fdic-related-list">
+  <li><a href="./checkbox-group">Checkbox Group</a> — Use <code>fd-checkbox-group</code> when related options need a shared legend, description, or group-level validation.</li>
+</ul>

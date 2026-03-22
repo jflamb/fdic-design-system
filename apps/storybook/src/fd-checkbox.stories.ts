@@ -1,0 +1,151 @@
+import type { Meta, StoryObj } from "@storybook/web-components-vite";
+import { html } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
+import { expect } from "storybook/test";
+import "@fdic-ds/components";
+import {
+  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_SECTION_STYLE,
+  DOCS_OVERVIEW_STACK_STYLE,
+} from "./docs-overview";
+
+type CheckboxArgs = {
+  checked: boolean;
+  indeterminate: boolean;
+  disabled: boolean;
+  required: boolean;
+  name: string;
+  value: string;
+  label: string;
+  description: string;
+};
+
+const renderCheckbox = (args: CheckboxArgs) => html`
+  <fd-checkbox
+    ?checked=${args.checked}
+    ?indeterminate=${args.indeterminate}
+    ?disabled=${args.disabled}
+    ?required=${args.required}
+    name=${ifDefined(args.name || undefined)}
+    value=${ifDefined(args.value || undefined)}
+  >
+    ${args.label}
+    ${args.description
+      ? html`<span slot="description">${args.description}</span>`
+      : ""}
+  </fd-checkbox>
+`;
+
+const meta = {
+  title: "Components/Checkbox",
+  tags: ["autodocs"],
+  argTypes: {
+    checked: { control: "boolean" },
+    indeterminate: { control: "boolean" },
+    disabled: { control: "boolean" },
+    required: { control: "boolean" },
+    name: { control: "text" },
+    value: { control: "text" },
+    label: { control: "text" },
+    description: { control: "text" },
+  },
+  args: {
+    checked: false,
+    indeterminate: false,
+    disabled: false,
+    required: false,
+    name: "consent",
+    value: "yes",
+    label: "Email me account updates",
+    description: "",
+  },
+  render: renderCheckbox,
+} satisfies Meta<CheckboxArgs>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Playground: Story = {};
+
+Playground.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-checkbox") as HTMLElement | null;
+  const input = host?.shadowRoot?.querySelector('input[type="checkbox"]') as HTMLInputElement | undefined;
+
+  expect(host).toBeDefined();
+  expect(input?.type).toBe("checkbox");
+};
+
+export const Default: Story = {};
+
+export const Checked: Story = {
+  args: { checked: true, label: "Selected option" },
+};
+
+export const Indeterminate: Story = {
+  args: { indeterminate: true, label: "Select all accounts" },
+};
+
+export const Disabled: Story = {
+  args: { disabled: true, label: "Disabled option" },
+};
+
+export const WithDescription: Story = {
+  args: {
+    label: "Allow partner data sharing",
+    description: "Your information may be shared with other federal agencies as permitted under the Privacy Act.",
+  },
+};
+
+export const Required: Story = {
+  args: {
+    required: true,
+    label: "I agree to the terms and conditions",
+    name: "terms",
+  },
+};
+
+export const FormIntegration: Story = {
+  render: () => html`
+    <form style="display: grid; gap: 12px; max-width: 28rem;">
+      <fd-checkbox name="terms" required>
+        I agree to the terms and conditions
+      </fd-checkbox>
+      <fd-checkbox name="updates" checked>
+        Email me account updates
+      </fd-checkbox>
+      <button type="submit">Submit</button>
+    </form>
+  `,
+};
+
+export const DocsOverview: Story = {
+  render: () => html`
+    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Default and checked</strong>
+        <div style="display: grid; gap: 12px;">
+          <fd-checkbox>Short label</fd-checkbox>
+          <fd-checkbox checked>Selected option</fd-checkbox>
+        </div>
+      </section>
+
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Description and indeterminate</strong>
+        <div style="display: grid; gap: 12px;">
+          <fd-checkbox indeterminate>Select all accounts</fd-checkbox>
+          <fd-checkbox>
+            Allow partner data sharing
+            <span slot="description">
+              Your information may be shared with other federal agencies as permitted under the Privacy Act.
+            </span>
+          </fd-checkbox>
+        </div>
+      </section>
+
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Disabled state</strong>
+        <fd-checkbox disabled>Disabled option</fd-checkbox>
+      </section>
+    </div>
+  `,
+};

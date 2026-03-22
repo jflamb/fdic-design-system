@@ -12,8 +12,8 @@ The components section documents the reusable building blocks and authored-conte
 <div class="fdic-card-grid">
   <div class="fdic-card">
     <span class="fdic-eyebrow">Interactive UI</span>
-    <h3>Button, Button Group, Icon, Menu</h3>
-    <p>Web Components used to trigger actions, compose action sets, present icons, and expose structured navigation.</p>
+    <h3>Button, Checkbox, Icon, Menu</h3>
+    <p>Web Components used to trigger actions, capture explicit selections, compose action sets, present icons, and expose structured navigation.</p>
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Authored content</span>
@@ -27,5 +27,7 @@ The components section documents the reusable building blocks and authored-conte
 - [Prose](./prose) explains the `.prose` container, its boundary with Typography, and the specialized pages for callouts, tables, code blocks, references, disclosure patterns, and progress indicators.
 - [Button](./button) documents action hierarchy, loading behavior, and native semantics.
 - [Button Group](./button-group) documents grouped action layouts, semantic labeling, and responsive stacking.
+- [Checkbox](./checkbox) documents standalone selection controls, indeterminate usage, and native form semantics.
+- [Checkbox Group](./checkbox-group) documents grouped checkbox layouts, shared legends, and “at least one” validation.
 - [Icon](./icon) covers the system icon registry and usage guidance.
 - [Menu](./menu) documents the current menu component patterns and limitations.

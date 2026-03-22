@@ -37,6 +37,8 @@ export default defineConfig({
           { text: "Icon", link: "/components/icon" },
           { text: "Button", link: "/components/button" },
           { text: "Button Group", link: "/components/button-group" },
+          { text: "Checkbox", link: "/components/checkbox" },
+          { text: "Checkbox Group", link: "/components/checkbox-group" },
           { text: "Split Button", link: "/components/split-button" },
           { text: "Menu", link: "/components/menu" },
           {
