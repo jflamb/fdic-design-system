@@ -35,6 +35,7 @@ export default defineConfig({
         items: [
           { text: "Icon", link: "/components/icon" },
           { text: "Button", link: "/components/button" },
+          { text: "Menu", link: "/components/menu" },
           { text: "Callouts", link: "/components/callouts" },
           { text: "Table of Contents", link: "/components/table-of-contents" },
           { text: "Tables", link: "/components/tables" },

@@ -430,7 +430,11 @@ export class FdMenu extends LitElement {
   private _fallbackClickHandler = (e: MouseEvent) => {
     if (!this.open) return;
     const surface = this._getSurface();
-    if (surface && !surface.contains(e.target as Node) && !this.contains(e.target as Node)) {
+    const target = e.target as Node;
+    // Exclude clicks on the anchor element — let the trigger's own click handler
+    // call toggle() so re-click correctly closes the menu instead of close-then-reopen.
+    if (this._anchorEl?.contains(target)) return;
+    if (surface && !surface.contains(target) && !this.contains(target)) {
       this.hide();
     }
   };

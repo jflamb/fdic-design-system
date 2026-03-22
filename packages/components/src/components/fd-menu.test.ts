@@ -362,6 +362,23 @@ describe("fd-menu", () => {
     expect(el.open).toBe(false);
   });
 
+  // --- Fallback: re-click toggle on anchor ---
+
+  it("fallback outside-click handler does not intercept clicks on the anchor", async () => {
+    const el = await createMenu({ label: "Actions", anchor: "toggle-btn" }, undefined, "toggle-btn");
+    const anchorEl = document.getElementById("toggle-btn")!;
+
+    // Wire toggle like the Storybook stories do
+    anchorEl.addEventListener("click", () => el.toggle());
+
+    el.show();
+    expect(el.open).toBe(true);
+
+    // Simulate re-clicking the trigger — should close (not close-then-reopen)
+    anchorEl.click();
+    expect(el.open).toBe(false);
+  });
+
   // --- showLast() ---
 
   it("showLast() focuses the last item", async () => {
