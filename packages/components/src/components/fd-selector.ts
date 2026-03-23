@@ -958,7 +958,3 @@ export class FdSelector extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-selector")) {
-  customElements.define("fd-selector", FdSelector);
-}

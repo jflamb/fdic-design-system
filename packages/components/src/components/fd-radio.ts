@@ -479,7 +479,3 @@ export class FdRadio extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-radio")) {
-  customElements.define("fd-radio", FdRadio);
-}

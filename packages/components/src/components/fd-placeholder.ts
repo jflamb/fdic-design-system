@@ -22,7 +22,3 @@ export class FdPlaceholder extends LitElement {
   }
 }
 
-if (!customElements.get("fd-placeholder")) {
-  customElements.define("fd-placeholder", FdPlaceholder);
-}
-

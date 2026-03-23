@@ -206,7 +206,3 @@ export class FdField extends LitElement {
     return nothing;
   }
 }
-
-if (!customElements.get("fd-field")) {
-  customElements.define("fd-field", FdField);
-}

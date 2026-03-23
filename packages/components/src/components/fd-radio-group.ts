@@ -378,7 +378,3 @@ export class FdRadioGroup extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-radio-group")) {
-  customElements.define("fd-radio-group", FdRadioGroup);
-}

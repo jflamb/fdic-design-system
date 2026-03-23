@@ -344,7 +344,3 @@ export class FdCheckboxGroup extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-checkbox-group")) {
-  customElements.define("fd-checkbox-group", FdCheckboxGroup);
-}

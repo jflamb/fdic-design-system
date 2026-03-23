@@ -214,7 +214,3 @@ export class FdMessage extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-message")) {
-  customElements.define("fd-message", FdMessage);
-}

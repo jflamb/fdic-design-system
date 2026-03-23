@@ -174,7 +174,3 @@ export class FdMenuItem extends LitElement {
     </button>`;
   }
 }
-
-if (!customElements.get("fd-menu-item")) {
-  customElements.define("fd-menu-item", FdMenuItem);
-}

@@ -815,7 +815,3 @@ export class FdInput extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-input")) {
-  customElements.define("fd-input", FdInput);
-}

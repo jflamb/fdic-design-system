@@ -223,7 +223,3 @@ export class FdButtonGroup extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-button-group")) {
-  customElements.define("fd-button-group", FdButtonGroup);
-}

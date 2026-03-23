@@ -446,7 +446,3 @@ export class FdButton extends LitElement {
     </button>`;
   }
 }
-
-if (!customElements.get("fd-button")) {
-  customElements.define("fd-button", FdButton);
-}

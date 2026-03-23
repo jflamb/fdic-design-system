@@ -520,7 +520,3 @@ export class FdSplitButton extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-split-button")) {
-  customElements.define("fd-split-button", FdSplitButton);
-}

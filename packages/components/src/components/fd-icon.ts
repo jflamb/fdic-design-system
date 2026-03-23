@@ -71,7 +71,3 @@ export class FdIcon extends LitElement {
     return html`<span part="svg">${unsafeSVG(svg)}</span>`;
   }
 }
-
-if (!customElements.get("fd-icon")) {
-  customElements.define("fd-icon", FdIcon);
-}

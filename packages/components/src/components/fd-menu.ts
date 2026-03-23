@@ -486,7 +486,3 @@ export class FdMenu extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-menu")) {
-  customElements.define("fd-menu", FdMenu);
-}

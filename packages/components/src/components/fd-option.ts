@@ -363,7 +363,3 @@ export class FdOption extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-option")) {
-  customElements.define("fd-option", FdOption);
-}

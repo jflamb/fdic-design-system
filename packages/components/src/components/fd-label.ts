@@ -785,7 +785,3 @@ export class FdLabel extends LitElement {
     `;
   }
 }
-
-if (!customElements.get("fd-label")) {
-  customElements.define("fd-label", FdLabel);
-}
