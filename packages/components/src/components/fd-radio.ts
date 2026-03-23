@@ -87,9 +87,6 @@ export class FdRadio extends LitElement {
       block-size: 100%;
       border-radius: 9999px;
       box-sizing: border-box;
-      --fd-radio-focus-shadow: none;
-      --fd-radio-state-shadow: none;
-      box-shadow: var(--fd-radio-focus-shadow), var(--fd-radio-state-shadow);
       transition:
         box-shadow 120ms ease,
         color 120ms ease,
@@ -122,17 +119,18 @@ export class FdRadio extends LitElement {
       transform: scale(1);
     }
 
-    [part="control"]:has(input:focus-visible) .visual,
-    [part="control"] input:focus-visible + .visual {
-      --fd-radio-focus-shadow: inset 0 0 0 2.5px
+    [part="control"]:has(input:focus-visible) .outer,
+    [part="control"] input:focus-visible + .visual .outer {
+      outline: 2.5px solid
         var(
           --fd-radio-focus-color,
           var(--fdic-border-input-focus, #38b6ff)
         );
+      outline-offset: 2px;
     }
 
     :host(:hover:not([disabled])) .visual {
-      --fd-radio-state-shadow: inset 0 0 0 999px
+      box-shadow: inset 0 0 0 999px
         var(
           --fd-radio-overlay-hover,
           var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
@@ -140,7 +138,7 @@ export class FdRadio extends LitElement {
     }
 
     :host(:active:not([disabled])) .visual {
-      --fd-radio-state-shadow: inset 0 0 0 999px
+      box-shadow: inset 0 0 0 999px
         var(
           --fd-radio-overlay-active,
           var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))
@@ -197,10 +195,9 @@ export class FdRadio extends LitElement {
         color: Highlight;
       }
 
-      [part="control"]:has(input:focus-visible) .visual,
-      [part="control"] input:focus-visible + .visual {
-        outline: 2px solid LinkText;
-        outline-offset: 2px;
+      [part="control"]:has(input:focus-visible) .outer,
+      [part="control"] input:focus-visible + .visual .outer {
+        outline-color: LinkText;
       }
     }
 

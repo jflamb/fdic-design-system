@@ -40,6 +40,7 @@ export default defineConfig({
           { text: "Checkbox", link: "/components/checkbox" },
           { text: "Checkbox Group", link: "/components/checkbox-group" },
           { text: "Radio", link: "/components/radio" },
+          { text: "Radio Group", link: "/components/radio-group" },
           { text: "Split Button", link: "/components/split-button" },
           { text: "Menu", link: "/components/menu" },
           {

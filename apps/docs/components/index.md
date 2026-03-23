@@ -12,7 +12,7 @@ The components section documents the reusable building blocks and authored-conte
 <div class="fdic-card-grid">
   <div class="fdic-card">
     <span class="fdic-eyebrow">Interactive UI</span>
-    <h3>Button, Checkbox, Radio, Icon, Menu</h3>
+    <h3>Button, Checkbox, Radio, Radio Group, Icon, Menu</h3>
     <p>Web Components used to trigger actions, capture explicit single- and multi-select choices, compose action sets, present icons, and expose structured navigation.</p>
   </div>
   <div class="fdic-card">
@@ -30,5 +30,6 @@ The components section documents the reusable building blocks and authored-conte
 - [Checkbox](./checkbox) documents standalone selection controls, indeterminate usage, and native form semantics.
 - [Checkbox Group](./checkbox-group) documents grouped checkbox layouts, shared legends, and “at least one” validation.
 - [Radio](./radio) documents single-choice controls, same-name grouping, and keyboard behavior.
+- [Radio Group](./radio-group) documents grouped radio layouts, shared legends, and "select one" validation.
 - [Icon](./icon) covers the system icon registry and usage guidance.
 - [Menu](./menu) documents the current menu component patterns and limitations.

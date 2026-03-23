@@ -5,6 +5,7 @@ import "./components/fd-button-group.js";
 import "./components/fd-checkbox.js";
 import "./components/fd-checkbox-group.js";
 import "./components/fd-radio.js";
+import "./components/fd-radio-group.js";
 import "./components/fd-menu-item.js";
 import "./components/fd-menu.js";
 import "./components/fd-split-button.js";
@@ -17,6 +18,7 @@ export { FdButtonGroup } from "./components/fd-button-group.js";
 export { FdCheckbox } from "./components/fd-checkbox.js";
 export { FdCheckboxGroup } from "./components/fd-checkbox-group.js";
 export { FdRadio } from "./components/fd-radio.js";
+export { FdRadioGroup } from "./components/fd-radio-group.js";
 export { FdMenuItem } from "./components/fd-menu-item.js";
 export { FdMenu } from "./components/fd-menu.js";
 export { FdSplitButton } from "./components/fd-split-button.js";
@@ -27,5 +29,6 @@ export type {
   ButtonGroupDirection,
 } from "./components/fd-button-group.js";
 export type { CheckboxGroupOrientation } from "./components/fd-checkbox-group.js";
+export type { RadioGroupOrientation } from "./components/fd-radio-group.js";
 export type { MenuItemVariant } from "./components/fd-menu-item.js";
 export type { Placement } from "./components/placement.js";

@@ -73,7 +73,7 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 
 ## Known limitations
 
-- **No dedicated `fd-radio-group` yet** — Shared legends, descriptions, and group-level error presentation still need native `<fieldset>` / `<legend>` markup in the page or form layer.
+- **Use [`fd-radio-group`](./radio-group) for shared legends, descriptions, and group-level error presentation** — The grouping component handles fieldset/legend structure, validation, and layout.
 - **Native radio tab-order behavior is not fully reproducible across separate shadow roots** — Arrow keys are coordinated, but manual AT verification is still required for tab-stop expectations in grouped usage.
 - **No size variants in v1** — The component ships with one accessible default size.
 - **Manual AT validation is still required** — Automated checks do not replace VoiceOver and NVDA verification for grouped selection and validation announcements.
@@ -81,5 +81,6 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 ## Related components
 
 <ul class="fdic-related-list">
+  <li><a href="./radio-group">Radio Group</a> — Use <code>fd-radio-group</code> to wrap related radios with a shared legend, description, and validation.</li>
   <li><a href="./checkbox">Checkbox</a> — Use <code>fd-checkbox</code> when each option is independent and users may select more than one.</li>
 </ul>
