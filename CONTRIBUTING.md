@@ -67,6 +67,38 @@ This project uses tooling for baseline formatting. The conventions below are the
 - Storybook stories should demonstrate meaningful usage patterns, including validation lifecycle examples for form controls when relevant.
 - Use plain language in docs, stories, labels, descriptions, and examples. This design system is for government and financial-sector workflows.
 
+#### Component completeness standard
+
+- Every public component must be classified as one of:
+- `first-class`: a top-level component consumers are expected to author directly
+- `supporting-standalone`: a supporting primitive that still needs its own docs page and Storybook file
+- `supporting-embedded`: a supporting primitive whose contract lives inside a parent component's docs and story file
+- `internal-only`: not part of the public docs or Storybook inventory
+- First-class and supporting-standalone components require:
+- a dedicated VitePress page
+- a dedicated Storybook file
+- documented API coverage for properties, slots, events, parts, and CSS custom properties when applicable
+- accessibility notes, usage constraints, and at least one canonical usage example
+- Supporting-embedded primitives require an explicit parent-page subsection with:
+- purpose and relationship to the parent
+- supported authored surface
+- authoring constraints
+- accessibility contract
+- at least one usage example in parent context
+- Supporting-embedded primitives also require at least one explicitly labeled parent story that demonstrates the child primitive's contract, states, or variants. Incidental inclusion is not enough.
+- Internal-only primitives should not appear in the public docs index, public component sidebar, or Storybook sidebar.
+- The VitePress components index and sidebar should distinguish supporting-standalone primitives from first-class components.
+- Storybook should distinguish supporting-standalone primitives from first-class components with stable title grouping. Embedded-only primitives stay inside their parent story file.
+- Keep StoryEmbed references and `linkStoryId` values valid whenever story titles or inventory move.
+
+#### Current primitive classifications
+
+- `fd-field`: `supporting-standalone`
+- `fd-message`: `supporting-standalone`
+- `fd-menu-item`: `supporting-embedded` under `fd-menu` and composed menu usage
+- `fd-option`: `supporting-embedded` under `fd-selector`
+- `fd-placeholder`: `internal-only`
+
 ### Package and repo conventions
 
 - Use explicit registration entry points in `packages/components/src/register/` for custom element registration.

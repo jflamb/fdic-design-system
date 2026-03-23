@@ -11,9 +11,14 @@ The components section documents the reusable building blocks and authored-conte
 
 <div class="fdic-card-grid">
   <div class="fdic-card">
-    <span class="fdic-eyebrow">Interactive UI</span>
-    <h3>Button, Checkbox, Radio, Radio Group, Icon, Menu</h3>
-    <p>Web Components used to trigger actions, capture explicit single- and multi-select choices, compose action sets, present icons, and expose structured navigation.</p>
+    <span class="fdic-eyebrow">First-class components</span>
+    <h3>Button, Button Group, Checkbox, Radio, Input, Selector, Split Button, Menu, Icon</h3>
+    <p>Top-level Web Components consumers are expected to author directly in application markup. These pages define the primary supported component inventory.</p>
+  </div>
+  <div class="fdic-card">
+    <span class="fdic-eyebrow">Supporting primitives</span>
+    <h3>Field and Message</h3>
+    <p>Supporting primitives stay public and intentionally authorable, but their meaning depends on a broader composition contract. They have dedicated docs because consumers still need direct guidance for correct use.</p>
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Authored content</span>
@@ -21,6 +26,8 @@ The components section documents the reusable building blocks and authored-conte
     <p>The <code>.prose</code> topic covers long-form content styling, document navigation, references, and supporting patterns for articles, policy content, and technical guidance.</p>
   </div>
 </div>
+
+Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>fd-option</code> are documented inside their parent component pages instead of appearing as top-level entries. Internal-only scaffolding primitives such as <code>fd-placeholder</code> are not part of the public component inventory.
 
 ## Featured topics
 
@@ -33,3 +40,5 @@ The components section documents the reusable building blocks and authored-conte
 - [Radio Group](./radio-group) documents grouped radio layouts, shared legends, and "select one" validation.
 - [Icon](./icon) covers the system icon registry and usage guidance.
 - [Menu](./menu) documents the current menu component patterns and limitations.
+- [Field](./field) documents the supporting composition wrapper for label/input/message wiring.
+- [Message](./message) documents helper, validation, warning, and success feedback content.

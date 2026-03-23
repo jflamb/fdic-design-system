@@ -182,6 +182,39 @@ export const DisabledItems: Story = {
   },
 };
 
+export const MenuItemContract: Story = {
+  render: () => {
+    const triggerId = "trigger-item-contract";
+    const menuId = "menu-item-contract";
+    setTimeout(() => wireMenu(triggerId, menuId), 0);
+
+    return html`
+      <div style="padding: 80px 20px; max-width: 28rem;">
+        <fd-button id=${triggerId} aria-haspopup="menu">
+          Menu item contract
+          <fd-icon slot="icon-end" name="caret-down"></fd-icon>
+        </fd-button>
+        <fd-menu id=${menuId} anchor=${triggerId} label="Menu item contract example">
+          <fd-menu-item>
+            <fd-icon slot="icon-start" name="floppy-disk"></fd-icon>
+            Save as draft
+          </fd-menu-item>
+          <fd-menu-item disabled>Publish filing</fd-menu-item>
+          <fd-menu-item variant="destructive">Delete draft</fd-menu-item>
+        </fd-menu>
+      </div>
+    `;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Embedded coverage for `fd-menu-item`: default, disabled, icon-start, and destructive usage all belong inside a real `fd-menu` parent context.",
+      },
+    },
+  },
+};
+
 export const WithIcons: Story = {
   render: () => {
     const triggerId = "trigger-icons";

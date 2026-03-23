@@ -140,6 +140,48 @@ Compatibility note:
 - `fd-menu-item` still fires deprecated `fd-select` during the compatibility window.
 - New consumer code should listen to `fd-menu-open-change` and `fd-menu-item-select`.
 
+### fd-menu-item contract
+
+`fd-menu-item` is a supporting embedded primitive. It does not get its own top-level docs page, so its authoring contract lives here.
+
+**Purpose and relationship to parent**
+
+- Use `fd-menu-item` only as a child action primitive inside `fd-menu` or composed components that adopt `fd-menu-item` into an internal menu, such as `fd-split-button`.
+- It represents one actionable row in a menu. It is not a navigation link, option, checkbox item, or radio item in v1.
+
+**Supported authored surface**
+
+| Name | Type | Default | Notes |
+|------|------|---------|-------|
+| `variant` | `"default"` \| `"destructive"` | `"default"` | Use `destructive` only for high-risk actions |
+| `disabled` | `boolean` | `false` | Keeps the item discoverable while suppressing activation |
+| default slot | text | — | Visible item label |
+| `icon-start` slot | `fd-icon` or equivalent icon content | — | Optional leading icon |
+
+**Authoring constraints**
+
+- Author only short action labels. Start with a verb.
+- Keep destructive items last in the parent menu and mark them with `variant="destructive"`.
+- Do not use `fd-menu-item` outside a menu context or as a standalone button substitute.
+- Do not treat it as navigation content. Use link patterns for navigation.
+
+**Accessibility contract**
+
+- `fd-menu-item` renders a native `<button role="menuitem">` inside shadow DOM.
+- Keyboard movement between items is owned by the parent `fd-menu`.
+- Disabled items remain discoverable in menu navigation and expose `aria-disabled="true"`.
+- Activation fires `fd-menu-item-select` for new code and deprecated `fd-select` during the compatibility window.
+
+**Usage example**
+
+```html
+<fd-menu label="Account actions" anchor="account-actions">
+  <fd-menu-item>Edit profile</fd-menu-item>
+  <fd-menu-item disabled>Publish filing</fd-menu-item>
+  <fd-menu-item variant="destructive">Delete draft</fd-menu-item>
+</fd-menu>
+```
+
 ### Trigger requirements
 
 The trigger element (the button that opens the menu) must have:

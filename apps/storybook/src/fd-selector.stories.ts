@@ -188,6 +188,30 @@ export const DisabledOptions: Story = {
   `,
 };
 
+export const OptionContract: Story = {
+  render: () => html`
+    <fd-selector
+      label="Account type"
+      variant="multiple"
+      placeholder="Select one or more…"
+    >
+      <fd-option value="checking">Checking</fd-option>
+      <fd-option value="savings" description="Daily-use savings account">
+        Savings
+      </fd-option>
+      <fd-option value="cd" disabled>Certificate of Deposit</fd-option>
+    </fd-selector>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Embedded coverage for `fd-option`: authored `value`, optional `description`, and disabled-state behavior all live inside `fd-selector` rather than a standalone option story file.",
+      },
+    },
+  },
+};
+
 export const DocsOverview: Story = {
   render: () => html`
     <div style=${DOCS_OVERVIEW_STACK_STYLE}>

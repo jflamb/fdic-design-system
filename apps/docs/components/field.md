@@ -3,8 +3,8 @@
 A convenience wrapper that auto-wires `fd-label`, `fd-input`, and `fd-message` with matching `for`/`id` attributes.
 
 <div class="fdic-foundation-intro">
-  <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-field</code> to reduce boilerplate when composing form fields. It auto-generates a unique ID and sets matching <code>for</code>/<code>id</code> attributes on its direct children.</p>
+  <span class="fdic-eyebrow">Supporting primitive</span>
+  <p>Use <code>fd-field</code> to reduce boilerplate when composing form fields. It auto-generates a unique ID and sets matching <code>for</code>/<code>id</code> attributes on its direct children. It is a public supporting primitive rather than a top-level form control.</p>
 </div>
 
 ## When to use
@@ -20,10 +20,10 @@ A convenience wrapper that auto-wires `fd-label`, `fd-input`, and `fd-message` w
 ## Examples
 
 <StoryEmbed
-  storyId="components-input--field-composition"
-  linkStoryId="components-input--field-with-prefix-suffix"
-  height="200"
-  caption="fd-field auto-wires fd-label, fd-input, and fd-message. Open Storybook for more examples."
+  storyId="supporting-primitives-field--docs-overview"
+  linkStoryId="supporting-primitives-field--auto-wiring"
+  height="280"
+  caption="fd-field overview — auto-wiring, preserved explicit IDs, and supporting composition patterns."
 />
 
 ## Usage
@@ -64,6 +64,14 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 <fd-message for="email" state="error" message="Enter a valid email"></fd-message>
 ```
 
+## Public contract
+
+- **Category:** supporting standalone primitive
+- **Public API shape:** `fd-field` has no public attributes, properties, slots, or events of its own. Its contract is the direct-child composition model.
+- **Supported children:** one direct `fd-label`, one direct `fd-input`, and one direct `fd-message`
+- **What it owns:** ID generation, `for`/`id` wiring, and layout spacing
+- **What it does not own:** validation, message content, labeling semantics, or child prop proxying
+
 ## Behavior
 
 - **Auto-wires direct children only.** `fd-field` does not query descendants inside wrapper `<div>` elements or nested components.
@@ -88,3 +96,4 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 
 - [Input](/components/input) — the text input component that `fd-field` wraps
 - [Label](/components/label) — provides accessible name and description
+- [Message](/components/message) — provides helper, error, warning, and success content inside the field pattern

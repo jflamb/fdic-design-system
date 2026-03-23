@@ -99,6 +99,49 @@ Compatibility note:
 - `fd-selector` still fires deprecated `fd-selector-open` and `fd-selector-close` during the compatibility window.
 - New consumer code should listen to `fd-selector-open-change`.
 
+### fd-option contract
+
+`fd-option` is a supporting embedded primitive. It stays documented here because its meaning depends on the `fd-selector` parent.
+
+**Purpose and relationship to parent**
+
+- Use `fd-option` only as a child of `fd-selector`.
+- It provides the authored option label, optional description, and disabled state that `fd-selector` turns into listbox options.
+
+**Supported authored surface**
+
+| Name | Type | Default | Notes |
+|------|------|---------|-------|
+| `value` | `string` | `""` | Submitted value for the option |
+| `description` | `string` | `""` | Optional secondary line for added context |
+| `disabled` | `boolean` | `false` | Keeps the option visible but unavailable |
+| default slot | text | — | Primary visible option label |
+
+**Authoring constraints**
+
+- `fd-option` must be authored inside `fd-selector`; standalone use is unsupported.
+- Provide a stable `value` for every option. Do not rely on label text as the submitted value.
+- Keep descriptions concise and supplemental. They should clarify, not replace, the primary label.
+- Avoid mixing long descriptive copy with high-stakes multi-select workflows where visible checkbox groups would be clearer.
+
+**Accessibility contract**
+
+- `fd-option` itself is not the focus owner. `fd-selector` manages listbox semantics, active descendant, selection state, and keyboard interaction.
+- The parent projects `fd-option` content into `role="option"` semantics and exposes `aria-selected` state.
+- Disabled options remain visible for discoverability but cannot be selected.
+
+**Usage example**
+
+```html
+<fd-selector label="Account type" variant="single">
+  <fd-option value="checking">Checking</fd-option>
+  <fd-option value="savings" description="Daily-use savings account">
+    Savings
+  </fd-option>
+  <fd-option value="cd" disabled>Certificate of Deposit</fd-option>
+</fd-selector>
+```
+
 ## Known limitations
 
 - **No search or filtering** — This is a static-list selector, not a combobox. A separate `fd-combobox` should be built for type-ahead use cases.

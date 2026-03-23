@@ -15,6 +15,7 @@ import "./fd-icon.js";
 import "./fd-input.js";
 import "./fd-label.js";
 import "./fd-menu.js";
+import "./fd-message.js";
 import "./fd-radio.js";
 import "./fd-radio-group.js";
 import "./fd-selector.js";
