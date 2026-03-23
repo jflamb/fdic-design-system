@@ -12,6 +12,69 @@ The canonical repository policy lives in [.context/AGENT_GUIDE.md](./.context/AG
 - Update docs when behavior, usage guidance, or accessibility expectations materially change.
 - Treat accessibility as a release requirement, not follow-up cleanup.
 
+## Coding Conventions
+
+This project uses tooling for baseline formatting. The conventions below are the project-specific rules contributors should follow when designing, implementing, and documenting changes.
+
+### Component architecture
+
+- Build first-party components with Lit (`LitElement`).
+- Prefer native HTML semantics over custom ARIA widgets whenever native elements can satisfy the use case.
+- Use form-associated custom elements when a component needs to participate in form submission, validity, or reset behavior.
+- Keep responsibilities narrow. Labeling, messaging, validation state, layout, and field composition should stay in the component layer that owns them.
+- Render in light DOM only when the behavior requires it. Current examples include `fd-label` for native label association and `fd-message` for same-root description wiring.
+- Avoid introducing bespoke patterns when an established repo pattern already exists. Reuse the shared form controllers and registration entry points.
+
+### Accessibility and form behavior
+
+- Accessibility is a release requirement. New or materially changed components must preserve keyboard behavior, focus behavior, semantic structure, screen reader expectations, zoom/reflow behavior, and contrast expectations.
+- Use `fd-label` with matching `for` / `id` for form controls that need visible labels.
+- `aria-describedby` ownership should be explicit and stable. Do not let multiple sibling components compete to manage the same description relationship.
+- For form controls, keep internal validity current as state changes. Visible invalid state is a separate concern.
+- Use `data-user-invalid` as the shared host attribute for visible invalid presentation.
+- Apply `aria-invalid` only while visible invalid state is active, and place it on the correct surface for the control family:
+- native-like single controls: the internal native control
+- grouped controls: the group semantics surface
+- selector-style controls: the trigger surface
+- Do not derive `aria-invalid` from authored message state alone.
+- Treat authored error content as the primary user-facing error surface. Missing error copy for controls that can block submission is incomplete usage.
+- Preserve reset behavior. Form reset must clear visible invalid state and restore the component’s default value or selection.
+
+### Styling and tokens
+
+- Follow FDIC Figma as the primary source of truth for visual design and interaction intent.
+- Prefer tokens before component-specific CSS decisions. Separate core, semantic, and component-level token concerns when introducing new values.
+- Keep CSS minimal, explicit, and easy to reverse. Do not introduce visual flourish, brand styling, or novel motion without a clear design requirement.
+- Do not rely on color alone to communicate state.
+
+### Tests
+
+- Keep component tests co-located with source in `packages/components/src/components/*.test.ts`.
+- Add or update tests whenever behavior, accessibility wiring, validation behavior, or public API changes.
+- For form controls, cover the relevant validation contract:
+- `checkValidity()` behavior
+- `reportValidity()` behavior
+- visible invalid entry and clearing rules
+- reset behavior
+- `aria-invalid` ownership and clearing
+- Prefer focused tests for component behavior over broad snapshot-style coverage.
+
+### Docs and Storybook
+
+- Docs are part of the product. When component behavior or usage guidance changes, update the relevant docs page in `apps/docs/components/`.
+- Treat VitePress docs as curated guidance, not a dump of every possible Storybook state.
+- Prefer one representative Storybook embed per docs page and use consolidated stories such as `DocsOverview` when multiple variants matter.
+- Storybook stories should demonstrate meaningful usage patterns, including validation lifecycle examples for form controls when relevant.
+- Use plain language in docs, stories, labels, descriptions, and examples. This design system is for government and financial-sector workflows.
+
+### Package and repo conventions
+
+- Use explicit registration entry points in `packages/components/src/register/` for custom element registration.
+- Import `@fdic-ds/components/register-all` in Storybook stories unless a narrower registration path is needed for a specific reason.
+- Keep root package symbol exports side-effect-free.
+- Use conventional commits with a scope, such as `feat(input): ...`, `fix(selector): ...`, or `docs(radio-group): ...`.
+- When a change is architectural, cross-package, accessibility-sensitive, or likely to be reused, record the reasoning in an issue, docs note, or plan document instead of leaving the decision implicit in code.
+
 ## When To Open An Issue
 
 Open an issue when one of these is true:
