@@ -22,7 +22,7 @@ A convenience wrapper that auto-wires `fd-label`, `fd-input`, and `fd-message` w
 <StoryEmbed
   storyId="supporting-primitives-field--docs-overview"
   linkStoryId="supporting-primitives-field--auto-wiring"
-  height="280"
+  height="320"
   caption="fd-field overview — auto-wiring, preserved explicit IDs, and supporting composition patterns."
 />
 

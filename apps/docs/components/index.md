@@ -12,7 +12,7 @@ The components section documents the reusable building blocks and authored-conte
 <div class="fdic-card-grid">
   <div class="fdic-card">
     <span class="fdic-eyebrow">First-class components</span>
-    <h3>Button, Button Group, Checkbox, Radio, Input, Selector, Split Button, Menu, Icon</h3>
+    <h3>Button, Button Group, Checkbox, Checkbox Group, Radio, Radio Group, Input, Label, Selector, Split Button, Menu, Icon</h3>
     <p>Top-level Web Components consumers are expected to author directly in application markup. These pages define the primary supported component inventory.</p>
   </div>
   <div class="fdic-card">

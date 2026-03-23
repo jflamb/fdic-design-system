@@ -190,23 +190,39 @@ export const DisabledOptions: Story = {
 
 export const OptionContract: Story = {
   render: () => html`
-    <fd-selector
-      label="Account type"
-      variant="multiple"
-      placeholder="Select one or more…"
-    >
-      <fd-option value="checking">Checking</fd-option>
-      <fd-option value="savings" description="Daily-use savings account">
-        Savings
-      </fd-option>
-      <fd-option value="cd" disabled>Certificate of Deposit</fd-option>
-    </fd-selector>
+    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Single-select authoring</p>
+        <fd-selector label="Account type" variant="single">
+          <fd-option value="checking">Checking</fd-option>
+          <fd-option value="savings" description="Daily-use savings account">
+            Savings
+          </fd-option>
+          <fd-option value="cd" disabled>Certificate of Deposit</fd-option>
+        </fd-selector>
+      </div>
+
+      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Multi-select authoring</p>
+        <fd-selector
+          label="Report categories"
+          variant="multiple"
+          placeholder="Select one or more…"
+        >
+          <fd-option value="checking">Checking</fd-option>
+          <fd-option value="savings" description="Daily-use savings account">
+            Savings
+          </fd-option>
+          <fd-option value="cd" disabled>Certificate of Deposit</fd-option>
+        </fd-selector>
+      </div>
+    </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          "Embedded coverage for `fd-option`: authored `value`, optional `description`, and disabled-state behavior all live inside `fd-selector` rather than a standalone option story file.",
+          "Embedded coverage for `fd-option`: authored `value`, optional `description`, and disabled-state behavior are variant-independent, so this story demonstrates the contract in both single-select and multi-select parent contexts.",
       },
     },
   },

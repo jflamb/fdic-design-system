@@ -528,49 +528,6 @@ export const PrefixSuffixError: Story = {
   `,
 };
 
-// --- fd-field composition stories ---
-
-export const FieldComposition: Story = {
-  render: () => html`
-    <fd-field style="max-width: 328px;">
-      <fd-label label="Email address" required
-        description="We'll never share your email"></fd-label>
-      <fd-input name="email" type="email" required
-        placeholder="you@example.com"
-        @input=${(e: Event) =>
-          updateValidationMessage(e.currentTarget as FdInputHost, {
-            isValid: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-            errorMessage: "Enter a valid email address",
-          })}
-      ></fd-input>
-      <fd-message state="default" message="" live="polite"></fd-message>
-    </fd-field>
-  `
-};
-
-export const FieldWithPrefixSuffix: Story = {
-  render: () => html`
-    <fd-field style="max-width: 328px;">
-      <fd-label label="Search institutions"></fd-label>
-      <fd-input value="Community banks">
-        <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
-        <button slot="suffix" type="button"
-          aria-label="Clear search field"
-          @click=${(e: Event) => {
-            const input = (e.currentTarget as HTMLElement).closest("fd-input") as any;
-            if (input) {
-              input.value = "";
-              input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
-              input.focus();
-            }
-          }}>
-          <fd-icon name="x" aria-hidden="true"></fd-icon>
-        </button>
-      </fd-input>
-    </fd-field>
-  `,
-};
-
 export const DocsOverview: Story = {
   render: () => html`
     <div style=${DOCS_OVERVIEW_STACK_STYLE}>
@@ -681,17 +638,6 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>fd-field composition</p>
-        <fd-field style="max-width: 328px;">
-          <fd-label label="Account number" required
-            description="Found on your bank statement"></fd-label>
-          <fd-input name="account" required
-            placeholder="e.g. 1234567890"></fd-input>
-          <fd-message state="error"
-            message="Enter a valid account number"></fd-message>
-        </fd-field>
-      </div>
     </div>
   `,
 };

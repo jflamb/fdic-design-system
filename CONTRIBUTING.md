@@ -52,11 +52,11 @@ This project uses tooling for baseline formatting. The conventions below are the
 - Keep component tests co-located with source in `packages/components/src/components/*.test.ts`.
 - Add or update tests whenever behavior, accessibility wiring, validation behavior, or public API changes.
 - For form controls, cover the relevant validation contract:
-- `checkValidity()` behavior
-- `reportValidity()` behavior
-- visible invalid entry and clearing rules
-- reset behavior
-- `aria-invalid` ownership and clearing
+  - `checkValidity()` behavior
+  - `reportValidity()` behavior
+  - visible invalid entry and clearing rules
+  - reset behavior
+  - `aria-invalid` ownership and clearing
 - Prefer focused tests for component behavior over broad snapshot-style coverage.
 
 ### Docs and Storybook
@@ -70,21 +70,21 @@ This project uses tooling for baseline formatting. The conventions below are the
 #### Component completeness standard
 
 - Every public component must be classified as one of:
-- `first-class`: a top-level component consumers are expected to author directly
-- `supporting-standalone`: a supporting primitive that still needs its own docs page and Storybook file
-- `supporting-embedded`: a supporting primitive whose contract lives inside a parent component's docs and story file
-- `internal-only`: not part of the public docs or Storybook inventory
+  - `first-class`: a top-level component consumers are expected to author directly
+  - `supporting-standalone`: a supporting primitive that still needs its own docs page and Storybook file
+  - `supporting-embedded`: a supporting primitive whose contract lives inside a parent component's docs and story file
+  - `internal-only`: not part of the public docs or Storybook inventory
 - First-class and supporting-standalone components require:
-- a dedicated VitePress page
-- a dedicated Storybook file
-- documented API coverage for properties, slots, events, parts, and CSS custom properties when applicable
-- accessibility notes, usage constraints, and at least one canonical usage example
+  - a dedicated VitePress page
+  - a dedicated Storybook file
+  - documented API coverage for properties, slots, events, parts, and CSS custom properties when applicable
+  - accessibility notes, usage constraints, and at least one canonical usage example
 - Supporting-embedded primitives require an explicit parent-page subsection with:
-- purpose and relationship to the parent
-- supported authored surface
-- authoring constraints
-- accessibility contract
-- at least one usage example in parent context
+  - purpose and relationship to the parent
+  - supported authored surface
+  - authoring constraints
+  - accessibility contract
+  - at least one usage example in parent context
 - Supporting-embedded primitives also require at least one explicitly labeled parent story that demonstrates the child primitive's contract, states, or variants. Incidental inclusion is not enough.
 - Internal-only primitives should not appear in the public docs index, public component sidebar, or Storybook sidebar.
 - The VitePress components index and sidebar should distinguish supporting-standalone primitives from first-class components.
@@ -93,6 +93,7 @@ This project uses tooling for baseline formatting. The conventions below are the
 
 #### Current primitive classifications
 
+- `fd-label`: `first-class`
 - `fd-field`: `supporting-standalone`
 - `fd-message`: `supporting-standalone`
 - `fd-menu-item`: `supporting-embedded` under `fd-menu` and composed menu usage
