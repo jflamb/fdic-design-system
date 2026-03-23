@@ -182,16 +182,20 @@ export class FdField extends LitElement {
       margin-bottom: 0;
     }
 
-    fd-field > fd-message [part="message"] {
+    fd-field > fd-message > [part="message"] {
       margin-top: 0;
     }
   `;
 
+  private static _styleEl: HTMLStyleElement | null = null;
+
   private _injectStyles() {
-    if (FdField._stylesInjected) return;
+    // Re-inject if the style element was removed (e.g., DOM teardown in tests)
+    if (FdField._stylesInjected && FdField._styleEl?.isConnected) return;
     const style = document.createElement("style");
     style.textContent = FdField._STYLES;
     document.head.appendChild(style);
+    FdField._styleEl = style;
     FdField._stylesInjected = true;
   }
 

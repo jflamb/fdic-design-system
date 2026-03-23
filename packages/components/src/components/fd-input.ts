@@ -480,7 +480,10 @@ export class FdInput extends LitElement {
       padding: 8px 12px;
       border: none;
       background: transparent;
-      font: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
       color: inherit;
       box-sizing: border-box;
       outline: none;
@@ -576,7 +579,9 @@ export class FdInput extends LitElement {
 
     /* --- Prefix/suffix: action buttons ---
        Buttons get explicit dimensions for the full 44×44 hit target.
-       The fd-icon inside inherits --fd-icon-size from the button. */
+       The fd-icon inside inherits --fd-icon-size from the button.
+       Note: hover/active/focus styles below target suffix only —
+       interactive buttons in the prefix slot are discouraged (see docs). */
     ::slotted(button[slot="prefix"]),
     ::slotted(button[slot="suffix"]) {
       --fd-icon-size: var(--fd-input-icon-size, 22px);

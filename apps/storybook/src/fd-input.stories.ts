@@ -523,11 +523,6 @@ export const PrefixSuffixError: Story = {
 // --- fd-field composition stories ---
 
 export const FieldComposition: Story = {
-  args: {
-    messageState: "error",
-    messageText: "This is a test"
-  },
-
   render: () => html`
     <fd-field style="max-width: 328px;">
       <fd-label label="Email address" required
