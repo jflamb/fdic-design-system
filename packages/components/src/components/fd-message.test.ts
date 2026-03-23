@@ -163,6 +163,83 @@ describe("fd-message", () => {
     expect(el.getAttribute("for")).toBe("my-input");
   });
 
+  // --- live attribute ---
+
+  it("live=polite suppresses role=alert for error state", async () => {
+    const el = await createMessage({
+      message: "Required field",
+      state: "error",
+      live: "polite",
+    });
+    const span = getMessageSpan(el);
+    expect(span!.getAttribute("role")).toBeNull();
+    expect(span!.getAttribute("aria-live")).toBe("polite");
+  });
+
+  it("live=polite uses aria-live=polite for non-error states", async () => {
+    const el = await createMessage({
+      message: "Helper text",
+      state: "default",
+      live: "polite",
+    });
+    const span = getMessageSpan(el);
+    expect(span!.getAttribute("role")).toBeNull();
+    expect(span!.getAttribute("aria-live")).toBe("polite");
+  });
+
+  it("live=off removes all live region behavior", async () => {
+    const el = await createMessage({
+      message: "Static hint",
+      state: "error",
+      live: "off",
+    });
+    const span = getMessageSpan(el);
+    expect(span!.getAttribute("role")).toBeNull();
+    expect(span!.getAttribute("aria-live")).toBeNull();
+  });
+
+  it("live=off removes aria-live for non-error states", async () => {
+    const el = await createMessage({
+      message: "Static helper",
+      state: "default",
+      live: "off",
+    });
+    const span = getMessageSpan(el);
+    expect(span!.getAttribute("role")).toBeNull();
+    expect(span!.getAttribute("aria-live")).toBeNull();
+  });
+
+  it("default behavior preserved when live is not set", async () => {
+    // Error → role="alert", no aria-live
+    const errEl = await createMessage({
+      message: "Error",
+      state: "error",
+    });
+    const errSpan = getMessageSpan(errEl);
+    expect(errSpan!.getAttribute("role")).toBe("alert");
+    expect(errSpan!.getAttribute("aria-live")).toBeNull();
+
+    document.body.innerHTML = "";
+
+    // Default → aria-live="polite", no role
+    const defEl = await createMessage({
+      message: "Helper",
+      state: "default",
+    });
+    const defSpan = getMessageSpan(defEl);
+    expect(defSpan!.getAttribute("role")).toBeNull();
+    expect(defSpan!.getAttribute("aria-live")).toBe("polite");
+  });
+
+  it("reflects live attribute", async () => {
+    const el = await createMessage({
+      message: "Test",
+      live: "off",
+    });
+    expect(el.live).toBe("off");
+    expect(el.getAttribute("live")).toBe("off");
+  });
+
   // --- Accessibility ---
 
   it("has no axe violations (error state)", async () => {

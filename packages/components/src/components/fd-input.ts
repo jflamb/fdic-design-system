@@ -51,6 +51,8 @@ export class FdInput extends LitElement {
     readonly: { type: Boolean, reflect: true },
     required: { type: Boolean, reflect: true },
     maxlength: { type: Number, reflect: true },
+    minlength: { type: Number, reflect: true },
+    pattern: { reflect: true },
     autocomplete: { reflect: true },
     inputmode: { reflect: true },
     // Internal reactive state
@@ -65,6 +67,8 @@ export class FdInput extends LitElement {
   declare readonly: boolean;
   declare required: boolean;
   declare maxlength: number | undefined;
+  declare minlength: number | undefined;
+  declare pattern: string | undefined;
   declare autocomplete: string | undefined;
   declare inputmode: string | undefined;
   declare _messageState: MessageState;
@@ -87,6 +91,8 @@ export class FdInput extends LitElement {
     this.readonly = false;
     this.required = false;
     this.maxlength = undefined;
+    this.minlength = undefined;
+    this.pattern = undefined;
     this.autocomplete = undefined;
     this.inputmode = undefined;
     this._messageState = "default";
@@ -115,7 +121,12 @@ export class FdInput extends LitElement {
   }
 
   override updated(changed: PropertyValues) {
-    if (changed.has("value") || changed.has("required")) {
+    if (
+      changed.has("value") ||
+      changed.has("required") ||
+      changed.has("pattern") ||
+      changed.has("minlength")
+    ) {
       this._syncFormState();
     }
     if (changed.has("id")) {
@@ -134,12 +145,35 @@ export class FdInput extends LitElement {
 
   private _syncFormState() {
     this._internals.setFormValue(this.value || null);
+    const anchor = this._input ?? undefined;
 
     if (this.required && !this.value) {
       this._internals.setValidity(
         { valueMissing: true },
         "Please fill out this field.",
-        this._input ?? undefined,
+        anchor,
+      );
+      return;
+    }
+
+    // Mirror native constraint state into ElementInternals.
+    // Visual state is NOT derived from these — fd-message owns visible state.
+    const nativeValidity = this._input?.validity;
+
+    if (nativeValidity?.tooShort) {
+      this._internals.setValidity(
+        { tooShort: true },
+        `Please use at least ${this.minlength} characters.`,
+        anchor,
+      );
+      return;
+    }
+
+    if (nativeValidity?.patternMismatch) {
+      this._internals.setValidity(
+        { patternMismatch: true },
+        "Please match the requested format.",
+        anchor,
       );
       return;
     }
@@ -552,6 +586,8 @@ export class FdInput extends LitElement {
           ?readonly=${this.readonly}
           ?required=${this.required}
           maxlength=${this.maxlength ?? nothing}
+          minlength=${this.minlength ?? nothing}
+          pattern=${this.pattern ?? nothing}
           autocomplete=${this.autocomplete ?? nothing}
           inputmode=${this.inputmode ?? nothing}
           aria-labelledby=${labelledBy ?? nothing}

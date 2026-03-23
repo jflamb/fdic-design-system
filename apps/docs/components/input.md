@@ -91,6 +91,68 @@ A text input field for user-entered text, with support for labels, hints, error 
 - **Forced colors:** Borders use system colors; error/warning/success borders use `forced-color-adjust: none`.
 - **Same-root limitation:** `fd-label`, `fd-input`, and `fd-message` must share the same DOM root tree for the `for`/`id` discovery to work.
 
+## Validation with `pattern` and `minlength`
+
+`fd-input` supports the native `pattern` and `minlength` attributes. These pass through to the underlying `<input>` element and participate in the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+
+**Required:** When using `pattern` or `minlength`, always set `novalidate` on the parent `<form>`. The design system manages all visible validation messaging through `fd-message`. Without `novalidate`, the browser will show its own validation tooltips alongside `fd-message`, creating a confusing dual-error experience.
+
+```html
+<form novalidate>
+  <fd-label for="routing" label="Routing number" required
+    description="9-digit number on the bottom of your check"></fd-label>
+  <fd-input id="routing" name="routing" required
+    pattern="[0-9]{9}" inputmode="numeric"
+    placeholder="e.g. 021000021"></fd-input>
+  <fd-message for="routing" state="error"
+    message="Enter a valid 9-digit routing number"></fd-message>
+</form>
+```
+
+`fd-input` mirrors native constraint state (`patternMismatch`, `tooShort`) into `ElementInternals` so form-level validation works correctly. However, it does **not** automatically change the visible error state based on native validity — `fd-message` remains the only source of truth for visible validation state. Your validation logic should:
+
+1. Read `validity.patternMismatch` or `validity.tooShort` from `fd-input`
+2. Set `fd-message[state="error"]` with an actionable message
+
+`reportValidity()` is available for programmatic constraint checks but is not the design system's mechanism for user-facing error presentation.
+
+### `minlength` and the dirty value flag
+
+The browser only validates `minlength` after the user has interactively typed in the field. For programmatic validation of pre-filled values, check `value.length` directly instead of relying on `validity.tooShort`.
+
+Screen readers do not announce `minlength` natively. Always include the minimum length requirement in visible text via `fd-label`'s `description` attribute so all users are aware of the constraint.
+
+## Numeric identifiers
+
+For routing numbers, account numbers, ZIP codes, SSNs, certificate numbers, and any identifier that happens to be digits, use `type="text"` with `inputmode="numeric"`:
+
+```html
+<fd-input id="zip" name="zip" type="text"
+  inputmode="numeric" pattern="[0-9]{5}"
+  placeholder="e.g. 01234"></fd-input>
+```
+
+Do **not** use `type="number"`. It strips leading zeros (01234 becomes 1234), accepts scientific notation (1e5), shows increment/decrement arrows, and changes values on scroll — none of which are appropriate for identifiers in financial or government forms.
+
+## Controlling message announcements with `live`
+
+`fd-message` manages screen reader announcements automatically: error messages use `role="alert"` for immediate announcement, and all other states use `aria-live="polite"`. The `live` attribute lets you override this default when needed:
+
+- **`live="off"`** — Use for static messages that never change after initial render (e.g., format hints). Prevents unnecessary announcements when the DOM is restructured.
+- **`live="polite"`** — Use for error messages in real-time inline validation (e.g., updating on every keystroke). This prevents `role="alert"` from interrupting the user on every change.
+
+When `live` is not set, the default behavior applies. The default is correct for most form validation — only override when you have a specific reason.
+
+```html
+<!-- Static format hint: no announcements needed -->
+<fd-message for="phone" state="default"
+  message="Format: (XXX) XXX-XXXX" live="off"></fd-message>
+
+<!-- Inline validation: polite instead of assertive for errors -->
+<fd-message for="routing" state="error"
+  message="Enter a valid 9-digit routing number" live="polite"></fd-message>
+```
+
 ## Known limitations
 
 - **No prefix/suffix slots** — leading icons and trailing action buttons inside the input field are deferred to a future version.

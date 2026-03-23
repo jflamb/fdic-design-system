@@ -237,6 +237,139 @@ export const HelperText: Story = {
   },
 };
 
+// --- Fast-follow stories (pattern, minlength, live, numeric identifier) ---
+
+export const PatternValidation: Story = {
+  render: () => html`
+    <form novalidate style="max-width: 328px;">
+      <fd-label
+        for="routing-pattern"
+        label="Routing number"
+        required
+        description="9-digit number on the bottom of your check"
+      ></fd-label>
+      <fd-input
+        id="routing-pattern"
+        name="routing"
+        required
+        pattern="[0-9]{9}"
+        inputmode="numeric"
+        placeholder="e.g. 021000021"
+      ></fd-input>
+      <fd-message
+        for="routing-pattern"
+        state="error"
+        message="Enter a valid 9-digit routing number"
+      ></fd-message>
+    </form>
+  `,
+};
+
+export const MinlengthWithHint: Story = {
+  render: () => html`
+    <form novalidate style="max-width: 328px;">
+      <fd-label
+        for="cert-minlen"
+        label="Certificate number"
+        required
+        description="Must be at least 6 characters"
+      ></fd-label>
+      <fd-input
+        id="cert-minlen"
+        name="cert-number"
+        required
+        minlength="6"
+        placeholder="e.g. CERT-001234"
+      ></fd-input>
+      <fd-message
+        for="cert-minlen"
+        state="error"
+        message="Certificate number must be at least 6 characters"
+      ></fd-message>
+    </form>
+  `,
+};
+
+export const NumericIdentifier: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label
+        for="zip-numeric"
+        label="ZIP code"
+        required
+        description="5-digit ZIP code"
+      ></fd-label>
+      <fd-input
+        id="zip-numeric"
+        name="zip"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]{5}"
+        required
+        maxlength="5"
+        placeholder="e.g. 01234"
+      ></fd-input>
+      <fd-message
+        for="zip-numeric"
+        state="default"
+        message="Use type=&quot;text&quot; with inputmode=&quot;numeric&quot; for numeric identifiers"
+        live="off"
+      ></fd-message>
+    </div>
+  `,
+};
+
+export const MessageLiveOff: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label
+        for="static-hint"
+        label="Phone number"
+        description="We may call to verify your identity"
+      ></fd-label>
+      <fd-input
+        id="static-hint"
+        name="phone"
+        type="tel"
+        inputmode="tel"
+        placeholder="(555) 123-4567"
+      ></fd-input>
+      <fd-message
+        for="static-hint"
+        state="default"
+        message="Format: (XXX) XXX-XXXX"
+        live="off"
+      ></fd-message>
+    </div>
+  `,
+};
+
+export const MessageLivePolite: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label
+        for="inline-val"
+        label="Routing number"
+        required
+        description="9-digit number"
+      ></fd-label>
+      <fd-input
+        id="inline-val"
+        name="routing"
+        required
+        pattern="[0-9]{9}"
+        inputmode="numeric"
+      ></fd-input>
+      <fd-message
+        for="inline-val"
+        state="error"
+        message="Enter a valid 9-digit routing number"
+        live="polite"
+      ></fd-message>
+    </div>
+  `,
+};
+
 export const DocsOverview: Story = {
   render: () => html`
     <div style=${DOCS_OVERVIEW_STACK_STYLE}>
