@@ -1,0 +1,549 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import "./fd-input.js";
+import "./fd-label.js";
+import "./fd-message.js";
+import { expectNoAxeViolations } from "./test-a11y.js";
+
+async function createInput(attrs: Record<string, string> = {}) {
+  const el = document.createElement("fd-input") as any;
+  for (const [key, value] of Object.entries(attrs)) {
+    el.setAttribute(key, value);
+  }
+  document.body.appendChild(el);
+  await el.updateComplete;
+  return el;
+}
+
+function getInternal(el: any): HTMLInputElement | null {
+  return el.shadowRoot?.querySelector("[part=base]") ?? null;
+}
+
+function getCharCount(el: any): HTMLElement | null {
+  return el.shadowRoot?.querySelector("[part=char-count]") ?? null;
+}
+
+function getSrLiveRegion(el: any): HTMLElement | null {
+  return el.shadowRoot?.querySelector("[aria-live=polite]") ?? null;
+}
+
+describe("fd-input", () => {
+  beforeEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  // --- Registration ---
+
+  it("is defined as a custom element", () => {
+    expect(customElements.get("fd-input")).toBeDefined();
+  });
+
+  // --- Basic rendering ---
+
+  it("renders a native input element in shadow DOM", async () => {
+    const el = await createInput();
+    expect(el.shadowRoot).not.toBeNull();
+    const input = getInternal(el);
+    expect(input).not.toBeNull();
+    expect(input!.tagName).toBe("INPUT");
+  });
+
+  it("forwards type attribute", async () => {
+    const el = await createInput({ type: "email" });
+    const input = getInternal(el);
+    expect(input!.type).toBe("email");
+  });
+
+  it("defaults type to text", async () => {
+    const el = await createInput();
+    const input = getInternal(el);
+    expect(input!.type).toBe("text");
+  });
+
+  it("forwards placeholder attribute", async () => {
+    const el = await createInput({ placeholder: "e.g. 021000021" });
+    const input = getInternal(el);
+    expect(input!.placeholder).toBe("e.g. 021000021");
+  });
+
+  it("forwards disabled attribute", async () => {
+    const el = await createInput({ disabled: "" });
+    const input = getInternal(el);
+    expect(input!.disabled).toBe(true);
+  });
+
+  it("forwards readonly attribute", async () => {
+    const el = await createInput({ readonly: "" });
+    const input = getInternal(el);
+    expect(input!.readOnly).toBe(true);
+  });
+
+  it("forwards required attribute", async () => {
+    const el = await createInput({ required: "" });
+    const input = getInternal(el);
+    expect(input!.required).toBe(true);
+  });
+
+  it("sets aria-required when required", async () => {
+    const el = await createInput({ required: "" });
+    const input = getInternal(el);
+    expect(input!.getAttribute("aria-required")).toBe("true");
+  });
+
+  it("forwards maxlength attribute", async () => {
+    const el = await createInput({ maxlength: "100" });
+    const input = getInternal(el);
+    expect(input!.maxLength).toBe(100);
+  });
+
+  // --- Value ---
+
+  it("reflects value property", async () => {
+    const el = await createInput({ value: "hello" });
+    expect(el.value).toBe("hello");
+    const input = getInternal(el);
+    expect(input!.value).toBe("hello");
+  });
+
+  // --- Form association ---
+
+  it("is form-associated", () => {
+    expect((customElements.get("fd-input") as any).formAssociated).toBe(true);
+  });
+
+  it("resets value on formResetCallback", async () => {
+    const el = await createInput({ value: "test" });
+    expect(el.value).toBe("test");
+    el.formResetCallback();
+    await el.updateComplete;
+    expect(el.value).toBe("");
+  });
+
+  // --- Focus delegation ---
+
+  it("delegates focus() to the native input", async () => {
+    const el = await createInput({ id: "focus-test" });
+    const input = getInternal(el);
+    const focusSpy = vi.spyOn(input!, "focus");
+    el.focus();
+    expect(focusSpy).toHaveBeenCalled();
+  });
+
+  it("delegates blur() to the native input", async () => {
+    const el = await createInput({ id: "blur-test" });
+    const input = getInternal(el);
+    const blurSpy = vi.spyOn(input!, "blur");
+    el.blur();
+    expect(blurSpy).toHaveBeenCalled();
+  });
+
+  it("delegates select() to the native input", async () => {
+    const el = await createInput({ id: "select-test", value: "text" });
+    const input = getInternal(el);
+    const selectSpy = vi.spyOn(input!, "select");
+    el.select();
+    expect(selectSpy).toHaveBeenCalled();
+  });
+
+  // --- Events ---
+
+  it("dispatches input event on user input", async () => {
+    const el = await createInput();
+    const input = getInternal(el);
+    const handler = vi.fn();
+    el.addEventListener("input", handler);
+
+    input!.value = "test";
+    input!.dispatchEvent(new Event("input", { bubbles: true }));
+    expect(handler).toHaveBeenCalledTimes(1);
+  });
+
+  it("dispatches change event", async () => {
+    const el = await createInput();
+    const input = getInternal(el);
+    const handler = vi.fn();
+    el.addEventListener("change", handler);
+
+    input!.dispatchEvent(new Event("change", { bubbles: true }));
+    expect(handler).toHaveBeenCalledTimes(1);
+  });
+
+  // --- Sibling discovery: aria-describedby ---
+
+  it("wires aria-describedby from fd-label description", async () => {
+    const label = document.createElement("fd-label") as any;
+    label.setAttribute("for", "test-desc");
+    label.setAttribute("label", "Name");
+    label.setAttribute("description", "Enter full legal name");
+    document.body.appendChild(label);
+    await label.updateComplete;
+
+    const el = await createInput({ id: "test-desc" });
+    // Wait for discovery
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    const describedBy = input!.getAttribute("aria-describedby") || "";
+    expect(describedBy).toContain(label.descriptionId);
+  });
+
+  it("wires aria-describedby from fd-message", async () => {
+    const el = await createInput({ id: "test-msg" });
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-msg");
+    msg.setAttribute("state", "error");
+    msg.setAttribute("message", "Required field");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    // Wait for sibling observer
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    const describedBy = input!.getAttribute("aria-describedby") || "";
+    expect(describedBy).toContain(msg.messageId);
+  });
+
+  it("wires aria-describedby from both fd-label and fd-message", async () => {
+    const label = document.createElement("fd-label") as any;
+    label.setAttribute("for", "test-both");
+    label.setAttribute("label", "Account");
+    label.setAttribute("description", "Enter account number");
+    document.body.appendChild(label);
+    await label.updateComplete;
+
+    const el = await createInput({ id: "test-both" });
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-both");
+    msg.setAttribute("state", "error");
+    msg.setAttribute("message", "Invalid account");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    const describedBy = input!.getAttribute("aria-describedby") || "";
+    expect(describedBy).toContain(label.descriptionId);
+    expect(describedBy).toContain(msg.messageId);
+  });
+
+  // --- Validation state from fd-message ---
+
+  it("sets aria-invalid when fd-message has state=error", async () => {
+    const el = await createInput({ id: "test-error" });
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-error");
+    msg.setAttribute("state", "error");
+    msg.setAttribute("message", "Required");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(input!.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("does not set aria-invalid for non-error states", async () => {
+    const el = await createInput({ id: "test-no-error" });
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-no-error");
+    msg.setAttribute("state", "warning");
+    msg.setAttribute("message", "Check value");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(input!.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("sets data-state attribute on host from fd-message", async () => {
+    const el = await createInput({ id: "test-host-state" });
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-host-state");
+    msg.setAttribute("state", "error");
+    msg.setAttribute("message", "Error!");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    expect(el.getAttribute("data-state")).toBe("error");
+  });
+
+  // --- Cardinality warning ---
+
+  it("warns when multiple fd-message siblings target the same input", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const el = await createInput({ id: "test-multi" });
+
+    const msg1 = document.createElement("fd-message") as any;
+    msg1.setAttribute("for", "test-multi");
+    msg1.setAttribute("message", "First");
+    document.body.appendChild(msg1);
+
+    const msg2 = document.createElement("fd-message") as any;
+    msg2.setAttribute("for", "test-multi");
+    msg2.setAttribute("message", "Second");
+    document.body.appendChild(msg2);
+
+    await msg1.updateComplete;
+    await msg2.updateComplete;
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Multiple fd-message"),
+    );
+    warnSpy.mockRestore();
+  });
+
+  // --- Character count ---
+
+  it("shows character count when maxlength is set", async () => {
+    const el = await createInput({ maxlength: "100" });
+    const count = getCharCount(el);
+    expect(count).not.toBeNull();
+    expect(count!.textContent).toContain("0 / 100");
+  });
+
+  it("does not show character count without maxlength", async () => {
+    const el = await createInput();
+    const count = getCharCount(el);
+    expect(count).toBeNull();
+  });
+
+  it("updates character count on input", async () => {
+    const el = await createInput({ maxlength: "50", value: "hello" });
+    const count = getCharCount(el);
+    expect(count!.textContent).toContain("5 / 50");
+  });
+
+  it("has sr-only live region for character count", async () => {
+    const el = await createInput({ maxlength: "100" });
+    const sr = getSrLiveRegion(el);
+    expect(sr).not.toBeNull();
+    expect(sr!.getAttribute("aria-live")).toBe("polite");
+    expect(sr!.getAttribute("role")).toBe("status");
+  });
+
+  it("character count in aria-describedby", async () => {
+    const el = await createInput({ id: "cc-test", maxlength: "100" });
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    const describedBy = input!.getAttribute("aria-describedby") || "";
+    expect(describedBy).toContain("fdi-cc-");
+  });
+
+  // --- Accessibility ---
+
+  // axe-core cannot follow <label for> → form-associated custom element → shadow DOM <input>,
+  // so label and region rules are disabled for these tests. The FACE labeling contract is
+  // verified by the sibling discovery tests above.
+  const axeOverrides = {
+    rules: { label: { enabled: false }, region: { enabled: false } },
+  };
+
+  it("has no axe violations (basic)", async () => {
+    const label = document.createElement("label");
+    label.setAttribute("for", "axe-basic");
+    label.textContent = "Name";
+    document.body.appendChild(label);
+
+    await createInput({ id: "axe-basic" });
+    await expectNoAxeViolations(document.body, axeOverrides);
+  });
+
+  it("has no axe violations (with fd-label)", async () => {
+    const label = document.createElement("fd-label") as any;
+    label.setAttribute("for", "axe-labeled");
+    label.setAttribute("label", "Name");
+    document.body.appendChild(label);
+    await label.updateComplete;
+
+    await createInput({ id: "axe-labeled" });
+    await expectNoAxeViolations(document.body, axeOverrides);
+  });
+
+  it("has no axe violations (disabled)", async () => {
+    const label = document.createElement("label");
+    label.setAttribute("for", "axe-disabled");
+    label.textContent = "Name";
+    document.body.appendChild(label);
+
+    await createInput({ id: "axe-disabled", disabled: "" });
+    await expectNoAxeViolations(document.body, axeOverrides);
+  });
+
+  // --- aria-labelledby forwarding ---
+
+  it("wires aria-labelledby from fd-label to the inner input", async () => {
+    const label = document.createElement("fd-label") as any;
+    label.setAttribute("for", "test-labelled");
+    label.setAttribute("label", "Full name");
+    document.body.appendChild(label);
+    await label.updateComplete;
+
+    const el = await createInput({ id: "test-labelled" });
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    const labelledBy = input!.getAttribute("aria-labelledby") || "";
+    expect(labelledBy).toBe(label.labelId);
+  });
+
+  // --- Form validity sync ---
+
+  it("reports valueMissing when required and empty", async () => {
+    const el = await createInput({ required: "" });
+    expect(el.checkValidity()).toBe(false);
+  });
+
+  it("reports valid when required and has value", async () => {
+    const el = await createInput({ required: "", value: "hello" });
+    expect(el.checkValidity()).toBe(true);
+  });
+
+  it("syncs validity on input", async () => {
+    const el = await createInput({ required: "" });
+    expect(el.checkValidity()).toBe(false);
+
+    const input = getInternal(el);
+    input!.value = "typed";
+    input!.dispatchEvent(new Event("input", { bubbles: true }));
+    await el.updateComplete;
+
+    expect(el.checkValidity()).toBe(true);
+  });
+
+  it("resets validity on formResetCallback", async () => {
+    const el = await createInput({ required: "", value: "filled" });
+    expect(el.checkValidity()).toBe(true);
+
+    el.formResetCallback();
+    await el.updateComplete;
+
+    expect(el.checkValidity()).toBe(false);
+  });
+
+  // --- Cardinality: duplicate labels ---
+
+  it("warns when multiple fd-label siblings target the same input", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const el = await createInput({ id: "test-multi-label" });
+
+    const label1 = document.createElement("fd-label") as any;
+    label1.setAttribute("for", "test-multi-label");
+    label1.setAttribute("label", "First");
+    document.body.appendChild(label1);
+
+    const label2 = document.createElement("fd-label") as any;
+    label2.setAttribute("for", "test-multi-label");
+    label2.setAttribute("label", "Second");
+    document.body.appendChild(label2);
+
+    await label1.updateComplete;
+    await label2.updateComplete;
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Multiple fd-label"),
+    );
+    warnSpy.mockRestore();
+  });
+
+  // --- No id ---
+
+  it("handles missing id gracefully (no sibling discovery)", async () => {
+    const el = await createInput({});
+    // No id = no sibling discovery, should not throw
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(input!.getAttribute("aria-labelledby")).toBeNull();
+    expect(input!.getAttribute("aria-describedby")).toBeNull();
+  });
+
+  // --- maxlength=0 ---
+
+  it("handles maxlength=0 without errors", async () => {
+    const el = await createInput({ maxlength: "0" });
+    const count = getCharCount(el);
+    expect(count).not.toBeNull();
+    expect(count!.textContent).toContain("0 / 0");
+  });
+
+  // --- Rapid message state changes ---
+
+  it("handles rapid fd-message state changes", async () => {
+    const el = await createInput({ id: "test-rapid" });
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-rapid");
+    msg.setAttribute("message", "Msg");
+    msg.setAttribute("state", "error");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+    expect(el.getAttribute("data-state")).toBe("error");
+
+    // Rapid change to warning
+    msg.setAttribute("state", "warning");
+    await msg.updateComplete;
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+    expect(el.getAttribute("data-state")).toBe("warning");
+
+    // Rapid change to default
+    msg.setAttribute("state", "default");
+    await msg.updateComplete;
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+    expect(el.getAttribute("data-state")).toBeNull();
+  });
+
+  // --- fd-label skips auto-wiring for fd-input ---
+
+  it("fd-label does not auto-wire aria-describedby on fd-input host", async () => {
+    const label = document.createElement("fd-label") as any;
+    label.setAttribute("for", "test-no-wire");
+    label.setAttribute("label", "Name");
+    label.setAttribute("description", "Enter your full legal name");
+    document.body.appendChild(label);
+    await label.updateComplete;
+
+    const el = await createInput({ id: "test-no-wire" });
+    await new Promise((r) => setTimeout(r, 100));
+    await el.updateComplete;
+
+    // fd-label should NOT have set aria-describedby on the fd-input host
+    expect(el.getAttribute("aria-describedby")).toBeNull();
+
+    // But fd-input's inner input SHOULD have it via its own assembly
+    const input = getInternal(el);
+    const describedBy = input!.getAttribute("aria-describedby") || "";
+    expect(describedBy).toContain(label.descriptionId);
+  });
+});

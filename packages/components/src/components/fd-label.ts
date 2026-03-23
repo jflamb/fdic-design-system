@@ -118,15 +118,37 @@ export class FdLabel extends LitElement {
     }
   }
 
-  // --- Description ID ---
+  // --- Element IDs ---
 
   private get _descId(): string {
     const base = this.for || "label";
     return `${base}-desc-${this._instanceId}`;
   }
 
+  private get _labelElId(): string {
+    return `fdl-label-${this._instanceId}`;
+  }
+
   private get _hasDescription(): boolean {
     return Boolean(this.description?.trim());
+  }
+
+  /**
+   * Public getter for the rendered `<label>` element's ID.
+   * Used by sibling components (e.g. `fd-input`) to wire `aria-labelledby`
+   * on their inner focus target.
+   */
+  get labelId(): string {
+    return this._labelElId;
+  }
+
+  /**
+   * Public getter for the description element's ID.
+   * Returns the ID when description text is present, `null` otherwise.
+   * Used by sibling components (e.g. `fd-input`) to wire `aria-describedby`.
+   */
+  get descriptionId(): string | null {
+    return this._hasDescription ? this._descId : null;
   }
 
   // --- aria-describedby auto-wiring ---
@@ -159,6 +181,13 @@ export class FdLabel extends LitElement {
     if (!target) {
       // Don't warn here — the observer may find the target later.
       // Warning is deferred to _observeForTarget timeout or disconnect.
+      return;
+    }
+
+    // If the target is an fd-input, skip auto-wiring — fd-input owns
+    // aria-describedby assembly and reads our descriptionId getter instead.
+    if (target.tagName === "FD-INPUT") {
+      this._stopObserving();
       return;
     }
 
@@ -698,7 +727,7 @@ export class FdLabel extends LitElement {
       ${this._renderStyles()}
       <div part="base">
         <div part="label-row">
-          <label part="label" for=${this.for || nothing}>
+          <label part="label" id=${this._labelElId} for=${this.for || nothing}>
             ${this.label}
             ${this.required
               ? html`<span part="required-indicator" aria-hidden="true"

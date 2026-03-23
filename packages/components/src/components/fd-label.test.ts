@@ -621,4 +621,70 @@ describe("fd-label", () => {
 
     expect(input.getAttribute("aria-describedby")).toBeFalsy();
   });
+
+  // --- descriptionId getter ---
+
+  it("descriptionId returns the description element ID when description is set", async () => {
+    const el = await createLabel({
+      for: "test-input",
+      label: "Name",
+      description: "Enter your full legal name",
+    });
+    expect(el.descriptionId).toBeTruthy();
+    expect(typeof el.descriptionId).toBe("string");
+    // Verify the ID matches the rendered description element
+    const descEl = getDescription(el);
+    expect(descEl).not.toBeNull();
+    expect(descEl!.id).toBe(el.descriptionId);
+  });
+
+  it("descriptionId returns null when no description is set", async () => {
+    const el = await createLabel({ for: "test-input", label: "Name" });
+    expect(el.descriptionId).toBeNull();
+  });
+
+  it("descriptionId returns null when description is empty/whitespace", async () => {
+    const el = await createLabel({
+      for: "test-input",
+      label: "Name",
+      description: "   ",
+    });
+    expect(el.descriptionId).toBeNull();
+  });
+
+  // --- labelId getter ---
+
+  it("labelId returns a stable ID for the rendered label element", async () => {
+    const el = await createLabel({ for: "test-input", label: "Name" });
+    expect(el.labelId).toBeTruthy();
+    expect(typeof el.labelId).toBe("string");
+    // Verify the ID matches the rendered label element
+    const labelEl = getLabel(el);
+    expect(labelEl).not.toBeNull();
+    expect(labelEl!.id).toBe(el.labelId);
+  });
+
+  // --- fd-label skips aria-describedby auto-wiring for fd-input targets ---
+
+  it("does not auto-wire aria-describedby when target is fd-input", async () => {
+    // Requires fd-input to be registered
+    await import("./fd-input.js");
+
+    const el = await createLabel({
+      for: "skip-wire-target",
+      label: "Account",
+      description: "Enter account number",
+    });
+
+    const fdInput = document.createElement("fd-input") as any;
+    fdInput.id = "skip-wire-target";
+    document.body.appendChild(fdInput);
+    await fdInput.updateComplete;
+
+    // Give the observer time to fire
+    await new Promise((r) => setTimeout(r, 100));
+
+    // fd-label should NOT have set aria-describedby on fd-input host
+    expect(fdInput.getAttribute("aria-describedby")).toBeNull();
+  });
 });

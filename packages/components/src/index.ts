@@ -12,6 +12,8 @@ import "./components/fd-split-button.js";
 import "./components/fd-option.js";
 import "./components/fd-selector.js";
 import "./components/fd-label.js";
+import "./components/fd-message.js";
+import "./components/fd-input.js";
 import "./icons/phosphor-regular.js";
 
 export { FdPlaceholder } from "./components/fd-placeholder.js";
@@ -28,6 +30,10 @@ export { FdSplitButton } from "./components/fd-split-button.js";
 export { FdOption } from "./components/fd-option.js";
 export { FdSelector } from "./components/fd-selector.js";
 export { FdLabel } from "./components/fd-label.js";
+export { FdMessage } from "./components/fd-message.js";
+export type { MessageState } from "./components/fd-message.js";
+export { FdInput } from "./components/fd-input.js";
+export type { InputType } from "./components/fd-input.js";
 export { iconRegistry } from "./icons/registry.js";
 export type { ButtonVariant } from "./components/fd-button.js";
 export type {
