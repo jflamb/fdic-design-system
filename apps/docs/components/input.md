@@ -26,8 +26,8 @@ A text input field for user-entered text, with support for labels, hints, error 
 <StoryEmbed
   storyId="components-input--docs-overview"
   linkStoryId="components-input--playground"
-  height="900"
-  caption="Input variants — default, with description, error state, character count, disabled, and read-only. Open Storybook for interactive controls."
+  height="1200"
+  caption="Input variants — default, with description, error state, character count, disabled, read-only, prefix icon, and fd-field composition. Open Storybook for interactive controls."
 />
 
 ## Best practices
@@ -153,16 +153,147 @@ When `live` is not set, the default behavior applies. The default is correct for
   message="Enter a valid 9-digit routing number" live="polite"></fd-message>
 ```
 
+## Prefix and suffix slots
+
+`fd-input` supports `prefix` and `suffix` named slots for leading icons and trailing action buttons.
+
+### Leading icons (prefix)
+
+Use the `prefix` slot for decorative icons that reinforce the input's purpose. Prefix content must have `aria-hidden="true"` — the label carries the accessible meaning.
+
+```html
+<fd-input id="search" type="search" placeholder="Search accounts">
+  <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+</fd-input>
+```
+
+### Trailing action buttons (suffix)
+
+Use the `suffix` slot for interactive controls that act on the input value. Suffix buttons must be native `<button>` elements with `aria-label`.
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Use native buttons with aria-label</h4>
+    <p>Suffix action buttons must be <code>&lt;button type="button"&gt;</code> elements with a descriptive <code>aria-label</code> that names both the action and the field.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Use prefix for interactive controls</h4>
+    <p>Interactive buttons in the prefix slot create confusing focus order. Use the suffix slot for all action buttons.</p>
+  </div>
+</div>
+
+### Clear button pattern
+
+```html
+<fd-input id="search" type="search" value="current query">
+  <button slot="suffix" type="button" aria-label="Clear search field"
+    onclick="
+      const input = this.closest('fd-input');
+      input.value = '';
+      input.dispatchEvent(new Event('input', {bubbles: true, composed: true}));
+      input.focus();
+    ">
+    <fd-icon name="x" aria-hidden="true"></fd-icon>
+  </button>
+</fd-input>
+```
+
+**Required:** After setting `value = ""`, dispatch a standard `input` event so `fd-input` syncs form state and character count. Return focus to the input. Hide the button when the input is empty, disabled, or readonly.
+
+### Password reveal pattern
+
+```html
+<fd-input id="pw" type="password" name="password">
+  <button slot="suffix" type="button"
+    aria-label="Toggle password visibility" aria-pressed="false"
+    onclick="
+      const isPressed = this.getAttribute('aria-pressed') === 'true';
+      this.setAttribute('aria-pressed', String(!isPressed));
+      this.closest('fd-input').type = isPressed ? 'password' : 'text';
+      this.querySelector('fd-icon').name = isPressed ? 'eye' : 'eye-slash';
+    ">
+    <fd-icon name="eye" aria-hidden="true"></fd-icon>
+  </button>
+</fd-input>
+```
+
+**Required:** Use a stable `aria-label` with `aria-pressed` — do not dynamically change the label text. Swap the icon between `eye` and `eye-slash` to reflect the current state visually. Disable the toggle when the input is disabled. Keep it active when the input is readonly (viewing is not editing).
+
+### Invalid-state indicator pattern
+
+Use a non-interactive suffix icon when the field needs an inline invalid-state indicator in addition to the error border and message. Per the FDIC Figma input spec, use `warning-circle` for this treatment.
+
+```html
+<fd-input id="account-status" value="invalid query" aria-invalid="true">
+  <fd-icon slot="suffix" name="warning-circle" aria-hidden="true"></fd-icon>
+</fd-input>
+<fd-message for="account-status" state="error"
+  message="No results found for this query"></fd-message>
+```
+
+**Required:** Treat this icon as decorative. Keep the accessible error communication in `fd-message`, and do not use the suffix warning icon as a button.
+
+### Prefix/suffix and state interactions
+
+- **Disabled:** Slotted content is visually dimmed. Suffix buttons must also have the `disabled` attribute.
+- **Readonly:** Prefix appears normally. Clear buttons should be hidden; password toggles remain active.
+- **Error:** Use `warning-circle` as the non-interactive suffix indicator when the design calls for an inline invalid-state icon.
+- **Warning/Success:** No change to prefix/suffix unless a specific design pattern introduces a dedicated state icon.
+- **Focus:** When the input is focused, the container shows the focus ring. When a suffix button is focused, only the button shows its own inset focus ring.
+
+## CSS parts
+
+| Part | Element | Purpose |
+|------|---------|---------|
+| `base` | `<div>` | Visual input container — border, background, radius, focus, states. Style this to customize appearance. |
+| `native` | `<input>` | The actual native input element. Exposed for JavaScript access (e.g., `el.shadowRoot.querySelector('[part=native]')`). |
+| `wrapper` | `<div>` | Outermost wrapper containing the input container and character count. |
+| `char-count` | `<div>` | Visible character count display. |
+
+**Migration note:** In previous versions, `::part(base)` targeted the native `<input>` directly. It now targets the visual container `<div>`. For border, background, and radius customization, `::part(base)` continues to work as before.
+
+`::part()` cannot chain with pseudo-elements like `::placeholder` — this is a CSS specification limitation. Use CSS custom properties instead:
+
+| Custom property | Purpose |
+|---|---|
+| `--fd-input-placeholder-color` | Placeholder text color |
+| `--fd-input-border-color` | Border color at rest |
+| `--fd-input-border-color-hover` | Border color on hover |
+| `--fd-input-border-color-focus` | Focus glow color |
+| `--fd-input-border-radius` | Corner radius |
+| `--fd-input-bg` | Background color |
+| `--fd-input-height` | Minimum height (default: 44px) |
+| `--fd-input-slot-size` | Prefix/suffix slot width (default: 44px) |
+| `--fd-input-icon-size` | Icon glyph size inside prefix/suffix slots (default: 22px) |
+
+### Icon sizing
+
+Icons inside prefix/suffix slots are automatically sized to 22px via `--fd-input-icon-size`. This is derived from the input's 18px body text at a 1.25× scale factor, rounded down to the nearest multiple of 2 (18 × 1.25 = 22.5 → 22px). The 1.25× ratio produces a glyph that is visually proportional to the accompanying text.
+
+You do not need to set `--fd-icon-size` on slotted icons or buttons — the slot container sets it automatically.
+
+**General principle:** Icons should be sized in proportion to the text they are paired with. When an icon appears inline with or adjacent to a text-bearing control, size the icon at 1.25× the text's font size, rounded down to the nearest multiple of 2px. This keeps the glyph visually balanced with the text baseline and line height.
+
+To override for a specific input, set `--fd-input-icon-size`:
+
+```html
+<fd-input style="--fd-input-icon-size: 24px;">
+  <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+</fd-input>
+```
+
 ## Known limitations
 
-- **No prefix/suffix slots** — leading icons and trailing action buttons inside the input field are deferred to a future version.
 - **No input masking** — phone number, SSN, or other format masking must be handled by the consumer.
 - **No built-in validation timing** — the component does not automatically validate on blur or input. Consumers control when to show/hide `fd-message`.
-- **Three-component composition** — consumers must assemble `fd-label` + `fd-input` + `fd-message` with matching `for`/`id` attributes. This provides flexibility but requires more markup than a single compound component.
+- **One suffix action recommended** — multiple trailing action buttons inside a single input are discouraged because they create noisy keyboard and screen reader experiences.
 - **axe-core and FACE** — automated accessibility tools like axe-core cannot follow `<label for>` through a form-associated custom element's shadow DOM. Manual screen reader testing (NVDA, JAWS, VoiceOver) is recommended for verification.
 
 ## Related components
 
+- [Field](/components/field) — convenience wrapper for `fd-label` + `fd-input` + `fd-message` with auto-wired `for`/`id`
 - [Label](/components/label) — provides accessible name, description/hint text, and InfoTip for form inputs
 - [Selector](/components/selector) — dropdown/select pattern for structured selection
 - [Radio Group](/components/radio-group) — grouped radio inputs with built-in legend

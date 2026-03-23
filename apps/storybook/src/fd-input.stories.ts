@@ -27,6 +27,50 @@ type InputArgs = {
   messageText: string;
 };
 
+type FdInputHost = HTMLElement & { value?: string };
+type FdMessageHost = HTMLElement & {
+  state?: string;
+  message?: string;
+  live?: string;
+};
+
+function updateValidationMessage(
+  input: FdInputHost,
+  {
+    isValid,
+    errorMessage,
+    live = "polite",
+  }: {
+    isValid: (value: string) => boolean;
+    errorMessage: string;
+    live?: string;
+  },
+) {
+  const message = input.parentElement?.querySelector("fd-message") as
+    | FdMessageHost
+    | null;
+
+  if (!message) return;
+
+  const value = input.value ?? "";
+
+  if (!value.trim()) {
+    message.state = "default";
+    message.message = "";
+    return;
+  }
+
+  if (isValid(value)) {
+    message.state = "default";
+    message.message = "";
+    return;
+  }
+
+  message.live = live;
+  message.state = "error";
+  message.message = errorMessage;
+}
+
 const renderInput = (args: InputArgs) => html`
   <div style="max-width: 328px;">
     <fd-label
@@ -112,7 +156,9 @@ export const Playground: Story = {};
 Playground.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-input") as HTMLElement | null;
   expect(host).toBeDefined();
-  expect(host?.shadowRoot?.querySelector("[part=base]")?.tagName).toBe(
+  // [part=base] is the visual container div; [part=native] is the actual input
+  expect(host?.shadowRoot?.querySelector("[part=base]")?.tagName).toBe("DIV");
+  expect(host?.shadowRoot?.querySelector("[part=native]")?.tagName).toBe(
     "INPUT",
   );
 };
@@ -255,11 +301,17 @@ export const PatternValidation: Story = {
         pattern="[0-9]{9}"
         inputmode="numeric"
         placeholder="e.g. 021000021"
+        @input=${(e: Event) =>
+          updateValidationMessage(e.currentTarget as FdInputHost, {
+            isValid: (value) => /^[0-9]{9}$/.test(value),
+            errorMessage: "Enter a valid 9-digit routing number",
+          })}
       ></fd-input>
       <fd-message
         for="routing-pattern"
-        state="error"
-        message="Enter a valid 9-digit routing number"
+        state="default"
+        message=""
+        live="polite"
       ></fd-message>
     </form>
   `,
@@ -280,11 +332,17 @@ export const MinlengthWithHint: Story = {
         required
         minlength="6"
         placeholder="e.g. CERT-001234"
+        @input=${(e: Event) =>
+          updateValidationMessage(e.currentTarget as FdInputHost, {
+            isValid: (value) => value.length >= 6,
+            errorMessage: "Certificate number must be at least 6 characters",
+          })}
       ></fd-input>
       <fd-message
         for="cert-minlen"
-        state="error"
-        message="Certificate number must be at least 6 characters"
+        state="default"
+        message=""
+        live="polite"
       ></fd-message>
     </form>
   `,
@@ -359,14 +417,154 @@ export const MessageLivePolite: Story = {
         required
         pattern="[0-9]{9}"
         inputmode="numeric"
+        @input=${(e: Event) =>
+          updateValidationMessage(e.currentTarget as FdInputHost, {
+            isValid: (value) => /^[0-9]{9}$/.test(value),
+            errorMessage: "Enter a valid 9-digit routing number",
+          })}
       ></fd-input>
       <fd-message
         for="inline-val"
-        state="error"
-        message="Enter a valid 9-digit routing number"
+        state="default"
+        message=""
         live="polite"
       ></fd-message>
     </div>
+  `,
+};
+
+// --- Prefix/suffix slot stories ---
+
+export const WithPrefixIcon: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label for="search-prefix" label="Search accounts"></fd-label>
+      <fd-input id="search-prefix" placeholder="Search by name or number">
+        <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+      </fd-input>
+    </div>
+  `,
+};
+
+export const WithClearButton: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label for="search-clear" label="Search accounts"></fd-label>
+      <fd-input id="search-clear" value="FDIC-insured banks">
+        <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+        <button slot="suffix" type="button"
+          aria-label="Clear search field"
+          @click=${(e: Event) => {
+            const input = (e.currentTarget as HTMLElement).closest("fd-input") as any;
+            if (input) {
+              input.value = "";
+              input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+              input.focus();
+            }
+          }}>
+          <fd-icon name="x" aria-hidden="true"></fd-icon>
+        </button>
+      </fd-input>
+    </div>
+  `,
+};
+
+export const WithPasswordReveal: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label for="pw-reveal" label="Password" required></fd-label>
+      <fd-input id="pw-reveal" type="password" name="password" required>
+        <button slot="suffix" type="button"
+          aria-label="Toggle password visibility"
+          aria-pressed="false"
+          @click=${(e: Event) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            const input = btn.closest("fd-input") as any;
+            const isPressed = btn.getAttribute("aria-pressed") === "true";
+            btn.setAttribute("aria-pressed", String(!isPressed));
+            if (input) input.type = isPressed ? "password" : "text";
+            const icon = btn.querySelector("fd-icon") as any;
+            if (icon) icon.name = isPressed ? "eye" : "eye-slash";
+          }}>
+          <fd-icon name="eye" aria-hidden="true"></fd-icon>
+        </button>
+      </fd-input>
+    </div>
+  `,
+};
+
+export const PrefixSuffixDisabled: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label for="disabled-slots" label="Search accounts"></fd-label>
+      <fd-input id="disabled-slots" value="Previous search" disabled>
+        <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+        <button slot="suffix" type="button" aria-label="Clear search field" disabled>
+          <fd-icon name="x" aria-hidden="true"></fd-icon>
+        </button>
+      </fd-input>
+    </div>
+  `,
+};
+
+export const PrefixSuffixError: Story = {
+  render: () => html`
+    <div style="max-width: 328px;">
+      <fd-label for="error-slots" label="Search accounts" required></fd-label>
+      <fd-input id="error-slots" value="invalid query" required>
+        <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+        <fd-icon slot="suffix" name="warning-circle" aria-hidden="true"></fd-icon>
+      </fd-input>
+      <fd-message for="error-slots" state="error" message="No results found for this query"></fd-message>
+    </div>
+  `,
+};
+
+// --- fd-field composition stories ---
+
+export const FieldComposition: Story = {
+  args: {
+    messageState: "error",
+    messageText: "This is a test"
+  },
+
+  render: () => html`
+    <fd-field style="max-width: 328px;">
+      <fd-label label="Email address" required
+        description="We'll never share your email"></fd-label>
+      <fd-input name="email" type="email" required
+        placeholder="you@example.com"
+        @input=${(e: Event) =>
+          updateValidationMessage(e.currentTarget as FdInputHost, {
+            isValid: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+            errorMessage: "Enter a valid email address",
+          })}
+      ></fd-input>
+      <fd-message state="default" message="" live="polite"></fd-message>
+    </fd-field>
+  `
+};
+
+export const FieldWithPrefixSuffix: Story = {
+  render: () => html`
+    <fd-field style="max-width: 328px;">
+      <fd-label label="Search institutions"></fd-label>
+      <fd-input value="Community banks">
+        <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+        <button slot="suffix" type="button"
+          aria-label="Clear search field"
+          @click=${(e: Event) => {
+            const input = (e.currentTarget as HTMLElement).closest("fd-input") as any;
+            if (input) {
+              input.value = "";
+              input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+              input.focus();
+            }
+          }}>
+          <fd-icon name="x" aria-hidden="true"></fd-icon>
+        </button>
+      </fd-input>
+    </fd-field>
   `,
 };
 
@@ -465,6 +663,31 @@ export const DocsOverview: Story = {
             readonly
           ></fd-input>
         </div>
+      </div>
+
+      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>With prefix icon</p>
+        <div style="max-width: 328px;">
+          <fd-label for="docs-prefix" label="Search institutions"></fd-label>
+          <fd-input
+            id="docs-prefix"
+            placeholder="Bank name or CERT number"
+          >
+            <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+          </fd-input>
+        </div>
+      </div>
+
+      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>fd-field composition</p>
+        <fd-field style="max-width: 328px;">
+          <fd-label label="Account number" required
+            description="Found on your bank statement"></fd-label>
+          <fd-input name="account" required
+            placeholder="e.g. 1234567890"></fd-input>
+          <fd-message state="error"
+            message="Enter a valid account number"></fd-message>
+        </fd-field>
       </div>
     </div>
   `,
