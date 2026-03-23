@@ -1,3 +1,8 @@
+/**
+ * Internal development placeholder — NOT part of the public package surface.
+ * This component is not exported from the root package or any subpath.
+ * Do not depend on it in consumer code.
+ */
 import { LitElement, css, html } from "lit";
 
 export class FdPlaceholder extends LitElement {
