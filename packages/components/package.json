@@ -11,6 +11,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./public-events": {
+      "types": "./dist/public-events.d.ts",
+      "import": "./dist/public-events.js"
+    },
     "./register-all": {
       "types": "./dist/register/register-all.d.ts",
       "import": "./dist/register/register-all.js"

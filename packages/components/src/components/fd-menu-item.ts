@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
+import type { FdMenuItemSelectDetail } from "../public-events.js";
 
 export type MenuItemVariant = "default" | "destructive";
 
@@ -123,12 +124,17 @@ export class FdMenuItem extends LitElement {
     this.variant = "default";
   }
 
-  private _handleClick(e: Event) {
-    if (this.disabled) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      return;
-    }
+  private _dispatchSelectEvents() {
+    const detail: FdMenuItemSelectDetail = {};
+
+    this.dispatchEvent(
+      new CustomEvent("fd-menu-item-select", {
+        bubbles: true,
+        composed: true,
+        detail,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-select", {
         bubbles: true,
@@ -138,17 +144,20 @@ export class FdMenuItem extends LitElement {
     );
   }
 
+  private _handleClick(e: Event) {
+    if (this.disabled) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
+    this._dispatchSelectEvents();
+  }
+
   private _handleKeydown(e: KeyboardEvent) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       if (!this.disabled) {
-        this.dispatchEvent(
-          new CustomEvent("fd-select", {
-            bubbles: true,
-            composed: true,
-            detail: {},
-          }),
-        );
+        this._dispatchSelectEvents();
       }
     }
   }

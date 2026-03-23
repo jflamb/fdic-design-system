@@ -4,6 +4,7 @@ export default defineConfig({
   entry: {
     // Root entry (side-effect-free)
     index: "src/index.ts",
+    "public-events": "src/public-events.ts",
 
     // Per-component symbol exports
     "components/fd-button": "src/components/fd-button.ts",

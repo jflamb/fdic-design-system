@@ -40,55 +40,58 @@ describe("fd-menu-item", () => {
     expect(inner.getAttribute("tabindex")).toBe("-1");
   });
 
-  it("fires fd-select event on click", async () => {
+  it("fires fd-menu-item-select and deprecated fd-select on click", async () => {
     const el = await createMenuItem();
     const inner = getInternal(el);
-    const spy = vi.fn();
-    el.addEventListener("fd-select", spy);
+    const selectSpy = vi.fn();
+    const deprecatedSpy = vi.fn();
+    el.addEventListener("fd-menu-item-select", selectSpy);
+    el.addEventListener("fd-select", deprecatedSpy);
 
     inner.click();
 
-    expect(spy).toHaveBeenCalledOnce();
+    expect(selectSpy).toHaveBeenCalledOnce();
+    expect(deprecatedSpy).toHaveBeenCalledOnce();
   });
 
-  it("fires fd-select event on Enter keydown", async () => {
+  it("fires fd-menu-item-select event on Enter keydown", async () => {
     const el = await createMenuItem();
     const inner = getInternal(el);
     const spy = vi.fn();
-    el.addEventListener("fd-select", spy);
+    el.addEventListener("fd-menu-item-select", spy);
 
     inner.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
 
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  it("fires fd-select event on Space keydown", async () => {
+  it("fires fd-menu-item-select event on Space keydown", async () => {
     const el = await createMenuItem();
     const inner = getInternal(el);
     const spy = vi.fn();
-    el.addEventListener("fd-select", spy);
+    el.addEventListener("fd-menu-item-select", spy);
 
     inner.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true }));
 
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  it("does not fire fd-select when disabled (click)", async () => {
+  it("does not fire fd-menu-item-select when disabled (click)", async () => {
     const el = await createMenuItem({ disabled: "" });
     const inner = getInternal(el);
     const spy = vi.fn();
-    el.addEventListener("fd-select", spy);
+    el.addEventListener("fd-menu-item-select", spy);
 
     inner.click();
 
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it("does not fire fd-select when disabled (Enter)", async () => {
+  it("does not fire fd-menu-item-select when disabled (Enter)", async () => {
     const el = await createMenuItem({ disabled: "" });
     const inner = getInternal(el);
     const spy = vi.fn();
-    el.addEventListener("fd-select", spy);
+    el.addEventListener("fd-menu-item-select", spy);
 
     inner.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
 

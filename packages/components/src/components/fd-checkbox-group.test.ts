@@ -153,7 +153,20 @@ describe("fd-checkbox-group", () => {
     expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
   });
 
-  it("fires fd-group-change with the checked values", async () => {
+  it("fires fd-checkbox-group-change with normalized value and values", async () => {
+    const el = await createCheckboxGroup();
+    const spy = vi.fn();
+    el.addEventListener("fd-checkbox-group-change", spy);
+
+    const first = getCheckboxes(el)[0];
+    first.shadowRoot!.querySelector("input").click();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy.mock.calls[0][0].detail.value).toBe("email");
+    expect(spy.mock.calls[0][0].detail.values).toEqual(["email"]);
+  });
+
+  it("continues to fire deprecated fd-group-change with checkedValues", async () => {
     const el = await createCheckboxGroup();
     const spy = vi.fn();
     el.addEventListener("fd-group-change", spy);

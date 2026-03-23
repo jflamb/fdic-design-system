@@ -1,6 +1,10 @@
 import { LitElement, css, html } from "lit";
 import type { PropertyValues } from "lit";
 import { classMap } from "lit/directives/class-map.js";
+import type {
+  FdSplitButtonActionDetail,
+  FdSplitButtonOpenChangeDetail,
+} from "../public-events.js";
 import type { ButtonVariant } from "./fd-button.js";
 import type { Placement } from "./placement.js";
 import type { FdMenu } from "./fd-menu.js";
@@ -13,8 +17,8 @@ export class FdSplitButton extends LitElement {
     variant: { reflect: true },
     disabled: { type: Boolean, reflect: true },
     triggerDisabled: { attribute: "trigger-disabled", type: Boolean, reflect: true },
-    triggerLabel: { attribute: "trigger-label" },
-    menuPlacement: { attribute: "menu-placement" },
+    triggerLabel: { attribute: "trigger-label", reflect: true },
+    menuPlacement: { attribute: "menu-placement", reflect: true },
     open: { type: Boolean, reflect: true },
   };
 
@@ -365,6 +369,16 @@ export class FdSplitButton extends LitElement {
 
   private _onPrimaryClick() {
     if (this.disabled) return;
+    const detail: FdSplitButtonActionDetail = {};
+
+    this.dispatchEvent(
+      new CustomEvent("fd-split-button-action", {
+        bubbles: true,
+        composed: true,
+        detail,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-split-action", {
         bubbles: true,
@@ -413,10 +427,19 @@ export class FdSplitButton extends LitElement {
   private _onMenuOpen(e: CustomEvent) {
     if (this._disconnecting) return;
     const newOpen = e.detail.open;
+    const detail: FdSplitButtonOpenChangeDetail = { open: newOpen };
     if (this.open !== newOpen) {
       this._openSetInternally = true;
       this.open = newOpen;
     }
+    this.dispatchEvent(
+      new CustomEvent("fd-split-button-open-change", {
+        bubbles: true,
+        composed: true,
+        detail,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-split-open", {
         bubbles: true,
@@ -514,7 +537,7 @@ export class FdSplitButton extends LitElement {
         anchor="trigger"
         placement=${this.menuPlacement}
         label=${this.triggerLabel}
-        @fd-open=${this._onMenuOpen}
+        @fd-menu-open-change=${this._onMenuOpen}
       ></fd-menu>
       <slot name="menu" hidden @slotchange=${this._onMenuSlotChange}></slot>
     `;

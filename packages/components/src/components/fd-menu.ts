@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import type { FdMenuOpenChangeDetail } from "../public-events.js";
 import { computePlacement } from "./placement.js";
 import type { Placement } from "./placement.js";
 import type { FdMenuItem } from "./fd-menu-item.js";
@@ -452,6 +453,16 @@ export class FdMenu extends LitElement {
   // --- Events ---
 
   private _fireOpenEvent(open: boolean) {
+    const detail: FdMenuOpenChangeDetail = { open };
+
+    this.dispatchEvent(
+      new CustomEvent("fd-menu-open-change", {
+        bubbles: true,
+        composed: true,
+        detail,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-open", {
         bubbles: true,
@@ -477,7 +488,7 @@ export class FdMenu extends LitElement {
           aria-labelledby=${ifDefined(this.labelledby)}
           tabindex="-1"
           @keydown=${this._onMenuKeydown}
-          @fd-select=${this._onItemSelect}
+          @fd-menu-item-select=${this._onItemSelect}
           @focusout=${this._onFocusOut}
         >
           <slot></slot>

@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import type { FdCheckboxGroupChangeDetail } from "../public-events.js";
 import { GroupFormController } from "./group-form-controller.js";
 import type { FdCheckbox } from "./fd-checkbox.js";
 import "./fd-checkbox.js";
@@ -309,7 +310,19 @@ export class FdCheckboxGroup extends LitElement {
     const checkedValues = this._getCheckboxes()
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.value);
+    const detail: FdCheckboxGroupChangeDetail = {
+      value: checkedValues[0] ?? "",
+      values: checkedValues,
+    };
 
+    this.dispatchEvent(
+      new CustomEvent("fd-checkbox-group-change", {
+        detail,
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-group-change", {
         detail: { checkedValues },

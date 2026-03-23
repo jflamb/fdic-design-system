@@ -1,5 +1,9 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
+import type {
+  FdSelectorChangeDetail,
+  FdSelectorOpenChangeDetail,
+} from "../public-events.js";
 import { SingleValueFormController } from "./single-value-form-controller.js";
 import type { FdOption } from "./fd-option.js";
 
@@ -489,6 +493,16 @@ export class FdSelector extends LitElement {
       this._setFocusedOption(selected ?? first ?? null);
     });
     this._addClickOutside();
+    const detail: FdSelectorOpenChangeDetail = { open: true };
+
+    this.dispatchEvent(
+      new CustomEvent("fd-selector-open-change", {
+        bubbles: true,
+        composed: true,
+        detail,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-selector-open", {
         bubbles: true,
@@ -501,6 +515,16 @@ export class FdSelector extends LitElement {
     this._setFocusedOption(null);
     this._removeClickOutside();
     this._formController.revealIfInteractedAndInvalid();
+    const detail: FdSelectorOpenChangeDetail = { open: false };
+
+    this.dispatchEvent(
+      new CustomEvent("fd-selector-open-change", {
+        bubbles: true,
+        composed: true,
+        detail,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-selector-close", {
         bubbles: true,
@@ -642,16 +666,18 @@ export class FdSelector extends LitElement {
   // --- Events ---
 
   private _fireEvents() {
+    const detail: FdSelectorChangeDetail = {
+      value: this.value,
+      values: this.values,
+    };
+
     this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
     this.dispatchEvent(
       new CustomEvent("fd-selector-change", {
         bubbles: true,
         composed: true,
-        detail: {
-          value: this.value,
-          values: this.values,
-        },
+        detail,
       }),
     );
   }

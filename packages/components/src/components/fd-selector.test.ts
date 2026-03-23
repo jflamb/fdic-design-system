@@ -271,7 +271,19 @@ describe("fd-selector", () => {
     expect(el.open).toBe(false);
   });
 
-  it("fires fd-selector-open event on open", async () => {
+  it("fires fd-selector-open-change event on open", async () => {
+    const el = await createSelector({ label: "Account" });
+    const handler = vi.fn();
+    el.addEventListener("fd-selector-open-change", handler);
+
+    getTrigger(el).click();
+    await el.updateComplete;
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler.mock.calls[0][0].detail.open).toBe(true);
+  });
+
+  it("continues to fire deprecated fd-selector-open on open", async () => {
     const el = await createSelector({ label: "Account" });
     const handler = vi.fn();
     el.addEventListener("fd-selector-open", handler);
@@ -282,7 +294,21 @@ describe("fd-selector", () => {
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
-  it("fires fd-selector-close event on close", async () => {
+  it("fires fd-selector-open-change event on close", async () => {
+    const el = await createSelector({ label: "Account" });
+    const handler = vi.fn();
+    el.addEventListener("fd-selector-open-change", handler);
+
+    getTrigger(el).click();
+    await el.updateComplete;
+    getTrigger(el).click();
+    await el.updateComplete;
+
+    expect(handler).toHaveBeenCalledTimes(2);
+    expect(handler.mock.calls[1][0].detail.open).toBe(false);
+  });
+
+  it("continues to fire deprecated fd-selector-close on close", async () => {
     const el = await createSelector({ label: "Account" });
     const handler = vi.fn();
     el.addEventListener("fd-selector-close", handler);
@@ -1020,6 +1046,24 @@ describe("fd-selector", () => {
     const detail = handler.mock.calls[0][0].detail;
     expect(detail.value).toBe("savings");
     expect(detail.values).toEqual(["savings"]);
+  });
+
+  it("multiple: fd-selector-change includes both value and values after multiple selections", async () => {
+    const el = await createSelector({ label: "Account", variant: "multiple" });
+    const handler = vi.fn();
+    el.addEventListener("fd-selector-change", handler);
+
+    getTrigger(el).click();
+    await el.updateComplete;
+
+    getOptions(el)[1].click(); // savings
+    await el.updateComplete;
+    getOptions(el)[2].click(); // cd
+    await el.updateComplete;
+
+    const detail = handler.mock.calls[1][0].detail;
+    expect(detail.value).toBe("savings");
+    expect(detail.values).toEqual(["savings", "cd"]);
   });
 
   it("multiple: value is empty when all deselected", async () => {

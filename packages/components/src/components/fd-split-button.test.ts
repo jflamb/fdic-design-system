@@ -97,6 +97,7 @@ describe("fd-split-button", () => {
     const el = await createSplitButton({ "trigger-label": "More save options" });
     const trigger = getTrigger(el);
     expect(trigger.getAttribute("aria-label")).toBe("More save options");
+    expect(el.getAttribute("trigger-label")).toBe("More save options");
   });
 
   it("renders an internal fd-menu with anchor='trigger'", async () => {
@@ -191,6 +192,7 @@ describe("fd-split-button", () => {
     const el = await createSplitButton({ "menu-placement": "top-end" });
     const menu = getInternalMenu(el);
     expect(menu.getAttribute("placement")).toBe("top-end");
+    expect(el.getAttribute("menu-placement")).toBe("top-end");
   });
 
   it("forwards trigger-label to internal fd-menu label", async () => {
@@ -285,22 +287,25 @@ describe("fd-split-button", () => {
 
   // --- Task 3: Primary Segment Action ---
 
-  it("fires fd-split-action when primary is clicked", async () => {
+  it("fires fd-split-button-action and deprecated fd-split-action when primary is clicked", async () => {
     const el = await createSplitButton();
-    const spy = vi.fn();
-    el.addEventListener("fd-split-action", spy);
+    const actionSpy = vi.fn();
+    const deprecatedSpy = vi.fn();
+    el.addEventListener("fd-split-button-action", actionSpy);
+    el.addEventListener("fd-split-action", deprecatedSpy);
 
     getPrimary(el).click();
 
-    expect(spy).toHaveBeenCalledOnce();
-    expect(spy.mock.calls[0][0].bubbles).toBe(true);
-    expect(spy.mock.calls[0][0].composed).toBe(true);
+    expect(actionSpy).toHaveBeenCalledOnce();
+    expect(deprecatedSpy).toHaveBeenCalledOnce();
+    expect(actionSpy.mock.calls[0][0].bubbles).toBe(true);
+    expect(actionSpy.mock.calls[0][0].composed).toBe(true);
   });
 
-  it("does not fire fd-split-action when disabled", async () => {
+  it("does not fire fd-split-button-action when disabled", async () => {
     const el = await createSplitButton({ disabled: "" });
     const spy = vi.fn();
-    el.addEventListener("fd-split-action", spy);
+    el.addEventListener("fd-split-button-action", spy);
 
     // Click the primary button directly (bypassing native disabled behavior)
     el._onPrimaryClick();
@@ -361,7 +366,7 @@ describe("fd-split-button", () => {
     const menu = getInternalMenu(el);
     menu.show();
     const spy = vi.fn();
-    el.addEventListener("fd-split-open", spy);
+    el.addEventListener("fd-split-button-open-change", spy);
 
     const trigger = getTrigger(el);
     trigger.dispatchEvent(
@@ -432,7 +437,7 @@ describe("fd-split-button", () => {
 
   // --- Task 5: State Sync ---
 
-  it("syncs open state from fd-menu fd-open event", async () => {
+  it("syncs open state from fd-menu fd-menu-open-change event", async () => {
     const el = await createSplitButton();
     await new Promise((r) => requestAnimationFrame(r));
 
@@ -444,7 +449,23 @@ describe("fd-split-button", () => {
     expect(el.hasAttribute("open")).toBe(true);
   });
 
-  it("fires fd-split-open when menu opens", async () => {
+  it("fires fd-split-button-open-change when menu opens", async () => {
+    const el = await createSplitButton();
+    await new Promise((r) => requestAnimationFrame(r));
+
+    const spy = vi.fn();
+    el.addEventListener("fd-split-button-open-change", spy);
+
+    const menu = getInternalMenu(el);
+    menu.show();
+
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy.mock.calls[0][0].detail.open).toBe(true);
+    expect(spy.mock.calls[0][0].bubbles).toBe(true);
+    expect(spy.mock.calls[0][0].composed).toBe(true);
+  });
+
+  it("continues to fire deprecated fd-split-open when menu opens", async () => {
     const el = await createSplitButton();
     await new Promise((r) => requestAnimationFrame(r));
 
@@ -456,11 +477,9 @@ describe("fd-split-button", () => {
 
     expect(spy).toHaveBeenCalledOnce();
     expect(spy.mock.calls[0][0].detail.open).toBe(true);
-    expect(spy.mock.calls[0][0].bubbles).toBe(true);
-    expect(spy.mock.calls[0][0].composed).toBe(true);
   });
 
-  it("fires fd-split-open when menu closes", async () => {
+  it("fires fd-split-button-open-change when menu closes", async () => {
     const el = await createSplitButton();
     await new Promise((r) => requestAnimationFrame(r));
 
@@ -468,7 +487,7 @@ describe("fd-split-button", () => {
     menu.show();
 
     const spy = vi.fn();
-    el.addEventListener("fd-split-open", spy);
+    el.addEventListener("fd-split-button-open-change", spy);
 
     menu.hide();
 

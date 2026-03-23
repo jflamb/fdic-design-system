@@ -95,10 +95,10 @@ describe("fd-menu", () => {
 
   // --- show/hide/toggle ---
 
-  it("show() sets open=true and fires fd-open", async () => {
+  it("show() sets open=true and fires fd-menu-open-change", async () => {
     const el = await createMenu({ label: "Actions" });
     const spy = vi.fn();
-    el.addEventListener("fd-open", spy);
+    el.addEventListener("fd-menu-open-change", spy);
 
     el.show();
 
@@ -107,12 +107,23 @@ describe("fd-menu", () => {
     expect(spy.mock.calls[0][0].detail.open).toBe(true);
   });
 
-  it("hide() sets open=false and fires fd-open", async () => {
+  it("show() also fires deprecated fd-open", async () => {
+    const el = await createMenu({ label: "Actions" });
+    const spy = vi.fn();
+    el.addEventListener("fd-open", spy);
+
+    el.show();
+
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy.mock.calls[0][0].detail.open).toBe(true);
+  });
+
+  it("hide() sets open=false and fires fd-menu-open-change", async () => {
     const el = await createMenu({ label: "Actions" });
     el.show();
 
     const spy = vi.fn();
-    el.addEventListener("fd-open", spy);
+    el.addEventListener("fd-menu-open-change", spy);
     el.hide();
 
     expect(el.open).toBe(false);
@@ -133,7 +144,7 @@ describe("fd-menu", () => {
   it("show() is idempotent when already open", async () => {
     const el = await createMenu({ label: "Actions" });
     const spy = vi.fn();
-    el.addEventListener("fd-open", spy);
+    el.addEventListener("fd-menu-open-change", spy);
 
     el.show();
     el.show();
@@ -144,7 +155,7 @@ describe("fd-menu", () => {
   it("hide() is idempotent when already closed", async () => {
     const el = await createMenu({ label: "Actions" });
     const spy = vi.fn();
-    el.addEventListener("fd-open", spy);
+    el.addEventListener("fd-menu-open-change", spy);
 
     el.hide();
 
@@ -347,7 +358,7 @@ describe("fd-menu", () => {
 
   // --- Item activation closes menu ---
 
-  it("item activation (fd-select) closes menu", async () => {
+  it("item activation (fd-menu-item-select) closes menu", async () => {
     const el = await createMenu({ label: "Actions", anchor: "act-btn" }, undefined, "act-btn");
     el.show();
 

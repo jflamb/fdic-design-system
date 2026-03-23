@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import type { FdRadioGroupChangeDetail } from "../public-events.js";
 import { GroupFormController } from "./group-form-controller.js";
 import type { FdRadio } from "./fd-radio.js";
 import "./fd-radio.js";
@@ -342,7 +343,16 @@ export class FdRadioGroup extends LitElement {
 
     const selectedRadio = this._getRadios().find((radio) => radio.checked);
     const selectedValue = selectedRadio?.value ?? "";
+    const detail: FdRadioGroupChangeDetail = { value: selectedValue };
 
+    this.dispatchEvent(
+      new CustomEvent("fd-radio-group-change", {
+        detail,
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    // @deprecated Compatibility event. Remove in the next breaking major version.
     this.dispatchEvent(
       new CustomEvent("fd-group-change", {
         detail: { selectedValue },

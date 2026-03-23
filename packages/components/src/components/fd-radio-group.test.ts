@@ -188,7 +188,32 @@ describe("fd-radio-group", () => {
     expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
   });
 
-  it("fires fd-group-change with the selected value", async () => {
+  it("fires fd-radio-group-change with normalized value", async () => {
+    const el = await createRadioGroup();
+    const spy = vi.fn();
+    el.addEventListener("fd-radio-group-change", spy);
+
+    const radios = getRadios(el);
+    getInternalInput(radios[0]).click();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy.mock.calls[0][0].detail.value).toBe("email");
+  });
+
+  it("fires fd-radio-group-change with updated value when selection changes", async () => {
+    const el = await createRadioGroup();
+    const spy = vi.fn();
+    el.addEventListener("fd-radio-group-change", spy);
+
+    const radios = getRadios(el);
+    getInternalInput(radios[0]).click();
+    getInternalInput(radios[1]).click();
+
+    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy.mock.calls[1][0].detail.value).toBe("phone");
+  });
+
+  it("continues to fire deprecated fd-group-change with selectedValue", async () => {
     const el = await createRadioGroup();
     const spy = vi.fn();
     el.addEventListener("fd-group-change", spy);
@@ -198,19 +223,6 @@ describe("fd-radio-group", () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy.mock.calls[0][0].detail.selectedValue).toBe("email");
-  });
-
-  it("fires fd-group-change with updated value when selection changes", async () => {
-    const el = await createRadioGroup();
-    const spy = vi.fn();
-    el.addEventListener("fd-group-change", spy);
-
-    const radios = getRadios(el);
-    getInternalInput(radios[0]).click();
-    getInternalInput(radios[1]).click();
-
-    expect(spy).toHaveBeenCalledTimes(2);
-    expect(spy.mock.calls[1][0].detail.selectedValue).toBe("phone");
   });
 
   it("disables and re-enables only children it owns in the simplified cascade", async () => {
@@ -318,10 +330,10 @@ describe("fd-radio-group", () => {
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
   });
 
-  it("does not fire fd-group-change for programmatic checked updates", async () => {
+  it("does not fire fd-radio-group-change for programmatic checked updates", async () => {
     const el = await createRadioGroup();
     const spy = vi.fn();
-    el.addEventListener("fd-group-change", spy);
+    el.addEventListener("fd-radio-group-change", spy);
 
     const radios = getRadios(el);
     radios[0].checked = true;

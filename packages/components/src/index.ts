@@ -31,6 +31,20 @@ export type { MessageState, LiveMode } from "./components/fd-message.js";
 export type { Placement } from "./components/placement.js";
 export type { RadioGroupOrientation } from "./components/fd-radio-group.js";
 export type { SelectorVariant } from "./components/fd-selector.js";
+export type {
+  FdActionDetail,
+  FdCheckboxGroupChangeDetail,
+  FdMenuItemSelectDetail,
+  FdMenuOpenChangeDetail,
+  FdOpenChangeDetail,
+  FdRadioGroupChangeDetail,
+  FdSelectorChangeDetail,
+  FdSelectorOpenChangeDetail,
+  FdSplitButtonActionDetail,
+  FdSplitButtonOpenChangeDetail,
+  FdValueChangeDetail,
+  FdValuesChangeDetail,
+} from "./public-events.js";
 
 // --- Icon registry ---
 export { iconRegistry } from "./icons/registry.js";
