@@ -102,6 +102,14 @@ export const Required: Story = {
     label: "I agree to the terms and conditions",
     name: "terms",
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Validation lifecycle: the checkbox stays internally invalid until submit/reportValidity or blur after interaction reveals the invalid state. Once checked, invalid styling clears automatically.",
+      },
+    },
+  },
 };
 
 export const FormIntegration: Story = {
@@ -113,7 +121,7 @@ export const FormIntegration: Story = {
       <fd-checkbox name="updates" checked>
         Email me account updates
       </fd-checkbox>
-      <button type="submit">Submit</button>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
 };

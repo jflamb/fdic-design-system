@@ -277,7 +277,32 @@ describe("fd-radio", () => {
     const el = await createRadio({ required: "", name: "contact" });
 
     expect(el.reportValidity()).toBe(false);
+    await el.updateComplete;
     expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getInternal(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("does not surface invalid state before a visibility boundary", async () => {
+    const el = await createRadio({ required: "", name: "contact" });
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getInternal(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reportValidity on a valid radio has no visible effect", async () => {
+    const el = await createRadio({
+      required: "",
+      name: "contact",
+      checked: "",
+      value: "email",
+    }, "Email");
+
+    expect(el.reportValidity()).toBe(true);
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getInternal(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("restores default checked state and clears validation state on reset", async () => {
@@ -291,6 +316,7 @@ describe("fd-radio", () => {
 
     expect(el.checked).toBe(true);
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getInternal(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("restores the default checked radio in a group on reset", async () => {

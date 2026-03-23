@@ -101,9 +101,17 @@ export const Required: Story = {
         <fd-radio name="contact" value="phone">Phone</fd-radio>
         <fd-radio name="contact" value="mail">Paper mail</fd-radio>
       </fieldset>
-      <button type="submit">Submit</button>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Validation lifecycle: submit or reportValidity reveals invalid state only when no radio is selected. A valid selection clears the visible invalid state automatically.",
+      },
+    },
+  },
 };
 
 export const FormIntegration: Story = {
@@ -118,7 +126,7 @@ export const FormIntegration: Story = {
         <fd-radio name="contact" value="phone">Phone</fd-radio>
         <fd-radio name="contact" value="mail">Paper mail</fd-radio>
       </fieldset>
-      <button type="submit">Submit</button>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
 };

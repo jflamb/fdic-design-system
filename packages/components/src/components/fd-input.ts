@@ -1,9 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
-import {
-  attachInternalsCompat,
-  type ElementInternalsLike,
-} from "./internals.js";
+import { SingleValueFormController } from "./single-value-form-controller.js";
 import type { FdLabel } from "./fd-label.js";
 import type { FdMessage, MessageState } from "./fd-message.js";
 
@@ -112,7 +109,7 @@ export class FdInput extends LitElement {
   declare _hasPrefix: boolean;
   declare _hasSuffix: boolean;
 
-  private _internals: ElementInternalsLike;
+  private _formController: SingleValueFormController;
   private _siblingObserver: MutationObserver | null = null;
   private _charCountId: string;
   private _srCharCountId: string;
@@ -137,7 +134,13 @@ export class FdInput extends LitElement {
     this._messageState = "default";
     this._hasPrefix = false;
     this._hasSuffix = false;
-    this._internals = attachInternalsCompat(this);
+    this._formController = new SingleValueFormController({
+      host: this,
+      syncFormValue: () => this._syncFormValue(),
+      syncValidity: () => this._syncValidity(),
+      getValidationAnchor: () => this._input ?? undefined,
+    });
+    this._formController.internals.setFormValue(null);
     this._charCountId = `fdi-cc-${FdInput._instanceCounter}`;
     this._srCharCountId = `fdi-sr-cc-${FdInput._instanceCounter}`;
     FdInput._instanceCounter++;
@@ -149,7 +152,7 @@ export class FdInput extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
-    this._syncFormState();
+    this._formController.sync();
     requestAnimationFrame(() => {
       this._discoverSiblings();
       this._observeSiblings();
@@ -166,9 +169,11 @@ export class FdInput extends LitElement {
       changed.has("value") ||
       changed.has("required") ||
       changed.has("pattern") ||
-      changed.has("minlength")
+      changed.has("minlength") ||
+      changed.has("maxlength") ||
+      changed.has("disabled")
     ) {
-      this._syncFormState();
+      this._formController.sync();
     }
     if (changed.has("id")) {
       this._discoverSiblings();
@@ -177,19 +182,27 @@ export class FdInput extends LitElement {
 
   formResetCallback() {
     this.value = "";
-    this._syncFormState();
+    this._formController.reset();
     this._announced80 = false;
     this._announced100 = false;
   }
 
   // --- Form validity sync ---
 
-  private _syncFormState() {
-    this._internals.setFormValue(this.value || null);
-    const anchor = this._input ?? undefined;
+  private _syncFormValue() {
+    this._formController.internals.setFormValue(this.value || null);
+  }
+
+  private _syncValidity() {
+    const anchor = this._formController.getValidationAnchor();
+
+    if (this.disabled) {
+      this._formController.internals.setValidity({});
+      return;
+    }
 
     if (this.required && !this.value) {
-      this._internals.setValidity(
+      this._formController.internals.setValidity(
         { valueMissing: true },
         "Please fill out this field.",
         anchor,
@@ -202,7 +215,7 @@ export class FdInput extends LitElement {
     const nativeValidity = this._input?.validity;
 
     if (nativeValidity?.tooShort) {
-      this._internals.setValidity(
+      this._formController.internals.setValidity(
         { tooShort: true },
         `Please use at least ${this.minlength} characters.`,
         anchor,
@@ -211,7 +224,7 @@ export class FdInput extends LitElement {
     }
 
     if (nativeValidity?.patternMismatch) {
-      this._internals.setValidity(
+      this._formController.internals.setValidity(
         { patternMismatch: true },
         "Please match the requested format.",
         anchor,
@@ -219,7 +232,7 @@ export class FdInput extends LitElement {
       return;
     }
 
-    this._internals.setValidity({});
+    this._formController.internals.setValidity({});
   }
 
   // --- Sibling discovery ---
@@ -336,27 +349,27 @@ export class FdInput extends LitElement {
   // --- Form-associated getters (match fd-checkbox, fd-selector) ---
 
   get form() {
-    return this._internals.form;
+    return this._formController.form;
   }
 
   get validity() {
-    return this._internals.validity;
+    return this._formController.validity;
   }
 
   get validationMessage() {
-    return this._internals.validationMessage;
+    return this._formController.validationMessage;
   }
 
   get willValidate() {
-    return this._internals.willValidate;
+    return this._formController.willValidate;
   }
 
   checkValidity(): boolean {
-    return this._internals.checkValidity();
+    return this._formController.checkValidity();
   }
 
   reportValidity(): boolean {
-    return this._internals.reportValidity();
+    return this._formController.reportValidity();
   }
 
   // --- Events ---
@@ -364,7 +377,8 @@ export class FdInput extends LitElement {
   private _onInput(e: Event) {
     const input = e.target as HTMLInputElement;
     this.value = input.value;
-    this._syncFormState();
+    this._formController.markInteracted();
+    this._formController.sync();
     this._updateCharCountAnnouncement();
 
     this.dispatchEvent(
@@ -380,6 +394,7 @@ export class FdInput extends LitElement {
 
   private _onBlur() {
     this._announceCharCount();
+    this._formController.revealIfInteractedAndInvalid();
   }
 
   // --- Character count ---
@@ -736,7 +751,7 @@ export class FdInput extends LitElement {
   override render() {
     const labelledBy = this._assembleLabelledBy();
     const describedBy = this._assembleDescribedBy();
-    const isError = this._messageState === "error";
+    const isUserInvalid = this.hasAttribute("data-user-invalid");
     const hasCharCount = this.maxlength != null;
     const used = this.value?.length ?? 0;
 
@@ -790,7 +805,7 @@ export class FdInput extends LitElement {
             inputmode=${this.inputmode ?? nothing}
             aria-labelledby=${labelledBy ?? nothing}
             aria-describedby=${describedBy ?? nothing}
-            aria-invalid=${isError ? "true" : nothing}
+            aria-invalid=${isUserInvalid ? "true" : nothing}
             aria-required=${this.required ? "true" : nothing}
             @input=${this._onInput}
             @change=${this._onChange}

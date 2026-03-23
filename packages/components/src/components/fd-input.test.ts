@@ -236,9 +236,19 @@ describe("fd-input", () => {
     expect(describedBy).toContain(msg.messageId);
   });
 
-  // --- Validation state from fd-message ---
+  // --- Validation visibility contract ---
 
-  it("sets aria-invalid when fd-message has state=error", async () => {
+  it("does not surface invalid state before a visibility boundary", async () => {
+    const el = await createInput({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+
+    const input = getInternal(el);
+    expect(input!.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("does not set aria-invalid when fd-message has state=error alone", async () => {
     const el = await createInput({ id: "test-error" });
 
     const msg = document.createElement("fd-message") as any;
@@ -252,7 +262,8 @@ describe("fd-input", () => {
     await el.updateComplete;
 
     const input = getInternal(el);
-    expect(input!.getAttribute("aria-invalid")).toBe("true");
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(input!.getAttribute("aria-invalid")).toBeNull();
   });
 
   it("does not set aria-invalid for non-error states", async () => {
@@ -269,6 +280,72 @@ describe("fd-input", () => {
     await el.updateComplete;
 
     const input = getInternal(el);
+    expect(input!.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("sets visible invalid state on reportValidity when invalid", async () => {
+    const el = await createInput({ required: "" });
+
+    expect(el.reportValidity()).toBe(false);
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(input!.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("sets visible invalid state on blur after user interaction", async () => {
+    const el = await createInput({ required: "" });
+    const input = getInternal(el);
+
+    input!.value = "";
+    input!.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    input!.dispatchEvent(new FocusEvent("blur"));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(input!.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("clears aria-invalid in the same update cycle when the control becomes valid", async () => {
+    const el = await createInput({ required: "" });
+    const input = getInternal(el);
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(input!.getAttribute("aria-invalid")).toBe("true");
+
+    input!.value = "typed";
+    input!.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(input!.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reportValidity on a valid control produces no visible effect", async () => {
+    const el = await createInput({ required: "", value: "ready" });
+
+    expect(el.reportValidity()).toBe(true);
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(input!.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("form reset clears visible invalid state and aria-invalid", async () => {
+    const el = await createInput({ required: "" });
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+
+    el.formResetCallback();
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
     expect(input!.getAttribute("aria-invalid")).toBeNull();
   });
 

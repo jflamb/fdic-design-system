@@ -146,12 +146,20 @@ export const FormValidation: Story = {
       </fd-selector>
 
       <div style="display: flex; gap: 0.5rem;">
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
+        <fd-button type="submit">Submit</fd-button>
+        <fd-button type="reset">Reset</fd-button>
       </div>
       <pre id="result" style="font-size: 0.875rem; margin: 0;"></pre>
     </form>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Submit the form to reveal invalid state. For selector-style controls, closing the popup after invalid interaction also reveals the error state; selecting a valid option or resetting clears it.",
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {

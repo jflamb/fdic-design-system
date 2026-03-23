@@ -13,6 +13,7 @@ export interface ElementInternalsLike {
   checkValidity(): boolean;
   reportValidity(): boolean;
   setFormValue(value: string | File | FormData | null): void;
+  getFormValue?(): string | File | FormData | null;
   setValidity(...args: SetValidityArgs): void;
 }
 
@@ -64,6 +65,10 @@ class FallbackInternals implements ElementInternalsLike {
     this.#formValue = value;
   }
 
+  getFormValue() {
+    return this.#formValue;
+  }
+
   setValidity(
     flags: ValidityStateFlags = {},
     message = "",
@@ -93,10 +98,60 @@ class FallbackInternals implements ElementInternalsLike {
   }
 }
 
-export function attachInternalsCompat(host: HTMLElement): ElementInternalsLike {
-  if ("attachInternals" in host && typeof host.attachInternals === "function") {
-    return host.attachInternals() as unknown as ElementInternalsLike;
+class TrackedInternals implements ElementInternalsLike {
+  states?: CustomStateSet;
+  #internals: ElementInternalsLike;
+  #formValue: string | File | FormData | null = null;
+
+  constructor(internals: ElementInternalsLike) {
+    this.#internals = internals;
+    this.states = internals.states;
   }
 
-  return new FallbackInternals(host);
+  get form() {
+    return this.#internals.form;
+  }
+
+  get validity() {
+    return this.#internals.validity;
+  }
+
+  get validationMessage() {
+    return this.#internals.validationMessage;
+  }
+
+  get willValidate() {
+    return this.#internals.willValidate;
+  }
+
+  checkValidity() {
+    return this.#internals.checkValidity();
+  }
+
+  reportValidity() {
+    return this.#internals.reportValidity();
+  }
+
+  setFormValue(value: string | File | FormData | null) {
+    this.#formValue = value;
+    this.#internals.setFormValue(value);
+  }
+
+  getFormValue() {
+    return this.#formValue;
+  }
+
+  setValidity(...args: SetValidityArgs) {
+    this.#internals.setValidity(...args);
+  }
+}
+
+export function attachInternalsCompat(host: HTMLElement): ElementInternalsLike {
+  if ("attachInternals" in host && typeof host.attachInternals === "function") {
+    return new TrackedInternals(
+      host.attachInternals() as unknown as ElementInternalsLike,
+    );
+  }
+
+  return new TrackedInternals(new FallbackInternals(host));
 }

@@ -742,13 +742,51 @@ describe("fd-selector", () => {
     expect(el.value).toBe("checking");
   });
 
+  it("associates with the containing form in multiple mode", async () => {
+    const form = document.createElement("form");
+    form.innerHTML = `
+      <fd-selector label="Account" name="account" variant="multiple">
+        <fd-option value="checking">Checking</fd-option>
+        <fd-option value="savings">Savings</fd-option>
+        <fd-option value="cd">Certificate of Deposit</fd-option>
+      </fd-selector>
+    `;
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-selector") as any;
+    await el.updateComplete;
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    getTrigger(el).click();
+    await el.updateComplete;
+    getOptions(el)[0].click();
+    await el.updateComplete;
+    getOptions(el)[1].click();
+    await el.updateComplete;
+
+    expect(el.form?.tagName).toBe("FORM");
+    expect(el.values).toEqual(["checking", "savings"]);
+    expect(el.value).toBe("checking");
+  });
+
   it("validates required on reportValidity", async () => {
     const el = await createSelector({ label: "Account", required: "" });
 
     const valid = el.reportValidity();
+    await el.updateComplete;
 
     expect(valid).toBe(false);
     expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("does not surface invalid state before a visibility boundary", async () => {
+    const el = await createSelector({ label: "Account", required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("clears invalid state after valid selection", async () => {
@@ -768,6 +806,43 @@ describe("fd-selector", () => {
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+  });
+
+  it("reveals invalid state when a multiple selector closes after invalid interaction", async () => {
+    const el = await createSelector(
+      { label: "Account", required: "", variant: "multiple" },
+      `
+        <span slot="error">Select at least one account.</span>
+        <fd-option value="checking" selected>Checking</fd-option>
+        <fd-option value="savings">Savings</fd-option>
+      `,
+    );
+
+    getTrigger(el).click();
+    await el.updateComplete;
+    getOptions(el)[0].click();
+    await el.updateComplete;
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+
+    getTrigger(el).click();
+    await el.updateComplete;
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("reportValidity on a valid selector has no visible effect", async () => {
+    const el = await createSelector({ label: "Account", required: "", value: "checking" });
+    await el.updateComplete;
+
+    expect(el.reportValidity()).toBe(true);
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("multiple: validates required with at least one selection", async () => {

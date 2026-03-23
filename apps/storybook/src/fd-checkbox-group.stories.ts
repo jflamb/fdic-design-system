@@ -111,9 +111,17 @@ export const FormValidation: Story = {
         <fd-checkbox name="contact" value="mail">Physical mail</fd-checkbox>
         <span slot="error">Please select at least one contact method.</span>
       </fd-checkbox-group>
-      <button type="submit">Submit</button>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Submit the form to reveal the group error state. The fieldset keeps invalid styling until at least one checkbox is selected or the form is reset.",
+      },
+    },
+  },
 };
 
 export const DocsOverview: Story = {

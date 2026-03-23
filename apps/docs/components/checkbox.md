@@ -69,11 +69,14 @@ Checkboxes let users make one or more explicit selections. Use them when each op
 - The visual icon is decorative only. Screen readers rely on the native checkbox input and slotted label text.
 - The description is linked with `aria-describedby` only when the `description` slot has actual content.
 - Required standalone checkboxes participate in native constraint validation through `ElementInternals`, with the validation anchor on the internal input.
+- `checkValidity()` updates and returns validity without revealing invalid state.
+- `reportValidity()` and blur after user interaction are visibility boundaries. When the checkbox is invalid at that boundary, the host gets `data-user-invalid` and the internal checkbox gets `aria-invalid="true"`.
+- `data-user-invalid` and `aria-invalid` clear when the checkbox becomes valid or the form reset path runs.
+- If a required standalone checkbox can block submission, pair it with authored adjacent error copy in the surrounding field pattern. Relying on invalid styling without user-facing text is incomplete usage.
 
 ## Known limitations
 
 - **No size variants in v1** — The component ships with one accessible default size.
-- **No custom standalone error styling** — Required standalone checkboxes rely on native browser validation UI.
 - **Manual AT validation is still required** — Automated checks do not replace VoiceOver and NVDA verification for description and validation announcement behavior.
 
 ## Related components

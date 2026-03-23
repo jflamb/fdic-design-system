@@ -1,7 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { attachInternalsCompat, type ElementInternalsLike } from "./internals.js";
+import { SingleValueFormController } from "./single-value-form-controller.js";
 import "./fd-icon.js";
 
 export class FdCheckbox extends LitElement {
@@ -197,9 +197,8 @@ export class FdCheckbox extends LitElement {
   declare value: string;
   declare _descriptionHasContent: boolean;
 
-  private _internals: ElementInternalsLike;
+  private _formController: SingleValueFormController;
   private _input: HTMLInputElement | null = null;
-  private _userHasInteracted = false;
   private _defaultChecked: boolean;
 
   constructor() {
@@ -212,24 +211,29 @@ export class FdCheckbox extends LitElement {
     this.value = "on";
     this._descriptionHasContent = false;
     this._defaultChecked = this.hasAttribute("checked");
-    this._internals = attachInternalsCompat(this);
-    this._internals.setFormValue(null);
+    this._formController = new SingleValueFormController({
+      host: this,
+      syncFormValue: () => this._syncFormValue(),
+      syncValidity: () => this._syncValidity(),
+      getValidationAnchor: () => this._input ?? undefined,
+    });
+    this._formController.internals.setFormValue(null);
   }
 
   get form() {
-    return this._internals.form;
+    return this._formController.form;
   }
 
   get validity() {
-    return this._internals.validity;
+    return this._formController.validity;
   }
 
   get validationMessage() {
-    return this._internals.validationMessage;
+    return this._formController.validationMessage;
   }
 
   get willValidate() {
-    return this._internals.willValidate;
+    return this._formController.willValidate;
   }
 
   override focus(options?: FocusOptions) {
@@ -239,19 +243,13 @@ export class FdCheckbox extends LitElement {
   override firstUpdated() {
     this._input = this.shadowRoot?.querySelector("input") ?? null;
     this._syncInputFromHost();
-    this._syncFormState();
+    this._formController.sync();
   }
 
   override connectedCallback() {
     super.connectedCallback();
     this._defaultChecked = this.hasAttribute("checked");
     this._descriptionHasContent = this._slotHasContent("description");
-    this.addEventListener("invalid", this._onInvalid as EventListener);
-  }
-
-  override disconnectedCallback() {
-    this.removeEventListener("invalid", this._onInvalid as EventListener);
-    super.disconnectedCallback();
   }
 
   override updated(changed: PropertyValues<this>) {
@@ -264,25 +262,23 @@ export class FdCheckbox extends LitElement {
       changed.has("value")
     ) {
       this._syncInputFromHost();
-      this._syncFormState();
+      this._formController.sync();
     }
   }
 
   formResetCallback() {
     this.checked = this._defaultChecked;
     this.indeterminate = false;
-    this._userHasInteracted = false;
-    this.removeAttribute("data-user-invalid");
     this._syncInputFromHost();
-    this._syncFormState();
+    this._formController.reset();
   }
 
   checkValidity() {
-    return this._internals.checkValidity();
+    return this._formController.checkValidity();
   }
 
   reportValidity() {
-    return this._internals.reportValidity();
+    return this._formController.reportValidity();
   }
 
   private _syncInputFromHost() {
@@ -298,23 +294,21 @@ export class FdCheckbox extends LitElement {
     this._input.value = this.value;
   }
 
-  private _syncFormState() {
-    this._internals.setFormValue(this.checked ? this.value : null);
+  private _syncFormValue() {
+    this._formController.internals.setFormValue(this.checked ? this.value : null);
+  }
 
+  private _syncValidity() {
     if (this.required && !this.checked) {
-      this._internals.setValidity(
+      this._formController.internals.setValidity(
         { valueMissing: true },
         "This checkbox is required.",
-        this._input ?? undefined,
+        this._formController.getValidationAnchor(),
       );
-      if (this._userHasInteracted) {
-        this.setAttribute("data-user-invalid", "");
-      }
       return;
     }
 
-    this._internals.setValidity({});
-    this.removeAttribute("data-user-invalid");
+    this._formController.internals.setValidity({});
   }
 
   private _getIconName() {
@@ -342,8 +336,8 @@ export class FdCheckbox extends LitElement {
   private _syncFromInput(input: HTMLInputElement) {
     this.checked = input.checked;
     this.indeterminate = false;
-    this._userHasInteracted = true;
-    this._syncFormState();
+    this._formController.markInteracted();
+    this._formController.sync();
   }
 
   private _onInput(event: Event) {
@@ -356,12 +350,12 @@ export class FdCheckbox extends LitElement {
     this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
   }
 
-  private _onInvalid = () => {
-    this.setAttribute("data-user-invalid", "");
-  };
-
+  private _onBlur() {
+    this._formController.revealIfInteractedAndInvalid();
+  }
   render() {
     const describedBy = this._descriptionHasContent ? "description" : undefined;
+    const isUserInvalid = this.hasAttribute("data-user-invalid");
 
     return html`
       <label>
@@ -369,8 +363,10 @@ export class FdCheckbox extends LitElement {
           <input
             type="checkbox"
             aria-describedby=${ifDefined(describedBy)}
+            aria-invalid=${isUserInvalid ? "true" : nothing}
             @input=${this._onInput}
             @change=${this._onChange}
+            @blur=${this._onBlur}
           />
           <span class="icon" aria-hidden="true">
             <fd-icon name=${this._getIconName()}></fd-icon>

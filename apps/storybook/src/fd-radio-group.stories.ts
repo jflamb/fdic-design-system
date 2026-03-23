@@ -111,9 +111,17 @@ export const FormValidation: Story = {
         <fd-radio name="contact" value="mail">Physical mail</fd-radio>
         <span slot="error">Please select a contact method.</span>
       </fd-radio-group>
-      <button type="submit">Submit</button>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Submit the form to reveal the group error state. Choosing an option clears the visible invalid state immediately, and reset clears it as well.",
+      },
+    },
+  },
 };
 
 export const DocsOverview: Story = {

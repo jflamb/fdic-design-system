@@ -84,12 +84,21 @@ A text input field for user-entered text, with support for labels, hints, error 
 - `fd-input` renders a native `<input>` in **shadow DOM** and participates in form submission via `ElementInternals` (form-associated custom element).
 - **Labeling:** Pair with `fd-label` using matching `for`/`id` attributes. `fd-label` renders a native `<label>` in light DOM for real click-to-focus and screen reader name computation.
 - **Description wiring:** `fd-input` is the **single owner** of `aria-describedby` on the inner `<input>`. It discovers associated `fd-label` and `fd-message` siblings via their `for` attributes and reads their stable public getters (`descriptionId`, `messageId`) to assemble the description.
-- **Error state:** When an associated `fd-message` has `state="error"`, `fd-input` sets `aria-invalid="true"` on the inner input and applies the error border style. `fd-message` uses `role="alert"` for error messages to ensure immediate screen reader announcement.
+- **Error state:** `fd-message` is the primary authored error surface and still controls the border/message styling through its own `state`. It does **not** control `aria-invalid`.
 - **Character count:** A visible count updates on every keystroke. A screen-reader-only live region announces remaining characters at meaningful thresholds (80% used, 100% reached, and on blur).
 - **Focus ring:** Standard pattern — `outline: 2px solid`, `outline-offset: 2px`, `border-radius: 2px`.
 - **Minimum target size:** 44px input height per WCAG 2.5.8.
 - **Forced colors:** Borders use system colors; error/warning/success borders use `forced-color-adjust: none`.
 - **Same-root limitation:** `fd-label`, `fd-input`, and `fd-message` must share the same DOM root tree for the `for`/`id` discovery to work.
+
+## Validation contract
+
+- `checkValidity()` updates and returns validity but does not reveal invalid state.
+- `reportValidity()` updates and returns validity. When the field is invalid, it applies `data-user-invalid` on the host. When the field is valid, it has no visible effect.
+- Blur after user interaction is also a visibility boundary. A required field can be internally invalid before that boundary without showing invalid styling yet.
+- `aria-invalid` is applied to the internal native `<input>` only while `data-user-invalid` is present.
+- `data-user-invalid` clears when the field becomes valid or when the form reset path runs.
+- Provide authored error content with `fd-message` whenever the field can block submission. Missing error copy is incomplete usage even though the component can still show invalid styling.
 
 ## Validation with `pattern` and `minlength`
 
@@ -109,12 +118,12 @@ A text input field for user-entered text, with support for labels, hints, error 
 </form>
 ```
 
-`fd-input` mirrors native constraint state (`patternMismatch`, `tooShort`) into `ElementInternals` so form-level validation works correctly. However, it does **not** automatically change the visible error state based on native validity — `fd-message` remains the only source of truth for visible validation state. Your validation logic should:
+`fd-input` mirrors native constraint state (`patternMismatch`, `tooShort`) into `ElementInternals` so form-level validation works correctly. Native validity and visible invalid presentation are separate. Your validation logic should:
 
 1. Read `validity.patternMismatch` or `validity.tooShort` from `fd-input`
 2. Set `fd-message[state="error"]` with an actionable message
 
-`reportValidity()` is available for programmatic constraint checks but is not the design system's mechanism for user-facing error presentation.
+`reportValidity()` still participates in the shared visibility contract: it reveals invalid state only when the field is invalid, and does nothing visible when the field is already valid.
 
 ### `minlength` and the dirty value flag
 
@@ -226,14 +235,14 @@ Use the `suffix` slot for interactive controls that act on the input value. Suff
 Use a non-interactive suffix icon when the field needs an inline invalid-state indicator in addition to the error border and message. Per the FDIC Figma input spec, use `warning-circle` for this treatment.
 
 ```html
-<fd-input id="account-status" value="invalid query" aria-invalid="true">
+<fd-input id="account-status" value="invalid query">
   <fd-icon slot="suffix" name="warning-circle" aria-hidden="true"></fd-icon>
 </fd-input>
 <fd-message for="account-status" state="error"
   message="No results found for this query"></fd-message>
 ```
 
-**Required:** Treat this icon as decorative. Keep the accessible error communication in `fd-message`, and do not use the suffix warning icon as a button.
+**Required:** Treat this icon as decorative. Keep the accessible error communication in `fd-message`, and do not use the suffix warning icon as a button. Do not hand-author `aria-invalid`; the component applies it when visible invalid state is active.
 
 ### Prefix/suffix and state interactions
 

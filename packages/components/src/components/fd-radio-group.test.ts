@@ -116,7 +116,52 @@ describe("fd-radio-group", () => {
     const el = await createRadioGroup({ required: "" });
 
     expect(el.reportValidity()).toBe(false);
+    await el.updateComplete;
     expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("does not surface invalid state before a visibility boundary", async () => {
+    const el = await createRadioGroup({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reveals invalid state when focus leaves the group after interaction", async () => {
+    const el = await createRadioGroup(
+      { required: "" },
+      `
+        <span slot="legend">Preferred contact method</span>
+        <fd-radio name="contact" value="email" checked>Email</fd-radio>
+        <fd-radio name="contact" value="phone">Phone</fd-radio>
+      `,
+    );
+
+    const secondRadio = getRadios(el)[1];
+    getInternalInput(secondRadio).click();
+    await secondRadio.updateComplete;
+    await el.updateComplete;
+
+    secondRadio.checked = false;
+    await secondRadio.updateComplete;
+    await el.updateComplete;
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+
+    getInternalInput(secondRadio).dispatchEvent(
+      new FocusEvent("focusout", {
+        bubbles: true,
+        composed: true,
+        relatedTarget: document.body,
+      }),
+    );
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
   });
 
   it("clears data-user-invalid when a radio is selected", async () => {
@@ -129,6 +174,18 @@ describe("fd-radio-group", () => {
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+  });
+
+  it("reportValidity on a valid group has no visible effect", async () => {
+    const el = await createRadioGroup({ required: "" });
+    getInternalInput(getRadios(el)[0]).click();
+    await el.updateComplete;
+
+    expect(el.reportValidity()).toBe(true);
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("fires fd-group-change with the selected value", async () => {
@@ -202,6 +259,56 @@ describe("fd-radio-group", () => {
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("restores the default radio selection regardless of group and child reset order", async () => {
+    async function runReset(order: "group-first" | "children-first") {
+      const el = await createRadioGroup(
+        { required: "" },
+        `
+          <span slot="legend">Preferred contact method</span>
+          <fd-radio name="contact" value="email" checked>Email</fd-radio>
+          <fd-radio name="contact" value="phone">Phone</fd-radio>
+        `,
+      );
+
+      const [first, second] = getRadios(el);
+      getInternalInput(second).click();
+      await first.updateComplete;
+      await second.updateComplete;
+      await el.updateComplete;
+
+      const callbacks =
+        order === "group-first"
+          ? [
+              () => el.formResetCallback(),
+              () => first.formResetCallback(),
+              () => second.formResetCallback(),
+            ]
+          : [
+              () => first.formResetCallback(),
+              () => second.formResetCallback(),
+              () => el.formResetCallback(),
+            ];
+
+      for (const callback of callbacks) {
+        callback();
+      }
+
+      await first.updateComplete;
+      await second.updateComplete;
+      await el.updateComplete;
+
+      expect(first.checked).toBe(true);
+      expect(second.checked).toBe(false);
+      expect(el.checkValidity()).toBe(true);
+      expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    }
+
+    await runReset("group-first");
+    document.body.innerHTML = "";
+    await runReset("children-first");
   });
 
   it("skips validation when the group is both required and disabled", async () => {

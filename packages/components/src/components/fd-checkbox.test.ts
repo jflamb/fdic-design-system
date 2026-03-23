@@ -119,7 +119,58 @@ describe("fd-checkbox", () => {
     const el = await createCheckbox({ required: "" });
 
     expect(el.reportValidity()).toBe(false);
+    await el.updateComplete;
     expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getInput(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("does not surface invalid state before a visibility boundary", async () => {
+    const el = await createCheckbox({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getInput(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reveals invalid state on blur after user interaction", async () => {
+    const el = await createCheckbox({ checked: "", required: "" });
+    const input = getInput(el);
+
+    input.click();
+    await el.updateComplete;
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+
+    input.dispatchEvent(new FocusEvent("blur"));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(input.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("clears aria-invalid when the checkbox becomes valid", async () => {
+    const el = await createCheckbox({ required: "" });
+    const input = getInput(el);
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(input.getAttribute("aria-invalid")).toBe("true");
+
+    input.click();
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(input.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reportValidity on a valid checkbox has no visible effect", async () => {
+    const el = await createCheckbox({ checked: "", required: "" });
+
+    expect(el.reportValidity()).toBe(true);
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getInput(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("restores default checked state and clears validation state on reset", async () => {
@@ -134,6 +185,16 @@ describe("fd-checkbox", () => {
 
     expect(el.checked).toBe(true);
     expect(el.indeterminate).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getInput(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("removes the invalid listener on disconnect", async () => {
+    const el = await createCheckbox({ required: "" });
+
+    document.body.removeChild(el);
+    el.dispatchEvent(new Event("invalid"));
+
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
   });
 

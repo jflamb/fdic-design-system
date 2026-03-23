@@ -109,8 +109,48 @@ describe("fd-checkbox-group", () => {
     const activeBefore = el.shadowRoot?.activeElement ?? document.activeElement;
 
     expect(el.reportValidity()).toBe(false);
+    await el.updateComplete;
     expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
     expect(el.shadowRoot?.activeElement ?? document.activeElement).toBe(activeBefore);
+  });
+
+  it("does not surface invalid state before a visibility boundary", async () => {
+    const el = await createCheckboxGroup({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reveals invalid state when focus leaves the group after interaction", async () => {
+    const el = await createCheckboxGroup(
+      { required: "" },
+      `
+        <span slot="legend">Communication preferences</span>
+        <fd-checkbox name="contact" value="email" checked>Email</fd-checkbox>
+        <fd-checkbox name="contact" value="phone">Phone</fd-checkbox>
+      `,
+    );
+
+    const input = getCheckboxes(el)[0].shadowRoot!.querySelector("input") as HTMLInputElement;
+    input.click();
+    await el.updateComplete;
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+
+    input.dispatchEvent(
+      new FocusEvent("focusout", {
+        bubbles: true,
+        composed: true,
+        relatedTarget: document.body,
+      }),
+    );
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
   });
 
   it("fires fd-group-change with the checked values", async () => {
@@ -171,6 +211,7 @@ describe("fd-checkbox-group", () => {
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("has no obvious accessibility violations", async () => {

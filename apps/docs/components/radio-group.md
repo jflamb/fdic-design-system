@@ -69,7 +69,10 @@ Radio groups collect mutually exclusive options under one prompt. Use them when 
 - Group-level `aria-describedby` is computed. Description text is referenced only when present, and error text is referenced only when present and the group is invalid.
 - The group participates in validation through `ElementInternals`, but submits no form value of its own. Individual `fd-radio` children submit their own `name` / `value` pairs.
 - Arrow-key navigation between radios is coordinated by `fd-radio`. Disabled radios are skipped during arrow movement.
-- Invalid submission behavior is intentionally native: the group sets visual invalid state and lets the browser handle validation UI via the configured anchor.
+- `checkValidity()` updates and returns validity without revealing invalid state.
+- `reportValidity()` and form submit attempts reveal invalid state when the group is invalid. The host gets `data-user-invalid` and the internal `<fieldset>` gets `aria-invalid="true"`.
+- `data-user-invalid` and `aria-invalid` clear when the group becomes valid or when the form reset path runs.
+- Provide one authored group-level error message in the `error` slot whenever the group can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
 
 ## Known limitations
 

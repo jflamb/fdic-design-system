@@ -1,6 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
-import { attachInternalsCompat, type ElementInternalsLike } from "./internals.js";
+import { SingleValueFormController } from "./single-value-form-controller.js";
 import type { FdOption } from "./fd-option.js";
 
 export type SelectorVariant = "simple" | "single" | "multiple";
@@ -274,8 +274,7 @@ export class FdSelector extends LitElement {
   declare _descHasContent: boolean;
   declare _errorHasContent: boolean;
 
-  private _internals: ElementInternalsLike;
-  private _userHasInteracted = false;
+  private _formController: SingleValueFormController;
   private _defaultValue: string;
   private _defaultSelectedValues: string[] = [];
   private _typeAheadBuffer = "";
@@ -297,41 +296,39 @@ export class FdSelector extends LitElement {
     this._descHasContent = false;
     this._errorHasContent = false;
     this._defaultValue = "";
-    this._internals = attachInternalsCompat(this);
-    this._internals.setFormValue(null);
+    this._formController = new SingleValueFormController({
+      host: this,
+      syncFormValue: () => this._syncFormValue(),
+      syncValidity: () => this._syncValidity(),
+      getValidationAnchor: () => this._getTrigger() ?? undefined,
+    });
+    this._formController.internals.setFormValue(null);
   }
 
   // --- Form integration ---
 
   get form() {
-    return this._internals.form;
+    return this._formController.form;
   }
 
   get validity() {
-    return this._internals.validity;
+    return this._formController.validity;
   }
 
   get validationMessage() {
-    return this._internals.validationMessage;
+    return this._formController.validationMessage;
   }
 
   get willValidate() {
-    return this._internals.willValidate;
+    return this._formController.willValidate;
   }
 
   checkValidity() {
-    this._syncFormState();
-    return this._internals.checkValidity();
+    return this._formController.checkValidity();
   }
 
   reportValidity() {
-    this._syncFormState();
-    const valid = this._internals.reportValidity();
-    if (!valid) {
-      this._userHasInteracted = true;
-      this.setAttribute("data-user-invalid", "");
-    }
-    return valid;
+    return this._formController.reportValidity();
   }
 
   formResetCallback() {
@@ -341,9 +338,7 @@ export class FdSelector extends LitElement {
       opt.selected = defaults.has(opt.value);
     }
     this.value = this._defaultValue;
-    this._userHasInteracted = false;
-    this.removeAttribute("data-user-invalid");
-    this._syncFormState();
+    this._formController.reset();
     this.requestUpdate();
   }
 
@@ -362,7 +357,7 @@ export class FdSelector extends LitElement {
     }
     // Sync the value attribute to first selected
     this.value = vals[0] ?? "";
-    this._syncFormState();
+    this._formController.sync();
     this.requestUpdate();
   }
 
@@ -373,14 +368,16 @@ export class FdSelector extends LitElement {
     this._defaultValue = this.value;
     this._descHasContent = this._slotHasContent("description");
     this._errorHasContent = this._slotHasContent("error");
-    this.addEventListener("invalid", this._onInvalid as EventListener);
     this.addEventListener("fd-option-select", this._onOptionSelectHost as EventListener);
   }
 
   override disconnectedCallback() {
-    this.removeEventListener("invalid", this._onInvalid as EventListener);
     this.removeEventListener("fd-option-select", this._onOptionSelectHost as EventListener);
     this._removeClickOutside();
+    if (this._typeAheadTimer !== null) {
+      clearTimeout(this._typeAheadTimer);
+      this._typeAheadTimer = null;
+    }
     super.disconnectedCallback();
   }
 
@@ -395,7 +392,7 @@ export class FdSelector extends LitElement {
     if (this.value) {
       this._selectByValue(this.value, false);
     }
-    this._syncFormState();
+    this._formController.sync();
   }
 
   override updated(changed: PropertyValues<this>) {
@@ -420,7 +417,7 @@ export class FdSelector extends LitElement {
       changed.has("required") ||
       changed.has("disabled")
     ) {
-      this._syncFormState();
+      this._formController.sync();
     }
   }
 
@@ -503,6 +500,7 @@ export class FdSelector extends LitElement {
   private _onCloseChange() {
     this._setFocusedOption(null);
     this._removeClickOutside();
+    this._formController.revealIfInteractedAndInvalid();
     this.dispatchEvent(
       new CustomEvent("fd-selector-close", {
         bubbles: true,
@@ -540,13 +538,13 @@ export class FdSelector extends LitElement {
 
   private _selectOption(opt: FdOption) {
     if (opt.disabled) return;
-    this._userHasInteracted = true;
+    this._formController.markInteracted();
 
     if (this.variant === "multiple") {
       opt.selected = !opt.selected;
       // Sync value to first selected option per approved contract
       this._syncMultipleValue();
-      this._syncFormState();
+      this._formController.sync();
       this._fireEvents();
       this.requestUpdate();
     } else {
@@ -555,7 +553,7 @@ export class FdSelector extends LitElement {
         o.selected = o === opt;
       }
       this.value = opt.value;
-      this._syncFormState();
+      this._formController.sync();
       this._fireEvents();
       this._closeListbox();
       // Return focus to trigger
@@ -598,9 +596,7 @@ export class FdSelector extends LitElement {
 
   // --- Form state ---
 
-  private _syncFormState() {
-    const trigger = this._getTrigger();
-
+  private _syncFormValue() {
     if (this.variant === "multiple") {
       const selectedValues = this.values;
       if (selectedValues.length > 0) {
@@ -608,40 +604,39 @@ export class FdSelector extends LitElement {
         for (const v of selectedValues) {
           fd.append(this.name, v);
         }
-        this._internals.setFormValue(fd);
+        this._formController.internals.setFormValue(fd);
       } else {
-        this._internals.setFormValue(null);
+        this._formController.internals.setFormValue(null);
       }
-
-      if (this.required && selectedValues.length === 0) {
-        this._internals.setValidity(
-          { valueMissing: true },
-          "Please select at least one option.",
-          trigger ?? undefined,
-        );
-        if (this._userHasInteracted) {
-          this.setAttribute("data-user-invalid", "");
-        }
-        return;
-      }
-    } else {
-      this._internals.setFormValue(this.value || null);
-
-      if (this.required && !this.value) {
-        this._internals.setValidity(
-          { valueMissing: true },
-          "Please select an option.",
-          trigger ?? undefined,
-        );
-        if (this._userHasInteracted) {
-          this.setAttribute("data-user-invalid", "");
-        }
-        return;
-      }
+      return;
     }
 
-    this._internals.setValidity({});
-    this.removeAttribute("data-user-invalid");
+    this._formController.internals.setFormValue(this.value || null);
+  }
+
+  private _syncValidity() {
+    const trigger = this._formController.getValidationAnchor();
+
+    if (this.variant === "multiple") {
+      const selectedValues = this.values;
+      if (this.required && selectedValues.length === 0) {
+        this._formController.internals.setValidity(
+          { valueMissing: true },
+          "Please select at least one option.",
+          trigger,
+        );
+        return;
+      }
+    } else if (this.required && !this.value) {
+      this._formController.internals.setValidity(
+        { valueMissing: true },
+        "Please select an option.",
+        trigger,
+      );
+      return;
+    }
+
+    this._formController.internals.setValidity({});
   }
 
   // --- Events ---
@@ -660,14 +655,44 @@ export class FdSelector extends LitElement {
       }),
     );
   }
-
-  private _onInvalid = () => {
-    this.setAttribute("data-user-invalid", "");
-  };
-
   private _onLabelClick() {
     this._getTrigger()?.focus();
   }
+
+  private _isFocusWithinWidget(target: EventTarget | null) {
+    let current: Node | null = target instanceof Node ? target : null;
+
+    while (current) {
+      if (current === this) {
+        return true;
+      }
+
+      if (current instanceof ShadowRoot) {
+        current = current.host;
+        continue;
+      }
+
+      current = current.parentNode;
+    }
+
+    return false;
+  }
+
+  private _onTriggerBlur = (event: FocusEvent) => {
+    if (this._isFocusWithinWidget(event.relatedTarget)) {
+      return;
+    }
+
+    this._formController.revealIfInteractedAndInvalid();
+  };
+
+  private _onListboxFocusOut = (event: FocusEvent) => {
+    if (this._isFocusWithinWidget(event.relatedTarget)) {
+      return;
+    }
+
+    this._formController.revealIfInteractedAndInvalid();
+  };
 
   // --- Keyboard ---
 
@@ -901,6 +926,7 @@ export class FdSelector extends LitElement {
           ?disabled=${this.disabled}
           @click=${() => (this.open ? this._closeListbox() : this._openListbox())}
           @keydown=${this._onTriggerKeydown}
+          @blur=${this._onTriggerBlur}
         >
           <span
             part="value-display"
@@ -936,6 +962,7 @@ export class FdSelector extends LitElement {
           tabindex="-1"
           ?hidden=${!this.open}
           @keydown=${this._onListboxKeydown}
+          @focusout=${this._onListboxFocusOut}
         >
           <slot @slotchange=${this._onDefaultSlotChange}></slot>
         </div>

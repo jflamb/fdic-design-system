@@ -315,6 +315,14 @@ export const PatternValidation: Story = {
       ></fd-message>
     </form>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Validation lifecycle: the field can be internally invalid before it is visibly invalid. Blur after interaction or explicit reportValidity reveals the invalid state; correcting the value clears it. The authored `fd-message` remains the user-facing error copy.",
+      },
+    },
+  },
 };
 
 export const MinlengthWithHint: Story = {

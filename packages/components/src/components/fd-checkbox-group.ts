@@ -1,7 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { attachInternalsCompat, type ElementInternalsLike } from "./internals.js";
+import { GroupFormController } from "./group-form-controller.js";
 import type { FdCheckbox } from "./fd-checkbox.js";
 import "./fd-checkbox.js";
 
@@ -115,8 +115,7 @@ export class FdCheckboxGroup extends LitElement {
   declare _descHasContent: boolean;
   declare _errorHasContent: boolean;
 
-  private _internals: ElementInternalsLike;
-  private _userHasInteracted = false;
+  private _formController: GroupFormController;
 
   constructor() {
     super();
@@ -126,42 +125,47 @@ export class FdCheckboxGroup extends LitElement {
     this.label = "";
     this._descHasContent = false;
     this._errorHasContent = false;
-    this._internals = attachInternalsCompat(this);
-    this._internals.setFormValue(null);
+    this._formController = new GroupFormController({
+      host: this,
+      syncFormValue: () => this._syncFormValue(),
+      syncValidity: () => this._syncValidity(),
+      getValidationAnchor: () => this._getValidationAnchor(),
+    });
+    this._formController.internals.setFormValue(null);
   }
 
   get form() {
-    return this._internals.form;
+    return this._formController.form;
   }
 
   get validity() {
-    return this._internals.validity;
+    return this._formController.validity;
   }
 
   get validationMessage() {
-    return this._internals.validationMessage;
+    return this._formController.validationMessage;
   }
 
   get willValidate() {
-    return this._internals.willValidate;
+    return this._formController.willValidate;
   }
 
   override firstUpdated() {
     this._applyDisabledState();
-    this._syncGroupValidity();
+    this._formController.sync();
   }
 
   override connectedCallback() {
     super.connectedCallback();
     this._descHasContent = this._slotHasContent("description");
     this._errorHasContent = this._slotHasContent("error");
-    this.addEventListener("invalid", this._onInvalid as EventListener);
     this.addEventListener("change", this._onCheckboxChange as EventListener);
+    this.addEventListener("focusout", this._onFocusOut as EventListener);
   }
 
   override disconnectedCallback() {
-    this.removeEventListener("invalid", this._onInvalid as EventListener);
     this.removeEventListener("change", this._onCheckboxChange as EventListener);
+    this.removeEventListener("focusout", this._onFocusOut as EventListener);
     super.disconnectedCallback();
   }
 
@@ -171,24 +175,20 @@ export class FdCheckboxGroup extends LitElement {
     }
 
     if (changed.has("required") || changed.has("disabled")) {
-      this._syncGroupValidity();
+      this._formController.sync();
     }
   }
 
   checkValidity() {
-    this._syncGroupValidity();
-    return this._internals.checkValidity();
+    return this._formController.checkValidity();
   }
 
   reportValidity() {
-    this._syncGroupValidity();
-    return this._internals.reportValidity();
+    return this._formController.reportValidity();
   }
 
   formResetCallback() {
-    this._userHasInteracted = false;
-    this.removeAttribute("data-user-invalid");
-    this._syncGroupValidity();
+    this._formController.reset();
   }
 
   private _getCheckboxes() {
@@ -199,15 +199,13 @@ export class FdCheckboxGroup extends LitElement {
     return this._getCheckboxes().find((checkbox) => !checkbox.disabled);
   }
 
-  private _syncGroupValidity() {
-    this._internals.setFormValue(null);
+  private _syncFormValue() {
+    this._formController.internals.setFormValue(null);
+  }
 
-    if (!this.required) {
-      this._internals.setValidity({});
-      if (this.hasAttribute("data-user-invalid")) {
-        this.removeAttribute("data-user-invalid");
-        this.requestUpdate();
-      }
+  private _syncValidity() {
+    if (!this.required || this.disabled) {
+      this._formController.internals.setValidity({});
       return;
     }
 
@@ -215,25 +213,15 @@ export class FdCheckboxGroup extends LitElement {
     const anyChecked = checkboxes.some((checkbox) => checkbox.checked);
 
     if (!anyChecked) {
-      this._internals.setValidity(
+      this._formController.internals.setValidity(
         { valueMissing: true },
         "Please select at least one option.",
-        this._getValidationAnchor(),
+        this._formController.getValidationAnchor(),
       );
-      if (this._userHasInteracted) {
-        if (!this.hasAttribute("data-user-invalid")) {
-          this.setAttribute("data-user-invalid", "");
-          this.requestUpdate();
-        }
-      }
       return;
     }
 
-    this._internals.setValidity({});
-    if (this.hasAttribute("data-user-invalid")) {
-      this.removeAttribute("data-user-invalid");
-      this.requestUpdate();
-    }
+    this._formController.internals.setValidity({});
   }
 
   private _applyDisabledState() {
@@ -271,6 +259,25 @@ export class FdCheckboxGroup extends LitElement {
     this._errorHasContent = this._slotHasContent("error");
   }
 
+  private _containsComposedTarget(target: EventTarget | null) {
+    let current: Node | null = target instanceof Node ? target : null;
+
+    while (current) {
+      if (current === this) {
+        return true;
+      }
+
+      if (current instanceof ShadowRoot) {
+        current = current.host;
+        continue;
+      }
+
+      current = current.parentNode;
+    }
+
+    return false;
+  }
+
   private _getFieldsetDescribedBy() {
     const ids: string[] = [];
     if (this._descHasContent) {
@@ -284,7 +291,7 @@ export class FdCheckboxGroup extends LitElement {
 
   private _onSlotChange() {
     this._applyDisabledState();
-    this._syncGroupValidity();
+    this._formController.sync();
   }
 
   private _onCheckboxChange = (event?: Event) => {
@@ -296,8 +303,8 @@ export class FdCheckboxGroup extends LitElement {
       return;
     }
 
-    this._userHasInteracted = true;
-    this._syncGroupValidity();
+    this._formController.markInteracted();
+    this._formController.sync();
 
     const checkedValues = this._getCheckboxes()
       .filter((checkbox) => checkbox.checked)
@@ -312,18 +319,23 @@ export class FdCheckboxGroup extends LitElement {
     );
   };
 
-  private _onInvalid = () => {
-    this.setAttribute("data-user-invalid", "");
-    this.requestUpdate();
+  private _onFocusOut = (event: FocusEvent) => {
+    if (this._containsComposedTarget(event.relatedTarget)) {
+      return;
+    }
+
+    this._formController.revealIfInteractedAndInvalid();
   };
 
   render() {
     const describedBy = this._getFieldsetDescribedBy();
+    const isUserInvalid = this.hasAttribute("data-user-invalid");
 
     return html`
       <fieldset
         part="fieldset"
         aria-describedby=${ifDefined(describedBy)}
+        aria-invalid=${isUserInvalid ? "true" : nothing}
       >
         <legend part="legend">
           <slot name="legend">${this.label}</slot>
