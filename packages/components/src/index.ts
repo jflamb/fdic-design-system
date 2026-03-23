@@ -14,6 +14,7 @@ import "./components/fd-selector.js";
 import "./components/fd-label.js";
 import "./components/fd-message.js";
 import "./components/fd-input.js";
+import "./components/fd-field.js";
 import "./icons/phosphor-regular.js";
 
 export { FdPlaceholder } from "./components/fd-placeholder.js";
@@ -34,6 +35,7 @@ export { FdMessage } from "./components/fd-message.js";
 export type { MessageState, LiveMode } from "./components/fd-message.js";
 export { FdInput } from "./components/fd-input.js";
 export type { InputType } from "./components/fd-input.js";
+export { FdField } from "./components/fd-field.js";
 export { iconRegistry } from "./icons/registry.js";
 export type { ButtonVariant } from "./components/fd-button.js";
 export type {

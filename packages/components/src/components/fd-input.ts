@@ -21,6 +21,9 @@ export type InputType =
  * Wraps a native `<input>` in shadow DOM for style encapsulation while
  * preserving autofill, spell-check, input modes, and form submission.
  *
+ * Supports `prefix` and `suffix` named slots for leading icons and
+ * trailing action buttons (clear, password reveal, etc.).
+ *
  * Designed to be paired with `fd-label` (accessible name) and `fd-message`
  * (validation/helper messages) as siblings in the same DOM tree.
  *
@@ -28,6 +31,28 @@ export type InputType =
  * `<input>`. It discovers associated `fd-label` and `fd-message` siblings
  * via their `for` attributes and reads their stable public getters
  * (`descriptionId`, `messageId`, `state`) to assemble the description.
+ *
+ * ## Parts
+ *
+ * - `base` — the visual input container (border, background, radius, states).
+ *   Style this part to customize the input's appearance.
+ * - `native` — the actual `<input>` element. Exposed for JS access;
+ *   `::part()` cannot chain with pseudo-elements like `::placeholder`.
+ *   Use `--fd-input-placeholder-color` to style placeholder text instead.
+ * - `wrapper` — outermost wrapper containing the input container and char count.
+ * - `char-count` — the visible character count display.
+ *
+ * ## CSS Custom Properties
+ *
+ * - `--fd-input-height` — min-height of the input (default: 44px)
+ * - `--fd-input-border-color` — border color at rest
+ * - `--fd-input-border-color-hover` — border color on hover
+ * - `--fd-input-border-color-focus` — glow color on focus
+ * - `--fd-input-border-radius` — corner radius
+ * - `--fd-input-bg` — background color
+ * - `--fd-input-placeholder-color` — placeholder text color
+ * - `--fd-input-slot-size` — width of prefix/suffix slot containers (default: 44px)
+ * - `--fd-input-icon-size` — icon glyph size inside prefix/suffix slots (default: 22px)
  *
  * @example
  * ```html
@@ -37,6 +62,16 @@ export type InputType =
  *   maxlength="9" placeholder="e.g. 021000021"></fd-input>
  * <fd-message for="routing" state="error"
  *   message="Enter a valid 9-digit routing number"></fd-message>
+ * ```
+ *
+ * @example Prefix/suffix slots
+ * ```html
+ * <fd-input id="search" type="search" placeholder="Search accounts">
+ *   <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+ *   <button slot="suffix" type="button" aria-label="Clear search field">
+ *     <fd-icon name="x" aria-hidden="true"></fd-icon>
+ *   </button>
+ * </fd-input>
  * ```
  */
 export class FdInput extends LitElement {
@@ -57,6 +92,8 @@ export class FdInput extends LitElement {
     inputmode: { reflect: true },
     // Internal reactive state
     _messageState: { state: true },
+    _hasPrefix: { state: true },
+    _hasSuffix: { state: true },
   };
 
   declare type: InputType;
@@ -72,6 +109,8 @@ export class FdInput extends LitElement {
   declare autocomplete: string | undefined;
   declare inputmode: string | undefined;
   declare _messageState: MessageState;
+  declare _hasPrefix: boolean;
+  declare _hasSuffix: boolean;
 
   private _internals: ElementInternalsLike;
   private _siblingObserver: MutationObserver | null = null;
@@ -96,6 +135,8 @@ export class FdInput extends LitElement {
     this.autocomplete = undefined;
     this.inputmode = undefined;
     this._messageState = "default";
+    this._hasPrefix = false;
+    this._hasSuffix = false;
     this._internals = attachInternalsCompat(this);
     this._charCountId = `fdi-cc-${FdInput._instanceCounter}`;
     this._srCharCountId = `fdi-sr-cc-${FdInput._instanceCounter}`;
@@ -277,7 +318,7 @@ export class FdInput extends LitElement {
   // --- Focus delegation ---
 
   private get _input(): HTMLInputElement | null {
-    return this.shadowRoot?.querySelector("[part=base]") ?? null;
+    return this.shadowRoot?.querySelector("[part=native]") ?? null;
   }
 
   override focus(options?: FocusOptions) {
@@ -415,11 +456,12 @@ export class FdInput extends LitElement {
       position: relative;
     }
 
+    /* --- Visual input container --- */
     [part="base"] {
-      display: block;
+      display: flex;
+      align-items: center;
       width: 100%;
       min-height: var(--fd-input-height, 44px);
-      padding: 8px 12px;
       border: 1px solid
         var(--fd-input-border-color, var(--fdic-border-input-rest, #bdbdbf));
       border-radius: var(
@@ -427,28 +469,52 @@ export class FdInput extends LitElement {
         var(--fdic-corner-radius-sm, 3px)
       );
       background: var(--fd-input-bg, var(--fdic-background-base, #ffffff));
-      font: inherit;
+      box-sizing: border-box;
+    }
+
+    /* --- Native input --- */
+    [part="native"] {
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: var(--fd-input-height, 44px);
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
       color: inherit;
       box-sizing: border-box;
+      outline: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    [part="base"]::placeholder {
-      color: var(--fdic-text-secondary, #595961);
+    [part="native"]::placeholder {
+      color: var(
+        --fd-input-placeholder-color,
+        var(--fdic-text-secondary, #595961)
+      );
       opacity: 1;
     }
 
+    /* Suppress browser-native search clear button (we provide our own) */
+    [part="native"]::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
     /* --- Hover --- */
-    [part="base"]:hover:not(:disabled):not(:read-only) {
+    [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-input-border-color-hover,
         var(--fdic-border-input-active, #424244)
       );
     }
 
-    /* --- Focus --- */
-    [part="base"]:focus-visible {
+    /* --- Focus (on native input) --- */
+    [part="base"]:has([part="native"]:focus-visible) {
       outline: none;
       border: 2px solid var(--fdic-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
@@ -466,8 +532,12 @@ export class FdInput extends LitElement {
       cursor: not-allowed;
     }
 
+    :host([disabled]) [part="native"] {
+      cursor: not-allowed;
+    }
+
     /* --- Read-only --- */
-    [part="base"]:read-only {
+    :host([readonly]) [part="base"] {
       background: var(--fdic-background-container, #f5f5f7);
       border-color: var(--fdic-border-divider, #bdbdbf);
       border-style: dashed;
@@ -487,6 +557,82 @@ export class FdInput extends LitElement {
     :host([data-state="success"]) [part="base"] {
       border-width: 2px;
       border-color: var(--fdic-status-success, #1e8232);
+    }
+
+    /* --- Prefix/suffix: decorative icons ---
+       fd-icon sizes itself via :host { inline-size: var(--fd-icon-size) }.
+       We set --fd-icon-size for proportional sizing and add padding so
+       the icon is centered within a 44px-wide area without overriding
+       the icon's own inline-size/block-size (which would stretch the SVG). */
+    ::slotted(fd-icon[slot="prefix"]),
+    ::slotted(fd-icon[slot="suffix"]) {
+      --fd-icon-size: var(--fd-input-icon-size, 22px);
+      flex-shrink: 0;
+      /* Pad to center the glyph within the slot area */
+      padding: 0 11px;
+    }
+
+    /* Decorative state icons should inherit the field state color. */
+    :host([data-state="error"]) ::slotted(fd-icon[slot="suffix"]) {
+      color: var(--fdic-status-error, #d80e3a);
+    }
+
+    /* --- Prefix/suffix: action buttons ---
+       Buttons get explicit dimensions for the full 44×44 hit target.
+       The fd-icon inside inherits --fd-icon-size from the button.
+       Note: hover/active/focus styles below target suffix only —
+       interactive buttons in the prefix slot are discouraged (see docs). */
+    ::slotted(button[slot="prefix"]),
+    ::slotted(button[slot="suffix"]) {
+      --fd-icon-size: var(--fd-input-icon-size, 22px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--fd-input-slot-size, 44px);
+      height: var(--fd-input-height, 44px);
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: var(--fdic-corner-radius-sm, 3px);
+      padding: 0;
+      color: inherit;
+      box-sizing: border-box;
+    }
+
+    ::slotted(button[slot="suffix"]:hover) {
+      box-shadow: inset 0 0 0 999px
+        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04));
+    }
+
+    ::slotted(button[slot="suffix"]:active) {
+      box-shadow: inset 0 0 0 999px
+        var(--fdic-overlay-emphasize-200, rgba(0, 0, 0, 0.08));
+    }
+
+    /* Suffix button focus — inset ring, independent of container */
+    ::slotted(button[slot="suffix"]:focus-visible) {
+      outline: 2px solid var(--fdic-border-input-active, #424244);
+      outline-offset: -2px;
+      box-shadow: 0 0 2.5px 2px
+        var(--fdic-border-input-focus, #38b6ff);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
+    }
+
+    /* Reduce padding on native input when slots are present */
+    .fd-input__has-prefix [part="native"] {
+      padding-left: 0;
+    }
+
+    .fd-input__has-suffix [part="native"] {
+      padding-right: 0;
+    }
+
+    /* Disabled slotted content */
+    :host([disabled]) ::slotted([slot="prefix"]),
+    :host([disabled]) ::slotted([slot="suffix"]) {
+      opacity: 0.4;
+      pointer-events: none;
     }
 
     /* --- Character count --- */
@@ -525,13 +671,18 @@ export class FdInput extends LitElement {
         border-color: ButtonText;
       }
 
-      [part="base"]:focus-visible {
+      [part="base"]:has([part="native"]:focus-visible) {
         border-color: LinkText;
         outline: 2px solid LinkText;
       }
 
       :host([data-state="error"]) [part="base"] {
         border-color: LinkText;
+        forced-color-adjust: none;
+      }
+
+      :host([data-state="error"]) ::slotted(fd-icon[slot="suffix"]) {
+        color: LinkText;
         forced-color-adjust: none;
       }
 
@@ -545,6 +696,10 @@ export class FdInput extends LitElement {
         border-color: GrayText;
         color: GrayText;
       }
+
+      ::slotted(button[slot="suffix"]:focus-visible) {
+        outline-color: LinkText;
+      }
     }
 
     /* --- Print --- */
@@ -557,8 +712,24 @@ export class FdInput extends LitElement {
       [part="char-count"] {
         display: none;
       }
+
+      ::slotted(button[slot="suffix"]) {
+        display: none;
+      }
     }
   `;
+
+  // --- Slot change handling ---
+
+  private _onPrefixSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    this._hasPrefix = slot.assignedElements().length > 0;
+  }
+
+  private _onSuffixSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    this._hasSuffix = slot.assignedElements().length > 0;
+  }
 
   // --- Render ---
 
@@ -593,29 +764,40 @@ export class FdInput extends LitElement {
       this.removeAttribute("data-char-limit");
     }
 
+    const baseClasses = [
+      this._hasPrefix ? "fd-input__has-prefix" : "",
+      this._hasSuffix ? "fd-input__has-suffix" : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
     return html`
       <div part="wrapper">
-        <input
-          part="base"
-          type=${this.type}
-          .value=${this.value}
-          placeholder=${this.placeholder ?? nothing}
-          ?disabled=${this.disabled}
-          ?readonly=${this.readonly}
-          ?required=${this.required}
-          maxlength=${this.maxlength ?? nothing}
-          minlength=${this.minlength ?? nothing}
-          pattern=${this.pattern ?? nothing}
-          autocomplete=${this.autocomplete ?? nothing}
-          inputmode=${this.inputmode ?? nothing}
-          aria-labelledby=${labelledBy ?? nothing}
-          aria-describedby=${describedBy ?? nothing}
-          aria-invalid=${isError ? "true" : nothing}
-          aria-required=${this.required ? "true" : nothing}
-          @input=${this._onInput}
-          @change=${this._onChange}
-          @blur=${this._onBlur}
-        />
+        <div part="base" class=${baseClasses || nothing}>
+          <slot name="prefix" @slotchange=${this._onPrefixSlotChange}></slot>
+          <input
+            part="native"
+            type=${this.type}
+            .value=${this.value}
+            placeholder=${this.placeholder ?? nothing}
+            ?disabled=${this.disabled}
+            ?readonly=${this.readonly}
+            ?required=${this.required}
+            maxlength=${this.maxlength ?? nothing}
+            minlength=${this.minlength ?? nothing}
+            pattern=${this.pattern ?? nothing}
+            autocomplete=${this.autocomplete ?? nothing}
+            inputmode=${this.inputmode ?? nothing}
+            aria-labelledby=${labelledBy ?? nothing}
+            aria-describedby=${describedBy ?? nothing}
+            aria-invalid=${isError ? "true" : nothing}
+            aria-required=${this.required ? "true" : nothing}
+            @input=${this._onInput}
+            @change=${this._onChange}
+            @blur=${this._onBlur}
+          />
+          <slot name="suffix" @slotchange=${this._onSuffixSlotChange}></slot>
+        </div>
         ${hasCharCount
           ? html`
               <div part="char-count" id=${this._charCountId} aria-hidden="true">

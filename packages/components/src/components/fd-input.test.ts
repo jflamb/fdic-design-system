@@ -15,6 +15,10 @@ async function createInput(attrs: Record<string, string> = {}) {
 }
 
 function getInternal(el: any): HTMLInputElement | null {
+  return el.shadowRoot?.querySelector("[part=native]") ?? null;
+}
+
+function getBase(el: any): HTMLElement | null {
   return el.shadowRoot?.querySelector("[part=base]") ?? null;
 }
 
@@ -282,6 +286,33 @@ describe("fd-input", () => {
     await el.updateComplete;
 
     expect(el.getAttribute("data-state")).toBe("error");
+  });
+
+  it("includes an error-state color rule for decorative suffix icons", async () => {
+    const el = await createInput({ id: "test-error-icon" });
+
+    const icon = document.createElement("fd-icon") as HTMLElement;
+    icon.setAttribute("slot", "suffix");
+    icon.setAttribute("name", "warning-circle");
+    icon.setAttribute("aria-hidden", "true");
+    el.appendChild(icon);
+
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "test-error-icon");
+    msg.setAttribute("state", "error");
+    msg.setAttribute("message", "Required");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    const styles = String((customElements.get("fd-input") as any).styles?.cssText ?? "");
+
+    expect(styles).toContain(
+      ':host([data-state="error"]) ::slotted(fd-icon[slot="suffix"])',
+    );
+    expect(styles).toContain("color: var(--fdic-status-error, #d80e3a);");
   });
 
   // --- Cardinality warning ---
@@ -633,5 +664,213 @@ describe("fd-input", () => {
     const input = getInternal(el);
     const describedBy = input!.getAttribute("aria-describedby") || "";
     expect(describedBy).toContain(label.descriptionId);
+  });
+
+  // --- Part contract ---
+
+  it("[part=base] is the visual container div, not the input", async () => {
+    const el = await createInput();
+    const base = getBase(el);
+    expect(base).not.toBeNull();
+    expect(base!.tagName).toBe("DIV");
+  });
+
+  it("[part=native] is the actual input element", async () => {
+    const el = await createInput();
+    const input = getInternal(el);
+    expect(input).not.toBeNull();
+    expect(input!.tagName).toBe("INPUT");
+  });
+
+  it("[part=base] contains [part=native]", async () => {
+    const el = await createInput();
+    const base = getBase(el);
+    const input = getInternal(el);
+    expect(base!.contains(input)).toBe(true);
+  });
+
+  // --- Prefix/suffix slots ---
+
+  it("renders prefix slot content", async () => {
+    const el = document.createElement("fd-input") as any;
+    const icon = document.createElement("span");
+    icon.setAttribute("slot", "prefix");
+    icon.textContent = "P";
+    el.appendChild(icon);
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    const prefixSlot = el.shadowRoot?.querySelector(
+      'slot[name="prefix"]',
+    ) as HTMLSlotElement | null;
+    expect(prefixSlot).not.toBeNull();
+    const assigned = prefixSlot!.assignedElements();
+    expect(assigned.length).toBe(1);
+    expect(assigned[0]).toBe(icon);
+  });
+
+  it("renders suffix slot content", async () => {
+    const el = document.createElement("fd-input") as any;
+    const btn = document.createElement("button");
+    btn.setAttribute("slot", "suffix");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("aria-label", "Clear");
+    el.appendChild(btn);
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    const suffixSlot = el.shadowRoot?.querySelector(
+      'slot[name="suffix"]',
+    ) as HTMLSlotElement | null;
+    expect(suffixSlot).not.toBeNull();
+    const assigned = suffixSlot!.assignedElements();
+    expect(assigned.length).toBe(1);
+    expect(assigned[0]).toBe(btn);
+  });
+
+  it("focus delegation works with prefix/suffix populated", async () => {
+    const el = document.createElement("fd-input") as any;
+    const icon = document.createElement("span");
+    icon.setAttribute("slot", "prefix");
+    el.appendChild(icon);
+    const btn = document.createElement("button");
+    btn.setAttribute("slot", "suffix");
+    btn.setAttribute("type", "button");
+    el.appendChild(btn);
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    const focusSpy = vi.spyOn(input!, "focus");
+    el.focus();
+    expect(focusSpy).toHaveBeenCalled();
+  });
+
+  it("reacts to dynamically added suffix content", async () => {
+    const el = await createInput();
+    const base = getBase(el);
+
+    // No suffix initially
+    expect(base!.classList.contains("fd-input__has-suffix")).toBe(false);
+
+    // Add suffix dynamically
+    const btn = document.createElement("button");
+    btn.setAttribute("slot", "suffix");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("aria-label", "Clear");
+    el.appendChild(btn);
+
+    // Wait for slotchange + reactive update
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    expect(base!.classList.contains("fd-input__has-suffix")).toBe(true);
+
+    // Remove suffix
+    btn.remove();
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    expect(base!.classList.contains("fd-input__has-suffix")).toBe(false);
+  });
+
+  it("reacts to dynamically added prefix content", async () => {
+    const el = await createInput();
+    const base = getBase(el);
+
+    expect(base!.classList.contains("fd-input__has-prefix")).toBe(false);
+
+    const icon = document.createElement("span");
+    icon.setAttribute("slot", "prefix");
+    el.appendChild(icon);
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    expect(base!.classList.contains("fd-input__has-prefix")).toBe(true);
+  });
+
+  it("applies both prefix and suffix classes with error state", async () => {
+    // Create and connect the input first
+    const el = await createInput({ id: "combo-test" });
+
+    // Add slot content after connection (triggers slotchange)
+    const icon = document.createElement("span");
+    icon.setAttribute("slot", "prefix");
+    el.appendChild(icon);
+
+    const btn = document.createElement("button");
+    btn.setAttribute("slot", "suffix");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("aria-label", "Clear");
+    el.appendChild(btn);
+
+    // Wait for slotchange + reactive update
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    // Add error state via fd-message
+    const msg = document.createElement("fd-message") as any;
+    msg.setAttribute("for", "combo-test");
+    msg.setAttribute("state", "error");
+    msg.setAttribute("message", "Error!");
+    document.body.appendChild(msg);
+    await msg.updateComplete;
+
+    await new Promise((r) => setTimeout(r, 50));
+    await el.updateComplete;
+
+    const base = getBase(el);
+    expect(base!.classList.contains("fd-input__has-prefix")).toBe(true);
+    expect(base!.classList.contains("fd-input__has-suffix")).toBe(true);
+    expect(el.getAttribute("data-state")).toBe("error");
+  });
+
+  it("slots are inside [part=base] container", async () => {
+    const el = await createInput();
+    const base = getBase(el);
+    const prefixSlot = base?.querySelector('slot[name="prefix"]');
+    const suffixSlot = base?.querySelector('slot[name="suffix"]');
+    expect(prefixSlot).not.toBeNull();
+    expect(suffixSlot).not.toBeNull();
+  });
+
+  it("has no axe violations with prefix icon", async () => {
+    const label = document.createElement("label");
+    label.setAttribute("for", "axe-prefix");
+    label.textContent = "Search";
+    document.body.appendChild(label);
+
+    const el = document.createElement("fd-input") as any;
+    el.setAttribute("id", "axe-prefix");
+    const icon = document.createElement("span");
+    icon.setAttribute("slot", "prefix");
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = "🔍";
+    el.appendChild(icon);
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    await expectNoAxeViolations(document.body, axeOverrides);
+  });
+
+  it("has no axe violations with suffix action button", async () => {
+    const label = document.createElement("label");
+    label.setAttribute("for", "axe-suffix");
+    label.textContent = "Search";
+    document.body.appendChild(label);
+
+    const el = document.createElement("fd-input") as any;
+    el.setAttribute("id", "axe-suffix");
+    const btn = document.createElement("button");
+    btn.setAttribute("slot", "suffix");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("aria-label", "Clear search");
+    btn.textContent = "×";
+    el.appendChild(btn);
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    await expectNoAxeViolations(document.body, axeOverrides);
   });
 });

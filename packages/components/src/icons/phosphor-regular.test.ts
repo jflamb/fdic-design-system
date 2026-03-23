@@ -27,6 +27,7 @@ describe("phosphor-regular built-in icons", () => {
     "trash",
     "upload",
     "warning",
+    "warning-circle",
     "warning-octagon",
     "x",
   ];
