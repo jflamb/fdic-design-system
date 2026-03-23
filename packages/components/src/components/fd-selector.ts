@@ -130,7 +130,7 @@ export class FdSelector extends LitElement {
     [part="value-display"] {
       flex: 1;
       min-width: 0;
-      padding: 0 6px;
+      padding: 0 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -147,18 +147,19 @@ export class FdSelector extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 9px 5px;
+      width: var(--fd-selector-trigger-height, 44px);
+      align-self: stretch;
       flex-shrink: 0;
-      transition: transform 0.2s ease;
-    }
-
-    :host([open]) [part="chevron"] {
-      transform: rotate(180deg);
     }
 
     .chevron-icon {
-      width: 18px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease;
+    }
+
+    :host([open]) .chevron-icon {
+      transform: rotate(180deg);
     }
 
     /* --- Listbox / dropdown --- */

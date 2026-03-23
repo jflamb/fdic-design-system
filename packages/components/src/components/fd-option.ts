@@ -44,13 +44,13 @@ export class FdOption extends LitElement {
 
     [part="option"] {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 8px;
-      padding: 6px 8px;
+      padding: 8px 12px;
       position: relative;
       background: var(--fd-selector-option-bg, var(--fdic-background-base, #ffffff));
       overflow: clip;
-      min-height: 44px;
+      min-height: 36px;
       box-sizing: border-box;
     }
 
@@ -102,7 +102,6 @@ export class FdOption extends LitElement {
       flex-shrink: 0;
       width: 18px;
       height: 18px;
-      margin-top: 3px;
       color: var(--fd-selector-indicator-color, var(--fdic-text-primary, #212123));
     }
 
