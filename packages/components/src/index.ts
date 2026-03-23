@@ -9,6 +9,8 @@ import "./components/fd-radio-group.js";
 import "./components/fd-menu-item.js";
 import "./components/fd-menu.js";
 import "./components/fd-split-button.js";
+import "./components/fd-option.js";
+import "./components/fd-selector.js";
 import "./icons/phosphor-regular.js";
 
 export { FdPlaceholder } from "./components/fd-placeholder.js";
@@ -22,6 +24,8 @@ export { FdRadioGroup } from "./components/fd-radio-group.js";
 export { FdMenuItem } from "./components/fd-menu-item.js";
 export { FdMenu } from "./components/fd-menu.js";
 export { FdSplitButton } from "./components/fd-split-button.js";
+export { FdOption } from "./components/fd-option.js";
+export { FdSelector } from "./components/fd-selector.js";
 export { iconRegistry } from "./icons/registry.js";
 export type { ButtonVariant } from "./components/fd-button.js";
 export type {
@@ -32,3 +36,4 @@ export type { CheckboxGroupOrientation } from "./components/fd-checkbox-group.js
 export type { RadioGroupOrientation } from "./components/fd-radio-group.js";
 export type { MenuItemVariant } from "./components/fd-menu-item.js";
 export type { Placement } from "./components/placement.js";
+export type { SelectorVariant } from "./components/fd-selector.js";
