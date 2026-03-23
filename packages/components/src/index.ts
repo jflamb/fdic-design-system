@@ -1,3 +1,5 @@
+import "./global.js";
+
 // --- Component classes ---
 export { FdButton } from "./components/fd-button.js";
 export { FdButtonGroup } from "./components/fd-button-group.js";
