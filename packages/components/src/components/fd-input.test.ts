@@ -443,6 +443,17 @@ describe("fd-input", () => {
     expect(el.checkValidity()).toBe(false);
   });
 
+  // --- Form-associated getters ---
+
+  it("exposes validity, validationMessage, and willValidate on host", async () => {
+    const el = await createInput({ required: "" });
+    expect(el.validity).toBeDefined();
+    expect(el.validity.valueMissing).toBe(true);
+    expect(typeof el.validationMessage).toBe("string");
+    expect(el.validationMessage.length).toBeGreaterThan(0);
+    expect(typeof el.willValidate).toBe("boolean");
+  });
+
   // --- Cardinality: duplicate labels ---
 
   it("warns when multiple fd-label siblings target the same input", async () => {
@@ -521,6 +532,83 @@ describe("fd-input", () => {
     await msg.updateComplete;
     await new Promise((r) => setTimeout(r, 50));
     await el.updateComplete;
+    expect(el.getAttribute("data-state")).toBeNull();
+  });
+
+  // --- pattern attribute ---
+
+  it("forwards pattern attribute to native input", async () => {
+    const el = await createInput({ pattern: "[0-9]{9}" });
+    const input = getInternal(el);
+    expect(input!.getAttribute("pattern")).toBe("[0-9]{9}");
+  });
+
+  it("reflects patternMismatch into ElementInternals validity", async () => {
+    const el = await createInput({ pattern: "[0-9]{3}", value: "abc" });
+    // Native input with pattern="[0-9]{3}" and value="abc" → patternMismatch
+    expect(el.checkValidity()).toBe(false);
+  });
+
+  it("reports valid when value matches pattern", async () => {
+    const el = await createInput({ pattern: "[0-9]{3}", value: "123" });
+    expect(el.checkValidity()).toBe(true);
+  });
+
+  it("exposes patternMismatch via host validity getter", async () => {
+    const el = await createInput({ pattern: "[0-9]{3}", value: "abc" });
+    expect(el.validity.patternMismatch).toBe(true);
+  });
+
+  it("host validity.patternMismatch is false when value matches", async () => {
+    const el = await createInput({ pattern: "[0-9]{3}", value: "123" });
+    expect(el.validity.patternMismatch).toBe(false);
+  });
+
+  it("does not set data-state from patternMismatch alone", async () => {
+    const el = await createInput({
+      id: "pattern-no-visual",
+      pattern: "[0-9]{3}",
+      value: "abc",
+    });
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    // Visual state only comes from fd-message, not native validity
+    expect(el.getAttribute("data-state")).toBeNull();
+  });
+
+  // --- minlength attribute ---
+
+  it("forwards minlength attribute to native input", async () => {
+    const el = await createInput({ minlength: "5" });
+    const input = getInternal(el);
+    expect(input!.getAttribute("minlength")).toBe("5");
+  });
+
+  it("valueMissing takes precedence over tooShort for required empty field", async () => {
+    const el = await createInput({ required: "", minlength: "5" });
+    // Required + empty → valueMissing, not tooShort
+    expect(el.checkValidity()).toBe(false);
+  });
+
+  it("exposes validity getter on host (form-associated contract)", async () => {
+    const el = await createInput({ minlength: "5", value: "abc" });
+    // validity getter should be accessible on the host element
+    expect(el.validity).toBeDefined();
+    expect(typeof el.validity.tooShort).toBe("boolean");
+    expect(typeof el.validity.valid).toBe("boolean");
+  });
+
+  it("does not set data-state from tooShort alone", async () => {
+    const el = await createInput({
+      id: "minlen-no-visual",
+      minlength: "10",
+      value: "abc",
+    });
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    // Visual state only comes from fd-message
     expect(el.getAttribute("data-state")).toBeNull();
   });
 

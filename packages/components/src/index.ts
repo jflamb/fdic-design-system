@@ -31,7 +31,7 @@ export { FdOption } from "./components/fd-option.js";
 export { FdSelector } from "./components/fd-selector.js";
 export { FdLabel } from "./components/fd-label.js";
 export { FdMessage } from "./components/fd-message.js";
-export type { MessageState } from "./components/fd-message.js";
+export type { MessageState, LiveMode } from "./components/fd-message.js";
 export { FdInput } from "./components/fd-input.js";
 export type { InputType } from "./components/fd-input.js";
 export { iconRegistry } from "./icons/registry.js";

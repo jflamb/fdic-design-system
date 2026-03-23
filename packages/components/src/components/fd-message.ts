@@ -1,6 +1,7 @@
 import { LitElement, html, nothing } from "lit";
 
 export type MessageState = "default" | "error" | "warning" | "success";
+export type LiveMode = "polite" | "off";
 
 /**
  * `fd-message` — A validation/helper message component for form fields.
@@ -26,11 +27,13 @@ export class FdMessage extends LitElement {
     for: { reflect: true },
     state: { reflect: true },
     message: { reflect: true },
+    live: { reflect: true },
   };
 
   declare for: string | undefined;
   declare state: MessageState;
   declare message: string;
+  declare live: LiveMode | undefined;
 
   private static _instanceCounter = 0;
   private _instanceId: number;
@@ -40,6 +43,7 @@ export class FdMessage extends LitElement {
     this.for = undefined;
     this.state = "default";
     this.message = "";
+    this.live = undefined;
     this._instanceId = FdMessage._instanceCounter++;
   }
 
@@ -176,13 +180,33 @@ export class FdMessage extends LitElement {
 
     const isError = this.state === "error";
 
+    // Determine role and aria-live based on `live` override or internal defaults.
+    // Default: error → role="alert" (assertive), others → aria-live="polite".
+    // live="polite": always polite, even for errors (suppresses role="alert").
+    // live="off": no live region behavior at all.
+    let role: string | typeof nothing = nothing;
+    let ariaLive: string | typeof nothing = nothing;
+
+    if (this.live === "off") {
+      // No announcements
+    } else if (this.live === "polite") {
+      ariaLive = "polite";
+    } else {
+      // Default internal behavior
+      if (isError) {
+        role = "alert";
+      } else {
+        ariaLive = "polite";
+      }
+    }
+
     return html`
       ${this._renderStyles()}
       <span
         part="message"
         id=${this.messageId}
-        role=${isError ? "alert" : nothing}
-        aria-live=${isError ? nothing : "polite"}
+        role=${role}
+        aria-live=${ariaLive}
       >
         ${this._renderIcon()}
         <span part="message-text">${this.message}</span>
