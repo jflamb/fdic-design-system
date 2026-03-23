@@ -292,6 +292,24 @@ export class FdInput extends LitElement {
     this._input?.select();
   }
 
+  // --- Form-associated getters (match fd-checkbox, fd-selector) ---
+
+  get form() {
+    return this._internals.form;
+  }
+
+  get validity() {
+    return this._internals.validity;
+  }
+
+  get validationMessage() {
+    return this._internals.validationMessage;
+  }
+
+  get willValidate() {
+    return this._internals.willValidate;
+  }
+
   checkValidity(): boolean {
     return this._internals.checkValidity();
   }

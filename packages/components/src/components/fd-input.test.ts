@@ -443,6 +443,17 @@ describe("fd-input", () => {
     expect(el.checkValidity()).toBe(false);
   });
 
+  // --- Form-associated getters ---
+
+  it("exposes validity, validationMessage, and willValidate on host", async () => {
+    const el = await createInput({ required: "" });
+    expect(el.validity).toBeDefined();
+    expect(el.validity.valueMissing).toBe(true);
+    expect(typeof el.validationMessage).toBe("string");
+    expect(el.validationMessage.length).toBeGreaterThan(0);
+    expect(typeof el.willValidate).toBe("boolean");
+  });
+
   // --- Cardinality: duplicate labels ---
 
   it("warns when multiple fd-label siblings target the same input", async () => {
@@ -543,6 +554,16 @@ describe("fd-input", () => {
     expect(el.checkValidity()).toBe(true);
   });
 
+  it("exposes patternMismatch via host validity getter", async () => {
+    const el = await createInput({ pattern: "[0-9]{3}", value: "abc" });
+    expect(el.validity.patternMismatch).toBe(true);
+  });
+
+  it("host validity.patternMismatch is false when value matches", async () => {
+    const el = await createInput({ pattern: "[0-9]{3}", value: "123" });
+    expect(el.validity.patternMismatch).toBe(false);
+  });
+
   it("does not set data-state from patternMismatch alone", async () => {
     const el = await createInput({
       id: "pattern-no-visual",
@@ -568,6 +589,14 @@ describe("fd-input", () => {
     const el = await createInput({ required: "", minlength: "5" });
     // Required + empty → valueMissing, not tooShort
     expect(el.checkValidity()).toBe(false);
+  });
+
+  it("exposes validity getter on host (form-associated contract)", async () => {
+    const el = await createInput({ minlength: "5", value: "abc" });
+    // validity getter should be accessible on the host element
+    expect(el.validity).toBeDefined();
+    expect(typeof el.validity.tooShort).toBe("boolean");
+    expect(typeof el.validity.valid).toBe("boolean");
   });
 
   it("does not set data-state from tooShort alone", async () => {
