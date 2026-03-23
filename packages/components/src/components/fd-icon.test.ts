@@ -9,7 +9,7 @@ iconRegistry.register(
 );
 
 // Import component (triggers custom element registration)
-import "./fd-icon.js";
+import "../register/fd-icon.js";
 import { FdIcon } from "./fd-icon.js";
 
 describe("fd-icon", () => {

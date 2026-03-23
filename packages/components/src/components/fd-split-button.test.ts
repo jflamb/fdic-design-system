@@ -1,7 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import "./fd-split-button.js";
-import "./fd-menu.js";
-import "./fd-menu-item.js";
+import "../register/fd-split-button.js";
 import "../icons/phosphor-regular.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 

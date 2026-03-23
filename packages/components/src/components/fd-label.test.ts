@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "./fd-label.js";
+import "../register/fd-label.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createLabel(attrs: Record<string, string> = {}) {

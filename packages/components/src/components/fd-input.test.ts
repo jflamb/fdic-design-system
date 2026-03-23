@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "./fd-input.js";
-import "./fd-label.js";
-import "./fd-message.js";
+import "../register/fd-input.js";
+import "../register/fd-label.js";
+import "../register/fd-message.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createInput(attrs: Record<string, string> = {}) {

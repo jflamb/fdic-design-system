@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "./fd-radio.js";
+import "../register/fd-radio.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createRadio(

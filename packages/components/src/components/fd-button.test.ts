@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import "./fd-button.js";
+import "../register/fd-button.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createButton(

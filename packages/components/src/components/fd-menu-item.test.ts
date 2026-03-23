@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import "./fd-menu-item.js";
+import "../register/fd-menu.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createMenuItem(

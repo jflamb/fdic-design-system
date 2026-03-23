@@ -1,8 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "./fd-field.js";
-import "./fd-label.js";
-import "./fd-input.js";
-import "./fd-message.js";
+import "../register/fd-field.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createField(innerHTML = ""): Promise<any> {

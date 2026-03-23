@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "./fd-option.js";
-import "./fd-selector.js";
+import "../register/fd-selector.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 const DEFAULT_OPTIONS = `

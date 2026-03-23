@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import "./fd-message.js";
+import "../register/fd-field.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createMessage(attrs: Record<string, string> = {}) {
