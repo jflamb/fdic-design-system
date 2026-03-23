@@ -110,6 +110,26 @@ describe("fd-selector", () => {
     expect(display.textContent?.trim()).toBe("Choose one");
   });
 
+  // --- Label behavior ---
+
+  it("renders label as a <label> element", async () => {
+    const el = await createSelector({ label: "Account" });
+    const label = getLabelEl(el);
+
+    expect(label?.tagName).toBe("LABEL");
+  });
+
+  it("clicking the label focuses the trigger", async () => {
+    const el = await createSelector({ label: "Account" });
+    const label = getLabelEl(el);
+    const trigger = getTrigger(el);
+
+    label?.click();
+    await el.updateComplete;
+
+    expect(el.shadowRoot!.activeElement).toBe(trigger);
+  });
+
   // --- ARIA on trigger ---
 
   it("sets aria-haspopup='listbox' on trigger", async () => {
@@ -1081,5 +1101,58 @@ describe("fd-selector", () => {
     );
     await el.updateComplete;
     expect(opts[0].hasAttribute("data-focused")).toBe(true);
+  });
+
+  // --- Regression: click events bubble normally from fd-option ---
+
+  it("click events on fd-option bubble to ancestors", async () => {
+    const el = await createSelector({ label: "Account", variant: "simple" });
+    const clickHandler = vi.fn();
+    el.addEventListener("click", clickHandler);
+
+    getTrigger(el).click();
+    await el.updateComplete;
+
+    getOptions(el)[0].click();
+    await el.updateComplete;
+
+    // The native click should bubble to the fd-selector host
+    expect(clickHandler).toHaveBeenCalled();
+  });
+
+  // --- Regression: outside dismiss ---
+
+  it("closes on pointerdown outside the component", async () => {
+    const el = await createSelector({ label: "Account" });
+    getTrigger(el).click();
+    await el.updateComplete;
+    await new Promise((r) => requestAnimationFrame(r));
+
+    expect(el.open).toBe(true);
+
+    // Simulate pointerdown outside
+    document.body.dispatchEvent(
+      new PointerEvent("pointerdown", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+
+    expect(el.open).toBe(false);
+  });
+
+  it("does not close on pointerdown inside the dropdown", async () => {
+    const el = await createSelector({ label: "Account", variant: "multiple" });
+    getTrigger(el).click();
+    await el.updateComplete;
+    await new Promise((r) => requestAnimationFrame(r));
+
+    expect(el.open).toBe(true);
+
+    // Simulate pointerdown on an option (inside the component)
+    getOptions(el)[0].dispatchEvent(
+      new PointerEvent("pointerdown", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+
+    expect(el.open).toBe(true);
   });
 });

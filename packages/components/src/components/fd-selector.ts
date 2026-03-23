@@ -55,6 +55,7 @@ export class FdSelector extends LitElement {
       align-items: baseline;
       margin: 0;
       padding: 0;
+      cursor: default;
     }
 
     [part="label-text"] {
@@ -515,22 +516,22 @@ export class FdSelector extends LitElement {
   private _addClickOutside() {
     this._removeClickOutside();
     this._clickOutsideHandler = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (!this.contains(target) && !this.shadowRoot?.contains(target)) {
-        this._closeListbox();
-      }
+      const path = e.composedPath();
+      // If the click is anywhere inside this component (host, shadow, or slotted), ignore
+      if (path.includes(this)) return;
+      this._closeListbox();
     };
-    // Use capture + rAF to avoid closing from the same click that opened
+    // Use rAF to avoid closing from the same interaction that opened
     requestAnimationFrame(() => {
       if (this._clickOutsideHandler) {
-        document.addEventListener("click", this._clickOutsideHandler, true);
+        document.addEventListener("pointerdown", this._clickOutsideHandler, true);
       }
     });
   }
 
   private _removeClickOutside() {
     if (this._clickOutsideHandler) {
-      document.removeEventListener("click", this._clickOutsideHandler, true);
+      document.removeEventListener("pointerdown", this._clickOutsideHandler, true);
       this._clickOutsideHandler = null;
     }
   }
@@ -663,6 +664,10 @@ export class FdSelector extends LitElement {
   private _onInvalid = () => {
     this.setAttribute("data-user-invalid", "");
   };
+
+  private _onLabelClick() {
+    this._getTrigger()?.focus();
+  }
 
   // --- Keyboard ---
 
@@ -862,12 +867,16 @@ export class FdSelector extends LitElement {
       <div part="base">
         ${this.label
           ? html`
-              <div part="label" id=${labelId}>
+              <label
+                part="label"
+                id=${labelId}
+                @click=${this._onLabelClick}
+              >
                 <span part="label-text">${this.label}</span>
                 ${this.required
                   ? html`<span part="required-marker" aria-hidden="true">*</span>`
                   : nothing}
-              </div>
+              </label>
             `
           : nothing}
 
@@ -927,7 +936,6 @@ export class FdSelector extends LitElement {
           tabindex="-1"
           ?hidden=${!this.open}
           @keydown=${this._onListboxKeydown}
-          @fd-option-select=${this._onOptionSelect}
         >
           <slot @slotchange=${this._onDefaultSlotChange}></slot>
         </div>

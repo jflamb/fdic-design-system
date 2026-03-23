@@ -100,8 +100,8 @@ export class FdOption extends LitElement {
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       color: var(--fd-selector-indicator-color, var(--fdic-text-primary, #212123));
     }
 
@@ -111,8 +111,8 @@ export class FdOption extends LitElement {
 
     /* Radio indicator */
     .radio-outer {
-      width: 14px;
-      height: 14px;
+      width: 20px;
+      height: 20px;
       border-radius: 9999px;
       border: 2px solid currentColor;
       box-sizing: border-box;
@@ -122,8 +122,8 @@ export class FdOption extends LitElement {
     }
 
     .radio-dot {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       border-radius: 9999px;
       background: transparent;
     }
@@ -141,9 +141,9 @@ export class FdOption extends LitElement {
 
     /* Checkbox indicator */
     .checkbox-outer {
-      width: 14px;
-      height: 14px;
-      border-radius: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
       border: 2px solid currentColor;
       box-sizing: border-box;
       display: flex;
@@ -161,8 +161,8 @@ export class FdOption extends LitElement {
 
     .checkbox-check {
       display: none;
-      width: 10px;
-      height: 10px;
+      width: 14px;
+      height: 14px;
     }
 
     :host([selected]) .checkbox-check {
@@ -249,19 +249,21 @@ export class FdOption extends LitElement {
     this._variant = "simple";
   }
 
+  private _selectFired = false;
+
   override connectedCallback() {
     super.connectedCallback();
     this.setAttribute("role", "option");
     this._syncAria();
-    this.addEventListener("click", this._onClick);
+    this.addEventListener("click", this._onHostClick);
   }
 
   override disconnectedCallback() {
-    this.removeEventListener("click", this._onClick);
+    this.removeEventListener("click", this._onHostClick);
     super.disconnectedCallback();
   }
 
-  private _onClick = () => {
+  private _fireSelect() {
     if (this.disabled) return;
     this.dispatchEvent(
       new CustomEvent("fd-option-select", {
@@ -270,6 +272,27 @@ export class FdOption extends LitElement {
         detail: { option: this },
       }),
     );
+  }
+
+  /**
+   * Shadow DOM click: fires select and sets a flag so the host handler
+   * skips the duplicate. The click event continues to bubble normally.
+   */
+  private _onShadowClick() {
+    this._selectFired = true;
+    this._fireSelect();
+  }
+
+  /**
+   * Host click: handles programmatic .click() calls (tests, AT).
+   * Skips if the shadow handler already fired for this click.
+   */
+  private _onHostClick = () => {
+    if (this._selectFired) {
+      this._selectFired = false;
+      return;
+    }
+    this._fireSelect();
   };
 
   override updated() {
@@ -328,7 +351,7 @@ export class FdOption extends LitElement {
 
   render() {
     return html`
-      <div part="option">
+      <div part="option" @click=${this._onShadowClick}>
         ${this._renderIndicator()}
         <span part="option-text">
           <span class="primary-text"><slot></slot></span>
