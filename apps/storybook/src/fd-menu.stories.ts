@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import "@fdic-ds/components";
+import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_GRID_STYLE,
   DOCS_OVERVIEW_HEADING_STYLE,

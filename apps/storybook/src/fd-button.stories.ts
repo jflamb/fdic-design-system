@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
-import "@fdic-ds/components";
+import "@fdic-ds/components/register-all";
 
 type ButtonArgs = {
   variant: "primary" | "neutral" | "subtle" | "outline" | "destructive";
