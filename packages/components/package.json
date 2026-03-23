@@ -105,9 +105,9 @@
   },
   "devDependencies": {
     "axe-core": "^4.11.1",
-    "happy-dom": "^20.8.4",
+    "happy-dom": "^20.8.7",
     "tsup": "^8.4.0",
-    "typescript": "^5.8.2",
-    "vitest": "^3.2.4"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
   }
 }
