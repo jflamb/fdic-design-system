@@ -57,8 +57,8 @@ With a leading icon:
 | `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `"primary"` | Visual variant applied to both segments |
 | `disabled` | `boolean` | `false` | Disables both segments. The menu cannot open while disabled. |
 | `trigger-disabled` | `boolean` | `false` | Disables only the trigger segment. The primary action remains active. |
-| `trigger-label` | `string` | `"More options"` | Accessible name for the trigger segment. Should describe the menu contents contextually. |
-| `menu-placement` | `Placement` | `"bottom-start"` | Preferred placement of the menu relative to the trigger |
+| `trigger-label` | `string` | `"More options"` | Accessible name for the trigger segment. Reflected public attribute. Should describe the menu contents contextually. |
+| `menu-placement` | `Placement` | `"bottom-start"` | Preferred placement of the menu relative to the trigger. Reflected public attribute. |
 | `open` | `boolean` | `false` | Read-only reflected state indicating whether the menu is open. Derived from internal `fd-menu` events. Do not set directly. |
 
 ## Slots
@@ -73,8 +73,13 @@ With a leading icon:
 
 | Name | Detail | Description |
 |------|--------|-------------|
-| `fd-split-action` | `{}` | Fired when the primary segment is activated (click, Enter, or Space) |
-| `fd-split-open` | `{ open: boolean }` | Fired when the menu opens or closes |
+| `fd-split-button-action` | `{}` | Fired when the primary segment is activated |
+| `fd-split-button-open-change` | `{ open: boolean }` | Fired when the menu opens or closes |
+
+Compatibility note:
+
+- `fd-split-button` still fires deprecated `fd-split-action` and `fd-split-open` during the compatibility window.
+- New consumer code should listen to `fd-split-button-action` and `fd-split-button-open-change`.
 
 ## CSS custom properties
 
@@ -101,7 +106,7 @@ With a leading icon:
 
 | Key | Behavior |
 |-----|----------|
-| `Enter` / `Space` | Fires `fd-split-action` |
+| `Enter` / `Space` | Fires `fd-split-button-action` |
 | `Tab` | Moves focus to the trigger segment |
 
 **Trigger segment:**

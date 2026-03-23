@@ -20,6 +20,14 @@ type SplitButtonArgs = {
 const meta = {
   title: "Components/Split Button",
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Public event contract: listen for `fd-split-button-action` and `fd-split-button-open-change`. Deprecated `fd-split-action` and `fd-split-open` still fire during the transition window. Documented public attributes `trigger-label` and `menu-placement` reflect to the host.",
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: "select",

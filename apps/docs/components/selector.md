@@ -84,6 +84,21 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **Forced colors**: High Contrast mode overrides use system colors for borders and selection.
 - **Reduced motion**: Chevron rotation and dropdown animation are suppressed under `prefers-reduced-motion`.
 
+## Event contract
+
+`fd-selector` uses component-specific public event names.
+
+| Event | Detail | Notes |
+|-------|--------|-------|
+| `fd-selector-change` | single-select: `{ value: string, values: string[] }` | `values` contains the current single selection when present |
+| `fd-selector-change` | multi-select: `{ value: string, values: string[] }` | `value` mirrors the first selected value in DOM order |
+| `fd-selector-open-change` | `{ open: boolean }` | Fired whenever the popup opens or closes |
+
+Compatibility note:
+
+- `fd-selector` still fires deprecated `fd-selector-open` and `fd-selector-close` during the compatibility window.
+- New consumer code should listen to `fd-selector-open-change`.
+
 ## Known limitations
 
 - **No search or filtering** — This is a static-list selector, not a combobox. A separate `fd-combobox` should be built for type-ahead use cases.

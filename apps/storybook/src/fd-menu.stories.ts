@@ -11,6 +11,14 @@ import {
 const meta = {
   title: "Components/Menu",
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Public event contract: listen for `fd-menu-open-change` on `fd-menu` and `fd-menu-item-select` on `fd-menu-item`. Deprecated compatibility events `fd-open` and `fd-select` still fire during the transition window.",
+      },
+    },
+  },
 } satisfies Meta;
 
 export default meta;

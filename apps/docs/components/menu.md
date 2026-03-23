@@ -41,6 +41,7 @@ The second embed is intentional. The long-menu state demonstrates internal scrol
 - Label the trigger with what the menu contains so the action list is predictable before opening.
 - Keep destructive actions last and visually distinct.
 - Leave disabled actions visible when discoverability matters, but avoid filling a menu with mostly unavailable items.
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -123,6 +124,21 @@ The second embed is intentional. The long-menu state demonstrates internal scrol
 - **Focus return**: On close via Escape or item activation, focus returns to the trigger. On close via outside click, focus goes to the click target. On close via Tab, focus moves naturally.
 - **Forced colors**: Menu surface and items use system colors (`ButtonBorder`, `ButtonText`, `Highlight`, `HighlightText`, `GrayText`) so the menu remains distinguishable in Windows High Contrast mode.
 - **Reduced motion**: A media query guard suppresses any future animations under `prefers-reduced-motion: reduce`.
+
+## Event contract
+
+`fd-menu` and `fd-menu-item` now use component-specific public event names.
+
+| Component | Event | Detail | Notes |
+|-----------|-------|--------|-------|
+| `fd-menu` | `fd-menu-open-change` | `{ open: boolean }` | Fired whenever the menu opens or closes |
+| `fd-menu-item` | `fd-menu-item-select` | `{}` | Fired when a menu item is activated |
+
+Compatibility note:
+
+- `fd-menu` still fires deprecated `fd-open` during the compatibility window.
+- `fd-menu-item` still fires deprecated `fd-select` during the compatibility window.
+- New consumer code should listen to `fd-menu-open-change` and `fd-menu-item-select`.
 
 ### Trigger requirements
 

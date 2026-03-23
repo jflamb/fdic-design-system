@@ -74,6 +74,17 @@ Radio groups collect mutually exclusive options under one prompt. Use them when 
 - `data-user-invalid` and `aria-invalid` clear when the group becomes valid or when the form reset path runs.
 - Provide one authored group-level error message in the `error` slot whenever the group can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
 
+## Event contract
+
+| Event | Detail | Notes |
+|-------|--------|-------|
+| `fd-radio-group-change` | `{ value: string }` | Fired when the selected radio changes |
+
+Compatibility note:
+
+- `fd-radio-group` still fires deprecated `fd-group-change` with `{ selectedValue: string }` during the compatibility window.
+- New consumer code should listen to `fd-radio-group-change`.
+
 ## Known limitations
 
 - **Native radio group tab-stop behavior is not fully reproducible across separate shadow roots** — Arrow-key navigation is coordinated by `fd-radio`, but Tab behavior depends on the browser's treatment of shadow-separated inputs. Manual AT verification (NVDA, JAWS, VoiceOver) is required before release.

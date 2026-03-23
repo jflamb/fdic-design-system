@@ -58,6 +58,14 @@ const meta = {
     description: "",
     error: "Please select a contact method.",
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Public event contract: `fd-radio-group-change` emits `{ value }`. Deprecated `fd-group-change` still fires with `{ selectedValue }` during the transition window.",
+      },
+    },
+  },
   render: renderGroup,
 } satisfies Meta<RadioGroupArgs>;
 

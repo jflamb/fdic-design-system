@@ -72,6 +72,17 @@ Checkbox groups collect related options under one prompt. Use them when several 
 - `data-user-invalid` and `aria-invalid` clear when the group becomes valid or when the form reset path runs.
 - Provide one authored group-level error message in the `error` slot whenever the group can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
 
+## Event contract
+
+| Event | Detail | Notes |
+|-------|--------|-------|
+| `fd-checkbox-group-change` | `{ value: string, values: string[] }` | `value` mirrors the first selected value in DOM order |
+
+Compatibility note:
+
+- `fd-checkbox-group` still fires deprecated `fd-group-change` with `{ checkedValues: string[] }` during the compatibility window.
+- New consumer code should listen to `fd-checkbox-group-change`.
+
 ## Known limitations
 
 - **Dynamic child disabled toggles while the group is disabled are out of scope in v1** — Set child-specific disabled states before disabling the group or after re-enabling it.

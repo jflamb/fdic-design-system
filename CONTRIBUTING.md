@@ -72,6 +72,11 @@ This project uses tooling for baseline formatting. The conventions below are the
 - Use explicit registration entry points in `packages/components/src/register/` for custom element registration.
 - Import `@fdic-ds/components/register-all` in Storybook stories unless a narrower registration path is needed for a specific reason.
 - Keep root package symbol exports side-effect-free.
+- For public component events, prefer component-specific names over generic library-wide names. Use `fd-{component}-change` for value or selection changes, `fd-{component}-open-change` for open-state changes, and `fd-{component}-action` or `fd-{component}-select` when those verbs are the clearest fit.
+- For normalized value or selection events, always include `detail.value`. Multi-select components should additionally include `detail.values`.
+- When deprecating a public event name, dual-fire the old and new events during the transition window. The new event should carry the new normalized payload. The deprecated event should keep its old payload shape until the next breaking major version removes it.
+- Internal wiring events are not automatically part of the public API. Do not rename internal child-to-parent events just to match public naming conventions unless the change is explicitly part of the approved scope.
+- Documented public attributes should reflect by default unless they are explicitly property-only or documented as derived read-only state.
 - Use conventional commits with a scope, such as `feat(input): ...`, `fix(selector): ...`, or `docs(radio-group): ...`.
 - When a change is architectural, cross-package, accessibility-sensitive, or likely to be reused, record the reasoning in an issue, docs note, or plan document instead of leaving the decision implicit in code.
 

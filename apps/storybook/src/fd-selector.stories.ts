@@ -71,6 +71,14 @@ const meta = {
     description: "",
     error: "",
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Public event contract: `fd-selector-change` uses `{ value }` for single-select variants and `{ value, values }` for multi-select. Open-state changes use `fd-selector-open-change` with `{ open }`. Deprecated `fd-selector-open` and `fd-selector-close` still fire during the transition window.",
+      },
+    },
+  },
   render: renderSelector,
 } satisfies Meta<SelectorArgs>;
 

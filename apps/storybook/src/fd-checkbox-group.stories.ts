@@ -58,6 +58,14 @@ const meta = {
     description: "",
     error: "Please select at least one contact method.",
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Public event contract: `fd-checkbox-group-change` emits `{ value, values }`, where `value` mirrors the first selected value in DOM order. Deprecated `fd-group-change` still fires with `{ checkedValues }` during the transition window.",
+      },
+    },
+  },
   render: renderGroup,
 } satisfies Meta<CheckboxGroupArgs>;
 
