@@ -520,6 +520,26 @@ export const componentInventory = [
     },
     typeExports: ["AlertVariant", "AlertType", "AlertLive"],
   },
+  {
+    tagName: "fd-stripe",
+    className: "FdStripe",
+    sourceFile: "fd-stripe.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Stripe",
+      slug: "stripe",
+    },
+    storybook: {
+      title: "Supporting Primitives/Stripe",
+      file: "fd-stripe.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: ["StripeType"],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 
