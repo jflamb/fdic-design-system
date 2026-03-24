@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_STYLE,
@@ -53,6 +53,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+function getSplitParts(host: Element | null) {
+  const primary = host?.shadowRoot?.querySelector("[part=primary]") as HTMLButtonElement | null;
+  const trigger = host?.shadowRoot?.querySelector("[part=trigger]") as HTMLButtonElement | null;
+  const menu = host?.shadowRoot?.querySelector("fd-menu") as HTMLElement | null;
+
+  return { primary, trigger, menu };
+}
+
 export const Playground: Story = {
   render: (args: SplitButtonArgs) => html`
     <fd-split-button
@@ -71,12 +79,10 @@ export const Playground: Story = {
 
 Playground.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-split-button") as HTMLElement | null;
+  const { primary, trigger } = getSplitParts(host);
+
   expect(host).toBeDefined();
-
-  const primary = host?.shadowRoot?.querySelector("[part=primary]") as HTMLButtonElement | undefined;
   expect(primary).toBeDefined();
-
-  const trigger = host?.shadowRoot?.querySelector("[part=trigger]") as HTMLButtonElement | undefined;
   expect(trigger).toBeDefined();
 };
 
@@ -90,13 +96,37 @@ export const Primary: Story = {
   `,
 };
 
-Primary.play = async ({ canvasElement }) => {
+Primary.play = async ({ canvasElement, userEvent }) => {
   const host = canvasElement.querySelector("fd-split-button") as HTMLElement | null;
-  expect(host).toBeDefined();
+  const { primary, trigger, menu } = getSplitParts(host);
+  const events: string[] = [];
 
-  const primary = host?.shadowRoot?.querySelector("[part=primary]") as HTMLButtonElement | undefined;
+  host?.addEventListener("fd-split-button-action", () => {
+    events.push("action");
+  });
+  host?.addEventListener("fd-split-button-open-change", (event: Event) => {
+    events.push((event as CustomEvent<{ open: boolean }>).detail.open ? "open" : "close");
+  });
+
   expect(primary).toBeDefined();
   expect(primary?.disabled).toBe(false);
+
+  await userEvent.click(primary!);
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(menu?.hasAttribute("open")).toBe(true);
+    expect(trigger?.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  await userEvent.keyboard("{Escape}");
+
+  await waitFor(() => {
+    expect(menu?.hasAttribute("open")).toBe(false);
+    expect(trigger?.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  expect(events).toEqual(["action", "open", "close"]);
 };
 
 export const Neutral: Story = {
@@ -180,6 +210,16 @@ export const TriggerDisabled: Story = {
       <fd-menu-item slot="menu">Save &amp; submit for review</fd-menu-item>
     </fd-split-button>
   `,
+};
+
+TriggerDisabled.play = async ({ canvasElement, userEvent }) => {
+  const host = canvasElement.querySelector("fd-split-button") as HTMLElement | null;
+  const { trigger, menu } = getSplitParts(host);
+
+  expect(trigger?.disabled).toBe(true);
+  await userEvent.click(trigger!);
+
+  expect(menu?.hasAttribute("open")).toBe(false);
 };
 
 export const AllVariants: Story = {
