@@ -412,6 +412,16 @@ export const componentStoryApi = {
     "hrefTemplate": undefined,
     },
   },
+  "fd-global-header": {
+    argTypes: {
+    "navigation": { control: "text" },
+    "search": { control: "text" },
+    },
+    args: {
+    "navigation": "[]",
+    "search": null,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

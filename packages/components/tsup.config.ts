@@ -35,6 +35,7 @@ export default defineConfig({
     "components/fd-stripe": "src/components/fd-stripe.ts",
     "components/fd-link": "src/components/fd-link.ts",
     "components/fd-pagination": "src/components/fd-pagination.ts",
+    "components/fd-global-header": "src/components/fd-global-header.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -64,6 +65,7 @@ export default defineConfig({
     "register/fd-stripe": "src/register/fd-stripe.ts",
     "register/fd-link": "src/register/fd-link.ts",
     "register/fd-pagination": "src/register/fd-pagination.ts",
+    "register/fd-global-header": "src/register/fd-global-header.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

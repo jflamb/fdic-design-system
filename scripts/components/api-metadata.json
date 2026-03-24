@@ -3033,5 +3033,124 @@
       ],
       "after": ""
     }
+  },
+  "fd-global-header": {
+    "properties": {
+      "rows": [
+        {
+          "name": "navigation",
+          "type": "`FdGlobalHeaderNavigationItem[]`",
+          "defaultValue": "`[]`",
+          "description": "Consumer-provided navigation tree. Set this as a JavaScript property; it is not reflected to an HTML attribute."
+        },
+        {
+          "name": "search",
+          "type": "`FdGlobalHeaderSearchConfig \\| null`",
+          "defaultValue": "`null`",
+          "description": "Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`."
+        }
+      ],
+      "after": "- `fd-global-header` owns its open, preview, drill-down, and query state internally. The application owns navigation data, current-link flags, and routing.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "brand",
+          "description": "Required brand or home-link content for the masthead"
+        },
+        {
+          "name": "utility",
+          "description": "Optional utility links or actions rendered in the masthead"
+        }
+      ],
+      "after": "- Author brand and utility content as real links or controls. The component only provides the layout and state management."
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-global-header-search-submit",
+          "detail": "`{ query: string, href: string, firstMatchHref?: string, surface: \\\"desktop\\\" \\| \\\"mobile\\\" }`",
+          "description": "Cancelable event fired when the user submits header search. If not canceled, the component navigates to `firstMatchHref` when a direct match exists or to `href` as the configured fallback results URL."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-global-header-border-color",
+          "default": "`var(--fdic-border-divider, #bdbdbf)`",
+          "description": "Border color for masthead and navigation separators"
+        },
+        {
+          "name": "--fd-global-header-panel-border-color",
+          "default": "`var(--fdic-border-divider, #bdbdbf)`",
+          "description": "Border color for desktop and mobile navigation panels"
+        },
+        {
+          "name": "--fd-global-header-surface",
+          "default": "`#ffffff`",
+          "description": "Base masthead and top-nav surface color"
+        },
+        {
+          "name": "--fd-global-header-panel-surface",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Desktop mega-menu, mobile drawer, and search-popover surface color"
+        },
+        {
+          "name": "--fd-global-header-accent",
+          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "description": "Accent color used for active top-level items and the search submit button"
+        },
+        {
+          "name": "--fd-global-header-focus-gap",
+          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "description": "Inner gap color for the focus ring"
+        },
+        {
+          "name": "--fd-global-header-focus-ring",
+          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "description": "Outer focus-ring color"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root header wrapper"
+        },
+        {
+          "name": "masthead",
+          "description": "Top masthead row containing the brand, utilities, and search"
+        },
+        {
+          "name": "primary-nav",
+          "description": "Desktop primary navigation region"
+        },
+        {
+          "name": "panel",
+          "description": "Desktop attached mega-menu panel"
+        },
+        {
+          "name": "panel-column",
+          "description": "Individual desktop panel columns"
+        },
+        {
+          "name": "mobile-drawer",
+          "description": "Mobile drawer surface"
+        },
+        {
+          "name": "search-form",
+          "description": "Search form wrapper for desktop and mobile search surfaces"
+        },
+        {
+          "name": "search-results",
+          "description": "Search suggestion list surface"
+        }
+      ],
+      "after": "- `fd-global-header` intentionally does not expose every internal row or cell as a styling hook. Keep theming focused on the documented surfaces."
+    }
   }
 }
