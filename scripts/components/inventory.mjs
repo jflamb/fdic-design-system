@@ -360,25 +360,105 @@ export const componentInventory = [
       "FdFileInputActionDetail",
     ],
   },
-    {
+  {
     tagName: "fd-slider",
     className: "FdSlider",
     sourceFile: "fd-slider.ts",
     docs: {
-      kind: "first-class",
+      kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Slider",
-      slug: "slider"
+      slug: "slider",
     },
     storybook: {
       title: "Components/Slider",
-      file: "fd-slider.stories.ts"
+      file: "fd-slider.stories.ts",
     },
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: []
+      dependencies: [],
     },
-    typeExports: []
+    typeExports: [],
+  },
+  {
+    tagName: "fd-badge",
+    className: "FdBadge",
+    sourceFile: "fd-badge.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Badge",
+      slug: "badge",
+    },
+    storybook: {
+      title: "Components/Badge",
+      file: "fd-badge.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: ["BadgeType"],
+  },
+  {
+    tagName: "fd-badge-group",
+    className: "FdBadgeGroup",
+    sourceFile: "fd-badge-group.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Badge Group",
+      slug: "badge-group",
+    },
+    storybook: {
+      title: "Components/Badge Group",
+      file: "fd-badge-group.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: [],
+  },
+  {
+    tagName: "fd-chip",
+    className: "FdChip",
+    sourceFile: "fd-chip.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Chip",
+      slug: "chip",
+    },
+    storybook: {
+      title: "Components/Chip",
+      file: "fd-chip.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: ["ChipType"],
+  },
+  {
+    tagName: "fd-chip-group",
+    className: "FdChipGroup",
+    sourceFile: "fd-chip-group.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Chip Group",
+      slug: "chip-group",
+    },
+    storybook: {
+      title: "Components/Chip Group",
+      file: "fd-chip-group.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: [],
   },
   // New component entries are inserted above this line by the scaffold script.
 ];

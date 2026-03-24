@@ -24,4 +24,8 @@ import "./fd-selector.js";
 import "./fd-split-button.js";
 import "./fd-file-input.js";
 import "./fd-slider.js";
+import "./fd-badge.js";
+import "./fd-badge-group.js";
+import "./fd-chip.js";
+import "./fd-chip-group.js";
 import "../icons/phosphor-regular.js";

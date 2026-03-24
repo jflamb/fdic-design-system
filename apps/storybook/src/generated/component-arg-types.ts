@@ -288,6 +288,40 @@ export const componentStoryApi = {
     "showInput": false,
     },
   },
+  "fd-badge": {
+    argTypes: {
+    "type": { control: "select", options: ["neutral","cool","warm","positive","alert"] },
+    },
+    args: {
+    "type": "neutral",
+    },
+  },
+  "fd-badge-group": {
+    argTypes: {
+    "label": { control: "text" },
+    },
+    args: {
+    "label": undefined,
+    },
+  },
+  "fd-chip": {
+    argTypes: {
+    "type": { control: "select", options: ["neutral","cool","warm","positive","alert"] },
+    "removeLabel": { control: "text" },
+    },
+    args: {
+    "type": "neutral",
+    "removeLabel": undefined,
+    },
+  },
+  "fd-chip-group": {
+    argTypes: {
+    "label": { control: "text" },
+    },
+    args: {
+    "label": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

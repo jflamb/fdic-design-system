@@ -20,6 +20,10 @@ export { FdSelector } from "./components/fd-selector.js";
 export { FdSplitButton } from "./components/fd-split-button.js";
 export { FdFileInput } from "./components/fd-file-input.js";
 export { FdSlider } from "./components/fd-slider.js";
+export { FdBadge } from "./components/fd-badge.js";
+export { FdBadgeGroup } from "./components/fd-badge-group.js";
+export { FdChip } from "./components/fd-chip.js";
+export { FdChipGroup } from "./components/fd-chip-group.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -31,6 +35,8 @@ export type { MessageState, LiveMode } from "./components/fd-message.js";
 export type { RadioGroupOrientation } from "./components/fd-radio-group.js";
 export type { SelectorVariant } from "./components/fd-selector.js";
 export type { FileInputItem, FileInputItemState, FileInputRejectReason, FileInputRejectedFile, FdFileInputChangeDetail, FdFileInputActionDetail } from "./components/fd-file-input.js";
+export type { BadgeType } from "./components/fd-badge.js";
+export type { ChipType } from "./components/fd-chip.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,
