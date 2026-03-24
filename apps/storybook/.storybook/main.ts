@@ -51,7 +51,7 @@ const config: StorybookConfig = {
 
     return existingConfig;
   },
-  addons: ["@storybook/addon-vitest"],
+  addons: ["@storybook/addon-a11y", "@storybook/addon-vitest"],
 };
 
 export default config;

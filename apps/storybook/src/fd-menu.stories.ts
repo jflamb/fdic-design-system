@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_GRID_STYLE,
@@ -23,6 +24,27 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+function getButtonBase(host: Element | null) {
+  return host?.shadowRoot?.querySelector("[part=base]") as HTMLButtonElement | null;
+}
+
+function getMenuElements(canvasElement: HTMLElement) {
+  const triggerHost = canvasElement.querySelector("fd-button");
+  const trigger = getButtonBase(triggerHost);
+  const menu = canvasElement.querySelector("fd-menu") as HTMLElement | null;
+  const items = Array.from(canvasElement.querySelectorAll("fd-menu-item"));
+
+  return { triggerHost, trigger, menu, items };
+}
+
+async function waitForMenuWiring() {
+  await new Promise<void>((resolve) => {
+    setTimeout(() => {
+      requestAnimationFrame(() => resolve());
+    }, 0);
+  });
+}
 
 /**
  * Helper: wires a trigger button to toggle an fd-menu.
@@ -66,6 +88,48 @@ export const Default: Story = {
       </div>
     `;
   },
+};
+
+Default.play = async ({ canvasElement, userEvent }) => {
+  const { triggerHost, trigger, menu, items } = getMenuElements(canvasElement);
+  const openEvents: boolean[] = [];
+
+  menu?.addEventListener("fd-menu-open-change", (event: Event) => {
+    openEvents.push((event as CustomEvent<{ open: boolean }>).detail.open);
+  });
+
+  expect(trigger).toBeDefined();
+  expect(menu).toBeDefined();
+
+  await waitForMenuWiring();
+
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(menu?.hasAttribute("open")).toBe(true);
+    expect(triggerHost?.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  const firstItemButton = getButtonBase(items[0]);
+  await waitFor(() => {
+    expect(firstItemButton?.getAttribute("tabindex")).toBe("0");
+  });
+
+  await userEvent.keyboard("{ArrowDown}");
+
+  const secondItemButton = getButtonBase(items[1]);
+  await waitFor(() => {
+    expect(secondItemButton?.getAttribute("tabindex")).toBe("0");
+  });
+
+  await userEvent.keyboard("{Escape}");
+
+  await waitFor(() => {
+    expect(menu?.hasAttribute("open")).toBe(false);
+    expect(triggerHost?.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  expect(openEvents).toEqual([true, false]);
 };
 
 export const PlacementBottomEnd: Story = {
@@ -196,7 +260,7 @@ export const MenuItemContract: Story = {
         </fd-button>
         <fd-menu id=${menuId} anchor=${triggerId} label="Menu item contract example">
           <fd-menu-item>
-            <fd-icon slot="icon-start" name="floppy-disk"></fd-icon>
+            <fd-icon slot="icon-start" name="download"></fd-icon>
             Save as draft
           </fd-menu-item>
           <fd-menu-item disabled>Publish filing</fd-menu-item>
@@ -213,6 +277,29 @@ export const MenuItemContract: Story = {
       },
     },
   },
+};
+
+MenuItemContract.play = async ({ canvasElement, userEvent }) => {
+  const { trigger, menu, items } = getMenuElements(canvasElement);
+  const selections: number[] = [];
+
+  items[0]?.addEventListener("fd-menu-item-select", () => {
+    selections.push(1);
+  });
+
+  await waitForMenuWiring();
+
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(menu?.hasAttribute("open")).toBe(true);
+  });
+
+  await userEvent.click(getButtonBase(items[0]));
+
+  await waitFor(() => {
+    expect(selections).toEqual([1]);
+  });
 };
 
 export const WithIcons: Story = {

@@ -9,8 +9,13 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ["Prose", "Components"]
+        order: ["Prose", "Components", "Supporting Primitives"]
       }
+    },
+    a11y: {
+      // Enable the accessibility panel by default without turning findings into
+      // CI blockers yet. Contributor guidance defines the human review bar.
+      test: "todo",
     }
   }
 };
