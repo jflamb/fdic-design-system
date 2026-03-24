@@ -807,6 +807,17 @@ describe("fd-selector", () => {
     expect(getTrigger(el).getAttribute("aria-invalid")).toBe("true");
   });
 
+  it("reveals invalid state on an invalid event from a submit attempt", async () => {
+    const el = await createSelector({ label: "Account", required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    el.dispatchEvent(new Event("invalid", { cancelable: true }));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
   it("does not surface invalid state before a visibility boundary", async () => {
     const el = await createSelector({ label: "Account", required: "" });
 
@@ -832,6 +843,26 @@ describe("fd-selector", () => {
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+  });
+
+  it("clears aria-invalid in the same update cycle when the selector becomes valid", async () => {
+    const el = await createSelector({
+      label: "Account",
+      required: "",
+      variant: "simple",
+    });
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBe("true");
+
+    getTrigger(el).click();
+    await el.updateComplete;
+    getOptions(el)[0].click();
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("reveals invalid state when a multiple selector closes after invalid interaction", async () => {
@@ -860,11 +891,57 @@ describe("fd-selector", () => {
     expect(getTrigger(el).getAttribute("aria-invalid")).toBe("true");
   });
 
+  it("reveals invalid state when focus leaves the closed widget after invalid interaction", async () => {
+    const el = await createSelector({
+      label: "Account",
+      required: "",
+      variant: "multiple",
+    });
+    const trigger = getTrigger(el);
+
+    trigger.click();
+    await el.updateComplete;
+    getOptions(el)[0].click();
+    await el.updateComplete;
+    trigger.click();
+    await el.updateComplete;
+
+    el.values = [];
+    await el.updateComplete;
+
+    expect(el.checkValidity()).toBe(false);
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+
+    trigger.dispatchEvent(
+      new FocusEvent("blur", {
+        relatedTarget: document.body,
+      }),
+    );
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(trigger.getAttribute("aria-invalid")).toBe("true");
+  });
+
   it("reportValidity on a valid selector has no visible effect", async () => {
     const el = await createSelector({ label: "Account", required: "", value: "checking" });
     await el.updateComplete;
 
     expect(el.reportValidity()).toBe(true);
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getTrigger(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("reset clears visible invalid state and aria-invalid", async () => {
+    const el = await createSelector({ label: "Account", required: "" });
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+
+    el.formResetCallback();
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);

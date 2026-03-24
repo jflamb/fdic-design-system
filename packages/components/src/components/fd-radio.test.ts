@@ -97,6 +97,45 @@ describe("fd-radio", () => {
     expect(changeSpy).not.toHaveBeenCalled();
   });
 
+  it("reveals invalid state on an invalid event from a submit attempt", async () => {
+    const el = await createRadio({ required: "", name: "contact" }, "Email");
+
+    expect(el.checkValidity()).toBe(false);
+    el.dispatchEvent(new Event("invalid", { cancelable: true }));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getInternal(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
+  it("delegates blur handling to the shared validation boundary", async () => {
+    const el = await createRadio(
+      { checked: "", required: "", name: "contact" },
+      "Email",
+    );
+    const controller = (el as any)._formController;
+    const revealSpy = vi.spyOn(controller, "revealIfInteractedAndInvalid");
+
+    (el as any)._onBlur();
+
+    expect(revealSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("clears aria-invalid when the radio becomes valid", async () => {
+    const el = await createRadio({ required: "", name: "contact" }, "Email");
+    const input = getInternal(el);
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(input.getAttribute("aria-invalid")).toBe("true");
+
+    input.click();
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(input.getAttribute("aria-invalid")).toBeNull();
+  });
+
   it("unchecks sibling radios in the same named group", async () => {
     const first = await createRadio({
       name: "contact",

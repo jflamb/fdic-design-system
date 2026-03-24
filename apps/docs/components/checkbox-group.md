@@ -69,7 +69,7 @@ Checkbox groups collect related options under one prompt. Use them when several 
 - The group participates in validation through `ElementInternals`, but submits no form value of its own. Individual `fd-checkbox` children submit their own `name` / `value` pairs.
 - `checkValidity()` updates and returns validity without revealing invalid state.
 - `reportValidity()`, form submit attempts, and focus leaving the logical group after user interaction are visibility boundaries. When the group is invalid at that point, the host gets `data-user-invalid` and the internal `<fieldset>` gets `aria-invalid="true"`.
-- `data-user-invalid` and `aria-invalid` clear when the group becomes valid or when the form reset path runs.
+- `aria-invalid` is present iff `data-user-invalid` is present, and it clears in the same update cycle when the group becomes valid or when the form reset path runs.
 - Provide one authored group-level error message in the `error` slot whenever the group can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
 
 ## Event contract

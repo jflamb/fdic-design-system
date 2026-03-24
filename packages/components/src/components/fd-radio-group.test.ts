@@ -121,6 +121,17 @@ describe("fd-radio-group", () => {
     expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
   });
 
+  it("reveals invalid state on an invalid event from a submit attempt", async () => {
+    const el = await createRadioGroup({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    el.dispatchEvent(new Event("invalid", { cancelable: true }));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
   it("does not surface invalid state before a visibility boundary", async () => {
     const el = await createRadioGroup({ required: "" });
 
@@ -174,6 +185,20 @@ describe("fd-radio-group", () => {
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
+  });
+
+  it("clears aria-invalid in the same update cycle when the group becomes valid", async () => {
+    const el = await createRadioGroup({ required: "" });
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
+
+    getInternalInput(getRadios(el)[0]).click();
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
   });
 
   it("reportValidity on a valid group has no visible effect", async () => {

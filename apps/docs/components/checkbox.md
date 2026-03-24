@@ -71,6 +71,7 @@ Checkboxes let users make one or more explicit selections. Use them when each op
 - Required standalone checkboxes participate in native constraint validation through `ElementInternals`, with the validation anchor on the internal input.
 - `checkValidity()` updates and returns validity without revealing invalid state.
 - `reportValidity()` and blur after user interaction are visibility boundaries. When the checkbox is invalid at that boundary, the host gets `data-user-invalid` and the internal checkbox gets `aria-invalid="true"`.
+- A submit attempt is also a visibility boundary. `aria-invalid` is present iff `data-user-invalid` is present, and both clear in the same update cycle once the checkbox becomes valid or resets.
 - `data-user-invalid` and `aria-invalid` clear when the checkbox becomes valid or the form reset path runs.
 - If a required standalone checkbox can block submission, pair it with authored adjacent error copy in the surrounding field pattern. Relying on invalid styling without user-facing text is incomplete usage.
 

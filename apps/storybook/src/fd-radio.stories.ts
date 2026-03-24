@@ -108,7 +108,7 @@ export const Required: Story = {
     docs: {
       description: {
         story:
-          "Validation lifecycle: submit or reportValidity reveals invalid state only when no radio is selected. A valid selection clears the visible invalid state automatically.",
+          "Validation lifecycle: `checkValidity()` updates validity without showing an error. Submit, `reportValidity()`, or blur after interaction reveals invalid state only when no radio is selected. A valid selection clears the visible invalid state and `aria-invalid` automatically.",
       },
     },
   },

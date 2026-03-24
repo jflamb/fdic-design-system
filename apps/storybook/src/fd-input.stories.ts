@@ -193,6 +193,14 @@ export const Required: Story = {
     required: true,
     placeholder: "you@example.com",
   },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Validation contract: `checkValidity()` updates validity without showing an error. Submit, `reportValidity()`, or blur after interaction can add `data-user-invalid`; the inner input gets `aria-invalid` only while that visible invalid state is active.",
+      },
+    },
+  },
 };
 
 export const WithError: Story = {
@@ -320,6 +328,50 @@ export const PatternValidation: Story = {
       description: {
         story:
           "Validation lifecycle: the field can be internally invalid before it is visibly invalid. Blur after interaction or explicit reportValidity reveals the invalid state; correcting the value clears it. The authored `fd-message` remains the user-facing error copy.",
+      },
+    },
+  },
+};
+
+export const ValidationLifecycle: Story = {
+  render: () => html`
+    <form novalidate style="display: grid; gap: 12px; max-width: 328px;">
+      <fd-label
+        for="lifecycle-routing"
+        label="Routing number"
+        required
+        description="Enter a 9-digit routing number."
+      ></fd-label>
+      <fd-input
+        id="lifecycle-routing"
+        name="routing"
+        required
+        pattern="[0-9]{9}"
+        inputmode="numeric"
+        placeholder="e.g. 021000021"
+        @input=${(e: Event) =>
+          updateValidationMessage(e.currentTarget as FdInputHost, {
+            isValid: (value) => /^[0-9]{9}$/.test(value),
+            errorMessage: "Enter a valid 9-digit routing number.",
+          })}
+      ></fd-input>
+      <fd-message
+        for="lifecycle-routing"
+        state="default"
+        message=""
+        live="polite"
+      ></fd-message>
+      <div style="display: flex; gap: 8px;">
+        <fd-button type="submit">Submit</fd-button>
+        <fd-button type="reset">Reset</fd-button>
+      </div>
+    </form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Lifecycle example: the field starts internally invalid but not visibly invalid. Submit or blur after interaction reveals `data-user-invalid`; entering a valid routing number clears both the styling and `aria-invalid`; reset clears the visible invalid state as well.",
       },
     },
   },

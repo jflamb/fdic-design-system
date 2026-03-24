@@ -115,6 +115,17 @@ describe("fd-checkbox-group", () => {
     expect(el.shadowRoot?.activeElement ?? document.activeElement).toBe(activeBefore);
   });
 
+  it("reveals invalid state on an invalid event from a submit attempt", async () => {
+    const el = await createCheckboxGroup({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    el.dispatchEvent(new Event("invalid", { cancelable: true }));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
   it("does not surface invalid state before a visibility boundary", async () => {
     const el = await createCheckboxGroup({ required: "" });
 
@@ -221,6 +232,22 @@ describe("fd-checkbox-group", () => {
     expect(el.hasAttribute("data-user-invalid")).toBe(true);
 
     el.formResetCallback();
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBeNull();
+  });
+
+  it("clears aria-invalid in the same update cycle when the group becomes valid", async () => {
+    const el = await createCheckboxGroup({ required: "" });
+    const first = getCheckboxes(el)[0];
+    const input = first.shadowRoot!.querySelector("input") as HTMLInputElement;
+
+    el.reportValidity();
+    await el.updateComplete;
+    expect(getFieldset(el).getAttribute("aria-invalid")).toBe("true");
+
+    input.click();
     await el.updateComplete;
 
     expect(el.hasAttribute("data-user-invalid")).toBe(false);
