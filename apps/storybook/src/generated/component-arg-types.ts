@@ -400,6 +400,18 @@ export const componentStoryApi = {
     "size": "md",
     },
   },
+  "fd-pagination": {
+    argTypes: {
+    "currentPage": { control: "number" },
+    "totalPages": { control: "number" },
+    "hrefTemplate": { control: "text" },
+    },
+    args: {
+    "currentPage": 1,
+    "totalPages": 1,
+    "hrefTemplate": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

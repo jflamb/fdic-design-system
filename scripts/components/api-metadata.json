@@ -2876,5 +2876,162 @@
       ],
       "after": ""
     }
+  },
+  "fd-pagination": {
+    "properties": {
+      "rows": [
+        {
+          "name": "current-page",
+          "type": "`number`",
+          "defaultValue": "`1`",
+          "description": "Current page in the bounded set. Values below `1` normalize to `1`; values above `total-pages` clamp to the last page for rendering."
+        },
+        {
+          "name": "total-pages",
+          "type": "`number`",
+          "defaultValue": "`1`",
+          "description": "Total number of pages in the bounded set. V1 intentionally requires a known last page."
+        },
+        {
+          "name": "href-template",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional href template for link mode. Use a `{page}` token, for example `/results?page={page}`."
+        }
+      ],
+      "after": "- Set `aria-label` on `fd-pagination` when more than one pagination landmark appears on the page.\n- Without `href-template`, the component stays action-based and emits `fd-page-request` for the application to handle."
+    },
+    "slots": {
+      "rows": [],
+      "after": "No slots are exposed in v1."
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-page-request",
+          "detail": "`CustomEvent<{ page: number, href?: string }>`",
+          "description": "Fired when the user requests another page from a numbered control, previous/next control, or the mobile page select."
+        }
+      ],
+      "after": "Cancel `fd-page-request` to intercept link-mode navigation, including the mobile select behavior when `href-template` is present."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-pagination-gap",
+          "default": "`var(--fdic-spacing-xl, 24px)`",
+          "description": "Gap between previous/next controls and the desktop page list."
+        },
+        {
+          "name": "--fd-pagination-page-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Gap between numbered desktop page items."
+        },
+        {
+          "name": "--fd-pagination-mobile-gap",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Gap between controls in the mobile layout."
+        },
+        {
+          "name": "--fd-pagination-control-min-size",
+          "default": "`44px`",
+          "description": "Minimum touch target size for pagination controls."
+        },
+        {
+          "name": "--fd-pagination-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Corner radius for controls and the mobile page select."
+        },
+        {
+          "name": "--fd-pagination-control-bg",
+          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "description": "Background for non-current page controls."
+        },
+        {
+          "name": "--fd-pagination-control-color",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Text color for non-current page controls and the mobile summary."
+        },
+        {
+          "name": "--fd-pagination-control-bg-disabled",
+          "default": "`var(--ds-color-bg-container, #f5f5f7)`",
+          "description": "Background for disabled previous/next controls."
+        },
+        {
+          "name": "--fd-pagination-control-color-disabled",
+          "default": "`var(--ds-color-text-disabled, #9e9ea0)`",
+          "description": "Text color for disabled controls and ellipsis items."
+        },
+        {
+          "name": "--fd-pagination-current-bg",
+          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "description": "Background for the current page control."
+        },
+        {
+          "name": "--fd-pagination-current-color",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Text color for the current page control."
+        },
+        {
+          "name": "--fd-pagination-select-bg",
+          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "description": "Background for the mobile page select."
+        },
+        {
+          "name": "--fd-pagination-select-border",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Border color for the mobile page select."
+        },
+        {
+          "name": "--fd-pagination-focus-gap",
+          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "description": "Inner gap color in the focus ring."
+        },
+        {
+          "name": "--fd-pagination-focus-ring",
+          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "description": "Outer focus ring color."
+        },
+        {
+          "name": "--fd-pagination-collapse-at",
+          "default": "`480px`",
+          "description": "Width threshold below which the component switches to the mobile layout."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "nav",
+          "description": "Internal pagination landmark."
+        },
+        {
+          "name": "list",
+          "description": "Desktop unordered list of numbered page controls."
+        },
+        {
+          "name": "item",
+          "description": "Desktop list item wrapper for a page control or ellipsis."
+        },
+        {
+          "name": "control",
+          "description": "Internal previous, next, or page control."
+        },
+        {
+          "name": "ellipsis",
+          "description": "Ellipsis marker used when page ranges are omitted."
+        },
+        {
+          "name": "mobile-select",
+          "description": "Mobile native page select."
+        },
+        {
+          "name": "mobile-summary",
+          "description": "Mobile `of N` page-count summary."
+        }
+      ],
+      "after": ""
+    }
   }
 }

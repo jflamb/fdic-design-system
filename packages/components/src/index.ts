@@ -29,6 +29,7 @@ export { FdVisual } from "./components/fd-visual.js";
 export { FdAlert } from "./components/fd-alert.js";
 export { FdStripe } from "./components/fd-stripe.js";
 export { FdLink } from "./components/fd-link.js";
+export { FdPagination } from "./components/fd-pagination.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
