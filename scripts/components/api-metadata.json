@@ -2239,5 +2239,152 @@
       ],
       "after": ""
     }
+  },
+  "fd-textarea": {
+    "properties": {
+      "rows": [
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Submitted form field name."
+        },
+        {
+          "name": "value",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Current textarea value."
+        },
+        {
+          "name": "placeholder",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional placeholder text. Use for examples, not as the visible label."
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents editing and submission."
+        },
+        {
+          "name": "readonly",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents editing while keeping the value focusable and selectable."
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Marks the field as required for constraint validation."
+        },
+        {
+          "name": "rows",
+          "type": "`number`",
+          "defaultValue": "`5`",
+          "description": "Initial visible row count for the native textarea."
+        },
+        {
+          "name": "maxlength",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Maximum character count. Also enables the built-in character counter."
+        },
+        {
+          "name": "minlength",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Minimum length requirement passed through to the native textarea."
+        },
+        {
+          "name": "autocomplete",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native autocomplete hint for longer-text fields."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "input",
+          "detail": "Native `Event`",
+          "description": "Fired on each value change."
+        },
+        {
+          "name": "change",
+          "detail": "Native `Event`",
+          "description": "Fired when the native textarea commits a value change."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-textarea-min-height",
+          "default": "`140px`",
+          "description": "Minimum textarea height."
+        },
+        {
+          "name": "--fd-textarea-border-color",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Border color at rest."
+        },
+        {
+          "name": "--fd-textarea-border-color-hover",
+          "default": "`var(--fdic-border-input-active, #424244)`",
+          "description": "Border color on hover."
+        },
+        {
+          "name": "--fd-textarea-border-color-focus",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Focus glow color."
+        },
+        {
+          "name": "--fd-textarea-border-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Corner radius."
+        },
+        {
+          "name": "--fd-textarea-bg",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Background color."
+        },
+        {
+          "name": "--fd-textarea-placeholder-color",
+          "default": "`var(--fdic-text-secondary, #595961)`",
+          "description": "Placeholder text color."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Visual textarea container (`<div>`) for border, background, radius, focus, and state styling."
+        },
+        {
+          "name": "native",
+          "description": "The native `<textarea>` element. Exposed for JavaScript access such as `el.shadowRoot.querySelector('[part=native]')`."
+        },
+        {
+          "name": "wrapper",
+          "description": "Outermost `<div>` containing the textarea container and character count."
+        },
+        {
+          "name": "char-count",
+          "description": "Visible character count display."
+        }
+      ],
+      "after": "`fd-textarea` keeps native manual resize enabled in the vertical direction only. Width remains controlled by the component container.\n\nWhen `maxlength` is present, the visible count is always shown and the screen-reader live region follows the same threshold-announcement contract as `fd-input`."
+    }
   }
 }

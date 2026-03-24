@@ -16,7 +16,7 @@ A text input field for user-entered text, with support for labels, hints, error 
 
 ## When not to use
 
-- **Multi-line text** — use a future `fd-textarea` component instead.
+- **Multi-line text** — use [Text Area](/components/textarea) instead.
 - **Structured selection** — use `fd-selector` for dropdown/select patterns.
 - **Toggle/boolean input** — use `fd-checkbox` or `fd-radio-group`.
 - **Numeric identifiers** — do not use `type="number"` for routing numbers, account numbers, ZIP codes, or SSNs. Use `type="text"` with `inputmode="numeric"` instead.

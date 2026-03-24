@@ -111,6 +111,10 @@
       "types": "./dist/components/fd-chip-group.d.ts",
       "import": "./dist/components/fd-chip-group.js"
     },
+    "./fd-textarea": {
+      "types": "./dist/components/fd-textarea.d.ts",
+      "import": "./dist/components/fd-textarea.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

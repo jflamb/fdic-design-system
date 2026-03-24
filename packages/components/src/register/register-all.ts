@@ -28,4 +28,5 @@ import "./fd-badge.js";
 import "./fd-badge-group.js";
 import "./fd-chip.js";
 import "./fd-chip-group.js";
+import "./fd-textarea.js";
 import "../icons/phosphor-regular.js";

@@ -17,7 +17,8 @@ export const firstClassComponentSidebarItems = [
   { text: "Badge", link: "/components/badge" },
   { text: "Badge Group", link: "/components/badge-group" },
   { text: "Chip", link: "/components/chip" },
-  { text: "Chip Group", link: "/components/chip-group" }
+  { text: "Chip Group", link: "/components/chip-group" },
+  { text: "Text Area", link: "/components/textarea" }
 ];
 
 export const supportingPrimitiveSidebarItems = [

@@ -3,16 +3,16 @@ import type { PropertyValues } from "lit";
 
 /**
  * `fd-field` — A lightweight convenience wrapper that auto-wires
- * `fd-label`, `fd-input`, and `fd-message` children with matching
+ * `fd-label`, one supported text-entry control, and `fd-message` children with matching
  * `for`/`id` attributes.
  *
  * Renders in **light DOM** (no shadow root) to avoid shadow DOM
  * boundary issues. Provides vertical flex layout with 6px gap
  * and neutralizes child margins to own spacing.
  *
- * `fd-field` is purely additive sugar — the three child components
+ * `fd-field` is purely additive sugar — the child components
  * work standalone without it. It does not proxy props, enforce
- * child ordering, or own the label/input/message.
+ * child ordering, or own the label/control/message.
  *
  * @example
  * ```html
@@ -26,9 +26,10 @@ import type { PropertyValues } from "lit";
  * ```
  */
 export class FdField extends LitElement {
+  private static _SUPPORTED_CONTROL_TAGS = ["FD-INPUT", "FD-TEXTAREA"];
   private _fieldId: string;
   private _childObserver: MutationObserver | null = null;
-  /** Tracks the wired input ID to avoid redundant setAttribute calls. */
+  /** Tracks the wired control ID to avoid redundant setAttribute calls. */
   private _wiredId: string | null = null;
 
   private static _counter = 0;
@@ -76,11 +77,10 @@ export class FdField extends LitElement {
       );
     }
 
-    // Warn on multiple direct child fd-input
-    const inputs = this._directChildren("fd-input");
-    if (inputs.length > 1) {
+    const controls = this._directControlChildren();
+    if (controls.length > 1) {
       console.warn(
-        "[fd-field] Multiple fd-input children found. Only the first will be auto-wired.",
+        "[fd-field] Multiple supported text-entry children found. Only the first will be auto-wired.",
       );
     }
 
@@ -113,21 +113,27 @@ export class FdField extends LitElement {
     return results;
   }
 
+  private _directControlChildren(): Element[] {
+    return Array.from(this.children).filter((child) =>
+      FdField._SUPPORTED_CONTROL_TAGS.includes(child.tagName),
+    );
+  }
+
   private _wireChildren() {
     const labels = this._directChildren("fd-label");
-    const inputs = this._directChildren("fd-input");
     const messages = this._directChildren("fd-message");
+    const controls = this._directControlChildren();
 
-    const input = inputs[0] as HTMLElement | undefined;
+    const control = controls[0] as HTMLElement | undefined;
     const label = labels[0] as HTMLElement | undefined;
     const message = messages[0] as HTMLElement | undefined;
 
-    // Auto-set id on fd-input if not already present
-    if (input && !input.id) {
-      input.id = this._fieldId;
+    // Auto-set id on the supported control if not already present
+    if (control && !control.id) {
+      control.id = this._fieldId;
     }
 
-    const id = input?.id || this._fieldId;
+    const id = control?.id || this._fieldId;
 
     // Auto-set for on fd-label if not already present
     if (label && !label.getAttribute("for")) {

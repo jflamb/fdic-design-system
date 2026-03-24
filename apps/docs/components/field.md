@@ -1,6 +1,6 @@
 # Field
 
-A convenience wrapper that auto-wires `fd-label`, `fd-input`, and `fd-message` with matching `for`/`id` attributes.
+A convenience wrapper that auto-wires `fd-label`, one supported text-entry control, and `fd-message` with matching `for`/`id` attributes.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Supporting primitive</span>
@@ -9,12 +9,12 @@ A convenience wrapper that auto-wires `fd-label`, `fd-input`, and `fd-message` w
 
 ## When to use
 
-- **Any form field using the label + input + message pattern** — `fd-field` eliminates manual `for`/`id` wiring.
+- **Any text-entry field using the label + control + message pattern** — `fd-field` eliminates manual `for`/`id` wiring for `fd-input` and `fd-textarea`.
 - **Forms with many fields** — the auto-wiring saves significant boilerplate and prevents mismatched IDs.
 
 ## When not to use
 
-- **Non-input form controls** — `fd-field` currently discovers `fd-input` children only. For `fd-selector`, `fd-checkbox`, or `fd-radio-group`, use manual `for`/`id` wiring.
+- **Non-text-entry form controls** — `fd-field` only discovers `fd-input` and `fd-textarea`. For `fd-selector`, `fd-checkbox`, or `fd-radio-group`, use manual `for`/`id` wiring.
 - **Custom layouts** — if you need non-standard spacing or ordering between label/input/message, compose them manually.
 
 ## Examples
@@ -41,11 +41,11 @@ A convenience wrapper that auto-wires `fd-label`, `fd-input`, and `fd-message` w
 </fd-field>
 ```
 
-`fd-field` auto-generates an ID on `fd-input` and sets matching `for` attributes on `fd-label` and `fd-message`. You do not need to set `id` or `for` manually.
+`fd-field` auto-generates an ID on the supported text-entry control and sets matching `for` attributes on `fd-label` and `fd-message`. You do not need to set `id` or `for` manually.
 
 ### With explicit IDs
 
-If you need a specific ID (e.g., for test selectors or deep linking), set it on `fd-input` directly. `fd-field` will use the existing ID instead of generating one:
+If you need a specific ID (e.g., for test selectors or deep linking), set it on `fd-input` or `fd-textarea` directly. `fd-field` will use the existing ID instead of generating one:
 
 ```html
 <fd-field>
@@ -68,15 +68,15 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 
 - **Category:** supporting standalone primitive
 - **Public API shape:** `fd-field` has no public attributes, properties, slots, or events of its own. Its contract is the direct-child composition model.
-- **Supported children:** one direct `fd-label`, one direct `fd-input`, and one direct `fd-message`
+- **Supported children:** one direct `fd-label`, one direct `fd-input` or `fd-textarea`, and one direct `fd-message`
 - **What it owns:** ID generation, `for`/`id` wiring, and layout spacing
 - **What it does not own:** validation, message content, labeling semantics, or child prop proxying
 
 ## Behavior
 
 - **Auto-wires direct children only.** `fd-field` does not query descendants inside wrapper `<div>` elements or nested components.
-- **Respects pre-set attributes.** If `fd-input` already has an `id`, or `fd-label`/`fd-message` already have `for`, those values are preserved. **Caution:** If you pre-set `for` on `fd-label` to a value different from the `fd-input`'s `id`, the label and input will point at different targets. Either let `fd-field` auto-wire everything, or set all `for`/`id` attributes explicitly.
-- **Warns on duplicates.** Multiple `fd-input`, `fd-label`, or `fd-message` direct children produce a console warning. Only the first of each is auto-wired.
+- **Respects pre-set attributes.** If the supported control already has an `id`, or `fd-label`/`fd-message` already have `for`, those values are preserved. **Caution:** If you pre-set `for` on `fd-label` to a value different from the control's `id`, the label and control will point at different targets. Either let `fd-field` auto-wire everything, or set all `for`/`id` attributes explicitly.
+- **Warns on duplicates.** Multiple supported text-entry controls, `fd-label`, or `fd-message` direct children produce a console warning. Only the first supported control is auto-wired.
 - **Nested `fd-field` is not supported** and produces a console warning.
 - **Spacing.** `fd-field` provides a vertical flex layout with 6px gap and neutralizes the built-in margins on `fd-label` and `fd-message` to avoid double-spacing.
 
@@ -88,12 +88,13 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 
 ## Known limitations
 
-- **Only discovers `fd-input`** — does not auto-wire `fd-selector`, `fd-checkbox`, or other form controls.
+- **Only discovers `fd-input` and `fd-textarea`** — does not auto-wire `fd-selector`, `fd-checkbox`, or other form controls.
 - **Direct children only** — children nested inside wrapper elements are not discovered.
 - **No prop proxying** — all attributes (`label`, `message`, `state`, `required`, etc.) go on the child components directly.
 
 ## Related components
 
-- [Input](/components/input) — the text input component that `fd-field` wraps
+- [Input](/components/input) — single-line text entry using the same composition pattern
+- [Text Area](/components/textarea) — multiline text entry using the same composition pattern
 - [Label](/components/label) — provides accessible name and description
 - [Message](/components/message) — provides helper, error, warning, and success content inside the field pattern
