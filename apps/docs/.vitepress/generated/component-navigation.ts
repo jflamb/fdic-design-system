@@ -23,5 +23,6 @@ export const firstClassComponentSidebarItems = [
 
 export const supportingPrimitiveSidebarItems = [
   { text: "Field", link: "/components/field" },
-  { text: "Message", link: "/components/message" }
+  { text: "Message", link: "/components/message" },
+  { text: "Visual", link: "/components/visual" }
 ];

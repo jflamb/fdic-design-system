@@ -115,6 +115,10 @@
       "types": "./dist/components/fd-textarea.d.ts",
       "import": "./dist/components/fd-textarea.js"
     },
+    "./fd-visual": {
+      "types": "./dist/components/fd-visual.d.ts",
+      "import": "./dist/components/fd-visual.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

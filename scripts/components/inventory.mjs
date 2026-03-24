@@ -480,6 +480,26 @@ export const componentInventory = [
     },
     typeExports: [],
   },
+  {
+    tagName: "fd-visual",
+    className: "FdVisual",
+    sourceFile: "fd-visual.ts",
+    docs: {
+      kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
+      title: "Visual",
+      slug: "visual",
+    },
+    storybook: {
+      title: "Supporting Primitives/Visual",
+      file: "fd-visual.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon"],
+    },
+    typeExports: ["VisualSize", "VisualType"],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

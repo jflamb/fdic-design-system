@@ -2386,5 +2386,119 @@
       ],
       "after": "`fd-textarea` keeps native manual resize enabled in the vertical direction only. Width remains controlled by the component container.\n\nWhen `maxlength` is present, the visible count is always shown and the screen-reader live region follows the same threshold-announcement contract as `fd-input`."
     }
+  },
+  "fd-visual": {
+    "properties": {
+      "rows": [
+        {
+          "name": "type",
+          "type": "`\"neutral\"` \\| `\"cool\"` \\| `\"warm\"` \\| `\"avatar\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Visual treatment for the circular surface. Use `avatar` when the visual should clip avatar media or render the placeholder avatar fallback."
+        },
+        {
+          "name": "size",
+          "type": "`\"xs\"` \\| `\"sm\"` \\| `\"md\"` \\| `\"lg\"` \\| `\"xl\"` \\| `\"2xl\"`",
+          "defaultValue": "`\"md\"`",
+          "description": "Applies one of the fixed Figma size presets for the overall circle and its inner content."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Optional decorative icon or avatar media. Leave empty to use the built-in fallback glyph or avatar placeholder."
+        }
+      ],
+      "after": "Slot content is decorative in v1. Do not slot interactive controls or content that must be announced independently."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-visual-size",
+          "default": "Preset from `size`",
+          "description": "Overrides the rendered circle size."
+        },
+        {
+          "name": "--fd-visual-padding",
+          "default": "Preset from `size`",
+          "description": "Overrides the inner padding for non-avatar variants."
+        },
+        {
+          "name": "--fd-visual-content-size",
+          "default": "Preset from `size`",
+          "description": "Overrides the inner content box size for non-avatar variants."
+        },
+        {
+          "name": "--fd-visual-radius",
+          "default": "`9999px`",
+          "description": "Corner radius for the circular surface."
+        },
+        {
+          "name": "--fd-visual-bg-neutral",
+          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "description": "Neutral surface background."
+        },
+        {
+          "name": "--fd-visual-fg-neutral",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Neutral foreground color used by the fallback glyph and slotted icon content."
+        },
+        {
+          "name": "--fd-visual-bg-cool",
+          "default": "`var(--ds-color-info-100, #38b6ff)`",
+          "description": "Cool surface background."
+        },
+        {
+          "name": "--fd-visual-fg-cool",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Cool foreground color used by the fallback glyph and slotted icon content."
+        },
+        {
+          "name": "--fd-visual-bg-warm",
+          "default": "`var(--ds-color-secondary-200, #ebd49b)`",
+          "description": "Warm surface background."
+        },
+        {
+          "name": "--fd-visual-fg-warm",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Warm foreground color used by the fallback glyph and slotted icon content."
+        },
+        {
+          "name": "--fd-visual-bg-avatar",
+          "default": "`transparent`",
+          "description": "Avatar background surface."
+        },
+        {
+          "name": "--fd-visual-avatar-placeholder-color",
+          "default": "`#b0b0b3`",
+          "description": "Placeholder avatar silhouette color."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "surface",
+          "description": "Outer circular wrapper."
+        },
+        {
+          "name": "content",
+          "description": "Inner frame that centers slotted media or the fallback visual."
+        },
+        {
+          "name": "fallback",
+          "description": "Built-in archive glyph or placeholder avatar wrapper when no slot content is supplied."
+        }
+      ],
+      "after": "- `fd-visual` stays decorative-only in v1 and sets `aria-hidden=\"true\"` on the host.\n- For avatar images, prefer empty `alt` text when adjacent content already names the subject."
+    }
   }
 }

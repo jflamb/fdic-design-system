@@ -15,6 +15,7 @@ import type { FdRadioGroup } from "./components/fd-radio-group.js";
 import type { FdSelector } from "./components/fd-selector.js";
 import type { FdSplitButton } from "./components/fd-split-button.js";
 import type { FdTextarea } from "./components/fd-textarea.js";
+import type { FdVisual } from "./components/fd-visual.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -35,5 +36,6 @@ declare global {
     "fd-selector": FdSelector;
     "fd-split-button": FdSplitButton;
     "fd-textarea": FdTextarea;
+    "fd-visual": FdVisual;
   }
 }

@@ -348,6 +348,16 @@ export const componentStoryApi = {
     "autocomplete": undefined,
     },
   },
+  "fd-visual": {
+    argTypes: {
+    "type": { control: "select", options: ["neutral","cool","warm","avatar"] },
+    "size": { control: "select", options: ["xs","sm","md","lg","xl","2xl"] },
+    },
+    args: {
+    "type": "neutral",
+    "size": "md",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {
