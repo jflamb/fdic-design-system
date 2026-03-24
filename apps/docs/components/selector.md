@@ -31,6 +31,75 @@ A dropdown that lets users choose one or more options from a predefined list. Av
   caption="Selector overview — simple, single, and multiple variants. Open Storybook for interactive controls and form examples."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"simple"` \| `"single"` \| `"multiple"` | `"simple"` | Visual and interaction variant. `multiple` enables multi-selection and checkbox indicators. |
+| `label` | `string` | `""` | Built-in field label text |
+| `name` | `string` | `""` | Submitted form field name |
+| `value` | `string` | `""` | Current selected value. In `multiple` mode, this mirrors the first selected value in DOM order. |
+| `values` | `string[]` | `[]` | Property-only API for reading or setting all selected values in `multiple` mode |
+| `disabled` | `boolean` | `false` | Prevents opening and selection changes |
+| `required` | `boolean` | `false` | Requires a selection. In `multiple` mode, requires at least one selected option. |
+| `open` | `boolean` | `false` | Current popup state |
+| `placeholder` | `string` | `"Select…"` | Trigger text shown when nothing is selected |
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| `description` | Group-level help text announced from the trigger |
+| (default) | One or more `fd-option` children |
+| `error` | Group-level validation message shown and announced while invalid |
+
+## Events
+
+| Name | Detail | Description |
+|------|--------|-------------|
+| `input` | Native `Event` | Fired when the current selection changes |
+| `change` | Native `Event` | Fired after the current selection changes |
+| `fd-selector-change` | `{ value: string, values: string[] }` | Fired for both single- and multi-select changes |
+| `fd-selector-open-change` | `{ open: boolean }` | Fired whenever the popup opens or closes |
+
+Compatibility note:
+
+- `fd-selector` still fires deprecated `fd-selector-open` and `fd-selector-close` during the compatibility window.
+- New consumer code should listen to `fd-selector-open-change`.
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-selector-required-color` | `#d80e3a` | Required marker color |
+| `--fd-selector-trigger-height` | `44px` | Minimum trigger height |
+| `--fd-selector-trigger-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Trigger border color at rest |
+| `--fd-selector-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Shared corner radius for trigger and popup |
+| `--fd-selector-trigger-bg` | `var(--fdic-background-base, #ffffff)` | Trigger background color |
+| `--fd-selector-trigger-border-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
+| `--fd-selector-error-border` | `#d80e3a` | Trigger border color while visible invalid state is active |
+| `--fd-selector-trigger-placeholder` | `var(--fdic-text-secondary, #595961)` | Placeholder text color |
+| `--fd-selector-dropdown-max-height` | `280px` | Maximum popup height before internal scrolling |
+| `--fd-selector-dropdown-bg` | `var(--fdic-background-base, #ffffff)` | Popup background color |
+| `--fd-selector-dropdown-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Popup border color |
+| `--fd-selector-dropdown-shadow` | `0px 1px 2px rgba(0, 0, 0, 0.1), 0px 2px 12px rgba(0, 0, 0, 0.1)` | Popup shadow |
+| `--fd-selector-error-color` | `#d80e3a` | Error text color |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `base` | Outer selector wrapper |
+| `label` | Built-in label element |
+| `label-text` | Label text wrapper |
+| `required-marker` | Required asterisk |
+| `description` | Optional description wrapper |
+| `trigger` | Native trigger button |
+| `value-display` | Selected value or placeholder text wrapper |
+| `chevron` | Trigger chevron wrapper |
+| `listbox` | Popup listbox container |
+| `error` | Error message wrapper |
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -85,22 +154,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **Forced colors**: High Contrast mode overrides use system colors for borders and selection.
 - **Reduced motion**: Chevron rotation and dropdown animation are suppressed under `prefers-reduced-motion`.
 
-## Event contract
-
-`fd-selector` uses component-specific public event names.
-
-| Event | Detail | Notes |
-|-------|--------|-------|
-| `fd-selector-change` | single-select: `{ value: string, values: string[] }` | `values` contains the current single selection when present |
-| `fd-selector-change` | multi-select: `{ value: string, values: string[] }` | `value` mirrors the first selected value in DOM order |
-| `fd-selector-open-change` | `{ open: boolean }` | Fired whenever the popup opens or closes |
-
-Compatibility note:
-
-- `fd-selector` still fires deprecated `fd-selector-open` and `fd-selector-close` during the compatibility window.
-- New consumer code should listen to `fd-selector-open-change`.
-
-### fd-option contract
+## fd-option contract
 
 `fd-option` is a supporting embedded primitive. It stays documented here because its meaning depends on the `fd-selector` parent.
 

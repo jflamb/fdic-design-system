@@ -28,6 +28,25 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
   caption="Overview — decorative, semantic, and control-integrated icon usage in one preview. Open Storybook for the full icon registry."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | `""` | Registry key for the icon to render. Unknown names render nothing and log a warning. |
+| `label` | `string` | `""` | Accessible name for semantic standalone icons. When set, `fd-icon` uses `role="img"` and `aria-label` instead of `aria-hidden`. |
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-icon-size` | `18px` | Inline and block size of the rendered icon |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `svg` | Wrapper around the inline SVG markup |
+
 ## Accessibility
 
 - Icons are **decorative by default** — `fd-icon` sets `aria-hidden="true"` automatically. Screen readers will skip the icon entirely, which is correct when the icon accompanies visible text.
@@ -45,7 +64,7 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
 
 - **Size**: Set the `--fd-icon-size` CSS custom property on the element or an ancestor. The default is `18px`.
 - **Color**: Icons inherit `currentColor` by default. Set `color` on the element or let it inherit from the parent.
-- **Custom icons**: Register additional icons with `FdIcon.register({ name: svgString })`. Registered icons are available globally.
+- **Custom icons**: Register additional icons with `FdIcon.register({ name: svgString })` or `FdIcon.register("name", svgString)`. Registered icons are available globally.
 
 ## Related components
 

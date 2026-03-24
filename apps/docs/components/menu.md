@@ -42,6 +42,58 @@ The second embed is intentional. The long-menu state demonstrates internal scrol
 - Keep destructive actions last and visually distinct.
 - Leave disabled actions visible when discoverability matters, but avoid filling a menu with mostly unavailable items.
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `anchor` | `string \| undefined` | `undefined` | ID of the external trigger element that owns `aria-expanded` and positioning |
+| `placement` | `Placement` | `"bottom-start"` | Preferred popup placement relative to the anchor element |
+| `open` | `boolean` | `false` | Current open state |
+| `label` | `string \| undefined` | `undefined` | Accessible name for the menu via `aria-label` |
+| `labelledby` | `string \| undefined` | `undefined` | Accessible name source for the menu via `aria-labelledby` |
+
+## Methods
+
+| Name | Description |
+|------|-------------|
+| `show()` | Opens the menu, positions it, focuses the first item, and fires `fd-menu-open-change` |
+| `showLast()` | Opens the menu and focuses the last item. Use for ArrowUp-to-open behavior. |
+| `hide()` | Closes the menu and fires `fd-menu-open-change` |
+| `toggle()` | Opens or closes the menu based on the current `open` state |
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| (default) | One or more `fd-menu-item` children |
+
+## Events
+
+| Name | Detail | Description |
+|------|--------|-------------|
+| `fd-menu-open-change` | `{ open: boolean }` | Fired whenever the menu opens or closes |
+
+Compatibility note:
+
+- `fd-menu` still fires deprecated `fd-open` during the compatibility window.
+- New consumer code should listen to `fd-menu-open-change`.
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-menu-border-radius` | `var(--fdic-corner-radius-lg, 7px)` | Menu surface corner radius |
+| `--fd-menu-min-width` | `180px` | Minimum menu width |
+| `--fd-menu-max-width` | `320px` | Maximum menu width |
+| `--fd-menu-max-height` | `300px` | Maximum menu height before internal scrolling |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `surface` | Popover surface element |
+| `menu` | Internal element with `role="menu"` |
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -125,22 +177,7 @@ The second embed is intentional. The long-menu state demonstrates internal scrol
 - **Forced colors**: Menu surface and items use system colors (`ButtonBorder`, `ButtonText`, `Highlight`, `HighlightText`, `GrayText`) so the menu remains distinguishable in Windows High Contrast mode.
 - **Reduced motion**: A media query guard suppresses any future animations under `prefers-reduced-motion: reduce`.
 
-## Event contract
-
-`fd-menu` and `fd-menu-item` now use component-specific public event names.
-
-| Component | Event | Detail | Notes |
-|-----------|-------|--------|-------|
-| `fd-menu` | `fd-menu-open-change` | `{ open: boolean }` | Fired whenever the menu opens or closes |
-| `fd-menu-item` | `fd-menu-item-select` | `{}` | Fired when a menu item is activated |
-
-Compatibility note:
-
-- `fd-menu` still fires deprecated `fd-open` during the compatibility window.
-- `fd-menu-item` still fires deprecated `fd-select` during the compatibility window.
-- New consumer code should listen to `fd-menu-open-change` and `fd-menu-item-select`.
-
-### fd-menu-item contract
+## fd-menu-item contract
 
 `fd-menu-item` is a supporting embedded primitive. It does not get its own top-level docs page, so its authoring contract lives here.
 
@@ -171,6 +208,11 @@ Compatibility note:
 - Keyboard movement between items is owned by the parent `fd-menu`.
 - Disabled items remain discoverable in menu navigation and expose `aria-disabled="true"`.
 - Activation fires `fd-menu-item-select` for new code and deprecated `fd-select` during the compatibility window.
+
+Compatibility note:
+
+- `fd-menu-item` still fires deprecated `fd-select` during the compatibility window.
+- New consumer code should listen to `fd-menu-item-select`.
 
 **Usage example**
 
