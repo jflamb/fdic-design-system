@@ -40,6 +40,11 @@ const renderLabel = (args: LabelArgs) => html`
 const meta = {
   title: "Components/Label",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     label: { control: "text" },
     for: { control: "text" },

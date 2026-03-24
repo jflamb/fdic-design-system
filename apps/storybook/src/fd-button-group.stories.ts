@@ -34,6 +34,11 @@ const renderButtonGroup = (args: ButtonGroupArgs) => html`
 const meta = {
   title: "Components/Button Group",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     ...getComponentArgTypes("fd-button-group"),
   },

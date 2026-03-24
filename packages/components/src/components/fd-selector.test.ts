@@ -151,10 +151,10 @@ describe("fd-selector", () => {
     expect(trigger.getAttribute("aria-controls")).toBe(listbox.id);
   });
 
-  it("sets aria-required when required", async () => {
+  it("does not put aria-required on the trigger when required", async () => {
     const el = await createSelector({ label: "Account", required: "true" });
 
-    expect(getTrigger(el).getAttribute("aria-required")).toBe("true");
+    expect(getTrigger(el).hasAttribute("aria-required")).toBe(false);
   });
 
   it("sets aria-labelledby pointing to label", async () => {
@@ -162,6 +162,16 @@ describe("fd-selector", () => {
     const labelEl = getLabelEl(el);
 
     expect(getTrigger(el).getAttribute("aria-labelledby")).toBe(labelEl?.id);
+  });
+
+  it("uses an accessible disabled label color fallback", async () => {
+    await createSelector({ label: "Account", disabled: "" });
+
+    const styles = String(
+      (customElements.get("fd-selector") as any).styles?.cssText ?? "",
+    );
+    expect(styles).toContain(":host([disabled]) [part=\"label-text\"]");
+    expect(styles).toContain("var(--fdic-text-secondary, #595961)");
   });
 
   // --- ARIA on listbox ---

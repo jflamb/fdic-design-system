@@ -511,9 +511,9 @@ describe("fd-input", () => {
     await expectNoAxeViolations(document.body, axeOverrides);
   });
 
-  // --- aria-labelledby forwarding ---
+  // --- Accessible name wiring ---
 
-  it("wires aria-labelledby from fd-label to the inner input", async () => {
+  it("mirrors the sibling fd-label text into aria-label on the inner input", async () => {
     const label = document.createElement("fd-label") as any;
     label.setAttribute("for", "test-labelled");
     label.setAttribute("label", "Full name");
@@ -525,8 +525,26 @@ describe("fd-input", () => {
     await el.updateComplete;
 
     const input = getInternal(el);
-    const labelledBy = input!.getAttribute("aria-labelledby") || "";
-    expect(labelledBy).toBe(label.labelId);
+    expect(input!.getAttribute("aria-label")).toBe("Full name");
+    expect(input!.hasAttribute("aria-labelledby")).toBe(false);
+  });
+
+  it("prefers an authored aria-label on the host over sibling label text", async () => {
+    const label = document.createElement("fd-label") as any;
+    label.setAttribute("for", "test-authored-label");
+    label.setAttribute("label", "Full name");
+    document.body.appendChild(label);
+    await label.updateComplete;
+
+    const el = await createInput({
+      id: "test-authored-label",
+      "aria-label": "Customer full legal name",
+    });
+    await new Promise((r) => requestAnimationFrame(r));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(input!.getAttribute("aria-label")).toBe("Customer full legal name");
   });
 
   // --- Form validity sync ---

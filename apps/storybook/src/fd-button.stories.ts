@@ -24,6 +24,11 @@ type ButtonArgs = {
 const meta = {
   title: "Components/Button",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     ...getComponentArgTypes("fd-button"),
     label: { control: "text" },

@@ -141,7 +141,7 @@ export class FdMessage extends LitElement {
       }
 
       fd-message[state="warning"] [part="message"] {
-        color: var(--fdic-status-warning, #b48c14);
+        color: var(--fdic-status-warning, #8a6100);
       }
 
       fd-message[state="success"] [part="message"] {

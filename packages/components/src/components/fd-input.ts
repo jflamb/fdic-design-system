@@ -296,13 +296,21 @@ export class FdInput extends LitElement {
     }
   }
 
-  // --- aria-labelledby assembly ---
+  // --- Accessible name assembly ---
 
-  private _assembleLabelledBy(): string | null {
-    const label = this._findLabel();
-    if (label?.labelId) {
-      return label.labelId;
+  private _assembleAriaLabel(): string | null {
+    const authoredAriaLabel = this.getAttribute("aria-label")?.trim();
+    if (authoredAriaLabel) {
+      return authoredAriaLabel;
     }
+
+    const label = this._findLabel();
+    const siblingLabel = label?.label?.trim();
+
+    if (siblingLabel) {
+      return siblingLabel;
+    }
+
     return null;
   }
 
@@ -660,7 +668,7 @@ export class FdInput extends LitElement {
     }
 
     :host([data-char-warn]) [part="char-count"] {
-      color: var(--fdic-status-warning, #b48c14);
+      color: var(--fdic-status-warning, #8a6100);
     }
 
     :host([data-char-limit]) [part="char-count"] {
@@ -749,7 +757,7 @@ export class FdInput extends LitElement {
   // --- Render ---
 
   override render() {
-    const labelledBy = this._assembleLabelledBy();
+    const ariaLabel = this._assembleAriaLabel();
     const describedBy = this._assembleDescribedBy();
     const isUserInvalid = this.hasAttribute("data-user-invalid");
     const hasCharCount = this.maxlength != null;
@@ -803,7 +811,7 @@ export class FdInput extends LitElement {
             pattern=${this.pattern ?? nothing}
             autocomplete=${this.autocomplete ?? nothing}
             inputmode=${this.inputmode ?? nothing}
-            aria-labelledby=${labelledBy ?? nothing}
+            aria-label=${ariaLabel ?? nothing}
             aria-describedby=${describedBy ?? nothing}
             aria-invalid=${isUserInvalid ? "true" : nothing}
             aria-required=${this.required ? "true" : nothing}

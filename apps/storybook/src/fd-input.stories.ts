@@ -109,6 +109,11 @@ const renderInput = (args: InputArgs) => html`
 const meta = {
   title: "Components/Input",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     id: { control: "text" },
     label: { control: "text" },

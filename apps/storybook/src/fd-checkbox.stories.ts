@@ -39,6 +39,11 @@ const renderCheckbox = (args: CheckboxArgs) => html`
 const meta = {
   title: "Components/Checkbox",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     checked: { control: "boolean" },
     indeterminate: { control: "boolean" },

@@ -37,6 +37,11 @@ const renderRadio = (args: RadioArgs) => html`
 const meta = {
   title: "Components/Radio",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     checked: { control: "boolean" },
     disabled: { control: "boolean" },

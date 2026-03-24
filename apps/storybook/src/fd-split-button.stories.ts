@@ -21,6 +21,9 @@ const meta = {
   title: "Components/Split Button",
   tags: ["autodocs"],
   parameters: {
+    a11y: {
+      test: "error",
+    },
     docs: {
       description: {
         component:

@@ -25,6 +25,11 @@ const iconNames = [
 const meta = {
   title: "Components/Icon",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     name: { control: "select", options: iconNames },
     label: { control: "text" },

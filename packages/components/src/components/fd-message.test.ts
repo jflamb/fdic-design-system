@@ -113,6 +113,15 @@ describe("fd-message", () => {
     expect(icon).not.toBeNull();
   });
 
+  it("uses an accessible warning color fallback", async () => {
+    const el = await createMessage({
+      message: "Check this value",
+      state: "warning",
+    });
+
+    expect(el.innerHTML).toContain("var(--fdic-status-warning, #8a6100)");
+  });
+
   // --- ARIA ---
 
   it("uses role=alert for error state", async () => {

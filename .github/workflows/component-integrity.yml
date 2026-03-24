@@ -29,6 +29,12 @@ jobs:
       - name: Run component tests
         run: npm run test:components
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Storybook browser tests
+        run: npm run test:storybook
+
       - name: Build component packages and docs
         run: npm run build
 

@@ -59,6 +59,9 @@ const meta = {
     error: "Please select a contact method.",
   },
   parameters: {
+    a11y: {
+      test: "error",
+    },
     docs: {
       description: {
         component:

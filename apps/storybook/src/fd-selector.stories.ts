@@ -68,6 +68,9 @@ const meta = {
     error: "",
   },
   parameters: {
+    a11y: {
+      test: "error",
+    },
     docs: {
       description: {
         component:

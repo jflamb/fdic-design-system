@@ -13,6 +13,9 @@ const meta = {
   title: "Components/Menu",
   tags: ["autodocs"],
   parameters: {
+    a11y: {
+      test: "error",
+    },
     docs: {
       description: {
         component:

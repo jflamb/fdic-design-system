@@ -73,7 +73,7 @@ export class FdSelector extends LitElement {
     }
 
     :host([disabled]) [part="label-text"] {
-      color: var(--fdic-text-disabled, #9e9ea0);
+      color: var(--fdic-text-secondary, #595961);
     }
 
     /* --- Description --- */
@@ -947,7 +947,6 @@ export class FdSelector extends LitElement {
           aria-controls=${listboxId}
           aria-labelledby=${this.label ? labelId : ""}
           aria-describedby=${describedBy || nothing}
-          aria-required=${this.required ? "true" : nothing}
           aria-invalid=${this.hasAttribute("data-user-invalid") ? "true" : nothing}
           ?disabled=${this.disabled}
           @click=${() => (this.open ? this._closeListbox() : this._openListbox())}
