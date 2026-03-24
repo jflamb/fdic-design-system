@@ -95,6 +95,22 @@
       "types": "./dist/components/fd-slider.d.ts",
       "import": "./dist/components/fd-slider.js"
     },
+    "./fd-badge": {
+      "types": "./dist/components/fd-badge.d.ts",
+      "import": "./dist/components/fd-badge.js"
+    },
+    "./fd-badge-group": {
+      "types": "./dist/components/fd-badge-group.d.ts",
+      "import": "./dist/components/fd-badge-group.js"
+    },
+    "./fd-chip": {
+      "types": "./dist/components/fd-chip.d.ts",
+      "import": "./dist/components/fd-chip.js"
+    },
+    "./fd-chip-group": {
+      "types": "./dist/components/fd-chip-group.d.ts",
+      "import": "./dist/components/fd-chip-group.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

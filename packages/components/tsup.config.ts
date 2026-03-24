@@ -25,6 +25,10 @@ export default defineConfig({
     "components/fd-split-button": "src/components/fd-split-button.ts",
     "components/fd-file-input": "src/components/fd-file-input.ts",
     "components/fd-slider": "src/components/fd-slider.ts",
+    "components/fd-badge": "src/components/fd-badge.ts",
+    "components/fd-badge-group": "src/components/fd-badge-group.ts",
+    "components/fd-chip": "src/components/fd-chip.ts",
+    "components/fd-chip-group": "src/components/fd-chip-group.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -44,6 +48,10 @@ export default defineConfig({
     "register/fd-split-button": "src/register/fd-split-button.ts",
     "register/fd-file-input": "src/register/fd-file-input.ts",
     "register/fd-slider": "src/register/fd-slider.ts",
+    "register/fd-badge": "src/register/fd-badge.ts",
+    "register/fd-badge-group": "src/register/fd-badge-group.ts",
+    "register/fd-chip": "src/register/fd-chip.ts",
+    "register/fd-chip-group": "src/register/fd-chip-group.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

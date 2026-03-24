@@ -1928,5 +1928,316 @@
       ],
       "after": ""
     }
+  },
+  "fd-badge-group": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Adds `role=\"group\"` and `aria-label` when the badge set benefits from a shared accessible name."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "One or more `fd-badge` elements."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-badge-group-gap",
+          "default": "`var(--fdic-spacing-2xs, 4px)`",
+          "description": "Gap between badges in the wrapping layout."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Internal wrapping flex container."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-badge": {
+    "properties": {
+      "rows": [
+        {
+          "name": "type",
+          "type": "`\"neutral\"` \\| `\"cool\"` \\| `\"warm\"` \\| `\"positive\"` \\| `\"alert\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Visual tone for the badge surface."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Visible badge label text."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-badge-height",
+          "default": "`28px`",
+          "description": "Minimum badge height."
+        },
+        {
+          "name": "--fd-badge-padding-inline",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Horizontal badge padding."
+        },
+        {
+          "name": "--fd-badge-radius",
+          "default": "`9999px`",
+          "description": "Pill corner radius."
+        },
+        {
+          "name": "--fd-badge-font-size",
+          "default": "`var(--fdic-font-size-body-small, 1rem)`",
+          "description": "Label font size."
+        },
+        {
+          "name": "--fd-badge-text-color",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Shared text color across tones."
+        },
+        {
+          "name": "--fd-badge-bg-neutral",
+          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "description": "Neutral badge background."
+        },
+        {
+          "name": "--fd-badge-bg-cool",
+          "default": "`var(--ds-color-info-050, #f1f8fe)`",
+          "description": "Cool badge background."
+        },
+        {
+          "name": "--fd-badge-bg-warm",
+          "default": "`var(--ds-color-secondary-050, #f8efda)`",
+          "description": "Warm badge background."
+        },
+        {
+          "name": "--fd-badge-bg-positive",
+          "default": "`var(--ds-color-success-050, #e8f5e9)`",
+          "description": "Positive badge background."
+        },
+        {
+          "name": "--fd-badge-bg-alert",
+          "default": "`var(--ds-color-error-050, #fdedea)`",
+          "description": "Alert badge background."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Outer pill container."
+        },
+        {
+          "name": "label",
+          "description": "Visible label wrapper."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-chip": {
+    "properties": {
+      "rows": [
+        {
+          "name": "type",
+          "type": "`\"neutral\"` \\| `\"cool\"` \\| `\"warm\"` \\| `\"positive\"` \\| `\"alert\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Visual tone for the chip surface."
+        },
+        {
+          "name": "removeLabel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible-name override for the internal remove button."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Visible chip label text."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-chip-remove",
+          "detail": "`{}`",
+          "description": "Fired when the internal remove button is activated."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-chip-height",
+          "default": "`28px`",
+          "description": "Minimum chip height."
+        },
+        {
+          "name": "--fd-chip-padding-inline-start",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Leading inline padding before the label."
+        },
+        {
+          "name": "--fd-chip-remove-size",
+          "default": "`28px`",
+          "description": "Square size for the internal remove button."
+        },
+        {
+          "name": "--fd-chip-remove-gap",
+          "default": "`var(--fdic-spacing-3xs, 2px)`",
+          "description": "Space between the label and the remove affordance."
+        },
+        {
+          "name": "--fd-chip-radius",
+          "default": "`9999px`",
+          "description": "Pill corner radius."
+        },
+        {
+          "name": "--fd-chip-font-size",
+          "default": "`var(--fdic-font-size-body-small, 1rem)`",
+          "description": "Label font size."
+        },
+        {
+          "name": "--fd-chip-text-color",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Shared text color across tones."
+        },
+        {
+          "name": "--fd-chip-bg-neutral",
+          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "description": "Neutral chip background."
+        },
+        {
+          "name": "--fd-chip-bg-cool",
+          "default": "`var(--ds-color-info-050, #f1f8fe)`",
+          "description": "Cool chip background."
+        },
+        {
+          "name": "--fd-chip-bg-warm",
+          "default": "`var(--ds-color-secondary-050, #f8efda)`",
+          "description": "Warm chip background."
+        },
+        {
+          "name": "--fd-chip-bg-positive",
+          "default": "`var(--ds-color-success-050, #e8f5e9)`",
+          "description": "Positive chip background."
+        },
+        {
+          "name": "--fd-chip-bg-alert",
+          "default": "`var(--ds-color-error-050, #fdedea)`",
+          "description": "Alert chip background."
+        },
+        {
+          "name": "--fd-chip-remove-overlay-hover",
+          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "description": "Hover overlay for the internal remove button."
+        },
+        {
+          "name": "--fd-chip-remove-overlay-active",
+          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "description": "Pressed overlay for the internal remove button."
+        },
+        {
+          "name": "--fd-chip-remove-focus-ring",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Focus-ring color for the internal remove button."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Outer pill container."
+        },
+        {
+          "name": "label",
+          "description": "Visible label wrapper."
+        },
+        {
+          "name": "remove-button",
+          "description": "Internal native remove button."
+        },
+        {
+          "name": "remove-icon",
+          "description": "Decorative close icon wrapper inside the button."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-chip-group": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Adds `role=\"group\"` and `aria-label` when the chip set benefits from a shared accessible name."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "One or more `fd-chip` elements."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-chip-group-gap",
+          "default": "`var(--fdic-spacing-2xs, 4px)`",
+          "description": "Gap between chips in the wrapping layout."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Internal wrapping flex container."
+        }
+      ],
+      "after": ""
+    }
   }
 }

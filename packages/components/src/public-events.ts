@@ -17,6 +17,7 @@ export type FdSelectorOpenChangeDetail = FdOpenChangeDetail;
 export type FdSplitButtonOpenChangeDetail = FdOpenChangeDetail;
 
 export type FdCheckboxGroupChangeDetail = FdValuesChangeDetail;
+export type FdChipRemoveDetail = FdActionDetail;
 export type FdSelectorChangeDetail = FdValuesChangeDetail;
 export type FdRadioGroupChangeDetail = FdValueChangeDetail;
 

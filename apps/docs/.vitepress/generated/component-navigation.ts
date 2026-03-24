@@ -13,7 +13,11 @@ export const firstClassComponentSidebarItems = [
   { text: "Selector", link: "/components/selector" },
   { text: "Split Button", link: "/components/split-button" },
   { text: "File Input", link: "/components/file-input" },
-  { text: "Slider", link: "/components/slider" }
+  { text: "Slider", link: "/components/slider" },
+  { text: "Badge", link: "/components/badge" },
+  { text: "Badge Group", link: "/components/badge-group" },
+  { text: "Chip", link: "/components/chip" },
+  { text: "Chip Group", link: "/components/chip-group" }
 ];
 
 export const supportingPrimitiveSidebarItems = [
