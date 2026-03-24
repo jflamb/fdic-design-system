@@ -31,6 +31,8 @@ export { FdStripe } from "./components/fd-stripe.js";
 export { FdLink } from "./components/fd-link.js";
 export { FdPagination } from "./components/fd-pagination.js";
 export { FdGlobalHeader } from "./components/fd-global-header.js";
+export { FdHeaderSearch } from "./components/fd-header-search.js";
+export { FdDrawer } from "./components/fd-drawer.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -49,6 +51,8 @@ export type { AlertVariant, AlertType, AlertLive } from "./components/fd-alert.j
 export type { StripeType } from "./components/fd-stripe.js";
 export type { LinkVariant, LinkSize } from "./components/fd-link.js";
 export type { GlobalHeaderSearchSurface, FdGlobalHeaderLeafItem, FdGlobalHeaderSectionItem, FdGlobalHeaderSection, FdGlobalHeaderLinkItem, FdGlobalHeaderPanelItem, FdGlobalHeaderNavigationItem, FdGlobalHeaderSearchConfig, FdGlobalHeaderSearchSubmitDetail } from "./components/fd-global-header.js";
+export type { HeaderSearchSurface, FdHeaderSearchItem, FdHeaderSearchInputDetail, FdHeaderSearchOpenChangeDetail, FdHeaderSearchSubmitDetail, FdHeaderSearchActivateDetail } from "./components/fd-header-search.js";
+export type { FdDrawerPlacement, FdDrawerCloseRequestDetail } from "./components/fd-drawer.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

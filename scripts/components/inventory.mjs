@@ -596,7 +596,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-icon", "fd-input"],
+      dependencies: ["fd-icon", "fd-header-search", "fd-drawer"],
     },
     typeExports: [
       "GlobalHeaderSearchSurface",
@@ -609,6 +609,53 @@ export const componentInventory = [
       "FdGlobalHeaderSearchConfig",
       "FdGlobalHeaderSearchSubmitDetail",
     ],
+  },
+    {
+    tagName: "fd-header-search",
+    className: "FdHeaderSearch",
+    sourceFile: "fd-header-search.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Header Search",
+      slug: "header-search"
+    },
+    storybook: {
+      title: "Supporting Primitives/Header Search",
+      file: "fd-header-search.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon", "fd-drawer"]
+    },
+    typeExports: [
+      "HeaderSearchSurface",
+      "FdHeaderSearchItem",
+      "FdHeaderSearchInputDetail",
+      "FdHeaderSearchOpenChangeDetail",
+      "FdHeaderSearchSubmitDetail",
+      "FdHeaderSearchActivateDetail",
+    ]
+  },
+    {
+    tagName: "fd-drawer",
+    className: "FdDrawer",
+    sourceFile: "fd-drawer.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Drawer",
+      slug: "drawer"
+    },
+    storybook: {
+      title: "Supporting Primitives/Drawer",
+      file: "fd-drawer.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["FdDrawerPlacement", "FdDrawerCloseRequestDetail"]
   },
   // New component entries are inserted above this line by the scaffold script.
 ];

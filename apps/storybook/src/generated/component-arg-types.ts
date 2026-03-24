@@ -422,6 +422,46 @@ export const componentStoryApi = {
     "search": null,
     },
   },
+  "fd-header-search": {
+    argTypes: {
+    "surface": { control: "select", options: ["desktop","mobile"] },
+    "action": { control: "text" },
+    "label": { control: "text" },
+    "placeholder": { control: "text" },
+    "submitLabel": { control: "text" },
+    "searchAllLabel": { control: "text" },
+    "paramName": { control: "text" },
+    "items": { control: "text" },
+    "value": { control: "text" },
+    "open": { control: "boolean" },
+    },
+    args: {
+    "surface": "desktop",
+    "action": "/search",
+    "label": "Search",
+    "placeholder": "Search",
+    "submitLabel": "Open first matching result",
+    "searchAllLabel": "Search all",
+    "paramName": "q",
+    "items": "[]",
+    "value": "",
+    "open": false,
+    },
+  },
+  "fd-drawer": {
+    argTypes: {
+    "open": { control: "boolean" },
+    "label": { control: "text" },
+    "modal": { control: "boolean" },
+    "placement": { control: "select", options: ["top"] },
+    },
+    args: {
+    "open": false,
+    "label": "",
+    "modal": false,
+    "placement": "top",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

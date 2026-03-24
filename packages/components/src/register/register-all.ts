@@ -35,4 +35,6 @@ import "./fd-stripe.js";
 import "./fd-link.js";
 import "./fd-pagination.js";
 import "./fd-global-header.js";
+import "./fd-header-search.js";
+import "./fd-drawer.js";
 import "../icons/phosphor-regular.js";

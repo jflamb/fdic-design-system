@@ -1,64 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/register-all.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
-
-const SAMPLE_NAVIGATION = [
-  {
-    kind: "link",
-    label: "Dashboard",
-    href: "/dashboard",
-    current: true,
-    description: "Overview",
-  },
-  {
-    kind: "panel",
-    id: "banking",
-    label: "Banking",
-    href: "/banking",
-    description: "Manage accounts and support resources.",
-    sections: [
-      {
-        label: "Accounts",
-        href: "/banking/accounts",
-        description: "Open and monitor accounts.",
-        items: [
-          {
-            label: "Checking",
-            href: "/banking/accounts/checking",
-            description: "Everyday account services.",
-            children: [
-              {
-                label: "Routing numbers",
-                href: "/banking/accounts/checking/routing",
-              },
-            ],
-          },
-          {
-            label: "Savings",
-            href: "/banking/accounts/savings",
-            description: "Savings products.",
-          },
-        ],
-      },
-      {
-        label: "Support",
-        href: "/banking/support",
-        items: [
-          {
-            label: "Contact",
-            href: "/banking/support/contact",
-          },
-        ],
-      },
-    ],
-  },
-] as const;
-
-const SEARCH_CONFIG = {
-  action: "/search",
-  label: "Search FDIC",
-  placeholder: "Search FDIC",
-} as const;
+import {
+  createFdGlobalHeaderPrototypeSearch,
+  fdGlobalHeaderPrototypeNavigation,
+} from "./fd-global-header.prototype.js";
 
 let mobileMatches = false;
 
@@ -83,37 +29,54 @@ async function nextFrame() {
   await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
 
+async function wait(ms = 0) {
+  await new Promise<void>((resolve) => window.setTimeout(resolve, ms));
+}
+
 async function createHeader({ mobile = false } = {}) {
   mobileMatches = mobile;
   installMatchMediaStub();
 
-  const el = document.createElement("fd-global-header") as any;
-  el.navigation = structuredClone(SAMPLE_NAVIGATION);
-  el.search = { ...SEARCH_CONFIG };
+  const el = document.createElement("fd-global-header") as HTMLElement & {
+    navigation: typeof fdGlobalHeaderPrototypeNavigation;
+    search: ReturnType<typeof createFdGlobalHeaderPrototypeSearch>;
+    updateComplete: Promise<unknown>;
+  };
+
+  el.navigation = structuredClone(fdGlobalHeaderPrototypeNavigation);
+  el.search = createFdGlobalHeaderPrototypeSearch("/search");
   el.innerHTML = `
-    <a slot="brand" href="/" aria-label="FDIC home">FDIC</a>
-    <a slot="utility" href="/profile">Profile</a>
+    <a slot="brand" href="/" aria-label="FDICnet home">FDICnet</a>
+    <a slot="utility" href="#employee-directory">Employee directory</a>
+    <a slot="utility" href="#help">Help</a>
   `;
+
   document.body.appendChild(el);
   await el.updateComplete;
   await nextFrame();
   return el;
 }
 
-function getDesktopPanelTrigger(el: any): HTMLButtonElement | null {
+function getPanelTrigger(el: HTMLElement, panelId: string) {
   return el.shadowRoot?.querySelector(
-    "[data-panel-trigger='banking']",
+    `[data-panel-trigger="${panelId}"]`,
   ) as HTMLButtonElement | null;
 }
 
-function getDesktopPanel(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector(".desktop-panel") as HTMLElement | null;
+function getDesktopSearch(el: HTMLElement) {
+  return el.shadowRoot?.querySelector(
+    '[data-search-surface="desktop"]',
+  ) as HTMLElement | null;
 }
 
-function getDesktopSearchInput(el: any): HTMLElement & { value?: string } {
+function getMobileSearch(el: HTMLElement) {
   return el.shadowRoot?.querySelector(
-    ".desktop-search fd-input",
-  ) as HTMLElement & { value?: string };
+    '[data-search-surface="mobile"]',
+  ) as HTMLElement | null;
+}
+
+function getSearchInput(searchHost: HTMLElement | null) {
+  return searchHost?.shadowRoot?.querySelector(".native") as HTMLInputElement | null;
 }
 
 describe("fd-global-header", () => {
@@ -127,25 +90,14 @@ describe("fd-global-header", () => {
     expect(customElements.get("fd-global-header")).toBeDefined();
   });
 
-  it("renders a primary navigation landmark with links and disclosure buttons", async () => {
-    const el = await createHeader();
-    const nav = el.shadowRoot?.querySelector("nav[aria-label='Primary']");
-    const directLink = el.shadowRoot?.querySelector(
-      ".primary-link[href='/dashboard']",
-    );
-    const panelTrigger = getDesktopPanelTrigger(el);
-
-    expect(nav).not.toBeNull();
-    expect(directLink?.getAttribute("aria-current")).toBe("page");
-    expect(panelTrigger?.getAttribute("aria-expanded")).toBe("false");
-  });
-
-  it("generates instance-safe control ids for multiple headers", async () => {
+  it("generates instance-safe trigger and search control ids", async () => {
     const first = await createHeader();
     const second = await createHeader();
 
-    const firstTrigger = getDesktopPanelTrigger(first);
-    const secondTrigger = getDesktopPanelTrigger(second);
+    const firstTrigger = getPanelTrigger(first, "news-events");
+    const secondTrigger = getPanelTrigger(second, "news-events");
+    const firstSearchInput = getSearchInput(getDesktopSearch(first));
+    const secondSearchInput = getSearchInput(getDesktopSearch(second));
 
     expect(firstTrigger?.id).toBeTruthy();
     expect(secondTrigger?.id).toBeTruthy();
@@ -153,36 +105,64 @@ describe("fd-global-header", () => {
     expect(firstTrigger?.getAttribute("aria-controls")).not.toBe(
       secondTrigger?.getAttribute("aria-controls"),
     );
+    expect(firstSearchInput?.id).toBeTruthy();
+    expect(firstSearchInput?.id).not.toBe(secondSearchInput?.id);
   });
 
-  it("ArrowDown opens the desktop panel and moves focus into the panel", async () => {
+  it("restores the prototype desktop description treatment and l3 preview content", async () => {
     const el = await createHeader();
-    const trigger = getDesktopPanelTrigger(el);
+    const trigger = getPanelTrigger(el, "news-events");
 
-    trigger?.focus();
-    trigger?.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }),
-    );
-
+    trigger?.click();
     await el.updateComplete;
     await nextFrame();
-    await nextFrame();
-    await nextFrame();
 
-    const panel = getDesktopPanel(el);
-    const firstFocusable = el.shadowRoot?.querySelector(
-      "[data-panel-focusable='true']",
+    const l1Description = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-description--inline",
+    ) as HTMLElement | null;
+    const l2Overview = el.shadowRoot?.querySelector(
+      ".mega-col--l2 .menu-item-link--overview",
+    ) as HTMLElement | null;
+    const l2Description = el.shadowRoot?.querySelector(
+      ".mega-col--l2 .menu-description--inline",
     ) as HTMLElement | null;
 
-    expect(panel?.hidden).toBe(false);
-    expect(trigger?.getAttribute("aria-expanded")).toBe("true");
-    expect(el.shadowRoot?.activeElement).toBe(firstFocusable);
+    expect(l1Description?.textContent?.trim()).toBe(
+      "Stay current with FDIC announcements, upcoming events, and multimedia content.",
+    );
+    expect(l2Overview?.textContent).toContain("News Overview");
+    expect(l2Description?.textContent?.trim()).toBe(
+      "Explore News services, guidance, and related resources.",
+    );
+
+    const globalMessages = el.shadowRoot?.querySelector(
+      '.mega-col--l2 a[href="#global-messages"]',
+    ) as HTMLAnchorElement | null;
+
+    globalMessages?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const l3FirstLink = el.shadowRoot?.querySelector(
+      '.mega-col--l3 .menu-item-link[href="#global-digest-faq"]',
+    ) as HTMLAnchorElement | null;
+    const l3Description = el.shadowRoot?.querySelector(
+      ".mega-col--l3 .menu-description--l3",
+    ) as HTMLElement | null;
+
+    expect(l3FirstLink?.textContent).toContain("Global Digest FAQ");
+    expect(l3Description?.textContent?.trim()).toBe(
+      "View updates, schedules, and related materials for Global Messages in News.",
+    );
   });
 
-  it("Escape closes the desktop panel and returns focus to the trigger", async () => {
+  it("Escape closes the desktop mega-menu and returns focus to the active trigger", async () => {
     const el = await createHeader();
-    const trigger = getDesktopPanelTrigger(el);
+    const trigger = getPanelTrigger(el, "news-events");
 
+    trigger?.focus();
     trigger?.dispatchEvent(
       new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }),
     );
@@ -191,15 +171,16 @@ describe("fd-global-header", () => {
 
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     await el.updateComplete;
+    await nextFrame();
 
-    const panel = getDesktopPanel(el);
+    const megaMenu = el.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
 
-    expect(panel?.hidden).toBe(true);
+    expect(megaMenu?.hidden).toBe(true);
     expect(trigger?.getAttribute("aria-expanded")).toBe("false");
     expect(el.shadowRoot?.activeElement).toBe(trigger);
   });
 
-  it("opens the mobile drawer and drills into grouped navigation", async () => {
+  it("uses the prototype mobile drill-down structure and restores toggle focus on close", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
       "[data-mobile-toggle='menu']",
@@ -207,93 +188,79 @@ describe("fd-global-header", () => {
 
     menuToggle?.click();
     await el.updateComplete;
+    await nextFrame();
 
-    const drawer = el.shadowRoot?.querySelector(".mobile-surface") as
-      | HTMLElement
-      | null;
-    const firstPanelButton = drawer?.querySelector(
+    const drawer = el.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLElement | null;
+    const drawerTitle = el.shadowRoot?.querySelector(
+      ".mobile-title",
+    ) as HTMLElement | null;
+    const firstSectionButton = el.shadowRoot?.querySelector(
       ".mobile-button",
     ) as HTMLButtonElement | null;
 
-    expect(drawer?.hidden).toBe(false);
-    expect(menuToggle?.getAttribute("aria-expanded")).toBe("true");
+    expect(drawer?.open).toBe(true);
+    expect(drawerTitle?.textContent?.trim()).toBe("News & Events");
+    expect(firstSectionButton?.textContent).toContain("News");
 
-    firstPanelButton?.click();
+    firstSectionButton?.click();
     await el.updateComplete;
+    await nextFrame();
 
-    const heading = drawer?.querySelector(".mobile-heading");
-    expect(heading?.textContent).toContain("Banking");
-  });
+    const mobileContext = el.shadowRoot?.querySelector(
+      ".mobile-context",
+    ) as HTMLElement | null;
+    const mobileDescription = el.shadowRoot?.querySelector(
+      ".mobile-item-meta",
+    ) as HTMLElement | null;
 
-  it("renders search suggestions from the supplied navigation data", async () => {
-    const el = await createHeader();
-    const searchInput = getDesktopSearchInput(el);
-
-    searchInput.value = "checking";
-    searchInput.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
-    await el.updateComplete;
-
-    const resultLink = el.shadowRoot?.querySelector(
-      ".search-result-link[href='/banking/accounts/checking']",
+    expect(mobileContext?.textContent).toContain("News & Events");
+    expect(mobileContext?.textContent).toContain("News");
+    expect(mobileDescription?.textContent?.trim()).toBe(
+      "Explore News services, guidance, and related resources.",
     );
 
-    expect(resultLink).not.toBeNull();
+    drawer?.dispatchEvent(
+      new CustomEvent("fd-drawer-close-request", {
+        bubbles: true,
+        composed: true,
+        detail: { source: "escape" },
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(menuToggle).toBe(el.shadowRoot?.activeElement);
   });
 
-  it("dispatches a cancelable search-submit event with first-match and fallback hrefs", async () => {
-    const el = await createHeader();
-    const searchInput = getDesktopSearchInput(el);
-    const spy = vi.fn((event: Event) => event.preventDefault());
-    el.addEventListener("fd-global-header-search-submit", spy);
+  it("coordinates one shared query value between desktop and mobile search surfaces", async () => {
+    const el = await createHeader({ mobile: true });
+    const desktopSearch = getDesktopSearch(el);
+    const desktopInput = getSearchInput(desktopSearch);
 
-    searchInput.value = "checking";
-    searchInput.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    if (!desktopInput) {
+      throw new Error("Expected desktop search input");
+    }
+
+    desktopInput.value = "Global Messages";
+    desktopInput.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    await wait(220);
     await el.updateComplete;
 
-    const form = el.shadowRoot?.querySelector(
-      ".desktop-search form",
-    ) as HTMLFormElement | null;
-    form?.dispatchEvent(
-      new Event("submit", { bubbles: true, cancelable: true }),
-    );
-
-    const submitEvent = spy.mock.calls[0][0] as CustomEvent;
-
-    expect(spy).toHaveBeenCalledOnce();
-    expect(submitEvent.detail.query).toBe("checking");
-    expect(submitEvent.detail.firstMatchHref).toBe(
-      "/banking/accounts/checking",
-    );
-    expect(submitEvent.detail.href).toContain("/search?q=checking");
-    expect(submitEvent.detail.surface).toBe("desktop");
-  });
-
-  it("reports fallback search submission details when no direct match exists", async () => {
-    const el = await createHeader();
-    const searchInput = getDesktopSearchInput(el);
-    const spy = vi.fn((event: Event) => event.preventDefault());
-    el.addEventListener("fd-global-header-search-submit", spy);
-
-    searchInput.value = "unmatched phrase";
-    searchInput.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    const searchToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='search']",
+    ) as HTMLButtonElement | null;
+    searchToggle?.click();
     await el.updateComplete;
+    await nextFrame();
 
-    const form = el.shadowRoot?.querySelector(
-      ".desktop-search form",
-    ) as HTMLFormElement | null;
-    form?.dispatchEvent(
-      new Event("submit", { bubbles: true, cancelable: true }),
-    );
-
-    const submitEvent = spy.mock.calls[0][0] as CustomEvent;
-
-    expect(spy).toHaveBeenCalledOnce();
-    expect(submitEvent.detail.firstMatchHref).toBeUndefined();
-    expect(submitEvent.detail.href).toContain("/search?q=unmatched+phrase");
+    const mobileInput = getSearchInput(getMobileSearch(el));
+    expect(mobileInput?.value).toBe("Global Messages");
   });
 
-  it("has no obvious accessibility violations in the default desktop state", async () => {
+  it("has no detectable axe violations in the default closed state", async () => {
     const el = await createHeader();
-    await expectNoAxeViolations(el);
+    await expectNoAxeViolations(el.shadowRoot!);
   });
 });

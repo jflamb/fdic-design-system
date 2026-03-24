@@ -36,6 +36,8 @@ export default defineConfig({
     "components/fd-link": "src/components/fd-link.ts",
     "components/fd-pagination": "src/components/fd-pagination.ts",
     "components/fd-global-header": "src/components/fd-global-header.ts",
+    "components/fd-header-search": "src/components/fd-header-search.ts",
+    "components/fd-drawer": "src/components/fd-drawer.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -66,6 +68,8 @@ export default defineConfig({
     "register/fd-link": "src/register/fd-link.ts",
     "register/fd-pagination": "src/register/fd-pagination.ts",
     "register/fd-global-header": "src/register/fd-global-header.ts",
+    "register/fd-header-search": "src/register/fd-header-search.ts",
+    "register/fd-drawer": "src/register/fd-drawer.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

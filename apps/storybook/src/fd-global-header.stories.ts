@@ -1,122 +1,54 @@
+import type {
+  FdGlobalHeaderNavigationItem,
+  FdGlobalHeaderSearchConfig,
+} from "@fdic-ds/components";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { expect, userEvent, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
   getComponentArgTypes,
 } from "./generated/component-arg-types";
+import {
+  createFdGlobalHeaderPrototypeSearch,
+  fdGlobalHeaderPrototypeNavigation,
+} from "../../../packages/components/src/components/fd-global-header.prototype.js";
 
 type GlobalHeaderArgs = {
-  navigation: Array<Record<string, unknown>>;
-  search: Record<string, unknown> | null;
+  navigation: FdGlobalHeaderNavigationItem[];
+  search: FdGlobalHeaderSearchConfig | null;
 };
 
-const sampleNavigation = [
-  {
-    kind: "link",
-    label: "Dashboard",
-    href: "/dashboard",
-    current: true,
-    description: "Overview",
-  },
-  {
-    kind: "panel",
-    id: "banking",
-    label: "Banking",
-    href: "/banking",
-    description: "Manage accounts and support resources.",
-    sections: [
-      {
-        label: "Accounts",
-        href: "/banking/accounts",
-        description: "Open and monitor accounts.",
-        items: [
-          {
-            label: "Checking",
-            href: "/banking/accounts/checking",
-            description: "Everyday account services.",
-            children: [
-              {
-                label: "Routing numbers",
-                href: "/banking/accounts/checking/routing",
-              },
-            ],
-          },
-          {
-            label: "Savings",
-            href: "/banking/accounts/savings",
-            description: "Savings products.",
-          },
-        ],
-      },
-      {
-        label: "Support",
-        href: "/banking/support",
-        description: "Contact and service requests.",
-        items: [
-          {
-            label: "Contact",
-            href: "/banking/support/contact",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    kind: "panel",
-    id: "policy",
-    label: "Policy",
-    href: "/policy",
-    description: "Guidance, filings, and supervision resources.",
-    sections: [
-      {
-        label: "Filings",
-        href: "/policy/filings",
-        items: [
-          {
-            label: "Submit filing",
-            href: "/policy/filings/submit",
-          },
-        ],
-      },
-    ],
-  },
-] satisfies GlobalHeaderArgs["navigation"];
-
-const sampleSearch = {
-  action: "/search",
-  label: "Search FDIC",
-  placeholder: "Search FDIC",
-  submitLabel: "Search all FDIC",
-} satisfies NonNullable<GlobalHeaderArgs["search"]>;
+function createStoryArgs(): GlobalHeaderArgs {
+  return {
+    navigation: structuredClone(fdGlobalHeaderPrototypeNavigation),
+    search: createFdGlobalHeaderPrototypeSearch("/search"),
+  };
+}
 
 const renderHeader = (
   args: GlobalHeaderArgs,
-  options: { mobile?: boolean; condensed?: boolean } = {},
+  options: { mobile?: boolean } = {},
 ) => html`
   <div
     style=${[
-      "padding-bottom: 28rem",
-      options.mobile ? "max-width: 23rem; margin-inline: auto;" : "width: 100%;",
-      options.condensed ? "max-width: 68rem; margin-inline: auto;" : "",
-    ].join(" ")}
+      "padding-bottom: 32rem",
+      "background: linear-gradient(180deg, #f7fafc 0%, #eef3f7 100%)",
+      options.mobile ? "max-width: 24rem; margin-inline: auto;" : "width: 100%;",
+    ].join("; ")}
   >
-    <fd-global-header
-      .navigation=${args.navigation}
-      .search=${args.search}
-      style=${options.mobile ? "display:block;" : ""}
-    >
+    <fd-global-header .navigation=${args.navigation} .search=${args.search}>
       <a
         slot="brand"
         href="/"
-        aria-label="FDIC home"
-        style="font-weight:700; font-size:1.125rem;"
+        aria-label="FDICnet home"
+        style="color:#ffffff; text-decoration:none; font-weight:700; font-size:1.125rem;"
       >
-        FDIC
+        FDICnet
       </a>
-      <a slot="utility" href="/profile">Profile</a>
-      <a slot="utility" href="/help">Help</a>
+      <a slot="utility" href="#employee-directory" style="color:#ffffff; text-decoration:none;">Employee directory</a>
+      <a slot="utility" href="#help" style="color:#ffffff; text-decoration:none;">Help</a>
     </fd-global-header>
   </div>
 `;
@@ -132,7 +64,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Public contract: provide navigation and search data as JS properties and supply brand/utility content through slots. `fd-global-header` intentionally does not reuse `fd-menu` because the header family needs navigation semantics, not action-menu semantics.",
+          "Prototype-alignment stories use the exact `fdicnet-main-menu` YAML-derived content fixture. `fd-global-header` owns surface state and focus recovery; the application owns the information architecture and routing.",
       },
     },
   },
@@ -140,7 +72,7 @@ const meta = {
     ...getComponentArgTypes("fd-global-header"),
     navigation: {
       control: "object",
-      description: "Consumer-provided primary navigation data.",
+      description: "Consumer-provided primary navigation tree.",
     },
     search: {
       control: "object",
@@ -149,8 +81,7 @@ const meta = {
   },
   args: {
     ...getComponentArgs("fd-global-header"),
-    navigation: sampleNavigation,
-    search: sampleSearch,
+    ...createStoryArgs(),
   },
   render: (args: GlobalHeaderArgs) => renderHeader(args),
 } satisfies Meta<GlobalHeaderArgs>;
@@ -160,35 +91,59 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
 
-export const DesktopMegaMenu: Story = {
-  render: (args) => renderHeader(args, { condensed: true }),
+export const PrototypeDesktop: Story = {
+  args: createStoryArgs(),
 };
 
-DesktopMegaMenu.play = async ({ canvasElement }) => {
+PrototypeDesktop.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {
     expect(host?.shadowRoot).toBeTruthy();
   });
 
-  const bankingTrigger = host?.shadowRoot?.querySelector(
-    "[data-panel-trigger='banking']",
+  const trigger = host?.shadowRoot?.querySelector(
+    '[data-panel-trigger="news-events"]',
   ) as HTMLButtonElement | null;
 
-  expect(bankingTrigger).toBeTruthy();
-  await userEvent.click(bankingTrigger!);
+  expect(trigger).toBeTruthy();
+  await userEvent.click(trigger!);
 
   await waitFor(() => {
-    const panel = host?.shadowRoot?.querySelector(".desktop-panel");
+    const panel = host?.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+    expect(panel?.hidden).toBe(false);
+  });
+};
+
+export const PrototypeSearchOpen: Story = {
+  args: createStoryArgs(),
+};
+
+PrototypeSearchOpen.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+  });
+
+  const searchHost = host?.shadowRoot?.querySelector(
+    '[data-search-surface="desktop"]',
+  ) as HTMLElement | null;
+  const input = searchHost?.shadowRoot?.querySelector(".native") as HTMLInputElement | null;
+
+  expect(input).toBeTruthy();
+  await userEvent.click(input!);
+  await userEvent.type(input!, "Global Messages");
+
+  await waitFor(() => {
+    const panel = searchHost?.shadowRoot?.querySelector(".panel");
     expect(panel).toBeTruthy();
     expect(panel).not.toHaveAttribute("hidden");
   });
-
-  expect(host?.shadowRoot?.textContent).toContain("Accounts");
-  expect(host?.shadowRoot?.textContent).toContain("Checking");
 };
 
-export const MobileDrawer: Story = {
+export const PrototypeMobileDrawer: Story = {
+  args: createStoryArgs(),
   parameters: {
     viewport: {
       defaultViewport: "mobile1",
@@ -197,7 +152,7 @@ export const MobileDrawer: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
-MobileDrawer.play = async ({ canvasElement }) => {
+PrototypeMobileDrawer.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {
@@ -212,30 +167,45 @@ MobileDrawer.play = async ({ canvasElement }) => {
   await userEvent.click(menuToggle!);
 
   await waitFor(() => {
-    const drawer = host?.shadowRoot?.querySelector(".mobile-surface");
-    expect(drawer).toBeTruthy();
-    expect(drawer).not.toHaveAttribute("hidden");
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    expect((drawer as any)?.open).toBe(true);
   });
 };
 
-export const DocsOverview: Story = {
-  render: (args) => html`
-    <div
-      style="
-        padding: 1.5rem;
-        background: #f5f5f7;
-      "
-    >
-      <section
-        style="
-          background: #fff;
-          border: 1px solid #d6d6d8;
-          border-radius: 12px;
-          overflow: hidden;
-        "
-      >
-        ${renderHeader(args, { condensed: true })}
-      </section>
-    </div>
-  `,
+export const PrototypeMobileDrillDown: Story = {
+  args: createStoryArgs(),
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+  },
+  render: (args) => renderHeader(args, { mobile: true }),
+};
+
+PrototypeMobileDrillDown.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+  });
+
+  const menuToggle = host?.shadowRoot?.querySelector(
+    "[data-mobile-toggle='menu']",
+  ) as HTMLButtonElement | null;
+
+  expect(menuToggle).toBeTruthy();
+  await userEvent.click(menuToggle!);
+
+  await waitFor(() => {
+    const firstButton = host?.shadowRoot?.querySelector(".mobile-button");
+    expect(firstButton).toBeTruthy();
+  });
+
+  const firstButton = host?.shadowRoot?.querySelector(".mobile-button") as HTMLButtonElement | null;
+  await userEvent.click(firstButton!);
+
+  await waitFor(() => {
+    const context = host?.shadowRoot?.querySelector(".mobile-context");
+    expect(context?.textContent).toContain("News");
+  });
 };
