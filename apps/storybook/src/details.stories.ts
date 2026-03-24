@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type DetailsArgs = {
@@ -58,7 +58,7 @@ export const FaqGroup: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <details>
         <summary>Eligibility requirements for pass-through insurance</summary>
         <p>
@@ -68,7 +68,7 @@ export const DocsOverview: Story = {
       </details>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>FAQ group</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>FAQ group</strong>
         <details>
           <summary>What is FDIC deposit insurance?</summary>
           <p>

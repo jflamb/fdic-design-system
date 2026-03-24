@@ -4,9 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type CheckboxArgs = {
@@ -128,9 +128,9 @@ export const FormIntegration: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Default and checked</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default and checked</strong>
         <div style="display: grid; gap: 12px;">
           <fd-checkbox>Short label</fd-checkbox>
           <fd-checkbox checked>Selected option</fd-checkbox>
@@ -138,7 +138,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Description and indeterminate</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Description and indeterminate</strong>
         <div style="display: grid; gap: 12px;">
           <fd-checkbox indeterminate>Select all accounts</fd-checkbox>
           <fd-checkbox>
@@ -151,7 +151,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Disabled state</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Disabled state</strong>
         <fd-checkbox disabled>Disabled option</fd-checkbox>
       </section>
     </div>

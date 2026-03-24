@@ -3,9 +3,9 @@ import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type MessageArgs = {
@@ -99,9 +99,9 @@ export const SuccessState: Story = {
 
 export const LiveModes: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Default error behavior</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Default error behavior</p>
         <fd-message
           state="error"
           message="Enter a valid routing number."
@@ -109,7 +109,7 @@ export const LiveModes: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Forced polite announcements</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Forced polite announcements</p>
         <fd-message
           state="error"
           live="polite"
@@ -118,7 +118,7 @@ export const LiveModes: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Announcements off</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Announcements off</p>
         <fd-message
           state="warning"
           live="off"
@@ -131,14 +131,14 @@ export const LiveModes: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Helper text</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Helper text</p>
         <fd-message message="We'll use this address for filing follow-up."></fd-message>
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Error state</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Error state</p>
         <fd-message
           state="error"
           message="Enter a valid 9-digit routing number."
@@ -146,7 +146,7 @@ export const DocsOverview: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Warning and success states</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Warning and success states</p>
         <div style="display: grid; gap: 0.5rem;">
           <fd-message
             state="warning"

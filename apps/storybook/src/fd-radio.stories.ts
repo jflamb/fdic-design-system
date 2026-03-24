@@ -4,9 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type RadioArgs = {
@@ -133,9 +133,9 @@ export const FormIntegration: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Default and selected</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default and selected</strong>
         <div style="display: grid; gap: 12px;">
           <fd-radio name="contact-default" value="email">Email</fd-radio>
           <fd-radio name="contact-default" value="phone" checked>Phone</fd-radio>
@@ -143,7 +143,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Description</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Description</strong>
         <fd-radio name="delivery" value="mail">
           Paper mail
           <span slot="description">
@@ -153,7 +153,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Disabled state</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Disabled state</strong>
         <div style="display: grid; gap: 12px;">
           <fd-radio name="disabled-contact" value="email" disabled>Email</fd-radio>
           <fd-radio name="disabled-contact" value="phone" checked disabled>Phone</fd-radio>

@@ -49,7 +49,7 @@ export class FdCheckboxGroup extends LitElement {
 
     [part="legend"] {
       padding: 0;
-      margin: 0 0 var(--fd-checkbox-group-section-gap, 0.5em) 0;
+      margin: 0 0 var(--fd-checkbox-group-legend-gap, var(--fdic-spacing-xs, 8px)) 0;
       float: none;
       width: 100%;
       font-size: var(--fdic-font-size-body, 18px);
@@ -61,6 +61,8 @@ export class FdCheckboxGroup extends LitElement {
     [part="description"] {
       color: var(--fdic-text-secondary, #595961);
       font-size: var(--fdic-font-size-body-small, 1rem);
+      line-height: var(--fdic-line-height-body, 1.5);
+      margin: 0 0 var(--fd-checkbox-group-description-gap, var(--fdic-spacing-sm, 12px)) 0;
     }
 
     [part="description"][hidden] {

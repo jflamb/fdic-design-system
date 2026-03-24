@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/web-components-vite";
 import { html } from "lit";
 import "../../docs/.vitepress/theme/prose.css";
+import "../../docs/.vitepress/theme/docs-utilities.css";
 
 const preview: Preview = {
   decorators: [
