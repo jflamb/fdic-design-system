@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_STYLE,
@@ -62,7 +62,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Public event contract: `fd-checkbox-group-change` emits `{ value, values }`, where `value` mirrors the first selected value in DOM order. Deprecated `fd-group-change` still fires with `{ checkedValues }` during the transition window.",
+          "Public event contract: `fd-checkbox-group-change` emits `{ value, values }`, where `value` mirrors the first selected value in DOM order. Deprecated `fd-group-change` still fires with `{ checkedValues }` during the transition window. Validation contract: `checkValidity()` updates validity without showing an error; submit, `reportValidity()`, or focus leaving the group after interaction can reveal `data-user-invalid` and fieldset `aria-invalid`.",
       },
     },
   },
@@ -126,10 +126,31 @@ export const FormValidation: Story = {
     docs: {
       description: {
         story:
-          "Submit the form to reveal the group error state. The fieldset keeps invalid styling until at least one checkbox is selected or the form is reset.",
+          "Submit the form to reveal the group error state. The fieldset keeps invalid styling until at least one checkbox is selected or the form is reset, and authored error content remains the primary visible error surface.",
       },
     },
   },
+};
+
+FormValidation.play = async ({ canvasElement, userEvent }) => {
+  const form = canvasElement.querySelector("form");
+  const group = form?.querySelector("fd-checkbox-group");
+  const checkbox = form?.querySelector("fd-checkbox");
+  const control = checkbox?.shadowRoot?.querySelector('input[type="checkbox"]') as
+    | HTMLInputElement
+    | null;
+
+  form?.requestSubmit();
+
+  await waitFor(() => {
+    expect(group?.hasAttribute("data-user-invalid")).toBe(true);
+  });
+
+  await userEvent.click(control!);
+
+  await waitFor(() => {
+    expect(group?.hasAttribute("data-user-invalid")).toBe(false);
+  });
 };
 
 export const DocsOverview: Story = {

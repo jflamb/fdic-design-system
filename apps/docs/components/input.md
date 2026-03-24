@@ -85,6 +85,9 @@ A text input field for user-entered text, with support for labels, hints, error 
 - **Labeling:** Pair with `fd-label` using matching `for`/`id` attributes. `fd-label` renders a native `<label>` in light DOM for real click-to-focus and screen reader name computation.
 - **Description wiring:** `fd-input` is the **single owner** of `aria-describedby` on the inner `<input>`. It discovers associated `fd-label` and `fd-message` siblings via their `for` attributes and reads their stable public getters (`descriptionId`, `messageId`) to assemble the description.
 - **Error state:** `fd-message` is the primary authored error surface and still controls the border/message styling through its own `state`. It does **not** control `aria-invalid`.
+- **Validation contract:** `checkValidity()` updates and returns validity without revealing invalid state. `reportValidity()` updates and returns validity, and only reveals invalid state when the field is invalid.
+- **Visible invalid state:** the host gets `data-user-invalid` after a submit attempt, explicit `reportValidity()`, or blur after user interaction while still invalid. The internal input gets `aria-invalid="true"` only while that visible invalid state is active, and it clears in the same update cycle when `data-user-invalid` clears.
+- **Reset behavior:** visible invalid state clears when the value becomes valid or when the form reset path runs.
 - **Character count:** A visible count updates on every keystroke. A screen-reader-only live region announces remaining characters at meaningful thresholds (80% used, 100% reached, and on blur).
 - **Focus ring:** Standard pattern — `outline: 2px solid`, `outline-offset: 2px`, `border-radius: 2px`.
 - **Minimum target size:** 44px input height per WCAG 2.5.8.

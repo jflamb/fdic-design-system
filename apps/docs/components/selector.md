@@ -78,6 +78,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **Validation contract**: `checkValidity()` updates and returns validity without revealing invalid state. `reportValidity()` reveals invalid state only when the selector is invalid; if the selector is valid, it has no visible effect.
 - **Visibility boundaries**: invalid state becomes visible on form submit attempts, explicit `reportValidity()`, and popup close or focus-out after user interaction.
 - **Invalid ownership**: the host carries `data-user-invalid`; the trigger button carries `aria-invalid="true"` only while that visible invalid state is active.
+- **Clearing behavior**: `aria-invalid` is present iff `data-user-invalid` is present, and both clear in the same update cycle when the selector becomes valid or when the form reset path runs.
 - **Error content**: provide authored error text in the `error` slot whenever the selector can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
 - **Selection indicators**: Radio dots (single) and checkboxes (multiple) provide a shape-based indicator alongside background color, so selection is never conveyed by color alone.
 - **Live region**: In multi-select mode, an `aria-live="polite"` region announces the selection count.

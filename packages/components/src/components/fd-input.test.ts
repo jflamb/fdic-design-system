@@ -294,6 +294,18 @@ describe("fd-input", () => {
     expect(input!.getAttribute("aria-invalid")).toBe("true");
   });
 
+  it("reveals invalid state on an invalid event from a submit attempt", async () => {
+    const el = await createInput({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    el.dispatchEvent(new Event("invalid", { cancelable: true }));
+    await el.updateComplete;
+
+    const input = getInternal(el);
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(input!.getAttribute("aria-invalid")).toBe("true");
+  });
+
   it("sets visible invalid state on blur after user interaction", async () => {
     const el = await createInput({ required: "" });
     const input = getInternal(el);

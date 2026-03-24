@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_STYLE,
@@ -75,7 +75,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Public event contract: `fd-selector-change` uses `{ value }` for single-select variants and `{ value, values }` for multi-select. Open-state changes use `fd-selector-open-change` with `{ open }`. Deprecated `fd-selector-open` and `fd-selector-close` still fire during the transition window.",
+          "Public event contract: `fd-selector-change` emits `{ value, values }` for every variant; in single-select, `values` contains the current single selection when present. Open-state changes use `fd-selector-open-change` with `{ open }`. Deprecated `fd-selector-open` and `fd-selector-close` still fire during the transition window. Validation contract: `checkValidity()` updates validity without showing an error; submit, `reportValidity()`, popup close, or focus leaving the widget after interaction can reveal `data-user-invalid` and trigger `aria-invalid` on the button.",
       },
     },
   },
@@ -84,6 +84,14 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+function getSelectorTrigger(host: Element | null) {
+  return host?.shadowRoot?.querySelector("[part=trigger]") as HTMLButtonElement | null;
+}
+
+function getSelectorListbox(host: Element | null) {
+  return host?.shadowRoot?.querySelector("[part=listbox]") as HTMLElement | null;
+}
 
 export const Playground: Story = {};
 
@@ -112,6 +120,37 @@ export const SingleSelect: Story = {
   },
 };
 
+SingleSelect.play = async ({ canvasElement, userEvent }) => {
+  const host = canvasElement.querySelector("fd-selector");
+  const trigger = getSelectorTrigger(host);
+  const option = canvasElement.querySelector('fd-option[value="savings"]') as HTMLElement | null;
+  const openEvents: boolean[] = [];
+  const changeValues: string[] = [];
+
+  host?.addEventListener("fd-selector-open-change", (event: Event) => {
+    openEvents.push((event as CustomEvent<{ open: boolean }>).detail.open);
+  });
+  host?.addEventListener("fd-selector-change", (event: Event) => {
+    changeValues.push((event as CustomEvent<{ value: string }>).detail.value);
+  });
+
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(host?.hasAttribute("open")).toBe(true);
+  });
+
+  await userEvent.click(option!);
+
+  await waitFor(() => {
+    expect(host?.hasAttribute("open")).toBe(false);
+    expect(trigger?.textContent).toContain("Savings");
+  });
+
+  expect(changeValues.at(-1)).toBe("savings");
+  expect(openEvents).toEqual([true, false]);
+};
+
 export const MultipleSelect: Story = {
   args: {
     variant: "multiple",
@@ -119,6 +158,33 @@ export const MultipleSelect: Story = {
     placeholder: "Select one or more\u2026",
     description: "Checkbox indicators show multiple options can be selected.",
   },
+};
+
+MultipleSelect.play = async ({ canvasElement, userEvent }) => {
+  const host = canvasElement.querySelector("fd-selector");
+  const trigger = getSelectorTrigger(host);
+  const optionChecking = canvasElement.querySelector(
+    'fd-option[value="checking"]',
+  ) as HTMLElement | null;
+  const optionSavings = canvasElement.querySelector(
+    'fd-option[value="savings"]',
+  ) as HTMLElement | null;
+
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(host?.hasAttribute("open")).toBe(true);
+  });
+
+  await userEvent.click(optionChecking!);
+  await userEvent.click(optionSavings!);
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(host?.hasAttribute("open")).toBe(false);
+    expect(trigger?.textContent).toContain("Checking");
+    expect(trigger?.textContent).toContain("Savings");
+  });
 };
 
 export const WithDescriptions: Story = {
@@ -148,6 +214,7 @@ export const FormValidation: Story = {
         required
       >
         <span slot="description">This field is required.</span>
+        <span slot="error">Please select an account type.</span>
         <fd-option value="checking">Checking</fd-option>
         <fd-option value="savings">Savings</fd-option>
         <fd-option value="cd">Certificate of Deposit</fd-option>
@@ -164,10 +231,45 @@ export const FormValidation: Story = {
     docs: {
       description: {
         story:
-          "Submit the form to reveal invalid state. For selector-style controls, closing the popup after invalid interaction also reveals the error state; selecting a valid option or resetting clears it.",
+          "Submit the form to reveal invalid state. The authored error slot is the primary visible error surface. For selector-style controls, closing the popup after invalid interaction also reveals the error state; selecting a valid option or resetting clears both `data-user-invalid` and trigger `aria-invalid`.",
       },
     },
   },
+};
+
+FormValidation.play = async ({ canvasElement, userEvent }) => {
+  const form = canvasElement.querySelector("form");
+  const selector = form?.querySelector("fd-selector");
+  const trigger = getSelectorTrigger(selector);
+  const reset = form?.querySelector('fd-button[type="reset"]');
+  const option = form?.querySelector('fd-option[value="checking"]') as HTMLElement | null;
+
+  form?.requestSubmit();
+
+  await waitFor(() => {
+    expect(selector?.hasAttribute("data-user-invalid")).toBe(true);
+    expect(trigger?.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  await userEvent.click(trigger!);
+  await waitFor(() => {
+    expect(selector?.hasAttribute("open")).toBe(true);
+  });
+  await userEvent.click(option!);
+
+  await waitFor(() => {
+    expect(selector?.hasAttribute("data-user-invalid")).toBe(false);
+    expect(trigger?.getAttribute("aria-invalid")).toBeNull();
+  });
+
+  await userEvent.click(
+    reset?.shadowRoot?.querySelector("[part=base]") as HTMLButtonElement,
+  );
+
+  await waitFor(() => {
+    expect(selector?.hasAttribute("data-user-invalid")).toBe(false);
+    expect(getSelectorListbox(selector)?.hasAttribute("hidden")).toBe(true);
+  });
 };
 
 export const Disabled: Story = {

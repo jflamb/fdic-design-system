@@ -124,6 +124,17 @@ describe("fd-checkbox", () => {
     expect(getInput(el).getAttribute("aria-invalid")).toBe("true");
   });
 
+  it("reveals invalid state on an invalid event from a submit attempt", async () => {
+    const el = await createCheckbox({ required: "" });
+
+    expect(el.checkValidity()).toBe(false);
+    el.dispatchEvent(new Event("invalid", { cancelable: true }));
+    await el.updateComplete;
+
+    expect(el.hasAttribute("data-user-invalid")).toBe(true);
+    expect(getInput(el).getAttribute("aria-invalid")).toBe("true");
+  });
+
   it("does not surface invalid state before a visibility boundary", async () => {
     const el = await createCheckbox({ required: "" });
 

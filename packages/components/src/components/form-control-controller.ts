@@ -21,6 +21,7 @@ export class FormControlController implements ReactiveController {
   protected readonly host: FormControlHost;
   protected readonly options: FormControllerOptions;
   protected userHasInteracted = false;
+  protected suppressInvalidVisibility = false;
 
   constructor(options: FormControllerOptions) {
     this.host = options.host;
@@ -101,7 +102,12 @@ export class FormControlController implements ReactiveController {
   }
 
   checkCurrentValidity() {
-    return this.internals.checkValidity();
+    this.suppressInvalidVisibility = true;
+    try {
+      return this.internals.checkValidity();
+    } finally {
+      this.suppressInvalidVisibility = false;
+    }
   }
 
   reportCurrentValidity() {
@@ -131,6 +137,10 @@ export class FormControlController implements ReactiveController {
   }
 
   private onInvalid = () => {
+    if (this.suppressInvalidVisibility) {
+      return;
+    }
+
     this.userHasInteracted = true;
     this.markUserInvalid();
   };

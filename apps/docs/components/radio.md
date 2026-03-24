@@ -72,7 +72,9 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 - Required radios participate in constraint validation and use the selected radio value as the submitted form value.
 - `checkValidity()` updates and returns validity without revealing invalid state.
 - `reportValidity()` reveals invalid state only when the radio is invalid. For standalone radios, the host gets `data-user-invalid` and the internal radio gets `aria-invalid="true"`. If the control is valid, `reportValidity()` has no visible effect.
-- `data-user-invalid` and `aria-invalid` clear when the radio becomes valid or when the form reset path runs.
+- Blur after user interaction and submit attempts are also visibility boundaries for an invalid radio.
+- `aria-invalid` is present iff `data-user-invalid` is present, and both clear in the same update cycle when the radio becomes valid or when the form reset path runs.
+- If a required standalone radio can block submission, pair it with authored surrounding error copy. Invalid styling alone is incomplete usage.
 
 ## Known limitations
 
