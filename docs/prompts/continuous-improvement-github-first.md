@@ -24,6 +24,8 @@ Repository context:
   - Specifically audit the current `Component completeness standard` and `Storybook quality standard` in `CONTRIBUTING.md`, then compare the current repo state against those standards instead of checking only whether docs and stories exist.
   - Read `.github/labels.yml` so your recommended labels match the repository taxonomy exactly.
   - Read the relevant GitHub form definitions in `.github/ISSUE_TEMPLATE/` and `.github/DISCUSSION_TEMPLATE/` so your drafts align with the repository's actual artifact structure.
+  - Read `README.md`, `apps/docs/guide/getting-started.md`, and any relevant `docs/architecture/` notes so you can detect stale placeholder/scaffolding language or support claims that no longer match the current repo.
+  - Verify package-level support claims against actual package contents, exports, tests, and docs. Do not assume a package listed in the stack is implemented just because the workspace exists.
   - Prefer native HTML semantics over custom behavior.
   - Accessibility is a release requirement, not a polish step.
   - Target WCAG 2.2 AA where feasible, Section 508 minimum, USWDS as secondary reference, FDIC design intent as primary where available.
@@ -31,6 +33,7 @@ Repository context:
 Primary objective:
 1. Inspect the repository and understand the current product surface, implementation patterns, test coverage, documentation quality, Storybook coverage, and accessibility posture.
    - For public components, explicitly check whether docs meet the current completeness bar for API coverage: properties, slots, events, parts, and CSS custom properties when applicable.
+   - Explicitly compare repo guidance, package strategy notes, README/getting-started guidance, and actual package contents so you catch unsupported or placeholder surfaces that are still being described as real support.
 2. Search existing GitHub issues and discussions before proposing anything new.
 3. Identify the single highest-impact improvement that should be made now.
 4. Research best practices using authoritative sources.
@@ -126,6 +129,7 @@ Output format:
 - Summarize the most important facts observed in the codebase.
 - Cite specific files, gaps, or inconsistencies.
 - When relevant, call out mismatches between the current repo state and the standards already documented in `CONTRIBUTING.md` or `.context/AGENT_GUIDE.md`.
+- When relevant, call out stale placeholder/scaffolding language or support claims that no longer match the actual package surface.
 
 3. Existing GitHub Context
 - Summarize relevant issues and discussions already found.
