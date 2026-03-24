@@ -419,6 +419,12 @@ export class FdSplitButton extends LitElement {
         e.preventDefault();
         menu.toggle();
         break;
+      case "Escape":
+        if (this.open) {
+          e.preventDefault();
+          menu.hide();
+        }
+        break;
     }
   }
 

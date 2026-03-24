@@ -415,6 +415,23 @@ describe("fd-split-button", () => {
     expect(el.open).toBe(true);
   });
 
+  it("Escape on trigger closes menu when open", async () => {
+    const el = await createSplitButton();
+    await new Promise((r) => requestAnimationFrame(r));
+
+    const trigger = getTrigger(el);
+    const menu = getInternalMenu(el);
+    menu.show();
+    await el.updateComplete;
+
+    const event = new KeyboardEvent("keydown", { key: "Escape", bubbles: true });
+    const preventSpy = vi.spyOn(event, "preventDefault");
+    trigger.dispatchEvent(event);
+
+    expect(preventSpy).toHaveBeenCalled();
+    expect(el.open).toBe(false);
+  });
+
   it("keyboard events are guarded by disabled", async () => {
     const el = await createSplitButton({ disabled: "" });
 
