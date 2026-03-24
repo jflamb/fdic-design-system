@@ -1,0 +1,13 @@
+name: Build Site Artifacts
+description: Build the workspace packages, docs, and Storybook outputs used by CI and deployment.
+
+runs:
+  using: composite
+  steps:
+    - name: Build workspace
+      shell: bash
+      run: npm run build
+
+    - name: Build Storybook
+      shell: bash
+      run: npm run build:storybook

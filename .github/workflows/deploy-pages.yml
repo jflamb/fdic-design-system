@@ -22,20 +22,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: npm
+      - name: Set up workspace
+        uses: ./.github/actions/setup-workspace
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build workspace
-        run: npm run build
-
-      - name: Build Storybook
-        run: npm run build:storybook
+      - name: Build published site assets
+        uses: ./.github/actions/build-site-artifacts
 
       - name: Copy Storybook into docs output
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
