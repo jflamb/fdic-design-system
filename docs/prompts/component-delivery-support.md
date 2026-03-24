@@ -41,6 +41,9 @@ Before implementation, explicitly decide and record:
   - `action/clickable`
   - `composite/group-managed`
 - semantic HTML strategy
+- assistive-technology visibility for decorative/static content:
+  - hidden from the accessibility tree
+  - semantically inert but still exposed
 - keyboard model:
   - `plain tab order`
   - `roving tabindex`
@@ -75,6 +78,7 @@ Before implementation, explicitly decide and record:
   - intended use and when not to use
   - taxonomy decision
   - semantic HTML strategy
+  - assistive-technology visibility decision for decorative/static content, if applicable
   - accessibility expectations
   - interaction model
   - keyboard behavior

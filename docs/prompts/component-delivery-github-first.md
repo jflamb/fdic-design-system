@@ -32,6 +32,7 @@ Scope notes:
 
 Required outcomes:
 - Decide and record taxonomy, semantic HTML strategy, keyboard model, focus behavior, focus recovery after removal if applicable, and state ownership before implementation.
+- When the component is decorative or static-only, explicitly decide whether the host should be hidden from assistive technology or merely remain semantically inert.
 - Create or reuse the required GitHub Discussion and implementation Issue.
 - Complete the design-review loop and implementation-plan review loop.
 - Implement the component and update tests, docs, stories, metadata, and generated surfaces as required.
