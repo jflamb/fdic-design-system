@@ -4,9 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type ButtonGroupArgs = {
@@ -113,9 +113,9 @@ export const MixedVariants: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Default horizontal group</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default horizontal group</strong>
         <fd-button-group>
           <fd-button variant="primary">Save</fd-button>
           <fd-button variant="outline">Save and continue</fd-button>
@@ -124,7 +124,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Separated primary and escape action</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Separated primary and escape action</strong>
         <fd-button-group align="spread">
           <fd-button variant="primary">Submit filing</fd-button>
           <fd-button variant="outline">Save draft</fd-button>
@@ -133,7 +133,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Labeled action set</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Labeled action set</strong>
         <fd-button-group label="Document actions">
           <fd-button variant="outline">Download PDF</fd-button>
           <fd-button variant="outline">Download CSV</fd-button>
@@ -142,7 +142,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Responsive stacking in a narrow container</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive stacking in a narrow container</strong>
         <div style="max-width: 320px;">
           <fd-button-group style="--fd-button-group-stack-at: 480px;">
             <fd-button variant="primary">Approve</fd-button>

@@ -4,9 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type SplitButtonArgs = {
@@ -288,9 +288,9 @@ export const AllVariantsDisabled: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Default with menu items</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default with menu items</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="primary">
             Save
@@ -301,7 +301,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>With icon</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>With icon</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="primary">
             <fd-icon slot="icon-start" name="download"></fd-icon>
@@ -313,7 +313,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Destructive action</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Destructive action</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="destructive">
             Delete
@@ -324,7 +324,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Disabled</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Disabled</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="primary" disabled>
             Save

@@ -3,9 +3,9 @@ import { html } from "lit";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 const meta = {
@@ -101,9 +101,9 @@ export const DirectChildrenOnly: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Auto-wiring</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Auto-wiring</p>
         <fd-field style="max-width: 22rem;">
           <fd-label label="Routing number" required></fd-label>
           <fd-input placeholder="e.g. 021000021" required></fd-input>
@@ -115,7 +115,7 @@ export const DocsOverview: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Preserves explicit IDs</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Preserves explicit IDs</p>
         <fd-field style="max-width: 22rem;">
           <fd-label label="Certificate number"></fd-label>
           <fd-input
@@ -130,7 +130,7 @@ export const DocsOverview: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Supporting primitive role</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Supporting primitive role</p>
         <p>
           Use <code>fd-field</code> when you want the label, input, and message
           relationship wired for you. Use direct child components when you need

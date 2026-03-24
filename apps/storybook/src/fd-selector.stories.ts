@@ -4,9 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type SelectorArgs = {
@@ -292,9 +292,9 @@ export const DisabledOptions: Story = {
 
 export const OptionContract: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Single-select authoring</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Single-select authoring</p>
         <fd-selector label="Account type" variant="single">
           <fd-option value="checking">Checking</fd-option>
           <fd-option value="savings" description="Daily-use savings account">
@@ -305,7 +305,7 @@ export const OptionContract: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Multi-select authoring</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Multi-select authoring</p>
         <fd-selector
           label="Report categories"
           variant="multiple"
@@ -332,9 +332,9 @@ export const OptionContract: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Simple variant</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Simple variant</p>
         <fd-selector label="Account type" variant="simple">
           <fd-option value="checking">Checking</fd-option>
           <fd-option value="savings">Savings</fd-option>
@@ -343,7 +343,7 @@ export const DocsOverview: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>Single variant (radio indicators)</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Single variant (radio indicators)</p>
         <fd-selector label="Primary account" variant="single">
           <fd-option value="checking">Checking</fd-option>
           <fd-option value="savings">Savings</fd-option>
@@ -352,7 +352,7 @@ export const DocsOverview: Story = {
       </div>
 
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p style=${DOCS_OVERVIEW_HEADING_STYLE}>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>
           Multiple variant (checkbox indicators)
         </p>
         <fd-selector

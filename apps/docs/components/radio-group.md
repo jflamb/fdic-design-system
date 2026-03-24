@@ -62,7 +62,8 @@ Compatibility note:
 | Name | Default | Description |
 |------|---------|-------------|
 | `--fd-radio-group-max-width` | `32rem` | Maximum inline size of the group |
-| `--fd-radio-group-section-gap` | `0.5em` | Space below the legend |
+| `--fd-radio-group-legend-gap` | `var(--fdic-spacing-xs, 8px)` | Space between the legend and the description or items |
+| `--fd-radio-group-description-gap` | `var(--fdic-spacing-sm, 12px)` | Space below the description before the radio items |
 | `--fd-radio-group-gap` | `var(--fdic-spacing-sm, 12px)` | Gap between radio items |
 
 ## Shadow parts

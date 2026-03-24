@@ -4,8 +4,8 @@ import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_GRID_STYLE,
-  DOCS_OVERVIEW_HEADING_STYLE,
-  DOCS_OVERVIEW_META_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
+  DOCS_OVERVIEW_META_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
 } from "./docs-overview";
 
@@ -441,8 +441,8 @@ export const DocsOverview: Story = {
           (config) => html`
             <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
               <div style="display: grid; gap: var(--fdic-spacing-xs, 0.375rem);">
-                <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>${config.caption}</strong>
-                <span style=${DOCS_OVERVIEW_META_STYLE}
+                <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>${config.caption}</strong>
+                <span class=${DOCS_OVERVIEW_META_CLASS}
                   >Open the menu to inspect the item arrangement.</span
                 >
               </div>

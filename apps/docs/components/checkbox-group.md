@@ -62,7 +62,8 @@ Compatibility note:
 | Name | Default | Description |
 |------|---------|-------------|
 | `--fd-checkbox-group-max-width` | `32rem` | Maximum inline size of the group |
-| `--fd-checkbox-group-section-gap` | `0.5em` | Space below the legend |
+| `--fd-checkbox-group-legend-gap` | `var(--fdic-spacing-xs, 8px)` | Space between the legend and the description or items |
+| `--fd-checkbox-group-description-gap` | `var(--fdic-spacing-sm, 12px)` | Space below the description before the checkbox items |
 | `--fd-checkbox-group-gap` | `var(--fdic-spacing-sm, 12px)` | Gap between checkbox items |
 
 ## Shadow parts

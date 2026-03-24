@@ -4,9 +4,9 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
-  DOCS_OVERVIEW_HEADING_STYLE,
+  DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
 
 type RadioGroupArgs = {
@@ -155,9 +155,9 @@ FormValidation.play = async ({ canvasElement, userEvent }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Vertical group</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Vertical group</strong>
         <fd-radio-group>
           <span slot="legend">Preferred contact method</span>
           <fd-radio name="contact-v" value="email" checked>Email</fd-radio>
@@ -167,7 +167,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Long labels and disabled option</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Long labels and disabled option</strong>
         <fd-radio-group>
           <span slot="legend">Account type</span>
           <fd-radio name="account" value="selected" checked>Selected option</fd-radio>
@@ -181,7 +181,7 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong style=${DOCS_OVERVIEW_HEADING_STYLE}>Required group with description</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Required group with description</strong>
         <fd-radio-group required>
           <span slot="legend">Preferred contact method (required)</span>
           <span slot="description">Select how you would like to be contacted.</span>
