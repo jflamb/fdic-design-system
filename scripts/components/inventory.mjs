@@ -500,6 +500,26 @@ export const componentInventory = [
     },
     typeExports: ["VisualSize", "VisualType"],
   },
+  {
+    tagName: "fd-alert",
+    className: "FdAlert",
+    sourceFile: "fd-alert.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Alert",
+      slug: "alert",
+    },
+    storybook: {
+      title: "Components/Alert",
+      file: "fd-alert.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: ["AlertVariant", "AlertType", "AlertLive"],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

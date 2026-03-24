@@ -2500,5 +2500,206 @@
       ],
       "after": "- `fd-visual` stays decorative-only in v1 and sets `aria-hidden=\"true\"` on the host.\n- For avatar images, prefer empty `alt` text when adjacent content already names the subject."
     }
+  },
+  "fd-alert": {
+    "properties": {
+      "rows": [
+        {
+          "name": "variant",
+          "type": "`\"default\"` \\| `\"slim\"` \\| `\"site\"`",
+          "defaultValue": "`\"default\"`",
+          "description": "Controls the supplied Figma layout family: standard stacked alert, compact slim alert, or page-level site alert."
+        },
+        {
+          "name": "type",
+          "type": "`\"info\"` \\| `\"success\"` \\| `\"warning\"` \\| `\"error\"` \\| `\"emergency\"`",
+          "defaultValue": "`\"info\"`",
+          "description": "Severity treatment for the alert surface, icon, and color system."
+        },
+        {
+          "name": "title",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Optional plain-text title rendered by the component. Slim alerts usually omit it, but the property is available across variants."
+        },
+        {
+          "name": "dismissible",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Shows the internal dismiss button. The component emits an event but does not remove itself."
+        },
+        {
+          "name": "dismiss-label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible-name override for the dismiss button. Defaults to `Dismiss {title}` or `Dismiss alert`."
+        },
+        {
+          "name": "live",
+          "type": "`\"off\"` \\| `\"polite\"` \\| `\"assertive\"`",
+          "defaultValue": "`\"off\"`",
+          "description": "Controls whether the alert stays static, announces politely via `role=\"status\"`, or announces assertively via `role=\"alert\"`."
+        }
+      ],
+      "after": "- `variant=\"site\"` keeps its page-level region semantics even when `live` is enabled by nesting the live-region wrapper inside the site banner.\n- `type=\"emergency\"` is supported for all variants, including `site`; the site emergency styling is a small documented inference from the supplied Figma family."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Authored alert body content. Inline links are supported; dedicated CTA rows are intentionally out of scope in v1."
+        }
+      ],
+      "after": "Use the default slot for visible message copy. The component does not expose a separate actions slot in v1."
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-alert-dismiss",
+          "detail": "`{}`",
+          "description": "Fired when the internal dismiss button is activated."
+        }
+      ],
+      "after": "`fd-alert` does not hide or remove itself. The host application owns dismissal state and any follow-up focus recovery after removal."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-alert-radius",
+          "default": "`0`",
+          "description": "Outer corner radius for the alert surface."
+        },
+        {
+          "name": "--fd-alert-accent-width",
+          "default": "`8px`",
+          "description": "Inline accent width for `default` and `slim` alerts."
+        },
+        {
+          "name": "--fd-alert-site-accent-width",
+          "default": "`8px`",
+          "description": "Top accent width for `site` alerts."
+        },
+        {
+          "name": "--fd-alert-icon-size",
+          "default": "`22px`",
+          "description": "Icon size for `default` and `slim` variants."
+        },
+        {
+          "name": "--fd-alert-site-icon-size",
+          "default": "`28px`",
+          "description": "Icon size for the `site` variant."
+        },
+        {
+          "name": "--fd-alert-focus-ring",
+          "default": "`#38b6ff`",
+          "description": "Focus-ring color for links and the dismiss button."
+        },
+        {
+          "name": "--fd-alert-focus-gap",
+          "default": "`#ffffff`",
+          "description": "Inner gap color used in the dismiss-button focus ring."
+        },
+        {
+          "name": "--fd-alert-bg-info",
+          "default": "`#f1f8fe`",
+          "description": "Info alert background."
+        },
+        {
+          "name": "--fd-alert-accent-info",
+          "default": "`#0776cb`",
+          "description": "Info alert accent and icon color."
+        },
+        {
+          "name": "--fd-alert-bg-success",
+          "default": "`#e8f5e9`",
+          "description": "Success alert background."
+        },
+        {
+          "name": "--fd-alert-accent-success",
+          "default": "`#4caf50`",
+          "description": "Success alert accent and icon color."
+        },
+        {
+          "name": "--fd-alert-bg-warning",
+          "default": "`#fcf7ee`",
+          "description": "Warning alert background."
+        },
+        {
+          "name": "--fd-alert-accent-warning",
+          "default": "`#f49f00`",
+          "description": "Warning alert accent and icon color."
+        },
+        {
+          "name": "--fd-alert-bg-error",
+          "default": "`#fdedea`",
+          "description": "Error alert background."
+        },
+        {
+          "name": "--fd-alert-accent-error",
+          "default": "`#b10b2d`",
+          "description": "Error alert accent and icon color."
+        },
+        {
+          "name": "--fd-alert-bg-emergency",
+          "default": "`#d80e3a`",
+          "description": "Emergency alert background."
+        },
+        {
+          "name": "--fd-alert-accent-emergency",
+          "default": "`#b10b2d`",
+          "description": "Emergency alert accent."
+        },
+        {
+          "name": "--fd-alert-text-color",
+          "default": "`#212123`",
+          "description": "Default alert text color."
+        },
+        {
+          "name": "--fd-alert-text-color-inverted",
+          "default": "`#ffffff`",
+          "description": "Text color used for emergency alerts."
+        },
+        {
+          "name": "--fd-alert-link-color",
+          "default": "`#0d6191`",
+          "description": "Link color for non-emergency alerts."
+        },
+        {
+          "name": "--fd-alert-link-color-inverted",
+          "default": "`#ffffff`",
+          "description": "Link color for emergency alerts."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Outer alert surface. For `site`, this is the named page-level section wrapper."
+        },
+        {
+          "name": "icon",
+          "description": "Decorative severity icon wrapper."
+        },
+        {
+          "name": "title",
+          "description": "Rendered title text when the `title` property is set."
+        },
+        {
+          "name": "body",
+          "description": "Visible body-content wrapper around the default slot."
+        },
+        {
+          "name": "dismiss-button",
+          "description": "Internal native dismiss button."
+        },
+        {
+          "name": "dismiss-icon",
+          "description": "Decorative close icon wrapper inside the dismiss button."
+        }
+      ],
+      "after": "- `fd-alert` keeps the severity icon decorative and adds a screen-reader-only severity label in the rendered content.\n- The component does not expose a shadow part for the live-region wrapper because that wrapper is an implementation detail of the semantic contract, not a styling surface."
+    }
   }
 }

@@ -16,6 +16,7 @@ import type { FdSelector } from "./components/fd-selector.js";
 import type { FdSplitButton } from "./components/fd-split-button.js";
 import type { FdTextarea } from "./components/fd-textarea.js";
 import type { FdVisual } from "./components/fd-visual.js";
+import type { FdAlert } from "./components/fd-alert.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -37,5 +38,6 @@ declare global {
     "fd-split-button": FdSplitButton;
     "fd-textarea": FdTextarea;
     "fd-visual": FdVisual;
+    "fd-alert": FdAlert;
   }
 }

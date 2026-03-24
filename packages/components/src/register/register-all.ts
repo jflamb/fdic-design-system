@@ -30,4 +30,5 @@ import "./fd-chip.js";
 import "./fd-chip-group.js";
 import "./fd-textarea.js";
 import "./fd-visual.js";
+import "./fd-alert.js";
 import "../icons/phosphor-regular.js";

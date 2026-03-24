@@ -358,6 +358,24 @@ export const componentStoryApi = {
     "size": "md",
     },
   },
+  "fd-alert": {
+    argTypes: {
+    "variant": { control: "select", options: ["default","slim","site"] },
+    "type": { control: "select", options: ["info","success","warning","error","emergency"] },
+    "title": { control: "text" },
+    "dismissible": { control: "boolean" },
+    "dismissLabel": { control: "text" },
+    "live": { control: "select", options: ["off","polite","assertive"] },
+    },
+    args: {
+    "variant": "default",
+    "type": "info",
+    "title": "",
+    "dismissible": false,
+    "dismissLabel": undefined,
+    "live": "off",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {
