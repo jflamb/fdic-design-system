@@ -28,6 +28,54 @@ Radio buttons let users make one explicit selection from a short list of mutuall
   caption="Radio overview — default, selected, description, and disabled states. Open Storybook for interactive controls and form examples."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | `false` | Current selected state |
+| `disabled` | `boolean` | `false` | Prevents interaction and group selection |
+| `required` | `boolean` | `false` | Marks the radio as required within its same-name group |
+| `name` | `string` | `""` | Radio group name. Same-name radios in the same root and form behave as one group. |
+| `value` | `string` | `"on"` | Submitted value when this radio is selected |
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| (default) | Visible radio label |
+| `description` | Optional supporting text announced through `aria-describedby` when present |
+
+## Events
+
+| Name | Detail | Description |
+|------|--------|-------------|
+| `input` | Native `Event` | Fired when the selected radio in the group changes |
+| `change` | Native `Event` | Fired after the user commits a new radio selection |
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-radio-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
+| `--fd-radio-size` | `24px` | Size of the radio control wrapper |
+| `--fd-radio-icon-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
+| `--fd-radio-glyph-size` | `22px` | Size of the circular radio glyph |
+| `--fd-radio-border-width` | `2px` | Stroke width of the outer ring |
+| `--fd-radio-dot-size` | `8px` | Size of the selected-state dot |
+| `--fd-radio-focus-color` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
+| `--fd-radio-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
+| `--fd-radio-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
+| `--fd-radio-icon-disabled` | `var(--fdic-text-disabled, #9e9ea0)` | Control color while disabled |
+| `--fd-radio-invalid-color` | `rgb(190, 40, 40)` | Control color while visible invalid state is active |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `control` | Wrapper for the native radio input and visual glyph |
+| `label` | Wrapper for label and description text |
+| `description` | Optional description text wrapper |
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">

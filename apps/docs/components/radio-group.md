@@ -28,6 +28,53 @@ Radio groups collect mutually exclusive options under one prompt. Use them when 
   caption="Radio group overview — vertical layout, long-label wrapping, disabled options, and required group messaging. Open Storybook for form validation and horizontal layout examples."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `orientation` | `"vertical"` \| `"horizontal"` | `"vertical"` | Layout direction for the radio set |
+| `required` | `boolean` | `false` | Requires one enabled radio to be selected |
+| `disabled` | `boolean` | `false` | Disables the group and temporarily disables enabled child radios |
+| `label` | `string` | `""` | Fallback legend text when no `legend` slot content is provided |
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| `legend` | Optional replacement for the authored legend text |
+| `description` | Group-level help text announced from the fieldset |
+| (default) | One or more `fd-radio` children |
+| `error` | Group-level validation message shown and announced while invalid |
+
+## Events
+
+| Name | Detail | Description |
+|------|--------|-------------|
+| `fd-radio-group-change` | `{ value: string }` | Fired when the selected radio changes |
+
+Compatibility note:
+
+- `fd-radio-group` still fires deprecated `fd-group-change` with `{ selectedValue: string }` during the compatibility window.
+- New consumer code should listen to `fd-radio-group-change`.
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-radio-group-max-width` | `32rem` | Maximum inline size of the group |
+| `--fd-radio-group-section-gap` | `0.5em` | Space below the legend |
+| `--fd-radio-group-gap` | `var(--fdic-spacing-sm, 12px)` | Gap between radio items |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `fieldset` | Native fieldset wrapper |
+| `legend` | Native legend element |
+| `description` | Group-level description wrapper |
+| `items` | Container for slotted `fd-radio` children |
+| `error` | Group-level error message wrapper |
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -73,17 +120,6 @@ Radio groups collect mutually exclusive options under one prompt. Use them when 
 - `reportValidity()`, form submit attempts, and focus leaving the logical group after user interaction reveal invalid state when the group is invalid. The host gets `data-user-invalid` and the internal `<fieldset>` gets `aria-invalid="true"`.
 - `aria-invalid` is present iff `data-user-invalid` is present, and it clears in the same update cycle when the group becomes valid or when the form reset path runs.
 - Provide one authored group-level error message in the `error` slot whenever the group can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
-
-## Event contract
-
-| Event | Detail | Notes |
-|-------|--------|-------|
-| `fd-radio-group-change` | `{ value: string }` | Fired when the selected radio changes |
-
-Compatibility note:
-
-- `fd-radio-group` still fires deprecated `fd-group-change` with `{ selectedValue: string }` during the compatibility window.
-- New consumer code should listen to `fd-radio-group-change`.
 
 ## Known limitations
 

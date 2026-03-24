@@ -28,6 +28,25 @@ Labels identify form inputs and provide optional description text and contextual
   caption="Label variants — basic, required with description, with InfoTip, and full-featured. Open Storybook for interactive controls."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `for` | `string \| undefined` | `undefined` | Target control ID. Required for real native label association. |
+| `label` | `string` | `""` | Visible label text |
+| `required` | `boolean` | `false` | Adds the required indicator and screen-reader-only required text |
+| `description` | `string \| undefined` | `undefined` | Always-visible hint text rendered below the label |
+| `infotip` | `string \| undefined` | `undefined` | Supplementary plain-text help shown in the InfoTip panel |
+| `infotip-label` | `string \| undefined` | `undefined` | Accessible name override for the InfoTip trigger. Defaults to `More information about [label]`. |
+
+## Rendering and styling
+
+`fd-label` renders in light DOM so the internal native `<label for>` association can work with same-root controls. In v1:
+
+- All public authored content is property-driven. The component does not expose slots or custom events.
+- `fd-label` does not expose shadow parts, because it does not use a shadow root.
+- `fd-label` does not expose component-scoped CSS custom properties. The rendered `part` attributes are internal light-DOM structure markers, not a documented external styling API.
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -81,6 +100,7 @@ Labels identify form inputs and provide optional description text and contextual
 - `fd-label` renders a native `<label>` element in **light DOM**, giving a real `for`/`id` association with the target input. Click-to-focus and screen reader name computation work natively.
 - The required indicator uses a visual asterisk (`aria-hidden="true"`) paired with visually-hidden text "(required)" for screen readers. The input itself must also have the `required` or `aria-required` attribute.
 - Description text is auto-wired via `aria-describedby` on the target input. `fd-label` appends its description ID, preserves existing tokens, and cleans up only its own ID on disconnect.
+- Sibling components such as `fd-input` use `fd-label`'s stable public `labelId` and `descriptionId` getters internally. Consumers normally do not need to set or read these directly.
 - The InfoTip uses a disclosure/toggletip pattern: `<button>` with `aria-expanded` and `aria-controls`. No `role="status"` or live region. Escape closes the panel and returns focus to the trigger.
 - **Same-root limitation:** The target control must share the same DOM root tree as `fd-label`. If the input lives inside another component's shadow root, the `for`/`id` association will not cross that boundary.
 

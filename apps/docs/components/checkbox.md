@@ -28,6 +28,53 @@ Checkboxes let users make one or more explicit selections. Use them when each op
   caption="Checkbox overview — default, checked, indeterminate, description, and disabled states. Open Storybook for interactive controls and form examples."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | `false` | Current checked state |
+| `indeterminate` | `boolean` | `false` | Mixed visual state for aggregate patterns such as "select all" |
+| `disabled` | `boolean` | `false` | Prevents interaction and submission |
+| `required` | `boolean` | `false` | Marks the checkbox as required for constraint validation |
+| `name` | `string` | `""` | Submitted form field name |
+| `value` | `string` | `"on"` | Submitted value when the checkbox is checked |
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| (default) | Visible checkbox label |
+| `description` | Optional supporting text announced through `aria-describedby` when present |
+
+## Events
+
+| Name | Detail | Description |
+|------|--------|-------------|
+| `input` | Native `Event` | Fired when the checkbox value changes |
+| `change` | Native `Event` | Fired after the user commits a checkbox state change |
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-checkbox-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
+| `--fd-checkbox-size` | `24px` | Size of the checkbox control |
+| `--fd-checkbox-border-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
+| `--fd-checkbox-radius` | `var(--fdic-corner-radius-sm, 3px)` | Checkbox corner radius |
+| `--fd-checkbox-icon-size` | `24px` | Size of the internal state icon |
+| `--fd-checkbox-focus-color` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
+| `--fd-checkbox-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
+| `--fd-checkbox-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
+| `--fd-checkbox-invalid-color` | `rgb(190, 40, 40)` | Control color while visible invalid state is active |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `control` | Wrapper for the native checkbox input and visual glyph |
+| `label` | Wrapper for label and description text |
+| `description` | Optional description text wrapper |
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">

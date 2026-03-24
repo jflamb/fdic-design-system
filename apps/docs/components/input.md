@@ -30,6 +30,51 @@ A text input field for user-entered text, with support for labels, hints, error 
   caption="Input variants — default, with description, error state, character count, disabled, read-only, prefix icon, and fd-field composition. Open Storybook for interactive controls."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `"text"` \| `"email"` \| `"password"` \| `"tel"` \| `"url"` \| `"search"` | `"text"` | Native input type passed through to the internal `<input>` |
+| `name` | `string` | `""` | Submitted form field name |
+| `value` | `string` | `""` | Current input value |
+| `placeholder` | `string \| undefined` | `undefined` | Optional placeholder text. Use for examples, not as the visible label. |
+| `disabled` | `boolean` | `false` | Prevents editing and submission |
+| `readonly` | `boolean` | `false` | Prevents editing while keeping the value focusable and selectable |
+| `required` | `boolean` | `false` | Marks the field as required for constraint validation |
+| `maxlength` | `number \| undefined` | `undefined` | Maximum character count. Also enables the built-in character counter. |
+| `minlength` | `number \| undefined` | `undefined` | Minimum length requirement passed through to the native input |
+| `pattern` | `string \| undefined` | `undefined` | Regular expression pattern passed through to the native input |
+| `autocomplete` | `string \| undefined` | `undefined` | Native autocomplete hint |
+| `inputmode` | `string \| undefined` | `undefined` | Native input mode hint, such as `numeric` for digit-only identifiers |
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| `prefix` | Leading decorative content, typically `fd-icon` |
+| `suffix` | Trailing content, typically a native `<button type="button">` or decorative `fd-icon` |
+
+## Events
+
+| Name | Detail | Description |
+|------|--------|-------------|
+| `input` | Native `Event` | Fired on each value change |
+| `change` | Native `Event` | Fired when the native input commits a value change |
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-input-height` | `44px` | Minimum input height |
+| `--fd-input-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color at rest |
+| `--fd-input-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Border color on hover |
+| `--fd-input-border-color-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus glow color |
+| `--fd-input-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius |
+| `--fd-input-bg` | `var(--fdic-background-base, #ffffff)` | Background color |
+| `--fd-input-placeholder-color` | `var(--fdic-text-secondary, #595961)` | Placeholder text color |
+| `--fd-input-slot-size` | `44px` | Width of prefix and suffix slot containers |
+| `--fd-input-icon-size` | `22px` | Icon size inside prefix and suffix slots |
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -255,7 +300,7 @@ Use a non-interactive suffix icon when the field needs an inline invalid-state i
 - **Warning/Success:** No change to prefix/suffix unless a specific design pattern introduces a dedicated state icon.
 - **Focus:** When the input is focused, the container shows the focus ring. When a suffix button is focused, only the button shows its own inset focus ring.
 
-## CSS parts
+## Shadow parts
 
 | Part | Element | Purpose |
 |------|---------|---------|
@@ -266,19 +311,7 @@ Use a non-interactive suffix icon when the field needs an inline invalid-state i
 
 **Migration note:** In previous versions, `::part(base)` targeted the native `<input>` directly. It now targets the visual container `<div>`. For border, background, and radius customization, `::part(base)` continues to work as before.
 
-`::part()` cannot chain with pseudo-elements like `::placeholder` — this is a CSS specification limitation. Use CSS custom properties instead:
-
-| Custom property | Purpose |
-|---|---|
-| `--fd-input-placeholder-color` | Placeholder text color |
-| `--fd-input-border-color` | Border color at rest |
-| `--fd-input-border-color-hover` | Border color on hover |
-| `--fd-input-border-color-focus` | Focus glow color |
-| `--fd-input-border-radius` | Corner radius |
-| `--fd-input-bg` | Background color |
-| `--fd-input-height` | Minimum height (default: 44px) |
-| `--fd-input-slot-size` | Prefix/suffix slot width (default: 44px) |
-| `--fd-input-icon-size` | Icon glyph size inside prefix/suffix slots (default: 22px) |
+`::part()` cannot chain with pseudo-elements like `::placeholder`. Use the documented CSS custom properties instead when you need to style placeholder text or slot sizing.
 
 ### Icon sizing
 

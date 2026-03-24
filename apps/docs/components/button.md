@@ -34,6 +34,66 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
   caption="Common patterns — icons, icon-only actions, link mode, and loading state in one compact preview. Open Storybook for the full set of dedicated examples."
 />
 
+## Properties
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `"primary"` | Visual treatment for the action. Use `destructive` only for high-risk actions. |
+| `disabled` | `boolean` | `false` | Makes the control inert. In link mode, `fd-button` uses `aria-disabled="true"` and suppresses navigation. |
+| `href` | `string \| undefined` | `undefined` | When set, `fd-button` renders a native `<a>` instead of an internal `<button>`. |
+| `target` | `string \| undefined` | `undefined` | Native link target. Applies only when `href` is set. |
+| `rel` | `string \| undefined` | `undefined` | Native link relationship tokens. When `target="_blank"`, `fd-button` always adds `noopener noreferrer`. |
+| `loading` | `boolean` | `false` | Shows a spinner and makes the control inert while work is in progress. |
+| `loading-label` | `string \| undefined` | `undefined` | Optional replacement label to show and announce while `loading` is true. |
+
+`fd-button` currently exposes a reactive `type` property in source, but v1 always renders `<button type="button">` in button mode. Submit/reset behavior is not part of the supported public contract.
+
+## Slots
+
+| Name | Description |
+|------|-------------|
+| (default) | Visible button label |
+| `icon-start` | Leading icon content, typically `fd-icon` |
+| `icon-end` | Trailing icon content, typically `fd-icon` |
+
+## CSS custom properties
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `--fd-button-gap` | `var(--fdic-spacing-2xs, 4px)` | Gap between label and visual content |
+| `--fd-button-height` | `44px` | Minimum button height |
+| `--fd-button-min-width` | `44px` | Minimum button width |
+| `--fd-button-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius |
+| `--fd-button-font-size` | `var(--fdic-font-size-body, 18px)` | Button font size |
+| `--fd-button-icon-only-size` | `var(--fd-button-height, 44px)` | Square size for icon-only buttons |
+| `--fd-button-icon-edge-padding` | `11px` | Extra inline padding when a leading or trailing icon is present |
+| `--fd-button-focus-gap` | `var(--ds-color-bg-input, #ffffff)` | Inner gap color in the focus ring |
+| `--fd-button-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus-ring color |
+| `--fd-button-bg-primary` | `var(--ds-color-bg-active, #0d6191)` | Primary background color |
+| `--fd-button-text-primary` | `var(--ds-color-text-inverted, #ffffff)` | Primary text color |
+| `--fd-button-bg-destructive` | `var(--ds-color-bg-destructive, #d80e3a)` | Destructive background color |
+| `--fd-button-text-destructive` | `var(--ds-color-text-inverted, #ffffff)` | Destructive text color |
+| `--fd-button-bg-neutral` | `var(--ds-color-bg-interactive, #f5f5f7)` | Neutral background color |
+| `--fd-button-text-neutral` | `var(--ds-color-text-primary, #212123)` | Neutral text color |
+| `--fd-button-text-subtle` | `var(--ds-color-text-primary, #212123)` | Subtle text color |
+| `--fd-button-text-outline` | `var(--ds-color-text-link, #1278b0)` | Outline text color |
+| `--fd-button-border-outline` | `var(--ds-color-bg-active, #0d6191)` | Outline border color |
+| `--fd-button-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
+| `--fd-button-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
+| `--fd-button-bg-disabled` | `var(--ds-color-bg-container, #f5f5f7)` | Disabled background color |
+| `--fd-button-text-disabled` | `var(--ds-color-text-disabled, #9e9ea0)` | Disabled text color |
+| `--fd-button-border-outline-disabled` | `var(--ds-color-border-input-disabled, #d6d6d8)` | Disabled outline border color |
+| `--fd-button-spinner-size` | `1em` | Spinner size in loading state |
+| `--fd-button-spinner-speed` | `0.8s` | Spinner rotation duration |
+
+## Shadow parts
+
+| Name | Description |
+|------|-------------|
+| `base` | Internal native `<button>` or `<a>` element |
+| `label` | Visible label wrapper |
+| `spinner` | Loading spinner wrapper |
+
 - **Primary** carries the main action on the page or section. Limit it to one primary button per section.
 - **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.
 - **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.
