@@ -25,6 +25,7 @@ export { FdBadgeGroup } from "./components/fd-badge-group.js";
 export { FdChip } from "./components/fd-chip.js";
 export { FdChipGroup } from "./components/fd-chip-group.js";
 export { FdTextarea } from "./components/fd-textarea.js";
+export { FdVisual } from "./components/fd-visual.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -38,6 +39,7 @@ export type { SelectorVariant } from "./components/fd-selector.js";
 export type { FileInputItem, FileInputItemState, FileInputRejectReason, FileInputRejectedFile, FdFileInputChangeDetail, FdFileInputActionDetail } from "./components/fd-file-input.js";
 export type { BadgeType } from "./components/fd-badge.js";
 export type { ChipType } from "./components/fd-chip.js";
+export type { VisualSize, VisualType } from "./components/fd-visual.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

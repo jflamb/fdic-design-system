@@ -30,6 +30,7 @@ export default defineConfig({
     "components/fd-chip": "src/components/fd-chip.ts",
     "components/fd-chip-group": "src/components/fd-chip-group.ts",
     "components/fd-textarea": "src/components/fd-textarea.ts",
+    "components/fd-visual": "src/components/fd-visual.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -54,6 +55,7 @@ export default defineConfig({
     "register/fd-chip": "src/register/fd-chip.ts",
     "register/fd-chip-group": "src/register/fd-chip-group.ts",
     "register/fd-textarea": "src/register/fd-textarea.ts",
+    "register/fd-visual": "src/register/fd-visual.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",
