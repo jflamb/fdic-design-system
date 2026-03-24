@@ -1726,5 +1726,207 @@
       ],
       "after": ""
     }
+  },
+  "fd-slider": {
+    "properties": {
+      "rows": [
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Form field name used when the committed slider value is submitted."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible field label rendered inside the component."
+        },
+        {
+          "name": "hint",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Optional supporting guidance shared by the range input and inline helper input."
+        },
+        {
+          "name": "min",
+          "type": "`number`",
+          "defaultValue": "`0`",
+          "description": "Lower bound of the slider range. Non-integer values are rounded in v1."
+        },
+        {
+          "name": "max",
+          "type": "`number`",
+          "defaultValue": "`100`",
+          "description": "Upper bound of the slider range. Non-integer values are rounded in v1."
+        },
+        {
+          "name": "step",
+          "type": "`number`",
+          "defaultValue": "`1`",
+          "description": "Integer increment used by the native range input and the optional helper input."
+        },
+        {
+          "name": "value",
+          "type": "`number`",
+          "defaultValue": "`0`",
+          "description": "Committed slider value. When no explicit value is supplied, the component initializes to the normalized midpoint."
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Disables the range input and the optional helper input."
+        },
+        {
+          "name": "showInput",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Shows the inline exact-value helper input."
+        }
+      ],
+      "after": "- v1 is intentionally limited to single-value integer selection.\n- Invalid authored numeric constraints are normalized predictably, with console warnings for authoring mistakes."
+    },
+    "slots": {
+      "rows": [],
+      "after": "This component does not use slots. Configure its content through public properties."
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "input",
+          "detail": "Native `Event`",
+          "description": "Fired when the committed value changes through drag, keyboard input, or valid inline-input edits."
+        },
+        {
+          "name": "change",
+          "detail": "Native `Event`",
+          "description": "Fired when a value change is committed by the range input or the inline helper input."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-slider-track-height",
+          "default": "`8px`",
+          "description": "Visual rail height."
+        },
+        {
+          "name": "--fd-slider-track-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Corner radius for the visual rail and fill."
+        },
+        {
+          "name": "--fd-slider-track-background",
+          "default": "`var(--fdic-border-input-interactive, #e0e0e2)`",
+          "description": "Unfilled rail color."
+        },
+        {
+          "name": "--fd-slider-track-fill",
+          "default": "`var(--fdic-brand-core-default, #0d6191)`",
+          "description": "Filled rail color up to the committed value."
+        },
+        {
+          "name": "--fd-slider-thumb-size",
+          "default": "`20px`",
+          "description": "Thumb diameter."
+        },
+        {
+          "name": "--fd-slider-thumb-border",
+          "default": "`var(--fdic-color-icon-active, #1278b0)`",
+          "description": "Thumb border color."
+        },
+        {
+          "name": "--fd-slider-thumb-background",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Thumb background color at rest."
+        },
+        {
+          "name": "--fd-slider-thumb-hover-background",
+          "default": "`var(--fdic-background-container, #f5f5f7)`",
+          "description": "Thumb background while hovered."
+        },
+        {
+          "name": "--fd-slider-thumb-pressed-background",
+          "default": "`var(--fdic-background-selected, #b4e4f8)`",
+          "description": "Thumb background while dragged or pressed."
+        },
+        {
+          "name": "--fd-slider-bubble-background",
+          "default": "`#212123`",
+          "description": "Current-value bubble background color."
+        },
+        {
+          "name": "--fd-slider-bubble-color",
+          "default": "`#ffffff`",
+          "description": "Current-value bubble text color."
+        },
+        {
+          "name": "--fd-slider-bubble-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Current-value bubble corner radius."
+        },
+        {
+          "name": "--fd-slider-input-width",
+          "default": "`56px`",
+          "description": "Width of the optional inline helper input."
+        },
+        {
+          "name": "--fd-slider-input-border-color",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Inline helper input border color."
+        },
+        {
+          "name": "--fd-slider-input-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Inline helper input corner radius."
+        },
+        {
+          "name": "--fd-slider-input-background",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Inline helper input background color."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "label",
+          "description": "Visible field label."
+        },
+        {
+          "name": "hint",
+          "description": "Optional supporting guidance text."
+        },
+        {
+          "name": "control",
+          "description": "Wrapper that groups the range input and optional helper input."
+        },
+        {
+          "name": "track",
+          "description": "Visual unfilled rail under the native range input."
+        },
+        {
+          "name": "fill",
+          "description": "Visual filled rail up to the committed value."
+        },
+        {
+          "name": "range",
+          "description": "Internal native `<input type=\"range\">`."
+        },
+        {
+          "name": "value-bubble",
+          "description": "Visual current-value bubble shown for hover, drag, and focus states."
+        },
+        {
+          "name": "input",
+          "description": "Optional inline `<input type=\"number\">` used for exact entry."
+        }
+      ],
+      "after": ""
+    }
   }
 }

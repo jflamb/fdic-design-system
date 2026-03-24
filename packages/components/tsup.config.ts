@@ -24,6 +24,7 @@ export default defineConfig({
     "components/fd-selector": "src/components/fd-selector.ts",
     "components/fd-split-button": "src/components/fd-split-button.ts",
     "components/fd-file-input": "src/components/fd-file-input.ts",
+    "components/fd-slider": "src/components/fd-slider.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -42,6 +43,7 @@ export default defineConfig({
     "register/fd-selector": "src/register/fd-selector.ts",
     "register/fd-split-button": "src/register/fd-split-button.ts",
     "register/fd-file-input": "src/register/fd-file-input.ts",
+    "register/fd-slider": "src/register/fd-slider.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

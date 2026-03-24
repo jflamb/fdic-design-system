@@ -360,6 +360,26 @@ export const componentInventory = [
       "FdFileInputActionDetail",
     ],
   },
+    {
+    tagName: "fd-slider",
+    className: "FdSlider",
+    sourceFile: "fd-slider.ts",
+    docs: {
+      kind: "first-class",
+      title: "Slider",
+      slug: "slider"
+    },
+    storybook: {
+      title: "Components/Slider",
+      file: "fd-slider.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: []
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 
