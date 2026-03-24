@@ -119,6 +119,10 @@
       "types": "./dist/components/fd-visual.d.ts",
       "import": "./dist/components/fd-visual.js"
     },
+    "./fd-alert": {
+      "types": "./dist/components/fd-alert.d.ts",
+      "import": "./dist/components/fd-alert.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"
