@@ -89,9 +89,10 @@ This project uses tooling for baseline formatting. The conventions below are the
   - grouped validation flows such as `fd-checkbox-group` and `fd-radio-group`
 - High-complexity components require `play` coverage for user-observable behavior such as keyboard flows, focus movement, open/close behavior, selection/action behavior, and visible state transitions.
 - Storybook `play` tests should focus on user-observable behavior. Vitest component tests should continue to own lower-level contract assertions such as event payloads, form data, and attribute reflection.
-- `@storybook/addon-a11y` should be enabled in Storybook. During the current repository phase, accessibility findings are a required review surface for first-class components and advisory for supporting-standalone primitives unless complexity or risk warrants stricter handling.
-- In Storybook config, `a11y: { test: "todo" }` means accessibility checks run and surface findings in the addon panel, but those findings are not treated as passing/blocked automated test assertions yet. A green Storybook test run does not remove the requirement to review and address meaningful a11y findings for qualifying components.
-- Scoped a11y suppressions must identify the rule and justification in story metadata or adjacent code comments. Avoid broad silent disablement.
+- `@storybook/addon-a11y` should be enabled in Storybook. During the current repository phase, first-class component story files are expected to opt into `a11y: { test: "error" }` and are part of the enforced CI path. Supporting-standalone primitives remain advisory unless complexity or risk warrants stricter handling.
+- The global Storybook preview may stay at `a11y: { test: "todo" }` while enforcement is rolled out selectively. Treat story-file metadata as the source of truth for whether a given story file is CI-blocking.
+- `npm run test:storybook` is the browser-backed validation tier for qualifying stories. A passing run is required for first-class component work that changes Storybook-sensitive behavior or accessibility surfaces.
+- Scoped a11y suppressions must identify the rule and justification in story metadata or adjacent code comments. Use the smallest possible scope, prefer story-level overrides over file-wide downgrades, and link follow-up work when the suppression represents real product debt. Avoid broad silent disablement.
 
 #### Component completeness standard
 

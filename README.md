@@ -24,7 +24,7 @@ Early-stage open source scaffold for an FDIC design system.
 ## Validation
 
 - `npm run test:components` runs the fast `packages/components` Vitest suite, including reusable `axe-core` audits for structural accessibility issues that `happy-dom` can catch reliably.
-- `npm run test:storybook` runs browser-backed Storybook interaction tests for component stories, covering keyboard flow and rendered output in Chromium.
+- `npm run test:storybook` runs browser-backed Storybook interaction and accessibility tests in Chromium. It is part of the expected validation path for first-class component story files and their qualifying high-complexity flows.
 - `npm run build:storybook` verifies the Storybook workbench still builds cleanly for review and deployment.
 
 ## Notes

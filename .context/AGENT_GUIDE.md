@@ -99,6 +99,7 @@ Key workspace scripts (run from the repo root):
 | Script | Purpose |
 |--------|---------|
 | `npm run test:components` | Run all component tests (Vitest + happy-dom) |
+| `npm run test:storybook` | Run Storybook browser tests (Vitest + Playwright Chromium) |
 | `npm run build` | Full sequential build (components → react → docs) |
 | `npm run dev:docs` | Start VitePress dev server |
 | `npm run dev:storybook` | Start Storybook dev server |
@@ -424,6 +425,7 @@ After a PR is merged:
 Before merging a PR, ensure at minimum:
 
 - `npm run test:components` passes
+- `npm run test:storybook` passes when the change affects Storybook-sensitive behavior, first-class component stories, or browser-tier accessibility validation
 - `npm run build` succeeds (full build: components → react → docs)
 - Documentation is updated if the change affects component APIs or behavior
 - Storybook stories are updated if the change adds or modifies visual states
