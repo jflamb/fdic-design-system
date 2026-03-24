@@ -138,6 +138,9 @@ Before implementation, explicitly decide and record:
 
 - Create or update a PR when the implementation is reviewable.
 - Move the Issue to `In review`.
+- Ensure the implementation Issue will close cleanly:
+  - prefer a PR body that uses a closing keyword when that is safe and accurate
+  - otherwise, close the Issue manually during post-merge cleanup
 - Post the reusable review prompt required by repo conventions.
 - Add a PR self-review comment that explicitly states:
   - blocker findings
@@ -152,6 +155,7 @@ Before implementation, explicitly decide and record:
 
 - Merge with `squash` after required checks pass and no blocker findings remain, if merge authority was granted by the invoking prompt.
 - After merge:
+  - confirm the implementation Issue is closed
   - move the Issue to `Done`
   - delete the remote and local branch when possible
   - return to `main`
