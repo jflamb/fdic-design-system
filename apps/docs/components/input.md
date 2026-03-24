@@ -302,12 +302,12 @@ Use a non-interactive suffix icon when the field needs an inline invalid-state i
 
 ## Shadow parts
 
-| Part | Element | Purpose |
-|------|---------|---------|
-| `base` | `<div>` | Visual input container — border, background, radius, focus, states. Style this to customize appearance. |
-| `native` | `<input>` | The actual native input element. Exposed for JavaScript access (e.g., `el.shadowRoot.querySelector('[part=native]')`). |
-| `wrapper` | `<div>` | Outermost wrapper containing the input container and character count. |
-| `char-count` | `<div>` | Visible character count display. |
+| Name | Description |
+|------|-------------|
+| `base` | Visual input container (`<div>`) for border, background, radius, focus, and state styling |
+| `native` | The native `<input>` element. Exposed for JavaScript access such as `el.shadowRoot.querySelector('[part=native]')`. |
+| `wrapper` | Outermost `<div>` containing the input container and character count |
+| `char-count` | Visible character count display |
 
 **Migration note:** In previous versions, `::part(base)` targeted the native `<input>` directly. It now targets the visual container `<div>`. For border, background, and radius customization, `::part(base)` continues to work as before.
 

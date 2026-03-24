@@ -209,6 +209,11 @@ Compatibility note:
 - Disabled items remain discoverable in menu navigation and expose `aria-disabled="true"`.
 - Activation fires `fd-menu-item-select` for new code and deprecated `fd-select` during the compatibility window.
 
+Compatibility note:
+
+- `fd-menu-item` still fires deprecated `fd-select` during the compatibility window.
+- New consumer code should listen to `fd-menu-item-select`.
+
 **Usage example**
 
 ```html
