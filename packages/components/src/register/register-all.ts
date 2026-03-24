@@ -22,4 +22,5 @@ import "./fd-radio.js";
 import "./fd-radio-group.js";
 import "./fd-selector.js";
 import "./fd-split-button.js";
+import "./fd-file-input.js";
 import "../icons/phosphor-regular.js";

@@ -1505,5 +1505,226 @@
       ],
       "after": ""
     }
+  },
+  "fd-file-input": {
+    "properties": {
+      "rows": [
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Form field name used when accepted files are submitted."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible field label rendered inside the container."
+        },
+        {
+          "name": "hint",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Persistent plain-language guidance for accepted file types, counts, or sizes."
+        },
+        {
+          "name": "buttonText",
+          "type": "`string`",
+          "defaultValue": "`\"Select file\"`",
+          "description": "Text shown on the browse affordance over the native file input."
+        },
+        {
+          "name": "dropText",
+          "type": "`string`",
+          "defaultValue": "`\"or drop here\"`",
+          "description": "Supporting drag-and-drop instruction shown next to the browse affordance."
+        },
+        {
+          "name": "errorMessage",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Authored field-level error copy shown when the component reveals invalid state."
+        },
+        {
+          "name": "limitText",
+          "type": "`string`",
+          "defaultValue": "`\"You’ve reached the file upload limit.\"`",
+          "description": "Informational message shown when `maxFiles` has been reached."
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Requires at least one accepted file before the field is valid."
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Disables browse, drop, and row actions."
+        },
+        {
+          "name": "multiple",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Allows multiple accepted files and repeated selection up to `maxFiles`."
+        },
+        {
+          "name": "accept",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Native accept filter used for browse selection and mirrored during drop validation."
+        },
+        {
+          "name": "maxFiles",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Maximum number of accepted files allowed at one time."
+        },
+        {
+          "name": "maxFileSize",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Maximum file size in bytes for any accepted file."
+        },
+        {
+          "name": "items",
+          "type": "`FileInputItem[]`",
+          "defaultValue": "`[]`",
+          "description": "Property-only row model for authored upload states such as `uploading`, `success`, `error`, and `invalid`."
+        }
+      ],
+      "after": "- `items` is a property-only API. Set it from JavaScript rather than authoring it as an HTML attribute.\n- Accepted files remain the source of truth for form submission, `required`, and `maxFiles` behavior even when `items` is provided."
+    },
+    "slots": {
+      "rows": [],
+      "after": "This component does not use slots. Configure field copy and file rows through its public properties."
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-file-input-change",
+          "detail": "`{ files: File[]; rejectedFiles: FileInputRejectedFile[] }`",
+          "description": "Fired after browse or drop selection is processed. Includes accepted files and local validation rejections."
+        },
+        {
+          "name": "fd-file-input-action",
+          "detail": "`{ action: \"cancel\" \\| \"remove\" \\| \"retry\" \\| \"dismiss\"; itemId: string }`",
+          "description": "Fired when the user activates a per-file row action."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-file-input-gap",
+          "default": "`var(--fdic-spacing-md, 16px)`",
+          "description": "Vertical gap between the main content blocks inside the container."
+        },
+        {
+          "name": "--fd-file-input-radius",
+          "default": "`var(--fdic-corner-radius-md, 5px)`",
+          "description": "Outer container corner radius."
+        },
+        {
+          "name": "--fd-file-input-border-color",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Container border color at rest."
+        },
+        {
+          "name": "--fd-file-input-border-color-hover",
+          "default": "`var(--fdic-border-input-active, #424244)`",
+          "description": "Container border color for hover and drag-target emphasis."
+        },
+        {
+          "name": "--fd-file-input-background",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Container background color."
+        },
+        {
+          "name": "--fd-file-input-focus-ring",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Outer focus glow color when the internal input is focused."
+        },
+        {
+          "name": "--fd-file-input-drop-overlay",
+          "default": "`var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))`",
+          "description": "Overlay color used for the active drop-target state."
+        },
+        {
+          "name": "--fd-file-input-item-border-color",
+          "default": "`var(--fdic-border-input-interactive, #e8e8ed)`",
+          "description": "Border color for file rows."
+        },
+        {
+          "name": "--fd-file-input-progress-color",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Indicator color for `uploading` rows."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Outer upload container."
+        },
+        {
+          "name": "label",
+          "description": "Visible field label."
+        },
+        {
+          "name": "browse-button",
+          "description": "Visual chrome for the browse affordance that overlays the native file input."
+        },
+        {
+          "name": "native",
+          "description": "Internal native `<input type=\"file\">`."
+        },
+        {
+          "name": "drop-text",
+          "description": "Visible drag-and-drop instruction text."
+        },
+        {
+          "name": "hint",
+          "description": "Persistent guidance text."
+        },
+        {
+          "name": "error",
+          "description": "Field-level error message."
+        },
+        {
+          "name": "limit",
+          "description": "Limit-reached informational message."
+        },
+        {
+          "name": "summary",
+          "description": "Fallback selected-file summary when no authored rows are provided."
+        },
+        {
+          "name": "list",
+          "description": "List wrapper for authored file rows."
+        },
+        {
+          "name": "item",
+          "description": "Individual file row."
+        },
+        {
+          "name": "item-status",
+          "description": "Per-file status text and icon wrapper."
+        },
+        {
+          "name": "item-action",
+          "description": "Per-file action button."
+        },
+        {
+          "name": "live-region",
+          "description": "Screen-reader-only announcement region for drop and selection status."
+        }
+      ],
+      "after": ""
+    }
   }
 }
