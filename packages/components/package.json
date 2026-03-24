@@ -123,6 +123,10 @@
       "types": "./dist/components/fd-alert.d.ts",
       "import": "./dist/components/fd-alert.js"
     },
+    "./fd-stripe": {
+      "types": "./dist/components/fd-stripe.d.ts",
+      "import": "./dist/components/fd-stripe.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

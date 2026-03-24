@@ -2701,5 +2701,66 @@
       ],
       "after": "- `fd-alert` keeps the severity icon decorative and adds a screen-reader-only severity label in the rendered content.\n- The component does not expose a shadow part for the live-region wrapper because that wrapper is an implementation detail of the semantic contract, not a styling surface."
     }
+  },
+  "fd-stripe": {
+    "properties": {
+      "rows": [
+        {
+          "name": "type",
+          "type": "`\"neutral\"` \\| `\"cool\"` \\| `\"warm\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Visual tone for the decorative stripe."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": "`fd-stripe` intentionally exposes no slots in v1. The component owns the decorative line rendering directly."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-stripe-width",
+          "default": "`80px`",
+          "description": "Rendered stripe width. The component clamps to the available container width."
+        },
+        {
+          "name": "--fd-stripe-height",
+          "default": "`4px`",
+          "description": "Rendered stripe thickness."
+        },
+        {
+          "name": "--fd-stripe-radius",
+          "default": "`0`",
+          "description": "Corner radius for the stripe."
+        },
+        {
+          "name": "--fd-stripe-bg-neutral",
+          "default": "`var(--ds-color-border-divider, var(--fdic-border-divider, #bdbdbf))`",
+          "description": "Neutral stripe color."
+        },
+        {
+          "name": "--fd-stripe-bg-cool",
+          "default": "`var(--ds-color-info-100, #38b6ff)`",
+          "description": "Cool stripe color."
+        },
+        {
+          "name": "--fd-stripe-bg-warm",
+          "default": "`var(--ds-color-secondary-500, #d9af45)`",
+          "description": "Warm stripe color."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "stripe",
+          "description": "Internal decorative line element."
+        }
+      ],
+      "after": "- `fd-stripe` stays decorative-only in v1 and sets `aria-hidden=\"true\"` on the host.\n- Use surrounding headings or landmarks for structure; the stripe itself is not a semantic separator."
+    }
   }
 }

@@ -376,6 +376,14 @@ export const componentStoryApi = {
     "live": "off",
     },
   },
+  "fd-stripe": {
+    argTypes: {
+    "type": { control: "select", options: ["neutral","cool","warm"] },
+    },
+    args: {
+    "type": "neutral",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {
