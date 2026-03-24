@@ -2,7 +2,7 @@ export const DOCS_OVERVIEW_STACK_STYLE =
   "display: grid; gap: var(--fdic-spacing-xl, 1.25rem); max-width: 45rem;";
 
 export const DOCS_OVERVIEW_SPACIOUS_STACK_STYLE =
-  "display: grid; gap: 3em; max-width: 45rem;";
+  "display: grid; gap: var(--fdic-spacing-3xl, 3rem); max-width: 45rem;";
 
 export const DOCS_OVERVIEW_GRID_STYLE =
   "display: grid; gap: var(--fdic-spacing-xl, 1.25rem); grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));";
