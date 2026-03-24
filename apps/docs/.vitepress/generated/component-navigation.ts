@@ -19,7 +19,8 @@ export const firstClassComponentSidebarItems = [
   { text: "Chip", link: "/components/chip" },
   { text: "Chip Group", link: "/components/chip-group" },
   { text: "Text Area", link: "/components/textarea" },
-  { text: "Alert", link: "/components/alert" }
+  { text: "Alert", link: "/components/alert" },
+  { text: "Link", link: "/components/link" }
 ];
 
 export const supportingPrimitiveSidebarItems = [

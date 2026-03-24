@@ -33,6 +33,7 @@ export default defineConfig({
     "components/fd-visual": "src/components/fd-visual.ts",
     "components/fd-alert": "src/components/fd-alert.ts",
     "components/fd-stripe": "src/components/fd-stripe.ts",
+    "components/fd-link": "src/components/fd-link.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -60,6 +61,7 @@ export default defineConfig({
     "register/fd-visual": "src/register/fd-visual.ts",
     "register/fd-alert": "src/register/fd-alert.ts",
     "register/fd-stripe": "src/register/fd-stripe.ts",
+    "register/fd-link": "src/register/fd-link.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

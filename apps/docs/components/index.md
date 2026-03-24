@@ -12,7 +12,7 @@ The components section documents the reusable building blocks and authored-conte
 <div class="fdic-card-grid">
   <div class="fdic-card">
     <span class="fdic-eyebrow">First-class components</span>
-    <h3>Button, Button Group, Checkbox, Checkbox Group, Icon, Input, Label, Menu, Radio, Radio Group, Selector, Split Button, File Input, Slider, Badge, Badge Group, Chip, Chip Group, Text Area, Alert</h3>
+    <h3>Button, Button Group, Checkbox, Checkbox Group, Icon, Input, Label, Menu, Radio, Radio Group, Selector, Split Button, File Input, Slider, Badge, Badge Group, Chip, Chip Group, Text Area, Alert, Link</h3>
     <p>Top-level Web Components consumers are expected to author directly in application markup. These pages define the primary supported component inventory.</p>
   </div>
   <div class="fdic-card">
@@ -52,6 +52,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Chip Group](./chip-group) documents chip group usage, constraints, and accessibility guidance.
 - [Text Area](./textarea) documents text area usage, constraints, and accessibility guidance.
 - [Alert](./alert) documents alert usage, constraints, and accessibility guidance.
+- [Link](./link) documents link usage, constraints, and accessibility guidance.
 - [Field](./field) documents the supporting primitive contract for field.
 - [Message](./message) documents the supporting primitive contract for message.
 - [Visual](./visual) documents the supporting primitive contract for visual.

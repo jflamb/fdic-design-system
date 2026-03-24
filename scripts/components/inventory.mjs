@@ -540,6 +540,26 @@ export const componentInventory = [
     },
     typeExports: ["StripeType"],
   },
+  {
+    tagName: "fd-link",
+    className: "FdLink",
+    sourceFile: "fd-link.ts",
+    docs: {
+      kind: "first-class",
+      title: "Link",
+      slug: "link",
+    },
+    storybook: {
+      title: "Components/Link",
+      file: "fd-link.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: ["LinkVariant", "LinkSize"],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 
