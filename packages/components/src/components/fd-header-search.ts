@@ -1,6 +1,10 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import type { FdDrawerCloseRequestDetail } from "./fd-drawer.js";
+import {
+  extractHeaderSearchAliasData,
+  normalizeHeaderSearchText,
+} from "./fd-header-search-utils.js";
 
 export type HeaderSearchSurface = "desktop" | "mobile";
 
@@ -40,67 +44,19 @@ const SEARCH_DEBOUNCE_MS = 180;
 const SEARCH_LIMIT = 8;
 let headerSearchInstanceCount = 0;
 
-function normalizeSearchText(value: string | undefined): string {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
-}
-
-function extractLauncherAliasData(label: string) {
-  const parentheticalAliases = new Set<string>();
-  const derivedAcronyms = new Set<string>();
-  const rawLabel = String(label || "");
-  const parentheticalMatches = [...rawLabel.matchAll(/\(([^)]+)\)/g)];
-
-  parentheticalMatches.forEach(([, match]) => {
-    const normalizedMatch = normalizeSearchText(match);
-    if (!normalizedMatch) {
-      return;
-    }
-
-    parentheticalAliases.add(normalizedMatch);
-    normalizedMatch.split(" ").forEach((token) => {
-      if (token.length >= 2) {
-        parentheticalAliases.add(token);
-      }
-    });
-  });
-
-  const acronymSource = normalizeSearchText(rawLabel.replace(/\([^)]*\)/g, " "));
-  const acronymWords = acronymSource
-    .split(" ")
-    .filter(
-      (word) =>
-        word &&
-        !["a", "an", "and", "for", "of", "the", "to"].includes(word),
-    );
-
-  if (acronymWords.length >= 2) {
-    derivedAcronyms.add(acronymWords.map((word) => word[0]).join(""));
-  }
-
-  return {
-    parentheticalAliases: [...parentheticalAliases],
-    derivedAcronyms: [...derivedAcronyms],
-  };
-}
-
 function getItemMatchRank(item: FdHeaderSearchItem, query: string) {
   if (!query) {
     return Number.POSITIVE_INFINITY;
   }
 
-  const normalizedTitle = normalizeSearchText(item.title);
-  const normalizedMeta = normalizeSearchText(item.meta);
-  const normalizedDescription = normalizeSearchText(item.description);
+  const normalizedTitle = normalizeHeaderSearchText(item.title);
+  const normalizedMeta = normalizeHeaderSearchText(item.meta);
+  const normalizedDescription = normalizeHeaderSearchText(item.description);
   const normalizedKeywords = (item.keywords || []).map((keyword) =>
-    normalizeSearchText(keyword),
+    normalizeHeaderSearchText(keyword),
   );
-  const { parentheticalAliases, derivedAcronyms } = extractLauncherAliasData(
-    item.title,
-  );
+  const { parentheticalAliases, derivedAcronyms } =
+    extractHeaderSearchAliasData(item.title);
   const titleTokens = normalizedTitle ? normalizedTitle.split(" ") : [];
   const searchText = [
     normalizedTitle,
@@ -125,7 +81,7 @@ export function getHeaderSearchMatches(
   items: FdHeaderSearchItem[],
   limit = SEARCH_LIMIT,
 ) {
-  const normalizedQuery = normalizeSearchText(query);
+  const normalizedQuery = normalizeHeaderSearchText(query);
   if (!normalizedQuery) {
     return [];
   }

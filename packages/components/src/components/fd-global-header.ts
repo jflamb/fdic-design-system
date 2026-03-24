@@ -8,6 +8,7 @@ import type {
   FdHeaderSearchSubmitDetail,
   HeaderSearchSurface,
 } from "./fd-header-search.js";
+import { extractHeaderSearchAliasData } from "./fd-header-search-utils.js";
 
 export type GlobalHeaderSearchSurface = HeaderSearchSurface;
 
@@ -82,53 +83,6 @@ const FOCUSABLE_SELECTOR = [
 ].join(",");
 
 let globalHeaderInstanceCount = 0;
-
-function normalizeSearchText(value: string | undefined) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
-}
-
-function extractLauncherAliasData(label: string) {
-  const parentheticalAliases = new Set<string>();
-  const derivedAcronyms = new Set<string>();
-  const rawLabel = String(label || "");
-  const parentheticalMatches = [...rawLabel.matchAll(/\(([^)]+)\)/g)];
-
-  parentheticalMatches.forEach(([, match]) => {
-    const normalizedMatch = normalizeSearchText(match);
-    if (!normalizedMatch) {
-      return;
-    }
-
-    parentheticalAliases.add(normalizedMatch);
-    normalizedMatch.split(" ").forEach((token) => {
-      if (token.length >= 2) {
-        parentheticalAliases.add(token);
-      }
-    });
-  });
-
-  const acronymSource = normalizeSearchText(rawLabel.replace(/\([^)]*\)/g, " "));
-  const acronymWords = acronymSource
-    .split(" ")
-    .filter(
-      (word) =>
-        word &&
-        !["a", "an", "and", "for", "of", "the", "to"].includes(word),
-    );
-
-  if (acronymWords.length >= 2) {
-    derivedAcronyms.add(acronymWords.map((word) => word[0]).join(""));
-  }
-
-  return {
-    parentheticalAliases: [...parentheticalAliases],
-    derivedAcronyms: [...derivedAcronyms],
-  };
-}
 
 function isPanelItem(
   item: FdGlobalHeaderNavigationItem,
@@ -207,9 +161,8 @@ export function createHeaderSearchItemsFromNavigation(
     }
 
     const panelLabel = item.label;
-    const { parentheticalAliases, derivedAcronyms } = extractLauncherAliasData(
-      item.label,
-    );
+    const { parentheticalAliases, derivedAcronyms } =
+      extractHeaderSearchAliasData(item.label);
 
     entries.push({
       id: `panel:${item.id}`,
