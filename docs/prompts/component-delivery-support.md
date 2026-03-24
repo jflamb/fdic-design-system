@@ -29,6 +29,7 @@ Use this precedence order unless the invoking prompt states otherwise:
 - If no Figma is supplied, use the closest shipped repo component family as the visual and behavioral baseline and document that fallback in GitHub artifacts.
 - Only stop for clarification when semantics, keyboarding, focus behavior, or state ownership remain materially ambiguous after applying the repo-pattern fallback.
 - If you intentionally diverge from Figma or repo precedent, document why in GitHub artifacts.
+- If a supplied Figma color or other visual value fails browser-backed accessibility validation, prefer the accessible implementation and document the deviation in GitHub artifacts rather than silently shipping the inaccessible value.
 
 ## Design Decisions To Record
 
@@ -179,6 +180,7 @@ Conditional:
 Validation expectations:
 
 - Fix failures before proceeding.
+- When a browser-backed accessibility check conflicts with a supplied Figma visual value, treat the accessibility result as the blocker. Adjust the implementation to pass, then record the rationale and the specific divergence in the Discussion, Issue, and PR artifacts.
 - Review generated outputs for malformed changes, accidental deletions, duplicate headings, placeholders, stale generated sections, or misleading guidance.
 - When editing `scripts/components/api-metadata.json`, escape markdown union pipes as `\\|`; raw `|` characters can break generated API tables in component docs.
 - If generated files changed only by ordering or formatting noise, verify the change is expected and avoid committing avoidable churn.
