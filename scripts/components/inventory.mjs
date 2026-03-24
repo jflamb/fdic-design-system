@@ -560,6 +560,26 @@ export const componentInventory = [
     },
     typeExports: ["LinkVariant", "LinkSize"],
   },
+  {
+    tagName: "fd-pagination",
+    className: "FdPagination",
+    sourceFile: "fd-pagination.ts",
+    docs: {
+      kind: "first-class",
+      title: "Pagination",
+      slug: "pagination",
+    },
+    storybook: {
+      title: "Components/Pagination",
+      file: "fd-pagination.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon"],
+    },
+    typeExports: [],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

@@ -9,6 +9,7 @@ const config: StorybookConfig = {
   },
   async viteFinal(existingConfig) {
     existingConfig.resolve ??= {};
+    existingConfig.optimizeDeps ??= {};
     const alias = existingConfig.resolve.alias;
     const componentIndexSource = resolve(
       import.meta.dirname,
@@ -48,6 +49,13 @@ const config: StorybookConfig = {
         })) : []),
       ];
     }
+
+    const optimizeDepsInclude = new Set(
+      existingConfig.optimizeDeps.include ?? [],
+    );
+    optimizeDepsInclude.add("axe-core");
+    optimizeDepsInclude.add("lit/directives/repeat.js");
+    existingConfig.optimizeDeps.include = [...optimizeDepsInclude];
 
     return existingConfig;
   },
