@@ -13,13 +13,13 @@
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.3.1",
-    "@storybook/addon-vitest": "^10.3.1",
-    "@storybook/web-components-vite": "^10.3.1",
+    "@storybook/addon-vitest": "^10.3.3",
+    "@storybook/web-components-vite": "^10.3.3",
     "storybook": "^10.3.1",
-    "typescript": "^5.8.2",
-    "vitest": "^4.1.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1",
     "playwright": "^1.58.2",
     "@vitest/browser-playwright": "^4.1.0",
-    "@vitest/coverage-v8": "^4.1.0"
+    "@vitest/coverage-v8": "^4.1.1"
   }
 }

@@ -11,7 +11,7 @@
     "@fdic-ds/components": "0.1.0"
   },
   "devDependencies": {
-    "typescript": "^5.8.2",
+    "typescript": "^6.0.2",
     "vitepress": "^1.6.3"
   }
 }
