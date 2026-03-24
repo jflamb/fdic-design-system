@@ -30,13 +30,14 @@ A text input field for user-entered text, with support for labels, hints, error 
   caption="Input variants — default, with description, error state, character count, disabled, read-only, prefix icon, and fd-field composition. Open Storybook for interactive controls."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `"text"` \| `"email"` \| `"password"` \| `"tel"` \| `"url"` \| `"search"` | `"text"` | Native input type passed through to the internal `<input>` |
-| `name` | `string` | `""` | Submitted form field name |
-| `value` | `string` | `""` | Current input value |
+|---|---|---|---|
+| `type` | `"text"` \| `"email"` \| `"password"` \| `"tel"` \| `"url"` \| `"search"` | `text` | Native input type passed through to the internal `<input>` |
+| `name` | `string` | `` | Submitted form field name |
+| `value` | `string` | `` | Current input value |
 | `placeholder` | `string \| undefined` | `undefined` | Optional placeholder text. Use for examples, not as the visible label. |
 | `disabled` | `boolean` | `false` | Prevents editing and submission |
 | `readonly` | `boolean` | `false` | Prevents editing while keeping the value focusable and selectable |
@@ -50,21 +51,21 @@ A text input field for user-entered text, with support for labels, hints, error 
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `prefix` | Leading decorative content, typically `fd-icon` |
 | `suffix` | Trailing content, typically a native `<button type="button">` or decorative `fd-icon` |
 
 ## Events
 
 | Name | Detail | Description |
-|------|--------|-------------|
+|---|---|---|
 | `input` | Native `Event` | Fired on each value change |
 | `change` | Native `Event` | Fired when the native input commits a value change |
 
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-input-height` | `44px` | Minimum input height |
 | `--fd-input-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color at rest |
 | `--fd-input-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Border color on hover |
@@ -74,6 +75,36 @@ A text input field for user-entered text, with support for labels, hints, error 
 | `--fd-input-placeholder-color` | `var(--fdic-text-secondary, #595961)` | Placeholder text color |
 | `--fd-input-slot-size` | `44px` | Width of prefix and suffix slot containers |
 | `--fd-input-icon-size` | `22px` | Icon size inside prefix and suffix slots |
+
+## Shadow parts
+
+| Name | Description |
+|---|---|
+| `base` | Visual input container (`<div>`) for border, background, radius, focus, and state styling |
+| `native` | The native `<input>` element. Exposed for JavaScript access such as `el.shadowRoot.querySelector('[part=native]')`. |
+| `wrapper` | Outermost `<div>` containing the input container and character count |
+| `char-count` | Visible character count display |
+
+**Migration note:** In previous versions, `::part(base)` targeted the native `<input>` directly. It now targets the visual container `<div>`. For border, background, and radius customization, `::part(base)` continues to work as before.
+
+`::part()` cannot chain with pseudo-elements like `::placeholder`. Use the documented CSS custom properties instead when you need to style placeholder text or slot sizing.
+
+### Icon sizing
+
+Icons inside prefix/suffix slots are automatically sized to 22px via `--fd-input-icon-size`. This is derived from the input's 18px body text at a 1.25× scale factor, rounded down to the nearest multiple of 2 (18 × 1.25 = 22.5 → 22px). The 1.25× ratio produces a glyph that is visually proportional to the accompanying text.
+
+You do not need to set `--fd-icon-size` on slotted icons or buttons — the slot container sets it automatically.
+
+**General principle:** Icons should be sized in proportion to the text they are paired with. When an icon appears inline with or adjacent to a text-bearing control, size the icon at 1.25× the text's font size, rounded down to the nearest multiple of 2px. This keeps the glyph visually balanced with the text baseline and line height.
+
+To override for a specific input, set `--fd-input-icon-size`:
+
+```html
+<fd-input style="--fd-input-icon-size: 24px;">
+  <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+</fd-input>
+```
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Best practices
 

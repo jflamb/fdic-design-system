@@ -28,19 +28,20 @@ Checkbox groups collect related options under one prompt. Use them when several 
   caption="Checkbox group overview — vertical layout, long-label wrapping, disabled options, and required group messaging. Open Storybook for form validation and horizontal layout examples."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `orientation` | `"vertical"` \| `"horizontal"` | `"vertical"` | Layout direction for the checkbox set |
+|---|---|---|---|
+| `orientation` | `"vertical"` \| `"horizontal"` | `vertical` | Layout direction for the checkbox set |
 | `required` | `boolean` | `false` | Requires at least one enabled checkbox to be selected |
 | `disabled` | `boolean` | `false` | Disables the group and temporarily disables enabled child checkboxes |
-| `label` | `string` | `""` | Fallback legend text when no `legend` slot content is provided |
+| `label` | `string` | `` | Fallback legend text when no `legend` slot content is provided |
 
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `legend` | Optional replacement for the authored legend text |
 | `description` | Group-level help text announced from the fieldset |
 | (default) | One or more `fd-checkbox` children |
@@ -49,7 +50,7 @@ Checkbox groups collect related options under one prompt. Use them when several 
 ## Events
 
 | Name | Detail | Description |
-|------|--------|-------------|
+|---|---|---|
 | `fd-checkbox-group-change` | `{ value: string, values: string[] }` | Fired when the checked set changes. `value` mirrors the first selected value in DOM order. |
 
 Compatibility note:
@@ -60,7 +61,7 @@ Compatibility note:
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-checkbox-group-max-width` | `32rem` | Maximum inline size of the group |
 | `--fd-checkbox-group-legend-gap` | `var(--fdic-spacing-xs, 8px)` | Space between the legend and the description or items |
 | `--fd-checkbox-group-description-gap` | `var(--fdic-spacing-sm, 12px)` | Space below the description before the checkbox items |
@@ -69,12 +70,13 @@ Compatibility note:
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `fieldset` | Native fieldset wrapper |
 | `legend` | Native legend element |
 | `description` | Group-level description wrapper |
 | `items` | Container for slotted `fd-checkbox` children |
 | `error` | Group-level error message wrapper |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Best practices
 

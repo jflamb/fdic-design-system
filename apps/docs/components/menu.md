@@ -42,15 +42,50 @@ The second embed is intentional. The long-menu state demonstrates internal scrol
 - Keep destructive actions last and visually distinct.
 - Leave disabled actions visible when discoverability matters, but avoid filling a menu with mostly unavailable items.
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
+|---|---|---|---|
 | `anchor` | `string \| undefined` | `undefined` | ID of the external trigger element that owns `aria-expanded` and positioning |
-| `placement` | `Placement` | `"bottom-start"` | Preferred popup placement relative to the anchor element |
+| `placement` | `Placement` | `bottom-start` | Preferred popup placement relative to the anchor element |
 | `open` | `boolean` | `false` | Current open state |
 | `label` | `string \| undefined` | `undefined` | Accessible name for the menu via `aria-label` |
 | `labelledby` | `string \| undefined` | `undefined` | Accessible name source for the menu via `aria-labelledby` |
+
+## Slots
+
+| Name | Description |
+|---|---|
+| (default) | One or more `fd-menu-item` children |
+
+## Events
+
+| Name | Detail | Description |
+|---|---|---|
+| `fd-menu-open-change` | `{ open: boolean }` | Fired whenever the menu opens or closes |
+
+Compatibility note:
+
+- `fd-menu` still fires deprecated `fd-open` during the compatibility window.
+- New consumer code should listen to `fd-menu-open-change`.
+
+## CSS custom properties
+
+| Name | Default | Description |
+|---|---|---|
+| `--fd-menu-border-radius` | `var(--fdic-corner-radius-lg, 7px)` | Menu surface corner radius |
+| `--fd-menu-min-width` | `180px` | Minimum menu width |
+| `--fd-menu-max-width` | `320px` | Maximum menu width |
+| `--fd-menu-max-height` | `300px` | Maximum menu height before internal scrolling |
+
+## Shadow parts
+
+| Name | Description |
+|---|---|
+| `surface` | Popover surface element |
+| `menu` | Internal element with `role="menu"` |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Methods
 

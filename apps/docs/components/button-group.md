@@ -48,32 +48,34 @@ With semantic grouping:
 </fd-button-group>
 ```
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `align` | `"start"` \| `"end"` \| `"spread"` | `"start"` | Controls inline alignment for horizontal groups. `spread` keeps the first action at inline start and pushes the remaining actions to inline end. |
-| `direction` | `"horizontal"` \| `"vertical"` | `"horizontal"` | Horizontal groups wrap and can stack responsively. Vertical groups always stack. |
+|---|---|---|---|
+| `align` | `"start"` \| `"end"` \| `"spread"` | `start` | Controls inline alignment for horizontal groups. `spread` keeps the first action at inline start and pushes the remaining actions to inline end. |
+| `direction` | `"horizontal"` \| `"vertical"` | `horizontal` | Horizontal groups wrap and can stack responsively. Vertical groups always stack. |
 | `label` | `string` | — | Adds `role="group"` and `aria-label` when the action set needs a semantic label. Omit for purely visual grouping. |
 
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | (default) | One or more `fd-button` elements. Other interactive controls are technically allowed, but the documented pattern is `fd-button`. |
 
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-button-group-gap` | `var(--fdic-spacing-sm, 0.75rem)` | Gap between actions in the group |
 | `--fd-button-group-stack-at` | `480px` | Width threshold below which horizontal groups stack vertically |
 
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `container` | Internal flex container used for layout |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Accessibility
 

@@ -50,11 +50,12 @@ With a leading icon:
 </fd-split-button>
 ```
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `"primary"` | Visual variant applied to both segments |
+|---|---|---|---|
+| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `primary` | Visual variant applied to both segments |
 | `disabled` | `boolean` | `false` | Disables both segments. The menu cannot open while disabled. |
 | `trigger-disabled` | `boolean` | `false` | Disables only the trigger segment. The primary action remains active. |
 | `trigger-label` | `string` | `"More options"` | Accessible name for the trigger segment. Reflected public attribute. Should describe the menu contents contextually. |
@@ -64,7 +65,7 @@ With a leading icon:
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | (default) | Label content for the primary action segment |
 | `icon-start` | Leading icon for the primary segment (use `fd-icon`) |
 | `menu` | `fd-menu-item` elements only. Items are adopted into the internal `fd-menu` on connection. |
@@ -72,7 +73,7 @@ With a leading icon:
 ## Events
 
 | Name | Detail | Description |
-|------|--------|-------------|
+|---|---|---|
 | `fd-split-button-action` | `{}` | Fired when the primary segment is activated |
 | `fd-split-button-open-change` | `{ open: boolean }` | Fired when the menu opens or closes |
 
@@ -84,7 +85,7 @@ Compatibility note:
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-split-button-divider-color` | Variant-dependent | Color of the divider between the primary and trigger segments |
 | `--fd-split-button-divider-width` | `1px` | Thickness of the divider |
 | `--fd-split-button-trigger-width` | `44px` | Width of the trigger segment (minimum touch target) |
@@ -92,11 +93,12 @@ Compatibility note:
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `container` | Outer wrapper containing both segments |
 | `primary` | The primary action button element |
 | `trigger` | The menu trigger button element |
 | `divider` | The visual divider between the two segments |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Accessibility
 

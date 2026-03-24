@@ -31,24 +31,25 @@ A dropdown that lets users choose one or more options from a predefined list. Av
   caption="Selector overview — simple, single, and multiple variants. Open Storybook for interactive controls and form examples."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `"simple"` \| `"single"` \| `"multiple"` | `"simple"` | Visual and interaction variant. `multiple` enables multi-selection and checkbox indicators. |
-| `label` | `string` | `""` | Built-in field label text |
-| `name` | `string` | `""` | Submitted form field name |
-| `value` | `string` | `""` | Current selected value. In `multiple` mode, this mirrors the first selected value in DOM order. |
+|---|---|---|---|
+| `variant` | `"simple"` \| `"single"` \| `"multiple"` | `simple` | Visual and interaction variant. `multiple` enables multi-selection and checkbox indicators. |
+| `label` | `string` | `` | Built-in field label text |
+| `name` | `string` | `` | Submitted form field name |
+| `value` | `string` | `` | Current selected value. In `multiple` mode, this mirrors the first selected value in DOM order. |
 | `values` | `string[]` | `[]` | Property-only API for reading or setting all selected values in `multiple` mode |
 | `disabled` | `boolean` | `false` | Prevents opening and selection changes |
 | `required` | `boolean` | `false` | Requires a selection. In `multiple` mode, requires at least one selected option. |
 | `open` | `boolean` | `false` | Current popup state |
-| `placeholder` | `string` | `"Select…"` | Trigger text shown when nothing is selected |
+| `placeholder` | `string` | `Select…` | Trigger text shown when nothing is selected |
 
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `description` | Group-level help text announced from the trigger |
 | (default) | One or more `fd-option` children |
 | `error` | Group-level validation message shown and announced while invalid |
@@ -56,7 +57,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 ## Events
 
 | Name | Detail | Description |
-|------|--------|-------------|
+|---|---|---|
 | `input` | Native `Event` | Fired when the current selection changes |
 | `change` | Native `Event` | Fired after the current selection changes |
 | `fd-selector-change` | `{ value: string, values: string[] }` | Fired for both single- and multi-select changes |
@@ -70,7 +71,7 @@ Compatibility note:
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-selector-required-color` | `#d80e3a` | Required marker color |
 | `--fd-selector-trigger-height` | `44px` | Minimum trigger height |
 | `--fd-selector-trigger-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Trigger border color at rest |
@@ -88,7 +89,7 @@ Compatibility note:
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `base` | Outer selector wrapper |
 | `label` | Built-in label element |
 | `label-text` | Label text wrapper |
@@ -99,6 +100,7 @@ Compatibility note:
 | `chevron` | Trigger chevron wrapper |
 | `listbox` | Popup listbox container |
 | `error` | Error message wrapper |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Best practices
 

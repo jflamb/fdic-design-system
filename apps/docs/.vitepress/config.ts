@@ -1,4 +1,8 @@
 import { defineConfig } from "vitepress";
+import {
+  firstClassComponentSidebarItems,
+  supportingPrimitiveSidebarItems,
+} from "./generated/component-navigation";
 
 export default defineConfig({
   title: "FDIC Design System",
@@ -36,27 +40,11 @@ export default defineConfig({
           { text: "Overview", link: "/components/" },
           {
             text: "First-class Components",
-            items: [
-              { text: "Icon", link: "/components/icon" },
-              { text: "Button", link: "/components/button" },
-              { text: "Button Group", link: "/components/button-group" },
-              { text: "Checkbox", link: "/components/checkbox" },
-              { text: "Checkbox Group", link: "/components/checkbox-group" },
-              { text: "Radio", link: "/components/radio" },
-              { text: "Radio Group", link: "/components/radio-group" },
-              { text: "Input", link: "/components/input" },
-              { text: "Label", link: "/components/label" },
-              { text: "Selector", link: "/components/selector" },
-              { text: "Split Button", link: "/components/split-button" },
-              { text: "Menu", link: "/components/menu" }
-            ]
+            items: firstClassComponentSidebarItems
           },
           {
             text: "Supporting Primitives",
-            items: [
-              { text: "Field", link: "/components/field" },
-              { text: "Message", link: "/components/message" }
-            ]
+            items: supportingPrimitiveSidebarItems
           },
           {
             text: "Prose",

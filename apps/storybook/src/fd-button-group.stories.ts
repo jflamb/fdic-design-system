@@ -4,6 +4,10 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
+  getComponentArgs,
+  getComponentArgTypes,
+} from "./generated/component-arg-types";
+import {
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
   DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
@@ -31,20 +35,10 @@ const meta = {
   title: "Components/Button Group",
   tags: ["autodocs"],
   argTypes: {
-    align: {
-      control: "select",
-      options: ["start", "end", "spread"],
-    },
-    direction: {
-      control: "select",
-      options: ["horizontal", "vertical"],
-    },
-    label: { control: "text" },
+    ...getComponentArgTypes("fd-button-group"),
   },
   args: {
-    align: "start",
-    direction: "horizontal",
-    label: "",
+    ...getComponentArgs("fd-button-group"),
   },
   render: renderButtonGroup,
 } satisfies Meta<ButtonGroupArgs>;

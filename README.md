@@ -17,6 +17,9 @@ Early-stage open source scaffold for an FDIC design system.
 - `npm run test:components`
 - `npm run test:storybook`
 - `npm run build:storybook`
+- `npm run sync:components`
+- `npm run validate:components`
+- `npm run new:component -- --name component-name --kind first-class`
 
 ## Validation
 
@@ -31,6 +34,13 @@ All implementation code is placeholder-only at this stage.
 Framework-specific packages should adapt the first-party component APIs rather than becoming the source of truth for design decisions.
 
 Storybook is available as a component workbench for local development. VitePress remains the primary documentation site.
+
+Component authoring is metadata-driven:
+
+- `scripts/components/inventory.mjs` defines component inventory, classifications, docs routing, and register/export behavior.
+- `scripts/components/api-metadata.json` defines the generated API reference data used by docs and Storybook helpers.
+- `npm run sync:components` regenerates package wiring, docs API blocks, and Storybook arg helpers.
+- `npm run validate:components` verifies that source, metadata, docs, stories, and generated files stay aligned.
 
 ## Collaboration
 

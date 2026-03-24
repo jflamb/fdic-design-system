@@ -1,0 +1,36 @@
+name: Component Integrity
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate component automation
+        run: npm run validate:components
+
+      - name: Run component tests
+        run: npm run test:components
+
+      - name: Build component packages and docs
+        run: npm run build
+
+      - name: Build Storybook
+        run: npm run build:storybook

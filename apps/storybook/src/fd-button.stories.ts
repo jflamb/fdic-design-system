@@ -3,6 +3,10 @@ import { html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
+import {
+  getComponentArgs,
+  getComponentArgTypes,
+} from "./generated/component-arg-types";
 
 type ButtonArgs = {
   variant: "primary" | "neutral" | "subtle" | "outline" | "destructive";
@@ -21,13 +25,8 @@ const meta = {
   title: "Components/Button",
   tags: ["autodocs"],
   argTypes: {
-    variant: {
-      control: "select",
-      options: ["primary", "neutral", "subtle", "outline", "destructive"],
-    },
+    ...getComponentArgTypes("fd-button"),
     label: { control: "text" },
-    disabled: { control: "boolean" },
-    loading: { control: "boolean" },
     loadingLabel: { control: "text" },
     iconStart: {
       control: "select",
@@ -37,15 +36,10 @@ const meta = {
       control: "select",
       options: ["", "caret-down", "arrow-square-out", "caret-right"],
     },
-    href: { control: "text" },
-    target: { control: "text" },
-    rel: { control: "text" },
   },
   args: {
-    variant: "primary",
+    ...getComponentArgs("fd-button"),
     label: "Submit application",
-    disabled: false,
-    loading: false,
     loadingLabel: "",
     iconStart: "",
     iconEnd: "",

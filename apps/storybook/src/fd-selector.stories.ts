@@ -4,6 +4,10 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
+  getComponentArgs,
+  getComponentArgTypes,
+} from "./generated/component-arg-types";
+import {
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
   DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
@@ -51,23 +55,15 @@ const meta = {
   title: "Components/Selector",
   tags: ["autodocs"],
   argTypes: {
-    variant: {
-      control: "select",
-      options: ["simple", "single", "multiple"],
-    },
+    ...getComponentArgTypes("fd-selector"),
     label: { control: "text" },
-    placeholder: { control: "text" },
-    required: { control: "boolean" },
-    disabled: { control: "boolean" },
     description: { control: "text" },
     error: { control: "text" },
   },
   args: {
-    variant: "simple",
+    ...getComponentArgs("fd-selector"),
     label: "Account type",
     placeholder: "Select\u2026",
-    required: false,
-    disabled: false,
     description: "",
     error: "",
   },

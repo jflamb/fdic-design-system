@@ -4,6 +4,10 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
+  getComponentArgs,
+  getComponentArgTypes,
+} from "./generated/component-arg-types";
+import {
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,
   DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
@@ -109,19 +113,7 @@ const meta = {
     id: { control: "text" },
     label: { control: "text" },
     description: { control: "text" },
-    type: {
-      control: "select",
-      options: ["text", "email", "password", "tel", "url", "search"],
-    },
-    name: { control: "text" },
-    value: { control: "text" },
-    placeholder: { control: "text" },
-    disabled: { control: "boolean" },
-    readonly: { control: "boolean" },
-    required: { control: "boolean" },
-    maxlength: { control: "number" },
-    autocomplete: { control: "text" },
-    inputmode: { control: "text" },
+    ...getComponentArgTypes("fd-input"),
     messageState: {
       control: "select",
       options: ["default", "error", "warning", "success"],
@@ -129,19 +121,11 @@ const meta = {
     messageText: { control: "text" },
   },
   args: {
+    ...getComponentArgs("fd-input"),
     id: "account-number",
     label: "Account number",
     description: "",
-    type: "text",
     name: "account-number",
-    value: "",
-    placeholder: "",
-    disabled: false,
-    readonly: false,
-    required: false,
-    maxlength: undefined,
-    autocomplete: "",
-    inputmode: "",
     messageState: "default",
     messageText: "",
   },

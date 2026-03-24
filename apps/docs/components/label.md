@@ -28,24 +28,18 @@ Labels identify form inputs and provide optional description text and contextual
   caption="Label variants — basic, required with description, with InfoTip, and full-featured. Open Storybook for interactive controls."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
+|---|---|---|---|
 | `for` | `string \| undefined` | `undefined` | Target control ID. Required for real native label association. |
-| `label` | `string` | `""` | Visible label text |
+| `label` | `string` | `` | Visible label text |
 | `required` | `boolean` | `false` | Adds the required indicator and screen-reader-only required text |
 | `description` | `string \| undefined` | `undefined` | Always-visible hint text rendered below the label |
 | `infotip` | `string \| undefined` | `undefined` | Supplementary plain-text help shown in the InfoTip panel |
 | `infotip-label` | `string \| undefined` | `undefined` | Accessible name override for the InfoTip trigger. Defaults to `More information about [label]`. |
-
-## Rendering and styling
-
-`fd-label` renders in light DOM so the internal native `<label for>` association can work with same-root controls. In v1:
-
-- All public authored content is property-driven. The component does not expose slots or custom events.
-- `fd-label` does not expose shadow parts, because it does not use a shadow root.
-- `fd-label` does not expose component-scoped CSS custom properties. The rendered `part` attributes are internal light-DOM structure markers, not a documented external styling API.
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Best practices
 

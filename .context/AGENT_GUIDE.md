@@ -103,6 +103,43 @@ Key workspace scripts (run from the repo root):
 | `npm run dev:docs` | Start VitePress dev server |
 | `npm run dev:storybook` | Start Storybook dev server |
 | `npm run build:storybook` | Build Storybook for deployment |
+| `npm run sync:components` | Regenerate component exports, register entrypoints, docs API blocks, and Storybook arg helpers from repo metadata |
+| `npm run validate:components` | Re-run generation and verify component metadata, docs, stories, and generated files stay in sync |
+| `npm run new:component -- --name foo --kind first-class` | Scaffold a new component, test, docs page, story, and metadata entry |
+
+## Component Authoring Automation
+
+Use the repo automation whenever component inventory, package surface, docs API tables, or Storybook component args change.
+
+Source-of-truth files:
+
+- `scripts/components/inventory.mjs` — component inventory, classification, docs routing, Storybook titles, register dependencies, and package export behavior
+- `scripts/components/api-metadata.json` — public API descriptions for generated docs tables and Storybook arg metadata
+
+Required workflow:
+
+1. For a new component, run `npm run new:component -- --name component-name --kind first-class|supporting-standalone|supporting-embedded`.
+2. Implement the component source and tests under `packages/components/src/components/`.
+3. Update `scripts/components/inventory.mjs` if the component’s classification, dependencies, export behavior, docs slug, or Storybook title changes.
+4. Update `scripts/components/api-metadata.json` when public properties, slots, events, CSS custom properties, or shadow parts change.
+5. Run `npm run sync:components` after changing component metadata or public component source files.
+6. Run `npm run validate:components` before handing work off or concluding the task.
+
+Do not hand-edit these generated surfaces:
+
+- `packages/components/src/index.ts`
+- `packages/components/src/register/*.ts`
+- `packages/components/package.json` exports
+- `packages/components/tsup.config.ts`
+- `apps/docs/components/index.md`
+- `apps/docs/.vitepress/generated/component-navigation.ts`
+- `apps/storybook/src/generated/component-arg-types.ts`
+- Any docs content between `<!-- GENERATED_COMPONENT_API:START -->` and `<!-- GENERATED_COMPONENT_API:END -->`
+
+Storybook rule:
+
+- For direct component properties, prefer `getComponentArgs()` and `getComponentArgTypes()` from `apps/storybook/src/generated/component-arg-types.ts`.
+- Keep story-local args only for wrapper content, slot text, fixture data, or composed examples that are not part of the component’s direct public API.
 
 ## Commit Message Conventions
 

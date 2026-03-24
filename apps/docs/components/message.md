@@ -82,6 +82,24 @@ A helper and validation-feedback primitive for form fields and adjacent instruct
 </fd-field>
 ```
 
+<!-- GENERATED_COMPONENT_API:START -->
+## Properties
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `for` | `string \| undefined` | `undefined` | Optional target control ID for sibling discovery and authored association patterns |
+| `state` | `"default"` \| `"error"` \| `"warning"` \| `"success"` | `default` | Visual and semantic state of the message |
+| `message` | `string` | `` | Authored message text. Empty text renders nothing. |
+| `live` | `"polite"` \| `"off"` \| `undefined` | `undefined` | Overrides the default announcement behavior. Errors default to `role="alert"`; non-errors default to `aria-live="polite"`. |
+
+## Shadow parts
+
+| Name | Description |
+|---|---|
+| `message` | Outer inline-flex wrapper for icon and text |
+| `message-text` | Text node wrapper for the authored message string |
+<!-- GENERATED_COMPONENT_API:END -->
+
 ## Accessibility
 
 - `fd-message` renders in light DOM, not shadow DOM, so sibling controls can reference its stable `messageId`.

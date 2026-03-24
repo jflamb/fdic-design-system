@@ -128,8 +128,24 @@ This project uses tooling for baseline formatting. The conventions below are the
 
 ### Package and repo conventions
 
+- Component authoring is inventory-driven. The source-of-truth files are:
+  - `scripts/components/inventory.mjs`
+  - `scripts/components/api-metadata.json`
+- Use `npm run new:component -- --name component-name --kind first-class|supporting-standalone|supporting-embedded` to scaffold new component work.
+- After changing public component metadata or component source that affects the public contract, run `npm run sync:components`.
+- Before finishing component work, run `npm run validate:components`.
+- Do not hand-edit generated component surfaces:
+  - `packages/components/src/index.ts`
+  - `packages/components/src/register/*.ts`
+  - `packages/components/package.json` exports
+  - `packages/components/tsup.config.ts`
+  - `apps/docs/components/index.md`
+  - `apps/docs/.vitepress/generated/component-navigation.ts`
+  - `apps/storybook/src/generated/component-arg-types.ts`
+  - docs content between `<!-- GENERATED_COMPONENT_API:START -->` and `<!-- GENERATED_COMPONENT_API:END -->`
 - Use explicit registration entry points in `packages/components/src/register/` for custom element registration.
 - Import `@fdic-ds/components/register-all` in Storybook stories unless a narrower registration path is needed for a specific reason.
+- For direct component properties in Storybook, prefer `getComponentArgs()` and `getComponentArgTypes()` from `apps/storybook/src/generated/component-arg-types.ts`. Keep manual story args for wrapper content, slot text, or composed fixtures only.
 - Keep root package symbol exports side-effect-free.
 - For public component events, prefer component-specific names over generic library-wide names. Use `fd-{component}-change` for value or selection changes, `fd-{component}-open-change` for open-state changes, and `fd-{component}-action` or `fd-{component}-select` when those verbs are the clearest fit.
 - For normalized value or selection events, always include `detail.value`. Multi-select components should additionally include `detail.values`.

@@ -34,11 +34,12 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
   caption="Common patterns — icons, icon-only actions, link mode, and loading state in one compact preview. Open Storybook for the full set of dedicated examples."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `"primary"` | Visual treatment for the action. Use `destructive` only for high-risk actions. |
+|---|---|---|---|
+| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `primary` | Visual treatment for the action. Use `destructive` only for high-risk actions. |
 | `disabled` | `boolean` | `false` | Makes the control inert. In link mode, `fd-button` uses `aria-disabled="true"` and suppresses navigation. |
 | `href` | `string \| undefined` | `undefined` | When set, `fd-button` renders a native `<a>` instead of an internal `<button>`. |
 | `target` | `string \| undefined` | `undefined` | Native link target. Applies only when `href` is set. |
@@ -51,7 +52,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | (default) | Visible button label |
 | `icon-start` | Leading icon content, typically `fd-icon` |
 | `icon-end` | Trailing icon content, typically `fd-icon` |
@@ -59,7 +60,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-button-gap` | `var(--fdic-spacing-2xs, 4px)` | Gap between label and visual content |
 | `--fd-button-height` | `44px` | Minimum button height |
 | `--fd-button-min-width` | `44px` | Minimum button width |
@@ -89,7 +90,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `base` | Internal native `<button>` or `<a>` element |
 | `label` | Visible label wrapper |
 | `spinner` | Loading spinner wrapper |
@@ -100,6 +101,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 - **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.
 - **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.
 - **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable.
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Best practices
 

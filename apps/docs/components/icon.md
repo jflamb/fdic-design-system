@@ -28,24 +28,26 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
   caption="Overview — decorative, semantic, and control-integrated icon usage in one preview. Open Storybook for the full icon registry."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `string` | `""` | Registry key for the icon to render. Unknown names render nothing and log a warning. |
-| `label` | `string` | `""` | Accessible name for semantic standalone icons. When set, `fd-icon` uses `role="img"` and `aria-label` instead of `aria-hidden`. |
+|---|---|---|---|
+| `name` | `string` | `` | Registry key for the icon to render. Unknown names render nothing and log a warning. |
+| `label` | `string` | `` | Accessible name for semantic standalone icons. When set, `fd-icon` uses `role="img"` and `aria-label` instead of `aria-hidden`. |
 
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-icon-size` | `18px` | Inline and block size of the rendered icon |
 
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `svg` | Wrapper around the inline SVG markup |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Accessibility
 

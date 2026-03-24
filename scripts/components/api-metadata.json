@@ -1,0 +1,1509 @@
+{
+  "fd-button": {
+    "properties": {
+      "rows": [
+        {
+          "name": "variant",
+          "type": "`\"primary\"` \\| `\"neutral\"` \\| `\"subtle\"` \\| `\"outline\"` \\| `\"destructive\"`",
+          "defaultValue": "`\"primary\"`",
+          "description": "Visual treatment for the action. Use `destructive` only for high-risk actions."
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Makes the control inert. In link mode, `fd-button` uses `aria-disabled=\"true\"` and suppresses navigation."
+        },
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "When set, `fd-button` renders a native `<a>` instead of an internal `<button>`."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link target. Applies only when `href` is set."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link relationship tokens. When `target=\"_blank\"`, `fd-button` always adds `noopener noreferrer`."
+        },
+        {
+          "name": "loading",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Shows a spinner and makes the control inert while work is in progress."
+        },
+        {
+          "name": "loading-label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional replacement label to show and announce while `loading` is true."
+        }
+      ],
+      "after": "`fd-button` currently exposes a reactive `type` property in source, but v1 always renders `<button type=\"button\">` in button mode. Submit/reset behavior is not part of the supported public contract."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Visible button label"
+        },
+        {
+          "name": "icon-start",
+          "description": "Leading icon content, typically `fd-icon`"
+        },
+        {
+          "name": "icon-end",
+          "description": "Trailing icon content, typically `fd-icon`"
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-button-gap",
+          "default": "`var(--fdic-spacing-2xs, 4px)`",
+          "description": "Gap between label and visual content"
+        },
+        {
+          "name": "--fd-button-height",
+          "default": "`44px`",
+          "description": "Minimum button height"
+        },
+        {
+          "name": "--fd-button-min-width",
+          "default": "`44px`",
+          "description": "Minimum button width"
+        },
+        {
+          "name": "--fd-button-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Corner radius"
+        },
+        {
+          "name": "--fd-button-font-size",
+          "default": "`var(--fdic-font-size-body, 18px)`",
+          "description": "Button font size"
+        },
+        {
+          "name": "--fd-button-icon-only-size",
+          "default": "`var(--fd-button-height, 44px)`",
+          "description": "Square size for icon-only buttons"
+        },
+        {
+          "name": "--fd-button-icon-edge-padding",
+          "default": "`11px`",
+          "description": "Extra inline padding when a leading or trailing icon is present"
+        },
+        {
+          "name": "--fd-button-focus-gap",
+          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "description": "Inner gap color in the focus ring"
+        },
+        {
+          "name": "--fd-button-focus-ring",
+          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "description": "Outer focus-ring color"
+        },
+        {
+          "name": "--fd-button-bg-primary",
+          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "description": "Primary background color"
+        },
+        {
+          "name": "--fd-button-text-primary",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Primary text color"
+        },
+        {
+          "name": "--fd-button-bg-destructive",
+          "default": "`var(--ds-color-bg-destructive, #d80e3a)`",
+          "description": "Destructive background color"
+        },
+        {
+          "name": "--fd-button-text-destructive",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Destructive text color"
+        },
+        {
+          "name": "--fd-button-bg-neutral",
+          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "description": "Neutral background color"
+        },
+        {
+          "name": "--fd-button-text-neutral",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Neutral text color"
+        },
+        {
+          "name": "--fd-button-text-subtle",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Subtle text color"
+        },
+        {
+          "name": "--fd-button-text-outline",
+          "default": "`var(--ds-color-text-link, #1278b0)`",
+          "description": "Outline text color"
+        },
+        {
+          "name": "--fd-button-border-outline",
+          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "description": "Outline border color"
+        },
+        {
+          "name": "--fd-button-overlay-hover",
+          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "description": "Hover overlay color"
+        },
+        {
+          "name": "--fd-button-overlay-active",
+          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "description": "Active overlay color"
+        },
+        {
+          "name": "--fd-button-bg-disabled",
+          "default": "`var(--ds-color-bg-container, #f5f5f7)`",
+          "description": "Disabled background color"
+        },
+        {
+          "name": "--fd-button-text-disabled",
+          "default": "`var(--ds-color-text-disabled, #9e9ea0)`",
+          "description": "Disabled text color"
+        },
+        {
+          "name": "--fd-button-border-outline-disabled",
+          "default": "`var(--ds-color-border-input-disabled, #d6d6d8)`",
+          "description": "Disabled outline border color"
+        },
+        {
+          "name": "--fd-button-spinner-size",
+          "default": "`1em`",
+          "description": "Spinner size in loading state"
+        },
+        {
+          "name": "--fd-button-spinner-speed",
+          "default": "`0.8s`",
+          "description": "Spinner rotation duration"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Internal native `<button>` or `<a>` element"
+        },
+        {
+          "name": "label",
+          "description": "Visible label wrapper"
+        },
+        {
+          "name": "spinner",
+          "description": "Loading spinner wrapper"
+        }
+      ],
+      "after": "- **Primary** carries the main action on the page or section. Limit it to one primary button per section.\n- **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.\n- **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.\n- **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.\n- **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.\n- **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable."
+    }
+  },
+  "fd-button-group": {
+    "properties": {
+      "rows": [
+        {
+          "name": "align",
+          "type": "`\"start\"` \\| `\"end\"` \\| `\"spread\"`",
+          "defaultValue": "`\"start\"`",
+          "description": "Controls inline alignment for horizontal groups. `spread` keeps the first action at inline start and pushes the remaining actions to inline end."
+        },
+        {
+          "name": "direction",
+          "type": "`\"horizontal\"` \\| `\"vertical\"`",
+          "defaultValue": "`\"horizontal\"`",
+          "description": "Horizontal groups wrap and can stack responsively. Vertical groups always stack."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "—",
+          "description": "Adds `role=\"group\"` and `aria-label` when the action set needs a semantic label. Omit for purely visual grouping."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "One or more `fd-button` elements. Other interactive controls are technically allowed, but the documented pattern is `fd-button`."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-button-group-gap",
+          "default": "`var(--fdic-spacing-sm, 0.75rem)`",
+          "description": "Gap between actions in the group"
+        },
+        {
+          "name": "--fd-button-group-stack-at",
+          "default": "`480px`",
+          "description": "Width threshold below which horizontal groups stack vertically"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Internal flex container used for layout"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-checkbox": {
+    "properties": {
+      "rows": [
+        {
+          "name": "checked",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Current checked state"
+        },
+        {
+          "name": "indeterminate",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Mixed visual state for aggregate patterns such as \"select all\""
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents interaction and submission"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Marks the checkbox as required for constraint validation"
+        },
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Submitted form field name"
+        },
+        {
+          "name": "value",
+          "type": "`string`",
+          "defaultValue": "`\"on\"`",
+          "description": "Submitted value when the checkbox is checked"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Visible checkbox label"
+        },
+        {
+          "name": "description",
+          "description": "Optional supporting text announced through `aria-describedby` when present"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "input",
+          "detail": "Native `Event`",
+          "description": "Fired when the checkbox value changes"
+        },
+        {
+          "name": "change",
+          "detail": "Native `Event`",
+          "description": "Fired after the user commits a checkbox state change"
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-checkbox-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Gap between the control and the label text"
+        },
+        {
+          "name": "--fd-checkbox-size",
+          "default": "`24px`",
+          "description": "Size of the checkbox control"
+        },
+        {
+          "name": "--fd-checkbox-border-color",
+          "default": "`var(--fdic-text-primary, #212123)`",
+          "description": "Resting control color"
+        },
+        {
+          "name": "--fd-checkbox-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Checkbox corner radius"
+        },
+        {
+          "name": "--fd-checkbox-icon-size",
+          "default": "`24px`",
+          "description": "Size of the internal state icon"
+        },
+        {
+          "name": "--fd-checkbox-focus-color",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Focus ring color"
+        },
+        {
+          "name": "--fd-checkbox-overlay-hover",
+          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "description": "Hover overlay color"
+        },
+        {
+          "name": "--fd-checkbox-overlay-active",
+          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "description": "Active overlay color"
+        },
+        {
+          "name": "--fd-checkbox-invalid-color",
+          "default": "`rgb(190, 40, 40)`",
+          "description": "Control color while visible invalid state is active"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "control",
+          "description": "Wrapper for the native checkbox input and visual glyph"
+        },
+        {
+          "name": "label",
+          "description": "Wrapper for label and description text"
+        },
+        {
+          "name": "description",
+          "description": "Optional description text wrapper"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-checkbox-group": {
+    "properties": {
+      "rows": [
+        {
+          "name": "orientation",
+          "type": "`\"vertical\"` \\| `\"horizontal\"`",
+          "defaultValue": "`\"vertical\"`",
+          "description": "Layout direction for the checkbox set"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Requires at least one enabled checkbox to be selected"
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Disables the group and temporarily disables enabled child checkboxes"
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Fallback legend text when no `legend` slot content is provided"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "legend",
+          "description": "Optional replacement for the authored legend text"
+        },
+        {
+          "name": "description",
+          "description": "Group-level help text announced from the fieldset"
+        },
+        {
+          "name": "default",
+          "description": "One or more `fd-checkbox` children"
+        },
+        {
+          "name": "error",
+          "description": "Group-level validation message shown and announced while invalid"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-checkbox-group-change",
+          "detail": "`{ value: string, values: string[] }`",
+          "description": "Fired when the checked set changes. `value` mirrors the first selected value in DOM order."
+        }
+      ],
+      "after": "Compatibility note:\n\n- `fd-checkbox-group` still fires deprecated `fd-group-change` with `{ checkedValues: string[] }` during the compatibility window.\n- New consumer code should listen to `fd-checkbox-group-change`."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-checkbox-group-max-width",
+          "default": "`32rem`",
+          "description": "Maximum inline size of the group"
+        },
+        {
+          "name": "--fd-checkbox-group-legend-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Space between the legend and the description or items"
+        },
+        {
+          "name": "--fd-checkbox-group-description-gap",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Space below the description before the checkbox items"
+        },
+        {
+          "name": "--fd-checkbox-group-gap",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Gap between checkbox items"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "fieldset",
+          "description": "Native fieldset wrapper"
+        },
+        {
+          "name": "legend",
+          "description": "Native legend element"
+        },
+        {
+          "name": "description",
+          "description": "Group-level description wrapper"
+        },
+        {
+          "name": "items",
+          "description": "Container for slotted `fd-checkbox` children"
+        },
+        {
+          "name": "error",
+          "description": "Group-level error message wrapper"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-field": {},
+  "fd-icon": {
+    "properties": {
+      "rows": [
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Registry key for the icon to render. Unknown names render nothing and log a warning."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Accessible name for semantic standalone icons. When set, `fd-icon` uses `role=\"img\"` and `aria-label` instead of `aria-hidden`."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-icon-size",
+          "default": "`18px`",
+          "description": "Inline and block size of the rendered icon"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "svg",
+          "description": "Wrapper around the inline SVG markup"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-input": {
+    "properties": {
+      "rows": [
+        {
+          "name": "type",
+          "type": "`\"text\"` \\| `\"email\"` \\| `\"password\"` \\| `\"tel\"` \\| `\"url\"` \\| `\"search\"`",
+          "defaultValue": "`\"text\"`",
+          "description": "Native input type passed through to the internal `<input>`"
+        },
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Submitted form field name"
+        },
+        {
+          "name": "value",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Current input value"
+        },
+        {
+          "name": "placeholder",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional placeholder text. Use for examples, not as the visible label."
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents editing and submission"
+        },
+        {
+          "name": "readonly",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents editing while keeping the value focusable and selectable"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Marks the field as required for constraint validation"
+        },
+        {
+          "name": "maxlength",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Maximum character count. Also enables the built-in character counter."
+        },
+        {
+          "name": "minlength",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Minimum length requirement passed through to the native input"
+        },
+        {
+          "name": "pattern",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Regular expression pattern passed through to the native input"
+        },
+        {
+          "name": "autocomplete",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native autocomplete hint"
+        },
+        {
+          "name": "inputmode",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native input mode hint, such as `numeric` for digit-only identifiers"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "prefix",
+          "description": "Leading decorative content, typically `fd-icon`"
+        },
+        {
+          "name": "suffix",
+          "description": "Trailing content, typically a native `<button type=\"button\">` or decorative `fd-icon`"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "input",
+          "detail": "Native `Event`",
+          "description": "Fired on each value change"
+        },
+        {
+          "name": "change",
+          "detail": "Native `Event`",
+          "description": "Fired when the native input commits a value change"
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-input-height",
+          "default": "`44px`",
+          "description": "Minimum input height"
+        },
+        {
+          "name": "--fd-input-border-color",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Border color at rest"
+        },
+        {
+          "name": "--fd-input-border-color-hover",
+          "default": "`var(--fdic-border-input-active, #424244)`",
+          "description": "Border color on hover"
+        },
+        {
+          "name": "--fd-input-border-color-focus",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Focus glow color"
+        },
+        {
+          "name": "--fd-input-border-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Corner radius"
+        },
+        {
+          "name": "--fd-input-bg",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Background color"
+        },
+        {
+          "name": "--fd-input-placeholder-color",
+          "default": "`var(--fdic-text-secondary, #595961)`",
+          "description": "Placeholder text color"
+        },
+        {
+          "name": "--fd-input-slot-size",
+          "default": "`44px`",
+          "description": "Width of prefix and suffix slot containers"
+        },
+        {
+          "name": "--fd-input-icon-size",
+          "default": "`22px`",
+          "description": "Icon size inside prefix and suffix slots"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Visual input container (`<div>`) for border, background, radius, focus, and state styling"
+        },
+        {
+          "name": "native",
+          "description": "The native `<input>` element. Exposed for JavaScript access such as `el.shadowRoot.querySelector('[part=native]')`."
+        },
+        {
+          "name": "wrapper",
+          "description": "Outermost `<div>` containing the input container and character count"
+        },
+        {
+          "name": "char-count",
+          "description": "Visible character count display"
+        }
+      ],
+      "after": "**Migration note:** In previous versions, `::part(base)` targeted the native `<input>` directly. It now targets the visual container `<div>`. For border, background, and radius customization, `::part(base)` continues to work as before.\n\n`::part()` cannot chain with pseudo-elements like `::placeholder`. Use the documented CSS custom properties instead when you need to style placeholder text or slot sizing.\n\n### Icon sizing\n\nIcons inside prefix/suffix slots are automatically sized to 22px via `--fd-input-icon-size`. This is derived from the input's 18px body text at a 1.25× scale factor, rounded down to the nearest multiple of 2 (18 × 1.25 = 22.5 → 22px). The 1.25× ratio produces a glyph that is visually proportional to the accompanying text.\n\nYou do not need to set `--fd-icon-size` on slotted icons or buttons — the slot container sets it automatically.\n\n**General principle:** Icons should be sized in proportion to the text they are paired with. When an icon appears inline with or adjacent to a text-bearing control, size the icon at 1.25× the text's font size, rounded down to the nearest multiple of 2px. This keeps the glyph visually balanced with the text baseline and line height.\n\nTo override for a specific input, set `--fd-input-icon-size`:\n\n```html\n<fd-input style=\"--fd-input-icon-size: 24px;\">\n  <fd-icon slot=\"prefix\" name=\"magnifying-glass\" aria-hidden=\"true\"></fd-icon>\n</fd-input>\n```"
+    }
+  },
+  "fd-label": {
+    "properties": {
+      "rows": [
+        {
+          "name": "for",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Target control ID. Required for real native label association."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Visible label text"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Adds the required indicator and screen-reader-only required text"
+        },
+        {
+          "name": "description",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Always-visible hint text rendered below the label"
+        },
+        {
+          "name": "infotip",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Supplementary plain-text help shown in the InfoTip panel"
+        },
+        {
+          "name": "infotip-label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Accessible name override for the InfoTip trigger. Defaults to `More information about [label]`."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-menu": {
+    "properties": {
+      "rows": [
+        {
+          "name": "anchor",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "ID of the external trigger element that owns `aria-expanded` and positioning"
+        },
+        {
+          "name": "placement",
+          "type": "`Placement`",
+          "defaultValue": "`\"bottom-start\"`",
+          "description": "Preferred popup placement relative to the anchor element"
+        },
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Current open state"
+        },
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Accessible name for the menu via `aria-label`"
+        },
+        {
+          "name": "labelledby",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Accessible name source for the menu via `aria-labelledby`"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "One or more `fd-menu-item` children"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-menu-open-change",
+          "detail": "`{ open: boolean }`",
+          "description": "Fired whenever the menu opens or closes"
+        }
+      ],
+      "after": "Compatibility note:\n\n- `fd-menu` still fires deprecated `fd-open` during the compatibility window.\n- New consumer code should listen to `fd-menu-open-change`."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-menu-border-radius",
+          "default": "`var(--fdic-corner-radius-lg, 7px)`",
+          "description": "Menu surface corner radius"
+        },
+        {
+          "name": "--fd-menu-min-width",
+          "default": "`180px`",
+          "description": "Minimum menu width"
+        },
+        {
+          "name": "--fd-menu-max-width",
+          "default": "`320px`",
+          "description": "Maximum menu width"
+        },
+        {
+          "name": "--fd-menu-max-height",
+          "default": "`300px`",
+          "description": "Maximum menu height before internal scrolling"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "surface",
+          "description": "Popover surface element"
+        },
+        {
+          "name": "menu",
+          "description": "Internal element with `role=\"menu\"`"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-message": {
+    "properties": {
+      "rows": [
+        {
+          "name": "for",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional target control ID for sibling discovery and authored association patterns"
+        },
+        {
+          "name": "state",
+          "type": "`\"default\"` \\| `\"error\"` \\| `\"warning\"` \\| `\"success\"`",
+          "defaultValue": "`\"default\"`",
+          "description": "Visual and semantic state of the message"
+        },
+        {
+          "name": "message",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Authored message text. Empty text renders nothing."
+        },
+        {
+          "name": "live",
+          "type": "`\"polite\"` \\| `\"off\"` \\| `undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Overrides the default announcement behavior. Errors default to `role=\"alert\"`; non-errors default to `aria-live=\"polite\"`."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "message",
+          "description": "Outer inline-flex wrapper for icon and text"
+        },
+        {
+          "name": "message-text",
+          "description": "Text node wrapper for the authored message string"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-radio": {
+    "properties": {
+      "rows": [
+        {
+          "name": "checked",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Current selected state"
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents interaction and group selection"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Marks the radio as required within its same-name group"
+        },
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Radio group name. Same-name radios in the same root and form behave as one group."
+        },
+        {
+          "name": "value",
+          "type": "`string`",
+          "defaultValue": "`\"on\"`",
+          "description": "Submitted value when this radio is selected"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Visible radio label"
+        },
+        {
+          "name": "description",
+          "description": "Optional supporting text announced through `aria-describedby` when present"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "input",
+          "detail": "Native `Event`",
+          "description": "Fired when the selected radio in the group changes"
+        },
+        {
+          "name": "change",
+          "detail": "Native `Event`",
+          "description": "Fired after the user commits a new radio selection"
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-radio-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Gap between the control and the label text"
+        },
+        {
+          "name": "--fd-radio-size",
+          "default": "`24px`",
+          "description": "Size of the radio control wrapper"
+        },
+        {
+          "name": "--fd-radio-icon-color",
+          "default": "`var(--fdic-text-primary, #212123)`",
+          "description": "Resting control color"
+        },
+        {
+          "name": "--fd-radio-glyph-size",
+          "default": "`22px`",
+          "description": "Size of the circular radio glyph"
+        },
+        {
+          "name": "--fd-radio-border-width",
+          "default": "`2px`",
+          "description": "Stroke width of the outer ring"
+        },
+        {
+          "name": "--fd-radio-dot-size",
+          "default": "`8px`",
+          "description": "Size of the selected-state dot"
+        },
+        {
+          "name": "--fd-radio-focus-color",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Focus ring color"
+        },
+        {
+          "name": "--fd-radio-overlay-hover",
+          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "description": "Hover overlay color"
+        },
+        {
+          "name": "--fd-radio-overlay-active",
+          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "description": "Active overlay color"
+        },
+        {
+          "name": "--fd-radio-icon-disabled",
+          "default": "`var(--fdic-text-disabled, #9e9ea0)`",
+          "description": "Control color while disabled"
+        },
+        {
+          "name": "--fd-radio-invalid-color",
+          "default": "`rgb(190, 40, 40)`",
+          "description": "Control color while visible invalid state is active"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "control",
+          "description": "Wrapper for the native radio input and visual glyph"
+        },
+        {
+          "name": "label",
+          "description": "Wrapper for label and description text"
+        },
+        {
+          "name": "description",
+          "description": "Optional description text wrapper"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-radio-group": {
+    "properties": {
+      "rows": [
+        {
+          "name": "orientation",
+          "type": "`\"vertical\"` \\| `\"horizontal\"`",
+          "defaultValue": "`\"vertical\"`",
+          "description": "Layout direction for the radio set"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Requires one enabled radio to be selected"
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Disables the group and temporarily disables enabled child radios"
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Fallback legend text when no `legend` slot content is provided"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "legend",
+          "description": "Optional replacement for the authored legend text"
+        },
+        {
+          "name": "description",
+          "description": "Group-level help text announced from the fieldset"
+        },
+        {
+          "name": "default",
+          "description": "One or more `fd-radio` children"
+        },
+        {
+          "name": "error",
+          "description": "Group-level validation message shown and announced while invalid"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-radio-group-change",
+          "detail": "`{ value: string }`",
+          "description": "Fired when the selected radio changes"
+        }
+      ],
+      "after": "Compatibility note:\n\n- `fd-radio-group` still fires deprecated `fd-group-change` with `{ selectedValue: string }` during the compatibility window.\n- New consumer code should listen to `fd-radio-group-change`."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-radio-group-max-width",
+          "default": "`32rem`",
+          "description": "Maximum inline size of the group"
+        },
+        {
+          "name": "--fd-radio-group-legend-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Space between the legend and the description or items"
+        },
+        {
+          "name": "--fd-radio-group-description-gap",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Space below the description before the radio items"
+        },
+        {
+          "name": "--fd-radio-group-gap",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Gap between radio items"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "fieldset",
+          "description": "Native fieldset wrapper"
+        },
+        {
+          "name": "legend",
+          "description": "Native legend element"
+        },
+        {
+          "name": "description",
+          "description": "Group-level description wrapper"
+        },
+        {
+          "name": "items",
+          "description": "Container for slotted `fd-radio` children"
+        },
+        {
+          "name": "error",
+          "description": "Group-level error message wrapper"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-selector": {
+    "properties": {
+      "rows": [
+        {
+          "name": "variant",
+          "type": "`\"simple\"` \\| `\"single\"` \\| `\"multiple\"`",
+          "defaultValue": "`\"simple\"`",
+          "description": "Visual and interaction variant. `multiple` enables multi-selection and checkbox indicators."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Built-in field label text"
+        },
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Submitted form field name"
+        },
+        {
+          "name": "value",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Current selected value. In `multiple` mode, this mirrors the first selected value in DOM order."
+        },
+        {
+          "name": "values",
+          "type": "`string[]`",
+          "defaultValue": "`[]`",
+          "description": "Property-only API for reading or setting all selected values in `multiple` mode"
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Prevents opening and selection changes"
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Requires a selection. In `multiple` mode, requires at least one selected option."
+        },
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Current popup state"
+        },
+        {
+          "name": "placeholder",
+          "type": "`string`",
+          "defaultValue": "`\"Select…\"`",
+          "description": "Trigger text shown when nothing is selected"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "description",
+          "description": "Group-level help text announced from the trigger"
+        },
+        {
+          "name": "default",
+          "description": "One or more `fd-option` children"
+        },
+        {
+          "name": "error",
+          "description": "Group-level validation message shown and announced while invalid"
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "input",
+          "detail": "Native `Event`",
+          "description": "Fired when the current selection changes"
+        },
+        {
+          "name": "change",
+          "detail": "Native `Event`",
+          "description": "Fired after the current selection changes"
+        },
+        {
+          "name": "fd-selector-change",
+          "detail": "`{ value: string, values: string[] }`",
+          "description": "Fired for both single- and multi-select changes"
+        },
+        {
+          "name": "fd-selector-open-change",
+          "detail": "`{ open: boolean }`",
+          "description": "Fired whenever the popup opens or closes"
+        }
+      ],
+      "after": "Compatibility note:\n\n- `fd-selector` still fires deprecated `fd-selector-open` and `fd-selector-close` during the compatibility window.\n- New consumer code should listen to `fd-selector-open-change`."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-selector-required-color",
+          "default": "`#d80e3a`",
+          "description": "Required marker color"
+        },
+        {
+          "name": "--fd-selector-trigger-height",
+          "default": "`44px`",
+          "description": "Minimum trigger height"
+        },
+        {
+          "name": "--fd-selector-trigger-border",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Trigger border color at rest"
+        },
+        {
+          "name": "--fd-selector-border-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Shared corner radius for trigger and popup"
+        },
+        {
+          "name": "--fd-selector-trigger-bg",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Trigger background color"
+        },
+        {
+          "name": "--fd-selector-trigger-border-focus",
+          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "description": "Focus ring color"
+        },
+        {
+          "name": "--fd-selector-error-border",
+          "default": "`#d80e3a`",
+          "description": "Trigger border color while visible invalid state is active"
+        },
+        {
+          "name": "--fd-selector-trigger-placeholder",
+          "default": "`var(--fdic-text-secondary, #595961)`",
+          "description": "Placeholder text color"
+        },
+        {
+          "name": "--fd-selector-dropdown-max-height",
+          "default": "`280px`",
+          "description": "Maximum popup height before internal scrolling"
+        },
+        {
+          "name": "--fd-selector-dropdown-bg",
+          "default": "`var(--fdic-background-base, #ffffff)`",
+          "description": "Popup background color"
+        },
+        {
+          "name": "--fd-selector-dropdown-border",
+          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "description": "Popup border color"
+        },
+        {
+          "name": "--fd-selector-dropdown-shadow",
+          "default": "`0px 1px 2px rgba(0, 0, 0, 0.1), 0px 2px 12px rgba(0, 0, 0, 0.1)`",
+          "description": "Popup shadow"
+        },
+        {
+          "name": "--fd-selector-error-color",
+          "default": "`#d80e3a`",
+          "description": "Error text color"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Outer selector wrapper"
+        },
+        {
+          "name": "label",
+          "description": "Built-in label element"
+        },
+        {
+          "name": "label-text",
+          "description": "Label text wrapper"
+        },
+        {
+          "name": "required-marker",
+          "description": "Required asterisk"
+        },
+        {
+          "name": "description",
+          "description": "Optional description wrapper"
+        },
+        {
+          "name": "trigger",
+          "description": "Native trigger button"
+        },
+        {
+          "name": "value-display",
+          "description": "Selected value or placeholder text wrapper"
+        },
+        {
+          "name": "chevron",
+          "description": "Trigger chevron wrapper"
+        },
+        {
+          "name": "listbox",
+          "description": "Popup listbox container"
+        },
+        {
+          "name": "error",
+          "description": "Error message wrapper"
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-split-button": {
+    "properties": {
+      "rows": [
+        {
+          "name": "variant",
+          "type": "`\"primary\"` \\| `\"neutral\"` \\| `\"subtle\"` \\| `\"outline\"` \\| `\"destructive\"`",
+          "defaultValue": "`\"primary\"`",
+          "description": "Visual variant applied to both segments"
+        },
+        {
+          "name": "disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Disables both segments. The menu cannot open while disabled."
+        },
+        {
+          "name": "trigger-disabled",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Disables only the trigger segment. The primary action remains active."
+        },
+        {
+          "name": "trigger-label",
+          "type": "`string`",
+          "defaultValue": "`\"More options\"`",
+          "description": "Accessible name for the trigger segment. Reflected public attribute. Should describe the menu contents contextually."
+        },
+        {
+          "name": "menu-placement",
+          "type": "`Placement`",
+          "defaultValue": "`\"bottom-start\"`",
+          "description": "Preferred placement of the menu relative to the trigger. Reflected public attribute."
+        },
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Read-only reflected state indicating whether the menu is open. Derived from internal `fd-menu` events. Do not set directly."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Label content for the primary action segment"
+        },
+        {
+          "name": "icon-start",
+          "description": "Leading icon for the primary segment (use `fd-icon`)"
+        },
+        {
+          "name": "menu",
+          "description": "`fd-menu-item` elements only. Items are adopted into the internal `fd-menu` on connection."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-split-button-action",
+          "detail": "`{}`",
+          "description": "Fired when the primary segment is activated"
+        },
+        {
+          "name": "fd-split-button-open-change",
+          "detail": "`{ open: boolean }`",
+          "description": "Fired when the menu opens or closes"
+        }
+      ],
+      "after": "Compatibility note:\n\n- `fd-split-button` still fires deprecated `fd-split-action` and `fd-split-open` during the compatibility window.\n- New consumer code should listen to `fd-split-button-action` and `fd-split-button-open-change`."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-split-button-divider-color",
+          "default": "Variant-dependent",
+          "description": "Color of the divider between the primary and trigger segments"
+        },
+        {
+          "name": "--fd-split-button-divider-width",
+          "default": "`1px`",
+          "description": "Thickness of the divider"
+        },
+        {
+          "name": "--fd-split-button-trigger-width",
+          "default": "`44px`",
+          "description": "Width of the trigger segment (minimum touch target)"
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "container",
+          "description": "Outer wrapper containing both segments"
+        },
+        {
+          "name": "primary",
+          "description": "The primary action button element"
+        },
+        {
+          "name": "trigger",
+          "description": "The menu trigger button element"
+        },
+        {
+          "name": "divider",
+          "description": "The visual divider between the two segments"
+        }
+      ],
+      "after": ""
+    }
+  }
+}

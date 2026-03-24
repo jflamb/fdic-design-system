@@ -12,7 +12,7 @@ The components section documents the reusable building blocks and authored-conte
 <div class="fdic-card-grid">
   <div class="fdic-card">
     <span class="fdic-eyebrow">First-class components</span>
-    <h3>Button, Button Group, Checkbox, Checkbox Group, Radio, Radio Group, Input, Label, Selector, Split Button, Menu, Icon</h3>
+    <h3>Button, Button Group, Checkbox, Checkbox Group, Icon, Input, Label, Menu, Radio, Radio Group, Selector, Split Button</h3>
     <p>Top-level Web Components consumers are expected to author directly in application markup. These pages define the primary supported component inventory.</p>
   </div>
   <div class="fdic-card">
@@ -32,13 +32,17 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 ## Featured topics
 
 - [Prose](./prose) explains the `.prose` container, its boundary with Typography, and the specialized pages for callouts, tables, code blocks, references, disclosure patterns, and progress indicators.
-- [Button](./button) documents action hierarchy, loading behavior, and native semantics.
-- [Button Group](./button-group) documents grouped action layouts, semantic labeling, and responsive stacking.
-- [Checkbox](./checkbox) documents standalone selection controls, indeterminate usage, and native form semantics.
-- [Checkbox Group](./checkbox-group) documents grouped checkbox layouts, shared legends, and “at least one” validation.
-- [Radio](./radio) documents single-choice controls, same-name grouping, and keyboard behavior.
-- [Radio Group](./radio-group) documents grouped radio layouts, shared legends, and "select one" validation.
-- [Icon](./icon) covers the system icon registry and usage guidance.
-- [Menu](./menu) documents the current menu component patterns and limitations.
-- [Field](./field) documents the supporting composition wrapper for label/input/message wiring.
-- [Message](./message) documents helper, validation, warning, and success feedback content.
+- [Button](./button) documents button usage, constraints, and accessibility guidance.
+- [Button Group](./button-group) documents button group usage, constraints, and accessibility guidance.
+- [Checkbox](./checkbox) documents checkbox usage, constraints, and accessibility guidance.
+- [Checkbox Group](./checkbox-group) documents checkbox group usage, constraints, and accessibility guidance.
+- [Icon](./icon) documents icon usage, constraints, and accessibility guidance.
+- [Input](./input) documents input usage, constraints, and accessibility guidance.
+- [Label](./label) documents label usage, constraints, and accessibility guidance.
+- [Menu](./menu) documents menu usage, constraints, and accessibility guidance.
+- [Radio](./radio) documents radio usage, constraints, and accessibility guidance.
+- [Radio Group](./radio-group) documents radio group usage, constraints, and accessibility guidance.
+- [Selector](./selector) documents selector usage, constraints, and accessibility guidance.
+- [Split Button](./split-button) documents split button usage, constraints, and accessibility guidance.
+- [Field](./field) documents the supporting primitive contract for field.
+- [Message](./message) documents the supporting primitive contract for message.

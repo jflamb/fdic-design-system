@@ -9,6 +9,9 @@
     "packages/*"
   ],
   "scripts": {
+    "sync:components": "node scripts/components/sync.mjs",
+    "validate:components": "node scripts/components/validate.mjs",
+    "new:component": "node scripts/components/scaffold.mjs",
     "build": "npm run build:components && npm run build:react && npm run build:docs",
     "dev:docs": "npm run docs:dev --workspace @fdic-ds/docs",
     "dev:storybook": "npm run storybook --workspace @fdic-ds/storybook",

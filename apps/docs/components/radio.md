@@ -28,34 +28,35 @@ Radio buttons let users make one explicit selection from a short list of mutuall
   caption="Radio overview — default, selected, description, and disabled states. Open Storybook for interactive controls and form examples."
 />
 
+<!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
 | Name | Type | Default | Description |
-|------|------|---------|-------------|
+|---|---|---|---|
 | `checked` | `boolean` | `false` | Current selected state |
 | `disabled` | `boolean` | `false` | Prevents interaction and group selection |
 | `required` | `boolean` | `false` | Marks the radio as required within its same-name group |
-| `name` | `string` | `""` | Radio group name. Same-name radios in the same root and form behave as one group. |
-| `value` | `string` | `"on"` | Submitted value when this radio is selected |
+| `name` | `string` | `` | Radio group name. Same-name radios in the same root and form behave as one group. |
+| `value` | `string` | `on` | Submitted value when this radio is selected |
 
 ## Slots
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | (default) | Visible radio label |
 | `description` | Optional supporting text announced through `aria-describedby` when present |
 
 ## Events
 
 | Name | Detail | Description |
-|------|--------|-------------|
+|---|---|---|
 | `input` | Native `Event` | Fired when the selected radio in the group changes |
 | `change` | Native `Event` | Fired after the user commits a new radio selection |
 
 ## CSS custom properties
 
 | Name | Default | Description |
-|------|---------|-------------|
+|---|---|---|
 | `--fd-radio-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
 | `--fd-radio-size` | `24px` | Size of the radio control wrapper |
 | `--fd-radio-icon-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
@@ -71,10 +72,11 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 ## Shadow parts
 
 | Name | Description |
-|------|-------------|
+|---|---|
 | `control` | Wrapper for the native radio input and visual glyph |
 | `label` | Wrapper for label and description text |
 | `description` | Optional description text wrapper |
+<!-- GENERATED_COMPONENT_API:END -->
 
 ## Best practices
 
