@@ -265,8 +265,11 @@ export class FdSlider extends LitElement {
 
     [part="value-bubble"] {
       position: absolute;
-      left: calc(var(--fd-slider-percent, 0) * 1%);
-      top: -52px;
+      left: calc(
+        ((100% - var(--fd-slider-thumb-size, 20px)) * var(--fd-slider-percent, 0) / 100) +
+          (var(--fd-slider-thumb-size, 20px) / 2)
+      );
+      bottom: calc(50% + (var(--fd-slider-thumb-size, 20px) / 2) + 8px);
       z-index: 3;
       min-width: 24px;
       padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);

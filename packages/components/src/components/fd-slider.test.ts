@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/fd-slider.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import { FdSlider } from "./fd-slider.js";
 
 async function createSlider(attrs: Record<string, string | boolean> = {}) {
   const el = document.createElement("fd-slider") as any;
@@ -220,6 +221,17 @@ describe("fd-slider", () => {
     await el.updateComplete;
 
     expect(getBubble(el)?.hidden).toBe(true);
+  });
+
+  it("positions the value bubble against the thumb travel path", () => {
+    const sliderStyles = FdSlider.styles.toString();
+
+    expect(sliderStyles).toContain(
+      "((100% - var(--fd-slider-thumb-size, 20px)) * var(--fd-slider-percent, 0) / 100)",
+    );
+    expect(sliderStyles).toContain(
+      "bottom: calc(50% + (var(--fd-slider-thumb-size, 20px) / 2) + 8px);",
+    );
   });
 
   it("syncs the inline input when a valid step-aligned integer is typed", async () => {
