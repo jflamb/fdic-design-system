@@ -384,6 +384,22 @@ export const componentStoryApi = {
     "type": "neutral",
     },
   },
+  "fd-link": {
+    argTypes: {
+    "href": { control: "text" },
+    "target": { control: "text" },
+    "rel": { control: "text" },
+    "variant": { control: "select", options: ["normal","visited","subtle","inverted"] },
+    "size": { control: "select", options: ["sm","md","lg"] },
+    },
+    args: {
+    "href": undefined,
+    "target": undefined,
+    "rel": undefined,
+    "variant": "normal",
+    "size": "md",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

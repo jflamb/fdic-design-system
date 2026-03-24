@@ -32,4 +32,5 @@ import "./fd-textarea.js";
 import "./fd-visual.js";
 import "./fd-alert.js";
 import "./fd-stripe.js";
+import "./fd-link.js";
 import "../icons/phosphor-regular.js";

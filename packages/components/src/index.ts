@@ -28,6 +28,7 @@ export { FdTextarea } from "./components/fd-textarea.js";
 export { FdVisual } from "./components/fd-visual.js";
 export { FdAlert } from "./components/fd-alert.js";
 export { FdStripe } from "./components/fd-stripe.js";
+export { FdLink } from "./components/fd-link.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -44,6 +45,7 @@ export type { ChipType } from "./components/fd-chip.js";
 export type { VisualSize, VisualType } from "./components/fd-visual.js";
 export type { AlertVariant, AlertType, AlertLive } from "./components/fd-alert.js";
 export type { StripeType } from "./components/fd-stripe.js";
+export type { LinkVariant, LinkSize } from "./components/fd-link.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

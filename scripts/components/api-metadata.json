@@ -2762,5 +2762,119 @@
       ],
       "after": "- `fd-stripe` stays decorative-only in v1 and sets `aria-hidden=\"true\"` on the host.\n- Use surrounding headings or landmarks for structure; the stripe itself is not a semantic separator."
     }
+  },
+  "fd-link": {
+    "properties": {
+      "rows": [
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Link destination. Supported usage should provide `href` so the component remains a real hyperlink."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link target."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link relationship tokens. When `target=\"_blank\"`, `fd-link` always adds `noopener noreferrer`."
+        },
+        {
+          "name": "variant",
+          "type": "`\"normal\"` \\| `\"visited\"` \\| `\"subtle\"` \\| `\"inverted\"`",
+          "defaultValue": "`\"normal\"`",
+          "description": "Visual treatment for the hyperlink."
+        },
+        {
+          "name": "size",
+          "type": "`\"sm\"` \\| `\"md\"` \\| `\"lg\"`",
+          "defaultValue": "`\"md\"`",
+          "description": "Typography scale for the hyperlink."
+        }
+      ],
+      "after": "- `fd-link` forwards `aria-label`, `aria-labelledby`, and `aria-current` from the host to the internal anchor.\n- The `visited` variant is an explicit visual treatment in v1. It does not inspect browser history.\n- `subtle` starts without an underline and gains the emphasized underline treatment on hover and focus."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Authored link text."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-link-color-normal",
+          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "description": "Default text color for the normal variant."
+        },
+        {
+          "name": "--fd-link-color-visited",
+          "default": "`var(--ds-color-text-link-visited, #855aa5)`",
+          "description": "Text color for the visited variant."
+        },
+        {
+          "name": "--fd-link-color-subtle",
+          "default": "`var(--ds-color-text-primary, #212123)`",
+          "description": "Default text color for the subtle variant before hover or focus."
+        },
+        {
+          "name": "--fd-link-color-inverted",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Text color for links on dark surfaces."
+        },
+        {
+          "name": "--fd-link-hover-overlay",
+          "default": "`var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))`",
+          "description": "Background overlay used for hover and focus emphasis."
+        },
+        {
+          "name": "--fd-link-focus-gap",
+          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "description": "Inner gap color in the focus ring."
+        },
+        {
+          "name": "--fd-link-focus-ring",
+          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "description": "Outer focus-ring color."
+        },
+        {
+          "name": "--fd-link-underline-thickness",
+          "default": "`1px`",
+          "description": "Default underline thickness."
+        },
+        {
+          "name": "--fd-link-underline-thickness-emphasis",
+          "default": "`2px`",
+          "description": "Underline thickness on hover and focus."
+        },
+        {
+          "name": "--fd-link-underline-offset",
+          "default": "`0.12em`",
+          "description": "Underline offset from the text baseline."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Internal native `<a>` element."
+        }
+      ],
+      "after": ""
+    }
   }
 }
