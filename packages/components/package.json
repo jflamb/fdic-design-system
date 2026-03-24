@@ -91,6 +91,10 @@
       "types": "./dist/components/fd-file-input.d.ts",
       "import": "./dist/components/fd-file-input.js"
     },
+    "./fd-slider": {
+      "types": "./dist/components/fd-slider.d.ts",
+      "import": "./dist/components/fd-slider.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

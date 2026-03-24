@@ -264,6 +264,30 @@ export const componentStoryApi = {
     "items": "[]",
     },
   },
+  "fd-slider": {
+    argTypes: {
+    "name": { control: "text" },
+    "label": { control: "text" },
+    "hint": { control: "text" },
+    "min": { control: "number" },
+    "max": { control: "number" },
+    "step": { control: "number" },
+    "value": { control: "number" },
+    "disabled": { control: "boolean" },
+    "showInput": { control: "boolean" },
+    },
+    args: {
+    "name": "",
+    "label": "",
+    "hint": "",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "value": 0,
+    "disabled": false,
+    "showInput": false,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

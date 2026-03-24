@@ -19,6 +19,7 @@ export { FdRadioGroup } from "./components/fd-radio-group.js";
 export { FdSelector } from "./components/fd-selector.js";
 export { FdSplitButton } from "./components/fd-split-button.js";
 export { FdFileInput } from "./components/fd-file-input.js";
+export { FdSlider } from "./components/fd-slider.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
