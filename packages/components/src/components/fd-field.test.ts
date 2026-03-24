@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/fd-field.js";
+import "../register/fd-textarea.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createField(innerHTML = ""): Promise<any> {
@@ -11,6 +12,8 @@ async function createField(innerHTML = ""): Promise<any> {
   // Wait for child updateComplete
   const input = el.querySelector("fd-input") as any;
   if (input) await input.updateComplete;
+  const textarea = el.querySelector("fd-textarea") as any;
+  if (textarea) await textarea.updateComplete;
   const label = el.querySelector("fd-label") as any;
   if (label) await label.updateComplete;
   const message = el.querySelector("fd-message") as any;
@@ -125,7 +128,7 @@ describe("fd-field", () => {
 
   // --- Cardinality warnings ---
 
-  it("warns on multiple fd-input direct children", async () => {
+  it("warns on multiple supported text-entry children", async () => {
     const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 
     await createField(`
@@ -134,7 +137,21 @@ describe("fd-field", () => {
     `);
 
     expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Multiple fd-input"),
+      expect.stringContaining("Multiple supported text-entry children"),
+    );
+    warnSpy.mockRestore();
+  });
+
+  it("warns when fd-input and fd-textarea are both present", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    await createField(`
+      <fd-input name="a"></fd-input>
+      <fd-textarea name="b"></fd-textarea>
+    `);
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Multiple supported text-entry children"),
     );
     warnSpy.mockRestore();
   });
@@ -204,6 +221,39 @@ describe("fd-field", () => {
     vi.restoreAllMocks();
   });
 
+  it("auto-generates id on fd-textarea and for on fd-label and fd-message", async () => {
+    const el = await createField(`
+      <fd-label label="Details"></fd-label>
+      <fd-textarea name="details"></fd-textarea>
+      <fd-message message="Tell us more"></fd-message>
+    `);
+
+    const textarea = el.querySelector("fd-textarea");
+    const label = el.querySelector("fd-label");
+    const message = el.querySelector("fd-message");
+
+    expect(textarea.id).toMatch(/^fd-field-\d+$/);
+    expect(label.getAttribute("for")).toBe(textarea.id);
+    expect(message.getAttribute("for")).toBe(textarea.id);
+  });
+
+  it("only wires the first supported control when input and textarea both exist", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const el = await createField(`
+      <fd-input name="a"></fd-input>
+      <fd-textarea name="b"></fd-textarea>
+    `);
+
+    const input = el.querySelector("fd-input");
+    const textarea = el.querySelector("fd-textarea");
+
+    expect(input.id).toMatch(/^fd-field-\d+$/);
+    expect(textarea.id).toBe("");
+
+    vi.restoreAllMocks();
+  });
+
   // --- Direct children only ---
 
   it("does not wire descendants inside nested elements", async () => {
@@ -241,6 +291,22 @@ describe("fd-field", () => {
     expect(label.getAttribute("for")).toBe(input.id);
   });
 
+  it("wires late-added fd-textarea", async () => {
+    const el = await createField(`
+      <fd-label label="Details"></fd-label>
+    `);
+
+    const textarea = document.createElement("fd-textarea") as any;
+    textarea.setAttribute("name", "details");
+    el.appendChild(textarea);
+
+    await new Promise((r) => setTimeout(r, 50));
+
+    expect(textarea.id).toMatch(/^fd-field-\d+$/);
+    const label = el.querySelector("fd-label");
+    expect(label.getAttribute("for")).toBe(textarea.id);
+  });
+
   // --- Accessibility ---
 
   // axe-core cannot follow <label for> → form-associated custom element → shadow DOM <input>,
@@ -265,6 +331,21 @@ describe("fd-field", () => {
     await input.updateComplete;
     await new Promise((r) => requestAnimationFrame(r));
     await input.updateComplete;
+
+    await expectNoAxeViolations(document.body, axeOverrides);
+  });
+
+  it("has no axe violations with fd-textarea composition", async () => {
+    const el = await createField(`
+      <fd-label label="Case details"></fd-label>
+      <fd-textarea name="details"></fd-textarea>
+      <fd-message message="Describe what happened"></fd-message>
+    `);
+
+    const textarea = el.querySelector("fd-textarea") as any;
+    await textarea.updateComplete;
+    await new Promise((r) => requestAnimationFrame(r));
+    await textarea.updateComplete;
 
     await expectNoAxeViolations(document.body, axeOverrides);
   });

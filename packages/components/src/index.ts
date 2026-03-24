@@ -24,6 +24,7 @@ export { FdBadge } from "./components/fd-badge.js";
 export { FdBadgeGroup } from "./components/fd-badge-group.js";
 export { FdChip } from "./components/fd-chip.js";
 export { FdChipGroup } from "./components/fd-chip-group.js";
+export { FdTextarea } from "./components/fd-textarea.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";

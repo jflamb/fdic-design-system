@@ -322,6 +322,32 @@ export const componentStoryApi = {
     "label": undefined,
     },
   },
+  "fd-textarea": {
+    argTypes: {
+    "name": { control: "text" },
+    "value": { control: "text" },
+    "placeholder": { control: "text" },
+    "disabled": { control: "boolean" },
+    "readonly": { control: "boolean" },
+    "required": { control: "boolean" },
+    "rows": { control: "number" },
+    "maxlength": { control: "text" },
+    "minlength": { control: "text" },
+    "autocomplete": { control: "text" },
+    },
+    args: {
+    "name": "",
+    "value": "",
+    "placeholder": undefined,
+    "disabled": false,
+    "readonly": false,
+    "required": false,
+    "rows": 5,
+    "maxlength": undefined,
+    "minlength": undefined,
+    "autocomplete": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

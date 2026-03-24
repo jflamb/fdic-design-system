@@ -460,6 +460,26 @@ export const componentInventory = [
     },
     typeExports: [],
   },
+  {
+    tagName: "fd-textarea",
+    className: "FdTextarea",
+    sourceFile: "fd-textarea.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Text Area",
+      slug: "textarea",
+    },
+    storybook: {
+      title: "Components/Text Area",
+      file: "fd-textarea.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: [],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 
