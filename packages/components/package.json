@@ -135,6 +135,10 @@
       "types": "./dist/components/fd-pagination.d.ts",
       "import": "./dist/components/fd-pagination.js"
     },
+    "./fd-global-header": {
+      "types": "./dist/components/fd-global-header.d.ts",
+      "import": "./dist/components/fd-global-header.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

@@ -21,7 +21,8 @@ export const firstClassComponentSidebarItems = [
   { text: "Text Area", link: "/components/textarea" },
   { text: "Alert", link: "/components/alert" },
   { text: "Link", link: "/components/link" },
-  { text: "Pagination", link: "/components/pagination" }
+  { text: "Pagination", link: "/components/pagination" },
+  { text: "Global Header", link: "/components/global-header" }
 ];
 
 export const supportingPrimitiveSidebarItems = [

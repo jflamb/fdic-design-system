@@ -34,4 +34,5 @@ import "./fd-alert.js";
 import "./fd-stripe.js";
 import "./fd-link.js";
 import "./fd-pagination.js";
+import "./fd-global-header.js";
 import "../icons/phosphor-regular.js";

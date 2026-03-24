@@ -580,6 +580,36 @@ export const componentInventory = [
     },
     typeExports: [],
   },
+  {
+    tagName: "fd-global-header",
+    className: "FdGlobalHeader",
+    sourceFile: "fd-global-header.ts",
+    docs: {
+      kind: "first-class",
+      title: "Global Header",
+      slug: "global-header",
+    },
+    storybook: {
+      title: "Components/Global Header",
+      file: "fd-global-header.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon", "fd-input"],
+    },
+    typeExports: [
+      "GlobalHeaderSearchSurface",
+      "FdGlobalHeaderLeafItem",
+      "FdGlobalHeaderSectionItem",
+      "FdGlobalHeaderSection",
+      "FdGlobalHeaderLinkItem",
+      "FdGlobalHeaderPanelItem",
+      "FdGlobalHeaderNavigationItem",
+      "FdGlobalHeaderSearchConfig",
+      "FdGlobalHeaderSearchSubmitDetail",
+    ],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 
