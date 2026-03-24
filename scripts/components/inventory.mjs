@@ -333,6 +333,33 @@ export const componentInventory = [
     },
     typeExports: [],
   },
+  {
+    tagName: "fd-file-input",
+    className: "FdFileInput",
+    sourceFile: "fd-file-input.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "File Input",
+      slug: "file-input",
+    },
+    storybook: {
+      title: "Components/File Input",
+      file: "fd-file-input.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: [
+      "FileInputItem",
+      "FileInputItemState",
+      "FileInputRejectReason",
+      "FileInputRejectedFile",
+      "FdFileInputChangeDetail",
+      "FdFileInputActionDetail",
+    ],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

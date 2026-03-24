@@ -11,7 +11,8 @@ export const firstClassComponentSidebarItems = [
   { text: "Radio", link: "/components/radio" },
   { text: "Radio Group", link: "/components/radio-group" },
   { text: "Selector", link: "/components/selector" },
-  { text: "Split Button", link: "/components/split-button" }
+  { text: "Split Button", link: "/components/split-button" },
+  { text: "File Input", link: "/components/file-input" }
 ];
 
 export const supportingPrimitiveSidebarItems = [

@@ -87,6 +87,10 @@
       "types": "./dist/components/fd-split-button.d.ts",
       "import": "./dist/components/fd-split-button.js"
     },
+    "./fd-file-input": {
+      "types": "./dist/components/fd-file-input.d.ts",
+      "import": "./dist/components/fd-file-input.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

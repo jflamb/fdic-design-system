@@ -18,6 +18,7 @@ export { FdRadio } from "./components/fd-radio.js";
 export { FdRadioGroup } from "./components/fd-radio-group.js";
 export { FdSelector } from "./components/fd-selector.js";
 export { FdSplitButton } from "./components/fd-split-button.js";
+export { FdFileInput } from "./components/fd-file-input.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -28,6 +29,7 @@ export type { MenuItemVariant } from "./components/fd-menu-item.js";
 export type { MessageState, LiveMode } from "./components/fd-message.js";
 export type { RadioGroupOrientation } from "./components/fd-radio-group.js";
 export type { SelectorVariant } from "./components/fd-selector.js";
+export type { FileInputItem, FileInputItemState, FileInputRejectReason, FileInputRejectedFile, FdFileInputChangeDetail, FdFileInputActionDetail } from "./components/fd-file-input.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,
