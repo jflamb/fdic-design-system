@@ -802,6 +802,7 @@ export class FdGlobalHeader extends LitElement {
   private _lastDesktopTriggerId: string | null = null;
   private _lastMobileToggle: "menu" | "search" | null = null;
   private _mobileMediaQuery: MediaQueryList | null = null;
+  private _pendingDesktopFocusTransfer = false;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
   private readonly _onDocumentKeyDownBound = this._onDocumentKeyDown.bind(this);
@@ -1190,14 +1191,21 @@ export class FdGlobalHeader extends LitElement {
     this._setActivePanel(panelId);
     this._desktopPanelOpen = true;
     this._visibleSearchSurface = null;
+    this._pendingDesktopFocusTransfer = focusPanel;
     await this.updateComplete;
     if (focusPanel) {
       this._focusFirstPanelItem();
+      window.setTimeout(() => {
+        this._pendingDesktopFocusTransfer = false;
+      }, 0);
+      return;
     }
+    this._pendingDesktopFocusTransfer = false;
   }
 
   private _closeDesktopPanel(restoreFocus = true) {
     this._desktopPanelOpen = false;
+    this._pendingDesktopFocusTransfer = false;
     if (!restoreFocus) {
       return;
     }
@@ -1303,6 +1311,7 @@ export class FdGlobalHeader extends LitElement {
 
   private _handleFocusOut() {
     window.setTimeout(() => {
+      if (this._pendingDesktopFocusTransfer) return;
       if (this._isMobile || !this._desktopPanelOpen) return;
       if (this.matches(":focus-within") || this.matches(":hover")) return;
       this._closeDesktopPanel(false);
