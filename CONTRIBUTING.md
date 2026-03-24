@@ -67,6 +67,32 @@ This project uses tooling for baseline formatting. The conventions below are the
 - Storybook stories should demonstrate meaningful usage patterns, including validation lifecycle examples for form controls when relevant.
 - Use plain language in docs, stories, labels, descriptions, and examples. This design system is for government and financial-sector workflows.
 
+#### Storybook quality standard
+
+- Storybook is part of the completion bar for first-class public components. It remains supplementary for very simple primitives, but it is not an illustrative-only gallery.
+- First-class public components should have, at minimum:
+  - a canonical/default story
+  - a controls-oriented story when the component has 3 or more meaningful argument axes or the state space is otherwise hard to understand statically
+  - a states/variants story or equivalent explicit permutation coverage
+  - a docs-focused overview when authoring constraints are not obvious from visuals alone
+- Simpler components may overlap those roles when the story file stays intentional. A pattern like `Playground` plus `DocsOverview` in `apps/storybook/src/fd-label.stories.ts` is acceptable.
+- Supporting-embedded primitives may satisfy Storybook obligations through explicitly labeled parent stories. Incidental inclusion is not enough.
+- Treat a component as high-complexity for Storybook purposes when it matches at least 2 of these characteristics:
+  - focus management beyond basic tab order
+  - keyboard navigation beyond native defaults
+  - child composition with its own interaction contract
+  - visible validation or invalid-state lifecycle behavior
+- Current authoritative example set for this rule:
+  - `fd-menu`
+  - `fd-selector`
+  - `fd-split-button`
+  - grouped validation flows such as `fd-checkbox-group` and `fd-radio-group`
+- High-complexity components require `play` coverage for user-observable behavior such as keyboard flows, focus movement, open/close behavior, selection/action behavior, and visible state transitions.
+- Storybook `play` tests should focus on user-observable behavior. Vitest component tests should continue to own lower-level contract assertions such as event payloads, form data, and attribute reflection.
+- `@storybook/addon-a11y` should be enabled in Storybook. During the current repository phase, accessibility findings are a required review surface for first-class components and advisory for supporting-standalone primitives unless complexity or risk warrants stricter handling.
+- In Storybook config, `a11y: { test: "todo" }` means accessibility checks run and surface findings in the addon panel, but those findings are not treated as passing/blocked automated test assertions yet. A green Storybook test run does not remove the requirement to review and address meaningful a11y findings for qualifying components.
+- Scoped a11y suppressions must identify the rule and justification in story metadata or adjacent code comments. Avoid broad silent disablement.
+
 #### Component completeness standard
 
 - Every public component must be classified as one of:
