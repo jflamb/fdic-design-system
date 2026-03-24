@@ -152,34 +152,38 @@ Skip the issue for very small, obvious fixes if a focused pull request is enough
 
 ## Discussions
 
-GitHub Discussions are enabled, but they should stay narrow and lightweight.
+GitHub Discussions are the durable knowledge layer for this repository.
 
-Use Discussions for:
+Use Discussions to capture information that future contributors and agents should reuse rather than rediscover:
 
-- early ideas that are not yet scoped enough for an issue
-- contributor questions that do not yet describe a concrete repo change
-- announcements about releases, roadmap shifts, or contribution workflow changes
+- repo-wide design or engineering decisions
+- repeatable protocols, checklists, and development workflows
+- lessons learned from shipped improvements or reviews
+- reusable recipes for testing, docs authoring, accessibility validation, or component development
+- early proposals that are not yet implementation-ready
 
 Do not use Discussions for:
 
-- final architecture decisions
-- accepted implementation scope
-- bug triage
 - security reports
+- bug triage without a concrete work item
+- implementation progress updates that belong on an issue or pull request
 
-Record decisions and accepted work in Issues, PRs, and repository docs so the implementation record stays easy to follow.
+Use the following category model:
 
-Recommended categories:
+- `Decisions`: durable choices with repo-wide consequences
+- `Protocols`: repeatable workflows, review prompts, or checklists
+- `Learnings`: lessons learned from completed work, regressions, and review feedback
+- `Recipes`: reusable implementation, testing, docs, or review patterns
+- `Proposals`: early cross-cutting ideas that are not yet scoped as implementation issues
 
-- `Announcements`
-- `Ideas`
-- `Q&A`
+When an issue depends on prior repository knowledge, link the relevant discussion in the issue body or a top-level issue comment. When an implementation produces a reusable lesson, add or update the relevant discussion before closing the issue.
 
 ## Issue Types
 
 Use the built-in forms when possible:
 
 - `Bug report`: behavior is incorrect, missing, or regressed
+- `Continuous improvement`: a high-impact improvement candidate with research, requirements, and knowledge-capture expectations
 - `Proposal`: a component, token, docs, architecture, content, or planning change needs rationale and acceptance criteria
 - `Maintenance task`: dependency, tooling, CI, security-hardening, or repo-workflow work
 
@@ -200,15 +204,17 @@ Prefer small PRs over broad refactors. If a change is architectural or deliberat
 
 ## Label Taxonomy
 
-Labels are intentionally lightweight. They answer three questions: what kind of work is this, what area does it affect, and what is its current state.
+Labels answer five questions: what kind of work is this, what area does it affect, how urgent is it, what state is it in, and whether it creates reusable repo knowledge.
 
 ### Type labels
 
 - `type:bug`: incorrect or regressed behavior
 - `type:feature`: implementation work that adds or expands capability
+- `type:improvement`: high-leverage quality, accessibility, usability, or workflow improvement work
 - `type:docs`: documentation or content-authoring work
 - `type:maintenance`: dependency, tooling, CI, release, or repo upkeep
 - `type:planning`: proposals, scoping, acceptance criteria, or decision framing
+- `type:research`: standards or repo discovery work that informs future implementation
 - `type:question`: clarification needed before work should proceed
 - `type:security`: vulnerability handling or security-sensitive work
 
@@ -217,19 +223,39 @@ Labels are intentionally lightweight. They answer three questions: what kind of 
 - `area:tokens`
 - `area:components`
 - `area:docs`
+- `area:storybook`
 - `area:accessibility`
 - `area:content`
 - `area:architecture`
 - `area:security`
 - `area:tooling`
+- `area:workflow`
+
+### Priority labels
+
+- `priority:p0`: urgent user, accessibility, security, or release risk
+- `priority:p1`: next-up high-value work
+- `priority:p2`: important backlog work
+- `priority:p3`: longer-term or opportunistic backlog work
 
 ### Status labels
 
 - `status:needs-triage`: new and not yet clarified
+- `status:needs-research`: needs standards review or repo-specific discovery before implementation
 - `status:ready`: scoped well enough to pick up
 - `status:in-progress`: actively being worked
+- `status:in-review`: implemented or drafted and ready for review
 - `status:blocked`: waiting on a dependency or answer
 - `status:needs-decision`: open question or tradeoff still needs a call
+
+### Impact and knowledge labels
+
+- `impact:high`: meaningful cross-cutting impact
+- `impact:systemic`: creates reusable leverage for future work
+- `knowledge:decision`: discussion captures a durable decision
+- `knowledge:protocol`: discussion captures a repeatable workflow or checklist
+- `knowledge:learning`: discussion captures a lesson learned
+- `knowledge:recipe`: discussion captures a reusable implementation or testing recipe
 
 ### Community and closure labels
 

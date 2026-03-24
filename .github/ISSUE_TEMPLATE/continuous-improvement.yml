@@ -1,0 +1,138 @@
+name: Continuous improvement
+description: Propose or track the highest-impact improvement for the repo, with research, requirements, and knowledge-capture expectations.
+title: "[Improvement]: "
+labels:
+  - "type:improvement"
+  - "status:needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for repo-specific improvements that should raise the quality bar across accessibility, usability, engineering, docs, or contributor workflow. Search related issues and discussions first, then link them here so the repo does not rediscover the same work.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Improvement summary
+      description: State the single improvement in one sentence.
+      placeholder: Introduce a repo-wide accessibility regression checklist for first-class components.
+    validations:
+      required: true
+  - type: dropdown
+    id: primary_area
+    attributes:
+      label: Primary area
+      options:
+        - components
+        - docs
+        - accessibility
+        - content guidance
+        - architecture
+        - tooling
+        - workflow
+        - Storybook
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What repo-specific gap, risk, or inefficiency does this improvement address?
+      placeholder: Describe the observed gap and why it matters in this repository now.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Observed repository evidence
+      description: Cite concrete files, docs, tests, stories, or current gaps.
+      placeholder: |
+        - packages/components/src/components/...
+        - apps/docs/components/...
+        - Existing Storybook gaps or issue links
+    validations:
+      required: true
+  - type: textarea
+    id: github_context
+    attributes:
+      label: Related issues and discussions
+      description: Link prior GitHub artifacts and explain how this proposal avoids duplicate work.
+      placeholder: |
+        Related issues:
+        - #123
+
+        Related discussions:
+        - #45
+
+        Duplicate-work check:
+        - This extends, supersedes, or differs from prior work by...
+    validations:
+      required: true
+  - type: textarea
+    id: research
+    attributes:
+      label: Best-practice research
+      description: Link the external guidance that supports this improvement.
+      placeholder: |
+        - WCAG / WAI / APG:
+        - USWDS:
+        - NIST / CISA:
+        - Official framework docs:
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements specification
+      description: Capture the implementation-ready requirements for this improvement.
+      placeholder: |
+        Goals:
+        - ...
+
+        Scope:
+        - ...
+
+        Functional requirements:
+        - ...
+
+        Accessibility and usability requirements:
+        - ...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the conditions that must be true when the work is complete.
+      placeholder: |
+        - ...
+        - ...
+    validations:
+      required: true
+  - type: textarea
+    id: knowledge_capture
+    attributes:
+      label: Knowledge capture plan
+      description: Which discussions should be created or updated as part of this work?
+      placeholder: |
+        - Decision discussion:
+        - Protocol discussion:
+        - Learning or recipe discussion:
+        - AGENT_GUIDE.md updates needed:
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: What tests, builds, story checks, docs review, or manual accessibility checks should happen?
+      placeholder: npm run test:components, npm run build, keyboard checks, Storybook play coverage, docs review
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope boundaries
+      description: What stays out of scope for this improvement?
+      placeholder: Keep adjacent refactors, new components, or speculative follow-up work out unless required.
+    validations:
+      required: true

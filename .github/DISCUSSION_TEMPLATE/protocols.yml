@@ -1,0 +1,55 @@
+title: "[Protocol] "
+labels:
+  - "knowledge:protocol"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for repeatable workflows, review prompts, checklists, and development protocols that contributors should follow.
+  - type: input
+    id: summary
+    attributes:
+      label: Protocol summary
+      description: Name the workflow or protocol.
+      placeholder: Review protocol for first-class form components
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose
+      description: What repeated problem or failure mode does this protocol address?
+    validations:
+      required: true
+  - type: textarea
+    id: trigger
+    attributes:
+      label: When to use
+      description: Define the situations where this protocol applies.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Protocol steps
+      description: Write the procedure as a concrete checklist or ordered flow.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Required artifacts and validation
+      description: What issues, docs, tests, stories, or review comments should this protocol produce?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, discussions, standards, or files.
+    validations:
+      required: true

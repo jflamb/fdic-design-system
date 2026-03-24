@@ -1,0 +1,55 @@
+title: "[Recipe] "
+labels:
+  - "knowledge:recipe"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for reusable implementation, testing, documentation, or review patterns that future contributors can follow directly.
+  - type: input
+    id: summary
+    attributes:
+      label: Recipe summary
+      description: Name the reusable pattern.
+      placeholder: Add Storybook play coverage for composite widgets
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: When to use this recipe
+      description: Define the scenario where this pattern applies.
+    validations:
+      required: true
+  - type: textarea
+    id: ingredients
+    attributes:
+      label: Required context and dependencies
+      description: List the files, helpers, tools, standards, or assumptions needed before using the recipe.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Recipe steps
+      description: Write the concrete implementation or review steps.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation and failure modes
+      description: Explain how to verify the recipe worked and common mistakes to avoid.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, discussions, standards, or files.
+    validations:
+      required: true

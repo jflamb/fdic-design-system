@@ -1,0 +1,51 @@
+title: "[Proposal] "
+labels:
+  - "type:planning"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for early cross-cutting ideas that are not yet ready to become implementation issues.
+  - type: input
+    id: summary
+    attributes:
+      label: Proposal summary
+      description: State the idea in one sentence.
+      placeholder: Standardize page-level accessibility review criteria across docs and Storybook.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What gap, risk, or improvement opportunity does this proposal address?
+    validations:
+      required: true
+  - type: textarea
+    id: repository_context
+    attributes:
+      label: Repository context
+      description: Cite current files, gaps, prior issues, or discussions that make this proposal relevant now.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed direction
+      description: Describe the smallest useful next step or shape for the proposal.
+    validations:
+      required: true
+  - type: textarea
+    id: open_questions
+    attributes:
+      label: Open questions and tradeoffs
+      description: What still needs research or a decision before this becomes implementation work?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, discussions, design references, or standards.
+    validations:
+      required: true

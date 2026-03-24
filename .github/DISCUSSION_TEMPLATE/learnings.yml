@@ -1,0 +1,51 @@
+title: "[Learning] "
+labels:
+  - "knowledge:learning"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for lessons learned from shipped improvements, regressions, review feedback, or implementation work that should change future behavior.
+  - type: input
+    id: summary
+    attributes:
+      label: Learning summary
+      description: State the lesson in one sentence.
+      placeholder: Composite widgets need Storybook play coverage for keyboard interaction, not just visual stories.
+    validations:
+      required: true
+  - type: textarea
+    id: situation
+    attributes:
+      label: What happened
+      description: Describe the work, bug, review, or validation that revealed this lesson.
+    validations:
+      required: true
+  - type: textarea
+    id: lesson
+    attributes:
+      label: Lesson learned
+      description: What should future contributors do differently?
+    validations:
+      required: true
+  - type: textarea
+    id: future_impact
+    attributes:
+      label: How this should affect future work
+      description: Call out components, docs, tests, or workflows that should change because of this learning.
+    validations:
+      required: true
+  - type: textarea
+    id: updates
+    attributes:
+      label: Required updates
+      description: Note any AGENT_GUIDE, docs, checklist, or template updates needed.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, discussions, files, and validation evidence.
+    validations:
+      required: true

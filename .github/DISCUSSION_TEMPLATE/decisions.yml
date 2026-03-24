@@ -1,0 +1,51 @@
+title: "[Decision] "
+labels:
+  - "knowledge:decision"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for durable repo-wide decisions that future contributors and agents should reuse instead of rediscovering.
+  - type: input
+    id: summary
+    attributes:
+      label: Decision summary
+      description: State the decision in one sentence.
+      placeholder: Use component-specific public event names instead of generic library-wide events.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and problem
+      description: What situation or ambiguity required a decision?
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+      description: Describe the chosen direction clearly and concretely.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale and tradeoffs
+      description: Explain why this option was chosen and what alternatives were rejected.
+    validations:
+      required: true
+  - type: textarea
+    id: implications
+    attributes:
+      label: Consequences and follow-on work
+      description: What code, docs, tests, or future component work should now follow this decision?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Link related issues, PRs, specs, standards, and files.
+    validations:
+      required: true

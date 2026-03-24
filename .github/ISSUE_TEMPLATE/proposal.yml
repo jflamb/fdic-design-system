@@ -24,6 +24,22 @@ body:
     validations:
       required: true
   - type: textarea
+    id: github_context
+    attributes:
+      label: Related issues and discussions
+      description: Link prior GitHub artifacts and explain how this proposal avoids duplicate work.
+      placeholder: |
+        Related issues:
+        - #123
+
+        Related discussions:
+        - #45
+
+        Duplicate-work check:
+        - This proposal extends or differs from prior work by...
+    validations:
+      required: true
+  - type: textarea
     id: problem
     attributes:
       label: Problem statement
