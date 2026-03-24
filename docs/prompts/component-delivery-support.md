@@ -180,6 +180,7 @@ Validation expectations:
 
 - Fix failures before proceeding.
 - Review generated outputs for malformed changes, accidental deletions, duplicate headings, placeholders, stale generated sections, or misleading guidance.
+- When editing `scripts/components/api-metadata.json`, escape markdown union pipes as `\\|`; raw `|` characters can break generated API tables in component docs.
 - If generated files changed only by ordering or formatting noise, verify the change is expected and avoid committing avoidable churn.
 - Post-merge verification should run on `main` and should not rerun optional surfaces unless they changed as part of the merged work.
 

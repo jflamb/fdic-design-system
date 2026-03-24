@@ -36,6 +36,7 @@ Required outcomes:
 - Create or reuse the required GitHub Discussion and implementation Issue.
 - Complete the design-review loop and implementation-plan review loop.
 - Implement the component and update tests, docs, stories, metadata, and generated surfaces as required.
+- When editing `scripts/components/api-metadata.json`, escape union pipes as `\\|` so generated markdown tables render correctly.
 - Run required validation from the support document, plus conditional Storybook validation when triggered by the change.
 - Create or update a PR, include the required review prompt, include at least one visual verification artifact when the component has meaningful visual or interactive states, complete PR self-review, fix actionable findings, and ensure the implementation Issue will close on merge or is closed manually during post-merge cleanup.
 - Create follow-up issue(s) for deferred work that is materially useful, and explicitly open enhancement issues for important features that fall out of scope for v1.
