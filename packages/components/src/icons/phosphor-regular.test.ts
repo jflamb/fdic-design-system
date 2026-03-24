@@ -16,6 +16,7 @@ describe("phosphor-regular built-in icons", () => {
     "eye",
     "eye-slash",
     "info",
+    "list",
     "magnifying-glass",
     "minus",
     "minus-square",

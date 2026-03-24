@@ -17,7 +17,7 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Supporting primitives</span>
-    <h3>Field and Message and Visual and Stripe</h3>
+    <h3>Field and Message and Visual and Stripe and Header Search and Drawer</h3>
     <p>Supporting primitives stay public and intentionally authorable, but their meaning depends on a broader composition contract. They have dedicated docs because consumers still need direct guidance for correct use.</p>
   </div>
   <div class="fdic-card">
@@ -59,3 +59,5 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Message](./message) documents the supporting primitive contract for message.
 - [Visual](./visual) documents the supporting primitive contract for visual.
 - [Stripe](./stripe) documents the supporting primitive contract for stripe.
+- [Header Search](./header-search) documents the supporting primitive contract for header search.
+- [Drawer](./drawer) documents the supporting primitive contract for drawer.

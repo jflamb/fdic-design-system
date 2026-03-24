@@ -29,5 +29,7 @@ export const supportingPrimitiveSidebarItems = [
   { text: "Field", link: "/components/field" },
   { text: "Message", link: "/components/message" },
   { text: "Visual", link: "/components/visual" },
-  { text: "Stripe", link: "/components/stripe" }
+  { text: "Stripe", link: "/components/stripe" },
+  { text: "Header Search", link: "/components/header-search" },
+  { text: "Drawer", link: "/components/drawer" }
 ];

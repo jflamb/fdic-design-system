@@ -31,6 +31,9 @@ const icons: Record<string, string> = {
   "caret-left":
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg>',
 
+  list:
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M40,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H48A8,8,0,0,1,40,64Zm176,56H48a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>',
+
   plus: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></svg>',
 
   minus:

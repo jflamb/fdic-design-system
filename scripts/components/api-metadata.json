@@ -3050,7 +3050,7 @@
           "description": "Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`."
         }
       ],
-      "after": "- `fd-global-header` owns its open, preview, drill-down, and query state internally. The application owns navigation data, current-link flags, and routing.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
+      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, and the shared query string coordinated with `fd-header-search`.\n- The application owns navigation data, current-link flags, routing, and any custom submit handling.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
     },
     "slots": {
       "rows": [
@@ -3076,43 +3076,7 @@
       "after": ""
     },
     "cssProperties": {
-      "rows": [
-        {
-          "name": "--fd-global-header-border-color",
-          "default": "`var(--fdic-border-divider, #bdbdbf)`",
-          "description": "Border color for masthead and navigation separators"
-        },
-        {
-          "name": "--fd-global-header-panel-border-color",
-          "default": "`var(--fdic-border-divider, #bdbdbf)`",
-          "description": "Border color for desktop and mobile navigation panels"
-        },
-        {
-          "name": "--fd-global-header-surface",
-          "default": "`#ffffff`",
-          "description": "Base masthead and top-nav surface color"
-        },
-        {
-          "name": "--fd-global-header-panel-surface",
-          "default": "`var(--fdic-background-base, #ffffff)`",
-          "description": "Desktop mega-menu, mobile drawer, and search-popover surface color"
-        },
-        {
-          "name": "--fd-global-header-accent",
-          "default": "`var(--ds-color-bg-active, #0d6191)`",
-          "description": "Accent color used for active top-level items and the search submit button"
-        },
-        {
-          "name": "--fd-global-header-focus-gap",
-          "default": "`var(--ds-color-bg-input, #ffffff)`",
-          "description": "Inner gap color for the focus ring"
-        },
-        {
-          "name": "--fd-global-header-focus-ring",
-          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
-          "description": "Outer focus-ring color"
-        }
-      ],
+      "rows": [],
       "after": ""
     },
     "shadowParts": {
@@ -3140,17 +3104,228 @@
         {
           "name": "mobile-drawer",
           "description": "Mobile drawer surface"
-        },
-        {
-          "name": "search-form",
-          "description": "Search form wrapper for desktop and mobile search surfaces"
-        },
-        {
-          "name": "search-results",
-          "description": "Search suggestion list surface"
         }
       ],
       "after": "- `fd-global-header` intentionally does not expose every internal row or cell as a styling hook. Keep theming focused on the documented surfaces."
+    }
+  },
+  "fd-header-search": {
+    "properties": {
+      "rows": [
+        {
+          "name": "surface",
+          "type": "`\"desktop\" \\| \"mobile\"`",
+          "defaultValue": "`\"desktop\"`",
+          "description": "Presentation surface. Use `desktop` for the attached suggestion panel and `mobile` for the drawer-backed suggestion surface."
+        },
+        {
+          "name": "action",
+          "type": "`string`",
+          "defaultValue": "`\"/search\"`",
+          "description": "Fallback results URL used when submit is not canceled and no direct result is selected."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"Search\"`",
+          "description": "Accessible label announced for the search control."
+        },
+        {
+          "name": "placeholder",
+          "type": "`string`",
+          "defaultValue": "`\"Search\"`",
+          "description": "Placeholder text shown inside the native search input."
+        },
+        {
+          "name": "submit-label",
+          "type": "`string`",
+          "defaultValue": "`\"Open first matching result\"`",
+          "description": "Accessible label for the submit control."
+        },
+        {
+          "name": "search-all-label",
+          "type": "`string`",
+          "defaultValue": "`\"Search all\"`",
+          "description": "Reserved label for broader search affordances supplied by the application contract."
+        },
+        {
+          "name": "param-name",
+          "type": "`string`",
+          "defaultValue": "`\"q\"`",
+          "description": "Query-string parameter name used when constructing the fallback search URL."
+        },
+        {
+          "name": "items",
+          "type": "`FdHeaderSearchItem[]`",
+          "defaultValue": "`[]`",
+          "description": "Consumer-provided suggestion corpus. Set this as a JavaScript property; it is not reflected to an HTML attribute."
+        },
+        {
+          "name": "value",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Current query value. Assign a new string to coordinate desktop and mobile instances through a parent."
+        },
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Whether the search suggestion surface is open. Primarily used for the mobile drawer-backed presentation."
+        }
+      ],
+      "after": "- `fd-header-search` owns suggestion filtering and active-result state.\n- Parents may coordinate `value` and `open` across multiple search surfaces."
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-header-search-input",
+          "detail": "`{ value: string, surface: \"desktop\" \\| \"mobile\" }`",
+          "description": "Fired whenever the query value changes."
+        },
+        {
+          "name": "fd-header-search-open-change",
+          "detail": "`{ open: boolean, surface: \"desktop\" \\| \"mobile\" }`",
+          "description": "Fired when the component opens or closes its search surface."
+        },
+        {
+          "name": "fd-header-search-submit",
+          "detail": "`{ query: string, href: string, firstMatchHref?: string, surface: \"desktop\" \\| \"mobile\" }`",
+          "description": "Cancelable event fired on submit before default navigation occurs."
+        },
+        {
+          "name": "fd-header-search-activate",
+          "detail": "`{ item: FdHeaderSearchItem, query: string, surface: \"desktop\" \\| \"mobile\" }`",
+          "description": "Cancelable event fired before a suggestion link is activated."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-header-search-font-family",
+          "default": "`var(--fdic-font-family-sans-serif, \"Source Sans 3\", \"Source Sans Pro\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif)`",
+          "description": "Font family used for the search control and suggestion content."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "form",
+          "description": "Input row containing the label, query field, clear affordance, and submit control."
+        },
+        {
+          "name": "results",
+          "description": "Desktop suggestion panel surface."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-drawer": {
+    "properties": {
+      "rows": [
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Whether the drawer is visible."
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Accessible label announced for the drawer surface."
+        },
+        {
+          "name": "modal",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "When true, the drawer behaves like a modal dialog with a backdrop and focus trap."
+        },
+        {
+          "name": "placement",
+          "type": "`\"top\"`",
+          "defaultValue": "`\"top\"`",
+          "description": "Drawer placement. The current primitive intentionally supports the top-attached header-family use case only."
+        }
+      ],
+      "after": "- `fd-drawer` keeps its public contract intentionally small so callers can compose navigation and search semantics around it."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "header",
+          "description": "Optional header content rendered above the body slot."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-drawer-close-request",
+          "detail": "`{ source: \"backdrop\" \\| \"escape\" }`",
+          "description": "Cancelable event fired when the user asks to dismiss the drawer."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-drawer-surface",
+          "default": "`#ffffff`",
+          "description": "Surface color for the drawer body."
+        },
+        {
+          "name": "--fd-drawer-color",
+          "default": "`inherit`",
+          "description": "Foreground color for drawer content."
+        },
+        {
+          "name": "--fd-drawer-border-color",
+          "default": "`rgba(9, 53, 84, 0.14)`",
+          "description": "Border color for the drawer edge."
+        },
+        {
+          "name": "--fd-drawer-shadow",
+          "default": "`0 18px 48px rgba(0, 18, 32, 0.22)`",
+          "description": "Box shadow applied to the drawer surface."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root wrapper for the drawer and optional backdrop."
+        },
+        {
+          "name": "backdrop",
+          "description": "Modal backdrop shown behind the drawer surface."
+        },
+        {
+          "name": "surface",
+          "description": "Drawer surface element."
+        },
+        {
+          "name": "header",
+          "description": "Optional header slot wrapper."
+        },
+        {
+          "name": "body",
+          "description": "Drawer body wrapper."
+        }
+      ],
+      "after": ""
     }
   }
 }

@@ -139,6 +139,14 @@
       "types": "./dist/components/fd-global-header.d.ts",
       "import": "./dist/components/fd-global-header.js"
     },
+    "./fd-header-search": {
+      "types": "./dist/components/fd-header-search.d.ts",
+      "import": "./dist/components/fd-header-search.js"
+    },
+    "./fd-drawer": {
+      "types": "./dist/components/fd-drawer.d.ts",
+      "import": "./dist/components/fd-drawer.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

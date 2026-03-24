@@ -1,15 +1,16 @@
 # Global Header
 
-The global header provides the masthead, primary navigation, responsive grouped navigation, and integrated header search for FDIC sites and applications.
+The global header provides the FDICnet-style masthead, attached mega-menu, mobile drill-down drawer, and composed header-search family for FDIC sites and applications.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-global-header</code> for site-level or application-level navigation when you need a reusable brand area, utility actions, grouped navigation panels, a mobile drill-down drawer, and a local header-search experience driven entirely by consumer-provided data.</p>
+  <p>Use <code>fd-global-header</code> when the product needs the approved FDICnet header pattern with a top-level search component, prototype-aligned grouped navigation, and application-owned information architecture.</p>
 </div>
 
 ## When to use
 
 - **The page needs one durable site header contract** — The brand area, utility actions, primary navigation, and search belong together and should stay consistent across routes.
+- **The experience needs the FDICnet prototype structure** — The desktop trigger row, attached three-column mega-menu, mobile drill-down hierarchy, and search behavior are designed to match the approved prototype closely.
 - **Some top-level items are direct links and others expand into grouped navigation** — The component supports both without switching to action-menu semantics.
 - **The information architecture already exists in application data** — The component expects navigation and search configuration to be passed in as JavaScript data, not fetched by the component.
 
@@ -18,20 +19,21 @@ The global header provides the masthead, primary navigation, responsive grouped 
 - **Don't use it for local section navigation** — `fd-global-header` is for the site or application shell, not a page subsection.
 - **Don't use it when the framework shell already owns the masthead semantics** — If another shell controls primary navigation, avoid nesting a second site header.
 - **Don't use it as an action menu or command palette** — The component renders navigation, not command actions. `fd-menu` remains the action-menu primitive.
-- **Don't use it when the component would need to fetch its own navigation or search data** — In v1, the application owns the information architecture payload.
+- **Don't use it when the component would need to fetch its own navigation or search data** — Runtime content stays framework-agnostic and application-provided.
 
 ## Examples
 
 <StoryEmbed
-  storyId="components-global-header--docs-overview"
-  linkStoryId="components-global-header--desktop-mega-menu"
-  height="460"
-  caption="Global Header overview — desktop masthead, grouped navigation, and integrated search in the default documentation preview. Use Storybook to inspect the dedicated mobile drawer story."
+  storyId="components-global-header--prototype-desktop"
+  linkStoryId="components-global-header--prototype-mobile-drawer"
+  height="520"
+  caption="Prototype-aligned desktop story using the exact FDICnet main-menu YAML-derived fixture. Storybook also includes dedicated search-open, mobile drawer, and mobile drill-down states."
 />
 
 - Pass the navigation tree as a JavaScript property. Assign a new array or object when content changes so the component can re-render.
 - Use the `brand` slot for the branded home link or wordmark content.
 - Use the `utility` slot for application-specific support links or actions. Keep the set short and high-value.
+- The prototype-alignment stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.prototype-content.ts</code> and <code>packages/components/src/components/fd-global-header.prototype.ts</code>.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -41,7 +43,8 @@ The global header provides the masthead, primary navigation, responsive grouped 
 | `navigation` | `FdGlobalHeaderNavigationItem[]` | `[]` | Consumer-provided navigation tree. Set this as a JavaScript property; it is not reflected to an HTML attribute. |
 | `search` | `FdGlobalHeaderSearchConfig \| null` | `null` | Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`. |
 
-- `fd-global-header` owns its open, preview, drill-down, and query state internally. The application owns navigation data, current-link flags, and routing.
+- `fd-global-header` owns desktop menu preview state, mobile drill-down state, and the shared query string coordinated with `fd-header-search`.
+- The application owns navigation data, current-link flags, routing, and any custom submit handling.
 - Assign a new array or object when updating `navigation` or `search` so Lit can detect the change.
 
 ## Slots
@@ -59,18 +62,6 @@ The global header provides the masthead, primary navigation, responsive grouped 
 |---|---|---|
 | `fd-global-header-search-submit` | `{ query: string, href: string, firstMatchHref?: string, surface: \"desktop\" \| \"mobile\" }` | Cancelable event fired when the user submits header search. If not canceled, the component navigates to `firstMatchHref` when a direct match exists or to `href` as the configured fallback results URL. |
 
-## CSS custom properties
-
-| Name | Default | Description |
-|---|---|---|
-| `--fd-global-header-border-color` | `var(--fdic-border-divider, #bdbdbf)` | Border color for masthead and navigation separators |
-| `--fd-global-header-panel-border-color` | `var(--fdic-border-divider, #bdbdbf)` | Border color for desktop and mobile navigation panels |
-| `--fd-global-header-surface` | `#ffffff` | Base masthead and top-nav surface color |
-| `--fd-global-header-panel-surface` | `var(--fdic-background-base, #ffffff)` | Desktop mega-menu, mobile drawer, and search-popover surface color |
-| `--fd-global-header-accent` | `var(--ds-color-bg-active, #0d6191)` | Accent color used for active top-level items and the search submit button |
-| `--fd-global-header-focus-gap` | `var(--ds-color-bg-input, #ffffff)` | Inner gap color for the focus ring |
-| `--fd-global-header-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus-ring color |
-
 ## Shadow parts
 
 | Name | Description |
@@ -81,8 +72,6 @@ The global header provides the masthead, primary navigation, responsive grouped 
 | `panel` | Desktop attached mega-menu panel |
 | `panel-column` | Individual desktop panel columns |
 | `mobile-drawer` | Mobile drawer surface |
-| `search-form` | Search form wrapper for desktop and mobile search surfaces |
-| `search-results` | Search suggestion list surface |
 
 - `fd-global-header` intentionally does not expose every internal row or cell as a styling hook. Keep theming focused on the documented surfaces.
 <!-- GENERATED_COMPONENT_API:END -->
@@ -135,9 +124,9 @@ The global header provides the masthead, primary navigation, responsive grouped 
 ## Accessibility
 
 - **Semantics stay native** — Top-level direct destinations render as links. Grouped destinations render as disclosure buttons. Desktop panel and mobile drill-down content render as navigation structures, not action menus.
-- **Keyboard model is intentionally bounded** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Panel content, mobile drill-down content, and search suggestions stay in plain tab order.
+- **Keyboard model follows the prototype without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
 - **Focus restoration is component-owned only for ephemeral surfaces** — Closing the desktop panel, mobile drawer, or mobile search surface returns focus to the invoking control when it still exists. Broader page-level focus after navigation remains application-owned.
-- **Closed content must stay out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
+- **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
 - **Search is local and deterministic in v1** — Suggestions are derived only from the supplied navigation tree and search configuration. The fallback submission path is explicit and testable.
 - **Multiple instances are supported** — The component does not rely on global IDs or singleton state. If multiple headers render in Storybook or docs, their controls do not collide.
 
