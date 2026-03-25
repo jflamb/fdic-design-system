@@ -36,12 +36,26 @@ export interface DrupalGlobalHeaderSource {
   search?: DrupalGlobalHeaderSearchOptions | null;
 }
 
+function trimEdgeHyphens(value: string) {
+  let start = 0;
+  let end = value.length;
+
+  while (start < end && value[start] === "-") {
+    start += 1;
+  }
+
+  while (end > start && value[end - 1] === "-") {
+    end -= 1;
+  }
+
+  return value.slice(start, end);
+}
+
 function toIdentifier(value: string, fallback: string) {
-  const normalized = value
+  const normalized = trimEdgeHyphens(value
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/[^a-z0-9]+/g, "-"));
 
   return normalized || fallback;
 }

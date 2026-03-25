@@ -27,6 +27,21 @@ describe("fd-global-header-drupal", () => {
     ]);
   });
 
+  it("normalizes hyphen-heavy titles without regex edge trimming", () => {
+    const navigation = createFdGlobalHeaderNavigationFromDrupal([
+      {
+        title: "--- News --- Events ---",
+        url: "/news-events",
+      },
+    ]);
+
+    expect(navigation[0]).toMatchObject({
+      kind: "link",
+      id: "news-events",
+      label: "--- News --- Events ---",
+    });
+  });
+
   it("synthesizes an overview row for multi-section panels", () => {
     const navigation = createFdGlobalHeaderNavigationFromDrupal([
       {
