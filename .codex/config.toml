@@ -46,3 +46,31 @@ config_file = "agents/reviewer.toml"
 [agents.docs_researcher]
 description = "Documentation specialist that verifies APIs, framework behavior, and release notes."
 config_file = "agents/docs-researcher.toml"
+
+[agents.accessibility_tester]
+description = "Accessibility-focused reviewer for component, docs, and interaction changes."
+config_file = "agents/accessibility-tester.toml"
+
+[agents.browser_debugger]
+description = "Playwright-backed browser reproducer for UI bugs and runtime evidence gathering."
+config_file = "agents/browser-debugger.toml"
+
+[agents.build_engineer]
+description = "Build and CI specialist for npm workspace, tsup, Storybook, and docs pipeline issues."
+config_file = "agents/build-engineer.toml"
+
+[agents.documentation_engineer]
+description = "Docs maintainer focused on keeping repository guidance aligned with actual workflows."
+config_file = "agents/documentation-engineer.toml"
+
+[agents.test_automator]
+description = "Targeted regression test author for Vitest and Storybook browser coverage."
+config_file = "agents/test-automator.toml"
+
+[agents.tooling_engineer]
+description = "Developer tooling specialist for repo scripts, generators, and workflow glue."
+config_file = "agents/tooling-engineer.toml"
+
+[agents.typescript_pro]
+description = "TypeScript specialist for Lit component contracts, type drift, and compiler-driven fixes."
+config_file = "agents/typescript-pro.toml"

@@ -18,6 +18,13 @@ The generated baseline enables GitHub, Context7, Exa, Memory, Playwright, and Se
 - Explorer: read-only evidence gathering
 - Reviewer: correctness, security, and regression review
 - Docs researcher: API and release-note verification
+- Accessibility tester: a11y audits for components, docs pages, and interaction flows
+- Browser debugger: Playwright-backed browser reproduction and UI evidence gathering
+- Build engineer: npm workspace, tsup, Storybook, docs, and CI pipeline debugging
+- Documentation engineer: repo docs and workflow guidance maintenance
+- Test automator: focused Vitest and Storybook regression coverage
+- Tooling engineer: script, generator, and workflow utility maintenance
+- TypeScript pro: type-system and contract-focused implementation support
 
 ## Workflow Files
 
