@@ -81,6 +81,21 @@ describe("fd-header-search", () => {
     expect(getInput(first)?.id).not.toBe(getInput(second)?.id);
   });
 
+  it("renders the desktop slash shortcut as a subtle fd-button aligned in the action rail", async () => {
+    const el = await createSearch();
+
+    const shortcut = el.shadowRoot?.querySelector(
+      "fd-button.shortcut",
+    ) as HTMLElement | null;
+    const actions = el.shadowRoot?.querySelector(".actions") as HTMLElement | null;
+
+    expect(shortcut).not.toBeNull();
+    expect(shortcut?.getAttribute("variant")).toBe("subtle");
+    expect(shortcut?.getAttribute("aria-hidden")).toBe("true");
+    expect(shortcut?.textContent?.trim()).toBe("/");
+    expect(actions?.hasAttribute("hidden")).toBe(false);
+  });
+
   it("matches aliases and acronyms using the prototype search ranking", () => {
     expect(getHeaderSearchMatches("fdicnews", [...SAMPLE_ITEMS])[0]?.id).toBe(
       "fdicnews",

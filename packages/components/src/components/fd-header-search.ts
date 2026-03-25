@@ -225,7 +225,6 @@ export class FdHeaderSearch extends LitElement {
       outline: none;
     }
 
-    .field[data-shortcut-visible="true"] .native,
     .field[data-action-count="1"] .native {
       padding-inline-end: calc(
         var(--fd-header-search-action-size) + 0.75rem
@@ -248,31 +247,6 @@ export class FdHeaderSearch extends LitElement {
     .native::-webkit-search-results-decoration {
       appearance: none;
       -webkit-appearance: none;
-      display: none;
-    }
-
-    .shortcut {
-      position: absolute;
-      inset-inline-end: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: var(--fd-header-search-action-size);
-      height: calc(var(--fd-header-search-action-size) - 2px);
-      border: 1px solid rgba(9, 53, 84, 0.16);
-      border-radius: 6px;
-      background: #f5f7f9;
-      color: #4b5b69;
-      font-size: 0.8125rem;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: 0.01em;
-      pointer-events: none;
-    }
-
-    :host([surface="desktop"]) .field[data-focused="true"] .shortcut {
       display: none;
     }
 
@@ -309,7 +283,8 @@ export class FdHeaderSearch extends LitElement {
       border-radius: 0;
     }
 
-    .actions fd-button::part(label) {
+    .actions fd-button.clear::part(label),
+    .actions fd-button.submit::part(label) {
       display: none;
     }
 
@@ -322,10 +297,28 @@ export class FdHeaderSearch extends LitElement {
       border-end-end-radius: 2px;
     }
 
+    .shortcut::part(base) {
+      --fd-button-bg-disabled: transparent;
+      --fd-button-text-disabled: #4b5b69;
+      border-start-end-radius: 2px;
+      border-end-end-radius: 2px;
+    }
+
+    .shortcut::part(label) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      color: #4b5b69;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
     .actions[hidden] {
       display: none;
     }
-
     .field:focus-within .input-row {
       outline: 2px solid #9ad8f7;
       outline-offset: 1px;
@@ -884,7 +877,6 @@ export class FdHeaderSearch extends LitElement {
         class="field"
         data-focused=${String(this._hasFocusWithin)}
         data-action-count=${String(actionCount)}
-        data-shortcut-visible=${String(showShortcutHint)}
         @focusin=${this._handleFocusIn}
         @focusout=${this._handleFocusOut}
       >
@@ -908,10 +900,19 @@ export class FdHeaderSearch extends LitElement {
                 @keydown=${this._handleInputKeydown}
               />
             </label>
-            ${showShortcutHint
-              ? html`<span class="shortcut" aria-hidden="true">/</span>`
-              : nothing}
-            <div class="actions" ?hidden=${actionCount === 0}>
+            <div class="actions" ?hidden=${actionCount === 0 && !showShortcutHint}>
+              ${showShortcutHint
+                ? html`
+                    <fd-button
+                      class="shortcut"
+                      variant="subtle"
+                      disabled
+                      aria-hidden="true"
+                    >
+                      /
+                    </fd-button>
+                  `
+                : nothing}
               ${showClear
                 ? html`
                     <fd-button
