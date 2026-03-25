@@ -1,4 +1,5 @@
 import { LitElement, css, html, nothing } from "lit";
+import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import {
   extractHeaderSearchAliasData,
@@ -527,8 +528,17 @@ export class FdHeaderSearch extends LitElement {
     );
   }
 
+  protected override willUpdate(changed: PropertyValues<this>) {
+    if (
+      (changed.has("value") || changed.has("items")) &&
+      !this.value.trim()
+    ) {
+      this._applyEmptyResultsState();
+    }
+  }
+
   override updated(changed: Map<PropertyKey, unknown>) {
-    if (changed.has("value") || changed.has("items")) {
+    if ((changed.has("value") || changed.has("items")) && this.value.trim()) {
       this._scheduleResults();
     }
 
@@ -566,16 +576,21 @@ export class FdHeaderSearch extends LitElement {
     this._debounceTimer = null;
   }
 
+  private _applyEmptyResultsState() {
+    this._clearDebounce();
+    this._results = [];
+    this._activeIndex = -1;
+    if (this.surface === "desktop") {
+      this._setOpen(false);
+    }
+  }
+
   private _scheduleResults() {
     this._clearDebounce();
     const trimmedValue = this.value.trim();
 
     if (!trimmedValue) {
-      this._results = [];
-      this._activeIndex = -1;
-      if (this.surface === "desktop") {
-        this._setOpen(false);
-      }
+      this._applyEmptyResultsState();
       return;
     }
 

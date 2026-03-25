@@ -177,6 +177,40 @@ describe("fd-header-search", () => {
     ).not.toBeNull();
   });
 
+  it("clears desktop results immediately when the query becomes empty", async () => {
+    const el = await createSearch();
+    const input = getInput(el);
+
+    input?.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
+
+    if (input) {
+      input.value = "news";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+    await el.updateComplete;
+
+    const setTimeoutSpy = vi.spyOn(window, "setTimeout");
+
+    if (input) {
+      input.value = "";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await el.updateComplete;
+    await nextFrame();
+
+    const panel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+    const results = el.shadowRoot?.querySelectorAll(".result-link") || [];
+
+    expect(panel?.hidden).toBe(true);
+    expect(results).toHaveLength(0);
+    expect(setTimeoutSpy).not.toHaveBeenCalled();
+  });
+
   it("renders clear and go actions as fd-button controls", async () => {
     const el = await createSearch();
     const input = getInput(el);

@@ -6,4 +6,5 @@ dist
 **/.vitepress/.temp
 storybook-static
 .worktrees
+.tmp
 __pycache__

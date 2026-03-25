@@ -66,6 +66,13 @@ Do not:
 - rely on color alone to convey meaning
 - add motion that cannot be reduced or disabled
 
+For interactive components and overlays, also treat the following as default protocol requirements:
+
+- If the component introduces motion or transition effects, provide a component-scoped `prefers-reduced-motion: reduce` path that suppresses all non-essential transitions and animations within that component, not just the one effect currently under review.
+- Do not leave `role="dialog"` or `aria-modal="true"` attached to content that is hidden only through CSS. Apply modal dialog semantics only while the overlay is actually open, or use `hidden` or conditional rendering.
+- When delayed interaction is used, such as hover intent, close delays, or deferred previews, wire explicit cancellation paths for the inverse interaction (`pointerleave`, `blur`, focus transfer, or close) so timers do not fire after the user has already moved on.
+- Prefer existing shadow-DOM-safe containment and focus helpers over simpler `.contains()` checks when deciding whether focus is still inside a composite component or overlay.
+
 ## Trust and Content Rules
 
 This system is for government and financial-sector use. Optimize for trust and comprehension.
@@ -103,6 +110,10 @@ Key workspace scripts (run from the repo root):
 | `npm run build` | Full sequential build (components → react → docs) |
 | `npm run dev:docs` | Start VitePress dev server |
 | `npm run dev:storybook` | Start Storybook dev server |
+| `npm run dev-server:start -- storybook|docs|all` | Start or reuse repo-scoped local dev servers and print their working URLs |
+| `npm run dev-server:stop -- storybook|docs|all` | Stop repo-scoped local dev servers |
+| `npm run dev-server:status -- storybook|docs|all` | List running repo-scoped local dev servers, mark the current instance, and show working URLs |
+| `npm run dev-server:url -- storybook|docs|all` | Print the preferred working URL for each running local dev server |
 | `npm run build:storybook` | Build Storybook for deployment |
 | `npm run sync:components` | Regenerate component exports, register entrypoints, docs API blocks, and Storybook arg helpers from repo metadata |
 | `npm run validate:components` | Re-run generation and verify component metadata, docs, stories, and generated files stay in sync |
@@ -449,12 +460,23 @@ If the conflict is material, call it out explicitly in your summary or in the re
 - When adding real guidance, keep docs current and task-oriented.
 - Prefer small commits and deliberate breaking changes when version control actions are part of the task.
 
+For interactive component work, “update or add tests” should usually include the behavior-specific regressions that are easiest to miss in manual review:
+
+- reduced-motion behavior when motion or transitions are added
+- keyboard traversal across composite navigation regions, including arrow keys and `Home` or `End` behavior where supported
+- focus restoration and focus trapping for drawers, dialogs, and other overlays
+- focus-out and escape-to-close behavior for dismissible desktop surfaces
+- delayed hover or preview timing paths, including cancellation when the pointer leaves before the delay completes
+- state normalization when component inputs or navigation data change after initial render
+- accessibility semantics for hidden versus visible overlays, especially dialog and modal attributes
+
 ## Local Dev Server Lifecycle
 
 Agents may need two local servers to test this repository in a browser:
 
 - docs site: `npm run dev:docs`
 - Storybook: `npm run dev:storybook`
+- managed entrypoint for either or both: `npm run dev-server:start -- docs|storybook|all`
 
 Use these servers intentionally rather than starting them by default for every task.
 
@@ -465,6 +487,7 @@ Use these servers intentionally rather than starting them by default for every t
 Before starting a server:
 
 - Check whether an appropriate instance is already running and reuse it when practical.
+- Prefer the managed commands (`npm run dev-server:start`, `npm run dev-server:status`, `npm run dev-server:url`, `npm run dev-server:stop`) so one current instance per surface is tracked explicitly and stale instances do not accumulate.
 - Prefer the repository root as the working directory so the documented workspace scripts are used consistently.
 - Treat documented default ports as provisional, not guaranteed.
 
@@ -472,6 +495,7 @@ While working:
 
 - Wait for the server to finish starting before claiming it is available.
 - Verify the actual bound URL and port from the server startup output, process information, or another direct check before reporting where it is running.
+- Prefer reporting the exact working URL emitted by `npm run dev-server:url -- docs|storybook|all` instead of reconstructing it manually.
 - If the server falls back to a different port, report the actual port rather than the default one.
 - Use the running server for targeted verification, not as a substitute for build or test validation when those are also relevant.
 - If a server fails to start, report the failure clearly and include the command and the relevant error.
@@ -482,3 +506,4 @@ After verification:
 - Do not leave orphaned long-running processes behind without a reason.
 - If an existing server was already running before your task, avoid interrupting it unless the task requires a restart.
 - In summaries, distinguish between expected default ports and the ports actually observed during the task when that difference matters.
+- When local changes were made in the repository and Storybook or VitePress is running, include the exact working local URL for each running surface in the handoff or summary.
