@@ -307,6 +307,12 @@ export class FdGlobalHeader extends LitElement {
       z-index: 0;
     }
 
+    :host([shy]) {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
     :host([hidden]) {
       display: none;
     }
@@ -340,8 +346,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .base[data-shy-active="true"] {
-      position: sticky;
-      top: 0;
+      position: relative;
       transform: translateY(0);
       transition-property: transform;
       transition-duration: var(--_fd-global-header-shy-duration, 300ms);
@@ -353,8 +358,11 @@ export class FdGlobalHeader extends LitElement {
       transform: translateY(-100%);
     }
 
-    .base[data-compact-desktop="true"] {
+    .base[data-shy-active="true"][data-compact-desktop="true"] {
       transform: translateY(0);
+    }
+
+    .base[data-compact-desktop="true"] {
       box-shadow: 0 10px 28px rgba(0, 18, 32, 0.18);
     }
 
@@ -1404,6 +1412,12 @@ export class FdGlobalHeader extends LitElement {
        to container-sized layouts, not only viewport-sized layouts. */
     :host([mobile-layout]) .shell {
       width: min(100%, calc(100% - 2rem));
+    }
+
+    :host([mobile-layout]) {
+      position: relative;
+      top: auto;
+      z-index: 0;
     }
 
     :host([mobile-layout]) .masthead-row {

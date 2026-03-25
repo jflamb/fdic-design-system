@@ -240,7 +240,7 @@ const renderHeader = (
     ].join("; ")}
   >
     <fd-global-header
-      style="display:block; position:relative; z-index:2;"
+      style="display:block;"
       .navigation=${args.navigation}
       .search=${args.search}
       .shy=${Boolean(args.shy)}
@@ -423,6 +423,7 @@ ShyHeader.play = async ({ canvasElement }) => {
   await waitFor(() => {
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
     expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+    expect(Math.round(base?.getBoundingClientRect().top ?? -1)).toBe(0);
   });
 
   const compactMenuToggle = host?.shadowRoot?.querySelector(
