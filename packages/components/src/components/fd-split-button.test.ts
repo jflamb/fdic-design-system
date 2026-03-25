@@ -2,6 +2,9 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import "../register/fd-split-button.js";
 import "../icons/phosphor-regular.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import { installPopoverShim } from "./test-popover.js";
+
+installPopoverShim();
 
 async function createSplitButton(
   attrs: Record<string, string> = {},

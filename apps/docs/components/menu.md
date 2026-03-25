@@ -4,7 +4,7 @@ An action menu surfaces a list of actions triggered by a button or other control
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-menu</code> and <code>fd-menu-item</code> together to create an action menu that follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">WAI-ARIA menu-button pattern</a>. The menu renders a <code>role="menu"</code> container inside a native <code>popover="auto"</code> surface. Each item renders a native <code>&lt;button role="menuitem"&gt;</code>.</p>
+  <p>Use <code>fd-menu</code> and <code>fd-menu-item</code> together to create an action menu that follows the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">WAI-ARIA menu-button pattern</a>. The menu renders a <code>role="menu"</code> container inside a native <code>popover="auto"</code> surface, with no legacy non-popover fallback path in production. Each item renders a native <code>&lt;button role="menuitem"&gt;</code>.</p>
 </div>
 
 ## When to use
@@ -96,39 +96,6 @@ Compatibility note:
 | `hide()` | Closes the menu and fires `fd-menu-open-change` |
 | `toggle()` | Opens or closes the menu based on the current `open` state |
 
-## Slots
-
-| Name | Description |
-|------|-------------|
-| (default) | One or more `fd-menu-item` children |
-
-## Events
-
-| Name | Detail | Description |
-|------|--------|-------------|
-| `fd-menu-open-change` | `{ open: boolean }` | Fired whenever the menu opens or closes |
-
-Compatibility note:
-
-- `fd-menu` still fires deprecated `fd-open` during the compatibility window.
-- New consumer code should listen to `fd-menu-open-change`.
-
-## CSS custom properties
-
-| Name | Default | Description |
-|------|---------|-------------|
-| `--fd-menu-border-radius` | `var(--fdic-corner-radius-lg, 7px)` | Menu surface corner radius |
-| `--fd-menu-min-width` | `180px` | Minimum menu width |
-| `--fd-menu-max-width` | `320px` | Maximum menu width |
-| `--fd-menu-max-height` | `300px` | Maximum menu height before internal scrolling |
-
-## Shadow parts
-
-| Name | Description |
-|------|-------------|
-| `surface` | Popover surface element |
-| `menu` | Internal element with `role="menu"` |
-
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -192,6 +159,7 @@ Compatibility note:
 ## Accessibility
 
 - **`fd-menu` renders `role="menu"`** inside a native `popover="auto"` surface. The menu container requires an accessible name — set `label` (for `aria-label`) or `labelledby` (for `aria-labelledby`) on `fd-menu`.
+- **Popover is the production model**: outside click and browser-managed top-layer behavior come from the Popover API. The component still owns placement math, keyboard behavior, and trigger `aria-expanded`.
 - **`fd-menu-item` renders a native `<button role="menuitem">`** inside shadow DOM. The button text provides the accessible name.
 - **Keyboard model** follows the [WAI-ARIA menu-button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/):
 

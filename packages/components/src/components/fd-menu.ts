@@ -40,12 +40,6 @@ export class FdMenu extends LitElement {
       inset: unset;
     }
 
-    /* Fallback: fixed positioning when popover is not supported */
-    .surface.fallback {
-      position: fixed;
-      z-index: 9999;
-    }
-
     .surface:not([open]):not(:popover-open) {
       display: none;
     }
@@ -80,7 +74,6 @@ export class FdMenu extends LitElement {
 
   private _anchorEl: HTMLElement | null = null;
   private _rafId: number | null = null;
-  private _usesFallback = false;
 
   constructor() {
     super();
@@ -96,11 +89,13 @@ export class FdMenu extends LitElement {
     this._onScrollResize = this._onScrollResize.bind(this);
     this._onFocusOut = this._onFocusOut.bind(this);
     this._onSurfaceToggle = this._onSurfaceToggle.bind(this);
+    this.addEventListener("fd-menu-item-select", this._onItemSelect as EventListener);
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
     this._removePositionListeners();
+    this.removeEventListener("fd-menu-item-select", this._onItemSelect as EventListener);
     if (this._rafId !== null) {
       cancelAnimationFrame(this._rafId);
       this._rafId = null;
@@ -226,39 +221,13 @@ export class FdMenu extends LitElement {
   private _showSurface() {
     const surface = this._getSurface();
     if (!surface) return;
-
-    if (typeof surface.showPopover === "function") {
-      try {
-        surface.showPopover();
-        this._usesFallback = false;
-        return;
-      } catch {
-        // popover not supported — fall through to fallback
-      }
-    }
-
-    // Fallback: manual show
-    this._usesFallback = true;
-    surface.classList.add("fallback");
-    surface.setAttribute("open", "");
-    this._addFallbackDismissListeners();
+    surface.showPopover();
   }
 
   private _hideSurface() {
     const surface = this._getSurface();
     if (!surface) return;
-
-    if (!this._usesFallback && typeof surface.hidePopover === "function") {
-      try {
-        surface.hidePopover();
-      } catch {
-        // ignore
-      }
-    } else {
-      surface.classList.remove("fallback");
-      surface.removeAttribute("open");
-      this._removeFallbackDismissListeners();
-    }
+    surface.hidePopover();
   }
 
   // --- Positioning ---
@@ -268,36 +237,9 @@ export class FdMenu extends LitElement {
     if (!surface || !this._anchorEl) return;
 
     const result = computePlacement(this._anchorEl, surface, this.placement);
-    if (this._usesFallback) {
-      // Fallback uses fixed positioning — use client coords (no scroll offset)
-      const anchorRect = this._anchorEl.getBoundingClientRect();
-      const surfaceRect = surface.getBoundingClientRect();
-      const isTop = result.placement.startsWith("top");
-      const isEnd = result.placement.endsWith("end");
-
-      surface.style.top = isTop
-        ? `${anchorRect.top - surfaceRect.height}px`
-        : `${anchorRect.bottom}px`;
-      surface.style.left = isEnd
-        ? `${anchorRect.right - surfaceRect.width}px`
-        : `${anchorRect.left}px`;
-    } else {
-      surface.style.top = `${result.top}px`;
-      surface.style.left = `${result.left}px`;
-      surface.style.position = "fixed";
-      // For popover top-layer, use client coordinates
-      const anchorRect = this._anchorEl.getBoundingClientRect();
-      const surfaceRect = surface.getBoundingClientRect();
-      const isTop = result.placement.startsWith("top");
-      const isEnd = result.placement.endsWith("end");
-
-      surface.style.top = isTop
-        ? `${anchorRect.top - surfaceRect.height}px`
-        : `${anchorRect.bottom}px`;
-      surface.style.left = isEnd
-        ? `${anchorRect.right - surfaceRect.width}px`
-        : `${anchorRect.left}px`;
-    }
+    surface.style.position = "fixed";
+    surface.style.top = `${result.top - window.scrollY}px`;
+    surface.style.left = `${result.left - window.scrollX}px`;
   }
 
   private _onScrollResize() {
@@ -418,38 +360,6 @@ export class FdMenu extends LitElement {
     }
   }
 
-  // --- Fallback dismiss (no popover support) ---
-
-  private _fallbackKeydownHandler = (e: KeyboardEvent) => {
-    if (e.key === "Escape" && this.open) {
-      e.preventDefault();
-      this.hide();
-      this._anchorEl?.focus();
-    }
-  };
-
-  private _fallbackClickHandler = (e: MouseEvent) => {
-    if (!this.open) return;
-    const surface = this._getSurface();
-    const target = e.target as Node;
-    // Exclude clicks on the anchor element — let the trigger's own click handler
-    // call toggle() so re-click correctly closes the menu instead of close-then-reopen.
-    if (this._anchorEl?.contains(target)) return;
-    if (surface && !surface.contains(target) && !this.contains(target)) {
-      this.hide();
-    }
-  };
-
-  private _addFallbackDismissListeners() {
-    document.addEventListener("keydown", this._fallbackKeydownHandler);
-    document.addEventListener("click", this._fallbackClickHandler, true);
-  }
-
-  private _removeFallbackDismissListeners() {
-    document.removeEventListener("keydown", this._fallbackKeydownHandler);
-    document.removeEventListener("click", this._fallbackClickHandler, true);
-  }
-
   // --- Events ---
 
   private _fireOpenEvent(open: boolean) {
@@ -488,7 +398,6 @@ export class FdMenu extends LitElement {
           aria-labelledby=${ifDefined(this.labelledby)}
           tabindex="-1"
           @keydown=${this._onMenuKeydown}
-          @fd-menu-item-select=${this._onItemSelect}
           @focusout=${this._onFocusOut}
         >
           <slot></slot>
