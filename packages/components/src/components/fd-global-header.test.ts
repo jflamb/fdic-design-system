@@ -228,6 +228,18 @@ function getDesktopSearch(el: HTMLElement) {
   ) as HTMLElement | null;
 }
 
+function getDesktopSearchRegion(el: HTMLElement) {
+  return el.shadowRoot?.querySelector(
+    ".desktop-search-region",
+  ) as HTMLElement | null;
+}
+
+function getCompactMenuToggle(el: HTMLElement) {
+  return el.shadowRoot?.querySelector(
+    ".compact-menu-toggle",
+  ) as HTMLElement | null;
+}
+
 function getMobileSearch(el: HTMLElement) {
   return el.shadowRoot?.querySelector(
     '[data-search-surface="mobile"]',
@@ -662,44 +674,84 @@ describe("fd-global-header", () => {
     expect(base.getAttribute("data-shy-hidden")).toBe("true");
   });
 
-  it("reveals on focus and keeps the desktop mega-menu visible while it is open", async () => {
+  it("switches to a compact sticky desktop state and keeps the desktop mega-menu visible while it is open", async () => {
     const el = await createHeader({ shy: true, shyThreshold: 64 });
     const base = getBase(el);
+    const topNav = el.shadowRoot?.querySelector(".top-nav") as HTMLElement | null;
     const trigger = getPanelTrigger(el, "news-events");
 
     await dispatchScroll(120);
     await el.updateComplete;
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+    expect(topNav?.getAttribute("data-compact-nav-visible")).toBe("false");
 
     trigger?.focus();
     await el.updateComplete;
     await nextFrame();
 
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+
+    const compactMenuToggle = getCompactMenuToggle(el);
+    const compactMenuButton = compactMenuToggle?.shadowRoot?.querySelector(
+      "button",
+    ) as HTMLButtonElement | null;
+
+    compactMenuButton?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(topNav?.getAttribute("data-compact-nav-visible")).toBe("true");
 
     trigger?.click();
     await el.updateComplete;
     await nextFrame();
 
     expect(trigger?.getAttribute("aria-expanded")).toBe("true");
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
 
     await dispatchScroll(180);
     await el.updateComplete;
 
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
 
     trigger?.click();
     await el.updateComplete;
     await nextFrame();
 
     expect(trigger?.getAttribute("aria-expanded")).toBe("false");
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
 
     await dispatchScroll(190);
     await el.updateComplete;
 
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+  });
+
+  it("expands compact desktop search from the slash shortcut without leaving shy mode", async () => {
+    const el = await createHeader({ shy: true, shyThreshold: 64 });
+    const base = getBase(el);
+    const searchRegion = getDesktopSearchRegion(el);
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+    expect(searchRegion?.getAttribute("data-search-expanded")).toBe("false");
+
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "/", bubbles: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const desktopSearch = getDesktopSearch(el);
+    const input = getSearchInput(desktopSearch);
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(searchRegion?.getAttribute("data-search-expanded")).toBe("true");
+    expect(desktopSearch?.shadowRoot?.activeElement).toBe(input);
   });
 
   it("reveals for mobile drawer and mobile search surfaces and suppresses shy motion under reduced motion", async () => {

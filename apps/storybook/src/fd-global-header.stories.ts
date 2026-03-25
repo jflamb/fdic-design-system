@@ -401,7 +401,7 @@ export const ShyHeader: Story = {
     docs: {
       description: {
         story:
-          "Shows the opt-in shy-header mode with enough scrollable page content to verify hide/reveal behavior in the preview frame.",
+          "Shows the opt-in shy-header mode with enough scrollable page content to verify the condensed sticky desktop state, compact menu toggle, and reveal-on-scroll-up behavior in the preview frame.",
       },
     },
   },
@@ -422,11 +422,28 @@ ShyHeader.play = async ({ canvasElement }) => {
   previewWindow?.scrollTo(0, 140);
   await waitFor(() => {
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+  });
+
+  const compactMenuToggle = host?.shadowRoot?.querySelector(
+    ".compact-menu-toggle",
+  ) as HTMLElement | null;
+  const compactMenuButton = compactMenuToggle?.shadowRoot?.querySelector(
+    "button",
+  ) as HTMLButtonElement | null;
+
+  expect(compactMenuButton).toBeTruthy();
+  await userEvent.click(compactMenuButton!);
+
+  await waitFor(() => {
+    const topNav = host?.shadowRoot?.querySelector(".top-nav");
+    expect(topNav?.getAttribute("data-compact-nav-visible")).toBe("true");
   });
 
   previewWindow?.scrollTo(0, 32);
   await waitFor(() => {
     expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("false");
   });
 
   previewWindow?.scrollTo(0, 0);
