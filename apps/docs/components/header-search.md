@@ -20,7 +20,7 @@
   storyId="supporting-primitives-header-search--desktop-suggestions"
   linkStoryId="supporting-primitives-header-search--mobile-suggestions"
   height="420"
-  caption="Desktop and mobile prototype-aligned search stories using the exact FDICnet main-menu fixture data."
+  caption="Desktop and mobile reference-aligned search stories using the exact FDICnet main-menu fixture data."
 />
 
 <!-- GENERATED_COMPONENT_API:START -->

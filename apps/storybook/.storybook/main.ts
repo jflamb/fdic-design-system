@@ -23,9 +23,9 @@ const config: StorybookConfig = {
       import.meta.dirname,
       "../../../packages/components/src/register/register-all.ts"
     );
-    const globalHeaderPrototypeSource = resolve(
+    const globalHeaderReferenceSource = resolve(
       import.meta.dirname,
-      "../../../packages/components/src/components/fd-global-header.prototype.ts"
+      "../../../packages/components/src/components/fd-global-header.reference.ts"
     );
     const componentAliases = [
       {
@@ -33,8 +33,8 @@ const config: StorybookConfig = {
         replacement: componentIndexSource,
       },
       {
-        find: /^@fdic-ds\/components\/fd-global-header-prototype$/,
-        replacement: globalHeaderPrototypeSource,
+        find: /^@fdic-ds\/components\/fd-global-header-reference$/,
+        replacement: globalHeaderReferenceSource,
       },
       {
         find: /^@fdic-ds\/components\/register-all$/,

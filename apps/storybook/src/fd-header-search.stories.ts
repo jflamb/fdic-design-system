@@ -10,7 +10,7 @@ import {
   getComponentArgs,
   getComponentArgTypes,
 } from "./generated/component-arg-types";
-import { fdGlobalHeaderPrototypeSearch } from "@fdic-ds/components/fd-global-header-prototype";
+import { fdGlobalHeaderReferenceSearch } from "@fdic-ds/components/fd-global-header-reference";
 
 type HeaderSearchArgs = {
   surface: HeaderSearchSurface;
@@ -22,8 +22,8 @@ type HeaderSearchArgs = {
 
 const storyArgs = {
   surface: "desktop" as const,
-  action: fdGlobalHeaderPrototypeSearch.action,
-  items: structuredClone(fdGlobalHeaderPrototypeSearch.items || []),
+  action: fdGlobalHeaderReferenceSearch.action,
+  items: structuredClone(fdGlobalHeaderReferenceSearch.items || []),
   value: "",
   open: false,
 };

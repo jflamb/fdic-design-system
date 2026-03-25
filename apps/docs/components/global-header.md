@@ -4,13 +4,13 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-global-header</code> when the product needs the approved FDICnet header pattern with a top-level search component, prototype-aligned grouped navigation, and application-owned information architecture.</p>
+  <p>Use <code>fd-global-header</code> when the product needs the approved FDICnet header pattern with a top-level search component, reference-aligned grouped navigation, and application-owned information architecture.</p>
 </div>
 
 ## When to use
 
 - **The page needs one durable site header contract** — The brand area, utility actions, primary navigation, and search belong together and should stay consistent across routes.
-- **The experience needs the FDICnet prototype structure** — The desktop trigger row, attached three-column mega-menu, mobile drill-down hierarchy, and search behavior are designed to match the approved prototype closely.
+- **The experience needs the approved FDICnet header structure** — The desktop trigger row, attached three-column mega-menu, mobile drill-down hierarchy, and search behavior are designed to match the approved reference closely.
 - **Some top-level items are direct links and others expand into grouped navigation** — The component supports both without switching to action-menu semantics.
 - **The information architecture already exists in application data** — The component expects navigation and search configuration to be passed in as JavaScript data, not fetched by the component.
 
@@ -27,13 +27,13 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
   storyId="components-global-header--desktop"
   linkStoryId="components-global-header--mobile-drawer"
   height="520"
-  caption="Prototype-aligned desktop story using the exact FDICnet main-menu YAML-derived fixture. Storybook also includes dedicated search-open, mobile drawer, and mobile drill-down states."
+  caption="Reference-aligned desktop story using the exact FDICnet main-menu YAML-derived fixture. Storybook also includes dedicated search-open, mobile drawer, and mobile drill-down states."
 />
 
 - Pass the navigation tree as a JavaScript property. Assign a new array or object when content changes so the component can re-render.
 - Use the `brand` slot for the branded home link or wordmark content.
 - Use the `utility` slot for application-specific support links or actions. Keep the set short and high-value.
-- The prototype-alignment stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.prototype-content.ts</code> and <code>packages/components/src/components/fd-global-header.prototype.ts</code>.
+- The reference stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.reference-content.ts</code> and <code>packages/components/src/components/fd-global-header.reference.ts</code>.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -86,7 +86,7 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
   </div>
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
-    <h4>Feed prototype-only placeholders into production layouts</h4>
+    <h4>Feed placeholder-only links into production layouts</h4>
     <p>Empty links, fake hrefs, or CMS-specific placeholders make the header harder to test and less trustworthy for users.</p>
   </div>
 </div>
@@ -124,7 +124,7 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 ## Accessibility
 
 - **Semantics stay native** — Top-level direct destinations render as links. Grouped destinations render as disclosure buttons. Desktop panel and mobile drill-down content render as navigation structures, not action menus.
-- **Keyboard model follows the prototype without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
+- **Keyboard model follows the approved header interaction pattern without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
 - **Focus restoration is component-owned only for ephemeral surfaces** — Closing the desktop panel, mobile drawer, or mobile search surface returns focus to the invoking control when it still exists. Broader page-level focus after navigation remains application-owned.
 - **Mobile overlays behave like true modal surfaces only while open** — The menu drawer and mobile search shell trap focus while open, restore focus to their invoking control on close, and do not keep dialog semantics attached when hidden.
 - **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.

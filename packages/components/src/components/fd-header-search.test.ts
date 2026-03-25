@@ -96,7 +96,7 @@ describe("fd-header-search", () => {
     expect(actions?.hasAttribute("hidden")).toBe(false);
   });
 
-  it("matches aliases and acronyms using the prototype search ranking", () => {
+  it("matches aliases and acronyms using the reference search ranking", () => {
     expect(getHeaderSearchMatches("fdicnews", [...SAMPLE_ITEMS])[0]?.id).toBe(
       "fdicnews",
     );

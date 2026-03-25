@@ -6,9 +6,9 @@ import {
   type FdGlobalHeaderNavigationItem,
 } from "./fd-global-header.js";
 import {
-  createFdGlobalHeaderPrototypeSearch,
-  fdGlobalHeaderPrototypeNavigation,
-} from "./fd-global-header.prototype.js";
+  createFdGlobalHeaderReferenceSearch,
+  fdGlobalHeaderReferenceNavigation,
+} from "./fd-global-header.reference.js";
 
 let mobileMatches = false;
 let prefersReducedMotionMatches = false;
@@ -159,13 +159,13 @@ async function createHeader({ mobile = false } = {}) {
   installResizeObserverStub();
 
   const el = document.createElement("fd-global-header") as HTMLElement & {
-    navigation: typeof fdGlobalHeaderPrototypeNavigation;
-    search: ReturnType<typeof createFdGlobalHeaderPrototypeSearch>;
+    navigation: typeof fdGlobalHeaderReferenceNavigation;
+    search: ReturnType<typeof createFdGlobalHeaderReferenceSearch>;
     updateComplete: Promise<unknown>;
   };
 
-  el.navigation = structuredClone(fdGlobalHeaderPrototypeNavigation);
-  el.search = createFdGlobalHeaderPrototypeSearch("/search");
+  el.navigation = structuredClone(fdGlobalHeaderReferenceNavigation);
+  el.search = createFdGlobalHeaderReferenceSearch("/search");
   el.innerHTML = `
     <a slot="brand" href="/" aria-label="FDICnet home">FDICnet</a>
     <a slot="utility" href="#employee-directory">Employee directory</a>
@@ -849,7 +849,7 @@ describe("fd-global-header", () => {
     expect(trigger?.getAttribute("aria-expanded")).toBe("false");
   });
 
-  it("uses the prototype mobile drill-down structure and restores toggle focus on close", async () => {
+  it("uses the reference mobile drill-down structure and restores toggle focus on close", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
       "[data-mobile-toggle='menu']",
@@ -1262,7 +1262,7 @@ describe("fd-global-header", () => {
       },
     ];
 
-    el.navigation = updatedNavigation as typeof fdGlobalHeaderPrototypeNavigation;
+    el.navigation = updatedNavigation as typeof fdGlobalHeaderReferenceNavigation;
     await el.updateComplete;
     await nextFrame();
 

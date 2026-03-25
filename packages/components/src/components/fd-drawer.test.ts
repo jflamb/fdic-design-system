@@ -17,7 +17,7 @@ async function createDrawer() {
 
   el.open = true;
   el.modal = true;
-  el.label = "Prototype drawer";
+  el.label = "Reference drawer";
   el.innerHTML = `
     <div slot="header">
       <button type="button">Back</button>

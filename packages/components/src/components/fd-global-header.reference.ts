@@ -6,50 +6,50 @@ import type {
   FdGlobalHeaderSearchConfig,
 } from "./fd-global-header.js";
 import { createHeaderSearchItemsFromNavigation } from "./fd-global-header.js";
-import { fdicNetMainMenuPrototypeContent } from "./fd-global-header.prototype-content.js";
+import { fdicNetMainMenuReferenceContent } from "./fd-global-header.reference-content.js";
 
-interface PrototypeL3 {
+interface ReferenceL3 {
   id: string;
   label: string;
   href: string;
   description?: string;
 }
 
-interface PrototypeL2 {
+interface ReferenceL2 {
   id: string;
   label: string;
   href: string;
   description?: string;
-  l3?: readonly PrototypeL3[];
+  l3?: readonly ReferenceL3[];
 }
 
-interface PrototypeL1 {
+interface ReferenceL1 {
   id: string;
   label: string;
   href?: string;
   overviewLabel?: string;
   overviewHref?: string;
   description?: string;
-  l2?: readonly PrototypeL2[];
+  l2?: readonly ReferenceL2[];
 }
 
-interface PrototypePanel {
+interface ReferencePanel {
   ariaLabel?: string;
   overviewLabel?: string;
   overviewHref?: string;
   description?: string;
-  l1?: readonly PrototypeL1[];
+  l1?: readonly ReferenceL1[];
 }
 
-const prototypePanels = fdicNetMainMenuPrototypeContent.menu
-  .panels as unknown as Record<string, PrototypePanel>;
-const prototypeNav = fdicNetMainMenuPrototypeContent.header.nav as ReadonlyArray<{
+const referencePanels = fdicNetMainMenuReferenceContent.menu
+  .panels as unknown as Record<string, ReferencePanel>;
+const referenceNav = fdicNetMainMenuReferenceContent.header.nav as ReadonlyArray<{
   id: string;
   label: string;
   panelKey?: string;
 }>;
 
-function mapPrototypeL3(item: PrototypeL3) {
+function mapReferenceL3(item: ReferenceL3) {
   return {
     id: item.id,
     label: item.label,
@@ -58,17 +58,17 @@ function mapPrototypeL3(item: PrototypeL3) {
   };
 }
 
-function mapPrototypeL2(item: PrototypeL2): FdGlobalHeaderSectionItem {
+function mapReferenceL2(item: ReferenceL2): FdGlobalHeaderSectionItem {
   return {
     id: item.id,
     label: item.label,
     href: item.href,
     description: item.description,
-    children: (item.l3 || []).map(mapPrototypeL3),
+    children: (item.l3 || []).map(mapReferenceL3),
   };
 }
 
-function mapPrototypeL1(item: PrototypeL1): FdGlobalHeaderSection {
+function mapReferenceL1(item: ReferenceL1): FdGlobalHeaderSection {
   return {
     id: item.id,
     label: item.label,
@@ -76,11 +76,11 @@ function mapPrototypeL1(item: PrototypeL1): FdGlobalHeaderSection {
     overviewLabel: item.overviewLabel,
     overviewHref: item.overviewHref,
     description: item.description,
-    items: (item.l2 || []).map(mapPrototypeL2),
+    items: (item.l2 || []).map(mapReferenceL2),
   };
 }
 
-function mapPrototypePanel(panelKey: string, panel: PrototypePanel, label: string): FdGlobalHeaderPanelItem {
+function mapReferencePanel(panelKey: string, panel: ReferencePanel, label: string): FdGlobalHeaderPanelItem {
   return {
     kind: "panel",
     id: panelKey,
@@ -89,43 +89,42 @@ function mapPrototypePanel(panelKey: string, panel: PrototypePanel, label: strin
     overviewLabel: panel.overviewLabel,
     ariaLabel: panel.ariaLabel,
     description: panel.description,
-    sections: (panel.l1 || []).map(mapPrototypeL1),
+    sections: (panel.l1 || []).map(mapReferenceL1),
   };
 }
 
-export const fdGlobalHeaderPrototypeNavigation: FdGlobalHeaderNavigationItem[] =
-  prototypeNav.map((item) => {
+export const fdGlobalHeaderReferenceNavigation: FdGlobalHeaderNavigationItem[] =
+  referenceNav.map((item) => {
     const panelKey = item.panelKey || item.id;
-    const panel = prototypePanels[panelKey];
+    const panel = referencePanels[panelKey];
 
-    return mapPrototypePanel(panelKey, panel, item.label);
+    return mapReferencePanel(panelKey, panel, item.label);
   });
 
-export function createFdGlobalHeaderPrototypeSearch(
+export function createFdGlobalHeaderReferenceSearch(
   action = "/search",
 ): FdGlobalHeaderSearchConfig {
   return {
     action,
     label: "Search FDICnet",
-    placeholder:
-      fdicNetMainMenuPrototypeContent.header.searchPlaceholder || "Search FDICnet",
+    placeholder: fdicNetMainMenuReferenceContent.header.searchPlaceholder || "Search FDICnet",
     submitLabel: "Open first matching result",
     searchAllLabel: "Search all FDICnet",
     paramName: "q",
-    items: createHeaderSearchItemsFromNavigation(fdGlobalHeaderPrototypeNavigation),
+    items: createHeaderSearchItemsFromNavigation(fdGlobalHeaderReferenceNavigation),
   };
 }
 
-export const fdGlobalHeaderPrototypeSearch =
-  createFdGlobalHeaderPrototypeSearch();
+export const fdGlobalHeaderReferenceSearch =
+  createFdGlobalHeaderReferenceSearch();
 
-export const fdGlobalHeaderPrototypeBrand = {
+export const fdGlobalHeaderReferenceBrand = {
   label: "FDICnet",
   href: "/",
   ariaLabel: "FDICnet home",
 } as const;
 
-export const fdGlobalHeaderPrototypeUtilityLinks = [
+export const fdGlobalHeaderReferenceUtilityLinks = [
   { label: "Employee directory", href: "#employee-directory" },
   { label: "Help", href: "#help" },
 ] as const;

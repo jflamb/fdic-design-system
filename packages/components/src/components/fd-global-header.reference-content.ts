@@ -1,7 +1,7 @@
 // Generated from https://github.com/jflamb/web-proto/blob/main/sites/fdicnet-main-menu/content.yaml
-// Do not edit by hand; regenerate from the approved prototype source when the fixture changes.
+// Do not edit by hand; regenerate from the approved source when the fixture changes.
 
-export const fdicNetMainMenuPrototypeContent = {
+export const fdicNetMainMenuReferenceContent = {
   "header": {
     "searchPlaceholder": "Search FDICnet",
     "nav": [
@@ -6325,7 +6325,7 @@ export const fdicNetMainMenuPrototypeContent = {
     }
   },
   "page": {
-    "title": "FDICnet Main Menu Prototype",
+    "title": "FDICnet Main Menu Reference",
     "intro": [
       "This page demonstrates an expanding header menu where level-one categories drive level-two links, and level-two focus/hover previews level-three links.",
       "The mega-menu overlays page content so users can keep context while navigating."

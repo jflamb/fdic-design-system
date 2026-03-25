@@ -12,9 +12,9 @@ import {
   getComponentArgTypes,
 } from "./generated/component-arg-types";
 import {
-  createFdGlobalHeaderPrototypeSearch,
-  fdGlobalHeaderPrototypeNavigation,
-} from "@fdic-ds/components/fd-global-header-prototype";
+  createFdGlobalHeaderReferenceSearch,
+  fdGlobalHeaderReferenceNavigation,
+} from "@fdic-ds/components/fd-global-header-reference";
 
 type GlobalHeaderArgs = {
   navigation: FdGlobalHeaderNavigationItem[];
@@ -23,8 +23,8 @@ type GlobalHeaderArgs = {
 
 function createStoryArgs(): GlobalHeaderArgs {
   return {
-    navigation: structuredClone(fdGlobalHeaderPrototypeNavigation),
-    search: createFdGlobalHeaderPrototypeSearch("/search"),
+    navigation: structuredClone(fdGlobalHeaderReferenceNavigation),
+    search: createFdGlobalHeaderReferenceSearch("/search"),
   };
 }
 

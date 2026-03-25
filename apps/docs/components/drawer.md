@@ -16,10 +16,10 @@
 ## Examples
 
 <StoryEmbed
-  storyId="supporting-primitives-drawer--prototype-menu-surface"
-  linkStoryId="supporting-primitives-drawer--prototype-menu-surface"
+  storyId="supporting-primitives-drawer--reference-menu-surface"
+  linkStoryId="supporting-primitives-drawer--reference-menu-surface"
   height="420"
-  caption="Prototype-style mobile menu surface built on the shared drawer primitive."
+  caption="Reference mobile menu surface built on the shared drawer primitive."
 />
 
 <!-- GENERATED_COMPONENT_API:START -->

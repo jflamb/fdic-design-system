@@ -47,4 +47,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const PrototypeMenuSurface: Story = {};
+export const ReferenceMenuSurface: Story = {};
