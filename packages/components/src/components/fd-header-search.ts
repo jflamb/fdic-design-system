@@ -1,6 +1,5 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import type { FdDrawerCloseRequestDetail } from "./fd-drawer.js";
 import {
   extractHeaderSearchAliasData,
   normalizeHeaderSearchText,
@@ -129,6 +128,7 @@ export class FdHeaderSearch extends LitElement {
 
   static styles = css`
     :host {
+      --fd-header-search-action-size: 2.75rem;
       display: block;
       position: relative;
       color: inherit;
@@ -144,6 +144,10 @@ export class FdHeaderSearch extends LitElement {
           sans-serif
         )
       );
+    }
+
+    :host([surface="desktop"]) {
+      z-index: 62;
     }
 
     :host([hidden]) {
@@ -176,7 +180,7 @@ export class FdHeaderSearch extends LitElement {
     }
 
     :host([surface="desktop"]) .field {
-      width: min(100%, 16rem);
+      width: 16rem;
     }
 
     .input-row {
@@ -184,10 +188,12 @@ export class FdHeaderSearch extends LitElement {
       display: flex;
       align-items: center;
       min-height: 2.75rem;
-      border: 1px solid rgba(9, 53, 84, 0.16);
-      border-radius: 0.75rem;
+      border: 1px solid #bdbdbf;
+      border-radius: 3px;
       background: #ffffff;
-      overflow: visible;
+      gap: 0.5rem;
+      padding-inline-start: 0.75rem;
+      padding-inline-end: 0;
     }
 
     .label {
@@ -195,14 +201,13 @@ export class FdHeaderSearch extends LitElement {
       align-items: center;
       flex: 1 1 auto;
       min-width: 0;
-      gap: 0.625rem;
-      padding-inline: 0.875rem;
+      gap: 0.5rem;
     }
 
     .label fd-icon {
       flex: none;
-      color: #365063;
-      --fd-icon-size: 1.125rem;
+      color: #424244;
+      --fd-icon-size: 1.375rem;
     }
 
     .native {
@@ -210,14 +215,31 @@ export class FdHeaderSearch extends LitElement {
       min-width: 0;
       border: none;
       background: transparent;
-      color: #0c2336;
+      color: #595961;
+      min-height: 2.75rem;
       padding: 0;
-      line-height: 1.3;
+      padding-inline-end: 0.75rem;
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.375;
       outline: none;
     }
 
+    .field[data-shortcut-visible="true"] .native,
+    .field[data-action-count="1"] .native {
+      padding-inline-end: calc(
+        var(--fd-header-search-action-size) + 0.75rem
+      );
+    }
+
+    .field[data-action-count="2"] .native {
+      padding-inline-end: calc(
+        var(--fd-header-search-action-size) * 2 + 0.75rem
+      );
+    }
+
     .native::placeholder {
-      color: #4b5b69;
+      color: #595961;
     }
 
     .native::-webkit-search-decoration,
@@ -231,20 +253,22 @@ export class FdHeaderSearch extends LitElement {
 
     .shortcut {
       position: absolute;
-      inset-inline-end: 0.375rem;
+      inset-inline-end: 0;
       top: 50%;
       transform: translateY(-50%);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2.25rem;
-      height: 2.25rem;
+      width: var(--fd-header-search-action-size);
+      height: calc(var(--fd-header-search-action-size) - 2px);
       border: 1px solid rgba(9, 53, 84, 0.16);
-      border-radius: 0.375rem;
+      border-radius: 6px;
       background: #f5f7f9;
       color: #4b5b69;
       font-size: 0.8125rem;
       font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.01em;
       pointer-events: none;
     }
 
@@ -252,43 +276,59 @@ export class FdHeaderSearch extends LitElement {
       display: none;
     }
 
-    .clear,
-    .submit {
+    .actions {
+      position: absolute;
+      inset-block: 0;
+      inset-inline-end: 0;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      flex: none;
-      width: 2.25rem;
-      height: 2.25rem;
-      margin-inline-end: 0.125rem;
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      color: #365063;
-      cursor: pointer;
-      position: relative;
       z-index: 1;
     }
 
-    .clear[hidden] {
-      display: none;
-    }
-
-    :host([surface="desktop"]) .submit {
-      display: none;
-    }
-
-    :host([surface="desktop"]) .field[data-focused="true"] .submit {
+    .actions fd-button {
+      --fd-button-height: var(--fd-header-search-action-size);
+      --fd-button-min-width: var(--fd-header-search-action-size);
+      --fd-button-icon-only-size: var(--fd-header-search-action-size);
+      --fd-button-radius: 0;
+      --fd-button-gap: 0;
+      --fd-button-text-subtle: #365063;
+      --fd-button-overlay-hover: rgba(0, 110, 190, 0.12);
+      --fd-button-overlay-active: rgba(0, 110, 190, 0.18);
+      --fd-button-focus-gap: #ffffff;
+      --fd-button-focus-ring: #38b6ff;
       display: inline-flex;
+      flex: none;
     }
 
-    .clear:hover,
-    .clear:focus-visible,
-    .submit:hover,
-    .submit:focus-visible {
-      outline: none;
-      background: rgba(0, 110, 190, 0.12);
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+    .actions fd-button::part(base) {
+      width: var(--fd-header-search-action-size);
+      min-width: var(--fd-header-search-action-size);
+      min-height: calc(var(--fd-header-search-action-size) - 2px);
+      height: calc(var(--fd-header-search-action-size) - 2px);
+      border: 0;
+      border-radius: 0;
+    }
+
+    .actions fd-button::part(label) {
+      display: none;
+    }
+
+    .actions fd-button fd-icon {
+      --fd-icon-size: 1.25rem;
+    }
+
+    .submit::part(base) {
+      border-start-end-radius: 2px;
+      border-end-end-radius: 2px;
+    }
+
+    .actions[hidden] {
+      display: none;
+    }
+
+    .field:focus-within .input-row {
+      outline: 2px solid #9ad8f7;
+      outline-offset: 1px;
     }
 
     .panel {
@@ -298,7 +338,7 @@ export class FdHeaderSearch extends LitElement {
       width: min(42.5rem, 100vw - 2.5rem);
       overflow: hidden;
       border: 1px solid rgba(9, 53, 84, 0.14);
-      border-radius: 1rem;
+      border-radius: var(--fdic-corner-radius-sm, 3px);
       background: #ffffff;
       box-shadow: 0 18px 48px rgba(0, 18, 32, 0.22);
       z-index: 20;
@@ -327,7 +367,7 @@ export class FdHeaderSearch extends LitElement {
       width: 100%;
       padding: 0.875rem 1rem;
       background: transparent;
-      color: inherit;
+      color: #0c2336;
       text-decoration: none;
       text-align: left;
     }
@@ -360,23 +400,36 @@ export class FdHeaderSearch extends LitElement {
       border-top: 1px solid rgba(9, 53, 84, 0.08);
     }
 
-    .mobile-sheet {
+    .mobile-header {
       display: grid;
       gap: 0.875rem;
-      padding: 1rem;
     }
 
-    .mobile-sheet--results {
+    .mobile-results-group {
+      display: grid;
       gap: 0;
-      padding: 0;
     }
 
-    .mobile-sheet .field {
+    .mobile-header .field {
       width: 100%;
     }
 
-    .mobile-sheet .submit {
+    .mobile-header .submit {
       display: inline-flex;
+    }
+
+    :host([surface="mobile"]) .native {
+      padding-inline-end: 6rem;
+    }
+
+    :host([surface="mobile"]) .results {
+      width: 100%;
+      min-height: 0;
+      max-height: none;
+      border: 1px solid rgba(188, 202, 214, 0.7);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 10px 24px rgba(0, 18, 32, 0.16);
     }
 
     :host([surface="mobile"]) .result-link {
@@ -388,8 +441,15 @@ export class FdHeaderSearch extends LitElement {
       margin: 0;
     }
 
-    :host([surface="mobile"]) .shortcut-hint[data-visible="true"] {
-      display: block;
+    :host([surface="mobile"]) .status {
+      padding: 0;
+      border-top: 0;
+      color: #595961;
+    }
+
+    :host([surface="mobile"]) .results:empty,
+    :host([surface="mobile"]) .status:empty {
+      display: none;
     }
 
     .sr-only {
@@ -479,13 +539,20 @@ export class FdHeaderSearch extends LitElement {
       this._scheduleResults();
     }
 
+    if (
+      (changed.has("_activeIndex") || changed.has("_results") || changed.has("open")) &&
+      this.open &&
+      this._activeIndex >= 0
+    ) {
+      this.updateComplete.then(() => this._syncActiveResultIntoView());
+    }
+
     if (changed.has("surface") && this.surface === "desktop") {
       this.open = false;
     }
 
     if (changed.has("open") && !this.open) {
       this._activeIndex = -1;
-      this._hasFocusWithin = false;
     }
   }
 
@@ -614,6 +681,10 @@ export class FdHeaderSearch extends LitElement {
     this.focus();
   }
 
+  private _handleSubmitAction(event: Event) {
+    this._handleSubmit(event);
+  }
+
   private _activateSuggestion(item: FdHeaderSearchItem) {
     const activateEvent =
       new CustomEvent<FdHeaderSearchActivateDetail>("fd-header-search-activate", {
@@ -718,13 +789,6 @@ export class FdHeaderSearch extends LitElement {
     this._activateSuggestion(item);
   }
 
-  private _handleDrawerCloseRequest(
-    event: CustomEvent<FdDrawerCloseRequestDetail>,
-  ) {
-    event.stopPropagation();
-    this._setOpen(false);
-  }
-
   private _getDeepActiveElement() {
     let active: Element | null = this.ownerDocument.activeElement;
 
@@ -733,6 +797,16 @@ export class FdHeaderSearch extends LitElement {
     }
 
     return active instanceof HTMLElement ? active : null;
+  }
+
+  private _syncActiveResultIntoView() {
+    const activeResult = this.shadowRoot?.querySelector<HTMLElement>(
+      ".result-link[data-active='true']",
+    );
+    activeResult?.scrollIntoView({
+      block: "nearest",
+      inline: "nearest",
+    });
   }
 
   private _renderResultsList(resultsId: string) {
@@ -797,6 +871,10 @@ export class FdHeaderSearch extends LitElement {
 
   private _renderField(showShortcut = false) {
     const trimmedValue = this.value.trim();
+    const showClear = Boolean(trimmedValue);
+    const showSubmit = this.surface === "mobile" || this._hasFocusWithin;
+    const showShortcutHint = showShortcut && !trimmedValue && !showSubmit;
+    const actionCount = Number(showClear) + Number(showSubmit);
     const inputId = `${this._baseId}-${this.surface}-input`;
     const resultsId = `${this._baseId}-${this.surface}-results`;
     const statusId = `${this._baseId}-${this.surface}-status`;
@@ -805,6 +883,8 @@ export class FdHeaderSearch extends LitElement {
       <div
         class="field"
         data-focused=${String(this._hasFocusWithin)}
+        data-action-count=${String(actionCount)}
+        data-shortcut-visible=${String(showShortcutHint)}
         @focusin=${this._handleFocusIn}
         @focusout=${this._handleFocusOut}
       >
@@ -821,34 +901,47 @@ export class FdHeaderSearch extends LitElement {
                 placeholder=${this.placeholder || "Search"}
                 autocomplete="off"
                 aria-controls=${ifDefined(
-                  this._results.length > 0 || this.surface === "mobile"
-                    ? resultsId
-                    : undefined,
+                  this._results.length > 0 ? resultsId : undefined,
                 )}
                 aria-describedby=${ifDefined(trimmedValue ? statusId : undefined)}
                 @input=${this._handleInput}
                 @keydown=${this._handleInputKeydown}
               />
             </label>
-            ${showShortcut
+            ${showShortcutHint
               ? html`<span class="shortcut" aria-hidden="true">/</span>`
               : nothing}
-            <button
-              class="clear"
-              type="button"
-              aria-label="Clear search"
-              ?hidden=${!trimmedValue}
-              @click=${this._handleClear}
-            >
-              <fd-icon name="x" aria-hidden="true"></fd-icon>
-            </button>
-            <button
-              class="submit"
-              type="submit"
-              aria-label=${this.submitLabel || "Open first matching result"}
-            >
-              <fd-icon name="caret-right" aria-hidden="true"></fd-icon>
-            </button>
+            <div class="actions" ?hidden=${actionCount === 0}>
+              ${showClear
+                ? html`
+                    <fd-button
+                      class="clear"
+                      variant="subtle"
+                      aria-label="Clear search"
+                      @click=${this._handleClear}
+                    >
+                      <fd-icon slot="icon-start" name="x" aria-hidden="true"></fd-icon>
+                    </fd-button>
+                  `
+                : nothing}
+              ${showSubmit
+                ? html`
+                    <fd-button
+                      class="submit"
+                      variant="subtle"
+                      aria-label=${this.submitLabel ||
+                      "Open first matching result"}
+                      @click=${this._handleSubmitAction}
+                    >
+                      <fd-icon
+                        slot="icon-start"
+                        name="caret-right"
+                        aria-hidden="true"
+                      ></fd-icon>
+                    </fd-button>
+                  `
+                : nothing}
+            </div>
           </div>
         </form>
       </div>
@@ -880,14 +973,8 @@ export class FdHeaderSearch extends LitElement {
     const statusId = `${this._baseId}-${this.surface}-status`;
 
     return html`
-      <fd-drawer
-        .open=${this.open}
-        .label=${this.label || "Search"}
-        .modal=${true}
-        .placement=${"top" as const}
-        @fd-drawer-close-request=${this._handleDrawerCloseRequest}
-      >
-        <div slot="header" class="mobile-sheet">
+      <div class="root root--mobile">
+        <div class="mobile-header">
           ${this._renderField(false)}
           <p
             class="shortcut-hint"
@@ -896,11 +983,11 @@ export class FdHeaderSearch extends LitElement {
             Press <span aria-hidden="true">/</span> to jump to search.
           </p>
         </div>
-        <div class="mobile-sheet mobile-sheet--results">
+        <div class="mobile-results-group">
           ${this._renderResultsList(resultsId)}
           <div id=${statusId}>${this._renderStatus()}</div>
         </div>
-      </fd-drawer>
+      </div>
     `;
   }
 

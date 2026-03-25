@@ -9,7 +9,13 @@ import {
 } from "./generated/component-arg-types";
 
 type ButtonArgs = {
-  variant: "primary" | "neutral" | "subtle" | "outline" | "destructive";
+  variant:
+    | "primary"
+    | "neutral"
+    | "subtle"
+    | "subtle-inverted"
+    | "outline"
+    | "destructive";
   label: string;
   disabled: boolean;
   loading: boolean;
@@ -107,6 +113,33 @@ export const Subtle: Story = {
   args: { variant: "subtle", label: "Learn more" },
 };
 
+export const SubtleInverted: Story = {
+  args: { variant: "subtle-inverted", label: "Header action" },
+  render: (args: ButtonArgs) => html`
+    <div
+      style="display:inline-flex; padding:12px; background:#003256; border-radius:4px;"
+    >
+      <fd-button
+        variant=${args.variant}
+        ?disabled=${args.disabled}
+        ?loading=${args.loading}
+        loading-label=${ifDefined(args.loadingLabel || undefined)}
+        href=${ifDefined(args.href || undefined)}
+        target=${ifDefined(args.target || undefined)}
+        rel=${ifDefined(args.rel || undefined)}
+      >
+        ${args.iconStart
+          ? html`<fd-icon slot="icon-start" name=${args.iconStart}></fd-icon>`
+          : ""}
+        ${args.label}
+        ${args.iconEnd
+          ? html`<fd-icon slot="icon-end" name=${args.iconEnd}></fd-icon>`
+          : ""}
+      </fd-button>
+    </div>
+  `,
+};
+
 export const Outline: Story = {
   args: { variant: "outline", label: "View details" },
 };
@@ -202,6 +235,11 @@ export const AllVariants: Story = {
       <fd-button variant="primary">Primary</fd-button>
       <fd-button variant="neutral">Neutral</fd-button>
       <fd-button variant="subtle">Subtle</fd-button>
+      <div
+        style="display:inline-flex; padding:8px; background:#003256; border-radius:4px;"
+      >
+        <fd-button variant="subtle-inverted">Subtle inverted</fd-button>
+      </div>
       <fd-button variant="outline">Outline</fd-button>
       <fd-button variant="destructive">Destructive</fd-button>
     </div>
@@ -235,6 +273,13 @@ export const AllVariantsDisabled: Story = {
       <fd-button variant="primary" disabled>Primary</fd-button>
       <fd-button variant="neutral" disabled>Neutral</fd-button>
       <fd-button variant="subtle" disabled>Subtle</fd-button>
+      <div
+        style="display:inline-flex; padding:8px; background:#003256; border-radius:4px;"
+      >
+        <fd-button variant="subtle-inverted" disabled>
+          Subtle inverted
+        </fd-button>
+      </div>
       <fd-button variant="outline" disabled>Outline</fd-button>
       <fd-button variant="destructive" disabled>Destructive</fd-button>
     </div>

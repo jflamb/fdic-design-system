@@ -117,18 +117,131 @@ describe("fd-header-search", () => {
     );
   });
 
-  it("closes the mobile drawer surface through the shared close-request contract", async () => {
+  it("reopens desktop suggestions after clearing and typing a new query", async () => {
+    const el = await createSearch();
+    const input = getInput(el);
+
+    input?.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
+
+    if (input) {
+      input.value = "glob";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+    await el.updateComplete;
+
+    const firstPanel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+    expect(firstPanel?.hidden).toBe(false);
+    expect(
+      el.shadowRoot?.querySelector('.result-link[href="#global-messages"]'),
+    ).not.toBeNull();
+
+    if (input) {
+      input.value = "";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await el.updateComplete;
+    await nextFrame();
+
+    if (input) {
+      input.value = "csrr";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+    await el.updateComplete;
+
+    const reopenedPanel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+    expect(reopenedPanel?.hidden).toBe(false);
+    expect(
+      el.shadowRoot?.querySelector('.result-link[href="#csrr"]'),
+    ).not.toBeNull();
+  });
+
+  it("renders clear and go actions as fd-button controls", async () => {
+    const el = await createSearch();
+    const input = getInput(el);
+
+    input?.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
+
+    if (input) {
+      input.value = "news";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+    await el.updateComplete;
+
+    const clear = el.shadowRoot?.querySelector("fd-button.clear");
+    const submit = el.shadowRoot?.querySelector("fd-button.submit");
+
+    expect(clear).not.toBeNull();
+    expect(submit).not.toBeNull();
+    expect(customElements.get("fd-button")).toBeDefined();
+  });
+
+  it("scrolls the active desktop suggestion into view during keyboard navigation", async () => {
+    const originalScrollIntoView = HTMLElement.prototype.scrollIntoView;
+    const scrollIntoViewSpy = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoViewSpy,
+    });
+
+    try {
+      const el = await createSearch();
+      const input = getInput(el);
+
+      input?.dispatchEvent(
+        new FocusEvent("focusin", { bubbles: true, composed: true }),
+      );
+
+      if (input) {
+        input.value = "news";
+        input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+      }
+
+      await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+      await el.updateComplete;
+
+      input?.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "ArrowDown",
+          bubbles: true,
+          composed: true,
+        }),
+      );
+
+      await el.updateComplete;
+      await nextFrame();
+
+      expect(scrollIntoViewSpy).toHaveBeenCalled();
+      expect(scrollIntoViewSpy).toHaveBeenLastCalledWith({
+        block: "nearest",
+        inline: "nearest",
+      });
+    } finally {
+      Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+        configurable: true,
+        value: originalScrollIntoView,
+      });
+    }
+  });
+
+  it("closes the mobile search surface when Escape is pressed", async () => {
     const el = await createSearch({ surface: "mobile", open: true });
     const openChangeSpy = vi.fn();
     el.addEventListener("fd-header-search-open-change", openChangeSpy);
 
-    const drawer = el.shadowRoot?.querySelector("fd-drawer") as HTMLElement | null;
-    drawer?.dispatchEvent(
-      new CustomEvent("fd-drawer-close-request", {
-        bubbles: true,
-        composed: true,
-        detail: { source: "escape" },
-      }),
+    const input = getInput(el);
+    input?.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Escape", bubbles: true, composed: true }),
     );
     await el.updateComplete;
 

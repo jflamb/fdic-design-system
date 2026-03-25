@@ -28,33 +28,190 @@ function createStoryArgs(): GlobalHeaderArgs {
   };
 }
 
+const renderBackdropContent = (mobile = false) => html`
+  <main
+    style=${[
+      "min-height: calc(100vh - 131px)",
+      "background:",
+      "linear-gradient(180deg, #f5f8fb 0%, #edf3f8 42%, #e3ecf4 100%)",
+      "position: relative",
+      "overflow: hidden",
+    ].join("; ")}
+  >
+    <div
+      aria-hidden="true"
+      style=${[
+        "position:absolute",
+        "inset:0",
+        "background:",
+        "radial-gradient(circle at 12% 18%, rgba(56,182,255,0.2) 0, rgba(56,182,255,0) 26%),",
+        "radial-gradient(circle at 82% 24%, rgba(14,76,117,0.14) 0, rgba(14,76,117,0) 24%),",
+        "linear-gradient(90deg, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.18) 100%)",
+      ].join("; ")}
+    ></div>
+    <div
+      style=${[
+        "position:relative",
+        "padding:" + (mobile ? "1.25rem 1rem 2rem" : "2.5rem 2.5rem 4rem"),
+        "display:grid",
+        "gap:" + (mobile ? "1rem" : "1.5rem"),
+      ].join("; ")}
+    >
+      <section
+        style=${[
+          "display:grid",
+          "gap:" + (mobile ? "0.75rem" : "1rem"),
+          "grid-template-columns:" + (mobile ? "1fr" : "minmax(0, 1.35fr) minmax(15rem, 0.9fr)"),
+          "align-items:stretch",
+        ].join("; ")}
+      >
+        <article
+          style=${[
+            "background:rgba(255,255,255,0.78)",
+            "border:1px solid rgba(9,53,84,0.08)",
+            "box-shadow:0 12px 28px rgba(9,53,84,0.08)",
+            "padding:" + (mobile ? "1rem" : "1.5rem"),
+            "display:grid",
+            "gap:0.875rem",
+          ].join("; ")}
+        >
+          <div
+            style="width:7.5rem; height:0.75rem; background:#0e4c75; opacity:0.15;"
+          ></div>
+          <div
+            style="width:60%; height:2rem; background:#0e4c75; opacity:0.1;"
+          ></div>
+          <div style="display:grid; gap:0.625rem;">
+            <div style="height:0.875rem; background:#0e4c75; opacity:0.1;"></div>
+            <div style="height:0.875rem; background:#0e4c75; opacity:0.08;"></div>
+            <div style="width:84%; height:0.875rem; background:#0e4c75; opacity:0.08;"></div>
+          </div>
+          <div
+            style=${[
+              "display:grid",
+              "grid-template-columns:repeat(3, minmax(0, 1fr))",
+              "gap:0.75rem",
+              "padding-top:0.375rem",
+            ].join("; ")}
+          >
+            <div style="height:5.75rem; background:rgba(56,182,255,0.16);"></div>
+            <div style="height:5.75rem; background:rgba(14,76,117,0.09);"></div>
+            <div style="height:5.75rem; background:rgba(56,182,255,0.12);"></div>
+          </div>
+        </article>
+        <div
+          style=${[
+            "background:linear-gradient(180deg, rgba(14,76,117,0.9) 0%, rgba(10,57,88,0.86) 100%)",
+            "color:#ffffff",
+            "padding:" + (mobile ? "1rem" : "1.5rem"),
+            "display:grid",
+            "gap:0.875rem",
+            "box-shadow:0 12px 28px rgba(9,53,84,0.14)",
+          ].join("; ")}
+        >
+          <div style="width:6rem; height:0.6875rem; background:rgba(255,255,255,0.28);"></div>
+          <div style="width:72%; height:1.5rem; background:rgba(255,255,255,0.2);"></div>
+          <div style="display:grid; gap:0.625rem;">
+            <div style="height:0.75rem; background:rgba(255,255,255,0.16);"></div>
+            <div style="height:0.75rem; background:rgba(255,255,255,0.12);"></div>
+            <div style="width:82%; height:0.75rem; background:rgba(255,255,255,0.12);"></div>
+          </div>
+        </div>
+      </section>
+      <section
+        style=${[
+          "display:grid",
+          "grid-template-columns:" + (mobile ? "1fr" : "repeat(4, minmax(0, 1fr))"),
+          "gap:" + (mobile ? "0.75rem" : "1rem"),
+        ].join("; ")}
+      >
+        ${Array.from({ length: mobile ? 3 : 4 }).map(
+          (_, index) => html`
+            <article
+              style=${[
+                "background:rgba(255,255,255,0.68)",
+                "border:1px solid rgba(9,53,84,0.06)",
+                "padding:" + (mobile ? "0.875rem" : "1rem"),
+                "display:grid",
+                "gap:0.75rem",
+              ].join("; ")}
+            >
+              <div
+                style=${[
+                  "height:4rem",
+                  index % 2 === 0
+                    ? "background:rgba(56,182,255,0.16)"
+                    : "background:rgba(14,76,117,0.1)",
+                ].join("; ")}
+              ></div>
+              <div style="width:68%; height:0.875rem; background:#0e4c75; opacity:0.14;"></div>
+              <div style="height:0.75rem; background:#0e4c75; opacity:0.08;"></div>
+              <div style="width:86%; height:0.75rem; background:#0e4c75; opacity:0.08;"></div>
+            </article>
+          `,
+        )}
+      </section>
+    </div>
+  </main>
+`;
+
 const renderHeader = (
   args: GlobalHeaderArgs,
   options: { mobile?: boolean } = {},
 ) => html`
   <div
     style=${[
-      "padding-bottom: 32rem",
-      "background: linear-gradient(180deg, #f7fafc 0%, #eef3f7 100%)",
+      "min-height: 100vh",
+      "background: #ffffff",
+      "position: relative",
       options.mobile ? "max-width: 24rem; margin-inline: auto;" : "width: 100%;",
     ].join("; ")}
   >
-    <fd-global-header .navigation=${args.navigation} .search=${args.search}>
+    <fd-global-header
+      style="display:block; position:relative; z-index:2;"
+      .navigation=${args.navigation}
+      .search=${args.search}
+    >
       <a
         slot="brand"
         href="/"
         aria-label="FDICnet home"
-        style="display:inline-flex; align-items:center; color:#ffffff; text-decoration:none; line-height:0;"
+        style="display:inline-flex; align-items:center; height:35px; color:#ffffff; text-decoration:none; border-radius:0; overflow:visible;"
       >
         <img
           src=${fdicnetWordmarkUrl}
           alt="FDICnet"
-          style="display:block; width:8.75rem; height:auto;"
+          width="140"
+          height="35"
+          style="display:block; width:8.75rem; height:auto; border-radius:0; overflow:visible;"
         />
       </a>
-      <a slot="utility" href="#employee-directory" style="color:#ffffff; text-decoration:none;">Employee directory</a>
-      <a slot="utility" href="#help" style="color:#ffffff; text-decoration:none;">Help</a>
+      <fd-button
+        slot="utility"
+        variant="subtle-inverted"
+        aria-label="Apps"
+      >
+        <fd-icon
+          slot="icon-start"
+          name="squares-four"
+          aria-hidden="true"
+          style="--fd-icon-size:1.75rem;"
+        ></fd-icon>
+      </fd-button>
+      <fd-button
+        slot="utility"
+        variant="subtle-inverted"
+        aria-label="Profile"
+      >
+        <fd-icon
+          slot="icon-start"
+          name="user-circle"
+          aria-hidden="true"
+          style="--fd-icon-size:1.75rem;"
+        ></fd-icon>
+      </fd-button>
     </fd-global-header>
+    ${renderBackdropContent(Boolean(options.mobile))}
   </div>
 `;
 
@@ -157,6 +314,16 @@ export const PrototypeMobileDrawer: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
+export const PrototypeMobileDefault: Story = {
+  args: createStoryArgs(),
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+  },
+  render: (args) => renderHeader(args, { mobile: true }),
+};
+
 PrototypeMobileDrawer.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
@@ -173,7 +340,7 @@ PrototypeMobileDrawer.play = async ({ canvasElement }) => {
 
   await waitFor(() => {
     const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
-    expect((drawer as any)?.open).toBe(true);
+    expect(drawer?.getAttribute("data-open")).toBe("true");
   });
 };
 
@@ -210,7 +377,39 @@ PrototypeMobileDrillDown.play = async ({ canvasElement }) => {
   await userEvent.click(firstButton!);
 
   await waitFor(() => {
-    const context = host?.shadowRoot?.querySelector(".mobile-context");
-    expect(context?.textContent).toContain("News");
+    const backButton = host?.shadowRoot?.querySelector(".mobile-back");
+    const overviewLink = host?.shadowRoot?.querySelector(".mobile-overview-link");
+    expect(backButton?.textContent).toContain("News & Events Overview");
+    expect(overviewLink?.textContent).toContain("News");
+  });
+};
+
+export const PrototypeMobileSearchOpen: Story = {
+  args: createStoryArgs(),
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+  },
+  render: (args) => renderHeader(args, { mobile: true }),
+};
+
+PrototypeMobileSearchOpen.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+  });
+
+  const searchToggle = host?.shadowRoot?.querySelector(
+    "[data-mobile-toggle='search']",
+  ) as HTMLButtonElement | null;
+
+  expect(searchToggle).toBeTruthy();
+  await userEvent.click(searchToggle!);
+
+  await waitFor(() => {
+    const shell = host?.shadowRoot?.querySelector(".mobile-search-shell") as HTMLElement | null;
+    expect(shell?.getAttribute("data-open")).toBe("true");
   });
 };
