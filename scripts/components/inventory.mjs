@@ -626,7 +626,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-icon", "fd-drawer"]
+      dependencies: ["fd-icon", "fd-button", "fd-drawer"]
     },
     typeExports: [
       "HeaderSearchSurface",

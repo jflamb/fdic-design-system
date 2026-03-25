@@ -4,9 +4,9 @@
       "rows": [
         {
           "name": "variant",
-          "type": "`\"primary\"` \\| `\"neutral\"` \\| `\"subtle\"` \\| `\"outline\"` \\| `\"destructive\"`",
+          "type": "`\"primary\"` \\| `\"neutral\"` \\| `\"subtle\"` \\| `\"subtle-inverted\"` \\| `\"outline\"` \\| `\"destructive\"`",
           "defaultValue": "`\"primary\"`",
-          "description": "Visual treatment for the action. Use `destructive` only for high-risk actions."
+          "description": "Visual treatment for the action. Use `subtle-inverted` on dark surfaces and `destructive` only for high-risk actions."
         },
         {
           "name": "disabled",
@@ -147,6 +147,11 @@
           "description": "Subtle text color"
         },
         {
+          "name": "--fd-button-text-subtle-inverted",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Subtle inverted text and icon color"
+        },
+        {
           "name": "--fd-button-text-outline",
           "default": "`var(--ds-color-text-link, #1278b0)`",
           "description": "Outline text color"
@@ -165,6 +170,16 @@
           "name": "--fd-button-overlay-active",
           "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
           "description": "Active overlay color"
+        },
+        {
+          "name": "--fd-button-overlay-hover-inverted",
+          "default": "`rgba(255, 255, 255, 0.12)`",
+          "description": "Hover overlay color for `subtle-inverted`"
+        },
+        {
+          "name": "--fd-button-overlay-active-inverted",
+          "default": "`rgba(255, 255, 255, 0.18)`",
+          "description": "Active overlay color for `subtle-inverted`"
         },
         {
           "name": "--fd-button-bg-disabled",
@@ -209,7 +224,7 @@
           "description": "Loading spinner wrapper"
         }
       ],
-      "after": "- **Primary** carries the main action on the page or section. Limit it to one primary button per section.\n- **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.\n- **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.\n- **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.\n- **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.\n- **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable."
+      "after": "- **Primary** carries the main action on the page or section. Limit it to one primary button per section.\n- **Subtle inverted** is for low-emphasis actions on dark surfaces such as mastheads, overlays, and other inverted shells.\n- **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.\n- **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.\n- **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.\n- **Link mode** uses `href` and renders a native `<a>`, preserving link semantics.\n- **Loading** prevents duplicate activation while the action is in progress. Use `loading-label` when the wait may be noticeable."
     }
   },
   "fd-button-group": {

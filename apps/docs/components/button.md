@@ -4,7 +4,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-button</code> to let users take actions — confirming decisions, navigating to new pages, or triggering client-side operations. Five variants communicate the weight and risk of each action. The component renders a native <code>&lt;button type="button"&gt;</code> by default, or an <code>&lt;a&gt;</code> when an <code>href</code> is provided.</p>
+  <p>Use <code>fd-button</code> to let users take actions — confirming decisions, navigating to new pages, or triggering client-side operations. Six variants communicate the weight and risk of each action, including an inverted subtle treatment for dark surfaces. The component renders a native <code>&lt;button type="button"&gt;</code> by default, or an <code>&lt;a&gt;</code> when an <code>href</code> is provided.</p>
 </div>
 
 ## When to use
@@ -24,7 +24,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 <StoryEmbed
   storyId="components-button--all-variants"
   linkStoryId="components-button--playground"
-  caption="Variant comparison — primary, neutral, subtle, outline, and destructive. Open Storybook to switch variants and states with controls."
+  caption="Variant comparison — primary, neutral, subtle, subtle inverted, outline, and destructive. Open Storybook to switch variants and states with controls."
 />
 
 <StoryEmbed
@@ -39,7 +39,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"outline"` \| `"destructive"` | `primary` | Visual treatment for the action. Use `destructive` only for high-risk actions. |
+| `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"subtle-inverted"` \| `"outline"` \| `"destructive"` | `primary` | Visual treatment for the action. Use `subtle-inverted` on dark surfaces and `destructive` only for high-risk actions. |
 | `disabled` | `boolean` | `false` | Makes the control inert. In link mode, `fd-button` uses `aria-disabled="true"` and suppresses navigation. |
 | `href` | `string \| undefined` | `undefined` | When set, `fd-button` renders a native `<a>` instead of an internal `<button>`. |
 | `target` | `string \| undefined` | `undefined` | Native link target. Applies only when `href` is set. |
@@ -77,10 +77,13 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 | `--fd-button-bg-neutral` | `var(--ds-color-bg-interactive, #f5f5f7)` | Neutral background color |
 | `--fd-button-text-neutral` | `var(--ds-color-text-primary, #212123)` | Neutral text color |
 | `--fd-button-text-subtle` | `var(--ds-color-text-primary, #212123)` | Subtle text color |
+| `--fd-button-text-subtle-inverted` | `var(--ds-color-text-inverted, #ffffff)` | Subtle inverted text and icon color |
 | `--fd-button-text-outline` | `var(--ds-color-text-link, #1278b0)` | Outline text color |
 | `--fd-button-border-outline` | `var(--ds-color-bg-active, #0d6191)` | Outline border color |
 | `--fd-button-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
 | `--fd-button-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
+| `--fd-button-overlay-hover-inverted` | `rgba(255, 255, 255, 0.12)` | Hover overlay color for `subtle-inverted` |
+| `--fd-button-overlay-active-inverted` | `rgba(255, 255, 255, 0.18)` | Active overlay color for `subtle-inverted` |
 | `--fd-button-bg-disabled` | `var(--ds-color-bg-container, #f5f5f7)` | Disabled background color |
 | `--fd-button-text-disabled` | `var(--ds-color-text-disabled, #9e9ea0)` | Disabled text color |
 | `--fd-button-border-outline-disabled` | `var(--ds-color-border-input-disabled, #d6d6d8)` | Disabled outline border color |
@@ -96,6 +99,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 | `spinner` | Loading spinner wrapper |
 
 - **Primary** carries the main action on the page or section. Limit it to one primary button per section.
+- **Subtle inverted** is for low-emphasis actions on dark surfaces such as mastheads, overlays, and other inverted shells.
 - **Destructive** is for irreversible actions like deleting records or revoking access. Pair it with a confirmation step.
 - **Icon-only** buttons require an accessible name on `fd-button`, such as `aria-label`.
 - **Icon-only** buttons render as square controls with the icon centered horizontally and vertically.

@@ -109,7 +109,7 @@ describe("fd-global-header", () => {
     expect(firstSearchInput?.id).not.toBe(secondSearchInput?.id);
   });
 
-  it("restores the prototype desktop description treatment and l3 preview content", async () => {
+  it("opens the desktop mega-menu without auto-selecting l1, then restores preview content on interaction", async () => {
     const el = await createHeader();
     const trigger = getPanelTrigger(el, "news-events");
 
@@ -120,20 +120,82 @@ describe("fd-global-header", () => {
     const l1Description = el.shadowRoot?.querySelector(
       ".mega-col--l1 .menu-description--inline",
     ) as HTMLElement | null;
+    const selectedL1 = el.shadowRoot?.querySelector(
+      ".mega-col--l1 [data-selected='true']",
+    ) as HTMLElement | null;
     const l2Overview = el.shadowRoot?.querySelector(
       ".mega-col--l2 .menu-item-link--overview",
     ) as HTMLElement | null;
     const l2Description = el.shadowRoot?.querySelector(
       ".mega-col--l2 .menu-description--inline",
     ) as HTMLElement | null;
+    const l2Column = el.shadowRoot?.querySelector(
+      ".mega-col--l2",
+    ) as HTMLElement | null;
+    const l3Column = el.shadowRoot?.querySelector(
+      ".mega-col--l3",
+    ) as HTMLElement | null;
 
     expect(l1Description?.textContent?.trim()).toBe(
       "Stay current with FDIC announcements, upcoming events, and multimedia content.",
     );
-    expect(l2Overview?.textContent).toContain("News Overview");
-    expect(l2Description?.textContent?.trim()).toBe(
+    expect(selectedL1).toBeNull();
+    expect(l2Column).toBeNull();
+    expect(l3Column).toBeNull();
+    expect(l2Overview).toBeNull();
+    expect(l2Description).toBeNull();
+
+    const newsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1",
+    ) as HTMLButtonElement | null;
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const l2OverviewAfterHover = el.shadowRoot?.querySelector(
+      ".mega-col--l2 .menu-item-link--overview",
+    ) as HTMLElement | null;
+    const l2DescriptionAfterHover = el.shadowRoot?.querySelector(
+      ".mega-col--l2 .menu-description--inline",
+    ) as HTMLElement | null;
+    const l3ColumnBeforePreview = el.shadowRoot?.querySelector(
+      ".mega-col--l3",
+    ) as HTMLElement | null;
+
+    expect(l2OverviewAfterHover?.textContent).toContain("News Overview");
+    expect(l2DescriptionAfterHover?.textContent?.trim()).toBe(
       "Explore News services, guidance, and related resources.",
     );
+    expect(l3ColumnBeforePreview).toBeNull();
+
+    const overviewLink = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-link--overview",
+    ) as HTMLAnchorElement | null;
+
+    overviewLink?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const selectedOverview = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-link--overview[data-selected='true']",
+    ) as HTMLAnchorElement | null;
+    const selectedNewsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1[data-selected='true']",
+    ) as HTMLButtonElement | null;
+
+    expect(selectedOverview).not.toBeNull();
+    expect(selectedNewsButton).toBeNull();
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
 
     const globalMessages = el.shadowRoot?.querySelector(
       '.mega-col--l2 a[href="#global-messages"]',
@@ -148,14 +210,36 @@ describe("fd-global-header", () => {
     const l3FirstLink = el.shadowRoot?.querySelector(
       '.mega-col--l3 .menu-item-link[href="#global-digest-faq"]',
     ) as HTMLAnchorElement | null;
+    const activeL3Item = el.shadowRoot?.querySelector(
+      ".mega-col--l3 .menu-item-link[data-active='true']",
+    ) as HTMLAnchorElement | null;
     const l3Description = el.shadowRoot?.querySelector(
       ".mega-col--l3 .menu-description--l3",
     ) as HTMLElement | null;
+    const l3List = el.shadowRoot?.querySelector(
+      ".mega-col--l3 .menu-list",
+    ) as HTMLElement | null;
 
     expect(l3FirstLink?.textContent).toContain("Global Digest FAQ");
+    expect(activeL3Item).toBeNull();
     expect(l3Description?.textContent?.trim()).toBe(
       "View updates, schedules, and related materials for Global Messages in News.",
     );
+    expect(l3Description?.compareDocumentPosition(l3List || null)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+
+    l3FirstLink?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const activeL3AfterHover = el.shadowRoot?.querySelector(
+      '.mega-col--l3 .menu-item-link[href="#global-digest-faq"][data-active="true"]',
+    ) as HTMLAnchorElement | null;
+
+    expect(activeL3AfterHover).not.toBeNull();
   });
 
   it("Escape closes the desktop mega-menu and returns focus to the active trigger", async () => {
@@ -180,6 +264,63 @@ describe("fd-global-header", () => {
     expect(el.shadowRoot?.activeElement).toBe(trigger);
   });
 
+  it("dismisses the desktop mega-menu when the wrapper area outside the panel is clicked", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const megaMenu = el.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+
+    megaMenu?.dispatchEvent(
+      new PointerEvent("pointerdown", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(megaMenu?.hidden).toBe(true);
+    expect(trigger?.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("ArrowUp from the first mega-menu item returns focus to the active trigger", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const newsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1",
+    ) as HTMLButtonElement | null;
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const l2Overview = el.shadowRoot?.querySelector(
+      ".mega-col--l2 .menu-item-link--overview",
+    ) as HTMLAnchorElement | null;
+
+    l2Overview?.focus();
+    l2Overview?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "ArrowUp",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(trigger);
+    expect(trigger?.getAttribute("data-manual-focus-visible")).toBe("true");
+  });
+
   it("uses the prototype mobile drill-down structure and restores toggle focus on close", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
@@ -193,41 +334,49 @@ describe("fd-global-header", () => {
     const drawer = el.shadowRoot?.querySelector(
       ".mobile-drawer",
     ) as HTMLElement | null;
-    const drawerTitle = el.shadowRoot?.querySelector(
-      ".mobile-title",
+    const backButton = el.shadowRoot?.querySelector(
+      ".mobile-back",
+    ) as HTMLButtonElement | null;
+    const overviewLink = el.shadowRoot?.querySelector(
+      ".mobile-overview-link",
+    ) as HTMLAnchorElement | null;
+    const introCopy = el.shadowRoot?.querySelector(
+      ".mobile-intro",
     ) as HTMLElement | null;
     const firstSectionButton = el.shadowRoot?.querySelector(
       ".mobile-button",
     ) as HTMLButtonElement | null;
 
-    expect(drawer?.open).toBe(true);
-    expect(drawerTitle?.textContent?.trim()).toBe("News & Events");
+    expect(drawer?.getAttribute("data-open")).toBe("true");
+    expect(backButton?.textContent?.trim()).toBe("Main menu");
+    expect(overviewLink?.textContent?.trim()).toBe("News & Events");
+    expect(introCopy?.textContent?.trim()).toBe(
+      "Stay current with FDIC announcements, upcoming events, and multimedia content.",
+    );
     expect(firstSectionButton?.textContent).toContain("News");
 
     firstSectionButton?.click();
     await el.updateComplete;
     await nextFrame();
 
-    const mobileContext = el.shadowRoot?.querySelector(
-      ".mobile-context",
-    ) as HTMLElement | null;
+    const drillBackButton = el.shadowRoot?.querySelector(
+      ".mobile-back",
+    ) as HTMLButtonElement | null;
+    const sectionOverviewLink = el.shadowRoot?.querySelector(
+      ".mobile-overview-link",
+    ) as HTMLAnchorElement | null;
     const mobileDescription = el.shadowRoot?.querySelector(
-      ".mobile-item-meta",
+      ".mobile-intro",
     ) as HTMLElement | null;
 
-    expect(mobileContext?.textContent).toContain("News & Events");
-    expect(mobileContext?.textContent).toContain("News");
+    expect(drillBackButton?.textContent?.trim()).toBe("News & Events Overview");
+    expect(sectionOverviewLink?.textContent?.trim()).toBe("News");
     expect(mobileDescription?.textContent?.trim()).toBe(
       "Explore News services, guidance, and related resources.",
     );
+    expect(el.shadowRoot?.querySelector(".mobile-context")).toBeNull();
 
-    drawer?.dispatchEvent(
-      new CustomEvent("fd-drawer-close-request", {
-        bubbles: true,
-        composed: true,
-        detail: { source: "escape" },
-      }),
-    );
+    menuToggle?.click();
     await el.updateComplete;
     await nextFrame();
 
@@ -257,6 +406,29 @@ describe("fd-global-header", () => {
 
     const mobileInput = getSearchInput(getMobileSearch(el));
     expect(mobileInput?.value).toBe("Global Messages");
+  });
+
+  it("uses the slash shortcut to focus desktop search outside editable contexts", async () => {
+    const el = await createHeader();
+    const desktopSearch = getDesktopSearch(el);
+    const desktopInput = getSearchInput(desktopSearch);
+
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "/", bubbles: true, cancelable: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(desktopSearch);
+    expect(desktopSearch?.shadowRoot?.activeElement).toBe(desktopInput);
+
+    desktopInput?.focus();
+    desktopInput?.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "/", bubbles: true, cancelable: true }),
+    );
+    await el.updateComplete;
+
+    expect(desktopSearch?.shadowRoot?.activeElement).toBe(desktopInput);
   });
 
   it("has no detectable axe violations in the default closed state", async () => {

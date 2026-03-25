@@ -7,6 +7,7 @@ export type ButtonVariant =
   | "primary"
   | "neutral"
   | "subtle"
+  | "subtle-inverted"
   | "outline"
   | "destructive";
 
@@ -142,6 +143,24 @@ export class FdButton extends LitElement {
       font-weight: 400;
     }
 
+    /* --- Variant: Subtle Inverted --- */
+    .subtle-inverted {
+      background-color: transparent;
+      color: var(
+        --fd-button-text-subtle-inverted,
+        var(--ds-color-text-inverted, #ffffff)
+      );
+      font-weight: 400;
+      --fd-button-overlay-hover: var(
+        --fd-button-overlay-hover-inverted,
+        rgba(255, 255, 255, 0.12)
+      );
+      --fd-button-overlay-active: var(
+        --fd-button-overlay-active-inverted,
+        rgba(255, 255, 255, 0.18)
+      );
+    }
+
     /* --- Variant: Outline --- */
     .outline {
       background-color: var(--ds-color-bg-input, #ffffff);
@@ -159,6 +178,7 @@ export class FdButton extends LitElement {
     .destructive:hover,
     .neutral:hover,
     .subtle:hover,
+    .subtle-inverted:hover,
     .outline:hover {
       box-shadow: inset 0 0 0 999px
         var(
@@ -172,6 +192,7 @@ export class FdButton extends LitElement {
     .destructive:active,
     .neutral:active,
     .subtle:active,
+    .subtle-inverted:active,
     .outline:active {
       box-shadow: inset 0 0 0 999px
         var(

@@ -176,6 +176,12 @@ describe("fd-button", () => {
     expect(inner.classList.contains("destructive")).toBe(true);
   });
 
+  it("applies variant class for subtle-inverted", async () => {
+    const el = await createButton({ variant: "subtle-inverted" });
+    const inner = getInternal(el);
+    expect(inner.classList.contains("subtle-inverted")).toBe(true);
+  });
+
   it("has default slot, icon-start slot, and icon-end slot", async () => {
     const el = await createButton(
       {},

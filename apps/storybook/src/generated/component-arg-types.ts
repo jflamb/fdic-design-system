@@ -2,7 +2,7 @@
 export const componentStoryApi = {
   "fd-button": {
     argTypes: {
-    "variant": { control: "select", options: ["primary","neutral","subtle","outline","destructive"] },
+    "variant": { control: "select", options: ["primary","neutral","subtle","subtle-inverted","outline","destructive"] },
     "disabled": { control: "boolean" },
     "href": { control: "text" },
     "target": { control: "text" },

@@ -97,11 +97,7 @@ function isLinkItem(
 }
 
 function getDefaultSectionIndex(panel: FdGlobalHeaderPanelItem | null) {
-  if (!panel || panel.sections.length === 0) {
-    return null;
-  }
-
-  return panel.sections.length > 1 ? 1 : 0;
+  return null;
 }
 
 function getSectionOverview(section: FdGlobalHeaderSection | null) {
@@ -238,6 +234,7 @@ export class FdGlobalHeader extends LitElement {
     _selectedSectionIndex: { state: true },
     _selectedItemIndex: { state: true },
     _previewItemIndex: { state: true },
+    _activeChildIndex: { state: true },
     _previewingOverview: { state: true },
     _topNavFocusIndex: { state: true },
     _isMobile: { state: true },
@@ -291,8 +288,8 @@ export class FdGlobalHeader extends LitElement {
 
     .base {
       position: relative;
-      z-index: 0;
-      border-bottom: 1px solid rgba(9, 53, 84, 0.12);
+      z-index: 20;
+      border-bottom: 0;
       background: #ffffff;
     }
 
@@ -304,6 +301,10 @@ export class FdGlobalHeader extends LitElement {
     .masthead {
       background: #003256;
       color: #ffffff;
+      min-height: 5.1875rem;
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
     }
 
     .masthead-row {
@@ -311,8 +312,6 @@ export class FdGlobalHeader extends LitElement {
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      min-height: 5.1875rem;
-      padding-block: 0.75rem;
     }
 
     .brand-row,
@@ -325,6 +324,7 @@ export class FdGlobalHeader extends LitElement {
 
     .brand-row {
       flex: 1 1 auto;
+      gap: 0.75rem;
     }
 
     .controls {
@@ -334,53 +334,74 @@ export class FdGlobalHeader extends LitElement {
 
     ::slotted([slot="brand"]) {
       display: inline-flex;
+      flex: none;
       align-items: center;
-      gap: 0.75rem;
-      min-width: 0;
+      align-self: center;
+      height: auto;
+      min-height: 0;
+      min-width: max-content;
+      max-width: none;
+      overflow: visible;
+      border-radius: 0;
       color: inherit;
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
+      text-decoration: none;
+      line-height: 0;
     }
 
     .utility {
       display: inline-flex;
+      flex: none;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0;
     }
 
     ::slotted([slot="utility"]) {
       display: inline-flex;
+      flex: none;
       align-items: center;
       justify-content: center;
-      min-width: 2.75rem;
-      min-height: 2.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 999px;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
       color: inherit;
+      text-decoration: none;
+      padding: 0;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    ::slotted(fd-button[slot="utility"]) {
+      --fd-button-height: 2.75rem;
+      --fd-button-min-width: 2.75rem;
+      --fd-button-icon-only-size: 2.75rem;
+      --fd-button-radius: 0;
+      --fd-button-focus-gap: #003256;
+      --fd-button-focus-ring: #38b6ff;
+      flex: none;
     }
 
     .icon-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      min-width: 2.75rem;
-      min-height: 2.75rem;
-      padding: 0 0.875rem;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 999px;
+      gap: 0;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
       background: transparent;
       color: inherit;
       cursor: pointer;
     }
 
     .icon-button fd-icon {
-      --fd-icon-size: 1.25rem;
+      --fd-icon-size: 1.75rem;
     }
 
     .icon-button--round {
-      padding-inline: 0;
       width: 2.75rem;
     }
 
@@ -394,16 +415,24 @@ export class FdGlobalHeader extends LitElement {
       gap: 0.5rem;
     }
 
+    .mobile-search-shell {
+      display: none;
+    }
+
+    .icon-button--search-toggle {
+      display: none;
+    }
+
     .top-nav {
-      background: #ffffff;
-      border-bottom: 1px solid rgba(9, 53, 84, 0.12);
+      background: #003256;
+      border-bottom: 6px solid #84dbff;
       position: relative;
-      z-index: 2;
+      z-index: 61;
     }
 
     .top-nav-list {
       display: flex;
-      align-items: stretch;
+      align-items: center;
       gap: 0;
       margin: 0;
       padding: 0;
@@ -420,65 +449,199 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      min-height: 3rem;
-      padding: 0 1.25rem;
+      justify-content: center;
+      height: 3rem;
+      padding: 0 1.125rem;
       border: 0;
-      border-bottom: 4px solid transparent;
       background: transparent;
-      color: #10243e;
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1;
+      color: #ffffff;
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.375;
       cursor: pointer;
       white-space: nowrap;
+      position: relative;
+      text-decoration: none;
     }
 
-    .top-nav-button fd-icon {
-      --fd-icon-size: 1rem;
-      transition: transform 180ms ease;
+    .top-nav-label {
+      display: inline-grid;
     }
 
-    .top-nav-button[aria-expanded="true"] fd-icon {
-      transform: rotate(180deg);
+    .top-nav-label::after {
+      content: attr(data-label);
+      grid-area: 1 / 1;
+      font-weight: 600;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .top-nav-label-text {
+      grid-area: 1 / 1;
+    }
+
+    .top-nav-list > .top-nav-item:first-child .top-nav-link,
+    .top-nav-list > .top-nav-item:first-child .top-nav-button {
+      margin-inline-start: -1.25rem;
+      padding-inline-start: 1.25rem;
+    }
+
+    .top-nav-link::after,
+    .top-nav-button::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: -6px;
+      height: 4px;
+      background: #38b6ff;
+      opacity: 0;
+      transition: opacity 120ms ease;
     }
 
     .top-nav-link:hover,
     .top-nav-link:focus-visible,
     .top-nav-button:hover,
     .top-nav-button:focus-visible,
-    .top-nav-link[aria-current="page"],
-    .top-nav-button[data-active="true"] {
-      background: rgba(0, 110, 190, 0.08);
-      border-bottom-color: #84dbff;
+    .top-nav-button[aria-expanded="true"] {
+      background: #0b466f;
       outline: none;
+    }
+
+    .top-nav-link:hover::after,
+    .top-nav-link:focus-visible::after,
+    .top-nav-button:hover::after,
+    .top-nav-button:focus-visible::after,
+    .top-nav-button[aria-expanded="true"]::after {
+      opacity: 1;
+    }
+
+    .top-nav-link:focus-visible,
+    .top-nav-button:focus-visible,
+    .top-nav-link[data-manual-focus-visible="true"],
+    .top-nav-button[data-manual-focus-visible="true"] {
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+    }
+
+    .top-nav-button[data-active="true"],
+    .top-nav-button[data-active="true"]:hover {
+      background: #ffffff;
+      color: #003256;
+      font-weight: 600;
+      box-shadow: none;
+      z-index: 2;
+    }
+
+    .top-nav-button[data-active="true"]:focus-visible,
+    .top-nav-button[data-active="true"][data-manual-focus-visible="true"] {
+      background: #ffffff;
+      color: #003256;
+      font-weight: 600;
+      box-shadow: 0 0 0 2px #003256, 0 0 0 4px #38b6ff;
+      z-index: 2;
+    }
+
+    .top-nav-button[data-active="true"]::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #38b6ff;
+    }
+
+    .top-nav-button[data-active="true"]::after {
+      opacity: 0;
     }
 
     .mega-menu {
       position: absolute;
       inset-inline: 0;
       top: 100%;
-      background: #ffffff;
-      border-bottom: 1px solid rgba(9, 53, 84, 0.12);
-      box-shadow: 0 18px 48px rgba(0, 18, 32, 0.22);
-      z-index: 3;
+      background: transparent;
+      z-index: 60;
+      padding: 0;
     }
 
     .mega-menu[hidden] {
       display: none;
     }
 
+    .mega-menu-scrim {
+      position: fixed;
+      top: 8.1875rem;
+      inset-inline: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 180ms ease, visibility 180ms ease;
+      z-index: 10;
+    }
+
+    .mega-menu-scrim[data-open="true"] {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
     .mega-menu-inner {
+      --mega-col-1-surface: rgba(255, 255, 255, 0.84);
+      --mega-col-2-surface: rgba(245, 250, 255, 0.5);
+      --mega-col-3-surface: rgba(232, 242, 249, 0.24);
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       min-height: 14.8125rem;
-      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      clip-path: inset(-40px -40px -40px -40px);
+      width: min(90rem, calc(100% - 5rem));
+      -webkit-backdrop-filter: blur(16px) saturate(165%);
+      backdrop-filter: blur(16px) saturate(165%);
+    }
+
+    .mega-menu-inner[data-visible-columns="1"] {
+      --mega-col-2-surface: rgba(245, 250, 255, 0.4);
+      --mega-col-3-surface: rgba(232, 242, 249, 0.14);
+    }
+
+    .mega-menu-inner[data-visible-columns="2"] {
+      --mega-col-3-surface: rgba(232, 242, 249, 0.16);
+    }
+
+    .mega-menu-inner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.24) 0%,
+          rgba(255, 255, 255, 0.08) 15%,
+          rgba(255, 255, 255, 0) 38%
+        ),
+        linear-gradient(
+          90deg,
+          var(--mega-col-1-surface) 0%,
+          var(--mega-col-1-surface) 33.333%,
+          var(--mega-col-2-surface) 33.333%,
+          var(--mega-col-2-surface) 66.666%,
+          var(--mega-col-3-surface) 66.666%,
+          var(--mega-col-3-surface) 100%
+        );
+      border-style: solid;
+      border-color: rgba(9, 53, 84, 0.14);
+      border-width: 0 1px 1px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+      z-index: 0;
     }
 
     .mega-col {
       position: relative;
       min-width: 0;
-      padding: 1rem 1.125rem 1.25rem;
+      padding: 0.5rem 0;
+      z-index: 1;
     }
 
     .mega-col::before {
@@ -502,12 +665,10 @@ export class FdGlobalHeader extends LitElement {
 
     .mega-col--l2 {
       background: #f7fafc;
-      border-inline-start: 1px solid rgba(9, 53, 84, 0.08);
     }
 
     .mega-col--l3 {
       background: #edf3f7;
-      border-inline-start: 1px solid rgba(9, 53, 84, 0.08);
     }
 
     .menu-heading {
@@ -534,63 +695,99 @@ export class FdGlobalHeader extends LitElement {
 
     .menu-item-link,
     .menu-item-button {
-      display: flex;
+      display: grid;
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
       width: 100%;
-      min-height: 3rem;
-      padding: 0.75rem 0.875rem;
+      min-height: 2.75rem;
       border: 0;
       background: transparent;
-      color: inherit;
+      color: #212123;
       text-align: left;
-      border-radius: 0.625rem;
+      border-radius: 0;
       cursor: pointer;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.4;
+      text-decoration: none;
+      position: relative;
     }
 
-    .menu-item-link:hover,
-    .menu-item-link:focus-visible,
-    .menu-item-button:hover,
-    .menu-item-button:focus-visible,
-    .menu-item-link[data-active="true"],
-    .menu-item-button[data-active="true"],
-    .menu-item-button[data-selected="true"] {
-      background: rgba(0, 110, 190, 0.08);
+    .menu-item-link--l1,
+    .menu-item-button--l1 {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 0.75rem;
+      padding: 0.4375rem 1.125rem 0.4375rem 1.5rem;
+    }
+
+    .menu-item-link--l2,
+    .menu-item-link--l3 {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 0.75rem;
+      padding: 0.375rem 1rem 0.375rem 1.5rem;
+    }
+
+    .menu-item-link--l1:hover,
+    .menu-item-link--l1:focus-visible,
+    .menu-item-button--l1:hover,
+    .menu-item-button--l1:focus-visible,
+    .menu-item-link--l1[data-selected="true"],
+    .menu-item-button--l1[data-selected="true"],
+    .menu-item-link--l2:hover,
+    .menu-item-link--l2:focus-visible,
+    .menu-item-link--l2[data-active="true"],
+    .menu-item-link--l3:hover,
+    .menu-item-link--l3:focus-visible,
+    .menu-item-link--l3[data-active="true"] {
+      background: rgba(0, 110, 190, 0.14);
       outline: none;
     }
 
     .menu-item-label {
       font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.25;
-      color: #0c2336;
+      font-weight: 400;
+      line-height: 1.4;
+      color: #212123;
     }
 
-    .menu-item-meta,
-    .menu-description,
-    .menu-empty {
-      color: #4b5b69;
-      font-size: 0.9375rem;
-      line-height: 1.35;
+    .menu-item-link--l1:hover .menu-item-label,
+    .menu-item-link--l1:focus-visible .menu-item-label,
+    .menu-item-button--l1:hover .menu-item-label,
+    .menu-item-button--l1:focus-visible .menu-item-label,
+    .menu-item-link--l1[data-selected="true"] .menu-item-label,
+    .menu-item-button--l1[data-selected="true"] .menu-item-label,
+    .menu-item-link--l2:hover .menu-item-label,
+    .menu-item-link--l2:focus-visible .menu-item-label,
+    .menu-item-link--l2[data-active="true"] .menu-item-label,
+    .menu-item-link--l3:hover .menu-item-label,
+    .menu-item-link--l3:focus-visible .menu-item-label,
+    .menu-item-link--l3[data-active="true"] .menu-item-label {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
     }
 
     .menu-description {
       margin: 0;
-      padding: 0.25rem 0.875rem 0.875rem;
+      padding: 0.5rem 1.5rem 0.75rem;
+      color: #595961;
+      font-size: 0.9375rem;
+      font-weight: 400;
+      line-height: 1.45;
     }
 
     .menu-description--inline {
-      padding-top: 0;
+      padding-top: 0.25rem;
     }
 
     .menu-description--l3 {
-      padding-inline: 0;
+      padding-top: 0.5rem;
     }
 
     .menu-caret {
-      color: #0b466f;
-      --fd-icon-size: 1rem;
+      color: #212123;
+      --fd-icon-size: 1.25rem;
       flex: none;
     }
 
@@ -602,142 +799,316 @@ export class FdGlobalHeader extends LitElement {
 
     .menu-divider {
       height: 1px;
-      margin: 0.125rem 0 0.75rem;
-      background: rgba(9, 53, 84, 0.1);
+      margin: 0 1.5rem 0.625rem;
+      background: rgba(9, 53, 84, 0.12);
+    }
+
+    .mega-col--l1 .menu-description {
+      padding-inline: 1.5rem;
+    }
+
+    .mega-col--l1 .menu-divider {
+      margin-inline: 1.5rem;
     }
 
     .menu-empty {
       margin: 0;
-      padding: 0.875rem;
+      padding: 0.5rem 1.5rem;
+      color: #595961;
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      opacity: 0.7;
     }
 
     .mobile-drawer {
-      --fd-drawer-surface: #ffffff;
-      --fd-drawer-border-color: rgba(9, 53, 84, 0.14);
-      --fd-drawer-shadow: 0 18px 48px rgba(0, 18, 32, 0.22);
+      position: fixed;
+      top: 0;
+      inset-inline-start: 0;
+      width: min(88vw, 22.5rem);
+      height: 100vh;
+      height: 100dvh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-inline-end: 1px solid #bdbdbf;
+      transform: translateX(-104%);
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        transform 220ms ease,
+        opacity 220ms ease,
+        visibility 220ms ease;
+      z-index: 80;
+      pointer-events: none;
+      padding-bottom: 1.125rem;
+    }
+
+    .mobile-drawer[data-open="true"] {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-nav-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+        -webkit-backdrop-filter: blur(4px) saturate(135%);
+        backdrop-filter: blur(4px) saturate(135%);
+      opacity: 0;
+      transition: opacity 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      z-index: 70;
+      pointer-events: none;
+    }
+
+    .mobile-nav-backdrop[data-open="true"] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-drawer-top {
+      display: flex;
+      align-items: center;
+      min-height: 4.75rem;
+      padding: 1.25rem 1rem 0.75rem;
+      background: #ffffff;
+    }
+
+    .mobile-drawer-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 0;
+      border-radius: 4px;
+      background: #003256;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .mobile-drawer-close fd-icon {
+      --fd-icon-size: 1.25rem;
+    }
+
+    .mobile-drawer-close:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 2px rgba(0, 94, 162, 0.35), inset 0 0 0 4px #38b6ff;
     }
 
     .mobile-drawer-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      justify-content: space-between;
-      padding: 1rem;
-      border-bottom: 1px solid rgba(9, 53, 84, 0.08);
+      display: grid;
+      gap: 0;
+      padding: 0;
+      border-bottom: 1px solid #bdbdbf;
     }
 
     .mobile-back {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
+      width: 100%;
+      min-height: 2.75rem;
+      padding: 0.5rem 1rem;
       border: 0;
-      background: transparent;
-      color: #0b466f;
-      font-weight: 700;
+      background: #ffffff;
+      color: #212123;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.375;
       cursor: pointer;
-      padding: 0;
+      text-align: left;
+      transition:
+        box-shadow 120ms ease,
+        background-color 120ms ease,
+        transform 100ms ease;
+    }
+
+    .mobile-back:hover {
+      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.08);
+    }
+
+    .mobile-back:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+      background: rgba(0, 110, 190, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .mobile-back:active {
+      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.16);
+      transform: translateY(1px);
     }
 
     .mobile-back fd-icon {
       --fd-icon-size: 1rem;
+      transition: transform 120ms ease;
+    }
+
+    .mobile-back:hover fd-icon,
+    .mobile-back:focus-visible fd-icon {
+      transform: translateX(-2px);
     }
 
     .mobile-title {
-      margin: 0;
-      font-size: 1.125rem;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #0c2336;
+      display: none;
     }
 
     .mobile-list {
       margin: 0;
-      padding: 0.5rem 1rem 1rem;
+      padding: 0;
       list-style: none;
       display: grid;
-      gap: 0.25rem;
+      gap: 0;
+      width: 100%;
     }
 
-    .mobile-context {
-      padding: 0.5rem 1rem 0;
+    .mobile-list > li {
+      border-top: 1px solid #bdbdbf;
     }
 
-    .mobile-context-list {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.375rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      color: #4b5b69;
-      font-size: 0.875rem;
-      line-height: 1.35;
+    .mobile-list > li:first-child {
+      border-top: 0;
     }
 
-    .mobile-context-crumb,
-    .mobile-context-current {
-      display: inline-flex;
-      align-items: center;
-      border: 0;
-      background: transparent;
-      color: inherit;
-      padding: 0;
-      font: inherit;
-    }
-
-    .mobile-context-crumb {
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 0.12em;
-    }
-
-    .mobile-context-separator {
-      color: #0b466f;
-      --fd-icon-size: 0.875rem;
-    }
-
+    .mobile-overview-link,
     .mobile-link,
     .mobile-button {
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
+      gap: 1rem;
       width: 100%;
-      min-height: 3rem;
-      padding: 0.875rem 0.875rem;
+      min-height: 2.75rem;
+      padding: 0.5rem 1rem;
       border: 0;
-      border-radius: 0.75rem;
-      background: transparent;
-      color: inherit;
+      border-radius: 0;
+      background: #ffffff;
+      color: #212123;
       text-align: left;
-      cursor: pointer;
+      text-decoration: none;
+      transition:
+        box-shadow 120ms ease,
+        background-color 120ms ease,
+        transform 100ms ease;
     }
 
+    .mobile-button {
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .mobile-link {
+      justify-content: space-between;
+      font-weight: 400;
+      line-height: 1.45;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 1px;
+    }
+
+    .mobile-overview-link {
+      min-height: 2.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.375;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 1px;
+    }
+
+    .mobile-overview-link::before,
+    .mobile-link::before,
+    .mobile-button::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #38b6ff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 120ms ease;
+    }
+
+    .mobile-link::after {
+      content: "";
+      width: 1.25rem;
+      height: 1.25rem;
+      min-width: 1.25rem;
+      margin-inline-start: 0.75rem;
+    }
+
+    .mobile-overview-link:hover,
+    .mobile-link:hover,
+    .mobile-button:hover {
+      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.08);
+    }
+
+    .mobile-overview-link:hover::before,
+    .mobile-overview-link:focus-visible::before,
+    .mobile-overview-link:active::before,
+    .mobile-link:hover::before,
+    .mobile-link:focus-visible::before,
+    .mobile-link:active::before,
+    .mobile-button:hover::before,
+    .mobile-button:focus-visible::before,
+    .mobile-button:active::before {
+      opacity: 1;
+    }
+
+    .mobile-overview-link:focus-visible,
+    .mobile-link:focus-visible,
+    .mobile-button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+      background: rgba(0, 110, 190, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .mobile-overview-link:active,
+    .mobile-link:active,
+    .mobile-button:active {
+      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.16);
+      transform: translateY(1px);
+    }
+
+    .mobile-overview-link:hover,
+    .mobile-overview-link:focus-visible,
+    .mobile-overview-link:active,
     .mobile-link:hover,
     .mobile-link:focus-visible,
-    .mobile-button:hover,
-    .mobile-button:focus-visible {
-      background: rgba(0, 110, 190, 0.08);
-      outline: none;
+    .mobile-link:active {
+      text-decoration: underline;
     }
 
-    .mobile-item-copy {
-      display: grid;
-      gap: 0.1875rem;
+    .mobile-intro {
+      padding: 0 1rem 0.75rem;
+      color: #595961;
+      font-size: 0.9375rem;
+      line-height: 1.45;
     }
 
     .mobile-item-label {
       font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.25;
-      color: #0c2336;
+      font-weight: inherit;
+      line-height: inherit;
+      color: #212123;
+      white-space: normal;
+    }
+
+    .mobile-link .mobile-item-label {
+      font-weight: 400;
     }
 
     .mobile-item-meta {
-      color: #4b5b69;
+      color: #595961;
       font-size: 0.9375rem;
-      line-height: 1.35;
+      line-height: 1.45;
     }
 
     .sr-only {
@@ -768,13 +1139,95 @@ export class FdGlobalHeader extends LitElement {
       }
 
       .desktop-search,
-      .top-nav,
-      .utility {
+      .top-nav {
         display: none;
       }
 
       .mobile-controls {
         display: inline-flex;
+      }
+
+      .mobile-nav-backdrop {
+        display: block;
+      }
+
+      .mobile-controls [data-mobile-toggle="menu"] {
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 4px;
+      }
+
+      .mobile-controls [data-mobile-toggle="menu"] span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .masthead {
+        min-height: auto;
+        padding: 1.25rem 0 1rem;
+      }
+
+      .masthead-row {
+        min-height: 0;
+      }
+
+      .brand-row {
+        gap: 0.625rem;
+      }
+
+      .controls {
+        gap: 0.5rem;
+      }
+
+      .desktop-search {
+        display: none;
+      }
+
+      .icon-button--search-toggle {
+        display: inline-flex;
+      }
+
+      .mobile-search-shell {
+        position: fixed;
+        top: 0;
+        inset-inline-end: 0;
+        bottom: 0;
+        width: min(88vw, 22.5rem);
+        max-width: 100vw;
+        display: block;
+        background: #ffffff;
+        border-inline-start: 1px solid #bdbdbf;
+        box-shadow: -18px 0 48px rgba(0, 18, 32, 0.24);
+        transform: translateX(104%);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          transform 220ms ease,
+          opacity 220ms ease,
+          visibility 0s 220ms;
+        z-index: 80;
+        pointer-events: none;
+      }
+
+      .mobile-search-shell[data-open="true"] {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+          transform 220ms ease,
+          opacity 220ms ease,
+          visibility 0s 0s;
+      }
+
+      .mobile-search-sheet {
+        display: grid;
+        gap: 0.75rem;
+        width: 100%;
+        height: 100%;
+        padding: 1rem;
+        background: #ffffff;
+        overflow: hidden;
       }
     }
 
@@ -804,6 +1257,7 @@ export class FdGlobalHeader extends LitElement {
   declare _selectedSectionIndex: number | null;
   declare _selectedItemIndex: number;
   declare _previewItemIndex: number | null;
+  declare _activeChildIndex: number | null;
   declare _previewingOverview: boolean;
   declare _topNavFocusIndex: number;
   declare _isMobile: boolean;
@@ -837,6 +1291,7 @@ export class FdGlobalHeader extends LitElement {
     this._selectedSectionIndex = null;
     this._selectedItemIndex = 0;
     this._previewItemIndex = null;
+    this._activeChildIndex = null;
     this._previewingOverview = false;
     this._topNavFocusIndex = 0;
     this._isMobile = false;
@@ -891,6 +1346,7 @@ export class FdGlobalHeader extends LitElement {
       changed.has("_activePanelId") ||
       changed.has("_selectedSectionIndex") ||
       changed.has("_previewItemIndex") ||
+      changed.has("_activeChildIndex") ||
       changed.has("_previewingOverview")
     ) {
       this.updateComplete.then(() => this._syncColumnRails());
@@ -1000,6 +1456,59 @@ export class FdGlobalHeader extends LitElement {
     );
   }
 
+  private _isEditableTarget(target: EventTarget | null) {
+    if (!(target instanceof Element)) {
+      return false;
+    }
+
+    if (target instanceof HTMLInputElement) {
+      return !["button", "checkbox", "radio", "range", "reset", "submit"].includes(
+        target.type,
+      );
+    }
+
+    if (
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLSelectElement ||
+      (target as HTMLElement).isContentEditable
+    ) {
+      return true;
+    }
+
+    return Boolean(
+      target.closest(
+        "input, textarea, select, [contenteditable=''], [contenteditable='true'], [role='textbox'], [role='searchbox'], [role='combobox']",
+      ),
+    );
+  }
+
+  private _isMobileSearchToggleVisible() {
+    const searchToggle = this._getMobileToggle("search");
+    return Boolean(
+      searchToggle && getComputedStyle(searchToggle).display !== "none",
+    );
+  }
+
+  private _focusSearchFieldFromShortcut() {
+    if (!this.search) {
+      return;
+    }
+
+    if (this._isMobile && this._isMobileSearchToggleVisible()) {
+      this._toggleMobileSearch(true);
+      return;
+    }
+
+    this._closeMenu();
+    this.updateComplete.then(() => {
+      const desktopSearch = this.shadowRoot?.querySelector<any>(
+        "[data-search-surface='desktop']",
+      );
+      desktopSearch?.focus();
+      desktopSearch?.select?.();
+    });
+  }
+
   private _getPanelById(panelId: string) {
     return this.navigation.find(
       (item): item is FdGlobalHeaderPanelItem =>
@@ -1049,6 +1558,7 @@ export class FdGlobalHeader extends LitElement {
     this._selectedSectionIndex = getDefaultSectionIndex(panel);
     this._selectedItemIndex = 0;
     this._previewItemIndex = null;
+    this._activeChildIndex = null;
     this._previewingOverview = false;
   }
 
@@ -1088,6 +1598,7 @@ export class FdGlobalHeader extends LitElement {
 
     this._menuOpen = false;
     this._previewItemIndex = null;
+    this._activeChildIndex = null;
     this._previewingOverview = false;
 
     if (restoreFocus && this._lastDesktopTriggerId) {
@@ -1135,6 +1646,8 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _handleDocumentPointerDown(event: PointerEvent) {
+    this._clearTopNavManualFocusVisible();
+
     const path = event.composedPath();
     if (path.includes(this)) {
       return;
@@ -1154,31 +1667,44 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _handleDocumentKeyDown(event: KeyboardEvent) {
-    if (event.key !== "Escape") {
+    if (
+      event.key === "/" &&
+      !event.defaultPrevented &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !this._isEditableTarget(event.target)
+    ) {
+      event.preventDefault();
+      this._focusSearchFieldFromShortcut();
       return;
     }
 
-    if (this._mobileSearchOpen) {
-      event.preventDefault();
-      this._toggleMobileSearch(false);
-      this.updateComplete.then(() => this._getMobileToggle("search")?.focus());
-      return;
-    }
+    if (event.key === "Escape") {
+      if (this._mobileSearchOpen) {
+        event.preventDefault();
+        this._toggleMobileSearch(false);
+        this.updateComplete.then(() => this._getMobileToggle("search")?.focus());
+        return;
+      }
 
-    if (this._mobileMenuOpen) {
-      event.preventDefault();
-      this._mobileMenuOpen = false;
-      this.updateComplete.then(() => this._getMobileToggle("menu")?.focus());
-      return;
-    }
+      if (this._mobileMenuOpen) {
+        event.preventDefault();
+        this._mobileMenuOpen = false;
+        this.updateComplete.then(() => this._getMobileToggle("menu")?.focus());
+        return;
+      }
 
-    if (this._menuOpen) {
-      event.preventDefault();
-      this._closeMenu({ restoreFocus: true });
+      if (this._menuOpen) {
+        event.preventDefault();
+        this._closeMenu({ restoreFocus: true });
+      }
     }
   }
 
   private _handleTopNavClick(item: FdGlobalHeaderNavigationItem, index: number) {
+    this._clearTopNavManualFocusVisible();
+
     if (isLinkItem(item)) {
       this._closeMenu();
       return;
@@ -1196,6 +1722,8 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _handleTopNavPointerEnter(item: FdGlobalHeaderNavigationItem, index: number) {
+    this._clearTopNavManualFocusVisible();
+
     if (this._isMobile || isLinkItem(item)) {
       return;
     }
@@ -1213,6 +1741,8 @@ export class FdGlobalHeader extends LitElement {
     item: FdGlobalHeaderNavigationItem,
     index: number,
   ) {
+    this._clearTopNavManualFocusVisible();
+
     const items = this._getTopNavItems();
     if (items.length === 0) {
       return;
@@ -1267,6 +1797,31 @@ export class FdGlobalHeader extends LitElement {
     return `${this._baseId}-trigger-${panelId}`;
   }
 
+  private _clearTopNavManualFocusVisible() {
+    this.shadowRoot
+      ?.querySelectorAll<HTMLElement>("[data-manual-focus-visible='true']")
+      .forEach((item) => item.removeAttribute("data-manual-focus-visible"));
+  }
+
+  private _focusActiveTopNavTrigger() {
+    if (!this._activePanelId) {
+      return false;
+    }
+
+    const triggerId = this._getTopTriggerId(this._activePanelId);
+    const trigger = this.shadowRoot?.getElementById(triggerId) as HTMLElement | null;
+    if (!trigger) {
+      return false;
+    }
+
+    window.requestAnimationFrame(() => {
+      this._clearTopNavManualFocusVisible();
+      trigger.setAttribute("data-manual-focus-visible", "true");
+      trigger.focus();
+    });
+    return true;
+  }
+
   private _focusFirstDesktopPanelControl() {
     this.shadowRoot
       ?.querySelector<HTMLElement>(PANEL_FOCUSABLE_SELECTOR)
@@ -1284,6 +1839,7 @@ export class FdGlobalHeader extends LitElement {
     this._selectedSectionIndex = index;
     this._selectedItemIndex = 0;
     this._previewItemIndex = null;
+    this._activeChildIndex = null;
     this._previewingOverview = false;
 
     if (restoreFocus) {
@@ -1298,6 +1854,7 @@ export class FdGlobalHeader extends LitElement {
 
   private _setPreviewItem(index: number, restoreFocus = false) {
     this._previewItemIndex = index;
+    this._activeChildIndex = null;
     this._previewingOverview = false;
     if (restoreFocus) {
       this.updateComplete.then(() => {
@@ -1308,6 +1865,7 @@ export class FdGlobalHeader extends LitElement {
 
   private _setPreviewOverview(restoreFocus = false) {
     this._previewItemIndex = null;
+    this._activeChildIndex = null;
     this._previewingOverview = true;
     if (restoreFocus) {
       this.updateComplete.then(() => {
@@ -1318,7 +1876,12 @@ export class FdGlobalHeader extends LitElement {
 
   private _clearPreview() {
     this._previewItemIndex = null;
+    this._activeChildIndex = null;
     this._previewingOverview = false;
+  }
+
+  private _setActiveChild(index: number) {
+    this._activeChildIndex = index;
   }
 
   private _focusColumnItem(columnSelector: string, itemSelector: string) {
@@ -1351,7 +1914,12 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _focusActiveL3() {
-    return this._focusColumnItem(".mega-col--l3", ".menu-item-link[data-index='0']");
+    const selector =
+      this._activeChildIndex != null
+        ? `.menu-item-link[data-index='${this._activeChildIndex}']`
+        : ".menu-item-link[data-index='0']";
+
+    return this._focusColumnItem(".mega-col--l3", selector);
   }
 
   private _focusSelectedL1() {
@@ -1390,7 +1958,14 @@ export class FdGlobalHeader extends LitElement {
       if (event.key === "ArrowDown") {
         nextIndex = (currentIndex + 1) % items.length;
       } else if (event.key === "ArrowUp") {
-        nextIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+        if (currentIndex <= 0 && this._focusActiveTopNavTrigger()) {
+          event.preventDefault();
+          items.forEach((item) => {
+            item.tabIndex = item === target ? 0 : -1;
+          });
+          return;
+        }
+        nextIndex = currentIndex - 1;
       } else if (event.key === "Home") {
         nextIndex = 0;
       } else if (event.key === "End") {
@@ -1453,6 +2028,14 @@ export class FdGlobalHeader extends LitElement {
     });
   }
 
+  private _handleDesktopMenuPointerDown(event: PointerEvent) {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    this._closeMenu();
+  }
+
   private _handleSearchInput(
     event: CustomEvent<FdHeaderSearchInputDetail>,
   ) {
@@ -1504,12 +2087,6 @@ export class FdGlobalHeader extends LitElement {
     }
   }
 
-  private _handleMobileDrawerCloseRequest(event: Event) {
-    event.stopPropagation();
-    this._mobileMenuOpen = false;
-    this.updateComplete.then(() => this._getMobileToggle("menu")?.focus());
-  }
-
   private _syncColumnRail(columnSelector: string, itemSelector: string) {
     const column = this.shadowRoot?.querySelector<HTMLElement>(columnSelector);
     if (!column) {
@@ -1546,19 +2123,16 @@ export class FdGlobalHeader extends LitElement {
   private _getMobileFocusableElements() {
     return Array.from(
       this.renderRoot.querySelectorAll<HTMLElement>(
-        ".mobile-drawer [slot], .mobile-drawer a[href], .mobile-drawer button, .mobile-drawer [tabindex]:not([tabindex='-1'])",
+        ".mobile-drawer a[href], .mobile-drawer button, .mobile-drawer [tabindex]:not([tabindex='-1'])",
       ),
     ).filter((element) => !element.hasAttribute("hidden"));
   }
 
   private _focusFirstMobileControl() {
-    const drawerSurface =
-      this.shadowRoot?.querySelector(".mobile-drawer [part='surface']") ||
-      this.shadowRoot?.querySelector(".mobile-drawer");
-    const firstFocusable =
-      this.shadowRoot?.querySelector<HTMLElement>(
-        ".mobile-drawer a[href], .mobile-drawer button",
-      ) || null;
+    const drawerSurface = this.shadowRoot?.querySelector(".mobile-drawer");
+    const firstFocusable = this.shadowRoot?.querySelector<HTMLElement>(
+      ".mobile-drawer a[href], .mobile-drawer button",
+    );
     firstFocusable?.focus();
     if (!firstFocusable) {
       (drawerSurface as HTMLElement | null)?.focus();
@@ -1626,10 +2200,13 @@ export class FdGlobalHeader extends LitElement {
             href=${item.href}
             aria-current=${item.current ? "page" : nothing}
             data-top-nav-index=${String(index)}
+            @blur=${this._clearTopNavManualFocusVisible}
             @keydown=${(event: KeyboardEvent) =>
               this._handleTopNavKeydown(event, item, index)}
           >
-            ${item.label}
+            <span class="top-nav-label" data-label=${item.label}>
+              <span class="top-nav-label-text">${item.label}</span>
+            </span>
           </a>
         </li>
       `;
@@ -1648,13 +2225,15 @@ export class FdGlobalHeader extends LitElement {
           data-panel-trigger=${item.id}
           data-top-nav-index=${String(index)}
           data-active=${String(isActive)}
+          @blur=${this._clearTopNavManualFocusVisible}
           @click=${() => this._handleTopNavClick(item, index)}
           @pointerenter=${() => this._handleTopNavPointerEnter(item, index)}
           @keydown=${(event: KeyboardEvent) =>
             this._handleTopNavKeydown(event, item, index)}
         >
-          <span>${item.label}</span>
-          <fd-icon name="caret-down" aria-hidden="true"></fd-icon>
+          <span class="top-nav-label" data-label=${item.label}>
+            <span class="top-nav-label-text">${item.label}</span>
+          </span>
         </button>
       </li>
     `;
@@ -1674,9 +2253,11 @@ export class FdGlobalHeader extends LitElement {
     const selectedItem = selectedSection?.items?.[this._selectedItemIndex] || null;
     const visibleItem = this._getVisibleItem();
     const showingPreview = this._previewItemIndex != null;
+    const showL2 = Boolean(selectedSection);
     const hasVisibleChildren = Boolean(
       showingPreview && !this._previewingOverview && visibleItem?.children?.length,
     );
+    const showL3 = showL2 && hasVisibleChildren;
     const sectionDescription = getSectionMenuDescription(
       selectedSection,
       panel.label,
@@ -1684,14 +2265,14 @@ export class FdGlobalHeader extends LitElement {
     );
     const defaultSectionDescription =
       selectedSection?.description || sectionOverview?.description || "";
-    const l3Description = this._previewingOverview
-      ? sectionOverview?.description || ""
-      : showingPreview
-        ? hasVisibleChildren
+    const l3Description = showL3
+      ? this._previewingOverview
+        ? sectionOverview?.description || ""
+        : showingPreview
           ? visibleItem?.description || ""
-          : visibleItem?.description || ""
-        : defaultSectionDescription;
-
+          : defaultSectionDescription
+      : "";
+    const visibleColumnCount = 1 + Number(showL2) + Number(showL3);
     return html`
       <section
         id=${`${this._baseId}-mega-menu`}
@@ -1702,9 +2283,13 @@ export class FdGlobalHeader extends LitElement {
         @pointerleave=${this._scheduleDesktopClose}
         @focusin=${this._cancelDesktopClose}
         @focusout=${this._handleDesktopFocusOut}
+        @pointerdown=${this._handleDesktopMenuPointerDown}
         @keydown=${this._handlePanelKeydown}
       >
-        <div class="shell mega-menu-inner">
+        <div
+          class="shell mega-menu-inner"
+          data-visible-columns=${String(visibleColumnCount)}
+        >
           <section class="mega-col mega-col--l1" part="panel-column">
             <h2 class="menu-heading">Menu sections</h2>
             <ul class="menu-list" role="list">
@@ -1712,12 +2297,14 @@ export class FdGlobalHeader extends LitElement {
                 ? html`
                     <li>
                       <a
-                        class="menu-item-link menu-item-link--overview"
+                        class="menu-item-link menu-item-link--l1 menu-item-link--overview"
                         href=${panel.href || overviewSection.overviewHref || overviewSection.href || "#"}
                         data-index="0"
                         data-selected=${String(this._selectedSectionIndex === 0)}
                         data-panel-focusable="true"
                         tabindex=${this._selectedSectionIndex === 0 ? "0" : "-1"}
+                        @pointerenter=${() => this._setSectionSelection(0)}
+                        @focus=${() => this._setSectionSelection(0, true)}
                       >
                         <span class="menu-item-label">
                           ${overviewSection.label}
@@ -1758,7 +2345,7 @@ export class FdGlobalHeader extends LitElement {
                     ${hasChildren
                       ? html`
                           <button
-                            class="menu-item-button"
+                            class="menu-item-button menu-item-button--l1"
                             type="button"
                             data-index=${String(actualIndex)}
                             data-selected=${String(
@@ -1778,7 +2365,7 @@ export class FdGlobalHeader extends LitElement {
                         `
                       : html`
                           <a
-                            class="menu-item-link"
+                            class="menu-item-link menu-item-link--l1"
                             href=${section.href || section.overviewHref || "#"}
                             data-index=${String(actualIndex)}
                             data-selected=${String(
@@ -1788,6 +2375,10 @@ export class FdGlobalHeader extends LitElement {
                             tabindex=${this._selectedSectionIndex === actualIndex
                               ? "0"
                               : "-1"}
+                            @pointerenter=${() =>
+                              this._setSectionSelection(actualIndex)}
+                            @focus=${() =>
+                              this._setSectionSelection(actualIndex, true)}
                           >
                             ${content}
                           </a>
@@ -1798,88 +2389,100 @@ export class FdGlobalHeader extends LitElement {
             </ul>
           </section>
 
-          <section class="mega-col mega-col--l2" part="panel-column">
-            <h2 class="menu-heading">Section links</h2>
-            <ul class="menu-list" role="list">
-              ${sectionOverview
-                ? html`
-                    <li>
-                      <a
-                        class="menu-item-link menu-item-link--overview"
-                        href=${sectionOverview.href}
-                        data-active=${String(this._previewingOverview)}
-                        data-panel-focusable="true"
-                        tabindex=${this._previewingOverview
-                          ? "0"
-                          : (selectedSection?.items?.length || 0) === 0
-                            ? "0"
-                            : "-1"}
-                        @pointerenter=${() => this._setPreviewOverview()}
-                        @focus=${() => this._setPreviewOverview(true)}
-                      >
-                        <span class="menu-item-label">${sectionOverview.label}</span>
-                        <span class="menu-spacer" aria-hidden="true"></span>
-                      </a>
-                    </li>
-                    ${sectionDescription
+          ${showL2
+            ? html`
+                <section class="mega-col mega-col--l2" part="panel-column">
+                  <h2 class="menu-heading">Section links</h2>
+                  <ul class="menu-list" role="list">
+                    ${sectionOverview
                       ? html`
                           <li>
-                            <p class="menu-description menu-description--inline">
-                              ${sectionDescription}
-                            </p>
+                            <a
+                              class="menu-item-link menu-item-link--l2 menu-item-link--overview"
+                              href=${sectionOverview.href}
+                              data-active=${String(this._previewingOverview)}
+                              data-panel-focusable="true"
+                              tabindex=${this._previewingOverview
+                                ? "0"
+                                : (selectedSection?.items?.length || 0) === 0
+                                  ? "0"
+                                  : "-1"}
+                              @pointerenter=${() => this._setPreviewOverview()}
+                              @focus=${() => this._setPreviewOverview(true)}
+                            >
+                              <span class="menu-item-label">${sectionOverview.label}</span>
+                              <span class="menu-spacer" aria-hidden="true"></span>
+                            </a>
                           </li>
+                          ${sectionDescription
+                            ? html`
+                                <li>
+                                  <p class="menu-description menu-description--inline">
+                                    ${sectionDescription}
+                                  </p>
+                                </li>
+                              `
+                            : nothing}
+                          ${(selectedSection?.items?.length || 0) > 0
+                            ? html`
+                                <li aria-hidden="true">
+                                  <div class="menu-divider"></div>
+                                </li>
+                              `
+                            : nothing}
                         `
                       : nothing}
-                    ${(selectedSection?.items?.length || 0) > 0
-                      ? html`
-                          <li aria-hidden="true">
-                            <div class="menu-divider"></div>
-                          </li>
-                        `
-                      : nothing}
-                  `
-                : nothing}
-              ${(selectedSection?.items || []).map((item, index) => {
-                const hasChildren = Boolean(item.children?.length);
-                return html`
-                  <li>
-                    <a
-                      class="menu-item-link"
-                      href=${item.href}
-                      data-index=${String(index)}
-                      data-active=${String(
-                        this._previewItemIndex === index && !this._previewingOverview,
-                      )}
-                      data-panel-focusable="true"
-                      tabindex=${index === 0 ? "0" : "-1"}
-                      @pointerenter=${() => this._setPreviewItem(index)}
-                      @focus=${() => this._setPreviewItem(index, true)}
-                    >
-                      <span class="menu-item-label">${item.label}</span>
-                      ${hasChildren
-                        ? html`<fd-icon class="menu-caret" name="caret-right" aria-hidden="true"></fd-icon>`
-                        : html`<span class="menu-spacer" aria-hidden="true"></span>`}
-                    </a>
-                  </li>
-                `;
-              })}
-            </ul>
-          </section>
+                    ${(selectedSection?.items || []).map((item, index) => {
+                      const hasChildren = Boolean(item.children?.length);
+                      return html`
+                        <li>
+                          <a
+                            class="menu-item-link menu-item-link--l2"
+                            href=${item.href}
+                            data-index=${String(index)}
+                            data-active=${String(
+                              this._previewItemIndex === index && !this._previewingOverview,
+                            )}
+                            data-panel-focusable="true"
+                            tabindex=${index === 0 ? "0" : "-1"}
+                            @pointerenter=${() => this._setPreviewItem(index)}
+                            @focus=${() => this._setPreviewItem(index, true)}
+                          >
+                            <span class="menu-item-label">${item.label}</span>
+                            ${hasChildren
+                              ? html`<fd-icon class="menu-caret" name="caret-right" aria-hidden="true"></fd-icon>`
+                              : html`<span class="menu-spacer" aria-hidden="true"></span>`}
+                          </a>
+                        </li>
+                      `;
+                    })}
+                  </ul>
+                </section>
+              `
+            : nothing}
 
-          <section class="mega-col mega-col--l3" part="panel-column">
-            <h2 class="menu-heading">Resources</h2>
-            ${hasVisibleChildren
-              ? html`
+          ${showL3
+            ? html`
+                <section class="mega-col mega-col--l3" part="panel-column">
+                  <h2 class="menu-heading">Resources</h2>
+                  ${l3Description
+                    ? html`<p class="menu-description menu-description--l3">${l3Description}</p>`
+                    : nothing}
+                  ${l3Description && (visibleItem?.children?.length || 0) > 0
+                    ? html`<div class="menu-divider" aria-hidden="true"></div>`
+                    : nothing}
                   <ul class="menu-list" role="list">
                     ${(visibleItem?.children || []).map((child, index) => html`
                       <li>
                         <a
-                          class="menu-item-link"
+                          class="menu-item-link menu-item-link--l3"
                           href=${child.href}
                           data-index=${String(index)}
-                          data-active=${String(index === 0)}
+                          data-active=${String(this._activeChildIndex === index)}
                           data-panel-focusable="true"
                           tabindex=${index === 0 ? "0" : "-1"}
+                          @pointerenter=${() => this._setActiveChild(index)}
+                          @focus=${() => this._setActiveChild(index)}
                         >
                           <span class="menu-item-label">${child.label}</span>
                           <span class="menu-spacer" aria-hidden="true"></span>
@@ -1887,12 +2490,9 @@ export class FdGlobalHeader extends LitElement {
                       </li>
                     `)}
                   </ul>
-                `
-              : nothing}
-            ${l3Description
-              ? html`<p class="menu-description menu-description--l3">${l3Description}</p>`
-              : html`<p class="menu-empty">Select a link to see more detail.</p>`}
-          </section>
+                </section>
+              `
+            : nothing}
         </div>
       </section>
     `;
@@ -1900,20 +2500,14 @@ export class FdGlobalHeader extends LitElement {
 
   private _renderMobileListItem(
     label: string,
-    description: string | undefined,
     href: string | undefined,
     nextPath: MobileDrillPath | null,
   ) {
     const content = html`
-      <span class="mobile-item-copy">
-        <span class="mobile-item-label">${label}</span>
-        ${description
-          ? html`<span class="mobile-item-meta">${description}</span>`
-          : nothing}
-      </span>
+      <span class="mobile-item-label">${label}</span>
       ${nextPath
         ? html`<fd-icon class="menu-caret" name="caret-right" aria-hidden="true"></fd-icon>`
-        : html`<span class="menu-spacer" aria-hidden="true"></span>`}
+        : nothing}
     `;
 
     if (nextPath) {
@@ -1940,70 +2534,50 @@ export class FdGlobalHeader extends LitElement {
     `;
   }
 
-  private _renderMobileContext(panel: FdGlobalHeaderPanelItem | null, section: FdGlobalHeaderSection | null, item: FdGlobalHeaderSectionItem | null) {
-    if (!panel || (!section && !item)) {
-      return nothing;
-    }
-
-    const crumbs: Array<{ label: string; path?: MobileDrillPath }> = [
-      { label: panel.label, path: [panel.id] },
-    ];
-
-    if (section) {
-      crumbs.push({
-        label: section.label,
-        path: [panel.id, this._mobilePath[1] as number],
-      });
-    }
-
-    if (item) {
-      crumbs.push({
-        label: item.label,
-        path: [panel.id, this._mobilePath[1] as number, this._mobilePath[2] as number],
-      });
-    }
-
+  private _renderMobileOverview(label: string, href: string | undefined, description: string) {
     return html`
-      <nav class="mobile-context" aria-label="Current location">
-        <span class="sr-only">You are here: </span>
-        <ol class="mobile-context-list">
-          ${crumbs.map((crumb, index) => {
-            const isCurrent = index === crumbs.length - 1;
-            return html`
-              <li>
-                ${isCurrent
-                  ? html`
-                      <span class="mobile-context-current" aria-current="location">
-                        ${crumb.label}
-                      </span>
-                    `
-                  : html`
-                      <button
-                        class="mobile-context-crumb"
-                        type="button"
-                        @click=${() => {
-                          this._mobilePath = crumb.path || [];
-                        }}
-                      >
-                        ${crumb.label}
-                      </button>
-                    `}
-              </li>
-              ${!isCurrent
-                ? html`
-                    <li aria-hidden="true">
-                      <fd-icon
-                        class="mobile-context-separator"
-                        name="caret-right"
-                      ></fd-icon>
-                    </li>
-                  `
-                : nothing}
-            `;
-          })}
-        </ol>
-      </nav>
+      <li>
+        <a class="mobile-overview-link" href=${href || "#"}>
+          <span class="mobile-item-label">${label}</span>
+        </a>
+        ${description
+          ? html`<div class="mobile-intro">${description}</div>`
+          : nothing}
+      </li>
     `;
+  }
+
+  private _renderMobileCurrentItem(
+    label: string,
+    href: string | undefined,
+    description: string | undefined,
+  ) {
+    return html`
+      <li>
+        <a class="mobile-overview-link" href=${href || "#"}>
+          <span class="mobile-item-label">${label}</span>
+        </a>
+        ${description
+          ? html`<div class="mobile-intro">${description}</div>`
+          : nothing}
+      </li>
+    `;
+  }
+
+  private _getMobilePanelLabel(panel: FdGlobalHeaderPanelItem | null) {
+    if (!panel) {
+      return "Menu";
+    }
+
+    return panel.label || panel.overviewLabel || "Menu";
+  }
+
+  private _getMobilePanelOverviewLabel(panel: FdGlobalHeaderPanelItem | null) {
+    if (!panel) {
+      return "Sections";
+    }
+
+    return panel.overviewLabel || panel.label || "Sections";
   }
 
   private _renderMobileDrawerBody() {
@@ -2019,14 +2593,6 @@ export class FdGlobalHeader extends LitElement {
         ? section.items?.[this._mobilePath[2]] || null
         : null;
 
-    const heading = item
-      ? item.label
-      : section
-        ? section.label
-        : panel
-          ? panel.label
-          : "Menu";
-
     const backTarget =
       item != null
         ? [panel!.id, this._mobilePath[1] as number]
@@ -2039,36 +2605,35 @@ export class FdGlobalHeader extends LitElement {
       item != null
         ? section?.label || panel?.label || "Menu"
         : section != null
-          ? panel?.overviewLabel || panel?.label || "Menu"
+          ? this._getMobilePanelOverviewLabel(panel)
           : panel != null
             ? "Main menu"
             : "";
 
     return html`
-      <div slot="header" class="mobile-drawer-header">
-        ${backTarget
-          ? html`
+      ${panel
+        ? html`
+            <div class="mobile-drawer-header">
               <button
                 class="mobile-back"
                 type="button"
                 @click=${() => {
-                  this._mobilePath = backTarget as MobileDrillPath;
+                  this._mobilePath = (backTarget as MobileDrillPath) || [];
                 }}
               >
                 <fd-icon name="caret-left" aria-hidden="true"></fd-icon>
                 <span>${backLabel}</span>
               </button>
-            `
-          : html`<span></span>`}
-        <h2 class="mobile-title">${heading}</h2>
-      </div>
+            </div>
+          `
+        : nothing}
 
       ${!panel
         ? html`
             <ul class="mobile-list" role="list">
               ${this.navigation.filter(isPanelItem).map((navItem) => html`
                 <li>
-                  ${this._renderMobileListItem(navItem.label, undefined, undefined, [
+                  ${this._renderMobileListItem(navItem.label, undefined, [
                     navItem.id,
                   ])}
                 </li>
@@ -2077,21 +2642,16 @@ export class FdGlobalHeader extends LitElement {
           `
         : item
           ? html`
-              ${this._renderMobileContext(panel, section, item)}
               <ul class="mobile-list" role="list">
-                <li>
-                  ${this._renderMobileListItem(
-                    item.label,
-                    item.description,
-                    item.href,
-                    null,
-                  )}
-                </li>
+                ${this._renderMobileCurrentItem(
+                  item.label,
+                  item.href,
+                  item.description,
+                )}
                 ${(item.children || []).map((child) => html`
                   <li>
                     ${this._renderMobileListItem(
                       child.label,
-                      child.description,
                       child.href,
                       null,
                     )}
@@ -2101,21 +2661,19 @@ export class FdGlobalHeader extends LitElement {
             `
           : section
             ? html`
-                ${this._renderMobileContext(panel, section, null)}
                 <ul class="mobile-list" role="list">
-                  <li>
-                    ${this._renderMobileListItem(
-                      section.label,
-                      getSectionMenuDescription(section, panel.label),
-                      section.href || section.overviewHref,
-                      null,
-                    )}
-                  </li>
+                  ${this._renderMobileCurrentItem(
+                    section.label,
+                    section.href || section.overviewHref,
+                    getSectionMenuDescription(
+                      section,
+                      this._getMobilePanelLabel(panel),
+                    ),
+                  )}
                   ${(section.items || []).map((sectionItem, index) => html`
                     <li>
                       ${this._renderMobileListItem(
                         sectionItem.label,
-                        sectionItem.description,
                         sectionItem.href,
                         sectionItem.children?.length
                           ? [panel.id, this._mobilePath[1] as number, index]
@@ -2123,21 +2681,16 @@ export class FdGlobalHeader extends LitElement {
                       )}
                     </li>
                   `)}
-              </ul>
+                </ul>
               `
             : html`
                 <ul class="mobile-list" role="list">
                   ${panel.sections.length > 1 && panel.href
-                    ? html`
-                        <li>
-                          ${this._renderMobileListItem(
-                            panel.label,
-                            panel.description,
-                            panel.href,
-                            null,
-                          )}
-                        </li>
-                      `
+                    ? this._renderMobileOverview(
+                        this._getMobilePanelLabel(panel),
+                        panel.href,
+                        panel.description || "",
+                      )
                     : nothing}
                   ${(panel.sections.length > 1 ? panel.sections.slice(1) : panel.sections).map(
                     (sectionEntry, orderIndex) => {
@@ -2147,7 +2700,6 @@ export class FdGlobalHeader extends LitElement {
                         <li>
                           ${this._renderMobileListItem(
                             sectionEntry.label,
-                            undefined,
                             sectionEntry.href || sectionEntry.overviewHref,
                             sectionEntry.items?.length
                               ? [panel.id, actualIndex]
@@ -2216,7 +2768,18 @@ export class FdGlobalHeader extends LitElement {
                 : nothing}
             </div>
           </div>
-          ${this._renderMobileSearch()}
+          <div
+            class="mobile-search-shell"
+            data-open=${String(this._mobileSearchOpen)}
+            aria-hidden=${String(!this._mobileSearchOpen)}
+          >
+            <section class="mobile-search-sheet" aria-labelledby=${`${this._baseId}-mobile-search-title`}>
+              <h2 id=${`${this._baseId}-mobile-search-title`} class="sr-only">
+                Search FDICnet
+              </h2>
+              ${this._renderMobileSearch()}
+            </section>
+          </div>
         </div>
 
         <div
@@ -2238,18 +2801,39 @@ export class FdGlobalHeader extends LitElement {
           </div>
           ${this._renderDesktopPanel()}
         </div>
+        <div
+          class="mega-menu-scrim"
+          aria-hidden="true"
+          data-open=${String(this._menuOpen && !this._isMobile)}
+        ></div>
 
-        <fd-drawer
+        <div
+          class="mobile-nav-backdrop"
+          data-open=${String(this._mobileMenuOpen || this._mobileSearchOpen)}
+          @click=${() => {
+            this._mobileMenuOpen = false;
+            this._mobileSearchOpen = false;
+          }}
+        ></div>
+        <div
           class="mobile-drawer"
           part="mobile-drawer"
-          .open=${this._mobileMenuOpen}
-          .label=${"Main menu"}
-          .modal=${true}
-          .placement=${"top" as const}
-          @fd-drawer-close-request=${this._handleMobileDrawerCloseRequest}
+          data-open=${String(this._mobileMenuOpen)}
         >
+          <div class="mobile-drawer-top">
+            <button
+              class="mobile-drawer-close"
+              type="button"
+              aria-label="Close menu"
+              @click=${() => {
+                this._mobileMenuOpen = false;
+              }}
+            >
+              <fd-icon name="x" aria-hidden="true"></fd-icon>
+            </button>
+          </div>
           ${this._renderMobileDrawerBody()}
-        </fd-drawer>
+        </div>
       </div>
     `;
   }
