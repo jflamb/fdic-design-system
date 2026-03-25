@@ -23,6 +23,14 @@
       "types": "./dist/register/*.d.ts",
       "import": "./dist/register/*.js"
     },
+    "./fd-global-header-content": {
+      "types": "./dist/fd-global-header-content.d.ts",
+      "import": "./dist/fd-global-header-content.js"
+    },
+    "./fd-global-header-drupal": {
+      "types": "./dist/fd-global-header-drupal.d.ts",
+      "import": "./dist/fd-global-header-drupal.js"
+    },
     "./fd-button": {
       "types": "./dist/components/fd-button.d.ts",
       "import": "./dist/components/fd-button.js"

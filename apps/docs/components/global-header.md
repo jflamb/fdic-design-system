@@ -35,6 +35,200 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 - Use the `utility` slot for application-specific support links or actions. Keep the set short and high-value.
 - The reference stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.reference-content.ts</code> and <code>packages/components/src/components/fd-global-header.reference.ts</code>.
 
+## Integration contract
+
+- Treat `FdGlobalHeaderNavigationItem[]` as the canonical runtime contract.
+- Normalize CMS or API payloads before assigning `navigation` and `search`.
+- Keep fetching and source-specific payload handling outside the component.
+- Use `@fdic-ds/components` for generic content helpers and `@fdic-ds/components/fd-global-header-drupal` for Drupal-oriented structural mapping.
+
+```ts
+import { createFdGlobalHeaderContent } from "@fdic-ds/components";
+import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+
+const content = createFdGlobalHeaderContentFromDrupal({
+  items: drupalMenuItems,
+  search: {
+    action: "/search",
+    label: "Search FDICnet",
+    placeholder: "Search FDICnet",
+  },
+});
+
+const header = document.querySelector("fd-global-header");
+
+if (header) {
+  const resolved = createFdGlobalHeaderContent(content);
+  header.navigation = resolved.navigation;
+  header.search = resolved.search ?? null;
+}
+```
+
+- The Drupal helper targets a minimal structural menu shape. It does not fetch Drupal data and it does not require one exact backend response format.
+- The header contract supports one top-level row, section groups, section items, and one nested child-link level. Normalize deeper CMS trees before passing them to the helper.
+
+### Generic workflow
+
+1. Fetch or assemble menu data in the application layer.
+2. Normalize the source payload into the design system's content contract.
+3. Assign a fresh `navigation` array and `search` object to `fd-global-header`.
+4. Handle routing or search submit interception at the application layer when needed.
+
+Use the generic helpers when the source is already close to the header contract:
+
+```ts
+import {
+  createFdGlobalHeaderContent,
+  createFdGlobalHeaderSearchConfig,
+  createHeaderSearchItemsFromNavigation,
+} from "@fdic-ds/components";
+
+const navigation = [
+  {
+    kind: "panel",
+    id: "services",
+    label: "Services",
+    sections: [
+      {
+        label: "Services Overview",
+        href: "/services",
+        items: [],
+      },
+      {
+        label: "Programs",
+        href: "/services/programs",
+        items: [
+          {
+            label: "Bank Data",
+            href: "/services/programs/bank-data",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const content = createFdGlobalHeaderContent({
+  navigation,
+  search: createFdGlobalHeaderSearchConfig({
+    action: "/search",
+    label: "Search",
+    items: createHeaderSearchItemsFromNavigation(navigation),
+  }),
+});
+```
+
+### Drupal integration guide
+
+The Drupal helper is designed for the common case where Drupal already exposes a menu tree through preprocess output, JSON, JSON:API, GraphQL, or a custom controller. The helper expects a small structural shape rather than one specific Drupal response contract.
+
+#### Recommended integration pattern
+
+- Query or build the Drupal menu tree outside the Web Component.
+- Map the Drupal payload into the helper's structural `items` shape.
+- Let `createFdGlobalHeaderContentFromDrupal()` convert that shape into `navigation` and default search items.
+- Override search labels or the fallback search URL in the `search` option when the product shell needs different copy.
+
+#### Minimal Drupal-shaped input
+
+```ts
+import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+
+const content = createFdGlobalHeaderContentFromDrupal({
+  items: [
+    {
+      title: "News & Events",
+      url: "/news-events",
+      description: "Stay current with FDIC announcements and events.",
+      below: [
+        {
+          title: "News",
+          url: "/news-events/news",
+          below: [
+            {
+              title: "FDICNews",
+              url: "/news-events/news/fdicnews",
+            },
+            {
+              title: "Global Messages",
+              url: "/news-events/news/global-messages",
+              below: [
+                {
+                  title: "Global Digest FAQ",
+                  url: "/news-events/news/global-messages/global-digest-faq",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Benefits",
+      url: "/benefits",
+      current: true,
+    },
+  ],
+  search: {
+    action: "/search",
+    label: "Search FDICnet",
+    placeholder: "Search FDICnet",
+  },
+});
+```
+
+#### What the Drupal helper does
+
+- Top-level items with no `below` array become direct header links.
+- Top-level items with children become mega-menu panels.
+- Second-level items become panel sections.
+- Third-level items become section items.
+- Fourth-level items become the nested child-link column.
+- Search items are derived automatically from the normalized navigation tree unless you provide your own `search.items`.
+- A top-level item marked `current` or containing a current descendant marks the corresponding header item as current.
+
+#### What the Drupal helper does not do
+
+- It does not fetch Drupal menu data.
+- It does not understand every possible Drupal response field automatically.
+- It does not preserve arbitrary tree depth beyond the header's supported information architecture.
+- It does not replace application-owned routing, caching, or access-control decisions.
+
+#### Normalizing a raw Drupal payload
+
+If your Drupal response uses different field names, map it into the structural helper input before calling the adapter:
+
+```ts
+import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+
+function normalizeDrupalMenuItem(item) {
+  return {
+    id: item.id,
+    title: item.title,
+    url: item.url?.path || item.url || undefined,
+    description: item.description || item.summary || undefined,
+    current: Boolean(item.in_active_trail),
+    below: (item.children || item.below || []).map(normalizeDrupalMenuItem),
+  };
+}
+
+const content = createFdGlobalHeaderContentFromDrupal({
+  items: drupalMenu.items.map(normalizeDrupalMenuItem),
+  search: {
+    action: "/search",
+    label: "Search FDICnet",
+  },
+});
+```
+
+#### Drupal implementation notes
+
+- Prefer producing the structural `items` shape in the Drupal integration layer rather than passing raw backend payloads throughout the frontend.
+- If the Drupal tree is deeper than four levels, choose intentionally which levels belong in the header and flatten or reroute the rest.
+- Use stable URLs and durable labels. Search suggestions and mobile drill-down behavior become less trustworthy when menu entries rely on placeholders or temporary campaign language.
+- If Drupal owns active-trail state, map it into `current` during normalization so the header reflects the current destination consistently.
+- If the site needs custom search suggestions, pass `search.items` explicitly instead of relying on derived items.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 

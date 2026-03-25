@@ -15,6 +15,7 @@ import {
   createFdGlobalHeaderReferenceSearch,
   fdGlobalHeaderReferenceNavigation,
 } from "@fdic-ds/components/fd-global-header-reference";
+import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
 
 type GlobalHeaderArgs = {
   navigation: FdGlobalHeaderNavigationItem[];
@@ -25,6 +26,67 @@ function createStoryArgs(): GlobalHeaderArgs {
   return {
     navigation: structuredClone(fdGlobalHeaderReferenceNavigation),
     search: createFdGlobalHeaderReferenceSearch("/search"),
+  };
+}
+
+function createDrupalStoryArgs(): GlobalHeaderArgs {
+  const content = createFdGlobalHeaderContentFromDrupal({
+    items: [
+      {
+        title: "News & Events",
+        url: "#news-and-events-overview",
+        description:
+          "Stay current with FDIC announcements, upcoming events, and multimedia content.",
+        below: [
+          {
+            title: "News",
+            url: "#news-overview",
+            below: [
+              {
+                title: "FDICNews",
+                url: "#fdicnews",
+              },
+              {
+                title: "Global Messages",
+                url: "#global-messages",
+                below: [
+                  {
+                    title: "Global Digest FAQ",
+                    url: "#global-digest-faq",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Events",
+            url: "#events-overview",
+            below: [
+              {
+                title: "Corporate Calendar of Events",
+                url: "#corporate-calendar-of-events",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Benefits",
+        url: "#benefits",
+      },
+    ],
+    search: {
+      action: "/search",
+      label: "Search FDICnet",
+      placeholder: "Search FDICnet",
+      submitLabel: "Open first matching result",
+      searchAllLabel: "Search all FDICnet",
+    },
+  });
+
+  return {
+    navigation: content.navigation,
+    search: content.search ?? null,
   };
 }
 
@@ -332,6 +394,18 @@ export const MobileDefault: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
+export const DrupalAdapter: Story = {
+  args: createDrupalStoryArgs(),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows a Drupal-style structural menu payload normalized through the dedicated `fd-global-header-drupal` helper before assigning `navigation` and `search` to the component.",
+      },
+    },
+  },
+};
+
 MobileDrawer.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
@@ -349,6 +423,12 @@ MobileDrawer.play = async ({ canvasElement }) => {
   await waitFor(() => {
     const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
     expect(drawer?.getAttribute("data-open")).toBe("true");
+  });
+
+  await waitFor(() => {
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    expect(drawer).toBeTruthy();
+    expect(getComputedStyle(drawer!).opacity).toBe("1");
   });
 };
 

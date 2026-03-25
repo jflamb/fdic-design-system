@@ -6,6 +6,10 @@ export default defineConfig({
     index: "src/index.ts",
     "public-events": "src/public-events.ts",
 
+    // Public helper modules
+    "fd-global-header-content": "src/fd-global-header-content.ts",
+    "fd-global-header-drupal": "src/fd-global-header-drupal.ts",
+
     // Per-component symbol exports
     "components/fd-button": "src/components/fd-button.ts",
     "components/fd-button-group": "src/components/fd-button-group.ts",

@@ -36,7 +36,8 @@ Required outcomes:
 - Create or reuse the required GitHub Discussion and implementation Issue.
 - Complete the design-review loop and implementation-plan review loop.
 - Implement the component and update tests, docs, stories, metadata, and generated surfaces as required.
-- Keep all documentation fully in sync with the shipped design and implementation as each code change lands. Update narrative docs, Storybook stories, embeds, linked story IDs, examples, accessibility guidance, and generated API surfaces in the same change whenever behavior, visuals, semantics, keyboarding, focus, motion, or responsive behavior changes.
+- Keep all documentation fully in sync with the shipped design and implementation as each code change lands. Update narrative docs, Storybook stories, embeds, linked story IDs, examples, accessibility guidance, integration guidance, framework or CMS recipes, migration notes, and generated API surfaces in the same change whenever behavior, visuals, semantics, keyboarding, focus, motion, responsive behavior, or consumer implementation guidance changes.
+- Treat implementation guidance as a required deliverable, not optional polish. If the shipped work adds a new consumer-facing pattern, adapter layer, integration contract, workflow, or composition rule, document how to adopt it in the component docs before the PR is considered complete.
 - When editing `scripts/components/api-metadata.json`, escape union pipes as `\\|` so generated markdown tables render correctly.
 - Run required validation from the support document, plus conditional Storybook validation when triggered by the change.
 - If component-scoped work exposes a narrow shared validation or toolchain regression on a required surface, fix it in the same run when the cause is clear and the change is low-risk, and record that rationale in GitHub artifacts.

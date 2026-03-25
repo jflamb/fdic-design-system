@@ -60,6 +60,25 @@ const DOCS_CATEGORY_METADATA = [
       "Icons and visual primitives that support other components and layouts without becoming full authored-content patterns.",
   },
 ];
+const additionalPublicModules = [
+  {
+    entryName: "fd-global-header-content",
+    sourceFile: "src/fd-global-header-content.ts",
+    exportSubpath: "./fd-global-header-content",
+    includeInRootIndex: true,
+    rootExports: [
+      "export { createFdGlobalHeaderContent, createFdGlobalHeaderSearchConfig, createHeaderSearchItemsFromNavigation } from \"./fd-global-header-content.js\";",
+      "export type { FdGlobalHeaderContent, FdGlobalHeaderContentAdapter } from \"./fd-global-header-content.js\";",
+    ],
+  },
+  {
+    entryName: "fd-global-header-drupal",
+    sourceFile: "src/fd-global-header-drupal.ts",
+    exportSubpath: "./fd-global-header-drupal",
+    includeInRootIndex: false,
+    rootExports: [],
+  },
+];
 
 const apiMetadata = loadApiMetadata();
 
@@ -197,6 +216,10 @@ function generateComponentsIndexTs() {
       return `export type { ${exportsValue} } from "./components/${component.sourceFile.replace(/\.ts$/, ".js")}";`;
     })
     .join("\n");
+  const additionalRootExports = additionalPublicModules
+    .filter((module) => module.includeInRootIndex)
+    .flatMap((module) => module.rootExports)
+    .join("\n");
 
   return `// ${GENERATED_HEADER}
 import "./global.js";
@@ -221,6 +244,7 @@ export type {
   FdValueChangeDetail,
   FdValuesChangeDetail,
 } from "./public-events.js";
+${additionalRootExports ? `\n${additionalRootExports}` : ""}
 
 // --- Icon registry ---
 export { iconRegistry } from "./icons/registry.js";
@@ -279,6 +303,12 @@ import "../icons/phosphor-regular.js";
 }
 
 function generateTsupConfig() {
+  const publicModuleEntries = additionalPublicModules
+    .map(
+      (module) =>
+        `    "${module.entryName}": "${module.sourceFile}",`,
+    )
+    .join("\n");
   const symbolEntries = symbolExportComponents
     .map(
       (component) =>
@@ -299,6 +329,7 @@ export default defineConfig({
     // Root entry (side-effect-free)
     index: "src/index.ts",
     "public-events": "src/public-events.ts",
+${publicModuleEntries ? `\n    // Public helper modules\n${publicModuleEntries}` : ""}
 
     // Per-component symbol exports
 ${symbolEntries}
@@ -337,6 +368,13 @@ function generatePackageExports(packageJson) {
       import: "./dist/register/*.js",
     },
   };
+
+  for (const module of additionalPublicModules) {
+    exportsMap[module.exportSubpath] = {
+      types: `./dist/${module.entryName}.d.ts`,
+      import: `./dist/${module.entryName}.js`,
+    };
+  }
 
   for (const component of symbolExportComponents) {
     exportsMap[`./${component.tagName}`] = {
