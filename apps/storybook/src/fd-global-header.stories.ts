@@ -226,7 +226,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Prototype-alignment stories use the exact `fdicnet-main-menu` YAML-derived content fixture. `fd-global-header` owns surface state and focus recovery; the application owns the information architecture and routing.",
+          "Reference-alignment stories use the exact `fdicnet-main-menu` YAML-derived content fixture. `fd-global-header` owns surface state and focus recovery; the application owns the information architecture and routing.",
       },
     },
   },
@@ -253,11 +253,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
 
-export const PrototypeDesktop: Story = {
+export const Desktop: Story = {
   args: createStoryArgs(),
 };
 
-PrototypeDesktop.play = async ({ canvasElement }) => {
+Desktop.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {
@@ -277,11 +277,11 @@ PrototypeDesktop.play = async ({ canvasElement }) => {
   });
 };
 
-export const PrototypeSearchOpen: Story = {
+export const SearchOpen: Story = {
   args: createStoryArgs(),
 };
 
-PrototypeSearchOpen.play = async ({ canvasElement }) => {
+SearchOpen.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {
@@ -304,7 +304,7 @@ PrototypeSearchOpen.play = async ({ canvasElement }) => {
   });
 };
 
-export const PrototypeMobileDrawer: Story = {
+export const MobileDrawer: Story = {
   args: createStoryArgs(),
   parameters: {
     viewport: {
@@ -314,7 +314,7 @@ export const PrototypeMobileDrawer: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
-export const PrototypeMobileDefault: Story = {
+export const MobileDefault: Story = {
   args: createStoryArgs(),
   parameters: {
     viewport: {
@@ -324,7 +324,7 @@ export const PrototypeMobileDefault: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
-PrototypeMobileDrawer.play = async ({ canvasElement }) => {
+MobileDrawer.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {
@@ -344,7 +344,7 @@ PrototypeMobileDrawer.play = async ({ canvasElement }) => {
   });
 };
 
-export const PrototypeMobileDrillDown: Story = {
+export const MobileDrillDown: Story = {
   args: createStoryArgs(),
   parameters: {
     viewport: {
@@ -354,7 +354,7 @@ export const PrototypeMobileDrillDown: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
-PrototypeMobileDrillDown.play = async ({ canvasElement }) => {
+MobileDrillDown.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {
@@ -384,7 +384,7 @@ PrototypeMobileDrillDown.play = async ({ canvasElement }) => {
   });
 };
 
-export const PrototypeMobileSearchOpen: Story = {
+export const MobileSearchOpen: Story = {
   args: createStoryArgs(),
   parameters: {
     viewport: {
@@ -394,7 +394,7 @@ export const PrototypeMobileSearchOpen: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
-PrototypeMobileSearchOpen.play = async ({ canvasElement }) => {
+MobileSearchOpen.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
 
   await waitFor(() => {

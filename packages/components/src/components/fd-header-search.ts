@@ -319,7 +319,6 @@ export class FdHeaderSearch extends LitElement {
     .actions[hidden] {
       display: none;
     }
-
     .field:focus-within .input-row {
       outline: 2px solid #9ad8f7;
       outline-offset: 1px;

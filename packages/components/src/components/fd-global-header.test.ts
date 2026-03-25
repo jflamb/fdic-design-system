@@ -462,7 +462,6 @@ describe("fd-global-header", () => {
     expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-offset:246px");
     expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-width:338px");
   });
-
   it("uses the prototype mobile drill-down structure and restores toggle focus on close", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(

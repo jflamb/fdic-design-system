@@ -475,6 +475,10 @@ export class FdGlobalHeader extends LitElement {
       z-index: 1;
     }
 
+    .top-nav-label {
+      display: inline-grid;
+    }
+
     .top-nav-active-indicator {
       position: absolute;
       inset-block: 0;
@@ -504,11 +508,6 @@ export class FdGlobalHeader extends LitElement {
       width: 4px;
       background: #38b6ff;
     }
-
-    .top-nav-label {
-      display: inline-grid;
-    }
-
     .top-nav-label::after {
       content: attr(data-label);
       grid-area: 1 / 1;
@@ -580,7 +579,6 @@ export class FdGlobalHeader extends LitElement {
       box-shadow: 0 0 0 2px #003256, 0 0 0 4px #38b6ff;
       z-index: 2;
     }
-
     .top-nav-button[data-active="true"]::after {
       opacity: 0;
     }
