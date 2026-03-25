@@ -199,8 +199,11 @@ Validation expectations:
 ## Documentation Truthfulness
 
 - Treat documentation and stories as part of implementation, not follow-up polish.
-- Keep docs and stories aligned with the shipped API.
+- Keep docs and stories aligned with the shipped API and the shipped adoption path.
 - When code changes semantics, keyboarding, focus management, motion, responsive behavior, accessibility expectations, or visual state coverage, update the corresponding docs page, Storybook stories, embeds, captions, and linked story IDs in the same change.
+- When code introduces or changes a consumer-facing implementation pattern such as data normalization, adapters, integration contracts, composition rules, migration steps, or framework/CMS handoff expectations, update the component docs in the same change with thorough implementation guidance rather than a passing mention.
+- Prefer documenting implementation guidance on the affected component page when it is necessary to adopt the shipped work correctly. Add dedicated sections such as `Integration`, `Implementation guide`, `Recipes`, `Framework integration`, or `CMS integration` when the consumer workflow is non-trivial.
+- If one ecosystem is an expected consumer for the new pattern, such as Drupal or React, include at least one concrete example for that ecosystem when it materially improves adoption clarity.
 - Remove placeholder, stale, duplicate, or misleading guidance before opening the PR.
 - Verify that docs examples, Storybook embeds, and linked story IDs still resolve after renames or story reshaping.
 - If usage guidance depends on composition outside the component contract, label it clearly as a recipe or integration pattern.
