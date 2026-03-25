@@ -35,6 +35,37 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 - Use the `utility` slot for application-specific support links or actions. Keep the set short and high-value.
 - The reference stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.reference-content.ts</code> and <code>packages/components/src/components/fd-global-header.reference.ts</code>.
 
+## Integration contract
+
+- Treat `FdGlobalHeaderNavigationItem[]` as the canonical runtime contract.
+- Normalize CMS or API payloads before assigning `navigation` and `search`.
+- Keep fetching and source-specific payload handling outside the component.
+
+```ts
+import { createFdGlobalHeaderContent } from "@fdic-ds/components";
+import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+
+const content = createFdGlobalHeaderContentFromDrupal({
+  items: drupalMenuItems,
+  search: {
+    action: "/search",
+    label: "Search FDICnet",
+    placeholder: "Search FDICnet",
+  },
+});
+
+const header = document.querySelector("fd-global-header");
+
+if (header) {
+  const resolved = createFdGlobalHeaderContent(content);
+  header.navigation = resolved.navigation;
+  header.search = resolved.search ?? null;
+}
+```
+
+- The Drupal helper targets a minimal structural menu shape. It does not fetch Drupal data and it does not require one exact backend response format.
+- The header contract supports one top-level row, section groups, section items, and one nested child-link level. Normalize deeper CMS trees before passing them to the helper.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 

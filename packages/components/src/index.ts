@@ -69,5 +69,8 @@ export type {
   FdValuesChangeDetail,
 } from "./public-events.js";
 
+export { createFdGlobalHeaderContent, createFdGlobalHeaderSearchConfig, createHeaderSearchItemsFromNavigation } from "./fd-global-header-content.js";
+export type { FdGlobalHeaderContent, FdGlobalHeaderContentAdapter } from "./fd-global-header-content.js";
+
 // --- Icon registry ---
 export { iconRegistry } from "./icons/registry.js";
