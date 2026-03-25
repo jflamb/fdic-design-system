@@ -20,6 +20,10 @@
     "build:components": "npm run build --workspace @fdic-ds/components",
     "build:react": "npm run build --workspace @fdic-ds/react",
     "test:components": "npm run test --workspace @fdic-ds/components",
-    "test:storybook": "npm run test --workspace @fdic-ds/storybook"
+    "test:storybook": "npm run test --workspace @fdic-ds/storybook",
+    "dev-server:start": "node scripts/dev/local-dev-servers.mjs start",
+    "dev-server:stop": "node scripts/dev/local-dev-servers.mjs stop",
+    "dev-server:status": "node scripts/dev/local-dev-servers.mjs status",
+    "dev-server:url": "node scripts/dev/local-dev-servers.mjs url"
   }
 }

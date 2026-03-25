@@ -14,7 +14,7 @@ import {
 import {
   createFdGlobalHeaderPrototypeSearch,
   fdGlobalHeaderPrototypeNavigation,
-} from "../../../packages/components/src/components/fd-global-header.prototype.js";
+} from "@fdic-ds/components/fd-global-header-prototype";
 
 type GlobalHeaderArgs = {
   navigation: FdGlobalHeaderNavigationItem[];
@@ -164,7 +164,15 @@ const renderHeader = (
       "min-height: 100vh",
       "background: #ffffff",
       "position: relative",
-      options.mobile ? "max-width: 24rem; margin-inline: auto;" : "width: 100%;",
+      options.mobile
+        ? [
+            "max-width: 24rem",
+            "margin-inline: auto",
+            "overflow: hidden",
+            "transform: translateZ(0)",
+            "isolation: isolate",
+          ].join("; ")
+        : "width: 100%;",
     ].join("; ")}
   >
     <fd-global-header

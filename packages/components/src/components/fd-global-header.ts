@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues, TemplateResult } from "lit";
 import type {
+  FdHeaderSearch,
   FdHeaderSearchActivateDetail,
   FdHeaderSearchInputDetail,
   FdHeaderSearchItem,
@@ -76,6 +77,8 @@ const COMPACT_MOBILE_BREAKPOINT = 640;
 const MOBILE_BREAKPOINT_QUERY = `(max-width: ${MOBILE_BREAKPOINT}px)`;
 const HOVER_INTENT_MS = 140;
 const PREVIEW_CLEAR_MS = 180;
+// Desktop panels intentionally open in the top-level overview state.
+const DEFAULT_PANEL_SECTION_INDEX: number | null = null;
 const PANEL_FOCUSABLE_SELECTOR = "[data-panel-focusable='true']";
 const FOCUSABLE_SELECTOR = [
   "a[href]",
@@ -96,10 +99,6 @@ function isLinkItem(
   item: FdGlobalHeaderNavigationItem,
 ): item is FdGlobalHeaderLinkItem {
   return item.kind === "link";
-}
-
-function getDefaultSectionIndex(panel: FdGlobalHeaderPanelItem | null) {
-  return null;
 }
 
 function getSectionOverview(section: FdGlobalHeaderSection | null) {
@@ -251,8 +250,20 @@ export class FdGlobalHeader extends LitElement {
 
   static styles = css`
     :host {
+      --fd-global-header-color-host: var(--fd-global-header-text-host, #10243e);
+      --fd-global-header-color-text-primary: var(--fdic-text-primary, #212123);
+      --fd-global-header-color-text-secondary: var(--fdic-text-secondary, #595961);
+      --fd-global-header-color-text-inverted: var(--fdic-text-inverted, #ffffff);
+      --fd-global-header-color-surface-base: var(--fdic-background-base, #ffffff);
+      --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, #003256);
+      --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, #0b466f);
+      --fd-global-header-color-accent: var(--fdic-border-input-focus, #38b6ff);
+      --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, #84dbff);
+      --fd-global-header-color-border-subtle: var(--fdic-border-divider, #bdbdbf);
+      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, #f7fafc);
+      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, #edf3f7);
       display: block;
-      color: #10243e;
+      color: var(--fd-global-header-color-host);
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -295,7 +306,7 @@ export class FdGlobalHeader extends LitElement {
       position: relative;
       z-index: 20;
       border-bottom: 0;
-      background: #ffffff;
+      background: var(--fd-global-header-color-surface-base);
     }
 
     .shell {
@@ -304,8 +315,8 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .masthead {
-      background: #003256;
-      color: #ffffff;
+      background: var(--fd-global-header-color-surface-brand);
+      color: var(--fd-global-header-color-text-inverted);
       min-height: 5.1875rem;
       padding: 1.5rem 0;
       display: flex;
@@ -382,8 +393,8 @@ export class FdGlobalHeader extends LitElement {
       --fd-button-min-width: 2.75rem;
       --fd-button-icon-only-size: 2.75rem;
       --fd-button-radius: 0;
-      --fd-button-focus-gap: #003256;
-      --fd-button-focus-ring: #38b6ff;
+      --fd-button-focus-gap: var(--fd-global-header-color-surface-brand);
+      --fd-button-focus-ring: var(--fd-global-header-color-accent);
       flex: none;
     }
 
@@ -429,8 +440,8 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .top-nav {
-      background: #003256;
-      border-bottom: 6px solid #84dbff;
+      background: var(--fd-global-header-color-surface-brand);
+      border-bottom: 6px solid var(--fd-global-header-color-accent-soft);
       position: relative;
       z-index: 61;
     }
@@ -464,7 +475,7 @@ export class FdGlobalHeader extends LitElement {
       padding: 0 1.125rem;
       border: 0;
       background: transparent;
-      color: #ffffff;
+      color: var(--fd-global-header-color-text-inverted);
       font-size: 1.125rem;
       font-weight: 400;
       line-height: 1.375;
@@ -484,7 +495,7 @@ export class FdGlobalHeader extends LitElement {
       inset-block: 0;
       inset-inline-start: 0;
       width: var(--top-nav-indicator-width, 0px);
-      background: #ffffff;
+      background: var(--fd-global-header-color-surface-base);
       pointer-events: none;
       opacity: 0;
       transform: translateX(var(--top-nav-indicator-offset, 0px));
@@ -506,7 +517,7 @@ export class FdGlobalHeader extends LitElement {
       top: 0;
       bottom: 0;
       width: 4px;
-      background: #38b6ff;
+      background: var(--fd-global-header-color-accent);
     }
     .top-nav-label::after {
       content: attr(data-label);
@@ -533,7 +544,7 @@ export class FdGlobalHeader extends LitElement {
       inset-inline: 0;
       bottom: -6px;
       height: 4px;
-      background: #38b6ff;
+      background: var(--fd-global-header-color-accent);
       opacity: 0;
       transition: opacity 120ms ease;
     }
@@ -543,7 +554,7 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button:hover,
     .top-nav-button:focus-visible,
     .top-nav-button[aria-expanded="true"] {
-      background-color: #0b466f;
+      background-color: var(--fd-global-header-color-surface-brand-hover);
       outline: none;
     }
 
@@ -559,13 +570,15 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button:focus-visible,
     .top-nav-link[data-manual-focus-visible="true"],
     .top-nav-button[data-manual-focus-visible="true"] {
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+      box-shadow:
+        0 0 0 2px var(--fd-global-header-color-surface-base),
+        0 0 0 4px var(--fd-global-header-color-accent);
     }
 
     .top-nav-button[data-active="true"],
     .top-nav-button[data-active="true"]:hover {
       background-color: transparent;
-      color: #003256;
+      color: var(--fd-global-header-color-surface-brand);
       font-weight: 600;
       box-shadow: none;
       z-index: 2;
@@ -574,9 +587,11 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button[data-active="true"]:focus-visible,
     .top-nav-button[data-active="true"][data-manual-focus-visible="true"] {
       background-color: transparent;
-      color: #003256;
+      color: var(--fd-global-header-color-surface-brand);
       font-weight: 600;
-      box-shadow: 0 0 0 2px #003256, 0 0 0 4px #38b6ff;
+      box-shadow:
+        0 0 0 2px var(--fd-global-header-color-surface-brand),
+        0 0 0 4px var(--fd-global-header-color-accent);
       z-index: 2;
     }
     .top-nav-button[data-active="true"]::after {
@@ -615,28 +630,52 @@ export class FdGlobalHeader extends LitElement {
       pointer-events: auto;
     }
 
-    .mega-menu-inner {
+    .mega-menu-frame {
       --mega-col-1-surface: rgba(255, 255, 255, 0.84);
       --mega-col-2-surface: rgba(245, 250, 255, 0.5);
       --mega-col-3-surface: rgba(232, 242, 249, 0.24);
+      position: relative;
+      width: min(90rem, calc(100% - 5rem));
+    }
+
+    .mega-menu-frame[data-visible-columns="1"] {
+      --mega-col-2-surface: rgba(245, 250, 255, 0.4);
+      --mega-col-3-surface: rgba(232, 242, 249, 0.14);
+    }
+
+    .mega-menu-frame[data-visible-columns="2"] {
+      --mega-col-3-surface: rgba(232, 242, 249, 0.16);
+    }
+
+    .mega-menu-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .mega-menu-viewport {
+      position: relative;
+      z-index: 1;
+      transition: height 160ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .mega-menu-viewport[data-height-animating="true"] {
+      overflow: hidden;
+    }
+
+    .mega-menu-inner {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       min-height: 14.8125rem;
       position: relative;
       isolation: isolate;
       clip-path: inset(-40px -40px -40px -40px);
-      width: min(90rem, calc(100% - 5rem));
+      width: 100%;
       -webkit-backdrop-filter: blur(16px) saturate(165%);
       backdrop-filter: blur(16px) saturate(165%);
-    }
-
-    .mega-menu-inner[data-visible-columns="1"] {
-      --mega-col-2-surface: rgba(245, 250, 255, 0.4);
-      --mega-col-3-surface: rgba(232, 242, 249, 0.14);
-    }
-
-    .mega-menu-inner[data-visible-columns="2"] {
-      --mega-col-3-surface: rgba(232, 242, 249, 0.16);
     }
 
     .mega-menu-inner::before {
@@ -662,7 +701,6 @@ export class FdGlobalHeader extends LitElement {
       border-style: solid;
       border-color: rgba(9, 53, 84, 0.14);
       border-width: 0 1px 1px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
       z-index: 0;
     }
 
@@ -680,7 +718,7 @@ export class FdGlobalHeader extends LitElement {
       top: var(--column-rail-top, 0px);
       width: 4px;
       height: var(--column-rail-height, 0px);
-      background: #38b6ff;
+      background: var(--fd-global-header-color-accent);
       opacity: var(--column-rail-opacity, 0);
       transition:
         top 180ms ease,
@@ -689,15 +727,15 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mega-col--l1 {
-      background: #ffffff;
+      background: var(--fd-global-header-color-surface-base);
     }
 
     .mega-col--l2 {
-      background: #f7fafc;
+      background: var(--fd-global-header-color-surface-l2);
     }
 
     .mega-col--l3 {
-      background: #edf3f7;
+      background: var(--fd-global-header-color-surface-l3);
     }
 
     .menu-heading {
@@ -732,7 +770,7 @@ export class FdGlobalHeader extends LitElement {
       min-height: 2.75rem;
       border: 0;
       background: transparent;
-      color: #212123;
+      color: var(--fd-global-header-color-text-primary);
       text-align: left;
       border-radius: 0;
       cursor: pointer;
@@ -777,7 +815,7 @@ export class FdGlobalHeader extends LitElement {
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.4;
-      color: #212123;
+      color: var(--fd-global-header-color-text-primary);
     }
 
     .menu-item-link--l1:hover .menu-item-label,
@@ -800,7 +838,7 @@ export class FdGlobalHeader extends LitElement {
     .menu-description {
       margin: 0;
       padding: 0.5rem 1.5rem 0.75rem;
-      color: #595961;
+      color: var(--fd-global-header-color-text-secondary);
       font-size: 0.9375rem;
       font-weight: 400;
       line-height: 1.45;
@@ -815,7 +853,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .menu-caret {
-      color: #212123;
+      color: var(--fd-global-header-color-text-primary);
       --fd-icon-size: 1.25rem;
       flex: none;
     }
@@ -843,7 +881,7 @@ export class FdGlobalHeader extends LitElement {
     .menu-empty {
       margin: 0;
       padding: 0.5rem 1.5rem;
-      color: #595961;
+      color: var(--fd-global-header-color-text-secondary);
       font-size: 0.9375rem;
       line-height: 1.45;
       opacity: 0.7;
@@ -857,8 +895,8 @@ export class FdGlobalHeader extends LitElement {
       height: 100vh;
       height: 100dvh;
       overflow-y: auto;
-      background: #ffffff;
-      border-inline-end: 1px solid #bdbdbf;
+      background: var(--fd-global-header-color-surface-base);
+      border-inline-end: 1px solid var(--fd-global-header-color-border-subtle);
       transform: translateX(-104%);
       opacity: 0;
       visibility: hidden;
@@ -901,7 +939,7 @@ export class FdGlobalHeader extends LitElement {
       align-items: center;
       min-height: 4.75rem;
       padding: 1.25rem 1rem 0.75rem;
-      background: #ffffff;
+      background: var(--fd-global-header-color-surface-base);
     }
 
     .mobile-drawer-close {
@@ -912,8 +950,8 @@ export class FdGlobalHeader extends LitElement {
       height: 2.75rem;
       border: 0;
       border-radius: 4px;
-      background: #003256;
-      color: #ffffff;
+      background: var(--fd-global-header-color-surface-brand);
+      color: var(--fd-global-header-color-text-inverted);
       cursor: pointer;
       padding: 0;
     }
@@ -924,14 +962,16 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-drawer-close:focus-visible {
       outline: none;
-      box-shadow: inset 0 0 0 2px rgba(0, 94, 162, 0.35), inset 0 0 0 4px #38b6ff;
+      box-shadow:
+        inset 0 0 0 2px rgba(0, 94, 162, 0.35),
+        inset 0 0 0 4px var(--fd-global-header-color-accent);
     }
 
     .mobile-drawer-header {
       display: grid;
       gap: 0;
       padding: 0;
-      border-bottom: 1px solid #bdbdbf;
+      border-bottom: 1px solid var(--fd-global-header-color-border-subtle);
     }
 
     .mobile-back {
@@ -942,8 +982,8 @@ export class FdGlobalHeader extends LitElement {
       min-height: 2.75rem;
       padding: 0.5rem 1rem;
       border: 0;
-      background: #ffffff;
-      color: #212123;
+      background: var(--fd-global-header-color-surface-base);
+      color: var(--fd-global-header-color-text-primary);
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.375;
@@ -961,7 +1001,9 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-back:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+      box-shadow:
+        0 0 0 2px var(--fd-global-header-color-surface-base),
+        0 0 0 4px var(--fd-global-header-color-accent);
       background: rgba(0, 110, 190, 0.08);
       position: relative;
       z-index: 1;
@@ -996,7 +1038,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-list > li {
-      border-top: 1px solid #bdbdbf;
+      border-top: 1px solid var(--fd-global-header-color-border-subtle);
     }
 
     .mobile-list > li:first-child {
@@ -1015,8 +1057,8 @@ export class FdGlobalHeader extends LitElement {
       padding: 0.5rem 1rem;
       border: 0;
       border-radius: 0;
-      background: #ffffff;
-      color: #212123;
+      background: var(--fd-global-header-color-surface-base);
+      color: var(--fd-global-header-color-text-primary);
       text-align: left;
       text-decoration: none;
       transition:
@@ -1057,7 +1099,7 @@ export class FdGlobalHeader extends LitElement {
       top: 0;
       bottom: 0;
       width: 4px;
-      background: #38b6ff;
+      background: var(--fd-global-header-color-accent);
       opacity: 0;
       pointer-events: none;
       transition: opacity 120ms ease;
@@ -1093,7 +1135,9 @@ export class FdGlobalHeader extends LitElement {
     .mobile-link:focus-visible,
     .mobile-button:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #38b6ff;
+      box-shadow:
+        0 0 0 2px var(--fd-global-header-color-surface-base),
+        0 0 0 4px var(--fd-global-header-color-accent);
       background: rgba(0, 110, 190, 0.08);
       position: relative;
       z-index: 1;
@@ -1117,7 +1161,7 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-intro {
       padding: 0 1rem 0.75rem;
-      color: #595961;
+      color: var(--fd-global-header-color-text-secondary);
       font-size: 0.9375rem;
       line-height: 1.45;
     }
@@ -1126,7 +1170,7 @@ export class FdGlobalHeader extends LitElement {
       font-size: 1rem;
       font-weight: inherit;
       line-height: inherit;
-      color: #212123;
+      color: var(--fd-global-header-color-text-primary);
       white-space: normal;
     }
 
@@ -1135,7 +1179,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-item-meta {
-      color: #595961;
+      color: var(--fd-global-header-color-text-secondary);
       font-size: 0.9375rem;
       line-height: 1.45;
     }
@@ -1158,6 +1202,9 @@ export class FdGlobalHeader extends LitElement {
       }
     }
 
+    /* These host-attribute selectors are the primary responsive path.
+       JS sets them from observed component width so the header can adapt
+       to container-sized layouts, not only viewport-sized layouts. */
     :host([mobile-layout]) .shell {
       width: min(100%, calc(100% - 2rem));
     }
@@ -1220,8 +1267,8 @@ export class FdGlobalHeader extends LitElement {
       width: min(88vw, 22.5rem);
       max-width: 100vw;
       display: block;
-      background: #ffffff;
-      border-inline-start: 1px solid #bdbdbf;
+      background: var(--fd-global-header-color-surface-base);
+      border-inline-start: 1px solid var(--fd-global-header-color-border-subtle);
       box-shadow: -18px 0 48px rgba(0, 18, 32, 0.24);
       transform: translateX(104%);
       opacity: 0;
@@ -1251,10 +1298,13 @@ export class FdGlobalHeader extends LitElement {
       width: 100%;
       height: 100%;
       padding: 1rem;
-      background: #ffffff;
+      background: var(--fd-global-header-color-surface-base);
       overflow: hidden;
     }
 
+    /* These media queries intentionally mirror the host-attribute rules above.
+       They preserve a pure-CSS viewport fallback when ResizeObserver-driven
+       responsive attributes are unavailable or have not run yet. */
     @media (max-width: 768px) {
       .shell {
         width: min(100%, calc(100% - 2rem));
@@ -1320,8 +1370,8 @@ export class FdGlobalHeader extends LitElement {
         width: min(88vw, 22.5rem);
         max-width: 100vw;
         display: block;
-        background: #ffffff;
-        border-inline-start: 1px solid #bdbdbf;
+        background: var(--fd-global-header-color-surface-base);
+        border-inline-start: 1px solid var(--fd-global-header-color-border-subtle);
         box-shadow: -18px 0 48px rgba(0, 18, 32, 0.24);
         transform: translateX(104%);
         opacity: 0;
@@ -1351,7 +1401,7 @@ export class FdGlobalHeader extends LitElement {
         width: 100%;
         height: 100%;
         padding: 1rem;
-        background: #ffffff;
+        background: var(--fd-global-header-color-surface-base);
         overflow: hidden;
       }
     }
@@ -1371,6 +1421,15 @@ export class FdGlobalHeader extends LitElement {
       .top-nav-link[aria-current="page"],
       .top-nav-button[data-active="true"] {
         border-bottom-color: Highlight;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
       }
     }
   `;
@@ -1396,6 +1455,7 @@ export class FdGlobalHeader extends LitElement {
 
   private _baseId: string;
   private _mobileMediaQuery: MediaQueryList | null = null;
+  private _reducedMotionMediaQuery: MediaQueryList | null = null;
   private _resizeObserver: ResizeObserver | null = null;
   private _hoverTimer: number | null = null;
   private _closeTimer: number | null = null;
@@ -1403,13 +1463,34 @@ export class FdGlobalHeader extends LitElement {
   private _lastMobileToggle: "menu" | "search" | null = null;
   private _lastMobilePath: MobileDrillPath = [];
   private _lastMeasuredWidth = 0;
+  private _prefersReducedMotionEnabled = false;
+  private _capturedMegaMenuHeight = 0;
+  private _shouldAnimateMegaMenuHeight = false;
+  private _megaMenuHeightAnimationTarget: HTMLElement | null = null;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
   private readonly _onDocumentKeyDownBound = this._handleDocumentKeyDown.bind(this);
+  private readonly _onMegaMenuHeightTransitionEndBound = (event: Event) => {
+    const transitionEvent = event as TransitionEvent;
+    if (
+      "propertyName" in transitionEvent &&
+      transitionEvent.propertyName &&
+      transitionEvent.propertyName !== "height"
+    ) {
+      return;
+    }
+
+    this._finishMegaMenuHeightAnimation(event.currentTarget as HTMLElement | null);
+  };
   private readonly _onMobileMediaChangeBound = (
     event: MediaQueryListEvent,
   ) => {
     this._syncResponsiveState(undefined, event.matches);
+  };
+  private readonly _onReducedMotionChangeBound = (
+    event: MediaQueryListEvent,
+  ) => {
+    this._prefersReducedMotionEnabled = event.matches;
   };
 
   constructor() {
@@ -1438,11 +1519,19 @@ export class FdGlobalHeader extends LitElement {
   override connectedCallback() {
     super.connectedCallback();
     this._mobileMediaQuery = window.matchMedia(MOBILE_BREAKPOINT_QUERY);
+    this._reducedMotionMediaQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    this._prefersReducedMotionEnabled = this._reducedMotionMediaQuery.matches;
     this._startObservingWidth();
     this._syncResponsiveState(undefined, this._mobileMediaQuery.matches);
     this._mobileMediaQuery.addEventListener(
       "change",
       this._onMobileMediaChangeBound,
+    );
+    this._reducedMotionMediaQuery.addEventListener(
+      "change",
+      this._onReducedMotionChangeBound,
     );
     document.addEventListener(
       "pointerdown",
@@ -1456,12 +1545,19 @@ export class FdGlobalHeader extends LitElement {
     super.disconnectedCallback();
     this._clearHoverTimer();
     this._clearCloseTimer();
+    this._finishMegaMenuHeightAnimation();
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
     this._mobileMediaQuery?.removeEventListener(
       "change",
       this._onMobileMediaChangeBound,
     );
+    this._mobileMediaQuery = null;
+    this._reducedMotionMediaQuery?.removeEventListener(
+      "change",
+      this._onReducedMotionChangeBound,
+    );
+    this._reducedMotionMediaQuery = null;
     document.removeEventListener(
       "pointerdown",
       this._onDocumentPointerDownBound,
@@ -1474,6 +1570,8 @@ export class FdGlobalHeader extends LitElement {
     if (changed.has("navigation")) {
       this._normalizeNavigationState();
     }
+
+    this._captureMegaMenuHeight(changed);
   }
 
   override updated(changed: PropertyValues<this>) {
@@ -1483,10 +1581,12 @@ export class FdGlobalHeader extends LitElement {
       changed.has("_selectedSectionIndex") ||
       changed.has("_previewItemIndex") ||
       changed.has("_activeChildIndex") ||
-      changed.has("_previewingOverview") ||
-      changed.has("_topNavFocusIndex")
+      changed.has("_previewingOverview")
     ) {
-      this.updateComplete.then(() => this._syncColumnRails());
+      this.updateComplete.then(() => {
+        this._syncMegaMenuHeight();
+        this._syncColumnRails();
+      });
     }
 
     if (changed.has("_menuOpen") || changed.has("_activePanelId")) {
@@ -1499,9 +1599,7 @@ export class FdGlobalHeader extends LitElement {
 
     if (changed.has("_mobileSearchOpen") && this._mobileSearchOpen) {
       this.updateComplete.then(() => {
-        const mobileSearch = this.shadowRoot?.querySelector<any>(
-          "[data-search-surface='mobile']",
-        );
+        const mobileSearch = this._getHeaderSearchHost("mobile");
         mobileSearch?.focus();
         mobileSearch?.select?.();
       });
@@ -1530,6 +1628,114 @@ export class FdGlobalHeader extends LitElement {
       });
     });
     this._resizeObserver.observe(this);
+  }
+
+  private _prefersReducedMotion() {
+    return this._prefersReducedMotionEnabled;
+  }
+
+  private _clearMegaMenuHeightAnimationListener(target = this._megaMenuHeightAnimationTarget) {
+    if (!target) {
+      return;
+    }
+
+    target.removeEventListener(
+      "transitionend",
+      this._onMegaMenuHeightTransitionEndBound,
+    );
+    if (this._megaMenuHeightAnimationTarget === target) {
+      this._megaMenuHeightAnimationTarget = null;
+    }
+  }
+
+  private _finishMegaMenuHeightAnimation(target = this._megaMenuHeightAnimationTarget) {
+    if (!target) {
+      return;
+    }
+
+    this._clearMegaMenuHeightAnimationListener(target);
+    target.removeAttribute("data-height-animating");
+    target.style.removeProperty("height");
+  }
+
+  private _resetMegaMenuHeight() {
+    const menuViewport = this.shadowRoot?.querySelector<HTMLElement>(".mega-menu-viewport");
+    if (menuViewport) {
+      this._finishMegaMenuHeightAnimation(menuViewport);
+      return;
+    }
+
+    this._finishMegaMenuHeightAnimation();
+  }
+
+  private _captureMegaMenuHeight(changed: PropertyValues<this>) {
+    const menuStateChanged =
+      changed.has("_menuOpen") ||
+      changed.has("_activePanelId") ||
+      changed.has("_selectedSectionIndex") ||
+      changed.has("_previewItemIndex") ||
+      changed.has("_activeChildIndex") ||
+      changed.has("_previewingOverview");
+
+    if (!menuStateChanged) {
+      this._shouldAnimateMegaMenuHeight = false;
+      this._capturedMegaMenuHeight = 0;
+      return;
+    }
+
+    const wasMenuOpen = changed.has("_menuOpen")
+      ? Boolean(changed.get("_menuOpen"))
+      : this._menuOpen;
+    const menuViewport = this.shadowRoot?.querySelector<HTMLElement>(".mega-menu-viewport");
+
+    this._capturedMegaMenuHeight = menuViewport
+      ? Math.max(menuViewport.getBoundingClientRect().height, 0)
+      : 0;
+    this._shouldAnimateMegaMenuHeight =
+      wasMenuOpen &&
+      this._menuOpen &&
+      !this._isMobile &&
+      !this._prefersReducedMotion() &&
+      this._capturedMegaMenuHeight > 0;
+  }
+
+  private _syncMegaMenuHeight() {
+    const menuViewport = this.shadowRoot?.querySelector<HTMLElement>(".mega-menu-viewport");
+    const menuInner = this.shadowRoot?.querySelector<HTMLElement>(".mega-menu-inner");
+    if (!menuViewport || !menuInner || !this._menuOpen || this._isMobile) {
+      this._shouldAnimateMegaMenuHeight = false;
+      this._capturedMegaMenuHeight = 0;
+      this._resetMegaMenuHeight();
+      return;
+    }
+
+    const nextHeight = Math.max(
+      menuInner.scrollHeight,
+      menuInner.getBoundingClientRect().height,
+      0,
+    );
+    const startHeight = this._capturedMegaMenuHeight;
+    const shouldAnimate =
+      this._shouldAnimateMegaMenuHeight && Math.abs(startHeight - nextHeight) > 1;
+
+    this._shouldAnimateMegaMenuHeight = false;
+    this._capturedMegaMenuHeight = nextHeight;
+    if (!shouldAnimate) {
+      this._finishMegaMenuHeightAnimation(menuViewport);
+      return;
+    }
+
+    this._clearMegaMenuHeightAnimationListener(menuViewport);
+    menuViewport.setAttribute("data-height-animating", "true");
+    menuViewport.style.height = `${startHeight}px`;
+    void menuViewport.offsetHeight;
+    this._megaMenuHeightAnimationTarget = menuViewport;
+    menuViewport.addEventListener(
+      "transitionend",
+      this._onMegaMenuHeightTransitionEndBound,
+      { once: true },
+    );
+    menuViewport.style.height = `${nextHeight}px`;
   }
 
   private _syncResponsiveState(
@@ -1576,8 +1782,14 @@ export class FdGlobalHeader extends LitElement {
 
     if (!this._activePanelId || !this._getPanelById(this._activePanelId)) {
       this._activePanelId = firstPanel.id;
-      this._resetPanelSelection(firstPanel);
+      this._resetPanelSelection();
     }
+  }
+
+  private _getHeaderSearchHost(surface: HeaderSearchSurface) {
+    return this.shadowRoot?.querySelector<FdHeaderSearch>(
+      `[data-search-surface='${surface}']`,
+    );
   }
 
   private _clearHoverTimer() {
@@ -1683,7 +1895,7 @@ export class FdGlobalHeader extends LitElement {
 
     return Boolean(
       target.closest(
-        "input, textarea, select, [contenteditable=''], [contenteditable='true'], [role='textbox'], [role='searchbox'], [role='combobox']",
+        "[contenteditable]:not([contenteditable='false']), [role='textbox'], [role='searchbox'], [role='combobox']",
       ),
     );
   }
@@ -1707,9 +1919,7 @@ export class FdGlobalHeader extends LitElement {
 
     this._closeMenu();
     this.updateComplete.then(() => {
-      const desktopSearch = this.shadowRoot?.querySelector<any>(
-        "[data-search-surface='desktop']",
-      );
+      const desktopSearch = this._getHeaderSearchHost("desktop");
       desktopSearch?.focus();
       desktopSearch?.select?.();
     });
@@ -1760,8 +1970,8 @@ export class FdGlobalHeader extends LitElement {
     return this.search.items || createHeaderSearchItemsFromNavigation(this.navigation);
   }
 
-  private _resetPanelSelection(panel: FdGlobalHeaderPanelItem | null = this._getActivePanel()) {
-    this._selectedSectionIndex = getDefaultSectionIndex(panel);
+  private _resetPanelSelection() {
+    this._selectedSectionIndex = DEFAULT_PANEL_SECTION_INDEX;
     this._selectedItemIndex = 0;
     this._previewItemIndex = null;
     this._activeChildIndex = null;
@@ -1775,7 +1985,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     this._activePanelId = panel.id;
-    this._resetPanelSelection(panel);
+    this._resetPanelSelection();
     const navIndex = this.navigation.findIndex(
       (item) => isPanelItem(item) && item.id === panelId,
     );
@@ -1827,11 +2037,11 @@ export class FdGlobalHeader extends LitElement {
           : this._activePanelId
             ? [this._activePanelId]
             : [];
-    } else {
-      this._lastMobilePath = this._mobilePath;
-      this.updateComplete.then(() => this._getMobileToggle("menu")?.focus());
+      this._mobileMenuOpen = true;
+      return;
     }
-    this._mobileMenuOpen = nextOpen;
+
+    this._closeMobileMenu({ restoreFocus: true });
   }
 
   private _toggleMobileSearch(forceOpen?: boolean) {
@@ -1842,13 +2052,36 @@ export class FdGlobalHeader extends LitElement {
     const nextOpen =
       typeof forceOpen === "boolean" ? forceOpen : !this._mobileSearchOpen;
     this._lastMobileToggle = "search";
-    this._mobileSearchOpen = nextOpen;
     if (nextOpen) {
+      this._mobileSearchOpen = true;
       this._mobileMenuOpen = false;
       return;
     }
 
-    this.updateComplete.then(() => this._getMobileToggle("search")?.focus());
+    this._closeMobileSearch({ restoreFocus: true });
+  }
+
+  private _closeMobileMenu({ restoreFocus = false } = {}) {
+    if (!this._mobileMenuOpen) {
+      return;
+    }
+
+    this._lastMobilePath = this._mobilePath;
+    this._mobileMenuOpen = false;
+    if (restoreFocus) {
+      this.updateComplete.then(() => this._getMobileToggle("menu")?.focus());
+    }
+  }
+
+  private _closeMobileSearch({ restoreFocus = false } = {}) {
+    if (!this._mobileSearchOpen) {
+      return;
+    }
+
+    this._mobileSearchOpen = false;
+    if (restoreFocus) {
+      this.updateComplete.then(() => this._getMobileToggle("search")?.focus());
+    }
   }
 
   private _handleDocumentPointerDown(event: PointerEvent) {
@@ -1864,11 +2097,11 @@ export class FdGlobalHeader extends LitElement {
     }
 
     if (this._mobileMenuOpen) {
-      this._mobileMenuOpen = false;
+      this._closeMobileMenu();
     }
 
     if (this._mobileSearchOpen) {
-      this._toggleMobileSearch(false);
+      this._closeMobileSearch();
     }
   }
 
@@ -1889,15 +2122,13 @@ export class FdGlobalHeader extends LitElement {
     if (event.key === "Escape") {
       if (this._mobileSearchOpen) {
         event.preventDefault();
-        this._toggleMobileSearch(false);
-        this.updateComplete.then(() => this._getMobileToggle("search")?.focus());
+        this._closeMobileSearch({ restoreFocus: true });
         return;
       }
 
       if (this._mobileMenuOpen) {
         event.preventDefault();
-        this._mobileMenuOpen = false;
-        this.updateComplete.then(() => this._getMobileToggle("menu")?.focus());
+        this._closeMobileMenu({ restoreFocus: true });
         return;
       }
 
@@ -2059,6 +2290,20 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _setPreviewItem(index: number, restoreFocus = false) {
+    if (
+      this._previewItemIndex === index &&
+      !this._previewingOverview &&
+      this._activeChildIndex == null
+    ) {
+      if (restoreFocus) {
+        this._focusColumnItem(
+          ".mega-col--l2",
+          `.menu-item-link[data-index='${index}']`,
+        );
+      }
+      return;
+    }
+
     this._previewItemIndex = index;
     this._activeChildIndex = null;
     this._previewingOverview = false;
@@ -2070,6 +2315,17 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _setPreviewOverview(restoreFocus = false) {
+    if (
+      this._previewItemIndex == null &&
+      this._activeChildIndex == null &&
+      this._previewingOverview
+    ) {
+      if (restoreFocus) {
+        this._focusColumnItem(".mega-col--l2", ".menu-item-link--overview");
+      }
+      return;
+    }
+
     this._previewItemIndex = null;
     this._activeChildIndex = null;
     this._previewingOverview = true;
@@ -2222,10 +2478,12 @@ export class FdGlobalHeader extends LitElement {
   private _handleDesktopFocusOut() {
     window.requestAnimationFrame(() => {
       const activeElement = this.shadowRoot?.activeElement || document.activeElement;
+      const topNav = this.shadowRoot?.querySelector(".top-nav");
+      const megaMenu = this.shadowRoot?.querySelector(".mega-menu");
       if (
         activeElement &&
-        (this.shadowRoot?.querySelector(".top-nav")?.contains(activeElement) ||
-          this.shadowRoot?.querySelector(".mega-menu")?.contains(activeElement))
+        ((topNav && this._isNodeWithinContainer(topNav, activeElement)) ||
+          (megaMenu && this._isNodeWithinContainer(megaMenu, activeElement)))
       ) {
         return;
       }
@@ -2289,7 +2547,7 @@ export class FdGlobalHeader extends LitElement {
   ) {
     event.stopPropagation();
     if (event.detail.surface === "mobile") {
-      this._mobileSearchOpen = false;
+      this._closeMobileSearch();
     }
   }
 
@@ -2327,11 +2585,127 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _getMobileFocusableElements() {
-    return Array.from(
-      this.renderRoot.querySelectorAll<HTMLElement>(
-        ".mobile-drawer a[href], .mobile-drawer button, .mobile-drawer [tabindex]:not([tabindex='-1'])",
-      ),
-    ).filter((element) => !element.hasAttribute("hidden"));
+    const drawerSurface =
+      this.shadowRoot?.querySelector<HTMLElement>(".mobile-drawer") || null;
+    return this._getFocusableElementsWithin(drawerSurface);
+  }
+
+  private _getFocusableElementsWithin(root: ParentNode | null) {
+    if (!root) {
+      return [];
+    }
+
+    const focusableElements: HTMLElement[] = [];
+    const collect = (node: ParentNode) => {
+      const children = "children" in node ? Array.from(node.children) : [];
+
+      children.forEach((child) => {
+        const element = child as HTMLElement;
+        if (this._isFocusableElement(element)) {
+          focusableElements.push(element);
+        }
+
+        if (element.shadowRoot) {
+          collect(element.shadowRoot);
+        }
+
+        collect(element);
+      });
+    };
+
+    collect(root);
+    return focusableElements;
+  }
+
+  private _isFocusableElement(element: HTMLElement) {
+    if (
+      !element.matches(FOCUSABLE_SELECTOR) ||
+      element.hasAttribute("disabled") ||
+      element.getAttribute("tabindex") === "-1" ||
+      element.closest("[hidden]")
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private _getDeepActiveElement() {
+    let activeElement =
+      this.shadowRoot?.activeElement || document.activeElement;
+
+    while (
+      activeElement instanceof HTMLElement &&
+      activeElement.shadowRoot?.activeElement
+    ) {
+      activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return activeElement;
+  }
+
+  private _isNodeWithinContainer(container: Node, node: Node | null) {
+    let current: Node | null = node;
+
+    while (current) {
+      if (current === container) {
+        return true;
+      }
+
+      const root = current.getRootNode();
+      current =
+        current.parentNode || (root instanceof ShadowRoot ? root.host : null);
+    }
+
+    return false;
+  }
+
+  private _handleMobileOverlayKeydown(
+    event: KeyboardEvent,
+    overlay: "menu" | "search",
+  ) {
+    if (event.key !== "Tab") {
+      return;
+    }
+
+    const container =
+      overlay === "menu"
+        ? this.shadowRoot?.querySelector<HTMLElement>(".mobile-drawer")
+        : this.shadowRoot?.querySelector<HTMLElement>(".mobile-search-shell");
+    if (!container) {
+      return;
+    }
+
+    const focusableElements = this._getFocusableElementsWithin(container);
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      container.focus();
+      return;
+    }
+
+    const activeElement = this._getDeepActiveElement();
+    const currentIndex = focusableElements.findIndex(
+      (element) => element === activeElement,
+    );
+    const isWithinContainer = this._isNodeWithinContainer(
+      container,
+      activeElement,
+    );
+    const firstFocusable = focusableElements[0]!;
+    const lastFocusable = focusableElements[focusableElements.length - 1]!;
+
+    if (event.shiftKey) {
+      if (!isWithinContainer || currentIndex <= 0) {
+        event.preventDefault();
+        lastFocusable.focus();
+      }
+      return;
+    }
+
+    if (!isWithinContainer || currentIndex === focusableElements.length - 1) {
+      event.preventDefault();
+      firstFocusable.focus();
+    }
   }
 
   private _focusFirstMobileControl() {
@@ -2419,6 +2793,9 @@ export class FdGlobalHeader extends LitElement {
     }
 
     const isActive = this._activePanelId === item.id && this._menuOpen;
+    const controlsId = this._getActivePanel()
+      ? `${this._baseId}-mega-menu`
+      : nothing;
 
     return html`
       <li class="top-nav-item">
@@ -2427,13 +2804,14 @@ export class FdGlobalHeader extends LitElement {
           class="top-nav-button"
           type="button"
           aria-expanded=${String(isActive)}
-          aria-controls=${`${this._baseId}-mega-menu`}
+          aria-controls=${controlsId}
           data-panel-trigger=${item.id}
           data-top-nav-index=${String(index)}
           data-active=${String(isActive)}
           @blur=${this._clearTopNavManualFocusVisible}
           @click=${() => this._handleTopNavClick(item, index)}
           @pointerenter=${() => this._handleTopNavPointerEnter(item, index)}
+          @pointerleave=${this._clearHoverTimer}
           @keydown=${(event: KeyboardEvent) =>
             this._handleTopNavKeydown(event, item, index)}
         >
@@ -2493,9 +2871,11 @@ export class FdGlobalHeader extends LitElement {
         @keydown=${this._handlePanelKeydown}
       >
         <div
-          class="shell mega-menu-inner"
+          class="shell mega-menu-frame"
           data-visible-columns=${String(visibleColumnCount)}
         >
+          <div class="mega-menu-viewport">
+          <div class="mega-menu-inner">
           <section class="mega-col mega-col--l1" part="panel-column">
             <h2 class="menu-heading">Menu sections</h2>
             <ul class="menu-list" role="list">
@@ -2699,6 +3079,8 @@ export class FdGlobalHeader extends LitElement {
                 </section>
               `
             : nothing}
+          </div>
+          </div>
         </div>
       </section>
     `;
@@ -2740,20 +3122,7 @@ export class FdGlobalHeader extends LitElement {
     `;
   }
 
-  private _renderMobileOverview(label: string, href: string | undefined, description: string) {
-    return html`
-      <li>
-        <a class="mobile-overview-link" href=${href || "#"}>
-          <span class="mobile-item-label">${label}</span>
-        </a>
-        ${description
-          ? html`<div class="mobile-intro">${description}</div>`
-          : nothing}
-      </li>
-    `;
-  }
-
-  private _renderMobileCurrentItem(
+  private _renderMobileOverviewItem(
     label: string,
     href: string | undefined,
     description: string | undefined,
@@ -2849,7 +3218,7 @@ export class FdGlobalHeader extends LitElement {
         : item
           ? html`
               <ul class="mobile-list" role="list">
-                ${this._renderMobileCurrentItem(
+                ${this._renderMobileOverviewItem(
                   item.label,
                   item.href,
                   item.description,
@@ -2868,7 +3237,7 @@ export class FdGlobalHeader extends LitElement {
           : section
             ? html`
                 <ul class="mobile-list" role="list">
-                  ${this._renderMobileCurrentItem(
+                  ${this._renderMobileOverviewItem(
                     section.label,
                     section.href || section.overviewHref,
                     getSectionMenuDescription(
@@ -2892,7 +3261,7 @@ export class FdGlobalHeader extends LitElement {
             : html`
                 <ul class="mobile-list" role="list">
                   ${panel.sections.length > 1 && panel.href
-                    ? this._renderMobileOverview(
+                    ? this._renderMobileOverviewItem(
                         this._getMobilePanelLabel(panel),
                         panel.href,
                         panel.description || "",
@@ -2977,7 +3346,15 @@ export class FdGlobalHeader extends LitElement {
           <div
             class="mobile-search-shell"
             data-open=${String(this._mobileSearchOpen)}
+            role=${this._mobileSearchOpen ? "dialog" : nothing}
+            aria-modal=${this._mobileSearchOpen ? "true" : nothing}
+            aria-labelledby=${this._mobileSearchOpen
+              ? `${this._baseId}-mobile-search-title`
+              : nothing}
+            tabindex=${this._mobileSearchOpen ? "-1" : nothing}
             aria-hidden=${String(!this._mobileSearchOpen)}
+            @keydown=${(event: KeyboardEvent) =>
+              this._handleMobileOverlayKeydown(event, "search")}
           >
             <section class="mobile-search-sheet" aria-labelledby=${`${this._baseId}-mobile-search-title`}>
               <h2 id=${`${this._baseId}-mobile-search-title`} class="sr-only">
@@ -3030,14 +3407,21 @@ export class FdGlobalHeader extends LitElement {
           class="mobile-nav-backdrop"
           data-open=${String(this._mobileMenuOpen || this._mobileSearchOpen)}
           @click=${() => {
-            this._mobileMenuOpen = false;
-            this._mobileSearchOpen = false;
+            this._closeMobileMenu();
+            this._closeMobileSearch();
           }}
         ></div>
         <div
           class="mobile-drawer"
           part="mobile-drawer"
           data-open=${String(this._mobileMenuOpen)}
+          role=${this._mobileMenuOpen ? "dialog" : nothing}
+          aria-modal=${this._mobileMenuOpen ? "true" : nothing}
+          aria-label=${this._mobileMenuOpen ? "Navigation menu" : nothing}
+          tabindex=${this._mobileMenuOpen ? "-1" : nothing}
+          aria-hidden=${String(!this._mobileMenuOpen)}
+          @keydown=${(event: KeyboardEvent) =>
+            this._handleMobileOverlayKeydown(event, "menu")}
         >
           <div class="mobile-drawer-top">
             <button
@@ -3045,7 +3429,7 @@ export class FdGlobalHeader extends LitElement {
               type="button"
               aria-label="Close menu"
               @click=${() => {
-                this._mobileMenuOpen = false;
+                this._closeMobileMenu({ restoreFocus: true });
               }}
             >
               <fd-icon name="x" aria-hidden="true"></fd-icon>

@@ -2,11 +2,16 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/register-all.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 import {
+  FdGlobalHeader,
+  type FdGlobalHeaderNavigationItem,
+} from "./fd-global-header.js";
+import {
   createFdGlobalHeaderPrototypeSearch,
   fdGlobalHeaderPrototypeNavigation,
 } from "./fd-global-header.prototype.js";
 
 let mobileMatches = false;
+let prefersReducedMotionMatches = false;
 const resizeCallbacks = new Map<Element, ResizeObserverCallback>();
 
 class ResizeObserverMock {
@@ -37,16 +42,23 @@ function installMatchMediaStub() {
   Object.defineProperty(window, "matchMedia", {
     configurable: true,
     writable: true,
-    value: vi.fn().mockImplementation((query: string) => ({
-      matches: mobileMatches,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    })),
+    value: vi.fn().mockImplementation((query: string) => {
+      const matches =
+        query === "(prefers-reduced-motion: reduce)"
+          ? prefersReducedMotionMatches
+          : mobileMatches;
+
+      return {
+        matches,
+        media: query,
+        onchange: null,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      };
+    }),
   });
 }
 
@@ -104,6 +116,35 @@ function triggerResize(target: Element, width: number) {
   );
 }
 
+function setElementHeightMetrics(
+  target: HTMLElement,
+  getRenderedHeight: () => number,
+  getScrollHeight: () => number = getRenderedHeight,
+) {
+  Object.defineProperty(target, "getBoundingClientRect", {
+    configurable: true,
+    value: () => {
+      const height = getRenderedHeight();
+      return {
+        width: 0,
+        height,
+        top: 0,
+        right: 0,
+        bottom: height,
+        left: 0,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+      };
+    },
+  });
+
+  Object.defineProperty(target, "scrollHeight", {
+    configurable: true,
+    get: getScrollHeight,
+  });
+}
+
 async function nextFrame() {
   await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
@@ -155,6 +196,29 @@ function getMobileSearch(el: HTMLElement) {
   ) as HTMLElement | null;
 }
 
+function getMobileSearchSubmitButton(el: HTMLElement) {
+  return getMobileSearch(el)?.shadowRoot?.querySelector(
+    "fd-button.submit",
+  )?.shadowRoot?.querySelector("button") as HTMLButtonElement | null;
+}
+
+function getStyleText(styles: unknown): string {
+  if (!styles) {
+    return "";
+  }
+
+  if (Array.isArray(styles)) {
+    return styles.map((entry) => getStyleText(entry)).join("\n");
+  }
+
+  if (typeof styles === "object" && styles && "cssText" in styles) {
+    const cssText = (styles as { cssText?: unknown }).cssText;
+    return typeof cssText === "string" ? cssText : "";
+  }
+
+  return "";
+}
+
 function getSearchInput(searchHost: HTMLElement | null) {
   return searchHost?.shadowRoot?.querySelector(".native") as HTMLInputElement | null;
 }
@@ -190,6 +254,7 @@ describe("fd-global-header", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
     mobileMatches = false;
+    prefersReducedMotionMatches = false;
     resizeCallbacks.clear();
     installMatchMediaStub();
     installResizeObserverStub();
@@ -197,6 +262,24 @@ describe("fd-global-header", () => {
 
   it("registers fd-global-header", () => {
     expect(customElements.get("fd-global-header")).toBeDefined();
+  });
+
+  it("suppresses transitions and animations across the component for reduced motion", () => {
+    const stylesText = getStyleText(FdGlobalHeader.styles);
+
+    expect(stylesText).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(stylesText).toContain("*::before");
+    expect(stylesText).toContain("transition: none !important");
+    expect(stylesText).toContain("animation: none !important");
+  });
+
+  it("keeps the mega-menu shadow on a non-clipping frame during height animations", () => {
+    const stylesText = getStyleText(FdGlobalHeader.styles);
+
+    expect(stylesText).toContain(".mega-menu-frame::before");
+    expect(stylesText).toContain("box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22)");
+    expect(stylesText).toContain(".mega-menu-viewport[data-height-animating=\"true\"]");
+    expect(stylesText).toContain("overflow: hidden");
   });
 
   it("generates instance-safe trigger and search control ids", async () => {
@@ -351,6 +434,106 @@ describe("fd-global-header", () => {
     expect(activeL3AfterHover).not.toBeNull();
   });
 
+  it("animates mega-menu height changes when desktop panel content changes", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const menuViewport = el.shadowRoot?.querySelector(
+      ".mega-menu-viewport",
+    ) as HTMLElement | null;
+    const menuInner = el.shadowRoot?.querySelector(
+      ".mega-menu-inner",
+    ) as HTMLElement | null;
+    const newsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1",
+    ) as HTMLButtonElement | null;
+
+    expect(menuViewport).not.toBeNull();
+    expect(menuInner).not.toBeNull();
+
+    let renderedHeight = 248;
+    let contentHeight = renderedHeight;
+
+    if (!menuViewport || !menuInner) {
+      throw new Error("Expected mega-menu viewport and inner surface");
+    }
+
+    setElementHeightMetrics(menuViewport, () => renderedHeight);
+    setElementHeightMetrics(
+      menuInner,
+      () => renderedHeight,
+      () => contentHeight,
+    );
+
+    contentHeight = 396;
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(menuViewport.getAttribute("data-height-animating")).toBe("true");
+    expect(menuViewport.style.height).toBe("396px");
+
+    renderedHeight = 396;
+    menuViewport.dispatchEvent(new Event("transitionend"));
+    await nextFrame();
+
+    expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
+    expect(menuViewport.style.height).toBe("");
+  });
+
+  it("skips mega-menu height animation when reduced motion is requested", async () => {
+    prefersReducedMotionMatches = true;
+
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const menuViewport = el.shadowRoot?.querySelector(
+      ".mega-menu-viewport",
+    ) as HTMLElement | null;
+    const menuInner = el.shadowRoot?.querySelector(
+      ".mega-menu-inner",
+    ) as HTMLElement | null;
+    const newsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1",
+    ) as HTMLButtonElement | null;
+
+    if (!menuViewport || !menuInner) {
+      throw new Error("Expected mega-menu viewport and inner surface");
+    }
+
+    let renderedHeight = 248;
+    let contentHeight = renderedHeight;
+
+    setElementHeightMetrics(menuViewport, () => renderedHeight);
+    setElementHeightMetrics(
+      menuInner,
+      () => renderedHeight,
+      () => contentHeight,
+    );
+
+    contentHeight = 396;
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
+    expect(menuViewport.style.height).toBe("");
+  });
+
   it("Escape closes the desktop mega-menu and returns focus to the active trigger", async () => {
     const el = await createHeader();
     const trigger = getPanelTrigger(el, "news-events");
@@ -430,6 +613,132 @@ describe("fd-global-header", () => {
     expect(trigger?.getAttribute("data-manual-focus-visible")).toBe("true");
   });
 
+  it("supports ArrowLeft and ArrowRight navigation across desktop menu columns", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const newsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1",
+    ) as HTMLButtonElement | null;
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const globalMessages = el.shadowRoot?.querySelector(
+      '.mega-col--l2 a[href="#global-messages"]',
+    ) as HTMLAnchorElement | null;
+
+    globalMessages?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const l3FirstLink = el.shadowRoot?.querySelector(
+      '.mega-col--l3 .menu-item-link[href="#global-digest-faq"]',
+    ) as HTMLAnchorElement | null;
+
+    if (!newsButton || !globalMessages || !l3FirstLink) {
+      throw new Error("Expected desktop mega-menu items across all columns");
+    }
+
+    newsButton.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "ArrowRight",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(globalMessages);
+
+    globalMessages.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "ArrowRight",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(l3FirstLink);
+
+    l3FirstLink.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "ArrowLeft",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(globalMessages);
+
+    globalMessages.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "ArrowLeft",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(newsButton);
+  });
+
+  it("supports Home and End keyboard navigation in the top nav", async () => {
+    const el = await createHeader();
+    const topNavItems = Array.from(
+      el.shadowRoot?.querySelectorAll<HTMLElement>(
+        ".top-nav-button, .top-nav-link",
+      ) || [],
+    );
+    const firstItem = topNavItems[0] || null;
+    const middleItem = topNavItems[1] || null;
+    const lastItem = topNavItems[topNavItems.length - 1] || null;
+
+    if (!firstItem || !middleItem || !lastItem) {
+      throw new Error("Expected top nav items");
+    }
+
+    middleItem.focus();
+    middleItem.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "End",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(lastItem);
+
+    lastItem.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Home",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(firstItem);
+  });
+
   it("moves one shared top-nav active indicator between active tabs", async () => {
     const el = await createHeader();
     const topNavTrack = el.shadowRoot?.querySelector(".top-nav-track") as HTMLElement | null;
@@ -462,6 +771,84 @@ describe("fd-global-header", () => {
     expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-offset:246px");
     expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-width:338px");
   });
+
+  it("waits for hover intent before switching desktop panels", async () => {
+    const el = await createHeader();
+    const newsTrigger = getPanelTrigger(el, "news-events");
+    const careerTrigger = getPanelTrigger(el, "career-development");
+
+    newsTrigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    careerTrigger?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await wait(100);
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(newsTrigger?.getAttribute("aria-expanded")).toBe("true");
+    expect(careerTrigger?.getAttribute("aria-expanded")).toBe("false");
+
+    await wait(60);
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(newsTrigger?.getAttribute("aria-expanded")).toBe("false");
+    expect(careerTrigger?.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("cancels hover intent when the pointer leaves a top-nav trigger before the delay completes", async () => {
+    const el = await createHeader();
+    const newsTrigger = getPanelTrigger(el, "news-events");
+    const careerTrigger = getPanelTrigger(el, "career-development");
+
+    newsTrigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    careerTrigger?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    careerTrigger?.dispatchEvent(
+      new PointerEvent("pointerleave"),
+    );
+    await wait(180);
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(newsTrigger?.getAttribute("aria-expanded")).toBe("true");
+    expect(careerTrigger?.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("closes the desktop mega-menu after focus leaves the header surface", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const megaMenu = el.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+
+    document.body.tabIndex = -1;
+    document.body.focus();
+    megaMenu?.dispatchEvent(
+      new FocusEvent("focusout", {
+        bubbles: true,
+        composed: true,
+        relatedTarget: document.body,
+      }),
+    );
+    await nextFrame();
+    await wait(220);
+    await el.updateComplete;
+
+    expect(megaMenu?.hidden).toBe(true);
+    expect(trigger?.getAttribute("aria-expanded")).toBe("false");
+  });
+
   it("uses the prototype mobile drill-down structure and restores toggle focus on close", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
@@ -524,6 +911,142 @@ describe("fd-global-header", () => {
     expect(menuToggle).toBe(el.shadowRoot?.activeElement);
   });
 
+  it("restores menu toggle focus and drill path when the drawer close button is used", async () => {
+    const el = await createHeader({ mobile: true });
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const firstSectionButton = el.shadowRoot?.querySelector(
+      ".mobile-button",
+    ) as HTMLButtonElement | null;
+
+    firstSectionButton?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const closeButton = el.shadowRoot?.querySelector(
+      ".mobile-drawer-close",
+    ) as HTMLButtonElement | null;
+
+    closeButton?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(menuToggle).toBe(el.shadowRoot?.activeElement);
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const sectionOverviewLink = el.shadowRoot?.querySelector(
+      ".mobile-overview-link",
+    ) as HTMLAnchorElement | null;
+
+    expect(sectionOverviewLink?.textContent?.trim()).toBe("News");
+  });
+
+  it("only exposes mobile dialog semantics while the overlays are open", async () => {
+    const el = await createHeader({ mobile: true });
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+    const searchToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='search']",
+    ) as HTMLButtonElement | null;
+    const drawer = el.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLElement | null;
+    const searchShell = el.shadowRoot?.querySelector(
+      ".mobile-search-shell",
+    ) as HTMLElement | null;
+
+    expect(drawer?.getAttribute("role")).toBeNull();
+    expect(drawer?.getAttribute("aria-modal")).toBeNull();
+    expect(drawer?.getAttribute("aria-hidden")).toBe("true");
+    expect(searchShell?.getAttribute("role")).toBeNull();
+    expect(searchShell?.getAttribute("aria-modal")).toBeNull();
+    expect(searchShell?.getAttribute("aria-hidden")).toBe("true");
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(drawer?.getAttribute("role")).toBe("dialog");
+    expect(drawer?.getAttribute("aria-modal")).toBe("true");
+    expect(drawer?.getAttribute("aria-hidden")).toBe("false");
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    searchToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(searchShell?.getAttribute("role")).toBe("dialog");
+    expect(searchShell?.getAttribute("aria-modal")).toBe("true");
+    expect(searchShell?.getAttribute("aria-hidden")).toBe("false");
+  });
+
+  it("traps focus within the mobile drawer when tabbing", async () => {
+    const el = await createHeader({ mobile: true });
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const closeButton = el.shadowRoot?.querySelector(
+      ".mobile-drawer-close",
+    ) as HTMLButtonElement | null;
+    const drawerFocusable = Array.from(
+      el.shadowRoot?.querySelectorAll<HTMLElement>(
+        ".mobile-drawer button, .mobile-drawer a[href]",
+      ) || [],
+    );
+    const lastFocusable = drawerFocusable[drawerFocusable.length - 1] as
+      | HTMLElement
+      | undefined;
+
+    if (!closeButton || !lastFocusable) {
+      throw new Error("Expected mobile drawer focusable controls");
+    }
+
+    lastFocusable.focus();
+    lastFocusable.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Tab",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(closeButton);
+
+    closeButton.focus();
+    closeButton.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Tab",
+        shiftKey: true,
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.activeElement).toBe(lastFocusable);
+  });
+
   it("switches to the compact mobile layout when the host is narrow even if the viewport stays desktop", async () => {
     const el = await createHeader();
 
@@ -574,6 +1097,55 @@ describe("fd-global-header", () => {
     expect(mobileInput?.value).toBe("Global Messages");
   });
 
+  it("traps focus within the mobile search panel when tabbing", async () => {
+    const el = await createHeader({ mobile: true });
+    const searchToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='search']",
+    ) as HTMLButtonElement | null;
+
+    searchToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const mobileInput = getSearchInput(getMobileSearch(el));
+    const submitButton = getMobileSearchSubmitButton(el);
+
+    if (!mobileInput || !submitButton) {
+      throw new Error("Expected mobile search input and submit button");
+    }
+
+    submitButton.focus();
+    submitButton.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Tab",
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(getMobileSearch(el)?.shadowRoot?.activeElement).toBe(mobileInput);
+
+    mobileInput.focus();
+    mobileInput.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Tab",
+        shiftKey: true,
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const activeSearchButton = getMobileSearch(el)?.shadowRoot
+      ?.querySelector("fd-button.submit")
+      ?.shadowRoot?.activeElement;
+
+    expect(activeSearchButton).toBe(submitButton);
+  });
+
   it("uses the slash shortcut to focus desktop search outside editable contexts", async () => {
     const el = await createHeader();
     const desktopSearch = getDesktopSearch(el);
@@ -595,6 +1167,116 @@ describe("fd-global-header", () => {
     await el.updateComplete;
 
     expect(desktopSearch?.shadowRoot?.activeElement).toBe(desktopInput);
+  });
+
+  it("keeps aria-controls pointed at an existing desktop mega-menu surface", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+    const menuId = trigger?.getAttribute("aria-controls");
+
+    expect(menuId).toBeTruthy();
+    expect(
+      el.shadowRoot?.querySelector(`#${menuId}`),
+    ).not.toBeNull();
+  });
+
+  it("does not hijack the slash shortcut from contenteditable targets", async () => {
+    const el = await createHeader();
+    const desktopSearch = getDesktopSearch(el);
+    const editable = document.createElement("div");
+
+    editable.setAttribute("contenteditable", "plaintext-only");
+    editable.tabIndex = 0;
+    document.body.appendChild(editable);
+    editable.focus();
+
+    editable.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "/", bubbles: true, cancelable: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(document.activeElement).toBe(editable);
+    expect(el.shadowRoot?.activeElement).not.toBe(desktopSearch);
+  });
+
+  it("normalizes the active panel when navigation changes after initial render", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const newsButton = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1",
+    ) as HTMLButtonElement | null;
+
+    newsButton?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.shadowRoot?.querySelector(".mega-col--l2")).not.toBeNull();
+
+    const updatedNavigation: FdGlobalHeaderNavigationItem[] = [
+      {
+        kind: "panel",
+        id: "updated-panel",
+        label: "Updated panel",
+        description: "Updated navigation description.",
+        sections: [
+          {
+            id: "updated-overview",
+            label: "Updated overview",
+            href: "#updated-overview",
+            items: [],
+          },
+          {
+            id: "updated-section",
+            label: "Updated section",
+            href: "#updated-section",
+            items: [
+              {
+                id: "updated-item",
+                label: "Updated item",
+                href: "#updated-item",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        kind: "panel",
+        id: "follow-up-panel",
+        label: "Follow-up panel",
+        sections: [
+          {
+            id: "follow-up-overview",
+            label: "Follow-up overview",
+            href: "#follow-up-overview",
+            items: [],
+          },
+        ],
+      },
+    ];
+
+    el.navigation = updatedNavigation as typeof fdGlobalHeaderPrototypeNavigation;
+    await el.updateComplete;
+    await nextFrame();
+
+    const updatedTrigger = getPanelTrigger(el, "updated-panel");
+    const panelDescription = el.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-description--inline",
+    ) as HTMLElement | null;
+
+    expect(getPanelTrigger(el, "news-events")).toBeNull();
+    expect(updatedTrigger?.getAttribute("aria-expanded")).toBe("true");
+    expect(panelDescription?.textContent?.trim()).toBe(
+      "Updated navigation description.",
+    );
+    expect(el.shadowRoot?.querySelector(".mega-col--l2")).toBeNull();
   });
 
   it("has no detectable axe violations in the default closed state", async () => {
