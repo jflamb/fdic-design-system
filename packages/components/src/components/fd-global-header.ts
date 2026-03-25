@@ -356,7 +356,10 @@ export class FdGlobalHeader extends LitElement {
       min-width: 2.75rem;
       min-height: 2.75rem;
       border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 999px;
+      border-radius: var(
+        --fd-button-radius,
+        var(--fdic-corner-radius-sm, 3px)
+      );
       color: inherit;
     }
 
@@ -369,7 +372,10 @@ export class FdGlobalHeader extends LitElement {
       min-height: 2.75rem;
       padding: 0 0.875rem;
       border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 999px;
+      border-radius: var(
+        --fd-button-radius,
+        var(--fdic-corner-radius-sm, 3px)
+      );
       background: transparent;
       color: inherit;
       cursor: pointer;
@@ -618,10 +624,10 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-drawer-header {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
       gap: 0.75rem;
-      justify-content: space-between;
       padding: 1rem;
       border-bottom: 1px solid rgba(9, 53, 84, 0.08);
     }
@@ -648,11 +654,13 @@ export class FdGlobalHeader extends LitElement {
       font-weight: 700;
       line-height: 1.2;
       color: #0c2336;
+      justify-self: end;
+      text-align: right;
     }
 
     .mobile-list {
       margin: 0;
-      padding: 0.5rem 1rem 1rem;
+      padding: 0.5rem 0 1rem;
       list-style: none;
       display: grid;
       gap: 0.25rem;
@@ -705,9 +713,9 @@ export class FdGlobalHeader extends LitElement {
       gap: 0.75rem;
       width: 100%;
       min-height: 3rem;
-      padding: 0.875rem 0.875rem;
+      padding: 0.875rem 1rem;
       border: 0;
-      border-radius: 0.75rem;
+      border-radius: 0;
       background: transparent;
       color: inherit;
       text-align: left;

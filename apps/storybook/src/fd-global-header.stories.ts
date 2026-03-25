@@ -6,6 +6,7 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { expect, userEvent, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
+import fdicnetWordmarkUrl from "./assets/fdicnet-wordmark.svg?url";
 import {
   getComponentArgs,
   getComponentArgTypes,
@@ -43,9 +44,13 @@ const renderHeader = (
         slot="brand"
         href="/"
         aria-label="FDICnet home"
-        style="color:#ffffff; text-decoration:none; font-weight:700; font-size:1.125rem;"
+        style="display:inline-flex; align-items:center; color:#ffffff; text-decoration:none; line-height:0;"
       >
-        FDICnet
+        <img
+          src=${fdicnetWordmarkUrl}
+          alt="FDICnet"
+          style="display:block; width:8.75rem; height:auto;"
+        />
       </a>
       <a slot="utility" href="#employee-directory" style="color:#ffffff; text-decoration:none;">Employee directory</a>
       <a slot="utility" href="#help" style="color:#ffffff; text-decoration:none;">Help</a>

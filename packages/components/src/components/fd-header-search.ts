@@ -187,7 +187,7 @@ export class FdHeaderSearch extends LitElement {
       border: 1px solid rgba(9, 53, 84, 0.16);
       border-radius: 0.75rem;
       background: #ffffff;
-      overflow: clip;
+      overflow: visible;
     }
 
     .label {
@@ -218,6 +218,15 @@ export class FdHeaderSearch extends LitElement {
 
     .native::placeholder {
       color: #4b5b69;
+    }
+
+    .native::-webkit-search-decoration,
+    .native::-webkit-search-cancel-button,
+    .native::-webkit-search-results-button,
+    .native::-webkit-search-results-decoration {
+      appearance: none;
+      -webkit-appearance: none;
+      display: none;
     }
 
     .shortcut {
@@ -257,6 +266,8 @@ export class FdHeaderSearch extends LitElement {
       background: transparent;
       color: #365063;
       cursor: pointer;
+      position: relative;
+      z-index: 1;
     }
 
     .clear[hidden] {
@@ -355,12 +366,21 @@ export class FdHeaderSearch extends LitElement {
       padding: 1rem;
     }
 
+    .mobile-sheet--results {
+      gap: 0;
+      padding: 0;
+    }
+
     .mobile-sheet .field {
       width: 100%;
     }
 
     .mobile-sheet .submit {
       display: inline-flex;
+    }
+
+    :host([surface="mobile"]) .result-link {
+      padding-inline: 1rem;
     }
 
     .shortcut-hint {
@@ -876,7 +896,7 @@ export class FdHeaderSearch extends LitElement {
             Press <span aria-hidden="true">/</span> to jump to search.
           </p>
         </div>
-        <div class="mobile-sheet">
+        <div class="mobile-sheet mobile-sheet--results">
           ${this._renderResultsList(resultsId)}
           <div id=${statusId}>${this._renderStatus()}</div>
         </div>
