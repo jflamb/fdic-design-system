@@ -25,14 +25,15 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 
 <StoryEmbed
   storyId="components-global-header--desktop"
-  linkStoryId="components-global-header--mobile-drawer"
+  linkStoryId="components-global-header--shy-header"
   height="520"
-  caption="Reference-aligned desktop story using the exact FDICnet main-menu YAML-derived fixture. Storybook also includes dedicated search-open, mobile drawer, and mobile drill-down states."
+  caption="Reference-aligned desktop story using the exact FDICnet main-menu YAML-derived fixture. Storybook also includes dedicated shy-header, search-open, mobile drawer, and mobile drill-down states."
 />
 
 - Pass the navigation tree as a JavaScript property. Assign a new array or object when content changes so the component can re-render.
 - Use the `brand` slot for the branded home link or wordmark content.
 - Use the `utility` slot for application-specific support links or actions. Keep the set short and high-value.
+- Enable `shy` only on pages that benefit from reclaiming vertical space while scrolling. Keep it off by default for short or highly task-dense screens.
 - The reference stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.reference-content.ts</code> and <code>packages/components/src/components/fd-global-header.reference.ts</code>.
 
 ## Integration contract
@@ -73,6 +74,25 @@ if (header) {
 2. Normalize the source payload into the design system's content contract.
 3. Assign a fresh `navigation` array and `search` object to `fd-global-header`.
 4. Handle routing or search submit interception at the application layer when needed.
+
+### Shy header adoption
+
+- Set `shy` to opt into the sticky hide/reveal behavior. Leave it unset to preserve the current in-flow header behavior.
+- Use `shyThreshold` when the page needs a threshold that differs from the header's own height.
+- The component owns scroll tracking, hide/reveal state, transition timing, and overlay awareness.
+- The application owns whether shy mode should be enabled, any `shyThreshold` override, and surrounding page layout decisions.
+- When shy mode is enabled, verify how the sticky header interacts with the top of the page content. The component does not inject a spacer or placeholder in v1.
+
+```ts
+const header = document.querySelector("fd-global-header");
+
+if (header) {
+  header.navigation = resolved.navigation;
+  header.search = resolved.search ?? null;
+  header.shy = true;
+  header.shyThreshold = 64;
+}
+```
 
 Use the generic helpers when the source is already close to the header contract:
 
@@ -236,9 +256,11 @@ const content = createFdGlobalHeaderContentFromDrupal({
 |---|---|---|---|
 | `navigation` | `FdGlobalHeaderNavigationItem[]` | `[]` | Consumer-provided navigation tree. Set this as a JavaScript property; it is not reflected to an HTML attribute. |
 | `search` | `FdGlobalHeaderSearchConfig \| null` | `null` | Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`. |
+| `shy` | `boolean` | `false` | Opt-in sticky hide/reveal behavior. When `true`, the header hides on downward window scroll beyond the threshold and reveals on upward scroll or immediate interaction. |
+| `shyThreshold` | `number \| undefined` | `undefined` | Optional downward-scroll threshold in pixels before shy behavior engages. When omitted, `fd-global-header` uses its own rendered height. |
 
-- `fd-global-header` owns desktop menu preview state, mobile drill-down state, and the shared query string coordinated with `fd-header-search`.
-- The application owns navigation data, current-link flags, routing, and any custom submit handling.
+- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, and shy-header scroll tracking when `shy` is enabled.
+- The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.
 - Assign a new array or object when updating `navigation` or `search` so Lit can detect the change.
 
 ## Slots
@@ -255,6 +277,14 @@ const content = createFdGlobalHeaderContentFromDrupal({
 | Name | Detail | Description |
 |---|---|---|
 | `fd-global-header-search-submit` | `{ query: string, href: string, firstMatchHref?: string, surface: \"desktop\" \| \"mobile\" }` | Cancelable event fired when the user submits header search. If not canceled, the component navigates to `firstMatchHref` when a direct match exists or to `href` as the configured fallback results URL. |
+
+## CSS custom properties
+
+| Name | Default | Description |
+|---|---|---|
+| `--fd-global-header-shy-transition-duration` | `0.3s` | Hide-transition duration used when `shy` is enabled. Reveal timing is derived internally as a proportionally faster transition. |
+
+- This custom property is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely.
 
 ## Shadow parts
 
@@ -320,9 +350,10 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - **Semantics stay native** — Top-level direct destinations render as links. Grouped destinations render as disclosure buttons. Desktop panel and mobile drill-down content render as navigation structures, not action menus.
 - **Keyboard model follows the approved header interaction pattern without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
 - **Focus restoration is component-owned only for ephemeral surfaces** — Closing the desktop panel, mobile drawer, or mobile search surface returns focus to the invoking control when it still exists. Broader page-level focus after navigation remains application-owned.
+- **Shy mode never hides the header from focused users** — When `shy` is enabled, focus moving into the header reveals it immediately and keeps it visible while the desktop panel, mobile drawer, or mobile search surface is open.
 - **Mobile overlays behave like true modal surfaces only while open** — The menu drawer and mobile search shell trap focus while open, restore focus to their invoking control on close, and do not keep dialog semantics attached when hidden.
 - **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
-- **Reduced motion is honored across the full component** — Non-essential transitions and animations are suppressed when users request reduced motion, including overlay and mega-menu state changes.
+- **Reduced motion is honored across the full component** — Non-essential transitions and animations are suppressed when users request reduced motion, including overlay, mega-menu, and shy-header state changes.
 - **Search is local and deterministic in v1** — Suggestions are derived only from the supplied navigation tree and search configuration. The fallback submission path is explicit and testable.
 - **Multiple instances are supported** — The component does not rely on global IDs or singleton state. If multiple headers render in Storybook or docs, their controls do not collide.
 
@@ -330,7 +361,7 @@ const content = createFdGlobalHeaderContentFromDrupal({
 
 - The component expects navigation and search data to be supplied by the application. It does not fetch CMS data or search results.
 - Utility-slot content does not get a dedicated alternate mobile placement contract in v1.
-- Richer async search-result providers, sticky/condensed header variants, and broader shell composition are intentionally deferred.
+- Automatic spacer injection for shy mode, configurable scroll-container support, condensed header variants, and broader shell composition are intentionally deferred.
 
 ## Related components
 

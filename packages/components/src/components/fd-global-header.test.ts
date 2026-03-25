@@ -153,7 +153,35 @@ async function wait(ms = 0) {
   await new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 }
 
-async function createHeader({ mobile = false } = {}) {
+function setWindowScrollY(scrollY: number) {
+  Object.defineProperty(window, "scrollY", {
+    configurable: true,
+    writable: true,
+    value: scrollY,
+  });
+
+  Object.defineProperty(window, "pageYOffset", {
+    configurable: true,
+    writable: true,
+    value: scrollY,
+  });
+}
+
+async function dispatchScroll(scrollY: number) {
+  setWindowScrollY(scrollY);
+  window.dispatchEvent(new Event("scroll"));
+  await nextFrame();
+}
+
+async function createHeader({
+  mobile = false,
+  shy = false,
+  shyThreshold,
+}: {
+  mobile?: boolean;
+  shy?: boolean;
+  shyThreshold?: number;
+} = {}) {
   mobileMatches = mobile;
   installMatchMediaStub();
   installResizeObserverStub();
@@ -161,11 +189,17 @@ async function createHeader({ mobile = false } = {}) {
   const el = document.createElement("fd-global-header") as HTMLElement & {
     navigation: typeof fdGlobalHeaderReferenceNavigation;
     search: ReturnType<typeof createFdGlobalHeaderReferenceSearch>;
+    shy: boolean;
+    shyThreshold?: number;
     updateComplete: Promise<unknown>;
   };
 
   el.navigation = structuredClone(fdGlobalHeaderReferenceNavigation);
   el.search = createFdGlobalHeaderReferenceSearch("/search");
+  el.shy = shy;
+  if (typeof shyThreshold === "number") {
+    el.shyThreshold = shyThreshold;
+  }
   el.innerHTML = `
     <a slot="brand" href="/" aria-label="FDICnet home">FDICnet</a>
     <a slot="utility" href="#employee-directory">Employee directory</a>
@@ -176,6 +210,10 @@ async function createHeader({ mobile = false } = {}) {
   await el.updateComplete;
   await nextFrame();
   return el;
+}
+
+function getBase(el: HTMLElement) {
+  return el.shadowRoot?.querySelector(".base") as HTMLElement | null;
 }
 
 function getPanelTrigger(el: HTMLElement, panelId: string) {
@@ -258,6 +296,7 @@ describe("fd-global-header", () => {
     resizeCallbacks.clear();
     installMatchMediaStub();
     installResizeObserverStub();
+    setWindowScrollY(0);
   });
 
   it("registers fd-global-header", () => {
@@ -532,6 +571,189 @@ describe("fd-global-header", () => {
 
     expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
     expect(menuViewport.style.height).toBe("");
+  });
+
+  it("attaches scroll tracking only while shy mode is enabled and cleans it up on disconnect", async () => {
+    const addSpy = vi.spyOn(window, "addEventListener");
+    const removeSpy = vi.spyOn(window, "removeEventListener");
+
+    const el = await createHeader();
+    expect(
+      addSpy.mock.calls.some(([type]) => type === "scroll"),
+    ).toBe(false);
+
+    el.shy = true;
+    await el.updateComplete;
+
+    expect(
+      addSpy.mock.calls.some(
+        ([type, , options]) =>
+          type === "scroll" &&
+          typeof options === "object" &&
+          options != null &&
+          "passive" in options &&
+          options.passive === true,
+      ),
+    ).toBe(true);
+
+    el.shy = false;
+    await el.updateComplete;
+
+    expect(
+      removeSpy.mock.calls.some(([type]) => type === "scroll"),
+    ).toBe(true);
+
+    el.shy = true;
+    await el.updateComplete;
+    el.remove();
+    await nextFrame();
+
+    expect(
+      removeSpy.mock.calls.filter(([type]) => type === "scroll").length,
+    ).toBeGreaterThan(1);
+
+    addSpy.mockRestore();
+    removeSpy.mockRestore();
+  });
+
+  it("hides past the shy threshold and reveals on meaningful upward scroll", async () => {
+    const el = await createHeader({ shy: true, shyThreshold: 64 });
+    const base = getBase(el);
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("style")).toContain("--_fd-global-header-shy-duration:300ms");
+
+    await dispatchScroll(117);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+
+    await dispatchScroll(110);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("style")).toContain("--_fd-global-header-shy-duration:200ms");
+  });
+
+  it("uses the rendered header height as the default shy threshold", async () => {
+    const el = await createHeader({ shy: true });
+    const base = getBase(el);
+
+    if (!base) {
+      throw new Error("Expected base surface");
+    }
+
+    Object.defineProperty(base, "offsetHeight", {
+      configurable: true,
+      get: () => 72,
+    });
+
+    await dispatchScroll(70);
+    await el.updateComplete;
+    expect(base.getAttribute("data-shy-hidden")).toBe("false");
+
+    await dispatchScroll(80);
+    await el.updateComplete;
+    expect(base.getAttribute("data-shy-hidden")).toBe("true");
+  });
+
+  it("reveals on focus and keeps the desktop mega-menu visible while it is open", async () => {
+    const el = await createHeader({ shy: true, shyThreshold: 64 });
+    const base = getBase(el);
+    const trigger = getPanelTrigger(el, "news-events");
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+
+    trigger?.focus();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(trigger?.getAttribute("aria-expanded")).toBe("true");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    await dispatchScroll(180);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(trigger?.getAttribute("aria-expanded")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    await dispatchScroll(190);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+  });
+
+  it("reveals for mobile drawer and mobile search surfaces and suppresses shy motion under reduced motion", async () => {
+    prefersReducedMotionMatches = true;
+
+    const el = await createHeader({
+      mobile: true,
+      shy: true,
+      shyThreshold: 64,
+    });
+    const base = getBase(el);
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+    const searchToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='search']",
+    ) as HTMLButtonElement | null;
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("style")).toContain("--_fd-global-header-shy-duration:0ms");
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(
+      el.shadowRoot?.querySelector(".mobile-drawer")?.getAttribute("data-open"),
+    ).toBe("true");
+
+    await dispatchScroll(180);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    await dispatchScroll(190);
+    await el.updateComplete;
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+
+    searchToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(
+      el.shadowRoot?.querySelector(".mobile-search-shell")?.getAttribute("data-open"),
+    ).toBe("true");
   });
 
   it("Escape closes the desktop mega-menu and returns focus to the active trigger", async () => {

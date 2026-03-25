@@ -416,10 +416,14 @@ export const componentStoryApi = {
     argTypes: {
     "navigation": { control: "text" },
     "search": { control: "text" },
+    "shy": { control: "boolean" },
+    "shyThreshold": { control: "text" },
     },
     args: {
     "navigation": "[]",
     "search": null,
+    "shy": false,
+    "shyThreshold": undefined,
     },
   },
   "fd-header-search": {

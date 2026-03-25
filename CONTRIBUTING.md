@@ -12,6 +12,29 @@ The canonical repository policy lives in [.context/AGENT_GUIDE.md](./.context/AG
 - Update docs when behavior, usage guidance, or accessibility expectations materially change.
 - Treat accessibility as a release requirement, not follow-up cleanup.
 
+## Commit Conventions
+
+Use [conventional commits](https://www.conventionalcommits.org/) with a component or area scope:
+
+```
+feat(button): add loading state with spinner
+fix(selector): suppress aria-labelledby when loading-label is active
+docs(button): add loading state usage guidance
+refactor(global-header): replace prototype references
+```
+
+Common types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`. Scope is typically the component name (e.g., `button`, `menu`, `global-header`) or area name (e.g., `components`, `storybook`, `docs`).
+
+## Build Order
+
+This is an npm-workspaces monorepo. Build order matters because downstream packages depend on upstream outputs:
+
+```
+npm run build:components  →  npm run build:react  →  npm run build:docs
+```
+
+`npm run build` runs this full sequence. When working on components, you can run `npm run build:components` alone for faster iteration, but run the full build before opening a PR.
+
 ## Coding Conventions
 
 This project uses tooling for baseline formatting. The conventions below are the project-specific rules contributors should follow when designing, implementing, and documenting changes.
@@ -118,14 +141,73 @@ This project uses tooling for baseline formatting. The conventions below are the
 - Storybook should distinguish supporting-standalone primitives from first-class components with stable title grouping. Embedded-only primitives stay inside their parent story file.
 - Keep StoryEmbed references and `linkStoryId` values valid whenever story titles or inventory move.
 
-#### Current primitive classifications
+#### Current component classifications
 
-- `fd-label`: `first-class`
-- `fd-field`: `supporting-standalone`
-- `fd-message`: `supporting-standalone`
-- `fd-menu-item`: `supporting-embedded` under `fd-menu` and composed menu usage
-- `fd-option`: `supporting-embedded` under `fd-selector`
-- `fd-placeholder`: `internal-only`
+Components are grouped by docs category. The classification determines what documentation and Storybook coverage each component requires (see the completeness standard above).
+
+**Forms & Input** (`forms-input`)
+
+| Component | Classification |
+|-----------|---------------|
+| `fd-label` | `first-class` |
+| `fd-input` | `first-class` |
+| `fd-textarea` | `first-class` |
+| `fd-checkbox` | `first-class` |
+| `fd-checkbox-group` | `first-class` |
+| `fd-radio` | `first-class` |
+| `fd-radio-group` | `first-class` |
+| `fd-selector` | `first-class` |
+| `fd-file-input` | `first-class` |
+| `fd-slider` | `first-class` |
+| `fd-field` | `supporting-standalone` |
+| `fd-message` | `supporting-standalone` |
+| `fd-option` | `supporting-embedded` under `fd-selector` |
+
+**Actions & Navigation** (`actions-navigation`)
+
+| Component | Classification |
+|-----------|---------------|
+| `fd-button` | `first-class` |
+| `fd-button-group` | `first-class` |
+| `fd-split-button` | `first-class` |
+| `fd-link` | `first-class` |
+| `fd-menu` | `first-class` |
+| `fd-pagination` | `first-class` |
+| `fd-menu-item` | `supporting-embedded` under `fd-menu` |
+
+**Feedback & Status** (`feedback-status`)
+
+| Component | Classification |
+|-----------|---------------|
+| `fd-alert` | `first-class` |
+| `fd-badge` | `first-class` |
+| `fd-badge-group` | `first-class` |
+| `fd-chip` | `first-class` |
+| `fd-chip-group` | `first-class` |
+
+**Layout & Shell** (`layout-shell`)
+
+| Component | Classification |
+|-----------|---------------|
+| `fd-global-header` | `first-class` |
+| `fd-header-search` | `supporting-standalone` |
+| `fd-drawer` | `supporting-standalone` |
+| `fd-stripe` | `supporting-standalone` |
+
+**Visual & Media** (`visual-media`)
+
+| Component | Classification |
+|-----------|---------------|
+| `fd-icon` | `first-class` |
+| `fd-visual` | `supporting-standalone` |
+
+**Internal**
+
+| Component | Classification |
+|-----------|---------------|
+| `fd-placeholder` | `internal-only` |
+
+The source of truth for classifications is `scripts/components/inventory.mjs`. Update this table when components are added, removed, or reclassified.
 
 ### Package and repo conventions
 
@@ -282,12 +364,39 @@ Labels answer five questions: what kind of work is this, what area does it affec
 - `invalid`
 - `wontfix`
 
+## Local Dev Servers
+
+Two local servers support development:
+
+| Server | Command | Purpose |
+|--------|---------|---------|
+| VitePress docs | `npm run dev:docs` | Test docs pages, navigation, embeds, and theme behavior |
+| Storybook | `npm run dev:storybook` | Test component stories, interactive states, and accessibility |
+
+The managed entrypoint `npm run dev-server:start -- docs|storybook|all` tracks one current instance per surface so stale instances do not accumulate. Use `dev-server:status` to check what is running and `dev-server:stop` to clean up.
+
+Start servers intentionally based on the work:
+
+- **Docs changes only**: start the docs server
+- **Component implementation**: start Storybook
+- **Docs pages that embed Storybook**: start both
+- **Build or test validation**: servers are not a substitute for `npm run build` or `npm run test:components`
+
 ## Validation Expectations
 
-Before merging, run the checks that match the risk of the change and report what you actually validated. Examples:
+Before merging, run the checks that match the scope of the change:
 
-- `npm run build` for cross-workspace changes
-- targeted package builds when the change is narrow
-- manual review of docs or Storybook when the change is presentation-focused
+**Required for all component work:**
 
-If you did not run a check, say so directly.
+- `npm run test:components` — fast Vitest suite with axe-core accessibility audits
+- `npm run validate:components` — verify metadata, docs, stories, and generated files stay in sync
+- `npm run build` — full sequential build (components → react → docs)
+
+**Required when Storybook-sensitive behavior changes:**
+
+- `npm run test:storybook` — browser-backed interaction and accessibility tests in Chromium
+- `npm run build:storybook` — verify the Storybook workbench builds cleanly
+
+Changes that affect first-class component stories, keyboard flows, focus management, or browser-tier accessibility surfaces should run both Storybook checks.
+
+Report what you actually validated. If you did not run a check, say so directly.
