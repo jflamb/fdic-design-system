@@ -3285,7 +3285,7 @@
           "name": "modal",
           "type": "`boolean`",
           "defaultValue": "`false`",
-          "description": "When true, the drawer behaves like a modal dialog with a backdrop and focus trap."
+          "description": "When true, the drawer uses a native modal `<dialog>` shell with a browser-managed backdrop and focus containment."
         },
         {
           "name": "placement",
@@ -3344,15 +3344,11 @@
       "rows": [
         {
           "name": "base",
-          "description": "Root wrapper for the drawer and optional backdrop."
-        },
-        {
-          "name": "backdrop",
-          "description": "Modal backdrop shown behind the drawer surface."
+          "description": "Native dialog shell in modal mode, or the root wrapper in inline mode."
         },
         {
           "name": "surface",
-          "description": "Drawer surface element."
+          "description": "Drawer surface element inside the shell."
         },
         {
           "name": "header",

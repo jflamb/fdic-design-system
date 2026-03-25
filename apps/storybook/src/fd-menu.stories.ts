@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Public event contract: listen for `fd-menu-open-change` on `fd-menu` and `fd-menu-item-select` on `fd-menu-item`. Deprecated compatibility events `fd-open` and `fd-select` still fire during the transition window.",
+          "Public event contract: listen for `fd-menu-open-change` on `fd-menu` and `fd-menu-item-select` on `fd-menu-item`. The surface is Popover-API-native in production; deprecated compatibility events `fd-open` and `fd-select` still fire during the transition window.",
       },
     },
   },
@@ -36,9 +36,10 @@ function getMenuElements(canvasElement: HTMLElement) {
   const triggerHost = canvasElement.querySelector("fd-button");
   const trigger = getButtonBase(triggerHost);
   const menu = canvasElement.querySelector("fd-menu") as HTMLElement | null;
+  const surface = menu?.shadowRoot?.querySelector("[part=surface]") as HTMLElement | null;
   const items = Array.from(canvasElement.querySelectorAll("fd-menu-item"));
 
-  return { triggerHost, trigger, menu, items };
+  return { triggerHost, trigger, menu, surface, items };
 }
 
 async function waitForMenuWiring() {
@@ -94,7 +95,7 @@ export const Default: Story = {
 };
 
 Default.play = async ({ canvasElement, userEvent }) => {
-  const { triggerHost, trigger, menu, items } = getMenuElements(canvasElement);
+  const { triggerHost, trigger, menu, surface, items } = getMenuElements(canvasElement);
   const openEvents: boolean[] = [];
 
   menu?.addEventListener("fd-menu-open-change", (event: Event) => {
@@ -111,6 +112,7 @@ Default.play = async ({ canvasElement, userEvent }) => {
   await waitFor(() => {
     expect(menu?.hasAttribute("open")).toBe(true);
     expect(triggerHost?.getAttribute("aria-expanded")).toBe("true");
+    expect(surface?.matches(":popover-open")).toBe(true);
   });
 
   const firstItemButton = getButtonBase(items[0]);
@@ -130,6 +132,7 @@ Default.play = async ({ canvasElement, userEvent }) => {
   await waitFor(() => {
     expect(menu?.hasAttribute("open")).toBe(false);
     expect(triggerHost?.getAttribute("aria-expanded")).toBe("false");
+    expect(surface?.matches(":popover-open")).toBe(false);
   });
 
   expect(openEvents).toEqual([true, false]);

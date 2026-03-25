@@ -113,6 +113,19 @@
   --prose-max-width: 65ch;
 }
 
+@supports (color: oklch(from white l c h / 0.5)) {
+  :root {
+    --fdic-callout-info-bg: oklch(from var(--ds-color-info-500) l c h / 0.08);
+    --fdic-callout-info-border: oklch(from var(--ds-color-info-500) l c h / 0.16);
+    --fdic-callout-warning-bg: oklch(from var(--ds-color-warning-500) l c h / 0.08);
+    --fdic-callout-warning-border: oklch(from var(--ds-color-warning-500) l c h / 0.16);
+    --fdic-callout-success-bg: oklch(from var(--ds-color-success-500) l c h / 0.08);
+    --fdic-callout-success-border: oklch(from var(--ds-color-success-500) l c h / 0.18);
+    --fdic-callout-danger-bg: oklch(from var(--ds-color-error-500) l c h / 0.08);
+    --fdic-callout-danger-border: oklch(from var(--ds-color-error-500) l c h / 0.16);
+  }
+}
+
 /* ===========================================================================
    3. PROSE COMPONENT
    Scoped typographic styles for long-form content.
@@ -177,6 +190,10 @@
 .prose h6 {
   margin-top: 1.5em;
   margin-bottom: 0.5em;
+}
+
+.prose :is(h1, h2, h3, h4) {
+  text-wrap: balance;
 }
 
 .prose h1 {
@@ -513,7 +530,6 @@
 
 .prose li > input[type="checkbox"] {
   margin-right: var(--fdic-spacing-xs, 0.5rem);
-  accent-color: var(--fdic-brand-core-default, #0d6191);
   vertical-align: -0.1em;
 }
 
@@ -607,7 +623,7 @@
 
 /* Focus state — border + blue glow */
 .prose summary:focus-visible {
-  outline: none;
+  outline-color: transparent;
   border: 2px solid var(--fdic-border-input-active, #424244);
   box-shadow: 0 0 2.5px 2px var(--fdic-border-input-focus, #38b6ff);
   padding: calc(var(--fdic-spacing-md, 1rem) - 2px);
@@ -728,7 +744,7 @@
 }
 
 .prose a:has(> img):focus-visible {
-  outline: none;
+  outline-color: transparent;
 }
 
 .prose a:has(> img):focus-visible img {
@@ -740,8 +756,15 @@
 .prose .prose-table-wrapper {
   display: block;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
   margin-bottom: var(--fdic-spacing-xl, 1.25rem);
+}
+
+@supports (content-visibility: auto) {
+  .vp-doc :is(.fdic-story-embed, .fdic-figma-embed) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 24rem;
+  }
 }
 
 .prose .prose-table-wrapper table {

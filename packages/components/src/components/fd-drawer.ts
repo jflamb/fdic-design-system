@@ -6,24 +6,12 @@ export interface FdDrawerCloseRequestDetail {
   source: "backdrop" | "escape";
 }
 
-const DRAWER_CLOSE_MS = 240;
-const FOCUSABLE_SELECTOR = [
-  "a[href]",
-  "button:not([disabled])",
-  "input:not([disabled])",
-  "select:not([disabled])",
-  "textarea:not([disabled])",
-  "[tabindex]:not([tabindex='-1'])",
-].join(",");
-
 export class FdDrawer extends LitElement {
   static properties = {
     open: { type: Boolean, reflect: true },
     label: { reflect: true },
     modal: { type: Boolean, reflect: true },
     placement: { reflect: true },
-    _mounted: { state: true },
-    _closing: { state: true },
   };
 
   static styles = css`
@@ -44,17 +32,43 @@ export class FdDrawer extends LitElement {
     }
 
     .base {
-      position: relative;
-      z-index: 0;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      max-width: none;
+      width: 100%;
     }
 
-    .backdrop {
+    dialog.base {
       position: fixed;
       inset: 0;
       z-index: 0;
+      opacity: 0;
+      overflow: visible;
+      transition:
+        opacity 240ms ease,
+        overlay 240ms allow-discrete,
+        display 240ms allow-discrete;
+      transition-behavior: allow-discrete;
+    }
+
+    dialog.base[open] {
+      opacity: 1;
+    }
+
+    dialog.base::backdrop {
       background: rgba(0, 18, 32, 0.34);
       opacity: 0;
-      transition: opacity 240ms ease;
+      transition:
+        opacity 240ms ease,
+        overlay 240ms allow-discrete,
+        display 240ms allow-discrete;
+      transition-behavior: allow-discrete;
+    }
+
+    dialog.base[open]::backdrop {
+      opacity: 1;
     }
 
     .surface {
@@ -83,13 +97,25 @@ export class FdDrawer extends LitElement {
       transform-origin: top center;
     }
 
-    .surface[data-open="true"] {
+    dialog.base[open] .surface,
+    .base--inline .surface {
       transform: translateY(0);
       opacity: 1;
     }
 
-    .backdrop[data-open="true"] {
-      opacity: 1;
+    @starting-style {
+      dialog.base[open] {
+        opacity: 0;
+      }
+
+      dialog.base[open]::backdrop {
+        opacity: 0;
+      }
+
+      dialog.base[open] .surface {
+        transform: translateY(-1.25rem);
+        opacity: 0;
+      }
     }
 
     .header {
@@ -106,7 +132,8 @@ export class FdDrawer extends LitElement {
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .backdrop,
+      dialog.base,
+      dialog.base::backdrop,
       .surface {
         transition: none;
       }
@@ -119,7 +146,7 @@ export class FdDrawer extends LitElement {
         forced-color-adjust: none;
       }
 
-      .backdrop {
+      dialog.base::backdrop {
         background: Canvas;
         opacity: 0.65;
       }
@@ -130,11 +157,6 @@ export class FdDrawer extends LitElement {
   declare label: string;
   declare modal: boolean;
   declare placement: FdDrawerPlacement;
-  declare _mounted: boolean;
-  declare _closing: boolean;
-
-  private _closeTimer: number | null = null;
-  private readonly _onDocumentKeyDownBound = this._onDocumentKeyDown.bind(this);
 
   constructor() {
     super();
@@ -142,143 +164,61 @@ export class FdDrawer extends LitElement {
     this.label = "";
     this.modal = false;
     this.placement = "top";
-    this._mounted = false;
-    this._closing = false;
-  }
-
-  override connectedCallback() {
-    super.connectedCallback();
-    document.addEventListener("keydown", this._onDocumentKeyDownBound, true);
-  }
-
-  override disconnectedCallback() {
-    super.disconnectedCallback();
-    this._clearCloseTimer();
-    document.removeEventListener("keydown", this._onDocumentKeyDownBound, true);
   }
 
   override updated(changed: Map<PropertyKey, unknown>) {
-    if (!changed.has("open")) {
+    if ((changed.has("open") || changed.has("modal")) && this.modal) {
+      this._syncDialog();
+    }
+  }
+
+  override focus(options?: FocusOptions) {
+    const target = this.modal
+      ? this._getDialog()
+      : (this.shadowRoot?.querySelector<HTMLElement>(".surface") ?? null);
+
+    if (target) {
+      target.focus(options);
+      return;
+    }
+
+    super.focus(options);
+  }
+
+  private _getDialog() {
+    return this.shadowRoot?.querySelector<HTMLDialogElement>("dialog.base") ?? null;
+  }
+
+  private _syncDialog() {
+    const dialog = this._getDialog();
+    if (!dialog) {
       return;
     }
 
     if (this.open) {
-      this._clearCloseTimer();
-      this._mounted = true;
-      this._closing = false;
-      return;
-    }
-
-    if (!this._mounted) {
-      return;
-    }
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      this._closing = false;
-      this._mounted = false;
-      return;
-    }
-
-    this._closing = true;
-    this._closeTimer = window.setTimeout(() => {
-      this._closeTimer = null;
-      if (!this.open) {
-        this._closing = false;
-        this._mounted = false;
+      if (!dialog.hasAttribute("open")) {
+        dialog.showModal();
       }
-    }, DRAWER_CLOSE_MS);
-  }
-
-  override focus(options?: FocusOptions) {
-    const firstFocusable = this._getFocusableElements()[0];
-    if (firstFocusable) {
-      firstFocusable.focus(options);
       return;
     }
 
-    const surface = this.shadowRoot?.querySelector<HTMLElement>(".surface");
-    surface?.focus(options);
+    if (dialog.hasAttribute("open")) {
+      dialog.close();
+    }
   }
 
-  private _clearCloseTimer() {
-    if (this._closeTimer == null) {
+  private _onDialogClick(event: MouseEvent) {
+    const dialog = this._getDialog();
+    if (!dialog || event.target !== dialog) {
       return;
     }
 
-    window.clearTimeout(this._closeTimer);
-    this._closeTimer = null;
-  }
-
-  private _onBackdropClick() {
     this._requestClose("backdrop");
   }
 
-  private _onDocumentKeyDown(event: KeyboardEvent) {
-    if (!this.open || !this.modal) {
-      return;
-    }
-
-    const eventTarget = event.composedPath()[0];
-    const isWithinDrawer =
-      eventTarget instanceof Node &&
-      (this.contains(eventTarget) || this.shadowRoot?.contains(eventTarget));
-
-    if (!isWithinDrawer) {
-      return;
-    }
-
-    if (event.key === "Escape") {
-      event.preventDefault();
-      this._requestClose("escape");
-      return;
-    }
-
-    if (event.key !== "Tab") {
-      return;
-    }
-
-    const focusable = this._getFocusableElements();
-    if (focusable.length === 0) {
-      return;
-    }
-
-    const active = this._getDeepActiveElement();
-    const currentIndex = active ? focusable.indexOf(active) : -1;
-    const nextIndex = event.shiftKey
-      ? currentIndex <= 0
-        ? focusable.length - 1
-        : currentIndex - 1
-      : currentIndex >= focusable.length - 1
-        ? 0
-        : currentIndex + 1;
-
-    if (currentIndex === -1) {
-      focusable[event.shiftKey ? focusable.length - 1 : 0]?.focus();
-      event.preventDefault();
-      return;
-    }
-
-    focusable[nextIndex]?.focus();
+  private _onDialogCancel(event: Event) {
     event.preventDefault();
-  }
-
-  private _getFocusableElements(): HTMLElement[] {
-    return Array.from(this.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
-      (element) =>
-        !element.hasAttribute("hidden") &&
-        !element.closest("[hidden]") &&
-        !element.hasAttribute("disabled"),
-    );
-  }
-
-  private _getDeepActiveElement() {
-    let active: Element | null = this.ownerDocument.activeElement;
-
-    while (active instanceof HTMLElement && active.shadowRoot?.activeElement) {
-      active = active.shadowRoot.activeElement;
-    }
-
-    return active instanceof HTMLElement ? active : null;
+    this._requestClose("escape");
   }
 
   private _requestClose(source: FdDrawerCloseRequestDetail["source"]) {
@@ -293,48 +233,50 @@ export class FdDrawer extends LitElement {
   }
 
   override render() {
-    if (!this._mounted && !this.open) {
-      return nothing;
+    const hasHeaderSlot = this.querySelector("[slot='header']");
+    const regionRole = !this.modal && this.open ? "region" : nothing;
+    const content = html`
+      <div
+        class="surface"
+        part="surface"
+        data-placement=${this.placement}
+        role=${regionRole}
+        aria-label=${this.label || nothing}
+        tabindex="-1"
+      >
+        <div
+          class="header"
+          part="header"
+          ?hidden=${!hasHeaderSlot}
+        >
+          <slot name="header"></slot>
+        </div>
+        <div class="body" part="body">
+          <slot></slot>
+        </div>
+      </div>
+    `;
+
+    if (!this.modal) {
+      return this.open
+        ? html`
+            <div class="base base--inline" part="base">
+              ${content}
+            </div>
+          `
+        : nothing;
     }
 
-    const isVisible = this.open && !this._closing;
-    const hasHeaderSlot = this.querySelector("[slot='header']");
-
     return html`
-      <div class="base" part="base">
-        ${this.modal
-          ? html`
-              <div
-                class="backdrop"
-                part="backdrop"
-                data-open=${String(isVisible)}
-                aria-hidden="true"
-                @click=${this._onBackdropClick}
-              ></div>
-            `
-          : nothing}
-        <section
-          class="surface"
-          part="surface"
-          data-placement=${this.placement}
-          data-open=${String(isVisible)}
-          role=${this.modal ? "dialog" : "region"}
-          aria-label=${this.label || nothing}
-          aria-modal=${this.modal ? "true" : nothing}
-          tabindex="-1"
-        >
-          <div
-            class="header"
-            part="header"
-            ?hidden=${!hasHeaderSlot}
-          >
-            <slot name="header"></slot>
-          </div>
-          <div class="body" part="body">
-            <slot></slot>
-          </div>
-        </section>
-      </div>
+      <dialog
+        class="base"
+        part="base"
+        aria-label=${this.label || nothing}
+        @cancel=${this._onDialogCancel}
+        @click=${this._onDialogClick}
+      >
+        ${content}
+      </dialog>
     `;
   }
 }

@@ -1,6 +1,9 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/fd-menu.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import { createToggleEvent, installPopoverShim } from "./test-popover.js";
+
+installPopoverShim();
 
 async function createMenu(
   attrs: Record<string, string> = {},
@@ -366,27 +369,31 @@ describe("fd-menu", () => {
     await new Promise((r) => requestAnimationFrame(r));
 
     const items = el.querySelectorAll("fd-menu-item");
-    const firstBtn = getItemButton(items[0]);
-    firstBtn.click();
+    items[0]?.dispatchEvent(
+      new CustomEvent("fd-menu-item-select", {
+        bubbles: true,
+        composed: true,
+      }),
+    );
 
     expect(el.open).toBe(false);
   });
 
-  // --- Fallback: re-click toggle on anchor ---
-
-  it("fallback outside-click handler does not intercept clicks on the anchor", async () => {
+  it("syncs open state when the native popover light-dismisses", async () => {
     const el = await createMenu({ label: "Actions", anchor: "toggle-btn" }, undefined, "toggle-btn");
     const anchorEl = document.getElementById("toggle-btn")!;
-
-    // Wire toggle like the Storybook stories do
-    anchorEl.addEventListener("click", () => el.toggle());
+    const spy = vi.fn();
+    el.addEventListener("fd-menu-open-change", spy);
 
     el.show();
-    expect(el.open).toBe(true);
+    spy.mockClear();
 
-    // Simulate re-clicking the trigger — should close (not close-then-reopen)
-    anchorEl.click();
+    getSurface(el).dispatchEvent(createToggleEvent("closed", "open"));
+
     expect(el.open).toBe(false);
+    expect(anchorEl.getAttribute("aria-expanded")).toBe("false");
+    expect(spy).toHaveBeenCalledOnce();
+    expect(spy.mock.calls[0][0].detail.open).toBe(false);
   });
 
   // --- showLast() ---
