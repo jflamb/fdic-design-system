@@ -1,11 +1,11 @@
 # Drawer
 
-`fd-drawer` is the reusable structural primitive for the global-header family’s mobile surfaces. It provides the shared shell, modal backdrop behavior, focus trapping, and open-close animation used by the mobile menu and mobile search suggestion experience.
+`fd-drawer` is the reusable structural primitive for the global-header family’s mobile surfaces. In modal mode it now uses a native `<dialog>` shell, browser-managed backdrop, and native focus containment while keeping the close-request event and parent-owned open state contract.
 
 ## When to use
 
 - Use it when a top-attached drawer needs the same motion and close-request contract as the header family.
-- Use it when the parent component should own state while the drawer owns animation, backdrop, and focus-trap internals.
+- Use it when the parent component should own state while the drawer owns the top-attached shell and translates native dialog dismissal into close requests.
 - Use it for lightweight modal drawer surfaces, not for a full generic overlay system.
 
 ## When not to use
@@ -29,7 +29,7 @@
 |---|---|---|---|
 | `open` | `boolean` | `false` | Whether the drawer is visible. |
 | `label` | `string` | `` | Accessible label announced for the drawer surface. |
-| `modal` | `boolean` | `false` | When true, the drawer behaves like a modal dialog with a backdrop and focus trap. |
+| `modal` | `boolean` | `false` | When true, the drawer uses a native modal `<dialog>` shell with a browser-managed backdrop and focus containment. |
 | `placement` | `"top"` | `top` | Drawer placement. The current primitive intentionally supports the top-attached header-family use case only. |
 
 - `fd-drawer` keeps its public contract intentionally small so callers can compose navigation and search semantics around it.
@@ -59,23 +59,24 @@
 
 | Name | Description |
 |---|---|
-| `base` | Root wrapper for the drawer and optional backdrop. |
-| `backdrop` | Modal backdrop shown behind the drawer surface. |
-| `surface` | Drawer surface element. |
+| `base` | Native dialog shell in modal mode, or the root wrapper in inline mode. |
+| `surface` | Drawer surface element inside the shell. |
 | `header` | Optional header slot wrapper. |
 | `body` | Drawer body wrapper. |
 <!-- GENERATED_COMPONENT_API:END -->
 
 ## Accessibility
 
-- When `modal` is true, the drawer exposes dialog semantics only while open, traps focus, and emits close requests for Escape and backdrop dismissal.
-- The parent component is responsible for deciding whether a close request should actually close the surface and where focus should return.
+- When `modal` is true, the drawer exposes native dialog semantics only while open and emits `fd-drawer-close-request` for Escape and backdrop dismissal instead of closing itself.
+- Browser-native dialog behavior owns focus containment while the drawer is open. If a specific control should receive initial focus, author that control with `autofocus`.
+- The parent component is still responsible for deciding whether a close request should actually close the surface and whether any explicit focus restoration beyond the native dialog default is needed.
 - Drawer content stays semantic because the primitive only supplies the shell; callers provide links, buttons, headings, and landmarks.
 
 ## Known limitations
 
 - The current primitive intentionally supports only the top-attached header-family use case.
 - Body scroll management and page inerting remain the caller’s responsibility.
+- Modal backdrop styling now comes from the native dialog `::backdrop`, so there is no separate backdrop shadow part to target.
 
 ## Related components
 
