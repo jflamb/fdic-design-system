@@ -516,6 +516,9 @@ export class FdGlobalHeader extends LitElement {
       border-bottom: 6px solid var(--fd-global-header-color-accent-soft);
       position: relative;
       z-index: 61;
+    }
+
+    .top-nav-shell {
       overflow: clip;
       transition:
         max-height 220ms ease,
@@ -809,7 +812,7 @@ export class FdGlobalHeader extends LitElement {
       pointer-events: none;
     }
 
-    .base[data-compact-desktop="true"] .top-nav[data-compact-nav-visible="false"] {
+    .base[data-compact-desktop="true"] .top-nav-shell[data-compact-nav-visible="false"] {
       max-height: 0;
       opacity: 0;
       visibility: hidden;
@@ -817,7 +820,7 @@ export class FdGlobalHeader extends LitElement {
       pointer-events: none;
     }
 
-    .base[data-compact-desktop="true"] .top-nav[data-compact-nav-visible="true"] {
+    .base[data-compact-desktop="true"] .top-nav-shell[data-compact-nav-visible="true"] {
       max-height: 28rem;
       opacity: 1;
       visibility: visible;
@@ -3950,12 +3953,15 @@ export class FdGlobalHeader extends LitElement {
           class="top-nav"
           id=${`${this._baseId}-primary-nav`}
           part="primary-nav"
-          data-compact-nav-visible=${String(this._isCompactDesktopNavVisible())}
           @pointerenter=${this._cancelDesktopClose}
           @pointerleave=${this._scheduleDesktopClose}
           @focusin=${this._cancelDesktopClose}
           @focusout=${this._handleDesktopFocusOut}
         >
+          <div
+            class="top-nav-shell"
+            data-compact-nav-visible=${String(this._isCompactDesktopNavVisible())}
+          >
           <div class="shell">
             <nav aria-label="Primary navigation">
               <div
@@ -3977,6 +3983,7 @@ export class FdGlobalHeader extends LitElement {
                 </ul>
               </div>
             </nav>
+          </div>
           </div>
           ${this._renderDesktopPanel()}
         </div>

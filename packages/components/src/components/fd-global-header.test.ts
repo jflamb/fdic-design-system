@@ -677,7 +677,7 @@ describe("fd-global-header", () => {
   it("switches to a compact sticky desktop state and keeps the desktop mega-menu visible while it is open", async () => {
     const el = await createHeader({ shy: true, shyThreshold: 64 });
     const base = getBase(el);
-    const topNav = el.shadowRoot?.querySelector(".top-nav") as HTMLElement | null;
+    const topNav = el.shadowRoot?.querySelector(".top-nav-shell") as HTMLElement | null;
     const trigger = getPanelTrigger(el, "news-events");
 
     await dispatchScroll(120);

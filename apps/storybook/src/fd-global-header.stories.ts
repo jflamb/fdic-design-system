@@ -436,7 +436,7 @@ ShyHeader.play = async ({ canvasElement }) => {
   await userEvent.click(compactMenuButton!);
 
   await waitFor(() => {
-    const topNav = host?.shadowRoot?.querySelector(".top-nav");
+    const topNav = host?.shadowRoot?.querySelector(".top-nav-shell");
     expect(topNav?.getAttribute("data-compact-nav-visible")).toBe("true");
   });
 
