@@ -13,7 +13,6 @@ import {
 let mobileMatches = false;
 let prefersReducedMotionMatches = false;
 const resizeCallbacks = new Map<Element, ResizeObserverCallback>();
-
 class ResizeObserverMock {
   private readonly _callback: ResizeObserverCallback;
 
@@ -225,6 +224,18 @@ function getPanelTrigger(el: HTMLElement, panelId: string) {
 function getDesktopSearch(el: HTMLElement) {
   return el.shadowRoot?.querySelector(
     '[data-search-surface="desktop"]',
+  ) as HTMLElement | null;
+}
+
+function getDesktopSearchRegion(el: HTMLElement) {
+  return el.shadowRoot?.querySelector(
+    ".desktop-search-region",
+  ) as HTMLElement | null;
+}
+
+function getCompactMenuToggle(el: HTMLElement) {
+  return el.shadowRoot?.querySelector(
+    ".compact-menu-toggle",
   ) as HTMLElement | null;
 }
 
@@ -662,44 +673,147 @@ describe("fd-global-header", () => {
     expect(base.getAttribute("data-shy-hidden")).toBe("true");
   });
 
-  it("reveals on focus and keeps the desktop mega-menu visible while it is open", async () => {
+  it("exposes --fd-global-header-shy-height when shy is enabled and clears it when disabled", async () => {
+    const el = await createHeader({ shy: false });
+    const base = getBase(el);
+
+    if (!base) {
+      throw new Error("Expected base surface");
+    }
+
+    Object.defineProperty(base, "offsetHeight", {
+      configurable: true,
+      get: () => 96,
+    });
+
+    el.shy = true;
+    await el.updateComplete;
+
+    const value = el.style.getPropertyValue("--fd-global-header-shy-height");
+    expect(value).toBe("96px");
+
+    el.shy = false;
+    await el.updateComplete;
+
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("");
+  });
+
+  it("updates --fd-global-header-shy-height when the header resizes while not compact", async () => {
+    const el = await createHeader({ shy: false });
+    const base = getBase(el);
+
+    if (!base) {
+      throw new Error("Expected base surface");
+    }
+
+    let mockHeight = 96;
+    Object.defineProperty(base, "offsetHeight", {
+      configurable: true,
+      get: () => mockHeight,
+    });
+
+    el.shy = true;
+    await el.updateComplete;
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("96px");
+
+    // Simulate a resize while the header is in full (non-compact) state.
+    mockHeight = 112;
+    triggerResize(el, 1200);
+    await el.updateComplete;
+
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
+
+    // When the header is shy-hidden (compact), resize should NOT update the
+    // height — it would capture the compact height instead of the full height.
+    await dispatchScroll(200);
+    await el.updateComplete;
+    expect(base.getAttribute("data-shy-hidden")).toBe("true");
+
+    mockHeight = 48;
+    triggerResize(el, 1100);
+    await el.updateComplete;
+
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
+  });
+
+  it("switches to a compact sticky desktop state and keeps the desktop mega-menu visible while it is open", async () => {
     const el = await createHeader({ shy: true, shyThreshold: 64 });
     const base = getBase(el);
+    const topNav = el.shadowRoot?.querySelector(".top-nav-shell") as HTMLElement | null;
     const trigger = getPanelTrigger(el, "news-events");
 
     await dispatchScroll(120);
     await el.updateComplete;
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+    expect(topNav?.getAttribute("data-compact-nav-visible")).toBe("false");
 
     trigger?.focus();
     await el.updateComplete;
     await nextFrame();
 
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+
+    const compactMenuToggle = getCompactMenuToggle(el);
+    const compactMenuButton = compactMenuToggle?.shadowRoot?.querySelector(
+      "button",
+    ) as HTMLButtonElement | null;
+
+    compactMenuButton?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(topNav?.getAttribute("data-compact-nav-visible")).toBe("true");
 
     trigger?.click();
     await el.updateComplete;
     await nextFrame();
 
     expect(trigger?.getAttribute("aria-expanded")).toBe("true");
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
 
     await dispatchScroll(180);
     await el.updateComplete;
 
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
 
     trigger?.click();
     await el.updateComplete;
     await nextFrame();
 
     expect(trigger?.getAttribute("aria-expanded")).toBe("false");
-    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
 
     await dispatchScroll(190);
     await el.updateComplete;
 
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+  });
+
+  it("expands compact desktop search from the slash shortcut without leaving shy mode", async () => {
+    const el = await createHeader({ shy: true, shyThreshold: 64 });
+    const base = getBase(el);
+    const searchRegion = getDesktopSearchRegion(el);
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+    expect(searchRegion?.getAttribute("data-search-expanded")).toBe("false");
+
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "/", bubbles: true }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    const desktopSearch = getDesktopSearch(el);
+    const input = getSearchInput(desktopSearch);
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(searchRegion?.getAttribute("data-search-expanded")).toBe("true");
+    expect(desktopSearch?.shadowRoot?.activeElement).toBe(input);
   });
 
   it("reveals for mobile drawer and mobile search surfaces and suppresses shy motion under reduced motion", async () => {

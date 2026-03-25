@@ -274,6 +274,8 @@ export class FdGlobalHeader extends LitElement {
     _topNavIndicatorVisible: { state: true },
     _shyHidden: { state: true },
     _shyTransitionDurationMs: { state: true },
+    _compactDesktopMenuVisible: { state: true },
+    _compactDesktopSearchExpanded: { state: true },
   };
 
   static styles = css`
@@ -303,6 +305,14 @@ export class FdGlobalHeader extends LitElement {
       );
       position: relative;
       z-index: 0;
+    }
+
+    :host([shy]) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
     }
 
     :host([hidden]) {
@@ -338,8 +348,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .base[data-shy-active="true"] {
-      position: sticky;
-      top: 0;
+      position: relative;
       transform: translateY(0);
       transition-property: transform;
       transition-duration: var(--_fd-global-header-shy-duration, 300ms);
@@ -349,6 +358,17 @@ export class FdGlobalHeader extends LitElement {
 
     .base[data-shy-active="true"][data-shy-hidden="true"] {
       transform: translateY(-100%);
+    }
+
+    .base[data-shy-active="true"][data-compact-desktop="true"] {
+      transform: translateY(0);
+    }
+
+    .base[data-compact-desktop="true"] {
+      box-shadow: 0 10px 28px rgba(0, 18, 32, 0.18);
+      transition:
+        transform var(--_fd-global-header-shy-duration, 300ms) ease,
+        box-shadow 250ms ease;
     }
 
     .shell {
@@ -363,6 +383,12 @@ export class FdGlobalHeader extends LitElement {
       padding: 1.5rem 0;
       display: flex;
       align-items: center;
+    }
+
+    .base[data-shy-active="true"] .masthead {
+      transition:
+        padding 250ms ease,
+        min-height 250ms ease;
     }
 
     .masthead-row {
@@ -388,6 +414,10 @@ export class FdGlobalHeader extends LitElement {
     .controls {
       flex: 0 1 auto;
       justify-content: flex-end;
+    }
+
+    .compact-menu-toggle {
+      display: none;
     }
 
     ::slotted([slot="brand"]) {
@@ -467,6 +497,25 @@ export class FdGlobalHeader extends LitElement {
       display: block;
     }
 
+    .desktop-search-region {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: none;
+      min-width: 0;
+    }
+
+    .desktop-search-shell {
+      display: block;
+      flex: none;
+      min-width: 0;
+    }
+
+    .compact-search-toggle {
+      display: none;
+      flex: none;
+    }
+
     .mobile-controls {
       display: none;
       align-items: center;
@@ -486,6 +535,15 @@ export class FdGlobalHeader extends LitElement {
       border-bottom: 6px solid var(--fd-global-header-color-accent-soft);
       position: relative;
       z-index: 61;
+    }
+
+    .top-nav-shell {
+      overflow: clip;
+      transition:
+        max-height 220ms ease,
+        opacity 180ms ease,
+        border-bottom-width 180ms ease,
+        visibility 180ms ease;
     }
 
     .top-nav-list {
@@ -667,6 +725,132 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mega-menu-scrim[data-open="true"] {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .base[data-compact-desktop="true"] .masthead {
+      min-height: 0;
+      padding: 0.625rem 0;
+    }
+
+    .base[data-compact-desktop="true"] .masthead-row {
+      gap: 0.75rem;
+    }
+
+    .base[data-compact-desktop="true"] .brand-row {
+      gap: 0.875rem;
+    }
+
+    .base[data-shy-active="true"] ::slotted([slot="brand"]) {
+      transition: transform 250ms ease;
+    }
+
+    .base[data-compact-desktop="true"] ::slotted([slot="brand"]) {
+      transform: scale(0.88);
+      transform-origin: left center;
+    }
+
+    .base[data-compact-desktop="true"] .controls {
+      gap: 0.125rem;
+    }
+
+    .base[data-compact-desktop="true"] .utility {
+      gap: 0.125rem;
+    }
+
+    .base[data-shy-active="true"] ::slotted([slot="utility"]) {
+      transition:
+        width 250ms ease,
+        height 250ms ease;
+    }
+
+    .base[data-compact-desktop="true"] ::slotted([slot="utility"]) {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .base[data-compact-desktop="true"] ::slotted(fd-button[slot="utility"]) {
+      --fd-button-height: 2.5rem;
+      --fd-button-min-width: 2.5rem;
+      --fd-button-icon-only-size: 2.5rem;
+    }
+
+    .base[data-compact-desktop="true"] .compact-menu-toggle {
+      display: inline-flex;
+      flex: none;
+      --fd-button-height: 2.5rem;
+      --fd-button-min-width: 2.5rem;
+      --fd-button-radius: 3px;
+      --fd-button-text-subtle-inverted: var(--fd-global-header-color-text-inverted);
+      --fd-button-focus-gap: var(--fd-global-header-color-surface-brand);
+      --fd-button-focus-ring: var(--fd-global-header-color-accent);
+    }
+
+    .base[data-compact-desktop="true"] .compact-menu-toggle fd-icon {
+      --fd-icon-size: 1rem;
+      transition: transform 180ms ease;
+    }
+
+    .base[data-compact-desktop="true"] .compact-menu-toggle[aria-expanded="true"] fd-icon {
+      transform: rotate(180deg);
+    }
+
+    .base[data-compact-desktop="true"] .desktop-search-region {
+      width: 2.75rem;
+      overflow: hidden;
+      transition: width 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] {
+      width: min(18rem, 32vw);
+    }
+
+    .base[data-compact-desktop="true"] .desktop-search-shell {
+      width: 0;
+      opacity: 0;
+      transform: translateX(0.75rem);
+      pointer-events: none;
+      transition:
+        width 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 180ms ease,
+        transform 220ms ease;
+    }
+
+    .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] .desktop-search-shell {
+      width: 16rem;
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .base[data-compact-desktop="true"] .compact-search-toggle {
+      display: inline-flex;
+      flex: none;
+      opacity: 1;
+      transform: scale(1);
+      transition:
+        opacity 140ms ease,
+        transform 180ms ease;
+    }
+
+    .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] .compact-search-toggle {
+      opacity: 0;
+      transform: scale(0.92);
+      pointer-events: none;
+    }
+
+    .base[data-compact-desktop="true"] .top-nav-shell[data-compact-nav-visible="false"] {
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      border-bottom-width: 0;
+      pointer-events: none;
+    }
+
+    .base[data-compact-desktop="true"] .top-nav-shell[data-compact-nav-visible="true"] {
+      max-height: 28rem;
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
@@ -1251,6 +1435,12 @@ export class FdGlobalHeader extends LitElement {
       width: min(100%, calc(100% - 2rem));
     }
 
+    :host([mobile-layout]) {
+      position: relative;
+      top: auto;
+      z-index: 0;
+    }
+
     :host([mobile-layout]) .masthead-row {
       min-height: 4.5rem;
     }
@@ -1502,6 +1692,8 @@ export class FdGlobalHeader extends LitElement {
   declare _topNavIndicatorVisible: boolean;
   declare _shyHidden: boolean;
   declare _shyTransitionDurationMs: number;
+  declare _compactDesktopMenuVisible: boolean;
+  declare _compactDesktopSearchExpanded: boolean;
 
   private _baseId: string;
   private _mobileMediaQuery: MediaQueryList | null = null;
@@ -1522,11 +1714,17 @@ export class FdGlobalHeader extends LitElement {
   private _shyPendingScrollY = 0;
   private _shyScrollAnimationFrame: number | null = null;
   private _shyScrollListening = false;
+  private _shyHeightSynced = false;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
   private readonly _onDocumentKeyDownBound = this._handleDocumentKeyDown.bind(this);
   private readonly _onFocusInBound = () => {
     if (!this.shy) {
+      return;
+    }
+
+    if (this._isCompactDesktopShyActive()) {
+      this._syncShyTrackingFromWindow();
       return;
     }
 
@@ -1582,6 +1780,8 @@ export class FdGlobalHeader extends LitElement {
     this._topNavIndicatorVisible = false;
     this._shyHidden = false;
     this._shyTransitionDurationMs = DEFAULT_SHY_HIDE_DURATION_MS;
+    this._compactDesktopMenuVisible = false;
+    this._compactDesktopSearchExpanded = false;
     this._baseId = `fdgh-${globalHeaderInstanceCount++}`;
   }
 
@@ -1640,6 +1840,7 @@ export class FdGlobalHeader extends LitElement {
     document.removeEventListener("keydown", this._onDocumentKeyDownBound, true);
     this.removeEventListener("focusin", this._onFocusInBound);
     this._detachShyScrollListener();
+    this._clearShyHeight();
   }
 
   protected override willUpdate(changed: PropertyValues<this>) {
@@ -1686,9 +1887,13 @@ export class FdGlobalHeader extends LitElement {
         this._setShyHiddenState(false, { immediate: true });
         this._syncShyTrackingFromWindow();
         this._attachShyScrollListener();
+        this._syncShyHeight();
       } else {
         this._detachShyScrollListener();
+        this._clearShyHeight();
         this._setShyHiddenState(false, { immediate: true });
+        this._compactDesktopMenuVisible = false;
+        this._compactDesktopSearchExpanded = false;
         this._syncShyTrackingFromWindow();
       }
     } else if (this.shy && changed.has("shyThreshold")) {
@@ -1706,7 +1911,11 @@ export class FdGlobalHeader extends LitElement {
         changed.has("_mobileSearchOpen"))
     ) {
       if (this._hasOpenOverlay()) {
-        this._revealShyHeader({ syncTracking: true });
+        if (this._isCompactDesktopShyActive()) {
+          this._syncShyTrackingFromWindow();
+        } else {
+          this._revealShyHeader({ syncTracking: true });
+        }
       } else {
         this._syncShyTrackingFromWindow();
       }
@@ -1732,6 +1941,11 @@ export class FdGlobalHeader extends LitElement {
         this._lastObservedHeight = entry.contentRect.height;
       }
       this._syncResponsiveState(entry?.contentRect.width);
+      // Only update the shy height when showing the full (non-compact)
+      // header so it reflects the true full-size height.
+      if (this.shy && !this._shyHidden) {
+        this._syncShyHeight();
+      }
       this.updateComplete.then(() => {
         this._syncColumnRails();
         this._syncTopNavIndicator();
@@ -1756,6 +1970,60 @@ export class FdGlobalHeader extends LitElement {
     const currentScrollY = this._getWindowScrollY();
     this._shyLastScrollY = currentScrollY;
     this._shyPendingScrollY = currentScrollY;
+  }
+
+  private _isCompactDesktopShyActive() {
+    return this.shy && this._shyHidden && !this._isMobile;
+  }
+
+  private _isCompactDesktopNavVisible() {
+    return (
+      !this._isCompactDesktopShyActive() ||
+      this._compactDesktopMenuVisible ||
+      this._menuOpen
+    );
+  }
+
+  private _toggleCompactDesktopMenu() {
+    if (!this._isCompactDesktopShyActive()) {
+      return;
+    }
+
+    const nextVisible = !this._compactDesktopMenuVisible;
+    this._compactDesktopMenuVisible = nextVisible;
+
+    if (!nextVisible) {
+      this._closeMenu();
+      return;
+    }
+
+    this._compactDesktopSearchExpanded = false;
+  }
+
+  private _focusCompactDesktopSearch() {
+    this._compactDesktopSearchExpanded = true;
+    this._compactDesktopMenuVisible = false;
+    this._closeMenu();
+    this.updateComplete.then(() => {
+      const desktopSearch = this._getHeaderSearchHost("desktop");
+      desktopSearch?.focus();
+      desktopSearch?.select?.();
+    });
+  }
+
+  private _collapseCompactDesktopSearch({ restoreFocus = false } = {}) {
+    if (!this._compactDesktopSearchExpanded) {
+      return;
+    }
+
+    this._compactDesktopSearchExpanded = false;
+    if (restoreFocus) {
+      this.updateComplete.then(() =>
+        this.shadowRoot
+          ?.querySelector<HTMLElement>(".compact-search-toggle")
+          ?.focus(),
+      );
+    }
   }
 
   private _queueShyScrollEvaluation() {
@@ -1798,6 +2066,29 @@ export class FdGlobalHeader extends LitElement {
 
     window.removeEventListener("scroll", this._onWindowScrollBound);
     this._shyScrollListening = false;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Shy height custom property
+  //
+  // When shy mode is active the header uses position: fixed, removing it
+  // from the document flow. The component exposes its full (non-compact)
+  // height as --fd-global-header-shy-height on the host element so the
+  // consumer can reserve space (e.g. padding-top on a wrapper).
+  // ---------------------------------------------------------------------------
+
+  private _syncShyHeight() {
+    const base = this.renderRoot?.querySelector<HTMLElement>(".base");
+    const height = base?.offsetHeight || this.offsetHeight || this._lastObservedHeight;
+    if (height > 0) {
+      this.style.setProperty("--fd-global-header-shy-height", `${height}px`);
+      this._shyHeightSynced = true;
+    }
+  }
+
+  private _clearShyHeight() {
+    this.style.removeProperty("--fd-global-header-shy-height");
+    this._shyHeightSynced = false;
   }
 
   private _hasOpenOverlay() {
@@ -1847,6 +2138,11 @@ export class FdGlobalHeader extends LitElement {
 
     this._shyHidden = nextHidden;
     this._shyTransitionDurationMs = nextDuration;
+
+    if (!nextHidden) {
+      this._compactDesktopMenuVisible = false;
+      this._compactDesktopSearchExpanded = false;
+    }
   }
 
   private _revealShyHeader(
@@ -1867,7 +2163,11 @@ export class FdGlobalHeader extends LitElement {
     }
 
     if (this._hasOpenOverlay()) {
-      this._revealShyHeader({ syncTracking: true });
+      if (this._isCompactDesktopShyActive()) {
+        this._syncShyTrackingFromWindow();
+      } else {
+        this._revealShyHeader({ syncTracking: true });
+      }
       return;
     }
 
@@ -2016,6 +2316,8 @@ export class FdGlobalHeader extends LitElement {
     this.toggleAttribute("compact-mobile-layout", isCompactMobile);
     if (isMobile) {
       this._menuOpen = false;
+      this._compactDesktopMenuVisible = false;
+      this._compactDesktopSearchExpanded = false;
     } else {
       this._mobileMenuOpen = false;
       this._mobileSearchOpen = false;
@@ -2165,6 +2467,11 @@ export class FdGlobalHeader extends LitElement {
 
   private _focusSearchFieldFromShortcut() {
     if (!this.search) {
+      return;
+    }
+
+    if (this._isCompactDesktopShyActive()) {
+      this._focusCompactDesktopSearch();
       return;
     }
 
@@ -2359,6 +2666,14 @@ export class FdGlobalHeader extends LitElement {
     if (this._mobileSearchOpen) {
       this._closeMobileSearch();
     }
+
+    if (this._compactDesktopMenuVisible) {
+      this._compactDesktopMenuVisible = false;
+    }
+
+    if (this._compactDesktopSearchExpanded) {
+      this._collapseCompactDesktopSearch();
+    }
   }
 
   private _handleDocumentKeyDown(event: KeyboardEvent) {
@@ -2376,6 +2691,23 @@ export class FdGlobalHeader extends LitElement {
     }
 
     if (event.key === "Escape") {
+      if (this._isCompactDesktopShyActive() && this._compactDesktopSearchExpanded) {
+        event.preventDefault();
+        this._collapseCompactDesktopSearch({ restoreFocus: true });
+        return;
+      }
+
+      if (this._isCompactDesktopShyActive() && this._compactDesktopMenuVisible && !this._menuOpen) {
+        event.preventDefault();
+        this._compactDesktopMenuVisible = false;
+        this.updateComplete.then(() =>
+          this.shadowRoot
+            ?.querySelector<HTMLElement>(".compact-menu-toggle")
+            ?.focus(),
+        );
+        return;
+      }
+
       if (this._mobileSearchOpen) {
         event.preventDefault();
         this._closeMobileSearch({ restoreFocus: true });
@@ -3000,6 +3332,59 @@ export class FdGlobalHeader extends LitElement {
     `;
   }
 
+  private _renderCompactDesktopMenuToggle() {
+    if (!this._isCompactDesktopShyActive()) {
+      return nothing;
+    }
+
+    return html`
+      <fd-button
+        class="compact-menu-toggle"
+        variant="subtle-inverted"
+        aria-label="Toggle main menu"
+        aria-expanded=${String(this._isCompactDesktopNavVisible())}
+        aria-controls=${`${this._baseId}-primary-nav`}
+        @click=${() => this._toggleCompactDesktopMenu()}
+      >
+        Menu
+        <fd-icon slot="icon-end" name="caret-down" aria-hidden="true"></fd-icon>
+      </fd-button>
+    `;
+  }
+
+  private _renderDesktopSearchRegion() {
+    if (!this.search) {
+      return nothing;
+    }
+
+    const compactDesktopActive = this._isCompactDesktopShyActive();
+    const searchExpanded = !compactDesktopActive || this._compactDesktopSearchExpanded;
+
+    return html`
+      <div
+        class="desktop-search-region"
+        data-search-expanded=${String(searchExpanded)}
+      >
+        ${compactDesktopActive
+          ? html`
+              <button
+                class="icon-button icon-button--round compact-search-toggle"
+                type="button"
+                aria-label="Open search"
+                @click=${() => this._focusCompactDesktopSearch()}
+              >
+                <fd-icon
+                  name="magnifying-glass"
+                  aria-hidden="true"
+                ></fd-icon>
+              </button>
+            `
+          : nothing}
+        <div class="desktop-search-shell">${this._renderDesktopSearch()}</div>
+      </div>
+    `;
+  }
+
   private _renderMobileSearch() {
     if (!this.search) {
       return nothing;
@@ -3552,6 +3937,7 @@ export class FdGlobalHeader extends LitElement {
         part="base"
         data-shy-active=${String(this.shy)}
         data-shy-hidden=${String(this._shyHidden)}
+        data-compact-desktop=${String(this._isCompactDesktopShyActive())}
         style=${this.shy
           ? `--_fd-global-header-shy-duration:${this._shyTransitionDurationMs}ms;`
           : nothing}
@@ -3578,10 +3964,11 @@ export class FdGlobalHeader extends LitElement {
               <slot name="brand"></slot>
             </div>
             <div class="controls">
+              ${this._renderCompactDesktopMenuToggle()}
               <div class="utility">
                 <slot name="utility"></slot>
               </div>
-              ${this._renderDesktopSearch()}
+              ${this._renderDesktopSearchRegion()}
               ${this.search
                 ? html`
                     <div class="mobile-controls mobile-controls--search">
@@ -3631,12 +4018,17 @@ export class FdGlobalHeader extends LitElement {
 
         <div
           class="top-nav"
+          id=${`${this._baseId}-primary-nav`}
           part="primary-nav"
           @pointerenter=${this._cancelDesktopClose}
           @pointerleave=${this._scheduleDesktopClose}
           @focusin=${this._cancelDesktopClose}
           @focusout=${this._handleDesktopFocusOut}
         >
+          <div
+            class="top-nav-shell"
+            data-compact-nav-visible=${String(this._isCompactDesktopNavVisible())}
+          >
           <div class="shell">
             <nav aria-label="Primary navigation">
               <div
@@ -3658,6 +4050,7 @@ export class FdGlobalHeader extends LitElement {
                 </ul>
               </div>
             </nav>
+          </div>
           </div>
           ${this._renderDesktopPanel()}
         </div>

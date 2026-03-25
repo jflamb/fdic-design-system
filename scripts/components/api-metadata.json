@@ -3068,7 +3068,7 @@
           "name": "shy",
           "type": "`boolean`",
           "defaultValue": "`false`",
-          "description": "Opt-in sticky hide/reveal behavior. When `true`, the header hides on downward window scroll beyond the threshold and reveals on upward scroll or immediate interaction."
+          "description": "Opt-in sticky hide/reveal behavior. When `true`, the header uses `position: fixed` and exposes `--fd-global-header-shy-height`. On desktop, scrolling down transitions to a compact header. Reveals the full header on upward scroll or immediate interaction."
         },
         {
           "name": "shyThreshold",
@@ -3077,7 +3077,7 @@
           "description": "Optional downward-scroll threshold in pixels before shy behavior engages. When omitted, `fd-global-header` uses its own rendered height."
         }
       ],
-      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, and shy-header scroll tracking when `shy` is enabled.\n- The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
+      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, shy-header scroll tracking, and compact desktop state when `shy` is enabled.\n- The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
     },
     "slots": {
       "rows": [
@@ -3108,9 +3108,14 @@
           "name": "--fd-global-header-shy-transition-duration",
           "default": "`0.3s`",
           "description": "Hide-transition duration used when `shy` is enabled. Reveal timing is derived internally as a proportionally faster transition."
+        },
+        {
+          "name": "--fd-global-header-shy-height",
+          "default": "—",
+          "description": "Read-only. Set on the host when `shy` is enabled. Contains the header's full (non-compact) rendered height as a pixel value. Use it on a parent wrapper to reserve space for the fixed header (e.g., `padding-top: var(--fd-global-header-shy-height, 0px)`). Removed when `shy` is disabled."
         }
       ],
-      "after": "- This custom property is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely."
+      "after": "- `--fd-global-header-shy-transition-duration` is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely.\n- `--fd-global-header-shy-height` updates automatically when the header resizes (e.g., viewport changes)."
     },
     "shadowParts": {
       "rows": [
