@@ -198,8 +198,11 @@ Validation expectations:
 
 ## Documentation Truthfulness
 
+- Treat documentation and stories as part of implementation, not follow-up polish.
 - Keep docs and stories aligned with the shipped API.
+- When code changes semantics, keyboarding, focus management, motion, responsive behavior, accessibility expectations, or visual state coverage, update the corresponding docs page, Storybook stories, embeds, captions, and linked story IDs in the same change.
 - Remove placeholder, stale, duplicate, or misleading guidance before opening the PR.
+- Verify that docs examples, Storybook embeds, and linked story IDs still resolve after renames or story reshaping.
 - If usage guidance depends on composition outside the component contract, label it clearly as a recipe or integration pattern.
 
 ## Follow-Up Issues

@@ -68,7 +68,7 @@
 
 ## Accessibility
 
-- When `modal` is true, the drawer exposes dialog semantics, traps focus, and emits close requests for Escape and backdrop dismissal.
+- When `modal` is true, the drawer exposes dialog semantics only while open, traps focus, and emits close requests for Escape and backdrop dismissal.
 - The parent component is responsible for deciding whether a close request should actually close the surface and where focus should return.
 - Drawer content stays semantic because the primitive only supplies the shell; callers provide links, buttons, headings, and landmarks.
 

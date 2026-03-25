@@ -68,8 +68,9 @@
 ## Accessibility
 
 - The input stays a native search field with an attached suggestion list of real links.
-- Desktop suggestions stay attached to the input; mobile suggestions reuse `fd-drawer` for modal presentation and focus handling.
+- Desktop suggestions stay attached to the input; mobile suggestions reuse `fd-drawer` for modal presentation, focus trapping, and focus restoration while the mobile surface is open.
 - The component emits cancelable submit and activate events before navigation so applications can route without losing semantics.
+- Non-essential motion should be reducible by the consuming surface; in the global-header family, reduced-motion handling is applied at the header level.
 - Multiple instances are safe because all generated control IDs are instance-scoped.
 
 ## Known limitations

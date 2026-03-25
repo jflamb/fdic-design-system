@@ -24,8 +24,8 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 ## Examples
 
 <StoryEmbed
-  storyId="components-global-header--prototype-desktop"
-  linkStoryId="components-global-header--prototype-mobile-drawer"
+  storyId="components-global-header--desktop"
+  linkStoryId="components-global-header--mobile-drawer"
   height="520"
   caption="Prototype-aligned desktop story using the exact FDICnet main-menu YAML-derived fixture. Storybook also includes dedicated search-open, mobile drawer, and mobile drill-down states."
 />
@@ -126,7 +126,9 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 - **Semantics stay native** — Top-level direct destinations render as links. Grouped destinations render as disclosure buttons. Desktop panel and mobile drill-down content render as navigation structures, not action menus.
 - **Keyboard model follows the prototype without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
 - **Focus restoration is component-owned only for ephemeral surfaces** — Closing the desktop panel, mobile drawer, or mobile search surface returns focus to the invoking control when it still exists. Broader page-level focus after navigation remains application-owned.
+- **Mobile overlays behave like true modal surfaces only while open** — The menu drawer and mobile search shell trap focus while open, restore focus to their invoking control on close, and do not keep dialog semantics attached when hidden.
 - **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
+- **Reduced motion is honored across the full component** — Non-essential transitions and animations are suppressed when users request reduced motion, including overlay and mega-menu state changes.
 - **Search is local and deterministic in v1** — Suggestions are derived only from the supplied navigation tree and search configuration. The fallback submission path is explicit and testable.
 - **Multiple instances are supported** — The component does not rely on global IDs or singleton state. If multiple headers render in Storybook or docs, their controls do not collide.
 
@@ -139,6 +141,8 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 ## Related components
 
 - [Button](/components/button)
+- [Drawer](/components/drawer)
+- [Header Search](/components/header-search)
 - [Icon](/components/icon)
 - [Input](/components/input)
 - [Menu](/components/menu)

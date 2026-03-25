@@ -10,7 +10,7 @@ import {
   getComponentArgs,
   getComponentArgTypes,
 } from "./generated/component-arg-types";
-import { fdGlobalHeaderPrototypeSearch } from "../../../packages/components/src/components/fd-global-header.prototype.js";
+import { fdGlobalHeaderPrototypeSearch } from "@fdic-ds/components/fd-global-header-prototype";
 
 type HeaderSearchArgs = {
   surface: HeaderSearchSurface;
