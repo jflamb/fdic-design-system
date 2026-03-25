@@ -1,7 +1,6 @@
 import { defineConfig } from "vitepress";
 import {
-  firstClassComponentSidebarItems,
-  supportingPrimitiveSidebarItems,
+  componentSidebarGroups,
 } from "./generated/component-navigation";
 
 export default defineConfig({
@@ -38,14 +37,7 @@ export default defineConfig({
         text: "Components",
         items: [
           { text: "Overview", link: "/components/" },
-          {
-            text: "First-class Components",
-            items: firstClassComponentSidebarItems
-          },
-          {
-            text: "Supporting Primitives",
-            items: supportingPrimitiveSidebarItems
-          },
+          ...componentSidebarGroups,
           {
             text: "Prose",
             items: [

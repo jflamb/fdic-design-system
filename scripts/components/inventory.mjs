@@ -5,6 +5,14 @@ export const COMPONENT_KINDS = {
   INTERNAL_ONLY: "internal-only",
 };
 
+export const DOCS_CATEGORIES = {
+  FORMS_INPUT: "forms-input",
+  ACTIONS_NAVIGATION: "actions-navigation",
+  FEEDBACK_STATUS: "feedback-status",
+  LAYOUT_SHELL: "layout-shell",
+  VISUAL_MEDIA: "visual-media",
+};
+
 export const componentInventory = [
   {
     tagName: "fd-button",
@@ -14,6 +22,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Button",
       slug: "button",
+      category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
+      order: 10,
     },
     storybook: {
       title: "Components/Button",
@@ -34,6 +44,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Button Group",
       slug: "button-group",
+      category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
+      order: 20,
     },
     storybook: {
       title: "Components/Button Group",
@@ -54,6 +66,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Checkbox",
       slug: "checkbox",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 40,
     },
     storybook: {
       title: "Components/Checkbox",
@@ -74,6 +88,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Checkbox Group",
       slug: "checkbox-group",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 50,
     },
     storybook: {
       title: "Components/Checkbox Group",
@@ -94,6 +110,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
       title: "Field",
       slug: "field",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 100,
     },
     storybook: {
       title: "Supporting Primitives/Field",
@@ -114,6 +132,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Icon",
       slug: "icon",
+      category: DOCS_CATEGORIES.VISUAL_MEDIA,
+      order: 10,
     },
     storybook: {
       title: "Components/Icon",
@@ -134,6 +154,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Input",
       slug: "input",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 20,
     },
     storybook: {
       title: "Components/Input",
@@ -154,6 +176,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Label",
       slug: "label",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 10,
     },
     storybook: {
       title: "Components/Label",
@@ -174,6 +198,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Menu",
       slug: "menu",
+      category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
+      order: 40,
     },
     storybook: {
       title: "Components/Menu",
@@ -210,6 +236,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
       title: "Message",
       slug: "message",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 110,
     },
     storybook: {
       title: "Supporting Primitives/Message",
@@ -246,6 +274,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Radio",
       slug: "radio",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 60,
     },
     storybook: {
       title: "Components/Radio",
@@ -266,6 +296,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Radio Group",
       slug: "radio-group",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 70,
     },
     storybook: {
       title: "Components/Radio Group",
@@ -286,6 +318,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Selector",
       slug: "selector",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 80,
     },
     storybook: {
       title: "Components/Selector",
@@ -306,6 +340,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Split Button",
       slug: "split-button",
+      category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
+      order: 30,
     },
     storybook: {
       title: "Components/Split Button",
@@ -341,6 +377,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "File Input",
       slug: "file-input",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 90,
     },
     storybook: {
       title: "Components/File Input",
@@ -368,6 +406,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Slider",
       slug: "slider",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 95,
     },
     storybook: {
       title: "Components/Slider",
@@ -388,6 +428,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Badge",
       slug: "badge",
+      category: DOCS_CATEGORIES.FEEDBACK_STATUS,
+      order: 20,
     },
     storybook: {
       title: "Components/Badge",
@@ -408,6 +450,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Badge Group",
       slug: "badge-group",
+      category: DOCS_CATEGORIES.FEEDBACK_STATUS,
+      order: 30,
     },
     storybook: {
       title: "Components/Badge Group",
@@ -428,6 +472,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Chip",
       slug: "chip",
+      category: DOCS_CATEGORIES.FEEDBACK_STATUS,
+      order: 40,
     },
     storybook: {
       title: "Components/Chip",
@@ -448,6 +494,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Chip Group",
       slug: "chip-group",
+      category: DOCS_CATEGORIES.FEEDBACK_STATUS,
+      order: 50,
     },
     storybook: {
       title: "Components/Chip Group",
@@ -468,6 +516,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Text Area",
       slug: "textarea",
+      category: DOCS_CATEGORIES.FORMS_INPUT,
+      order: 30,
     },
     storybook: {
       title: "Components/Text Area",
@@ -488,6 +538,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
       title: "Visual",
       slug: "visual",
+      category: DOCS_CATEGORIES.VISUAL_MEDIA,
+      order: 20,
     },
     storybook: {
       title: "Supporting Primitives/Visual",
@@ -508,6 +560,8 @@ export const componentInventory = [
       kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Alert",
       slug: "alert",
+      category: DOCS_CATEGORIES.FEEDBACK_STATUS,
+      order: 10,
     },
     storybook: {
       title: "Components/Alert",
@@ -525,9 +579,11 @@ export const componentInventory = [
     className: "FdStripe",
     sourceFile: "fd-stripe.ts",
     docs: {
-      kind: "supporting-standalone",
+      kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
       title: "Stripe",
       slug: "stripe",
+      category: DOCS_CATEGORIES.LAYOUT_SHELL,
+      order: 40,
     },
     storybook: {
       title: "Supporting Primitives/Stripe",
@@ -545,9 +601,11 @@ export const componentInventory = [
     className: "FdLink",
     sourceFile: "fd-link.ts",
     docs: {
-      kind: "first-class",
+      kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Link",
       slug: "link",
+      category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
+      order: 35,
     },
     storybook: {
       title: "Components/Link",
@@ -565,9 +623,11 @@ export const componentInventory = [
     className: "FdPagination",
     sourceFile: "fd-pagination.ts",
     docs: {
-      kind: "first-class",
+      kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Pagination",
       slug: "pagination",
+      category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
+      order: 50,
     },
     storybook: {
       title: "Components/Pagination",
@@ -585,9 +645,11 @@ export const componentInventory = [
     className: "FdGlobalHeader",
     sourceFile: "fd-global-header.ts",
     docs: {
-      kind: "first-class",
+      kind: COMPONENT_KINDS.FIRST_CLASS,
       title: "Global Header",
       slug: "global-header",
+      category: DOCS_CATEGORIES.LAYOUT_SHELL,
+      order: 10,
     },
     storybook: {
       title: "Components/Global Header",
@@ -610,23 +672,25 @@ export const componentInventory = [
       "FdGlobalHeaderSearchSubmitDetail",
     ],
   },
-    {
+  {
     tagName: "fd-header-search",
     className: "FdHeaderSearch",
     sourceFile: "fd-header-search.ts",
     docs: {
-      kind: "supporting-standalone",
+      kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
       title: "Header Search",
-      slug: "header-search"
+      slug: "header-search",
+      category: DOCS_CATEGORIES.LAYOUT_SHELL,
+      order: 20,
     },
     storybook: {
       title: "Supporting Primitives/Header Search",
-      file: "fd-header-search.stories.ts"
+      file: "fd-header-search.stories.ts",
     },
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-icon", "fd-button", "fd-drawer"]
+      dependencies: ["fd-icon", "fd-button", "fd-drawer"],
     },
     typeExports: [
       "HeaderSearchSurface",
@@ -635,27 +699,29 @@ export const componentInventory = [
       "FdHeaderSearchOpenChangeDetail",
       "FdHeaderSearchSubmitDetail",
       "FdHeaderSearchActivateDetail",
-    ]
+    ],
   },
-    {
+  {
     tagName: "fd-drawer",
     className: "FdDrawer",
     sourceFile: "fd-drawer.ts",
     docs: {
-      kind: "supporting-standalone",
+      kind: COMPONENT_KINDS.SUPPORTING_STANDALONE,
       title: "Drawer",
-      slug: "drawer"
+      slug: "drawer",
+      category: DOCS_CATEGORIES.LAYOUT_SHELL,
+      order: 30,
     },
     storybook: {
       title: "Supporting Primitives/Drawer",
-      file: "fd-drawer.stories.ts"
+      file: "fd-drawer.stories.ts",
     },
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: []
+      dependencies: [],
     },
-    typeExports: ["FdDrawerPlacement", "FdDrawerCloseRequestDetail"]
+    typeExports: ["FdDrawerPlacement", "FdDrawerCloseRequestDetail"],
   },
   // New component entries are inserted above this line by the scaffold script.
 ];

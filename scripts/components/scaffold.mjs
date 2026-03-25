@@ -20,7 +20,18 @@ const args = parseArgs(process.argv.slice(2));
 
 if (!args.name || !args.kind) {
   console.error(
-    "Usage: npm run new:component -- --name account-alert --kind first-class",
+    "Usage: npm run new:component -- --name account-alert --kind first-class --docs-category actions-navigation --docs-order 10",
+  );
+  process.exit(1);
+}
+
+if (
+  (args.kind === COMPONENT_KINDS.FIRST_CLASS ||
+    args.kind === COMPONENT_KINDS.SUPPORTING_STANDALONE) &&
+  (!args["docs-category"] || !args["docs-order"])
+) {
+  console.error(
+    "Standalone docs components require --docs-category and --docs-order so the docs IA stays explicit.",
   );
   process.exit(1);
 }
@@ -42,8 +53,14 @@ const component = {
     args.kind === COMPONENT_KINDS.INTERNAL_ONLY
       ? { kind: args.kind }
       : args.kind === COMPONENT_KINDS.SUPPORTING_EMBEDDED
-        ? { kind: args.kind, parentTagName: args.parent }
-        : { kind: args.kind, title: docsTitle, slug },
+      ? { kind: args.kind, parentTagName: args.parent }
+        : {
+            kind: args.kind,
+            title: docsTitle,
+            slug,
+            category: args["docs-category"],
+            order: Number(args["docs-order"]),
+          },
   storybook:
     args.kind === COMPONENT_KINDS.FIRST_CLASS ||
     args.kind === COMPONENT_KINDS.SUPPORTING_STANDALONE

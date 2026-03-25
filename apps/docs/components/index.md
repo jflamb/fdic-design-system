@@ -11,14 +11,29 @@ The components section documents the reusable building blocks and authored-conte
 
 <div class="fdic-card-grid">
   <div class="fdic-card">
-    <span class="fdic-eyebrow">First-class components</span>
-    <h3>Button, Button Group, Checkbox, Checkbox Group, Icon, Input, Label, Menu, Radio, Radio Group, Selector, Split Button, File Input, Slider, Badge, Badge Group, Chip, Chip Group, Text Area, Alert, Link, Pagination, Global Header</h3>
-    <p>Top-level Web Components consumers are expected to author directly in application markup. These pages define the primary supported component inventory.</p>
+    <span class="fdic-eyebrow">Forms & Input</span>
+    <h3>Label, Input, Text Area, Checkbox, Checkbox Group, Radio, Radio Group, Selector, File Input, Slider, Field, Message</h3>
+    <p>Data-entry controls and composition helpers for labels, grouping, validation, and supporting guidance.</p>
   </div>
   <div class="fdic-card">
-    <span class="fdic-eyebrow">Supporting primitives</span>
-    <h3>Field and Message and Visual and Stripe and Header Search and Drawer</h3>
-    <p>Supporting primitives stay public and intentionally authorable, but their meaning depends on a broader composition contract. They have dedicated docs because consumers still need direct guidance for correct use.</p>
+    <span class="fdic-eyebrow">Actions & Navigation</span>
+    <h3>Button, Button Group, Split Button, Link, Menu, Pagination</h3>
+    <p>Controls and navigation patterns that trigger actions, expose destinations, or move people through flows.</p>
+  </div>
+  <div class="fdic-card">
+    <span class="fdic-eyebrow">Feedback & Status</span>
+    <h3>Alert, Badge, Badge Group, Chip, Chip Group</h3>
+    <p>Components that communicate status, lightweight emphasis, selection context, or supporting state.</p>
+  </div>
+  <div class="fdic-card">
+    <span class="fdic-eyebrow">Layout & Shell</span>
+    <h3>Global Header, Header Search, Drawer, Stripe</h3>
+    <p>Shell-level and structural components for headers, drawers, search surfaces, and grouped layout treatments.</p>
+  </div>
+  <div class="fdic-card">
+    <span class="fdic-eyebrow">Visual & Media</span>
+    <h3>Icon, Visual</h3>
+    <p>Icons and visual primitives that support other components and layouts without becoming full authored-content patterns.</p>
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Authored content</span>
@@ -27,37 +42,53 @@ The components section documents the reusable building blocks and authored-conte
   </div>
 </div>
 
+These docs group public components by the job they do in an interface. The underlying implementation taxonomy still distinguishes first-class components from supporting primitives for export and composition rules.
+
 Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>fd-option</code> are documented inside their parent component pages instead of appearing as top-level entries. Internal-only scaffolding primitives such as <code>fd-placeholder</code> are not part of the public component inventory.
 
 ## Featured topics
 
 - [Prose](./prose) explains the `.prose` container, its boundary with Typography, and the specialized pages for callouts, tables, code blocks, references, disclosure patterns, and progress indicators.
-- [Button](./button) documents button usage, constraints, and accessibility guidance.
-- [Button Group](./button-group) documents button group usage, constraints, and accessibility guidance.
+### Forms & Input
+
+- [Label](./label) documents label usage, constraints, and accessibility guidance.
+- [Input](./input) documents input usage, constraints, and accessibility guidance.
+- [Text Area](./textarea) documents text area usage, constraints, and accessibility guidance.
 - [Checkbox](./checkbox) documents checkbox usage, constraints, and accessibility guidance.
 - [Checkbox Group](./checkbox-group) documents checkbox group usage, constraints, and accessibility guidance.
-- [Icon](./icon) documents icon usage, constraints, and accessibility guidance.
-- [Input](./input) documents input usage, constraints, and accessibility guidance.
-- [Label](./label) documents label usage, constraints, and accessibility guidance.
-- [Menu](./menu) documents menu usage, constraints, and accessibility guidance.
 - [Radio](./radio) documents radio usage, constraints, and accessibility guidance.
 - [Radio Group](./radio-group) documents radio group usage, constraints, and accessibility guidance.
 - [Selector](./selector) documents selector usage, constraints, and accessibility guidance.
-- [Split Button](./split-button) documents split button usage, constraints, and accessibility guidance.
 - [File Input](./file-input) documents file input usage, constraints, and accessibility guidance.
 - [Slider](./slider) documents slider usage, constraints, and accessibility guidance.
+- [Field](./field) documents the supporting primitive contract for field.
+- [Message](./message) documents the supporting primitive contract for message.
+
+### Actions & Navigation
+
+- [Button](./button) documents button usage, constraints, and accessibility guidance.
+- [Button Group](./button-group) documents button group usage, constraints, and accessibility guidance.
+- [Split Button](./split-button) documents split button usage, constraints, and accessibility guidance.
+- [Link](./link) documents link usage, constraints, and accessibility guidance.
+- [Menu](./menu) documents menu usage, constraints, and accessibility guidance.
+- [Pagination](./pagination) documents pagination usage, constraints, and accessibility guidance.
+
+### Feedback & Status
+
+- [Alert](./alert) documents alert usage, constraints, and accessibility guidance.
 - [Badge](./badge) documents badge usage, constraints, and accessibility guidance.
 - [Badge Group](./badge-group) documents badge group usage, constraints, and accessibility guidance.
 - [Chip](./chip) documents chip usage, constraints, and accessibility guidance.
 - [Chip Group](./chip-group) documents chip group usage, constraints, and accessibility guidance.
-- [Text Area](./textarea) documents text area usage, constraints, and accessibility guidance.
-- [Alert](./alert) documents alert usage, constraints, and accessibility guidance.
-- [Link](./link) documents link usage, constraints, and accessibility guidance.
-- [Pagination](./pagination) documents pagination usage, constraints, and accessibility guidance.
+
+### Layout & Shell
+
 - [Global Header](./global-header) documents global header usage, constraints, and accessibility guidance.
-- [Field](./field) documents the supporting primitive contract for field.
-- [Message](./message) documents the supporting primitive contract for message.
-- [Visual](./visual) documents the supporting primitive contract for visual.
-- [Stripe](./stripe) documents the supporting primitive contract for stripe.
 - [Header Search](./header-search) documents the supporting primitive contract for header search.
 - [Drawer](./drawer) documents the supporting primitive contract for drawer.
+- [Stripe](./stripe) documents the supporting primitive contract for stripe.
+
+### Visual & Media
+
+- [Icon](./icon) documents icon usage, constraints, and accessibility guidance.
+- [Visual](./visual) documents the supporting primitive contract for visual.

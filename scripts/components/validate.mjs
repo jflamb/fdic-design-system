@@ -62,6 +62,14 @@ for (const component of componentInventory) {
     continue;
   }
 
+  if (!component.docs.category) {
+    errors.push(`Missing docs category for ${component.tagName}.`);
+  }
+
+  if (typeof component.docs.order !== "number") {
+    errors.push(`Missing numeric docs order for ${component.tagName}.`);
+  }
+
   if (!fs.existsSync(testPath)) {
     errors.push(`Missing colocated test for ${component.tagName}: ${testPath}`);
   }
