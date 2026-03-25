@@ -308,6 +308,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     :host([shy]) {
+      overflow-anchor: none;
       position: sticky;
       top: 0;
       z-index: 20;
