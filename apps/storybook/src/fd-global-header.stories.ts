@@ -96,9 +96,10 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
   <main
     style=${[
       `min-height: calc(${longScroll ? "220vh" : "100vh"} - 131px)`,
-      "background:",
-      "linear-gradient(180deg, #f5f8fb 0%, #edf3f8 42%, #e3ecf4 100%)",
+      "background: var(--ds-color-bg-container, #f5f8fb)",
+      "color: var(--ds-color-text-primary, #212123)",
       "position: relative",
+      "z-index: -1",
       "overflow: hidden",
     ].join("; ")}
   >
@@ -131,24 +132,24 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
       >
         <article
           style=${[
-            "background:rgba(255,255,255,0.78)",
-            "border:1px solid rgba(9,53,84,0.08)",
-            "box-shadow:0 12px 28px rgba(9,53,84,0.08)",
+            "background:var(--ds-color-bg-surface, #ffffff)",
+            "border:1px solid var(--ds-color-border-divider, rgba(9,53,84,0.08))",
+            "box-shadow:0 12px 28px var(--ds-color-effect-shadow, rgba(9,53,84,0.08))",
             "padding:" + (mobile ? "1rem" : "1.5rem"),
             "display:grid",
             "gap:0.875rem",
           ].join("; ")}
         >
           <div
-            style="width:7.5rem; height:0.75rem; background:#0e4c75; opacity:0.15;"
+            style="width:7.5rem; height:0.75rem; background:currentColor; opacity:0.15;"
           ></div>
           <div
-            style="width:60%; height:2rem; background:#0e4c75; opacity:0.1;"
+            style="width:60%; height:2rem; background:currentColor; opacity:0.1;"
           ></div>
           <div style="display:grid; gap:0.625rem;">
-            <div style="height:0.875rem; background:#0e4c75; opacity:0.1;"></div>
-            <div style="height:0.875rem; background:#0e4c75; opacity:0.08;"></div>
-            <div style="width:84%; height:0.875rem; background:#0e4c75; opacity:0.08;"></div>
+            <div style="height:0.875rem; background:currentColor; opacity:0.1;"></div>
+            <div style="height:0.875rem; background:currentColor; opacity:0.08;"></div>
+            <div style="width:84%; height:0.875rem; background:currentColor; opacity:0.08;"></div>
           </div>
           <div
             style=${[
@@ -158,9 +159,9 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
               "padding-top:0.375rem",
             ].join("; ")}
           >
-            <div style="height:5.75rem; background:rgba(56,182,255,0.16);"></div>
-            <div style="height:5.75rem; background:rgba(14,76,117,0.09);"></div>
-            <div style="height:5.75rem; background:rgba(56,182,255,0.12);"></div>
+            <div style="height:5.75rem; background:currentColor; opacity:0.06;"></div>
+            <div style="height:5.75rem; background:currentColor; opacity:0.04;"></div>
+            <div style="height:5.75rem; background:currentColor; opacity:0.05;"></div>
           </div>
         </article>
         <div
@@ -170,7 +171,7 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
             "padding:" + (mobile ? "1rem" : "1.5rem"),
             "display:grid",
             "gap:0.875rem",
-            "box-shadow:0 12px 28px rgba(9,53,84,0.14)",
+            "box-shadow:0 12px 28px var(--ds-color-effect-shadow, rgba(9,53,84,0.14))",
           ].join("; ")}
         >
           <div style="width:6rem; height:0.6875rem; background:rgba(255,255,255,0.28);"></div>
@@ -193,8 +194,8 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
           (_, index) => html`
             <article
               style=${[
-                "background:rgba(255,255,255,0.68)",
-                "border:1px solid rgba(9,53,84,0.06)",
+                "background:var(--ds-color-bg-surface, rgba(255,255,255,0.68))",
+                "border:1px solid var(--ds-color-border-divider, rgba(9,53,84,0.06))",
                 "padding:" + (mobile ? "0.875rem" : "1rem"),
                 "display:grid",
                 "gap:0.75rem",
@@ -204,13 +205,13 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
                 style=${[
                   "height:4rem",
                   index % 2 === 0
-                    ? "background:rgba(56,182,255,0.16)"
-                    : "background:rgba(14,76,117,0.1)",
+                    ? "background:currentColor; opacity:0.06"
+                    : "background:currentColor; opacity:0.04",
                 ].join("; ")}
               ></div>
-              <div style="width:68%; height:0.875rem; background:#0e4c75; opacity:0.14;"></div>
-              <div style="height:0.75rem; background:#0e4c75; opacity:0.08;"></div>
-              <div style="width:86%; height:0.75rem; background:#0e4c75; opacity:0.08;"></div>
+              <div style="width:68%; height:0.875rem; background:currentColor; opacity:0.14;"></div>
+              <div style="height:0.75rem; background:currentColor; opacity:0.08;"></div>
+              <div style="width:86%; height:0.75rem; background:currentColor; opacity:0.08;"></div>
             </article>
           `,
         )}
@@ -226,7 +227,7 @@ const renderHeader = (
   <div
     style=${[
       "min-height: 100vh",
-      "background: #ffffff",
+      "background: var(--ds-color-bg-base, #ffffff)",
       "position: relative",
       options.mobile
         ? [
@@ -236,7 +237,7 @@ const renderHeader = (
             "transform: translateZ(0)",
             "isolation: isolate",
           ].join("; ")
-        : "width: 100%;",
+        : "width: 100%; isolation: isolate",
     ].join("; ")}
   >
     <fd-global-header
@@ -413,7 +414,7 @@ export const ShyHeader: Story = {
     </style>
     <div
       class="shy-header-wrapper"
-      style="min-height: 100vh; background: #ffffff; width: 100%;"
+      style="min-height: 100vh; background: var(--ds-color-bg-base, #ffffff); width: 100%; isolation: isolate;"
     >
       <fd-global-header
         style="display:block;"

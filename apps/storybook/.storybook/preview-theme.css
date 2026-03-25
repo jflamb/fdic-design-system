@@ -30,4 +30,45 @@ body {
   --link-unvisited-hover: var(--ds-color-text-brand, #84DBFF);
   --link-visited: var(--ds-color-text-link-visited, #B19CD9);
   --link-visited-hover: var(--ds-color-text-link-visited, #B19CD9);
+
+  /* Background tokens */
+  --fdic-background-interactive: var(--ds-color-bg-interactive, #212123);
+  --fdic-background-selected: var(--ds-color-bg-selected, #003256);
+  --fdic-background-tooltip: var(--ds-color-bg-overlay, #212123);
+
+  /* Border tokens */
+  --fdic-border-input-interactive: var(--ds-color-border-input-interactive, #333335);
+  --fdic-border-input-rest: var(--ds-color-border-input, #595961);
+
+  /* Icon tokens */
+  --fdic-color-icon-active: var(--ds-color-icon-active, #ADD8E6);
+  --fdic-icon-primary: var(--ds-color-icon-primary, #E0E0E2);
+
+  /* Status tokens */
+  --fdic-status-error: var(--ds-color-semantic-fg-error, #F66F8B);
+  --fdic-status-success: var(--ds-color-semantic-fg-success, #61D673);
+  --fdic-status-warning: var(--ds-color-semantic-fg-warning, #FFBF47);
+
+  /* Text tokens */
+  --fdic-text-disabled: var(--ds-color-text-disabled, #9E9EA0);
+  --fdic-text-error: var(--ds-color-text-error, #FFCCCC);
+
+  /* Mega-menu column surfaces — darker translucent tints for glass effect */
+  --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
+  --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
+  --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
+  --fd-global-header-mega-col-2-muted: rgba(28, 38, 48, 0.4);
+  --fd-global-header-mega-col-3-muted: rgba(20, 32, 44, 0.14);
+
+  /* Callout tokens — dark-appropriate colors */
+  --fdic-callout-bg: var(--ds-color-bg-container, #212123);
+  --fdic-callout-border: var(--ds-color-border-divider, #595961);
+  --fdic-callout-info-bg: rgba(78, 175, 249, 0.12);
+  --fdic-callout-info-border: rgba(78, 175, 249, 0.3);
+  --fdic-callout-warning-bg: rgba(255, 191, 71, 0.12);
+  --fdic-callout-warning-border: rgba(255, 191, 71, 0.3);
+  --fdic-callout-success-bg: rgba(97, 214, 115, 0.12);
+  --fdic-callout-success-border: rgba(97, 214, 115, 0.3);
+  --fdic-callout-danger-bg: rgba(246, 111, 139, 0.12);
+  --fdic-callout-danger-border: rgba(246, 111, 139, 0.3);
 }

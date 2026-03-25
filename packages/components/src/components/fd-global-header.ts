@@ -283,15 +283,15 @@ export class FdGlobalHeader extends LitElement {
       --fd-global-header-color-host: var(--fd-global-header-text-host, #10243e);
       --fd-global-header-color-text-primary: var(--fdic-text-primary, #212123);
       --fd-global-header-color-text-secondary: var(--fdic-text-secondary, #595961);
-      --fd-global-header-color-text-inverted: var(--fdic-text-inverted, #ffffff);
-      --fd-global-header-color-surface-base: var(--fdic-background-base, #ffffff);
+      --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--ds-color-neutral-000, #ffffff));
+      --fd-global-header-color-surface-base: var(--ds-color-bg-surface, #ffffff);
       --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, #003256);
       --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, #0b466f);
       --fd-global-header-color-accent: var(--fdic-border-input-focus, #38b6ff);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, #84dbff);
       --fd-global-header-color-border-subtle: var(--fdic-border-divider, #bdbdbf);
-      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, #f7fafc);
-      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, #edf3f7);
+      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, var(--ds-color-bg-surface, #f7fafc));
+      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, var(--ds-color-bg-container, #edf3f7));
       display: block;
       color: var(--fd-global-header-color-host);
       font-family: var(
@@ -678,7 +678,7 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button[data-active="true"],
     .top-nav-button[data-active="true"]:hover {
       background-color: transparent;
-      color: var(--fd-global-header-color-surface-brand);
+      color: var(--fd-global-header-color-text-primary);
       font-weight: 600;
       box-shadow: none;
       z-index: 2;
@@ -687,10 +687,10 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button[data-active="true"]:focus-visible,
     .top-nav-button[data-active="true"][data-manual-focus-visible="true"] {
       background-color: transparent;
-      color: var(--fd-global-header-color-surface-brand);
+      color: var(--fd-global-header-color-text-primary);
       font-weight: 600;
       box-shadow:
-        0 0 0 2px var(--fd-global-header-color-surface-brand),
+        0 0 0 2px var(--fd-global-header-color-surface-base),
         0 0 0 4px var(--fd-global-header-color-accent);
       z-index: 2;
     }
@@ -857,20 +857,20 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mega-menu-frame {
-      --mega-col-1-surface: rgba(255, 255, 255, 0.84);
-      --mega-col-2-surface: rgba(245, 250, 255, 0.5);
-      --mega-col-3-surface: rgba(232, 242, 249, 0.24);
+      --mega-col-1-surface: var(--fd-global-header-mega-col-1, rgba(255, 255, 255, 0.84));
+      --mega-col-2-surface: var(--fd-global-header-mega-col-2, rgba(245, 250, 255, 0.5));
+      --mega-col-3-surface: var(--fd-global-header-mega-col-3, rgba(232, 242, 249, 0.24));
       position: relative;
       width: min(90rem, calc(100% - 5rem));
     }
 
     .mega-menu-frame[data-visible-columns="1"] {
-      --mega-col-2-surface: rgba(245, 250, 255, 0.4);
-      --mega-col-3-surface: rgba(232, 242, 249, 0.14);
+      --mega-col-2-surface: var(--fd-global-header-mega-col-2-muted, rgba(245, 250, 255, 0.4));
+      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(232, 242, 249, 0.14));
     }
 
     .mega-menu-frame[data-visible-columns="2"] {
-      --mega-col-3-surface: rgba(232, 242, 249, 0.16);
+      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(232, 242, 249, 0.16));
     }
 
     .mega-menu-frame::before {
