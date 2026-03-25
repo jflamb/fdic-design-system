@@ -7,7 +7,34 @@
  * Source: docs/plans/2026-03-19-color-palette-design.md
  */
 
+@property --fdic-spacing-md {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+
+@property --fdic-spacing-xl {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.25rem;
+}
+
+@property --ds-color-bg-hovered {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(0, 0, 0, 0.04);
+}
+
+@property --ds-color-bg-pressed {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(0, 0, 0, 0.08);
+}
+
 :root {
+  color-scheme: light;
+  accent-color: var(--ds-color-primary-500, #0D6191);
+
   /* ===== Primitives ===== */
 
   /* Neutral */
@@ -94,8 +121,8 @@
   --ds-color-bg-highlight: var(--ds-color-primary-400);
   --ds-color-bg-selected: var(--ds-color-primary-050);
   --ds-color-bg-active: var(--ds-color-primary-500);
-  --ds-color-bg-hovered: rgba(0, 0, 0, 0.04);
-  --ds-color-bg-pressed: rgba(0, 0, 0, 0.08);
+  --ds-color-bg-hovered: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
+  --ds-color-bg-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
   --ds-color-bg-destructive: var(--ds-color-error-600);
   --ds-color-bg-readonly: var(--ds-color-neutral-100);
 
@@ -148,8 +175,8 @@
   --ds-color-semantic-border-info: var(--ds-color-info-500);
 
   /* Overlay */
-  --ds-color-overlay-hover: rgba(0, 0, 0, 0.04);
-  --ds-color-overlay-pressed: rgba(0, 0, 0, 0.08);
+  --ds-color-overlay-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
+  --ds-color-overlay-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
   --ds-color-overlay-scrim: rgba(0, 0, 0, 0.48);
 
   /* Effect */
@@ -158,6 +185,8 @@
 
 /* VitePress toggles .dark on <html>; it already bridges OS preference */
 .dark {
+  color-scheme: dark;
+
   --ds-color-bg-base: var(--ds-color-neutral-1000);
   --ds-color-bg-surface: var(--ds-color-neutral-900);
   --ds-color-bg-container: var(--ds-color-neutral-900);
@@ -169,8 +198,6 @@
   --ds-color-bg-brand: var(--ds-color-primary-050);
   --ds-color-bg-selected: var(--ds-color-primary-900);
   --ds-color-bg-active: var(--ds-color-primary-200);
-  --ds-color-bg-hovered: rgba(255, 255, 255, 0.04);
-  --ds-color-bg-pressed: rgba(255, 255, 255, 0.08);
   --ds-color-bg-readonly: var(--ds-color-neutral-800);
 
   --ds-color-text-primary: var(--ds-color-neutral-000);
@@ -213,9 +240,6 @@
   --ds-color-semantic-border-warning: #FFBF47;
   --ds-color-semantic-border-error: #F66F8B;
   --ds-color-semantic-border-info: #4EAFF9;
-
-  --ds-color-overlay-hover: rgba(255, 255, 255, 0.04);
-  --ds-color-overlay-pressed: rgba(255, 255, 255, 0.08);
 
   --ds-color-effect-shadow: rgba(0, 0, 0, 0);
 }
