@@ -20,6 +20,8 @@ import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-gl
 type GlobalHeaderArgs = {
   navigation: FdGlobalHeaderNavigationItem[];
   search: FdGlobalHeaderSearchConfig | null;
+  shy?: boolean;
+  shyThreshold?: number;
 };
 
 function createStoryArgs(): GlobalHeaderArgs {
@@ -90,10 +92,10 @@ function createDrupalStoryArgs(): GlobalHeaderArgs {
   };
 }
 
-const renderBackdropContent = (mobile = false) => html`
+const renderBackdropContent = (mobile = false, longScroll = false) => html`
   <main
     style=${[
-      "min-height: calc(100vh - 131px)",
+      `min-height: calc(${longScroll ? "220vh" : "100vh"} - 131px)`,
       "background:",
       "linear-gradient(180deg, #f5f8fb 0%, #edf3f8 42%, #e3ecf4 100%)",
       "position: relative",
@@ -219,7 +221,7 @@ const renderBackdropContent = (mobile = false) => html`
 
 const renderHeader = (
   args: GlobalHeaderArgs,
-  options: { mobile?: boolean } = {},
+  options: { mobile?: boolean; longScroll?: boolean } = {},
 ) => html`
   <div
     style=${[
@@ -241,6 +243,8 @@ const renderHeader = (
       style="display:block; position:relative; z-index:2;"
       .navigation=${args.navigation}
       .search=${args.search}
+      .shy=${Boolean(args.shy)}
+      .shyThreshold=${args.shyThreshold}
     >
       <a
         slot="brand"
@@ -281,7 +285,10 @@ const renderHeader = (
         ></fd-icon>
       </fd-button>
     </fd-global-header>
-    ${renderBackdropContent(Boolean(options.mobile))}
+    ${renderBackdropContent(
+      Boolean(options.mobile),
+      Boolean(options.longScroll),
+    )}
   </div>
 `;
 
@@ -384,6 +391,47 @@ export const MobileDrawer: Story = {
   render: (args) => renderHeader(args, { mobile: true }),
 };
 
+export const ShyHeader: Story = {
+  args: {
+    ...createStoryArgs(),
+    shy: true,
+    shyThreshold: 64,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows the opt-in shy-header mode with enough scrollable page content to verify hide/reveal behavior in the preview frame.",
+      },
+    },
+  },
+  render: (args) => renderHeader(args, { longScroll: true }),
+};
+
+ShyHeader.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const previewWindow = canvasElement.ownerDocument.defaultView;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+  });
+
+  const base = host?.shadowRoot?.querySelector(".base") as HTMLElement | null;
+  expect(base).toBeTruthy();
+
+  previewWindow?.scrollTo(0, 140);
+  await waitFor(() => {
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+  });
+
+  previewWindow?.scrollTo(0, 32);
+  await waitFor(() => {
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+  });
+
+  previewWindow?.scrollTo(0, 0);
+};
+
 export const MobileDefault: Story = {
   args: createStoryArgs(),
   parameters: {
@@ -457,16 +505,21 @@ MobileDrillDown.play = async ({ canvasElement }) => {
   await userEvent.click(menuToggle!);
 
   await waitFor(() => {
-    const firstButton = host?.shadowRoot?.querySelector(".mobile-button");
-    expect(firstButton).toBeTruthy();
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    expect(drawer?.getAttribute("data-open")).toBe("true");
+    expect(drawer).toBeTruthy();
+    expect(getComputedStyle(drawer!).opacity).toBe("1");
   });
 
   const firstButton = host?.shadowRoot?.querySelector(".mobile-button") as HTMLButtonElement | null;
   await userEvent.click(firstButton!);
 
   await waitFor(() => {
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
     const backButton = host?.shadowRoot?.querySelector(".mobile-back");
     const overviewLink = host?.shadowRoot?.querySelector(".mobile-overview-link");
+    expect(drawer).toBeTruthy();
+    expect(getComputedStyle(drawer!).opacity).toBe("1");
     expect(backButton?.textContent).toContain("News & Events Overview");
     expect(overviewLink?.textContent).toContain("News");
   });

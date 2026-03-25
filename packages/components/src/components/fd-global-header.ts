@@ -77,6 +77,8 @@ const COMPACT_MOBILE_BREAKPOINT = 640;
 const MOBILE_BREAKPOINT_QUERY = `(max-width: ${MOBILE_BREAKPOINT}px)`;
 const HOVER_INTENT_MS = 140;
 const PREVIEW_CLEAR_MS = 180;
+const SHY_REVEAL_DELTA_PX = 5;
+const DEFAULT_SHY_HIDE_DURATION_MS = 300;
 // Desktop panels intentionally open in the top-level overview state.
 const DEFAULT_PANEL_SECTION_INDEX: number | null = null;
 const PANEL_FOCUSABLE_SELECTOR = "[data-panel-focusable='true']";
@@ -138,6 +140,28 @@ function getSectionMenuDescription(
   }
 
   return getFallbackSectionDescription(section, panelLabel, isOverview);
+}
+
+function parseDurationMs(
+  value: string,
+  fallback = DEFAULT_SHY_HIDE_DURATION_MS,
+) {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return fallback;
+  }
+
+  const match = trimmed.match(/^(-?\d*\.?\d+)(ms|s)$/);
+  if (!match) {
+    return fallback;
+  }
+
+  const amount = Number(match[1]);
+  if (!Number.isFinite(amount) || amount < 0) {
+    return fallback;
+  }
+
+  return match[2] === "s" ? amount * 1000 : amount;
 }
 
 export function createHeaderSearchItemsFromNavigation(
@@ -230,6 +254,8 @@ export class FdGlobalHeader extends LitElement {
   static properties = {
     navigation: { attribute: false },
     search: { attribute: false },
+    shy: { type: Boolean, reflect: true },
+    shyThreshold: { type: Number, attribute: "shy-threshold" },
     _activePanelId: { state: true },
     _menuOpen: { state: true },
     _selectedSectionIndex: { state: true },
@@ -246,6 +272,8 @@ export class FdGlobalHeader extends LitElement {
     _topNavIndicatorOffset: { state: true },
     _topNavIndicatorWidth: { state: true },
     _topNavIndicatorVisible: { state: true },
+    _shyHidden: { state: true },
+    _shyTransitionDurationMs: { state: true },
   };
 
   static styles = css`
@@ -307,6 +335,20 @@ export class FdGlobalHeader extends LitElement {
       z-index: 20;
       border-bottom: 0;
       background: var(--fd-global-header-color-surface-base);
+    }
+
+    .base[data-shy-active="true"] {
+      position: sticky;
+      top: 0;
+      transform: translateY(0);
+      transition-property: transform;
+      transition-duration: var(--_fd-global-header-shy-duration, 300ms);
+      transition-timing-function: ease;
+      will-change: transform;
+    }
+
+    .base[data-shy-active="true"][data-shy-hidden="true"] {
+      transform: translateY(-100%);
     }
 
     .shell {
@@ -1431,11 +1473,17 @@ export class FdGlobalHeader extends LitElement {
         transition: none !important;
         animation: none !important;
       }
+
+      .base[data-shy-active="true"] {
+        transition: none !important;
+      }
     }
   `;
 
   declare navigation: FdGlobalHeaderNavigationItem[];
   declare search: FdGlobalHeaderSearchConfig | null;
+  declare shy: boolean;
+  declare shyThreshold: number | undefined;
   declare _activePanelId: string | null;
   declare _menuOpen: boolean;
   declare _selectedSectionIndex: number | null;
@@ -1452,6 +1500,8 @@ export class FdGlobalHeader extends LitElement {
   declare _topNavIndicatorOffset: number;
   declare _topNavIndicatorWidth: number;
   declare _topNavIndicatorVisible: boolean;
+  declare _shyHidden: boolean;
+  declare _shyTransitionDurationMs: number;
 
   private _baseId: string;
   private _mobileMediaQuery: MediaQueryList | null = null;
@@ -1463,13 +1513,25 @@ export class FdGlobalHeader extends LitElement {
   private _lastMobileToggle: "menu" | "search" | null = null;
   private _lastMobilePath: MobileDrillPath = [];
   private _lastMeasuredWidth = 0;
+  private _lastObservedHeight = 0;
   private _prefersReducedMotionEnabled = false;
   private _capturedMegaMenuHeight = 0;
   private _shouldAnimateMegaMenuHeight = false;
   private _megaMenuHeightAnimationTarget: HTMLElement | null = null;
+  private _shyLastScrollY = 0;
+  private _shyPendingScrollY = 0;
+  private _shyScrollAnimationFrame: number | null = null;
+  private _shyScrollListening = false;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
   private readonly _onDocumentKeyDownBound = this._handleDocumentKeyDown.bind(this);
+  private readonly _onFocusInBound = () => {
+    if (!this.shy) {
+      return;
+    }
+
+    this._revealShyHeader({ syncTracking: true });
+  };
   private readonly _onMegaMenuHeightTransitionEndBound = (event: Event) => {
     const transitionEvent = event as TransitionEvent;
     if (
@@ -1492,11 +1554,16 @@ export class FdGlobalHeader extends LitElement {
   ) => {
     this._prefersReducedMotionEnabled = event.matches;
   };
+  private readonly _onWindowScrollBound = () => {
+    this._queueShyScrollEvaluation();
+  };
 
   constructor() {
     super();
     this.navigation = [];
     this.search = null;
+    this.shy = false;
+    this.shyThreshold = undefined;
     this._activePanelId = null;
     this._menuOpen = false;
     this._selectedSectionIndex = null;
@@ -1513,6 +1580,8 @@ export class FdGlobalHeader extends LitElement {
     this._topNavIndicatorOffset = 0;
     this._topNavIndicatorWidth = 0;
     this._topNavIndicatorVisible = false;
+    this._shyHidden = false;
+    this._shyTransitionDurationMs = DEFAULT_SHY_HIDE_DURATION_MS;
     this._baseId = `fdgh-${globalHeaderInstanceCount++}`;
   }
 
@@ -1539,6 +1608,11 @@ export class FdGlobalHeader extends LitElement {
       true,
     );
     document.addEventListener("keydown", this._onDocumentKeyDownBound, true);
+    this.addEventListener("focusin", this._onFocusInBound);
+    this._syncShyTrackingFromWindow();
+    if (this.shy) {
+      this._attachShyScrollListener();
+    }
   }
 
   override disconnectedCallback() {
@@ -1564,6 +1638,8 @@ export class FdGlobalHeader extends LitElement {
       true,
     );
     document.removeEventListener("keydown", this._onDocumentKeyDownBound, true);
+    this.removeEventListener("focusin", this._onFocusInBound);
+    this._detachShyScrollListener();
   }
 
   protected override willUpdate(changed: PropertyValues<this>) {
@@ -1604,6 +1680,37 @@ export class FdGlobalHeader extends LitElement {
         mobileSearch?.select?.();
       });
     }
+
+    if (changed.has("shy")) {
+      if (this.shy) {
+        this._setShyHiddenState(false, { immediate: true });
+        this._syncShyTrackingFromWindow();
+        this._attachShyScrollListener();
+      } else {
+        this._detachShyScrollListener();
+        this._setShyHiddenState(false, { immediate: true });
+        this._syncShyTrackingFromWindow();
+      }
+    } else if (this.shy && changed.has("shyThreshold")) {
+      const currentScrollY = this._getWindowScrollY();
+      if (currentScrollY <= this._getResolvedShyThreshold()) {
+        this._setShyHiddenState(false);
+      }
+      this._syncShyTrackingFromWindow();
+    }
+
+    if (
+      this.shy &&
+      (changed.has("_menuOpen") ||
+        changed.has("_mobileMenuOpen") ||
+        changed.has("_mobileSearchOpen"))
+    ) {
+      if (this._hasOpenOverlay()) {
+        this._revealShyHeader({ syncTracking: true });
+      } else {
+        this._syncShyTrackingFromWindow();
+      }
+    }
   }
 
   override focus(options?: FocusOptions) {
@@ -1621,6 +1728,9 @@ export class FdGlobalHeader extends LitElement {
     this._resizeObserver?.disconnect();
     this._resizeObserver = new ResizeObserver((entries) => {
       const entry = entries.find(({ target }) => target === this);
+      if (entry?.contentRect.height) {
+        this._lastObservedHeight = entry.contentRect.height;
+      }
       this._syncResponsiveState(entry?.contentRect.width);
       this.updateComplete.then(() => {
         this._syncColumnRails();
@@ -1632,6 +1742,152 @@ export class FdGlobalHeader extends LitElement {
 
   private _prefersReducedMotion() {
     return this._prefersReducedMotionEnabled;
+  }
+
+  private _getWindowScrollY() {
+    if (typeof window === "undefined") {
+      return 0;
+    }
+
+    return Math.max(window.scrollY || window.pageYOffset || 0, 0);
+  }
+
+  private _syncShyTrackingFromWindow() {
+    const currentScrollY = this._getWindowScrollY();
+    this._shyLastScrollY = currentScrollY;
+    this._shyPendingScrollY = currentScrollY;
+  }
+
+  private _queueShyScrollEvaluation() {
+    if (!this.shy) {
+      return;
+    }
+
+    this._shyPendingScrollY = this._getWindowScrollY();
+    if (this._shyScrollAnimationFrame != null) {
+      return;
+    }
+
+    this._shyScrollAnimationFrame = window.requestAnimationFrame(() => {
+      this._shyScrollAnimationFrame = null;
+      this._syncShyVisibilityFromScroll(this._shyPendingScrollY);
+    });
+  }
+
+  private _attachShyScrollListener() {
+    if (this._shyScrollListening || typeof window === "undefined") {
+      return;
+    }
+
+    window.addEventListener("scroll", this._onWindowScrollBound, {
+      passive: true,
+    });
+    this._shyScrollListening = true;
+    this._syncShyTrackingFromWindow();
+  }
+
+  private _detachShyScrollListener() {
+    if (this._shyScrollAnimationFrame != null) {
+      window.cancelAnimationFrame(this._shyScrollAnimationFrame);
+      this._shyScrollAnimationFrame = null;
+    }
+
+    if (!this._shyScrollListening || typeof window === "undefined") {
+      return;
+    }
+
+    window.removeEventListener("scroll", this._onWindowScrollBound);
+    this._shyScrollListening = false;
+  }
+
+  private _hasOpenOverlay() {
+    return this._menuOpen || this._mobileMenuOpen || this._mobileSearchOpen;
+  }
+
+  private _getResolvedShyThreshold() {
+    if (typeof this.shyThreshold === "number" && Number.isFinite(this.shyThreshold)) {
+      return Math.max(this.shyThreshold, 0);
+    }
+
+    const base = this.renderRoot?.querySelector<HTMLElement>(".base");
+    return Math.max(
+      base?.offsetHeight || this.offsetHeight || this._lastObservedHeight,
+      0,
+    );
+  }
+
+  private _resolveShyHideDurationMs() {
+    if (!this.isConnected || typeof window === "undefined") {
+      return DEFAULT_SHY_HIDE_DURATION_MS;
+    }
+
+    const rawDuration = getComputedStyle(this)
+      .getPropertyValue("--fd-global-header-shy-transition-duration");
+    return parseDurationMs(rawDuration, DEFAULT_SHY_HIDE_DURATION_MS);
+  }
+
+  private _setShyHiddenState(
+    hidden: boolean,
+    { immediate = false }: { immediate?: boolean } = {},
+  ) {
+    const nextHidden = this.shy ? hidden : false;
+    const hideDuration = this._resolveShyHideDurationMs();
+    const nextDuration = immediate || this._prefersReducedMotion()
+      ? 0
+      : nextHidden
+        ? hideDuration
+        : Math.max(Math.round(hideDuration * (2 / 3)), 0);
+
+    if (
+      this._shyHidden === nextHidden &&
+      this._shyTransitionDurationMs === nextDuration
+    ) {
+      return;
+    }
+
+    this._shyHidden = nextHidden;
+    this._shyTransitionDurationMs = nextDuration;
+  }
+
+  private _revealShyHeader(
+    {
+      immediate = false,
+      syncTracking = false,
+    }: { immediate?: boolean; syncTracking?: boolean } = {},
+  ) {
+    this._setShyHiddenState(false, { immediate });
+    if (syncTracking) {
+      this._syncShyTrackingFromWindow();
+    }
+  }
+
+  private _syncShyVisibilityFromScroll(scrollY: number) {
+    if (!this.shy) {
+      return;
+    }
+
+    if (this._hasOpenOverlay()) {
+      this._revealShyHeader({ syncTracking: true });
+      return;
+    }
+
+    const currentScrollY = Math.max(scrollY, 0);
+    const threshold = this._getResolvedShyThreshold();
+
+    if (currentScrollY <= threshold) {
+      this._setShyHiddenState(false);
+      this._shyLastScrollY = currentScrollY;
+      return;
+    }
+
+    const delta = currentScrollY - this._shyLastScrollY;
+    if (delta > 0) {
+      this._setShyHiddenState(true);
+    } else if (delta <= -SHY_REVEAL_DELTA_PX) {
+      this._setShyHiddenState(false);
+    }
+
+    this._shyLastScrollY = currentScrollY;
   }
 
   private _clearMegaMenuHeightAnimationListener(target = this._megaMenuHeightAnimationTarget) {
@@ -3291,7 +3547,15 @@ export class FdGlobalHeader extends LitElement {
 
   override render() {
     return html`
-      <div class="base" part="base">
+      <div
+        class="base"
+        part="base"
+        data-shy-active=${String(this.shy)}
+        data-shy-hidden=${String(this._shyHidden)}
+        style=${this.shy
+          ? `--_fd-global-header-shy-duration:${this._shyTransitionDurationMs}ms;`
+          : nothing}
+      >
         <div class="masthead" part="masthead">
           <div class="shell masthead-row">
             <div class="brand-row">

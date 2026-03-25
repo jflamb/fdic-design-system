@@ -3063,9 +3063,21 @@
           "type": "`FdGlobalHeaderSearchConfig \\| null`",
           "defaultValue": "`null`",
           "description": "Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`."
+        },
+        {
+          "name": "shy",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Opt-in sticky hide/reveal behavior. When `true`, the header hides on downward window scroll beyond the threshold and reveals on upward scroll or immediate interaction."
+        },
+        {
+          "name": "shyThreshold",
+          "type": "`number \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional downward-scroll threshold in pixels before shy behavior engages. When omitted, `fd-global-header` uses its own rendered height."
         }
       ],
-      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, and the shared query string coordinated with `fd-header-search`.\n- The application owns navigation data, current-link flags, routing, and any custom submit handling.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
+      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, and shy-header scroll tracking when `shy` is enabled.\n- The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
     },
     "slots": {
       "rows": [
@@ -3091,8 +3103,14 @@
       "after": ""
     },
     "cssProperties": {
-      "rows": [],
-      "after": ""
+      "rows": [
+        {
+          "name": "--fd-global-header-shy-transition-duration",
+          "default": "`0.3s`",
+          "description": "Hide-transition duration used when `shy` is enabled. Reveal timing is derived internally as a proportionally faster transition."
+        }
+      ],
+      "after": "- This custom property is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely."
     },
     "shadowParts": {
       "rows": [
