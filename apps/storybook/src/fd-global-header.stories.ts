@@ -424,6 +424,12 @@ MobileDrawer.play = async ({ canvasElement }) => {
     const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
     expect(drawer?.getAttribute("data-open")).toBe("true");
   });
+
+  await waitFor(() => {
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    expect(drawer).toBeTruthy();
+    expect(getComputedStyle(drawer!).opacity).toBe("1");
+  });
 };
 
 export const MobileDrillDown: Story = {
