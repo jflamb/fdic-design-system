@@ -505,16 +505,21 @@ MobileDrillDown.play = async ({ canvasElement }) => {
   await userEvent.click(menuToggle!);
 
   await waitFor(() => {
-    const firstButton = host?.shadowRoot?.querySelector(".mobile-button");
-    expect(firstButton).toBeTruthy();
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    expect(drawer?.getAttribute("data-open")).toBe("true");
+    expect(drawer).toBeTruthy();
+    expect(getComputedStyle(drawer!).opacity).toBe("1");
   });
 
   const firstButton = host?.shadowRoot?.querySelector(".mobile-button") as HTMLButtonElement | null;
   await userEvent.click(firstButton!);
 
   await waitFor(() => {
+    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
     const backButton = host?.shadowRoot?.querySelector(".mobile-back");
     const overviewLink = host?.shadowRoot?.querySelector(".mobile-overview-link");
+    expect(drawer).toBeTruthy();
+    expect(getComputedStyle(drawer!).opacity).toBe("1");
     expect(backButton?.textContent).toContain("News & Events Overview");
     expect(overviewLink?.textContent).toContain("News");
   });
