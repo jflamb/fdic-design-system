@@ -678,7 +678,7 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button[data-active="true"],
     .top-nav-button[data-active="true"]:hover {
       background-color: transparent;
-      color: var(--fd-global-header-color-text-primary);
+      color: var(--fd-global-header-color-surface-brand);
       font-weight: 600;
       box-shadow: none;
       z-index: 2;
@@ -687,10 +687,10 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button[data-active="true"]:focus-visible,
     .top-nav-button[data-active="true"][data-manual-focus-visible="true"] {
       background-color: transparent;
-      color: var(--fd-global-header-color-text-primary);
+      color: var(--fd-global-header-color-surface-brand);
       font-weight: 600;
       box-shadow:
-        0 0 0 2px var(--fd-global-header-color-surface-base),
+        0 0 0 2px var(--fd-global-header-color-surface-brand),
         0 0 0 4px var(--fd-global-header-color-accent);
       z-index: 2;
     }
