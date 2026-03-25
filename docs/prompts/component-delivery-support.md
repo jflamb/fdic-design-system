@@ -182,6 +182,7 @@ Validation expectations:
 - Fix failures before proceeding.
 - If component-scoped work exposes a narrow shared validation or toolchain regression on a required surface, fix it in the same run when the cause is clear and the change is low-risk; document the fix in GitHub artifacts instead of treating the failure as unrelated noise.
 - When a browser-backed accessibility check conflicts with a supplied Figma visual value, treat the accessibility result as the blocker. Adjust the implementation to pass, then record the rationale and the specific divergence in the Discussion, Issue, and PR artifacts.
+- When Storybook interaction stories drive animated, overlay, or transition-based states, make the `play` function wait for the visually settled end state before returning. Addon-a11y runs after the interaction completes and can otherwise audit transitional frames such as partially transparent drawers or panels.
 - Review generated outputs for malformed changes, accidental deletions, duplicate headings, placeholders, stale generated sections, or misleading guidance.
 - When editing `scripts/components/api-metadata.json`, escape markdown union pipes as `\\|`; raw `|` characters can break generated API tables in component docs.
 - If generated files changed only by ordering or formatting noise, verify the change is expected and avoid committing avoidable churn.

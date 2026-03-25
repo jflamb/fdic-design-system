@@ -40,6 +40,7 @@ Required outcomes:
 - Treat implementation guidance as a required deliverable, not optional polish. If the shipped work adds a new consumer-facing pattern, adapter layer, integration contract, workflow, or composition rule, document how to adopt it in the component docs before the PR is considered complete.
 - When editing `scripts/components/api-metadata.json`, escape union pipes as `\\|` so generated markdown tables render correctly.
 - Run required validation from the support document, plus conditional Storybook validation when triggered by the change.
+- When Storybook interaction stories drive animated or overlay states, ensure their `play` functions wait for the settled end state before returning so addon-a11y audits the shipped state rather than a transitional frame.
 - If component-scoped work exposes a narrow shared validation or toolchain regression on a required surface, fix it in the same run when the cause is clear and the change is low-risk, and record that rationale in GitHub artifacts.
 - If browser-backed accessibility validation shows that a supplied Figma visual value would ship an inaccessible result, prefer the accessible implementation and record the deviation in the Discussion, Issue, and PR artifacts.
 - Create or update a PR, include the required review prompt, include at least one visual verification artifact when the component has meaningful visual or interactive states, complete PR self-review, fix actionable findings, and ensure the implementation Issue will close on merge or is closed manually during post-merge cleanup.
