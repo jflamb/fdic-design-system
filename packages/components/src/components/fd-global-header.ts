@@ -71,7 +71,9 @@ export type FdGlobalHeaderSearchSubmitDetail = FdHeaderSearchSubmitDetail;
 
 type MobileDrillPath = [] | [string] | [string, number] | [string, number, number];
 
-const MOBILE_BREAKPOINT_QUERY = "(max-width: 768px)";
+const MOBILE_BREAKPOINT = 768;
+const COMPACT_MOBILE_BREAKPOINT = 640;
+const MOBILE_BREAKPOINT_QUERY = `(max-width: ${MOBILE_BREAKPOINT}px)`;
 const HOVER_INTENT_MS = 140;
 const PREVIEW_CLEAR_MS = 180;
 const PANEL_FOCUSABLE_SELECTOR = "[data-panel-focusable='true']";
@@ -242,6 +244,9 @@ export class FdGlobalHeader extends LitElement {
     _mobileSearchOpen: { state: true },
     _mobilePath: { state: true },
     _searchValue: { state: true },
+    _topNavIndicatorOffset: { state: true },
+    _topNavIndicatorWidth: { state: true },
+    _topNavIndicatorVisible: { state: true },
   };
 
   static styles = css`
@@ -439,10 +444,15 @@ export class FdGlobalHeader extends LitElement {
       list-style: none;
     }
 
+    .top-nav-track {
+      position: relative;
+    }
+
     .top-nav-item {
       display: flex;
       align-items: stretch;
       position: relative;
+      z-index: 1;
     }
 
     .top-nav-link,
@@ -462,6 +472,37 @@ export class FdGlobalHeader extends LitElement {
       white-space: nowrap;
       position: relative;
       text-decoration: none;
+      z-index: 1;
+    }
+
+    .top-nav-active-indicator {
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: var(--top-nav-indicator-width, 0px);
+      background: #ffffff;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(var(--top-nav-indicator-offset, 0px));
+      transition:
+        transform 220ms ease,
+        width 220ms ease,
+        opacity 160ms ease;
+      z-index: 0;
+    }
+
+    .top-nav-active-indicator[data-visible="true"] {
+      opacity: 1;
+    }
+
+    .top-nav-active-indicator::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #38b6ff;
     }
 
     .top-nav-label {
@@ -503,7 +544,7 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button:hover,
     .top-nav-button:focus-visible,
     .top-nav-button[aria-expanded="true"] {
-      background: #0b466f;
+      background-color: #0b466f;
       outline: none;
     }
 
@@ -524,7 +565,7 @@ export class FdGlobalHeader extends LitElement {
 
     .top-nav-button[data-active="true"],
     .top-nav-button[data-active="true"]:hover {
-      background: #ffffff;
+      background-color: transparent;
       color: #003256;
       font-weight: 600;
       box-shadow: none;
@@ -533,21 +574,11 @@ export class FdGlobalHeader extends LitElement {
 
     .top-nav-button[data-active="true"]:focus-visible,
     .top-nav-button[data-active="true"][data-manual-focus-visible="true"] {
-      background: #ffffff;
+      background-color: transparent;
       color: #003256;
       font-weight: 600;
       box-shadow: 0 0 0 2px #003256, 0 0 0 4px #38b6ff;
       z-index: 2;
-    }
-
-    .top-nav-button[data-active="true"]::before {
-      content: "";
-      position: absolute;
-      inset-inline-start: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: #38b6ff;
     }
 
     .top-nav-button[data-active="true"]::after {
@@ -1129,6 +1160,103 @@ export class FdGlobalHeader extends LitElement {
       }
     }
 
+    :host([mobile-layout]) .shell {
+      width: min(100%, calc(100% - 2rem));
+    }
+
+    :host([mobile-layout]) .masthead-row {
+      min-height: 4.5rem;
+    }
+
+    :host([mobile-layout]) .top-nav {
+      display: none;
+    }
+
+    :host([mobile-layout]) .mobile-controls--menu {
+      display: inline-flex;
+    }
+
+    :host([mobile-layout]) .mobile-nav-backdrop {
+      display: block;
+    }
+
+    :host([mobile-layout]) .mobile-controls [data-mobile-toggle="menu"] {
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 4px;
+    }
+
+    :host([mobile-layout]) .mobile-controls [data-mobile-toggle="menu"] span {
+      display: none;
+    }
+
+    :host([compact-mobile-layout]) .masthead {
+      min-height: auto;
+      padding: 1.25rem 0 1rem;
+    }
+
+    :host([compact-mobile-layout]) .masthead-row {
+      min-height: 0;
+    }
+
+    :host([compact-mobile-layout]) .brand-row {
+      gap: 0.625rem;
+    }
+
+    :host([compact-mobile-layout]) .controls {
+      gap: 0.5rem;
+    }
+
+    :host([compact-mobile-layout]) .desktop-search {
+      display: none;
+    }
+
+    :host([compact-mobile-layout]) .mobile-controls--search {
+      display: inline-flex;
+    }
+
+    :host([compact-mobile-layout]) .mobile-search-shell {
+      position: fixed;
+      top: 0;
+      inset-inline-end: 0;
+      bottom: 0;
+      width: min(88vw, 22.5rem);
+      max-width: 100vw;
+      display: block;
+      background: #ffffff;
+      border-inline-start: 1px solid #bdbdbf;
+      box-shadow: -18px 0 48px rgba(0, 18, 32, 0.24);
+      transform: translateX(104%);
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        transform 220ms ease,
+        opacity 220ms ease,
+        visibility 0s 220ms;
+      z-index: 80;
+      pointer-events: none;
+    }
+
+    :host([compact-mobile-layout]) .mobile-search-shell[data-open="true"] {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition:
+        transform 220ms ease,
+        opacity 220ms ease,
+        visibility 0s 0s;
+    }
+
+    :host([compact-mobile-layout]) .mobile-search-sheet {
+      display: grid;
+      gap: 0.75rem;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
     @media (max-width: 768px) {
       .shell {
         width: min(100%, calc(100% - 2rem));
@@ -1138,12 +1266,11 @@ export class FdGlobalHeader extends LitElement {
         min-height: 4.5rem;
       }
 
-      .desktop-search,
       .top-nav {
         display: none;
       }
 
-      .mobile-controls {
+      .mobile-controls--menu {
         display: inline-flex;
       }
 
@@ -1183,7 +1310,7 @@ export class FdGlobalHeader extends LitElement {
         display: none;
       }
 
-      .icon-button--search-toggle {
+      .mobile-controls--search {
         display: inline-flex;
       }
 
@@ -1265,21 +1392,26 @@ export class FdGlobalHeader extends LitElement {
   declare _mobileSearchOpen: boolean;
   declare _mobilePath: MobileDrillPath;
   declare _searchValue: string;
+  declare _topNavIndicatorOffset: number;
+  declare _topNavIndicatorWidth: number;
+  declare _topNavIndicatorVisible: boolean;
 
   private _baseId: string;
   private _mobileMediaQuery: MediaQueryList | null = null;
+  private _resizeObserver: ResizeObserver | null = null;
   private _hoverTimer: number | null = null;
   private _closeTimer: number | null = null;
   private _lastDesktopTriggerId: string | null = null;
   private _lastMobileToggle: "menu" | "search" | null = null;
   private _lastMobilePath: MobileDrillPath = [];
+  private _lastMeasuredWidth = 0;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
   private readonly _onDocumentKeyDownBound = this._handleDocumentKeyDown.bind(this);
   private readonly _onMobileMediaChangeBound = (
     event: MediaQueryListEvent,
   ) => {
-    this._syncMobileState(event.matches);
+    this._syncResponsiveState(undefined, event.matches);
   };
 
   constructor() {
@@ -1299,13 +1431,17 @@ export class FdGlobalHeader extends LitElement {
     this._mobileSearchOpen = false;
     this._mobilePath = [];
     this._searchValue = "";
+    this._topNavIndicatorOffset = 0;
+    this._topNavIndicatorWidth = 0;
+    this._topNavIndicatorVisible = false;
     this._baseId = `fdgh-${globalHeaderInstanceCount++}`;
   }
 
   override connectedCallback() {
     super.connectedCallback();
     this._mobileMediaQuery = window.matchMedia(MOBILE_BREAKPOINT_QUERY);
-    this._syncMobileState(this._mobileMediaQuery.matches);
+    this._startObservingWidth();
+    this._syncResponsiveState(undefined, this._mobileMediaQuery.matches);
     this._mobileMediaQuery.addEventListener(
       "change",
       this._onMobileMediaChangeBound,
@@ -1322,6 +1458,8 @@ export class FdGlobalHeader extends LitElement {
     super.disconnectedCallback();
     this._clearHoverTimer();
     this._clearCloseTimer();
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = null;
     this._mobileMediaQuery?.removeEventListener(
       "change",
       this._onMobileMediaChangeBound,
@@ -1347,9 +1485,14 @@ export class FdGlobalHeader extends LitElement {
       changed.has("_selectedSectionIndex") ||
       changed.has("_previewItemIndex") ||
       changed.has("_activeChildIndex") ||
-      changed.has("_previewingOverview")
+      changed.has("_previewingOverview") ||
+      changed.has("_topNavFocusIndex")
     ) {
       this.updateComplete.then(() => this._syncColumnRails());
+    }
+
+    if (changed.has("_menuOpen") || changed.has("_activePanelId")) {
+      this.updateComplete.then(() => this._syncTopNavIndicator());
     }
 
     if (changed.has("_mobileMenuOpen") && this._mobileMenuOpen) {
@@ -1374,8 +1517,43 @@ export class FdGlobalHeader extends LitElement {
     target?.focus(options);
   }
 
-  private _syncMobileState(isMobile: boolean) {
+  private _startObservingWidth() {
+    if (typeof ResizeObserver === "undefined") {
+      return;
+    }
+
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries.find(({ target }) => target === this);
+      this._syncResponsiveState(entry?.contentRect.width);
+      this.updateComplete.then(() => {
+        this._syncColumnRails();
+        this._syncTopNavIndicator();
+      });
+    });
+    this._resizeObserver.observe(this);
+  }
+
+  private _syncResponsiveState(
+    measuredWidth?: number,
+    mediaMatches = this._mobileMediaQuery?.matches || false,
+  ) {
+    if (typeof measuredWidth === "number" && measuredWidth > 0) {
+      this._lastMeasuredWidth = measuredWidth;
+    }
+
+    const fallbackWidth = mediaMatches
+      ? MOBILE_BREAKPOINT
+      : typeof window !== "undefined"
+        ? window.innerWidth
+        : Number.POSITIVE_INFINITY;
+    const width = this._lastMeasuredWidth || fallbackWidth;
+    const isMobile = width <= MOBILE_BREAKPOINT;
+    const isCompactMobile = width <= COMPACT_MOBILE_BREAKPOINT;
+
     this._isMobile = isMobile;
+    this.toggleAttribute("mobile-layout", isMobile);
+    this.toggleAttribute("compact-mobile-layout", isCompactMobile);
     if (isMobile) {
       this._menuOpen = false;
     } else {
@@ -1383,6 +1561,10 @@ export class FdGlobalHeader extends LitElement {
       this._mobileSearchOpen = false;
       this._mobilePath = [];
       this._lastMobileToggle = null;
+    }
+
+    if (isMobile) {
+      this._topNavIndicatorVisible = false;
     }
   }
 
@@ -1448,6 +1630,32 @@ export class FdGlobalHeader extends LitElement {
     return Array.from(
       this.shadowRoot?.querySelectorAll<HTMLElement>("[data-top-nav-index]") || [],
     );
+  }
+
+  private _syncTopNavIndicator() {
+    if (!this._menuOpen || !this._activePanelId || this._isMobile) {
+      this._topNavIndicatorVisible = false;
+      this._topNavIndicatorOffset = 0;
+      this._topNavIndicatorWidth = 0;
+      return;
+    }
+
+    const list = this.shadowRoot?.querySelector(".top-nav-track") as HTMLElement | null;
+    const activeTrigger = this.shadowRoot?.querySelector(
+      `[data-panel-trigger="${this._activePanelId}"]`,
+    ) as HTMLElement | null;
+
+    if (!list || !activeTrigger) {
+      this._topNavIndicatorVisible = false;
+      return;
+    }
+
+    const listRect = list.getBoundingClientRect();
+    const triggerRect = activeTrigger.getBoundingClientRect();
+
+    this._topNavIndicatorOffset = triggerRect.left - listRect.left;
+    this._topNavIndicatorWidth = triggerRect.width;
+    this._topNavIndicatorVisible = true;
   }
 
   private _getMobileToggle(kind: "menu" | "search") {
@@ -2720,7 +2928,7 @@ export class FdGlobalHeader extends LitElement {
         <div class="masthead" part="masthead">
           <div class="shell masthead-row">
             <div class="brand-row">
-              <div class="mobile-controls">
+              <div class="mobile-controls mobile-controls--menu">
                 <button
                   class="icon-button"
                   type="button"
@@ -2745,7 +2953,7 @@ export class FdGlobalHeader extends LitElement {
               ${this._renderDesktopSearch()}
               ${this.search
                 ? html`
-                    <div class="mobile-controls">
+                    <div class="mobile-controls mobile-controls--search">
                       <button
                         class="icon-button icon-button--round"
                         type="button"
@@ -2792,11 +3000,24 @@ export class FdGlobalHeader extends LitElement {
         >
           <div class="shell">
             <nav aria-label="Primary navigation">
-              <ul class="top-nav-list">
+              <div
+                class="top-nav-track"
+                style=${[
+                  `--top-nav-indicator-offset:${this._topNavIndicatorOffset}px`,
+                  `--top-nav-indicator-width:${this._topNavIndicatorWidth}px`,
+                ].join(";")}
+              >
+                <div
+                  class="top-nav-active-indicator"
+                  aria-hidden="true"
+                  data-visible=${String(this._topNavIndicatorVisible)}
+                ></div>
+                <ul class="top-nav-list">
                 ${this._getTopLevelItems().map((item, index) =>
                   this._renderTopLevelItem(item, index),
                 )}
-              </ul>
+                </ul>
+              </div>
             </nav>
           </div>
           ${this._renderDesktopPanel()}

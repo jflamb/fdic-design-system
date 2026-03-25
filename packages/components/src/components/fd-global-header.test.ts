@@ -7,6 +7,31 @@ import {
 } from "./fd-global-header.prototype.js";
 
 let mobileMatches = false;
+const resizeCallbacks = new Map<Element, ResizeObserverCallback>();
+
+class ResizeObserverMock {
+  private readonly _callback: ResizeObserverCallback;
+
+  constructor(callback: ResizeObserverCallback) {
+    this._callback = callback;
+  }
+
+  observe = vi.fn((target: Element) => {
+    resizeCallbacks.set(target, this._callback);
+  });
+
+  unobserve = vi.fn((target: Element) => {
+    resizeCallbacks.delete(target);
+  });
+
+  disconnect = vi.fn(() => {
+    for (const [target, callback] of resizeCallbacks.entries()) {
+      if (callback === this._callback) {
+        resizeCallbacks.delete(target);
+      }
+    }
+  });
+}
 
 function installMatchMediaStub() {
   Object.defineProperty(window, "matchMedia", {
@@ -25,6 +50,60 @@ function installMatchMediaStub() {
   });
 }
 
+function installResizeObserverStub() {
+  Object.defineProperty(globalThis, "ResizeObserver", {
+    configurable: true,
+    writable: true,
+    value: ResizeObserverMock,
+  });
+}
+
+function setElementWidth(target: Element, width: number) {
+  Object.defineProperty(target, "getBoundingClientRect", {
+    configurable: true,
+    value: () => ({
+      width,
+      height: 0,
+      top: 0,
+      right: width,
+      bottom: 0,
+      left: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    }),
+  });
+}
+
+function triggerResize(target: Element, width: number) {
+  setElementWidth(target, width);
+
+  const callback = resizeCallbacks.get(target);
+  if (!callback) {
+    throw new Error("Expected ResizeObserver callback for target");
+  }
+
+  callback(
+    [
+      {
+        target,
+        contentRect: {
+          width,
+          height: 0,
+          top: 0,
+          right: width,
+          bottom: 0,
+          left: 0,
+          x: 0,
+          y: 0,
+          toJSON: () => ({}),
+        },
+      } as ResizeObserverEntry,
+    ],
+    {} as ResizeObserver,
+  );
+}
+
 async function nextFrame() {
   await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
@@ -36,6 +115,7 @@ async function wait(ms = 0) {
 async function createHeader({ mobile = false } = {}) {
   mobileMatches = mobile;
   installMatchMediaStub();
+  installResizeObserverStub();
 
   const el = document.createElement("fd-global-header") as HTMLElement & {
     navigation: typeof fdGlobalHeaderPrototypeNavigation;
@@ -79,11 +159,40 @@ function getSearchInput(searchHost: HTMLElement | null) {
   return searchHost?.shadowRoot?.querySelector(".native") as HTMLInputElement | null;
 }
 
+function stubElementRect(
+  element: Element | null,
+  rect: { left: number; width: number; top?: number; height?: number },
+) {
+  if (!element) {
+    throw new Error("Expected element to stub");
+  }
+
+  const top = rect.top ?? 0;
+  const height = rect.height ?? 48;
+
+  Object.defineProperty(element, "getBoundingClientRect", {
+    configurable: true,
+    value: () => ({
+      x: rect.left,
+      y: top,
+      left: rect.left,
+      top,
+      width: rect.width,
+      height,
+      right: rect.left + rect.width,
+      bottom: top + height,
+      toJSON: () => ({}),
+    }),
+  });
+}
+
 describe("fd-global-header", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
     mobileMatches = false;
+    resizeCallbacks.clear();
     installMatchMediaStub();
+    installResizeObserverStub();
   });
 
   it("registers fd-global-header", () => {
@@ -321,6 +430,39 @@ describe("fd-global-header", () => {
     expect(trigger?.getAttribute("data-manual-focus-visible")).toBe("true");
   });
 
+  it("moves one shared top-nav active indicator between active tabs", async () => {
+    const el = await createHeader();
+    const topNavTrack = el.shadowRoot?.querySelector(".top-nav-track") as HTMLElement | null;
+    const newsTrigger = getPanelTrigger(el, "news-events");
+    const careerTrigger = getPanelTrigger(el, "career-development");
+
+    stubElementRect(topNavTrack, { left: 100, width: 900 });
+    stubElementRect(newsTrigger, { left: 140, width: 206 });
+    stubElementRect(careerTrigger, { left: 346, width: 338 });
+
+    newsTrigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const indicator = el.shadowRoot?.querySelector(
+      ".top-nav-active-indicator",
+    ) as HTMLElement | null;
+
+    expect(indicator?.getAttribute("data-visible")).toBe("true");
+    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-offset:40px");
+    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-width:206px");
+
+    careerTrigger?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await wait(160);
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-offset:246px");
+    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-width:338px");
+  });
+
   it("uses the prototype mobile drill-down structure and restores toggle focus on close", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
@@ -381,6 +523,31 @@ describe("fd-global-header", () => {
     await nextFrame();
 
     expect(menuToggle).toBe(el.shadowRoot?.activeElement);
+  });
+
+  it("switches to the compact mobile layout when the host is narrow even if the viewport stays desktop", async () => {
+    const el = await createHeader();
+
+    triggerResize(el, 384);
+    await el.updateComplete;
+    await nextFrame();
+
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+
+    expect(el.hasAttribute("mobile-layout")).toBe(true);
+    expect(el.hasAttribute("compact-mobile-layout")).toBe(true);
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const drawer = el.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLElement | null;
+
+    expect(drawer?.getAttribute("data-open")).toBe("true");
   });
 
   it("coordinates one shared query value between desktop and mobile search surfaces", async () => {
