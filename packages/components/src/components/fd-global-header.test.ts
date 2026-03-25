@@ -13,7 +13,6 @@ import {
 let mobileMatches = false;
 let prefersReducedMotionMatches = false;
 const resizeCallbacks = new Map<Element, ResizeObserverCallback>();
-
 class ResizeObserverMock {
   private readonly _callback: ResizeObserverCallback;
 
@@ -672,6 +671,69 @@ describe("fd-global-header", () => {
     await dispatchScroll(80);
     await el.updateComplete;
     expect(base.getAttribute("data-shy-hidden")).toBe("true");
+  });
+
+  it("exposes --fd-global-header-shy-height when shy is enabled and clears it when disabled", async () => {
+    const el = await createHeader({ shy: false });
+    const base = getBase(el);
+
+    if (!base) {
+      throw new Error("Expected base surface");
+    }
+
+    Object.defineProperty(base, "offsetHeight", {
+      configurable: true,
+      get: () => 96,
+    });
+
+    el.shy = true;
+    await el.updateComplete;
+
+    const value = el.style.getPropertyValue("--fd-global-header-shy-height");
+    expect(value).toBe("96px");
+
+    el.shy = false;
+    await el.updateComplete;
+
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("");
+  });
+
+  it("updates --fd-global-header-shy-height when the header resizes while not compact", async () => {
+    const el = await createHeader({ shy: false });
+    const base = getBase(el);
+
+    if (!base) {
+      throw new Error("Expected base surface");
+    }
+
+    let mockHeight = 96;
+    Object.defineProperty(base, "offsetHeight", {
+      configurable: true,
+      get: () => mockHeight,
+    });
+
+    el.shy = true;
+    await el.updateComplete;
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("96px");
+
+    // Simulate a resize while the header is in full (non-compact) state.
+    mockHeight = 112;
+    triggerResize(el, 1200);
+    await el.updateComplete;
+
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
+
+    // When the header is shy-hidden (compact), resize should NOT update the
+    // height — it would capture the compact height instead of the full height.
+    await dispatchScroll(200);
+    await el.updateComplete;
+    expect(base.getAttribute("data-shy-hidden")).toBe("true");
+
+    mockHeight = 48;
+    triggerResize(el, 1100);
+    await el.updateComplete;
+
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
   });
 
   it("switches to a compact sticky desktop state and keeps the desktop mega-menu visible while it is open", async () => {

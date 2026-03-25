@@ -308,9 +308,10 @@ export class FdGlobalHeader extends LitElement {
     }
 
     :host([shy]) {
-      overflow-anchor: none;
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 20;
     }
 
@@ -365,6 +366,9 @@ export class FdGlobalHeader extends LitElement {
 
     .base[data-compact-desktop="true"] {
       box-shadow: 0 10px 28px rgba(0, 18, 32, 0.18);
+      transition:
+        transform var(--_fd-global-header-shy-duration, 300ms) ease,
+        box-shadow 250ms ease;
     }
 
     .shell {
@@ -379,6 +383,12 @@ export class FdGlobalHeader extends LitElement {
       padding: 1.5rem 0;
       display: flex;
       align-items: center;
+    }
+
+    .base[data-shy-active="true"] .masthead {
+      transition:
+        padding 250ms ease,
+        min-height 250ms ease;
     }
 
     .masthead-row {
@@ -733,6 +743,10 @@ export class FdGlobalHeader extends LitElement {
       gap: 0.875rem;
     }
 
+    .base[data-shy-active="true"] ::slotted([slot="brand"]) {
+      transition: transform 250ms ease;
+    }
+
     .base[data-compact-desktop="true"] ::slotted([slot="brand"]) {
       transform: scale(0.88);
       transform-origin: left center;
@@ -744,6 +758,12 @@ export class FdGlobalHeader extends LitElement {
 
     .base[data-compact-desktop="true"] .utility {
       gap: 0.125rem;
+    }
+
+    .base[data-shy-active="true"] ::slotted([slot="utility"]) {
+      transition:
+        width 250ms ease,
+        height 250ms ease;
     }
 
     .base[data-compact-desktop="true"] ::slotted([slot="utility"]) {
@@ -1694,6 +1714,7 @@ export class FdGlobalHeader extends LitElement {
   private _shyPendingScrollY = 0;
   private _shyScrollAnimationFrame: number | null = null;
   private _shyScrollListening = false;
+  private _shyHeightSynced = false;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
   private readonly _onDocumentKeyDownBound = this._handleDocumentKeyDown.bind(this);
@@ -1819,6 +1840,7 @@ export class FdGlobalHeader extends LitElement {
     document.removeEventListener("keydown", this._onDocumentKeyDownBound, true);
     this.removeEventListener("focusin", this._onFocusInBound);
     this._detachShyScrollListener();
+    this._clearShyHeight();
   }
 
   protected override willUpdate(changed: PropertyValues<this>) {
@@ -1865,8 +1887,10 @@ export class FdGlobalHeader extends LitElement {
         this._setShyHiddenState(false, { immediate: true });
         this._syncShyTrackingFromWindow();
         this._attachShyScrollListener();
+        this._syncShyHeight();
       } else {
         this._detachShyScrollListener();
+        this._clearShyHeight();
         this._setShyHiddenState(false, { immediate: true });
         this._compactDesktopMenuVisible = false;
         this._compactDesktopSearchExpanded = false;
@@ -1917,6 +1941,11 @@ export class FdGlobalHeader extends LitElement {
         this._lastObservedHeight = entry.contentRect.height;
       }
       this._syncResponsiveState(entry?.contentRect.width);
+      // Only update the shy height when showing the full (non-compact)
+      // header so it reflects the true full-size height.
+      if (this.shy && !this._shyHidden) {
+        this._syncShyHeight();
+      }
       this.updateComplete.then(() => {
         this._syncColumnRails();
         this._syncTopNavIndicator();
@@ -2037,6 +2066,29 @@ export class FdGlobalHeader extends LitElement {
 
     window.removeEventListener("scroll", this._onWindowScrollBound);
     this._shyScrollListening = false;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Shy height custom property
+  //
+  // When shy mode is active the header uses position: fixed, removing it
+  // from the document flow. The component exposes its full (non-compact)
+  // height as --fd-global-header-shy-height on the host element so the
+  // consumer can reserve space (e.g. padding-top on a wrapper).
+  // ---------------------------------------------------------------------------
+
+  private _syncShyHeight() {
+    const base = this.renderRoot?.querySelector<HTMLElement>(".base");
+    const height = base?.offsetHeight || this.offsetHeight || this._lastObservedHeight;
+    if (height > 0) {
+      this.style.setProperty("--fd-global-header-shy-height", `${height}px`);
+      this._shyHeightSynced = true;
+    }
+  }
+
+  private _clearShyHeight() {
+    this.style.removeProperty("--fd-global-header-shy-height");
+    this._shyHeightSynced = false;
   }
 
   private _hasOpenOverlay() {

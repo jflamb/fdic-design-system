@@ -401,11 +401,69 @@ export const ShyHeader: Story = {
     docs: {
       description: {
         story:
-          "Shows the opt-in shy-header mode with enough scrollable page content to verify the condensed sticky desktop state, compact menu toggle, and reveal-on-scroll-up behavior in the preview frame.",
+          "Shows the opt-in shy-header mode with enough scrollable page content to verify the condensed sticky desktop state, compact menu toggle, and reveal-on-scroll-up behavior in the preview frame. The wrapper uses `padding-top: var(--fd-global-header-shy-height)` to reserve space for the fixed header.",
       },
     },
   },
-  render: (args) => renderHeader(args, { longScroll: true }),
+  render: (args) => html`
+    <style>
+      .shy-header-wrapper {
+        padding-top: var(--fd-global-header-shy-height, 0px);
+      }
+    </style>
+    <div
+      class="shy-header-wrapper"
+      style="min-height: 100vh; background: #ffffff; width: 100%;"
+    >
+      <fd-global-header
+        style="display:block;"
+        .navigation=${args.navigation}
+        .search=${args.search}
+        .shy=${Boolean(args.shy)}
+        .shyThreshold=${args.shyThreshold}
+      >
+        <a
+          slot="brand"
+          href="/"
+          aria-label="FDICnet home"
+          style="display:inline-flex; align-items:center; height:35px; color:#ffffff; text-decoration:none; border-radius:0; overflow:visible;"
+        >
+          <img
+            src=${fdicnetWordmarkUrl}
+            alt="FDICnet"
+            width="140"
+            height="35"
+            style="display:block; width:8.75rem; height:auto; border-radius:0; overflow:visible;"
+          />
+        </a>
+        <fd-button
+          slot="utility"
+          variant="subtle-inverted"
+          aria-label="Apps"
+        >
+          <fd-icon
+            slot="icon-start"
+            name="squares-four"
+            aria-hidden="true"
+            style="--fd-icon-size:1.75rem;"
+          ></fd-icon>
+        </fd-button>
+        <fd-button
+          slot="utility"
+          variant="subtle-inverted"
+          aria-label="Profile"
+        >
+          <fd-icon
+            slot="icon-start"
+            name="user-circle"
+            aria-hidden="true"
+            style="--fd-icon-size:1.75rem;"
+          ></fd-icon>
+        </fd-button>
+      </fd-global-header>
+      ${renderBackdropContent(false, true)}
+    </div>
+  `,
 };
 
 ShyHeader.play = async ({ canvasElement }) => {

@@ -78,10 +78,26 @@ if (header) {
 ### Shy header adoption
 
 - Set `shy` to opt into the sticky hide/reveal behavior. Leave it unset to preserve the current in-flow header behavior.
+- When `shy` is enabled the header switches to `position: fixed` and exposes `--fd-global-header-shy-height` on the host element. The consumer is responsible for reserving space in the document flow using this property (e.g., `padding-top` on a wrapper).
+- On desktop, scrolling down past the threshold hides the full header and reveals a **compact sticky header** with the brand, utility actions, and a menu toggle for accessing the full navigation. Scrolling back up reveals the full header. The transition between states is animated (250ms ease).
+- On mobile, scrolling down hides the header entirely (`translateY(-100%)`). Scrolling up reveals it. There is no compact mobile variant.
 - Use `shyThreshold` when the page needs a threshold that differs from the header's own height.
 - The component owns scroll tracking, hide/reveal state, transition timing, and overlay awareness.
-- The application owns whether shy mode should be enabled, any `shyThreshold` override, and surrounding page layout decisions.
-- When shy mode is enabled, verify how the sticky header interacts with the top of the page content. The component does not inject a spacer or placeholder in v1.
+- The application owns whether shy mode should be enabled, any `shyThreshold` override, and surrounding page layout (including reserving space for the fixed header).
+- **Placement requirement:** Shy mode uses `position: fixed`. The header must be a direct child of `<body>` or an ancestor without `transform`, `filter`, or `perspective` — these CSS properties create a new containing block and break fixed positioning.
+
+```html
+<div class="page-wrapper">
+  <fd-global-header shy></fd-global-header>
+  <main>…</main>
+</div>
+
+<style>
+  .page-wrapper {
+    padding-top: var(--fd-global-header-shy-height, 0px);
+  }
+</style>
+```
 
 ```ts
 const header = document.querySelector("fd-global-header");
@@ -256,10 +272,10 @@ const content = createFdGlobalHeaderContentFromDrupal({
 |---|---|---|---|
 | `navigation` | `FdGlobalHeaderNavigationItem[]` | `[]` | Consumer-provided navigation tree. Set this as a JavaScript property; it is not reflected to an HTML attribute. |
 | `search` | `FdGlobalHeaderSearchConfig \| null` | `null` | Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`. |
-| `shy` | `boolean` | `false` | Opt-in sticky hide/reveal behavior. When `true`, the header hides on downward window scroll beyond the threshold and reveals on upward scroll or immediate interaction. |
+| `shy` | `boolean` | `false` | Opt-in sticky hide/reveal behavior. When `true`, the header uses `position: fixed` and exposes `--fd-global-header-shy-height`. On desktop, scrolling down transitions to a compact header. Reveals the full header on upward scroll or immediate interaction. |
 | `shyThreshold` | `number \| undefined` | `undefined` | Optional downward-scroll threshold in pixels before shy behavior engages. When omitted, `fd-global-header` uses its own rendered height. |
 
-- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, and shy-header scroll tracking when `shy` is enabled.
+- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, shy-header scroll tracking, and compact desktop state when `shy` is enabled.
 - The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.
 - Assign a new array or object when updating `navigation` or `search` so Lit can detect the change.
 
@@ -283,8 +299,10 @@ const content = createFdGlobalHeaderContentFromDrupal({
 | Name | Default | Description |
 |---|---|---|
 | `--fd-global-header-shy-transition-duration` | `0.3s` | Hide-transition duration used when `shy` is enabled. Reveal timing is derived internally as a proportionally faster transition. |
+| `--fd-global-header-shy-height` | — | Read-only. Set on the host when `shy` is enabled. Contains the header's full (non-compact) rendered height as a pixel value. Use it on a parent wrapper to reserve space for the fixed header (e.g., `padding-top: var(--fd-global-header-shy-height, 0px)`). Removed when `shy` is disabled. |
 
-- This custom property is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely.
+- `--fd-global-header-shy-transition-duration` is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely.
+- `--fd-global-header-shy-height` updates automatically when the header resizes (e.g., viewport changes).
 
 ## Shadow parts
 
@@ -350,7 +368,8 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - **Semantics stay native** — Top-level direct destinations render as links. Grouped destinations render as disclosure buttons. Desktop panel and mobile drill-down content render as navigation structures, not action menus.
 - **Keyboard model follows the approved header interaction pattern without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
 - **Focus restoration is component-owned only for ephemeral surfaces** — Closing the desktop panel, mobile drawer, or mobile search surface returns focus to the invoking control when it still exists. Broader page-level focus after navigation remains application-owned.
-- **Shy mode never hides the header from focused users** — When `shy` is enabled, focus moving into the header reveals it immediately and keeps it visible while the desktop panel, mobile drawer, or mobile search surface is open.
+- **Shy mode never hides the header from focused users** — When `shy` is enabled, focus moving into the header reveals it immediately and keeps it visible while the desktop panel, mobile drawer, or mobile search surface is open. In the compact desktop state, the full navigation remains accessible via the compact menu toggle button.
+- **Compact-mode transitions respect reduced motion** — The animated transition between full and compact header states (padding, scale, opacity) is suppressed when users request reduced motion.
 - **Mobile overlays behave like true modal surfaces only while open** — The menu drawer and mobile search shell trap focus while open, restore focus to their invoking control on close, and do not keep dialog semantics attached when hidden.
 - **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
 - **Reduced motion is honored across the full component** — Non-essential transitions and animations are suppressed when users request reduced motion, including overlay, mega-menu, and shy-header state changes.
@@ -361,7 +380,8 @@ const content = createFdGlobalHeaderContentFromDrupal({
 
 - The component expects navigation and search data to be supplied by the application. It does not fetch CMS data or search results.
 - Utility-slot content does not get a dedicated alternate mobile placement contract in v1.
-- Automatic spacer injection for shy mode, configurable scroll-container support, condensed header variants, and broader shell composition are intentionally deferred.
+- Shy mode uses `position: fixed`, which positions the header relative to the viewport. It requires the header to be a direct child of `<body>` or an ancestor without `transform`, `filter`, `perspective`, or `will-change` set — any of these on an ancestor creates a new containing block and breaks fixed positioning. Do not enable `shy` when the header lives inside a constrained shell, embedded app frame, or transformed container.
+- Configurable scroll-container support (e.g., observing a scrollable ancestor other than `window`) and broader shell composition are intentionally deferred.
 
 ## Related components
 
