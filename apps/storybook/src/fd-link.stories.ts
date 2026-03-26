@@ -34,7 +34,7 @@ const renderLink = (args: LinkArgs) => {
     <div
       style=${args.variant === "inverted"
         ? "display: inline-block; padding: 20px; background: #0d6191; border-radius: 4px;"
-        : "display: inline-block; padding: 20px; background: #ffffff; border-radius: 4px;"}
+        : "display: inline-block; padding: 20px;"}
     >
       ${link}
     </div>
