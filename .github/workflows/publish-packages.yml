@@ -13,13 +13,13 @@ jobs:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@${{ vars.CHECKOUT_VERSION || 'v6' }}
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
 
       - name: Set up Node.js for GitHub Packages
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@${{ vars.SETUP_NODE_VERSION || 'v6' }}
         with:
           node-version-file: .nvmrc
           registry-url: https://npm.pkg.github.com

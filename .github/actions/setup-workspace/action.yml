@@ -5,7 +5,7 @@ runs:
   using: composite
   steps:
     - name: Set up Node.js
-      uses: actions/setup-node@v6
+      uses: actions/setup-node@${{ vars.SETUP_NODE_VERSION || 'v6' }}
       with:
         node-version-file: .nvmrc
         cache: npm
