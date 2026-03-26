@@ -139,7 +139,7 @@ export class FdLink extends LitElement {
     .variant-inverted {
       color: var(
         --fd-link-color-inverted,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-neutral-000, #ffffff)
       );
     }
 

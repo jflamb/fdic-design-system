@@ -101,7 +101,7 @@ export class FdVisual extends LitElement {
     .avatar-surface {
       padding: 0;
       background: var(--fd-visual-bg-avatar, transparent);
-      color: var(--fd-visual-avatar-placeholder-color, #b0b0b3);
+      color: var(--fd-visual-avatar-placeholder-color, var(--ds-color-icon-disabled, #BDBDBF));
     }
 
     .type-cool {

@@ -26,8 +26,8 @@ export class FdMenu extends LitElement {
       padding: 0;
       border: 1px solid var(--fdic-border-divider, #bdbdbf);
       border-radius: var(--fd-menu-border-radius, var(--fdic-corner-radius-lg, 7px));
-      background: var(--fdic-background-base, #ffffff);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background: var(--fdic-background-base, var(--ds-color-bg-surface, #ffffff));
+      box-shadow: 0 4px 12px var(--ds-color-effect-shadow, rgba(0, 0, 0, 0.08));
       min-width: var(--fd-menu-min-width, 180px);
       max-width: var(--fd-menu-max-width, 320px);
       max-height: var(--fd-menu-max-height, 300px);

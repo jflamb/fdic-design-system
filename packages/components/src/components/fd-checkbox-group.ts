@@ -81,7 +81,7 @@ export class FdCheckboxGroup extends LitElement {
 
     [part="error"] {
       display: none;
-      color: rgb(190, 40, 40);
+      color: var(--ds-color-semantic-fg-error, #B10B2D);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
@@ -90,7 +90,7 @@ export class FdCheckboxGroup extends LitElement {
     }
 
     :host([data-user-invalid]) [part="fieldset"] {
-      border-inline-start: 3px solid rgb(190, 40, 40);
+      border-inline-start: 3px solid var(--ds-color-semantic-border-error, #B10B2D);
       padding-inline-start: var(--fdic-spacing-sm, 12px);
     }
 

@@ -575,6 +575,63 @@
   color: var(--fdic-docs-ink);
 }
 
+/* ------------------------------------------------------------------ */
+/* Dark mode overrides                                                 */
+/* ------------------------------------------------------------------ */
+
+.dark .fdic-foundation-intro {
+  background:
+    linear-gradient(135deg, rgba(132, 219, 255, 0.08), rgba(217, 175, 69, 0.08)),
+    var(--fdic-docs-surface);
+}
+
+.dark .fdic-scale-bar {
+  background: linear-gradient(90deg, var(--fdic-docs-brand), #5bb8d4);
+}
+
+.dark .fdic-surface-card[data-surface="raised"] {
+  border-color: rgba(132, 219, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dark .fdic-chip[data-tone="brand"] {
+  border-color: rgba(132, 219, 255, 0.25);
+  background: rgba(132, 219, 255, 0.1);
+}
+
+.dark .fdic-chip[data-tone="warning"] {
+  border-color: rgba(255, 191, 71, 0.25);
+  background: rgba(255, 191, 71, 0.1);
+}
+
+.dark .fdic-chip[data-tone="success"] {
+  border-color: rgba(97, 214, 115, 0.25);
+  background: rgba(97, 214, 115, 0.1);
+}
+
+.dark .fdic-chip[data-tone="danger"] {
+  border-color: rgba(246, 111, 139, 0.2);
+  background: rgba(246, 111, 139, 0.1);
+}
+
+.dark .fdic-do-card {
+  border-color: rgba(97, 214, 115, 0.3);
+  border-top-color: var(--fdic-docs-success);
+}
+
+.dark .fdic-dont-card {
+  border-color: rgba(246, 111, 139, 0.25);
+  border-top-color: var(--fdic-docs-danger);
+}
+
+.dark .fdic-content-do {
+  background: rgba(97, 214, 115, 0.08);
+}
+
+.dark .fdic-content-dont {
+  background: rgba(246, 111, 139, 0.08);
+}
+
 @media (max-width: 640px) {
   .fdic-type-row,
   .fdic-scale-row {

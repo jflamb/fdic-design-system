@@ -132,7 +132,7 @@ export class FdSplitButton extends LitElement {
       );
       color: var(
         --fd-button-text-destructive,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-neutral-000, #ffffff)
       );
       font-weight: 600;
     }

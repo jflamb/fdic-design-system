@@ -115,7 +115,7 @@ export class FdButton extends LitElement {
       );
       color: var(
         --fd-button-text-destructive,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-neutral-000, #ffffff)
       );
       font-weight: 600;
     }
@@ -148,7 +148,7 @@ export class FdButton extends LitElement {
       background-color: transparent;
       color: var(
         --fd-button-text-subtle-inverted,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-neutral-000, #ffffff)
       );
       font-weight: 400;
       --fd-button-overlay-hover: var(

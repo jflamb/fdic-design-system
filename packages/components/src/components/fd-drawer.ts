@@ -77,7 +77,7 @@ export class FdDrawer extends LitElement {
       display: grid;
       gap: 0.875rem;
       width: 100%;
-      background: var(--fd-drawer-surface, #ffffff);
+      background: var(--fd-drawer-surface, var(--ds-color-bg-surface, #ffffff));
       color: var(--fd-drawer-color, inherit);
       border-block-end: 1px solid
         var(--fd-drawer-border-color, rgba(9, 53, 84, 0.14));

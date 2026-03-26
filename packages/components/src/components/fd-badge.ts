@@ -61,28 +61,28 @@ export class FdBadge extends LitElement {
     .cool {
       background: var(
         --fd-badge-bg-cool,
-        var(--ds-color-info-050, #f1f8fe)
+        var(--ds-color-semantic-bg-info, #f1f8fe)
       );
     }
 
     .warm {
       background: var(
         --fd-badge-bg-warm,
-        var(--ds-color-secondary-050, #f8efda)
+        var(--ds-color-semantic-bg-warm, #f8efda)
       );
     }
 
     .positive {
       background: var(
         --fd-badge-bg-positive,
-        var(--ds-color-success-050, #e8f5e9)
+        var(--ds-color-semantic-bg-success, #e8f5e9)
       );
     }
 
     .alert {
       background: var(
         --fd-badge-bg-alert,
-        var(--ds-color-error-050, #fdedea)
+        var(--ds-color-semantic-bg-error, #fdedea)
       );
     }
 

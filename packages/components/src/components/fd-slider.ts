@@ -277,8 +277,8 @@ export class FdSlider extends LitElement {
         --fd-slider-bubble-radius,
         var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-slider-bubble-background, #212123);
-      color: var(--fd-slider-bubble-color, #ffffff);
+      background: var(--fd-slider-bubble-background, var(--ds-color-bg-inverted, #212123));
+      color: var(--fd-slider-bubble-color, var(--ds-color-text-inverted, #ffffff));
       font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
       text-align: center;

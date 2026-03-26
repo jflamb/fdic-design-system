@@ -69,7 +69,7 @@ export class FdSelector extends LitElement {
 
     [part="required-marker"] {
       font-weight: 600;
-      color: var(--fd-selector-required-color, #d80e3a);
+      color: var(--fd-selector-required-color, var(--ds-color-text-error, #D80E3A));
     }
 
     :host([disabled]) [part="label-text"] {
@@ -129,7 +129,7 @@ export class FdSelector extends LitElement {
     }
 
     :host([data-user-invalid]) [part="trigger"] {
-      border-color: var(--fd-selector-error-border, #d80e3a);
+      border-color: var(--fd-selector-error-border, var(--ds-color-semantic-border-error, #D80E3A));
     }
 
     [part="value-display"] {
@@ -204,7 +204,7 @@ export class FdSelector extends LitElement {
     /* --- Error --- */
 
     [part="error"] {
-      color: var(--fd-selector-error-color, #d80e3a);
+      color: var(--fd-selector-error-color, var(--ds-color-semantic-fg-error, #D80E3A));
       font-size: var(--fdic-font-size-body-small, 1rem);
       margin-top: var(--fdic-spacing-3xs, 2px);
     }

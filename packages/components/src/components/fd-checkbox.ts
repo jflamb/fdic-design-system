@@ -130,7 +130,7 @@ export class FdCheckbox extends LitElement {
     }
 
     :host([data-user-invalid]) [part="control"] {
-      color: var(--fd-checkbox-invalid-color, rgb(190, 40, 40));
+      color: var(--fd-checkbox-invalid-color, var(--ds-color-semantic-fg-error, #B10B2D));
     }
 
     [part="label"] {
