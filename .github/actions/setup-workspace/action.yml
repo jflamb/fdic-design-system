@@ -12,10 +12,25 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
+    - name: Find Node.js
+      shell: bash
+      run: |
+        # Use setup-node's known install path if available
+        if [ -d "/opt/hostedtoolcache" ]; then
+          NODE_DIR=$(find /opt/hostedtoolcache -path "*/node/20.*/x64/bin" -type d 2>/dev/null | sort -V | tail -1)
+          if [ -n "$NODE_DIR" ]; then
+            echo "$NODE_DIR" >> "$GITHUB_PATH"
+            echo "Found Node.js at $NODE_DIR"
+            exit 0
+          fi
+        fi
+        # Check if node is already on PATH
+        if command -v node &>/dev/null; then
+          echo "Node.js $(node -v) already on PATH"
+          exit 0
+        fi
+        echo "::error::Node.js not found"
+        exit 1
 
     - name: Configure JFrog npm registry
       if: inputs.jf-url != ''
