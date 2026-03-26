@@ -6,7 +6,7 @@ import {
 export default defineConfig({
   title: "FDIC Design System",
   description: "Placeholder documentation site for the FDIC design system.",
-  base: "/fdic-design-system/",
+  base: process.env.VITEPRESS_BASE || "/fdic-design-system/",
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/" },
@@ -19,7 +19,8 @@ export default defineConfig({
         items: [
           { text: "Overview", link: "/guide/" },
           { text: "Getting Started", link: "/guide/getting-started" },
-          { text: "Accessibility", link: "/guide/accessibility" }
+          { text: "Accessibility", link: "/guide/accessibility" },
+          { text: "Form Workflows", link: "/guide/form-workflows" }
         ]
       },
       {

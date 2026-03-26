@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    env:
+      VITEPRESS_BASE: ${{ vars.VITEPRESS_BASE || '' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
