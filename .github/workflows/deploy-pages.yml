@@ -33,7 +33,7 @@ jobs:
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           path: apps/docs/.vitepress/dist
 
@@ -47,4 +47,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
