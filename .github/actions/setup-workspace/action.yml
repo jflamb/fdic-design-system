@@ -1,6 +1,14 @@
 name: Setup Workspace
 description: Set up Node.js and install workspace dependencies using the repo lockfile.
 
+inputs:
+  jf-url:
+    description: 'JFrog Artifactory base URL (required for GHES runners behind a firewall)'
+    default: ''
+  jf-token:
+    description: 'JFrog access token (required for GHES runners behind a firewall)'
+    default: ''
+
 runs:
   using: composite
   steps:
@@ -8,6 +16,16 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
+
+    - name: Configure JFrog npm registry
+      if: inputs.jf-url != ''
+      shell: bash
+      run: |
+        npm config set registry "${JF_URL}/artifactory/api/npm/fdic-npm-remote/"
+        npm config set //${JF_URL#https://}/artifactory/api/npm/fdic-npm-remote/:_authToken "${JF_TOKEN}"
+      env:
+        JF_URL: ${{ inputs.jf-url }}
+        JF_TOKEN: ${{ inputs.jf-token }}
 
     - name: Install dependencies
       shell: bash

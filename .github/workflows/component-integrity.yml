@@ -16,6 +16,9 @@ jobs:
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
+        with:
+          jf-url: ${{ secrets.JF_URL || '' }}
+          jf-token: ${{ secrets.JF_ACCESS_TOKEN || '' }}
 
       - name: Validate component automation
         run: npm run validate:components
