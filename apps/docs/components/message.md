@@ -115,6 +115,7 @@ A helper and validation-feedback primitive for form fields and adjacent instruct
 - Pair `for` with a real control ID when the message should be discoverable by sibling controls outside `fd-field`.
 - Avoid stacking multiple `fd-message` elements for the same control unless you intentionally control tree order and semantics.
 - If a control can block submission, authored error copy is expected. Visual invalid styling without specific message text is incomplete usage.
+- For page-level timing, submit-scoped error summaries, and focus behavior after blocked submit, see [Form Workflows](/guide/form-workflows).
 
 ## Known limitations
 
@@ -128,4 +129,5 @@ A helper and validation-feedback primitive for form fields and adjacent instruct
   <li><a href="./field">Field</a> — Use <code>fd-field</code> when you want automatic <code>for</code>/<code>id</code> wiring for label, input, and message composition.</li>
   <li><a href="./input">Input</a> — <code>fd-input</code> reads authored <code>fd-message</code> state for described-by and visual state wiring.</li>
   <li><a href="./label">Label</a> — Use <code>fd-label</code> alongside <code>fd-message</code> for visible field labels and descriptions.</li>
+  <li><a href="/guide/form-workflows">Form Workflows</a> — Use the workflow guidance for page-level validation timing, blocked-submit summaries, and high-stakes review and confirmation rules.</li>
 </ul>

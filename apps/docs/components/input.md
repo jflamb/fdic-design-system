@@ -364,6 +364,7 @@ To override for a specific input, set `--fd-input-icon-size`:
 
 - **No input masking** — phone number, SSN, or other format masking must be handled by the consumer.
 - **No built-in validation timing** — the component does not automatically validate on blur or input. Consumers control when to show/hide `fd-message`.
+- **Use the shared workflow timing model at the page level** — For submit-scoped error summaries, review requirements, and staged validation timing, see [Form Workflows](/guide/form-workflows).
 - **One suffix action recommended** — multiple trailing action buttons inside a single input are discouraged because they create noisy keyboard and screen reader experiences.
 - **axe-core and FACE** — automated accessibility tools like axe-core cannot follow `<label for>` through a form-associated custom element's shadow DOM. Manual screen reader testing (NVDA, JAWS, VoiceOver) is recommended for verification.
 
@@ -374,3 +375,4 @@ To override for a specific input, set `--fd-input-icon-size`:
 - [Selector](/components/selector) — dropdown/select pattern for structured selection
 - [Radio Group](/components/radio-group) — grouped radio inputs with built-in legend
 - [Checkbox Group](/components/checkbox-group) — grouped checkboxes with built-in legend
+- [Form Workflows](/guide/form-workflows) — page-level guidance for validation timing, blocked-submit recovery, and high-stakes workflow protections

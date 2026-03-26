@@ -175,3 +175,4 @@ Use the default slot for visible message copy. The component does not expose a s
 - [Message](/components/message) — field-level feedback tied to a specific form control
 - [Callouts](/components/callouts) — longer-form instructional or supportive content that does not need alert urgency
 - [Button](/components/button) — use adjacent buttons when the page needs a separate recovery action outside the alert body
+- [Form Workflows](/guide/form-workflows) — page-level guidance for blocked-submit error summaries, trust language, review protections, and confirmation states
