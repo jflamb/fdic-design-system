@@ -15,22 +15,19 @@ runs:
     - name: Find Node.js
       shell: bash
       run: |
-        # Use setup-node's known install path if available
-        if [ -d "/opt/hostedtoolcache" ]; then
-          NODE_DIR=$(find /opt/hostedtoolcache -path "*/node/20.*/x64/bin" -type d 2>/dev/null | sort -V | tail -1)
-          if [ -n "$NODE_DIR" ]; then
-            echo "$NODE_DIR" >> "$GITHUB_PATH"
-            echo "Found Node.js at $NODE_DIR"
-            exit 0
-          fi
-        fi
-        # Check if node is already on PATH
-        if command -v node &>/dev/null; then
-          echo "Node.js $(node -v) already on PATH"
-          exit 0
-        fi
-        echo "::error::Node.js not found"
-        exit 1
+        echo "=== Checking PATH ==="
+        command -v node && node -v || echo "node not on PATH"
+        command -v npm && npm -v || echo "npm not on PATH"
+        echo "=== Checking common locations ==="
+        ls /opt/hostedtoolcache/ 2>/dev/null || echo "no hostedtoolcache"
+        ls /usr/local/bin/node* 2>/dev/null || echo "not in /usr/local/bin"
+        ls /usr/bin/node* 2>/dev/null || echo "not in /usr/bin"
+        echo "=== Find node binary ==="
+        find / -name "node" -type f 2>/dev/null | head -10 || true
+        echo "=== Find npm ==="
+        find / -name "npm" -type f 2>/dev/null | head -10 || true
+        echo "=== Environment ==="
+        echo "PATH: $PATH"
 
     - name: Configure JFrog npm registry
       if: inputs.jf-url != ''
