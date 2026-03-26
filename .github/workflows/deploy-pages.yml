@@ -17,19 +17,14 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
-    env:
-      VITEPRESS_BASE: ${{ vars.VITEPRESS_BASE || '' }}
-      VITE_STORYBOOK_URL: ${{ vars.VITEPRESS_BASE && format('{0}storybook', vars.VITEPRESS_BASE) || '' }}
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
-        with:
-          jf-url: ${{ secrets.JF_URL || '' }}
-          jf-token: ${{ secrets.JF_ACCESS_TOKEN || '' }}
 
       - name: Build published site assets
         uses: ./.github/actions/build-site-artifacts
@@ -38,17 +33,18 @@ jobs:
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           path: apps/docs/.vitepress/dist
 
   deploy:
+    if: github.server_url == 'https://github.com'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
