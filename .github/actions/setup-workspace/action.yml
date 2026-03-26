@@ -36,8 +36,8 @@ runs:
       if: inputs.jf-url != ''
       shell: bash
       run: |
-        npm config set registry "${JF_URL}/artifactory/api/npm/local-npm-npm/"
-        npm config set //${JF_URL#https://}/artifactory/api/npm/local-npm-npm/:_authToken "${JF_TOKEN}"
+        npm config set registry "${JF_URL}/artifactory/api/npm/ext-npmjs-npm/"
+        npm config set //${JF_URL#https://}/artifactory/api/npm/ext-npmjs-npm/:_authToken "${JF_TOKEN}"
       env:
         JF_URL: ${{ inputs.jf-url }}
         JF_TOKEN: ${{ inputs.jf-token }}
