@@ -27,9 +27,11 @@ jobs:
         run: npm run test:components
 
       - name: Install Playwright Chromium
+        if: github.server_url == 'https://github.com'
         run: npx playwright install --with-deps chromium
 
       - name: Run Storybook browser tests
+        if: github.server_url == 'https://github.com'
         run: npm run test:storybook
 
       - name: Build published site assets
