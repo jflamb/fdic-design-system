@@ -1,15 +1,23 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  workflow_call:
+    inputs:
+      runner:
+        type: string
+        default: 'ubuntu-latest'
+      checkout-version:
+        type: string
+        default: 'v6'
+      setup-node-version:
+        type: string
+        default: 'v6'
+      upload-pages-version:
+        type: string
+        default: 'v4'
+      deploy-pages-version:
+        type: string
+        default: 'v4'
 
 concurrency:
   group: pages
@@ -17,13 +25,15 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.runner }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@${{ vars.CHECKOUT_VERSION || 'v6' }}
+        uses: actions/checkout@${{ inputs.checkout-version }}
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
+        with:
+          setup-node-version: ${{ inputs.setup-node-version }}
 
       - name: Build published site assets
         uses: ./.github/actions/build-site-artifacts
@@ -32,7 +42,7 @@ jobs:
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@${{ vars.UPLOAD_PAGES_VERSION || 'v4' }}
+        uses: actions/upload-pages-artifact@${{ inputs.upload-pages-version }}
         with:
           path: apps/docs/.vitepress/dist
 
@@ -41,8 +51,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.runner }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@${{ vars.DEPLOY_PAGES_VERSION || 'v4' }}
+        uses: actions/deploy-pages@${{ inputs.deploy-pages-version }}

@@ -1,25 +1,32 @@
 name: Publish Packages
 
 on:
-  release:
-    types: [published]
-
-permissions:
-  contents: read
-  packages: write
+  workflow_call:
+    inputs:
+      runner:
+        type: string
+        default: 'ubuntu-latest'
+      checkout-version:
+        type: string
+        default: 'v6'
+      setup-node-version:
+        type: string
+        default: 'v6'
 
 jobs:
   publish:
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.runner }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@${{ vars.CHECKOUT_VERSION || 'v6' }}
+        uses: actions/checkout@${{ inputs.checkout-version }}
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
+        with:
+          setup-node-version: ${{ inputs.setup-node-version }}
 
       - name: Set up Node.js for GitHub Packages
-        uses: actions/setup-node@${{ vars.SETUP_NODE_VERSION || 'v6' }}
+        uses: actions/setup-node@${{ inputs.setup-node-version }}
         with:
           node-version-file: .nvmrc
           registry-url: https://npm.pkg.github.com

@@ -1,21 +1,30 @@
 name: Component Integrity
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      runner:
+        type: string
+        default: 'ubuntu-latest'
+      checkout-version:
+        type: string
+        default: 'v6'
+      setup-node-version:
+        type: string
+        default: 'v6'
 
 jobs:
   validate:
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ inputs.runner }}
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@${{ vars.CHECKOUT_VERSION || 'v6' }}
+        uses: actions/checkout@${{ inputs.checkout-version }}
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
+        with:
+          setup-node-version: ${{ inputs.setup-node-version }}
 
       - name: Validate component automation
         run: npm run validate:components
