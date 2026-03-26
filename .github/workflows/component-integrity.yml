@@ -8,7 +8,8 @@ on:
 
 jobs:
   validate:
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
@@ -16,9 +17,6 @@ jobs:
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
-        with:
-          jf-url: ${{ secrets.JF_URL || '' }}
-          jf-token: ${{ secrets.JF_ACCESS_TOKEN || '' }}
 
       - name: Validate component automation
         run: npm run validate:components
@@ -27,11 +25,9 @@ jobs:
         run: npm run test:components
 
       - name: Install Playwright Chromium
-        if: github.server_url == 'https://github.com'
         run: npx playwright install --with-deps chromium
 
       - name: Run Storybook browser tests
-        if: github.server_url == 'https://github.com'
         run: npm run test:storybook
 
       - name: Build published site assets

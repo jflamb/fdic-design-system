@@ -10,16 +10,14 @@ permissions:
 
 jobs:
   publish:
-    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
-        with:
-          jf-url: ${{ secrets.JF_URL || '' }}
-          jf-token: ${{ secrets.JF_ACCESS_TOKEN || '' }}
 
       - name: Configure npm for GitHub Packages
         run: |
