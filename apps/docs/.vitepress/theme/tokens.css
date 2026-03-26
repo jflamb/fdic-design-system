@@ -121,8 +121,8 @@
   --ds-color-bg-highlight: var(--ds-color-primary-400);
   --ds-color-bg-selected: var(--ds-color-primary-050);
   --ds-color-bg-active: var(--ds-color-primary-500);
-  --ds-color-bg-hovered: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
-  --ds-color-bg-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
+  --ds-color-bg-hovered: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08));
+  --ds-color-bg-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14));
   --ds-color-bg-destructive: var(--ds-color-error-600);
   --ds-color-bg-readonly: var(--ds-color-neutral-100);
 
@@ -176,8 +176,8 @@
   --ds-color-semantic-border-info: var(--ds-color-info-500);
 
   /* Overlay */
-  --ds-color-overlay-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.04));
-  --ds-color-overlay-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
+  --ds-color-overlay-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08));
+  --ds-color-overlay-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14));
   --ds-color-overlay-scrim: rgba(0, 0, 0, 0.48);
 
   /* Effect */

@@ -21,8 +21,8 @@ body {
   --fdic-background-base: var(--ds-color-bg-base, #000000);
   --fdic-background-container: var(--ds-color-bg-container, #212123);
   --fdic-border-divider: var(--ds-color-border-divider, #595961);
-  --fdic-overlay-emphasize-100: var(--ds-color-overlay-hover, rgba(255, 255, 255, 0.04));
-  --fdic-overlay-emphasize-200: var(--ds-color-overlay-pressed, rgba(255, 255, 255, 0.08));
+  --fdic-overlay-emphasize-100: var(--ds-color-overlay-hover, rgba(255, 255, 255, 0.08));
+  --fdic-overlay-emphasize-200: var(--ds-color-overlay-pressed, rgba(255, 255, 255, 0.14));
   --fdic-border-input-active: var(--ds-color-border-input-active, #E0E0E2);
   --fdic-border-input-focus: var(--ds-color-border-input-focus, #0D6191);
   --fdic-body-text: var(--ds-color-text-primary, #FFFFFF);
