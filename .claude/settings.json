@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CMD=$(jq -r '.tool_input.command // empty'); echo \"$CMD\" | grep -qE '\\b(yarn|pnpm|bun|bunx)\\b' && { printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"This project uses npm exclusively. Use the equivalent npm command instead of yarn, pnpm, or bun.\"}}'; exit 2; }; exit 0",
+            "timeout": 5,
+            "statusMessage": "Checking package manager..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); case \"$FILE\" in */packages/components/src/index.ts|*/packages/components/src/register/*.ts|*/packages/components/tsup.config.ts|*/apps/docs/components/index.md|*/apps/docs/.vitepress/generated/component-navigation.ts|*/apps/storybook/src/generated/component-arg-types.ts) printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"This is a generated file managed by sync:components. Edit the source metadata in scripts/components/ and run: npm run sync:components\"}}'; exit 2;; esac; exit 0",
+            "timeout": 5,
+            "statusMessage": "Checking for generated files..."
+          }
+        ]
+      }
+    ]
+  }
+}
