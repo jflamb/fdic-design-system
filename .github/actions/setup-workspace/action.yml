@@ -12,22 +12,25 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Find Node.js
+    - name: Set up Node.js
       shell: bash
       run: |
-        echo "=== Checking PATH ==="
-        command -v node && node -v || echo "node not on PATH"
-        command -v npm && npm -v || echo "npm not on PATH"
-        echo "=== Checking common locations ==="
-        ls /opt/hostedtoolcache/ 2>/dev/null || echo "no hostedtoolcache"
-        ls /usr/local/bin/node* 2>/dev/null || echo "not in /usr/local/bin"
-        ls /usr/bin/node* 2>/dev/null || echo "not in /usr/bin"
-        echo "=== Find node binary ==="
-        find / -name "node" -type f 2>/dev/null | head -10 || true
-        echo "=== Find npm ==="
-        find / -name "npm" -type f 2>/dev/null | head -10 || true
-        echo "=== Environment ==="
-        echo "PATH: $PATH"
+        # Check if node is already on PATH
+        if command -v node &>/dev/null; then
+          echo "Node.js $(node -v) already on PATH"
+          exit 0
+        fi
+        # Use runner's bundled Node.js
+        for dir in /home/runner/externals/node20/bin /home/runner/externals/node24/bin; do
+          if [ -x "$dir/node" ]; then
+            echo "$dir" >> "$GITHUB_PATH"
+            export PATH="$dir:$PATH"
+            echo "Using Node.js $("$dir/node" -v) from $dir"
+            exit 0
+          fi
+        done
+        echo "::error::Node.js not found on runner"
+        exit 1
 
     - name: Configure JFrog npm registry
       if: inputs.jf-url != ''
