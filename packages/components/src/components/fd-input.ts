@@ -485,8 +485,14 @@ export class FdInput extends LitElement {
       align-items: center;
       width: 100%;
       min-height: var(--fd-input-height, 44px);
-      border: 1px solid
-        var(--fd-input-border-color, var(--fdic-border-input-rest, #bdbdbf));
+      border: 2px solid transparent;
+      border-color: var(
+        --fd-input-border-color,
+        var(--fdic-border-input-rest, #bdbdbf)
+      );
+      /* Reserve 2px border at rest so focus (which also uses 2px) causes no
+         layout shift.  The visual difference vs. the old 1px border is
+         negligible at this scale and the trade-off is worth the stability. */
       border-radius: var(
         --fd-input-border-radius,
         var(--fdic-corner-radius-sm, 3px)
@@ -539,7 +545,7 @@ export class FdInput extends LitElement {
     /* --- Focus (on native input) --- */
     [part="base"]:has([part="native"]:focus-visible) {
       outline: none;
-      border: 2px solid var(--fdic-border-input-active, #424244);
+      border-color: var(--fdic-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-input-border-color-focus,
@@ -568,17 +574,14 @@ export class FdInput extends LitElement {
 
     /* --- Validation state borders --- */
     :host([data-state="error"]) [part="base"] {
-      border-width: 2px;
       border-color: var(--fdic-status-error, #d80e3a);
     }
 
     :host([data-state="warning"]) [part="base"] {
-      border-width: 2px;
       border-color: var(--fdic-status-warning, #b48c14);
     }
 
     :host([data-state="success"]) [part="base"] {
-      border-width: 2px;
       border-color: var(--fdic-status-success, #1e8232);
     }
 
