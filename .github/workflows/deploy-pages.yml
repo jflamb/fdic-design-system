@@ -20,11 +20,6 @@ jobs:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Check out repository
-        if: github.server_url == 'https://github.com'
-        uses: actions/checkout@v6
-
-      - name: Check out repository (GHES)
-        if: github.server_url != 'https://github.com'
         uses: actions/checkout@v4
 
       - name: Set up workspace
@@ -37,13 +32,6 @@ jobs:
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
 
       - name: Upload Pages artifact
-        if: github.server_url == 'https://github.com'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: apps/docs/.vitepress/dist
-
-      - name: Upload Pages artifact (GHES)
-        if: github.server_url != 'https://github.com'
         uses: actions/upload-pages-artifact@v2
         with:
           path: apps/docs/.vitepress/dist
@@ -56,11 +44,5 @@ jobs:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Deploy to GitHub Pages
-        if: github.server_url == 'https://github.com'
         id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: Deploy to GitHub Pages (GHES)
-        if: github.server_url != 'https://github.com'
-        id: deployment-ghes
         uses: actions/deploy-pages@v3

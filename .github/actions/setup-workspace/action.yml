@@ -5,14 +5,6 @@ runs:
   using: composite
   steps:
     - name: Set up Node.js
-      if: github.server_url == 'https://github.com'
-      uses: actions/setup-node@v6
-      with:
-        node-version-file: .nvmrc
-        cache: npm
-
-    - name: Set up Node.js (GHES)
-      if: github.server_url != 'https://github.com'
       uses: actions/setup-node@v4
       with:
         node-version-file: .nvmrc

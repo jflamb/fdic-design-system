@@ -13,25 +13,12 @@ jobs:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Check out repository
-        if: github.server_url == 'https://github.com'
-        uses: actions/checkout@v6
-
-      - name: Check out repository (GHES)
-        if: github.server_url != 'https://github.com'
         uses: actions/checkout@v4
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
 
       - name: Set up Node.js for GitHub Packages
-        if: github.server_url == 'https://github.com'
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          registry-url: https://npm.pkg.github.com
-
-      - name: Set up Node.js for GitHub Packages (GHES)
-        if: github.server_url != 'https://github.com'
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
