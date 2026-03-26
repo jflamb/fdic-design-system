@@ -68,10 +68,22 @@ Do not:
 
 For interactive components and overlays, also treat the following as default protocol requirements:
 
+- Prefer baseline native overlay primitives such as `<dialog>` and the Popover API over custom focus traps, custom backdrops, and document-level dismissal wiring when the shipped browser support target allows it.
 - If the component introduces motion or transition effects, provide a component-scoped `prefers-reduced-motion: reduce` path that suppresses all non-essential transitions and animations within that component, not just the one effect currently under review.
 - Do not leave `role="dialog"` or `aria-modal="true"` attached to content that is hidden only through CSS. Apply modal dialog semantics only while the overlay is actually open, or use `hidden` or conditional rendering.
+- When native `<dialog>` covers the needed modal behavior, prefer `dialog::backdrop` over a separate custom backdrop element and let the browser own focus containment.
 - When delayed interaction is used, such as hover intent, close delays, or deferred previews, wire explicit cancellation paths for the inverse interaction (`pointerleave`, `blur`, focus transfer, or close) so timers do not fire after the user has already moved on.
 - Prefer existing shadow-DOM-safe containment and focus helpers over simpler `.contains()` checks when deciding whether focus is still inside a composite component or overlay.
+- If the test environment is missing a native overlay API, add the narrowest viable test shim or helper. Do not restore a production fallback path just to satisfy happy-dom or another test surface.
+
+For CSS modernization and docs-theme work, also treat the following as default protocol requirements:
+
+- Prefer native CSS and platform features over legacy workarounds when the shipped support target makes them viable. This includes selective use of `light-dark()`, relative color syntax, `@property`, `scrollbar-gutter`, `accent-color`, `text-wrap: balance`, and native overlay styling hooks.
+- Use progressive enhancement and fallback-first patterns when support is intentionally partial. For example, keep an explicit fallback before relative color syntax derived from tokens instead of abandoning the improvement entirely.
+- Preserve focus indicator geometry. If a focus rule needs to hide a color while keeping the outline behavior, prefer `outline-color: transparent` over `outline: none`.
+- Remove obsolete browser hacks when they no longer earn their maintenance cost. Do not keep legacy CSS such as `-webkit-overflow-scrolling` without current evidence that it is still required.
+- Treat `content-visibility: auto` as opt-in and heavily scoped. Ship it only after validating the real rendered docs DOM, find-in-page, in-page anchors, visible loading or jump behavior, and content discovery on representative long-form pages.
+- Keep these changes readable and reversible. Adopt modern CSS incrementally instead of collapsing multiple token or theme concerns into one opaque rewrite.
 
 ## Trust and Content Rules
 
@@ -327,6 +339,7 @@ For planning and decision capture:
 - Use GitHub Discussions for durable repo knowledge that should influence future work, such as decisions, protocols, lessons learned, and reusable recipes.
 - Use repository docs only for durable records that should remain true after implementation, such as architecture notes, canonical prompt artifacts, ADR-style decisions, or stable reference material.
 - When implementation work changes how consumers are expected to adopt, compose, configure, or integrate a shipped surface, update the relevant repository docs in the same change with thorough implementation guidance. Do not leave new integration patterns discoverable only through code, tests, Storybook controls, or GitHub comments.
+- When implementation changes repo-wide styling, token, or platform-support expectations, update the relevant contributor-facing guidance such as this guide, `CONTRIBUTING.md`, prompt support docs, and the related GitHub Discussion in the same run.
 - If you cannot create the GitHub artifact directly in the current environment, summarize the proposed issue body in your response instead of creating a new one-off markdown planning file unless the user explicitly asks you to persist it in the repo.
 - If a temporary local planning note is explicitly requested, mark it as temporary, keep it short, and avoid date-stamped file sprawl.
 - **Design proposals and approach recommendations belong in GitHub**, not in the conversation. Post design proposals as comments on the relevant Discussion or Issue so they are reviewable, linkable, and persist beyond the conversation. Do not output design proposals inline in conversation unless the maintainer explicitly asks for it.

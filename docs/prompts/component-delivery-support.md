@@ -63,6 +63,14 @@ Before implementation, explicitly decide and record:
 - When basing a new component on an existing one, reuse and extract proven contracts where practical instead of creating slightly divergent parallel behavior.
 - If a docs example or story needs composition beyond the component's direct API, present it as a recipe and avoid stretching the component API to absorb it.
 
+## Native CSS And Platform Defaults
+
+- Prefer native platform primitives over bespoke behavior when baseline support is acceptable for the shipped surface. For overlays, this includes `<dialog>`, `dialog::backdrop`, and the Popover API before custom focus traps, backdrop elements, or document-level dismissal wiring.
+- Prefer native CSS and progressive enhancement over legacy fallback architecture when the modern feature is the intended production model. Good candidates include selective `light-dark()`, relative color syntax with explicit fallbacks, narrow `@property` registration, `scrollbar-gutter`, `accent-color`, and `text-wrap: balance`.
+- Preserve accessibility truth while modernizing CSS. Keep forced-colors and reduced-motion behavior explicit, and prefer `outline-color: transparent` over removing outlines outright when focus geometry should remain intact.
+- Treat `content-visibility: auto` as constrained performance work, not a blanket optimization. Validate actual rendered docs structure, find-in-page, in-page anchors, and visible loading or jump behavior before shipping it.
+- If happy-dom or another test surface lacks a required native API, solve that narrowly in tests or helpers instead of restoring a legacy production fallback.
+
 ## GitHub-First Workflow
 
 ### 1. Discussion
@@ -183,6 +191,7 @@ Validation expectations:
 - If component-scoped work exposes a narrow shared validation or toolchain regression on a required surface, fix it in the same run when the cause is clear and the change is low-risk; document the fix in GitHub artifacts instead of treating the failure as unrelated noise.
 - When a browser-backed accessibility check conflicts with a supplied Figma visual value, treat the accessibility result as the blocker. Adjust the implementation to pass, then record the rationale and the specific divergence in the Discussion, Issue, and PR artifacts.
 - When Storybook interaction stories drive animated, overlay, or transition-based states, make the `play` function wait for the visually settled end state before returning. Addon-a11y runs after the interaction completes and can otherwise audit transitional frames such as partially transparent drawers or panels.
+- When docs-theme or performance CSS changes land, verify them in the running docs surface against the real VitePress DOM instead of assuming the authored Markdown structure matches the shipped markup.
 - Review generated outputs for malformed changes, accidental deletions, duplicate headings, placeholders, stale generated sections, or misleading guidance.
 - When editing `scripts/components/api-metadata.json`, escape markdown union pipes as `\\|`; raw `|` characters can break generated API tables in component docs.
 - If generated files changed only by ordering or formatting noise, verify the change is expected and avoid committing avoidable churn.

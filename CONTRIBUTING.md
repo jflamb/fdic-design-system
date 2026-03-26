@@ -67,6 +67,11 @@ This project uses tooling for baseline formatting. The conventions below are the
 
 - Follow FDIC Figma as the primary source of truth for visual design and interaction intent.
 - Prefer tokens before component-specific CSS decisions. Separate core, semantic, and component-level token concerns when introducing new values.
+- Prefer native CSS and platform features over custom JS or duplicated token branches when the shipped support target makes them viable.
+- Adopt modern CSS incrementally and readably. Good candidates include selective `light-dark()`, relative color syntax, narrow `@property` registration, `scrollbar-gutter`, `accent-color`, and `text-wrap: balance`.
+- Use progressive enhancement and fallback-first patterns when support is intentionally partial. For example, keep an explicit fallback declaration before relative color syntax derived from tokens.
+- Preserve focus indicator geometry. If the goal is to suppress a focus color without removing the outline itself, prefer `outline-color: transparent` over `outline: none`.
+- Remove legacy browser hacks only when they are no longer justified by current support needs. Do not keep deprecated compatibility CSS such as `-webkit-overflow-scrolling` by inertia.
 - Keep CSS minimal, explicit, and easy to reverse. Do not introduce visual flourish, brand styling, or novel motion without a clear design requirement.
 - Do not rely on color alone to communicate state.
 
@@ -89,6 +94,8 @@ This project uses tooling for baseline formatting. The conventions below are the
 - Prefer one representative Storybook embed per docs page and use consolidated stories such as `DocsOverview` when multiple variants matter.
 - Storybook stories should demonstrate meaningful usage patterns, including validation lifecycle examples for form controls when relevant.
 - Use plain language in docs, stories, labels, descriptions, and examples. This design system is for government and financial-sector workflows.
+- For docs-theme and prose CSS changes, verify behavior against the real rendered VitePress DOM, not just authored Markdown. This matters especially for `content-visibility`, anchor navigation, find-in-page behavior, and long-form loading or jump behavior.
+- When browser-test surfaces lack a native platform feature the product now relies on, add the narrowest viable test shim or helper rather than reintroducing a production fallback branch.
 
 #### Storybook quality standard
 

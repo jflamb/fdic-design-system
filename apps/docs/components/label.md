@@ -103,7 +103,7 @@ Labels identify form inputs and provide optional description text and contextual
 - **Light DOM rendering** — `fd-label` renders without a shadow root to enable native label association. This means host-page styles can bleed into the component. Styles are scoped via tag-qualified selectors (`fd-label [part="..."]`) and rendered as an inline `<style>` tag.
 - **No error slot** — Error display stays in consuming form controls where it is coupled to validation state. `fd-label` is a labeling primitive, not a form field wrapper.
 - **InfoTip content is plain text only in v1** — The `infotip` attribute accepts a string. Rich content with links or interactive elements would require a dialog pattern and is out of scope.
-- **Popover support** — The InfoTip panel uses `popover="auto"` with a fallback for browsers that do not support the Popover API.
+- **Popover API requirement** — The InfoTip panel uses `popover="auto"` as the shipped production model. It does not keep a separate legacy fallback path.
 
 ## Related components
 
