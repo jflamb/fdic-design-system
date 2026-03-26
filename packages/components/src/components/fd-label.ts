@@ -597,7 +597,7 @@ export class FdLabel extends LitElement {
         border: none;
         border-radius: var(--fdic-corner-radius-lg, 7px);
         background: var(--fdic-background-tooltip, #212123);
-        color: var(--fdic-text-inverted, #ffffff);
+        color: var(--ds-color-neutral-000, #ffffff);
         font-size: var(--fdic-font-size-body-small, 1rem);
         line-height: 1.375;
         max-width: 224px;
