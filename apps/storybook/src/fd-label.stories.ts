@@ -28,12 +28,10 @@ const renderLabel = (args: LabelArgs) => html`
       infotip=${ifDefined(args.infotip || undefined)}
       infotip-label=${ifDefined(args.infotipLabel || undefined)}
     ></fd-label>
-    <input
+    <fd-input
       id=${ifDefined(args.for || undefined)}
-      type="text"
       ?required=${args.required}
-      style="display: block; width: 100%; padding: 8px 12px; border: 1px solid var(--fdic-border-input-rest, #bdbdbf); border-radius: var(--fdic-corner-radius-sm, 3px); font: inherit; box-sizing: border-box;"
-    />
+    ></fd-input>
   </div>
 `;
 
@@ -124,11 +122,7 @@ export const DocsOverview: Story = {
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Basic label</p>
         <div style="max-width: 328px;">
           <fd-label for="do-basic" label="Account number"></fd-label>
-          <input
-            id="do-basic"
-            type="text"
-            style="display: block; width: 100%; padding: 8px 12px; border: 1px solid #bdbdbf; border-radius: 3px; font: inherit; box-sizing: border-box;"
-          />
+          <fd-input id="do-basic"></fd-input>
         </div>
       </div>
 
@@ -141,12 +135,7 @@ export const DocsOverview: Story = {
             required
             description="9-digit number on the bottom left of your check"
           ></fd-label>
-          <input
-            id="do-required"
-            type="text"
-            required
-            style="display: block; width: 100%; padding: 8px 12px; border: 1px solid #bdbdbf; border-radius: 3px; font: inherit; box-sizing: border-box;"
-          />
+          <fd-input id="do-required" required></fd-input>
         </div>
       </div>
 
@@ -159,12 +148,7 @@ export const DocsOverview: Story = {
             required
             infotip="A beneficial owner is any individual who owns 25% or more of the legal entity, or who controls the entity."
           ></fd-label>
-          <input
-            id="do-infotip"
-            type="text"
-            required
-            style="display: block; width: 100%; padding: 8px 12px; border: 1px solid #bdbdbf; border-radius: 3px; font: inherit; box-sizing: border-box;"
-          />
+          <fd-input id="do-infotip" required></fd-input>
         </div>
       </div>
 
@@ -180,12 +164,7 @@ export const DocsOverview: Story = {
             description="Format: XX-XXXXXXX"
             infotip="Your EIN is assigned by the IRS. You can find it on IRS correspondence or your original application (Form SS-4)."
           ></fd-label>
-          <input
-            id="do-full"
-            type="text"
-            required
-            style="display: block; width: 100%; padding: 8px 12px; border: 1px solid #bdbdbf; border-radius: 3px; font: inherit; box-sizing: border-box;"
-          />
+          <fd-input id="do-full" required></fd-input>
         </div>
       </div>
     </div>

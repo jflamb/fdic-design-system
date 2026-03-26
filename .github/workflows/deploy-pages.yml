@@ -1,23 +1,15 @@
 name: Deploy GitHub Pages
 
 on:
-  workflow_call:
-    inputs:
-      runner:
-        type: string
-        default: 'ubuntu-latest'
-      checkout-version:
-        type: string
-        default: 'v6'
-      setup-node-version:
-        type: string
-        default: 'v6'
-      upload-pages-version:
-        type: string
-        default: 'v4'
-      deploy-pages-version:
-        type: string
-        default: 'v4'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
@@ -25,15 +17,19 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ${{ inputs.runner }}
+    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    env:
+      VITEPRESS_BASE: ${{ vars.VITEPRESS_BASE || '' }}
+      VITE_STORYBOOK_URL: ${{ vars.VITEPRESS_BASE && format('{0}storybook', vars.VITEPRESS_BASE) || '' }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@${{ inputs.checkout-version }}
+        uses: actions/checkout@v4
 
       - name: Set up workspace
         uses: ./.github/actions/setup-workspace
         with:
-          setup-node-version: ${{ inputs.setup-node-version }}
+          jf-url: ${{ secrets.JF_URL || '' }}
+          jf-token: ${{ secrets.JF_ACCESS_TOKEN || '' }}
 
       - name: Build published site assets
         uses: ./.github/actions/build-site-artifacts
@@ -42,7 +38,7 @@ jobs:
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@${{ inputs.upload-pages-version }}
+        uses: actions/upload-pages-artifact@v2
         with:
           path: apps/docs/.vitepress/dist
 
@@ -51,8 +47,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
-    runs-on: ${{ inputs.runner }}
+    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@${{ inputs.deploy-pages-version }}
+        uses: actions/deploy-pages@v3

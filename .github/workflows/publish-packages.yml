@@ -1,0 +1,37 @@
+name: Publish Packages
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up workspace
+        uses: ./.github/actions/setup-workspace
+        with:
+          jf-url: ${{ secrets.JF_URL || '' }}
+          jf-token: ${{ secrets.JF_ACCESS_TOKEN || '' }}
+
+      - name: Configure npm for GitHub Packages
+        run: |
+          npm config set "@fdic-ds:registry" "https://npm.pkg.github.com"
+          npm config set "//npm.pkg.github.com/:_authToken" "${NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build components
+        run: npm run build:components
+
+      - name: Publish @fdic-ds/components
+        run: npm publish --workspace @fdic-ds/components
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
