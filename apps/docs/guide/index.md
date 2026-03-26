@@ -6,4 +6,5 @@ The guide is still scaffold-stage, but it now starts documenting the design-syst
 
 - [Getting Started](./getting-started.md)
 - [Accessibility](./accessibility.md)
+- [Form Workflows](./form-workflows.md)
 - [Foundations](./foundations/index.md)

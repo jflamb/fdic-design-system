@@ -136,4 +136,5 @@ Compatibility note:
 <ul class="fdic-related-list">
   <li><a href="./radio">Radio</a> — Use <code>fd-radio</code> for the individual radio control that <code>fd-radio-group</code> wraps.</li>
   <li><a href="./checkbox-group">Checkbox Group</a> — Use <code>fd-checkbox-group</code> when users may select more than one option.</li>
+  <li><a href="/guide/form-workflows">Form Workflows</a> — Use the workflow guidance for page-level validation timing, blocked-submit summaries, and high-stakes review and confirmation rules.</li>
 </ul>
