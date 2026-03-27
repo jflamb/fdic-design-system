@@ -18,6 +18,10 @@ function wireDrawer(triggerId: string, drawerId: string, statusId: string) {
       return;
     }
 
+    if (trigger.dataset.drawerReady === "true") {
+      return;
+    }
+
     const setState = (open: boolean, source?: string) => {
       drawer.open = open;
       trigger.setAttribute("aria-expanded", String(open));
@@ -38,6 +42,8 @@ function wireDrawer(triggerId: string, drawerId: string, statusId: string) {
       setState(false, source);
       trigger.focus();
     });
+
+    trigger.dataset.drawerReady = "true";
   });
 }
 
@@ -119,6 +125,10 @@ ReferenceMenuSurface.play = async ({ canvasElement, userEvent }) => {
 
   expect(trigger).not.toBeNull();
   expect(drawer).not.toBeNull();
+
+  await waitFor(() => {
+    expect(trigger?.dataset.drawerReady).toBe("true");
+  });
 
   await userEvent.click(trigger!);
 
