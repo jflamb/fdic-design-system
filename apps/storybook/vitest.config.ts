@@ -11,6 +11,8 @@ const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
+const isCi = Boolean(process.env.CI);
+const traceArtifactsDir = path.resolve(dirname, "../../playwright-report");
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
@@ -30,6 +32,15 @@ export default defineConfig({
             headless: true,
             provider: playwright({}),
             instances: [{ browser: "chromium" }],
+            trace: isCi
+              ? {
+                  mode: "retain-on-failure",
+                  tracesDir: traceArtifactsDir,
+                  screenshots: true,
+                  snapshots: true,
+                  sources: true,
+                }
+              : { mode: "off" },
           },
         },
       },
