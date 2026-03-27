@@ -1,6 +1,14 @@
 name: Build Site Artifacts
 description: Build the workspace packages, docs, and Storybook outputs used by CI and deployment.
 
+inputs:
+  jf-url:
+    description: 'JFrog Artifactory base URL (required for GHES runners behind a firewall)'
+    default: ''
+  jf-token:
+    description: 'JFrog access token (required for GHES runners behind a firewall)'
+    default: ''
+
 runs:
   using: composite
   steps:
