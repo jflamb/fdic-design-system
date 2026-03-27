@@ -629,5 +629,7 @@ MobileSearchOpen.play = async ({ canvasElement }) => {
   await waitFor(() => {
     const shell = host?.shadowRoot?.querySelector(".mobile-search-shell") as HTMLElement | null;
     expect(shell?.getAttribute("data-open")).toBe("true");
+    expect(shell).toBeTruthy();
+    expect(getComputedStyle(shell!).opacity).toBe("1");
   });
 };
