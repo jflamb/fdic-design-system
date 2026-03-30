@@ -290,8 +290,8 @@ export class FdGlobalHeader extends LitElement {
       --fd-global-header-color-accent: var(--fdic-border-input-focus, #38b6ff);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, #84dbff);
       --fd-global-header-color-border-subtle: var(--fdic-border-divider, #bdbdbf);
-      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, var(--ds-color-bg-surface, #f7fafc));
-      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, var(--ds-color-bg-container, #edf3f7));
+      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, #fafafc);
+      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, #f5f5f7);
       display: block;
       color: var(--fd-global-header-color-host);
       font-family: var(
@@ -858,19 +858,19 @@ export class FdGlobalHeader extends LitElement {
 
     .mega-menu-frame {
       --mega-col-1-surface: var(--fd-global-header-mega-col-1, rgba(255, 255, 255, 0.84));
-      --mega-col-2-surface: var(--fd-global-header-mega-col-2, rgba(245, 250, 255, 0.5));
-      --mega-col-3-surface: var(--fd-global-header-mega-col-3, rgba(232, 242, 249, 0.24));
+      --mega-col-2-surface: var(--fd-global-header-mega-col-2, rgba(250, 250, 252, 0.5));
+      --mega-col-3-surface: var(--fd-global-header-mega-col-3, rgba(245, 245, 247, 0.24));
       position: relative;
       width: min(90rem, calc(100% - 5rem));
     }
 
     .mega-menu-frame[data-visible-columns="1"] {
-      --mega-col-2-surface: var(--fd-global-header-mega-col-2-muted, rgba(245, 250, 255, 0.4));
-      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(232, 242, 249, 0.14));
+      --mega-col-2-surface: var(--fd-global-header-mega-col-2-muted, rgba(250, 250, 252, 0.4));
+      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(245, 245, 247, 0.14));
     }
 
     .mega-menu-frame[data-visible-columns="2"] {
-      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(232, 242, 249, 0.16));
+      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(245, 245, 247, 0.16));
     }
 
     .mega-menu-frame::before {
