@@ -723,6 +723,28 @@ export const componentInventory = [
     },
     typeExports: ["FdDrawerPlacement", "FdDrawerCloseRequestDetail"],
   },
+    {
+    tagName: "fd-page-header",
+    className: "FdPageHeader",
+    sourceFile: "fd-page-header.ts",
+    docs: {
+      kind: "first-class",
+      title: "Page Header",
+      slug: "page-header",
+      category: "layout-shell",
+      order: 15
+    },
+    storybook: {
+      title: "Components/Page Header",
+      file: "fd-page-header.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon"]
+    },
+    typeExports: ["FdPageHeaderBreadcrumb"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 
