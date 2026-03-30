@@ -11,6 +11,8 @@ const SEPARATOR_SVG =
 
 /**
  * `fd-page-header` — Page-level header with breadcrumbs, title, optional kicker, and actions.
+ *
+ * Renders on a brand-blue background with inverted (white) text.
  */
 export class FdPageHeader extends LitElement {
   static properties = {
@@ -36,20 +38,34 @@ export class FdPageHeader extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fdic-text-primary, #212123);
+      color: var(--fd-page-header-text-color, var(--fdic-text-inverted, #ffffff));
     }
 
     :host([hidden]) {
       display: none;
     }
 
+    /* --- Section (full-width brand bg) --- */
+
     .base {
       display: block;
       box-sizing: border-box;
-      max-inline-size: var(--fd-page-header-max-width, none);
-      padding-block: var(--fd-page-header-padding-block, 24px);
-      padding-inline: var(--fd-page-header-padding-inline, 24px);
-      background: var(--fd-page-header-bg, transparent);
+      background: var(
+        --fd-page-header-bg,
+        var(--fdic-brand-core-default, #0d6191)
+      );
+      padding-block: var(--fd-page-header-padding-block, 48px);
+      padding-inline: var(--fd-page-header-padding-inline, 64px);
+    }
+
+    /* --- Content (constrained width) --- */
+
+    .content {
+      max-inline-size: var(--fd-page-header-max-width, 1440px);
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     /* --- Breadcrumbs --- */
@@ -57,48 +73,42 @@ export class FdPageHeader extends LitElement {
     .breadcrumbs {
       margin: 0;
       padding: 0;
-      margin-block-end: var(--fd-page-header-breadcrumb-gap, 12px);
     }
 
     .breadcrumb-list {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: var(--fd-page-header-breadcrumb-item-gap, 4px);
+      gap: 4px 8px;
       list-style: none;
       margin: 0;
       padding: 0;
-      font-size: var(--fdic-font-size-body-small, 1rem);
-      line-height: var(--fdic-line-height-body, 1.5);
+      font-size: var(--fd-page-header-breadcrumb-font-size, 16px);
+      line-height: 1.375;
     }
 
     .breadcrumb-item {
       display: flex;
       align-items: center;
-      gap: var(--fd-page-header-breadcrumb-item-gap, 4px);
+      gap: 8px;
     }
 
     .breadcrumb-link {
       color: var(
         --fd-page-header-breadcrumb-color,
-        var(--fdic-text-link, #1278b0)
+        var(--fdic-text-inverted, #ffffff)
       );
       text-decoration: underline;
-      text-decoration-thickness: 6.25%;
-      text-underline-offset: 12.5%;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.12em;
     }
 
     .breadcrumb-link:hover {
-      color: var(
-        --fd-page-header-breadcrumb-hover-color,
-        var(--link-unvisited-hover, #0d6191)
-      );
       text-decoration-thickness: 2px;
     }
 
     .breadcrumb-link:focus-visible {
-      outline: 2px solid
-        var(--fd-page-header-focus-ring, var(--fdic-border-input-focus, #38b6ff));
+      outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -106,7 +116,7 @@ export class FdPageHeader extends LitElement {
     .breadcrumb-current {
       color: var(
         --fd-page-header-breadcrumb-current-color,
-        var(--fdic-text-secondary, #595961)
+        var(--fdic-text-inverted, #ffffff)
       );
     }
 
@@ -114,11 +124,11 @@ export class FdPageHeader extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      inline-size: var(--fd-page-header-separator-size, 16px);
-      block-size: var(--fd-page-header-separator-size, 16px);
+      inline-size: 16px;
+      block-size: 16px;
       color: var(
         --fd-page-header-separator-color,
-        var(--fdic-text-secondary, #595961)
+        var(--fdic-text-inverted, #ffffff)
       );
       flex-shrink: 0;
     }
@@ -128,93 +138,114 @@ export class FdPageHeader extends LitElement {
       block-size: 100%;
     }
 
-    /* --- Heading group --- */
+    /* --- Heading container --- */
 
-    .heading-group {
+    .heading-container {
       display: flex;
-      flex-direction: column;
-      gap: var(--fd-page-header-kicker-gap, 4px);
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 12px;
     }
 
-    .heading-row {
+    /* --- Nameplate (title + kicker) --- */
+
+    .nameplate {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: var(--fd-page-header-actions-gap, 16px);
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1 0 0;
+      min-inline-size: 344px;
+    }
+
+    .title {
+      font-size: var(--fd-page-header-title-size, 40.5px);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: inherit;
+      margin: 0;
+      overflow-wrap: anywhere;
     }
 
     .kicker {
       display: block;
-      font-size: var(--fdic-font-size-body-small, 1rem);
-      font-weight: 400;
-      line-height: var(--fdic-line-height-body, 1.5);
-      letter-spacing: var(--fdic-letter-spacing-0, 0);
-      color: var(
-        --fd-page-header-kicker-color,
-        var(--fdic-text-secondary, #595961)
-      );
+      font-size: var(--fd-page-header-kicker-size, 20px);
+      font-weight: 450;
+      line-height: 1.25;
+      color: inherit;
       margin: 0;
-    }
-
-    .title {
-      font-size: var(--fdic-font-size-h1, 2.5313rem);
-      font-weight: 600;
-      line-height: var(--fdic-line-height-h1, 1.15);
-      letter-spacing: var(--fdic-letter-spacing-1, -0.01em);
-      color: var(
-        --fd-page-header-title-color,
-        var(--fdic-text-primary, #212123)
-      );
-      margin: 0;
-      min-inline-size: 0;
-      overflow-wrap: anywhere;
     }
 
     /* --- Actions --- */
 
     .actions {
       display: flex;
-      align-items: center;
-      gap: var(--fd-page-header-actions-item-gap, 8px);
+      align-items: flex-end;
+      gap: var(--fd-page-header-actions-gap, 8px);
       flex-shrink: 0;
-      padding-block-start: var(--fd-page-header-actions-offset, 4px);
+      padding-block-end: var(--fd-page-header-actions-offset, 8px);
     }
 
     .actions-hidden {
       display: none;
     }
 
-    /* --- Responsive --- */
+    /* --- Responsive (≤640px) --- */
 
     @media (max-width: 640px) {
-      .title {
-        font-size: 2rem;
+      .base {
+        padding-block-start: var(
+          --fd-page-header-padding-block-start-mobile,
+          16px
+        );
+        padding-block-end: var(
+          --fd-page-header-padding-block-end-mobile,
+          20px
+        );
+        padding-inline: var(--fd-page-header-padding-inline-mobile, 16px);
       }
 
-      .heading-row {
+      .title {
+        font-size: var(--fd-page-header-title-size-mobile, 28px);
+      }
+
+      .kicker {
+        font-size: var(--fd-page-header-kicker-size-mobile, 18px);
+      }
+
+      .nameplate {
+        min-inline-size: 0;
+      }
+
+      .heading-container {
         flex-direction: column;
-        gap: var(--fd-page-header-actions-gap-mobile, 12px);
+        align-items: flex-start;
       }
 
       .actions {
-        padding-block-start: 0;
+        padding-block-end: 0;
+        gap: var(--fd-page-header-actions-gap-mobile, 6px);
       }
     }
 
     /* --- Print --- */
 
     @media print {
+      .base {
+        background: none;
+        padding: 0;
+      }
+
+      :host {
+        color: #000;
+      }
+
       .breadcrumbs {
         display: none;
       }
 
       .actions {
         display: none;
-      }
-
-      .title {
-        color: #000;
       }
 
       .kicker {
@@ -225,6 +256,15 @@ export class FdPageHeader extends LitElement {
     /* --- Forced colors --- */
 
     @media (forced-colors: active) {
+      .base {
+        background: Canvas;
+        border-block-end: 2px solid ButtonText;
+      }
+
+      :host {
+        color: CanvasText;
+      }
+
       .breadcrumb-link {
         color: LinkText;
       }
@@ -234,10 +274,6 @@ export class FdPageHeader extends LitElement {
       }
 
       .breadcrumb-separator {
-        color: CanvasText;
-      }
-
-      .title {
         color: CanvasText;
       }
 
@@ -351,11 +387,13 @@ export class FdPageHeader extends LitElement {
 
     return html`
       <div part="base" class="base">
-        ${this._renderBreadcrumbs()}
-        <div part="heading-group" class="heading-group">
-          ${this._renderKicker()}
-          <div class="heading-row">
-            <h1 part="title" class="title">${headingText}</h1>
+        <div class="content">
+          ${this._renderBreadcrumbs()}
+          <div class="heading-container">
+            <div part="nameplate" class="nameplate">
+              <h1 part="title" class="title">${headingText}</h1>
+              ${this._renderKicker()}
+            </div>
             <div part="actions" class=${actionsClass}>
               <slot
                 name="actions"

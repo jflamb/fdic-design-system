@@ -1,6 +1,6 @@
 # Page Header
 
-The page header provides consistent page-level context and navigation, including breadcrumbs, a title, an optional kicker, and optional action buttons.
+The page header provides consistent page-level context and navigation on a brand-blue background with inverted text. It includes breadcrumbs, a title, an optional kicker, and optional glassmorphism action buttons.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -55,9 +55,17 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
   heading="Quarterly Banking Profile"
   kicker="Analysis"
 >
-  <fd-button slot="actions" variant="outline" size="small">Print</fd-button>
-  <fd-button slot="actions" variant="outline" size="small">Share</fd-button>
+  <fd-page-header-button slot="actions" icon="share-fat">Share</fd-page-header-button>
+  <fd-page-header-button slot="actions" icon="plus">Add to Quick Links</fd-page-header-button>
 </fd-page-header>
+```
+
+### Page header buttons
+
+Use `fd-page-header-button` for actions inside the page header. These render as glassmorphism pill buttons designed for the brand-blue background. Each button takes an `icon` property (a Phosphor icon name) and label text.
+
+```html
+<fd-page-header-button icon="share-fat">Share</fd-page-header-button>
 ```
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -66,7 +74,7 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `heading` | `string` | `` | Page heading text rendered as an `<h1>` inside the component. |
-| `kicker` | `string` | `` | Optional eyebrow label displayed above the title for category or content-type context. |
+| `kicker` | `string` | `` | Optional description displayed below the title. Rendered at weight 450, 20px desktop / 18px mobile. |
 | `breadcrumbs` | `FdPageHeaderBreadcrumb[]` | `[]` | Ordered breadcrumb trail. Each item has `label` and `href`. The last item renders as the current page with `aria-current="page"`. |
 | `breadcrumb-label` | `string` | `"Breadcrumbs"` | Accessible label for the breadcrumb `<nav>` landmark. |
 
@@ -80,14 +88,11 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
 
 | Name | Default | Description |
 |---|---|---|
+| `--fd-page-header-bg` |  | Section background color. |
+| `--fd-page-header-text-color` |  | Text color for all content inside the header. |
 | `--fd-page-header-max-width` |  | Maximum inline size of the page header content area. |
-| `--fd-page-header-padding-block` |  | Block (vertical) padding. |
-| `--fd-page-header-padding-inline` |  | Inline (horizontal) padding. |
-| `--fd-page-header-bg` |  | Background color. |
-| `--fd-page-header-title-color` |  | Title text color. |
-| `--fd-page-header-kicker-color` |  | Kicker text color. |
-| `--fd-page-header-breadcrumb-color` |  | Breadcrumb link color. |
-| `--fd-page-header-separator-color` |  | Breadcrumb separator icon color. |
+| `--fd-page-header-padding-block` |  | Block (vertical) padding on desktop. |
+| `--fd-page-header-padding-inline` |  | Inline (horizontal) padding on desktop. |
 
 ## Shadow parts
 
@@ -95,7 +100,7 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
 |---|---|
 | `base` | Root container element. |
 | `breadcrumbs` | Breadcrumb `<nav>` element. |
-| `heading-group` | Container for kicker and title. |
+| `nameplate` | Container for title and kicker. |
 | `kicker` | Kicker/eyebrow text element. |
 | `title` | `<h1>` heading element. |
 | `actions` | Actions container with the `actions` slot. |
@@ -116,9 +121,9 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
 **Don't**
 
 - Don't add a separate `<h1>` elsewhere on the page — the component already renders one.
+- Don't use generic `fd-button` in the actions slot — use `fd-page-header-button` for visual consistency on the brand-blue background.
 - Don't use the actions slot for primary navigation — it's for page-level utility actions.
 - Don't include more than 5 breadcrumb levels — keep the hierarchy shallow and scannable.
-- Don't put long text in the kicker — keep it to 2–3 words.
 
 </div>
 
@@ -138,8 +143,10 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
 - The `heading` renders as `<h1>` — do not add another `<h1>` on the same page.
 - All interactive elements (breadcrumb links, action buttons) have visible focus indicators using the standard FDIC focus ring pattern.
 - The component uses plain tab order — no custom keyboard navigation is needed.
-- In forced-colors mode, breadcrumb links use `LinkText`, separators use `CanvasText`, and the kicker uses `GrayText`.
-- In print, breadcrumbs and actions are hidden; the title and kicker remain.
+- White text on the brand-blue background (#0d6191) exceeds WCAG AA contrast requirements (4.62:1).
+- `fd-page-header-button` renders a native `<button>` with visible focus ring (2px white gap + 4px blue ring).
+- In forced-colors mode, the brand-blue background is replaced with `Canvas`, text uses `CanvasText`, breadcrumb links use `LinkText`, and the section gets a bottom border for visual separation.
+- In print, breadcrumbs and actions are hidden; the background is removed and text is printed in black.
 
 ## Known limitations
 
@@ -151,7 +158,7 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
 ## Related components
 
 - [`fd-global-header`](/components/global-header) — Site-level header with navigation, search, and branding. Place `fd-page-header` below it, inside `<main>`.
-- [`fd-button`](/components/button) — Use in the actions slot for page-level action buttons.
+- [`fd-icon`](/components/icon) — Used inside `fd-page-header-button` for action icons. Icons come from the Phosphor registry.
 
 <!-- GENERATED_COMPONENT_API:START fd-page-header -->
 <!-- GENERATED_COMPONENT_API:END -->

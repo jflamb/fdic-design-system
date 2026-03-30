@@ -741,9 +741,24 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-icon"]
+      dependencies: ["fd-icon", "fd-page-header-button"]
     },
     typeExports: ["FdPageHeaderBreadcrumb"]
+  },
+  {
+    tagName: "fd-page-header-button",
+    className: "FdPageHeaderButton",
+    sourceFile: "fd-page-header-button.ts",
+    docs: {
+      kind: "supporting-embedded"
+    },
+    storybook: null,
+    register: {
+      exportSubpath: false,
+      includeInRegisterAll: false,
+      dependencies: ["fd-icon"]
+    },
+    typeExports: []
   },
   // New component entries are inserted above this line by the scaffold script.
 ];
