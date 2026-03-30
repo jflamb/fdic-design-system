@@ -466,6 +466,20 @@ export const componentStoryApi = {
     "placement": "top",
     },
   },
+  "fd-page-header": {
+    argTypes: {
+    "heading": { control: "text" },
+    "kicker": { control: "text" },
+    "breadcrumbs": { control: "text" },
+    "breadcrumbLabel": { control: "text" },
+    },
+    args: {
+    "heading": "",
+    "kicker": "",
+    "breadcrumbs": "[]",
+    "breadcrumbLabel": "Breadcrumbs",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

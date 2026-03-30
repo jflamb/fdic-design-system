@@ -3361,5 +3361,123 @@
       ],
       "after": ""
     }
+  },
+  "fd-page-header": {
+    "properties": {
+      "rows": [
+        {
+          "name": "heading",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Page heading text rendered as an `<h1>` inside the component."
+        },
+        {
+          "name": "kicker",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Optional eyebrow label displayed above the title for category or content-type context."
+        },
+        {
+          "name": "breadcrumbs",
+          "type": "`FdPageHeaderBreadcrumb[]`",
+          "defaultValue": "`[]`",
+          "description": "Ordered breadcrumb trail. Each item has `label` and `href`. The last item renders as the current page with `aria-current=\"page\"`."
+        },
+        {
+          "name": "breadcrumb-label",
+          "type": "`string`",
+          "defaultValue": "`\"Breadcrumbs\"`",
+          "description": "Accessible label for the breadcrumb `<nav>` landmark."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "actions",
+          "description": "Optional action buttons or links displayed alongside the page title."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-page-header-max-width",
+          "defaultValue": "`none`",
+          "description": "Maximum inline size of the page header content area."
+        },
+        {
+          "name": "--fd-page-header-padding-block",
+          "defaultValue": "`24px`",
+          "description": "Block (vertical) padding."
+        },
+        {
+          "name": "--fd-page-header-padding-inline",
+          "defaultValue": "`24px`",
+          "description": "Inline (horizontal) padding."
+        },
+        {
+          "name": "--fd-page-header-bg",
+          "defaultValue": "`transparent`",
+          "description": "Background color."
+        },
+        {
+          "name": "--fd-page-header-title-color",
+          "defaultValue": "`var(--fdic-text-primary, #212123)`",
+          "description": "Title text color."
+        },
+        {
+          "name": "--fd-page-header-kicker-color",
+          "defaultValue": "`var(--fdic-text-secondary, #595961)`",
+          "description": "Kicker text color."
+        },
+        {
+          "name": "--fd-page-header-breadcrumb-color",
+          "defaultValue": "`var(--fdic-text-link, #1278b0)`",
+          "description": "Breadcrumb link color."
+        },
+        {
+          "name": "--fd-page-header-separator-color",
+          "defaultValue": "`var(--fdic-text-secondary, #595961)`",
+          "description": "Breadcrumb separator icon color."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root container element."
+        },
+        {
+          "name": "breadcrumbs",
+          "description": "Breadcrumb `<nav>` element."
+        },
+        {
+          "name": "heading-group",
+          "description": "Container for kicker and title."
+        },
+        {
+          "name": "kicker",
+          "description": "Kicker/eyebrow text element."
+        },
+        {
+          "name": "title",
+          "description": "`<h1>` heading element."
+        },
+        {
+          "name": "actions",
+          "description": "Actions container with the `actions` slot."
+        }
+      ],
+      "after": ""
+    }
   }
 }

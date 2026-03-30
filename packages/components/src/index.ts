@@ -33,6 +33,7 @@ export { FdPagination } from "./components/fd-pagination.js";
 export { FdGlobalHeader } from "./components/fd-global-header.js";
 export { FdHeaderSearch } from "./components/fd-header-search.js";
 export { FdDrawer } from "./components/fd-drawer.js";
+export { FdPageHeader } from "./components/fd-page-header.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -53,6 +54,7 @@ export type { LinkVariant, LinkSize } from "./components/fd-link.js";
 export type { GlobalHeaderSearchSurface, FdGlobalHeaderLeafItem, FdGlobalHeaderSectionItem, FdGlobalHeaderSection, FdGlobalHeaderLinkItem, FdGlobalHeaderPanelItem, FdGlobalHeaderNavigationItem, FdGlobalHeaderSearchConfig, FdGlobalHeaderSearchSubmitDetail } from "./components/fd-global-header.js";
 export type { HeaderSearchSurface, FdHeaderSearchItem, FdHeaderSearchInputDetail, FdHeaderSearchOpenChangeDetail, FdHeaderSearchSubmitDetail, FdHeaderSearchActivateDetail } from "./components/fd-header-search.js";
 export type { FdDrawerPlacement, FdDrawerCloseRequestDetail } from "./components/fd-drawer.js";
+export type { FdPageHeaderBreadcrumb } from "./components/fd-page-header.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

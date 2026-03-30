@@ -157,6 +157,10 @@
       "types": "./dist/components/fd-drawer.d.ts",
       "import": "./dist/components/fd-drawer.js"
     },
+    "./fd-page-header": {
+      "types": "./dist/components/fd-page-header.d.ts",
+      "import": "./dist/components/fd-page-header.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"
