@@ -161,6 +161,10 @@
       "types": "./dist/components/fd-page-header.d.ts",
       "import": "./dist/components/fd-page-header.js"
     },
+    "./fd-page-header-button": {
+      "types": "./dist/components/fd-page-header-button.d.ts",
+      "import": "./dist/components/fd-page-header-button.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

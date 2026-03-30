@@ -3375,7 +3375,7 @@
           "name": "kicker",
           "type": "`string`",
           "defaultValue": "``",
-          "description": "Optional eyebrow label displayed above the title for category or content-type context."
+          "description": "Optional description displayed below the title. Rendered at weight 450, 20px desktop / 18px mobile."
         },
         {
           "name": "breadcrumbs",
@@ -3408,44 +3408,29 @@
     "cssProperties": {
       "rows": [
         {
+          "name": "--fd-page-header-bg",
+          "defaultValue": "`var(--fdic-brand-core-default, #0d6191)`",
+          "description": "Section background color."
+        },
+        {
+          "name": "--fd-page-header-text-color",
+          "defaultValue": "`var(--fdic-text-inverted, #ffffff)`",
+          "description": "Text color for all content inside the header."
+        },
+        {
           "name": "--fd-page-header-max-width",
-          "defaultValue": "`none`",
+          "defaultValue": "`1440px`",
           "description": "Maximum inline size of the page header content area."
         },
         {
           "name": "--fd-page-header-padding-block",
-          "defaultValue": "`24px`",
-          "description": "Block (vertical) padding."
+          "defaultValue": "`48px`",
+          "description": "Block (vertical) padding on desktop."
         },
         {
           "name": "--fd-page-header-padding-inline",
-          "defaultValue": "`24px`",
-          "description": "Inline (horizontal) padding."
-        },
-        {
-          "name": "--fd-page-header-bg",
-          "defaultValue": "`transparent`",
-          "description": "Background color."
-        },
-        {
-          "name": "--fd-page-header-title-color",
-          "defaultValue": "`var(--fdic-text-primary, #212123)`",
-          "description": "Title text color."
-        },
-        {
-          "name": "--fd-page-header-kicker-color",
-          "defaultValue": "`var(--fdic-text-secondary, #595961)`",
-          "description": "Kicker text color."
-        },
-        {
-          "name": "--fd-page-header-breadcrumb-color",
-          "defaultValue": "`var(--fdic-text-link, #1278b0)`",
-          "description": "Breadcrumb link color."
-        },
-        {
-          "name": "--fd-page-header-separator-color",
-          "defaultValue": "`var(--fdic-text-secondary, #595961)`",
-          "description": "Breadcrumb separator icon color."
+          "defaultValue": "`64px`",
+          "description": "Inline (horizontal) padding on desktop."
         }
       ],
       "after": ""
@@ -3461,8 +3446,8 @@
           "description": "Breadcrumb `<nav>` element."
         },
         {
-          "name": "heading-group",
-          "description": "Container for kicker and title."
+          "name": "nameplate",
+          "description": "Container for title and kicker."
         },
         {
           "name": "kicker",
@@ -3475,6 +3460,49 @@
         {
           "name": "actions",
           "description": "Actions container with the `actions` slot."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-page-header-button": {
+    "properties": {
+      "rows": [
+        {
+          "name": "icon",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Phosphor icon name from the registry, rendered before the label."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "(default)",
+          "description": "Button label text."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "The native `<button>` element."
+        },
+        {
+          "name": "icon",
+          "description": "Icon container."
         }
       ],
       "after": ""

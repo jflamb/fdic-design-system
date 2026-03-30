@@ -34,6 +34,7 @@ export { FdGlobalHeader } from "./components/fd-global-header.js";
 export { FdHeaderSearch } from "./components/fd-header-search.js";
 export { FdDrawer } from "./components/fd-drawer.js";
 export { FdPageHeader } from "./components/fd-page-header.js";
+export { FdPageHeaderButton } from "./components/fd-page-header-button.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";

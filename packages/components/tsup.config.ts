@@ -43,6 +43,7 @@ export default defineConfig({
     "components/fd-header-search": "src/components/fd-header-search.ts",
     "components/fd-drawer": "src/components/fd-drawer.ts",
     "components/fd-page-header": "src/components/fd-page-header.ts",
+    "components/fd-page-header-button": "src/components/fd-page-header-button.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",

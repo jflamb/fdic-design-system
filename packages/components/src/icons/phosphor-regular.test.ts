@@ -22,6 +22,7 @@ describe("phosphor-regular built-in icons", () => {
     "minus-square",
     "pencil",
     "plus",
+    "share-fat",
     "square",
     "squares-four",
     "spinner-gap",

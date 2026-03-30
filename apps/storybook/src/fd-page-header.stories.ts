@@ -35,9 +35,11 @@ const meta = {
   },
   args: {
     ...getComponentArgs("fd-page-header"),
-    heading: "Deposit Insurance",
+    heading: "Workplace & Technology",
+    kicker:
+      "Navigate tools and services for a productive work environment",
     breadcrumbs: sampleBreadcrumbs,
-    showActions: false,
+    showActions: true,
   },
   render: (args: PageHeaderArgs) => html`
     <fd-page-header
@@ -47,9 +49,14 @@ const meta = {
       .breadcrumbs=${args.breadcrumbs}
     >
       ${args.showActions
-        ? html`<fd-button slot="actions" variant="outline" size="small"
-            >Print</fd-button
-          >`
+        ? html`
+            <fd-page-header-button slot="actions" icon="share-fat"
+              >Share</fd-page-header-button
+            >
+            <fd-page-header-button slot="actions" icon="plus"
+              >Add to Quick Links</fd-page-header-button
+            >
+          `
         : ""}
     </fd-page-header>
   `,
@@ -64,8 +71,8 @@ export const Default: Story = {
   name: "Default",
   args: {
     heading: "Deposit Insurance",
-    breadcrumbs: sampleBreadcrumbs,
     kicker: "",
+    breadcrumbs: sampleBreadcrumbs,
     showActions: false,
   },
 };
@@ -107,13 +114,13 @@ export const MinimalTitle: Story = {
 export const FullHeader: Story = {
   name: "Full header",
   args: {
-    heading: "How Deposit Insurance Works",
-    kicker: "Consumer Resources",
+    heading: "Workplace & Technology",
+    kicker:
+      "Navigate tools and services for a productive work environment",
     breadcrumbs: [
       { label: "Home", href: "#" },
       { label: "Resources", href: "#" },
-      { label: "Deposit Insurance", href: "#" },
-      { label: "How Deposit Insurance Works", href: "#" },
+      { label: "Workplace & Technology", href: "#" },
     ],
     showActions: true,
   },
