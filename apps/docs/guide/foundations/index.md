@@ -28,16 +28,11 @@ Use these pages to:
 - preserve accessibility and trust expectations alongside visual decisions
 - keep implementation decisions traceable back to the Figma source
 
-## What this section is not for
+## What may change before v1
 
-Do not treat this section as a final runtime contract.
+Token names (CSS custom property names, package boundaries, component token names, and theme delivery strategy) may be renamed or reorganized before the stable release. However, the **values, relationships, and design intent** documented here are the source of truth for design decisions right now.
 
-Do not assume:
-
-- final CSS custom property names
-- final package boundaries
-- final component token names
-- final theme or mode delivery strategy
+Use the documented token values and color/spacing/type relationships in your work. If a variable name changes later, the migration will be mechanical — the underlying design decisions will remain stable.
 
 ## Foundation pages
 

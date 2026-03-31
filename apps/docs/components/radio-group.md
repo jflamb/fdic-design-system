@@ -18,6 +18,7 @@ Radio groups collect mutually exclusive options under one prompt. Use them when 
 - **Don't use a group for a single radio** — A single option with no alternatives is not a meaningful radio group.
 - **Don't use a group when users may select more than one option** — That is a checkbox-group pattern.
 - **Don't rely on horizontal layout for dense lists** — Horizontal groups are only appropriate for short, low-count option sets.
+- **6 or more options in a non-critical context** — Use [`fd-selector`](/components/selector) with `variant="single"` when the list is long enough that visible radios would dominate the page. However, for highly consequential selections (regulatory, financial, irreversible), prefer radio groups regardless of count because visible options reduce the risk of accidental selection.
 
 ## Examples
 

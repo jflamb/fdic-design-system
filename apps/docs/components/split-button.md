@@ -2,6 +2,17 @@
 
 A split button combines a primary action button with a secondary trigger that opens a menu of related alternate actions.
 
+::: warning Start with separate buttons
+Split buttons are a high-complexity pattern. **Default to using separate [`fd-button`](/components/button) elements or a [`fd-button-group`](/components/button-group) instead.** Only reach for `fd-split-button` when **all** of the following are true:
+
+1. There is one clearly primary action that users will take most of the time.
+2. The menu items are variations of that same primary action (e.g., "Save" / "Save as Draft" / "Save & Close").
+3. The number of alternates is small (4 or fewer).
+4. Grouping the actions genuinely helps users — separate buttons would create clutter without improving clarity.
+
+If any of these conditions is not met, use separate buttons.
+:::
+
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
   <p>Use <code>fd-split-button</code> when you have a single primary action with a small set of clearly related alternates. The component renders a primary action segment alongside a trigger that opens an <code>fd-menu</code> containing <code>fd-menu-item</code> elements. Split buttons are a high-complexity pattern and should be used sparingly.</p>

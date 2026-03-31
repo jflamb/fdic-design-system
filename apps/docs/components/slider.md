@@ -7,6 +7,10 @@ A single-value slider for choosing a bounded integer, with an optional inline in
   <p>Use <code>fd-slider</code> when users benefit from adjusting a value by position as well as by number. Keep the scope narrow: one thumb, one value, and one clear scale.</p>
 </div>
 
+::: tip Wrap in fd-field
+This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association.
+:::
+
 ## When to use
 
 - **Bounded numeric choices** — when users are choosing within a known minimum and maximum.

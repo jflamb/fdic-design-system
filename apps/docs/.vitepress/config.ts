@@ -19,6 +19,7 @@ export default defineConfig({
         items: [
           { text: "Overview", link: "/guide/" },
           { text: "Getting Started", link: "/guide/getting-started" },
+          { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
           { text: "Form Workflows", link: "/guide/form-workflows" }
         ]

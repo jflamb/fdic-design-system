@@ -41,7 +41,7 @@ Alerts communicate important, time-sensitive, or contextual information that may
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `variant` | `"default"` \| `"slim"` \| `"site"` | `default` | Controls the supplied Figma layout family: standard stacked alert, compact slim alert, or page-level site alert. |
-| `type` | `"info"` \| `"success"` \| `"warning"` \| `"error"` \| `"emergency"` | `info` | Severity treatment for the alert surface, icon, and color system. |
+| `type` | `"info"` \| `"success"` \| `"warning"` \| `"error"` \| `"emergency"` | `info` | Severity treatment for the alert surface, icon, and color system. See severity guidance below. |
 | `title` | `string` | `` | Optional plain-text title rendered by the component. Slim alerts usually omit it, but the property is available across variants. |
 | `dismissible` | `boolean` | `false` | Shows the internal dismiss button. The component emits an event but does not remove itself. |
 | `dismiss-label` | `string \| undefined` | `undefined` | Optional accessible-name override for the dismiss button. Defaults to `Dismiss {title}` or `Dismiss alert`. |
@@ -107,6 +107,20 @@ Use the default slot for visible message copy. The component does not expose a s
 - The component does not expose a shadow part for the live-region wrapper because that wrapper is an implementation detail of the semantic contract, not a styling surface.
 <!-- GENERATED_COMPONENT_API:END -->
 
+## Severity guidance
+
+Choose the least disruptive severity that accurately reflects the situation:
+
+| Severity | When to use | Example |
+|----------|------------|---------|
+| `info` | Neutral updates that do not require action. The default. | "Your session will expire in 10 minutes." |
+| `success` | Confirming that an action completed successfully. | "Filing submitted successfully." |
+| `warning` | Emerging risk that does not yet block the user. | "This account has not been reviewed in 90 days." |
+| `error` | A blocker that prevents the user from continuing. | "Submission failed — required fields are missing." |
+| `emergency` | Truly urgent, high-impact conditions affecting safety or critical operations. Use sparingly. | "All systems are offline for emergency maintenance." |
+
+**Do not default to `error` or `emergency`.** Overusing high-severity treatments trains users to ignore them. Start with `info` and escalate only when the situation genuinely warrants it.
+
 ## Best practices
 
 <div class="fdic-do-dont-grid">
@@ -170,9 +184,21 @@ Use the default slot for visible message copy. The component does not expose a s
 - **No auto-dismiss behavior** — timing, persistence, and removal conditions are application-owned.
 - **Title is text-only in v1** — use the `title` property for a short heading. Rich heading markup is intentionally out of scope.
 
+## Choosing between Alert, Badge, and Chip
+
+These three components are frequently confused. Use the right one:
+
+- **Alert** (this component) = system message requiring attention. Use for time-sensitive or high-priority information that changes the user's next step.
+- **[Badge](/components/badge)** = static metadata label. The user reads it but cannot act on it. Use for tags, categories, and status indicators.
+- **[Chip](/components/chip)** = user-removable token. The user can dismiss it from a visible set. Use for active filters and selected items.
+
+If the user only reads a short label, use a badge. If the user removes it from a set, use a chip. If it communicates something requiring attention or action, use an alert.
+
 ## Related components
 
 - [Message](/components/message) — field-level feedback tied to a specific form control
 - [Callouts](/components/callouts) — longer-form instructional or supportive content that does not need alert urgency
+- [Badge](/components/badge) — static metadata labels when the information is not time-sensitive
+- [Chip](/components/chip) — user-removable tokens for active filters or selections
 - [Button](/components/button) — use adjacent buttons when the page needs a separate recovery action outside the alert body
 - [Form Workflows](/guide/form-workflows) — page-level guidance for blocked-submit error summaries, trust language, review protections, and confirmation states

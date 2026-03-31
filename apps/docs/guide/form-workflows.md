@@ -7,6 +7,51 @@ Use this guide for high-stakes public-service forms that collect, validate, rout
   <p>Start with native semantics, visible labels, clear instructions, preserved values after errors, and explicit review or confirmation protections where the workflow carries legal, financial, or official-record consequences. Keep visual layout decisions bounded by Figma.</p>
 </div>
 
+## Minimum viable form
+
+If you are building a form for the first time, start with this pattern. It demonstrates the correct component composition, label association, and error message wiring. Copy this, then customize.
+
+```html
+<form>
+  <fd-field>
+    <fd-label slot="label" required>Institution name</fd-label>
+    <fd-input slot="input" required></fd-input>
+    <fd-message slot="message" type="helper">
+      Enter the full legal name as it appears on the charter.
+    </fd-message>
+  </fd-field>
+
+  <fd-field>
+    <fd-label slot="label" required>Certificate number</fd-label>
+    <fd-input slot="input" type="text" inputmode="numeric" required></fd-input>
+    <fd-message slot="message" type="helper">
+      The 5-digit FDIC certificate number.
+    </fd-message>
+  </fd-field>
+
+  <fd-field>
+    <fd-label slot="label">Additional notes</fd-label>
+    <fd-textarea slot="input"></fd-textarea>
+  </fd-field>
+
+  <fd-button-group>
+    <fd-button variant="primary" type="submit">Submit filing</fd-button>
+    <fd-button variant="subtle" type="button">Cancel</fd-button>
+  </fd-button-group>
+</form>
+```
+
+**What this demonstrates:**
+
+- Every input is wrapped in `fd-field`, which connects the label, input, and message for accessibility.
+- `fd-label` with `required` shows the required indicator.
+- `fd-message` with `type="helper"` provides persistent instructions below the field.
+- Numeric identifiers use `type="text"` with `inputmode="numeric"` — never `type="number"`.
+- The submit button uses `variant="primary"` so it stands out as the main action. Secondary actions use `variant="subtle"`.
+- There is no reset or clear button.
+
+**What happens on error:** When validation fails, change the `fd-message` type to `"error"` and update its text to explain what needs to be fixed. The field will show its error state automatically. See the validation timing rules below for when to show errors.
+
 ## Core rules
 
 - Prefer **web forms over PDFs** when the workflow should produce structured, routable, or reviewable data.

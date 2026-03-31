@@ -7,6 +7,10 @@ A text input field for user-entered text, with support for labels, hints, error 
   <p>Use <code>fd-input</code> with <code>fd-label</code> and <code>fd-message</code> to build accessible form fields with labeling, description text, validation messages, and character counting.</p>
 </div>
 
+::: tip Wrap in fd-field
+This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the correct composition pattern.
+:::
+
 ## When to use
 
 - **Single-line text entry** — names, account numbers, email addresses, phone numbers, search terms.

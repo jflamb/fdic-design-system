@@ -15,8 +15,8 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 
 ## When not to use
 
-- **5 or fewer options, single select** — Use `fd-radio-group` instead so all options are visible without interaction.
-- **5 or fewer options, multi-select** — Use `fd-checkbox-group` instead.
+- **5 or fewer options, single select** — Use [`fd-radio-group`](/components/radio-group) instead so all options are visible without interaction. Visible options are always easier to understand than options hidden behind a trigger.
+- **5 or fewer options, multi-select** — Use [`fd-checkbox-group`](/components/checkbox-group) instead.
 - **Users need to type to search or filter** — This component has no text input. Use a combobox pattern for search-as-you-type.
 - **Navigation menus or action lists** — Use `fd-menu` / `fd-menu-item`. Selectors are for form values; menus are for commands.
 - **Multi-select in high-stakes government workflows** — Multi-select dropdowns hide selected state behind a trigger, creating comprehension risk. Prefer `fd-checkbox-group` for consequential multi-selection scenarios (filing types, regulatory classifications) even when the option count exceeds 5.
