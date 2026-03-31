@@ -16,17 +16,25 @@
 
 /**
  * Strip `<script>` elements and `on*` event-handler attributes from an SVG
- * string. Returns the sanitized SVG.
+ * string using DOM parsing. Returns the sanitized SVG.
  */
 function sanitize(svg: string): string {
-  // Remove <script>...</script> and self-closing <script/> tags (case-insensitive)
-  let cleaned = svg.replace(/<script[\s\S]*?<\/script\s*>/gi, "");
-  cleaned = cleaned.replace(/<script\s*\/>/gi, "");
+  const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
 
-  // Remove on* event handler attributes (e.g. onclick="...", onload='...')
-  cleaned = cleaned.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, "");
+  for (const el of doc.querySelectorAll("script")) {
+    el.remove();
+  }
 
-  return cleaned;
+  for (const el of doc.querySelectorAll("*")) {
+    for (const attr of [...el.attributes]) {
+      if (attr.name.toLowerCase().startsWith("on")) {
+        el.removeAttribute(attr.name);
+      }
+    }
+  }
+
+  const root = doc.documentElement;
+  return new XMLSerializer().serializeToString(root);
 }
 
 const registry = new Map<string, string>();

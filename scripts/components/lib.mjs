@@ -151,8 +151,7 @@ function normalizeLiteral(value) {
     return JSON.parse(
       value
         .replace(/^'/, '"')
-        .replace(/'$/, '"')
-        .replace(/\\"/g, '\\"'),
+        .replace(/'$/, '"'),
     );
   }
 
