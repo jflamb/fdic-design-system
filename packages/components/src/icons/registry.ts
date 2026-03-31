@@ -16,9 +16,16 @@
 
 /**
  * Strip `<script>` elements and `on*` event-handler attributes from an SVG
- * string using DOM parsing. Returns the sanitized SVG.
+ * string. Uses DOM parsing when available (browser), falls back to regex
+ * stripping in non-browser environments (e.g. SSR / Node.js).
  */
 function sanitize(svg: string): string {
+  if (typeof DOMParser === "undefined") {
+    return svg
+      .replace(/<script[\s>][\s\S]*?<\/script>/gi, "")
+      .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  }
+
   const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
 
   for (const el of doc.querySelectorAll("script")) {
