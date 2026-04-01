@@ -14,10 +14,11 @@ Standard feature implementation workflow
 
 ## Common Files
 
-- `apps/docs/.vitepress/theme/*`
-- `apps/docs/components/*`
 - `apps/docs/.vitepress/*`
+- `apps/docs/.vitepress/generated/*`
+- `apps/docs/components/*`
 - `**/*.test.*`
+- `**/api/**`
 
 ## Suggested Sequence
 
