@@ -1,344 +1,172 @@
----
-name: fdic-design-system-conventions
-description: Development conventions and patterns for fdic-design-system. TypeScript project with conventional commits.
----
+```markdown
+# fdic-design-system Development Patterns
 
-# Fdic Design System Conventions
-
-> Generated from [jflamb/fdic-design-system](https://github.com/jflamb/fdic-design-system) on 2026-03-22
+> Auto-generated skill from repository analysis
 
 ## Overview
 
-This skill teaches Claude the development patterns and conventions used in fdic-design-system.
+This skill teaches you how to contribute to the `fdic-design-system` repository, a TypeScript-based design system for FDIC projects. It covers coding conventions, common workflows (such as adding components, updating CI, bumping dependencies, theming, and documentation), and testing patterns. By following these patterns, you can ensure your contributions are consistent, maintainable, and aligned with the project's standards.
 
-## Tech Stack
+## Coding Conventions
 
-- **Primary Language**: TypeScript
-- **Architecture**: type-based module organization
-- **Test Location**: mixed
-- **Test Framework**: vitest
+- **File Naming:** Use kebab-case for all files.
+  - Example: `button-group.ts`, `alert-banner.test.ts`
+- **Import Style:** Use absolute imports.
+  - Example:
+    ```ts
+    import { Button } from 'packages/components/src/components/button'
+    ```
+- **Export Style:** Use named exports.
+  - Example:
+    ```ts
+    // button.ts
+    export function Button(props: ButtonProps) { ... }
+    ```
+- **Commit Messages:** Follow Conventional Commits.
+  - Prefixes: `feat`, `fix`, `docs`, `chore`, `refactor`, `ci`
+  - Example: `feat(button): add loading state support`
+- **Code Structure:** Components live in `packages/components/src/components/`. Registration, stories, and docs are in their respective folders.
+- **Documentation:** Use Markdown for docs in `apps/docs/components/` and `apps/docs/guide/`.
 
-## When to Use This Skill
+## Workflows
 
-Activate this skill when:
-- Making changes to this repository
-- Adding new features following established patterns
-- Writing tests that match project conventions
-- Creating commits with proper message format
+### Add or Update Component
+**Trigger:** When adding a new UI component or making significant updates to an existing one  
+**Command:** `/new-component`
 
-## Commit Conventions
+1. Create or update the component file in `packages/components/src/components/`.
+2. Add or update the corresponding test file in the same directory.
+3. Register the component in `packages/components/src/register/` and/or update `packages/components/src/index.ts`.
+4. Update `packages/components/package.json` if needed (e.g., exports, dependencies).
+5. Add or update the Storybook story in `apps/storybook/src/`.
+6. Write or update the documentation page in `apps/docs/components/`.
+7. Sync or update `scripts/components/api-metadata.json` and `scripts/components/inventory.mjs`.
+8. If the component is new, update `apps/docs/.vitepress/generated/component-navigation.ts` and/or `apps/docs/components/index.md`.
 
-Follow these commit message conventions based on 77 analyzed commits.
-
-### Commit Style: Conventional Commits
-
-### Prefixes Used
-
-- `feat`
-- `fix`
-- `docs`
-- `chore`
-- `refactor`
-
-### Message Guidelines
-
-- Average message length: ~57 characters
-- Keep first line concise and descriptive
-- Use imperative mood ("Add feature" not "Added feature")
-
-
-*Commit message example*
-
-```text
-docs(icon): remove unsupported forced-colors claim (#12)
+**Example:**
+```ts
+// packages/components/src/components/alert-banner.ts
+export function AlertBanner(props: AlertBannerProps) { ... }
 ```
-
-*Commit message example*
-
-```text
-fix(button): align a11y, link safety, and v1 type contract (#9 #10 #11)
-```
-
-*Commit message example*
-
-```text
-chore: remove local plan file (moved to GitHub issue #5)
-```
-
-*Commit message example*
-
-```text
-feat(storybook): add icon and button component stories
-```
-
-*Commit message example*
-
-```text
-refactor(docs): replace inline HTML examples with Storybook embeds
-```
-
-*Commit message example*
-
-```text
-docs: add icon and button component documentation
-```
-
-*Commit message example*
-
-```text
-feat: add fd-icon and fd-button Web Components
-```
-
-*Commit message example*
-
-```text
-feat(icon): add icon registry and built-in Phosphor Regular set
-```
-
-## Architecture
-
-### Project Structure: Monorepo
-
-This project uses **type-based** module organization.
-
-### Configuration Files
-
-- `.github/workflows/deploy-pages.yml`
-- `apps/docs/package.json`
-- `apps/storybook/package.json`
-- `package.json`
-- `packages/components/package.json`
-- `packages/components/tsconfig.json`
-- `packages/components/vitest.config.ts`
-- `packages/react/package.json`
-- `packages/react/tsconfig.json`
-
-### Guidelines
-
-- Group code by type (components, services, utils)
-- Keep related functionality in the same type folder
-- Avoid circular dependencies between type folders
-
-## Code Style
-
-### Language: TypeScript
-
-### Naming Conventions
-
-| Element | Convention |
-|---------|------------|
-| Files | camelCase |
-| Functions | camelCase |
-| Classes | PascalCase |
-| Constants | SCREAMING_SNAKE_CASE |
-
-### Import Style: Mixed Style
-
-### Export Style: Mixed Style
-
-
-## Testing
-
-### Test Framework: vitest
-
-### File Pattern: `*.test.ts`
-
-### Test Types
-
-- **Unit tests**: Test individual functions and components in isolation
-
-
-*Test file structure*
-
-```typescript
+```ts
+// packages/components/src/components/alert-banner.test.ts
 import { describe, it, expect } from 'vitest'
-
-describe('MyFunction', () => {
-  it('should return expected result', () => {
-    const result = myFunction(input)
-    expect(result).toBe(expected)
+import { AlertBanner } from './alert-banner'
+describe('AlertBanner', () => {
+  it('renders', () => {
+    // test implementation
   })
 })
 ```
 
-## Common Workflows
+### CI Workflow Update
+**Trigger:** When updating or refactoring GitHub Actions workflows for CI/CD  
+**Command:** `/update-ci`
 
-These workflows were detected from analyzing commit patterns.
+1. Edit or create workflow files in `.github/workflows/` (e.g., `component-integrity.yml`).
+2. Edit or create files in `.github/actions/` if custom actions are needed.
+3. Update workflow inputs, runners, or action versions as required.
+4. Update related scripts or config files if necessary.
 
-### Feature Development
-
-Standard feature implementation workflow
-
-**Frequency**: ~20 times per month
-
-**Steps**:
-1. Add feature implementation
-2. Add tests for feature
-3. Update documentation
-
-**Files typically involved**:
-- `apps/docs/.vitepress/theme/*`
-- `apps/docs/components/*`
-- `apps/docs/.vitepress/*`
-- `**/*.test.*`
-
-**Example commit sequence**:
-```
-fix: suppress default ol numbering on decision flow
-fix: tighten vertical spacing in palette group headers
-feat: integrate prose component styles into VitePress theme
+**Example:**
+```yaml
+# .github/workflows/component-integrity.yml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
 ```
 
-### Add Or Update Component Documentation
+### Dependency Bump
+**Trigger:** When a dependency update is available or required  
+**Command:** `/bump-dependency`
 
-Adds or updates documentation for a UI component, including guidance, accessibility, usage, and live examples.
+1. Update `package.json` and/or `package-lock.json` in the relevant packages.
+2. Update workflow files in `.github/workflows/` if bumping GitHub Actions dependencies.
+3. Commit with a standardized message referencing the dependency and version change.
 
-**Frequency**: ~4 times per month
-
-**Steps**:
-1. Edit or create markdown file for the component in apps/docs/components/
-2. Add or update live example section in the markdown file
-3. Update or add related CSS in apps/docs/.vitepress/theme/prose.css or custom.css as needed
-4. Optionally update navigation in apps/docs/.vitepress/config.ts
-
-**Files typically involved**:
-- `apps/docs/components/*.md`
-- `apps/docs/.vitepress/theme/prose.css`
-- `apps/docs/.vitepress/theme/custom.css`
-- `apps/docs/.vitepress/config.ts`
-
-**Example commit sequence**:
+**Example:**
+```json
+// packages/components/package.json
+{
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}
 ```
-Edit or create markdown file for the component in apps/docs/components/
-Add or update live example section in the markdown file
-Update or add related CSS in apps/docs/.vitepress/theme/prose.css or custom.css as needed
-Optionally update navigation in apps/docs/.vitepress/config.ts
+```yaml
+# .github/workflows/deploy-pages.yml
+- uses: actions/deploy-pages@v2
 ```
 
-### Add Or Update Storybook Stories For Component
+### Component CSS/Token/Theme Update
+**Trigger:** When updating design tokens, theme CSS, or component-level styles  
+**Command:** `/update-tokens`
 
-Adds or updates Storybook stories for a UI component to provide live, interactive examples for developers.
+1. Edit CSS token files in `apps/docs/.vitepress/theme/` and/or `apps/storybook/.storybook/`.
+2. Update component styles in `packages/components/src/components/*.ts`.
+3. Update related documentation or stories if needed.
 
-**Frequency**: ~3 times per month
-
-**Steps**:
-1. Create or edit a .stories.ts file in apps/storybook/src/ for the component
-2. Optionally update global Storybook config in apps/storybook/.storybook/preview.ts
-3. Run/build Storybook to verify stories render correctly
-
-**Files typically involved**:
-- `apps/storybook/src/*.stories.ts`
-- `apps/storybook/.storybook/preview.ts`
-
-**Example commit sequence**:
+**Example:**
+```css
+/* apps/docs/.vitepress/theme/tokens.css */
+:root {
+  --color-primary: #005ea2;
+}
 ```
-Create or edit a .stories.ts file in apps/storybook/src/ for the component
-Optionally update global Storybook config in apps/storybook/.storybook/preview.ts
-Run/build Storybook to verify stories render correctly
-```
-
-### Add Or Update Web Component Implementation
-
-Implements a new Web Component or updates an existing one, including source, tests, and index registration.
-
-**Frequency**: ~2 times per month
-
-**Steps**:
-1. Create or edit the component TypeScript file in packages/components/src/components/
-2. Create or update the corresponding test file in the same directory
-3. Update packages/components/src/index.ts to export/register the component
-
-**Files typically involved**:
-- `packages/components/src/components/*.ts`
-- `packages/components/src/components/*.test.ts`
-- `packages/components/src/index.ts`
-
-**Example commit sequence**:
-```
-Create or edit the component TypeScript file in packages/components/src/components/
-Create or update the corresponding test file in the same directory
-Update packages/components/src/index.ts to export/register the component
+```ts
+// packages/components/src/components/button.ts
+export function Button(props) {
+  return <button className="fdic-btn">{props.children}</button>
+}
 ```
 
-### Add Or Update Icon Set Or Registry
+### Documentation Expansion or Refactor
+**Trigger:** When improving, expanding, or reorganizing documentation  
+**Command:** `/update-docs`
 
-Adds a new icon set or updates the icon registry, including implementation and tests.
+1. Edit or add Markdown files in `apps/docs/components/` or `apps/docs/guide/`.
+2. Update navigation or index files in `apps/docs/.vitepress/` or `apps/docs/components/index.md`.
+3. Optionally, update related prompts or `CONTRIBUTING.md`.
 
-**Frequency**: ~2 times per month
+**Example:**
+```markdown
+<!-- apps/docs/components/alert-banner.md -->
+# AlertBanner
 
-**Steps**:
-1. Create or edit icon set file in packages/components/src/icons/
-2. Create or update registry logic in packages/components/src/icons/registry.ts
-3. Add or update corresponding test files
-
-**Files typically involved**:
-- `packages/components/src/icons/*.ts`
-- `packages/components/src/icons/*.test.ts`
-
-**Example commit sequence**:
-```
-Create or edit icon set file in packages/components/src/icons/
-Create or update registry logic in packages/components/src/icons/registry.ts
-Add or update corresponding test files
+Displays an important message at the top of the page.
 ```
 
-### Add Or Update Design Or Implementation Plan
+## Testing Patterns
 
-Adds or updates a markdown plan document for design or implementation of features/components.
+- **Framework:** [Vitest](https://vitest.dev/)
+- **Test File Pattern:** `*.test.ts` (located alongside the component)
+- **Test Structure:** Use `describe`, `it`, and `expect` from Vitest.
 
-**Frequency**: ~3 times per month
+**Example:**
+```ts
+import { describe, it, expect } from 'vitest'
+import { Button } from './button'
 
-**Steps**:
-1. Create or edit a markdown file in docs/plans/ with a date and topic in the filename
-2. Describe design or implementation details in the markdown file
-
-**Files typically involved**:
-- `docs/plans/*.md`
-
-**Example commit sequence**:
-```
-Create or edit a markdown file in docs/plans/ with a date and topic in the filename
-Describe design or implementation details in the markdown file
-```
-
-### Update Github Actions Or Workflows
-
-Updates GitHub Actions workflow files for CI/CD, deployment, or automation.
-
-**Frequency**: ~2 times per month
-
-**Steps**:
-1. Edit workflow YAML files in .github/workflows/
-2. Commit and push changes to trigger workflow runs
-
-**Files typically involved**:
-- `.github/workflows/*.yml`
-
-**Example commit sequence**:
-```
-Edit workflow YAML files in .github/workflows/
-Commit and push changes to trigger workflow runs
+describe('Button', () => {
+  it('renders with label', () => {
+    // test implementation
+  })
+})
 ```
 
+## Commands
 
-## Best Practices
-
-Based on analysis of the codebase, follow these practices:
-
-### Do
-
-- Use conventional commit format (feat:, fix:, etc.)
-- Write tests using vitest
-- Follow *.test.ts naming pattern
-- Use camelCase for file names
-- Prefer mixed exports
-
-### Don't
-
-- Don't write vague commit messages
-- Don't skip tests for new features
-- Don't deviate from established patterns without discussion
-
----
-
-*This skill was auto-generated by [ECC Tools](https://ecc.tools). Review and customize as needed for your team.*
+| Command           | Purpose                                                      |
+|-------------------|--------------------------------------------------------------|
+| /new-component    | Add or update a UI component, including tests and docs       |
+| /update-ci        | Update or refactor CI/CD GitHub Actions workflows            |
+| /bump-dependency  | Bump npm or GitHub Actions dependencies                      |
+| /update-tokens    | Update design tokens, theme CSS, or component-level styles   |
+| /update-docs      | Add or refactor documentation and guides                     |
+```
