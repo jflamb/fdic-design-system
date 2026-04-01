@@ -12,6 +12,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Sync component inventory
+      shell: bash
+      run: npm run sync:components
+
     - name: Build workspace
       shell: bash
       run: npm run build
