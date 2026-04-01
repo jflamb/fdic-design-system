@@ -2,7 +2,7 @@
   "version": "1.3",
   "schemaVersion": "1.0",
   "generatedBy": "ecc-tools",
-  "generatedAt": "2026-03-22T13:21:24.516Z",
+  "generatedAt": "2026-04-01T16:17:42.573Z",
   "repo": "https://github.com/jflamb/fdic-design-system",
   "profiles": {
     "requested": "full",
@@ -120,8 +120,8 @@
     ".codex/agents/docs-researcher.toml",
     ".claude/homunculus/instincts/inherited/fdic-design-system-instincts.yaml",
     ".claude/commands/feature-development.md",
-    ".claude/commands/add-or-update-component-documentation.md",
-    ".claude/commands/add-or-update-storybook-stories-for-component.md"
+    ".claude/commands/refactoring.md",
+    ".claude/commands/add-or-update-component.md"
   ],
   "packageFiles": {
     "runtime-core": [
@@ -138,8 +138,8 @@
     ],
     "workflow-pack": [
       ".claude/commands/feature-development.md",
-      ".claude/commands/add-or-update-component-documentation.md",
-      ".claude/commands/add-or-update-storybook-stories-for-component.md"
+      ".claude/commands/refactoring.md",
+      ".claude/commands/add-or-update-component.md"
     ]
   },
   "moduleFiles": {
@@ -157,8 +157,8 @@
     ],
     "workflow-pack": [
       ".claude/commands/feature-development.md",
-      ".claude/commands/add-or-update-component-documentation.md",
-      ".claude/commands/add-or-update-storybook-stories-for-component.md"
+      ".claude/commands/refactoring.md",
+      ".claude/commands/add-or-update-component.md"
     ]
   },
   "files": [
@@ -219,13 +219,13 @@
     },
     {
       "moduleId": "workflow-pack",
-      "path": ".claude/commands/add-or-update-component-documentation.md",
-      "description": "Workflow command scaffold for add-or-update-component-documentation."
+      "path": ".claude/commands/refactoring.md",
+      "description": "Workflow command scaffold for refactoring."
     },
     {
       "moduleId": "workflow-pack",
-      "path": ".claude/commands/add-or-update-storybook-stories-for-component.md",
-      "description": "Workflow command scaffold for add-or-update-storybook-stories-for-component."
+      "path": ".claude/commands/add-or-update-component.md",
+      "description": "Workflow command scaffold for add-or-update-component."
     }
   ],
   "workflows": [
@@ -234,12 +234,12 @@
       "path": ".claude/commands/feature-development.md"
     },
     {
-      "command": "add-or-update-component-documentation",
-      "path": ".claude/commands/add-or-update-component-documentation.md"
+      "command": "refactoring",
+      "path": ".claude/commands/refactoring.md"
     },
     {
-      "command": "add-or-update-storybook-stories-for-component",
-      "path": ".claude/commands/add-or-update-storybook-stories-for-component.md"
+      "command": "add-or-update-component",
+      "path": ".claude/commands/add-or-update-component.md"
     }
   ],
   "adapters": {
@@ -248,8 +248,8 @@
       "identityPath": ".claude/identity.json",
       "commandPaths": [
         ".claude/commands/feature-development.md",
-        ".claude/commands/add-or-update-component-documentation.md",
-        ".claude/commands/add-or-update-storybook-stories-for-component.md"
+        ".claude/commands/refactoring.md",
+        ".claude/commands/add-or-update-component.md"
       ]
     },
     "codex": {

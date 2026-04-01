@@ -1,24 +1,20 @@
 ---
-name: feature-development
-description: Workflow command scaffold for feature-development in fdic-design-system.
+name: refactoring
+description: Workflow command scaffold for refactoring in fdic-design-system.
 allowed_tools: ["Bash", "Read", "Write", "Grep", "Glob"]
 ---
 
-# /feature-development
+# /refactoring
 
-Use this workflow when working on **feature-development** in `fdic-design-system`.
+Use this workflow when working on **refactoring** in `fdic-design-system`.
 
 ## Goal
 
-Standard feature implementation workflow
+Code refactoring and cleanup workflow
 
 ## Common Files
 
-- `apps/docs/.vitepress/*`
-- `apps/docs/.vitepress/generated/*`
-- `apps/docs/components/*`
-- `**/*.test.*`
-- `**/api/**`
+- `src/**/*`
 
 ## Suggested Sequence
 
@@ -29,9 +25,9 @@ Standard feature implementation workflow
 
 ## Typical Commit Signals
 
-- Add feature implementation
-- Add tests for feature
-- Update documentation
+- Ensure tests pass before refactor
+- Refactor code structure
+- Verify tests still pass
 
 ## Notes
 
