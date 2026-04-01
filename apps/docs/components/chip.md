@@ -126,12 +126,19 @@ A dismissible pill for active filters, selected tokens, or removable lightweight
 - The component supports **text labels only** in its documented contract. Rich leading icons, avatars, and counters are out of scope.
 - The button-focus treatment is intentionally localized to the remove affordance, not the whole pill.
 
+## Choosing between Chip, Badge, and Alert
+
+These three components are frequently confused. Use the right one:
+
+- **Chip** (this component) = user-removable token. The user can dismiss it from a visible set. Use for active filters and selected items.
+- **[Badge](/components/badge)** = static metadata label. The user reads it but cannot act on it. Use for tags, categories, and status indicators.
+- **[Alert](/components/alert)** = system message requiring attention. Use for time-sensitive or high-priority information that changes the user's next step.
+
+If the user only reads it, use a badge. If it communicates something urgent, use an alert. If the user removes it from a set, use a chip.
+
 ## Related components
 
 - [Badge](/components/badge) — static text-first pill when no remove action is needed
 - [Chip Group](/components/chip-group) — wrapping layout for related chips
 - [Badge Group](/components/badge-group) — wrapping layout for related badges
-
-## Related components
-
-- TODO
+- [Alert](/components/alert) — page-level or section-level messaging for time-sensitive information

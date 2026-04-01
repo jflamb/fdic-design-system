@@ -7,6 +7,21 @@ This page is the canonical reference for cross-cutting WCAG 2.1 AA accessibility
   <p>The FDIC design system targets WCAG 2.1 Level AA conformance. These requirements apply across all components and content authored within the <code>.prose</code> container. They are not optional refinements — they are compliance baselines.</p>
 </div>
 
+## What the components handle for you
+
+If you use the design system components as documented, you get the following accessibility requirements automatically — no extra work needed:
+
+- **Rules 1-6** (focus rings, skip link, sr-only utility, ARIA on callouts, table wrappers, DPUB-ARIA on footnotes) are built into the components and prose styles. You do not need to add these yourself when using the documented HTML patterns.
+
+**You are responsible for:**
+
+- **Rule 7** — spelling out abbreviations on first use in your content.
+- **Rule 8** — adding screen reader text inside `<del>` and `<ins>` elements you author.
+- **Rule 9** — not adding custom animations that bypass `prefers-reduced-motion`.
+- **Rule 10** — not overriding component styles in ways that break `forced-colors` mode.
+
+If you only remember one thing: **use the components as documented and write clear content.** The system handles the technical accessibility requirements; you handle the content requirements.
+
 ## Non-negotiable requirements
 
 These ten rules govern every element, component, and pattern in the system. Violating any of them is a conformance failure.

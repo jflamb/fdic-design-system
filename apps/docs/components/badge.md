@@ -33,7 +33,7 @@ A static text-first pill for tags, categories, and lightweight status labels.
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `type` | `"neutral"` \| `"cool"` \| `"warm"` \| `"positive"` \| `"alert"` | `neutral` | Visual tone for the badge surface. |
+| `type` | `"neutral"` \| `"cool"` \| `"warm"` \| `"positive"` \| `"alert"` | `neutral` | Visual tone for the badge surface. See tone guidance below. |
 
 ## Slots
 
@@ -63,6 +63,20 @@ A static text-first pill for tags, categories, and lightweight status labels.
 | `container` | Outer pill container. |
 | `label` | Visible label wrapper. |
 <!-- GENERATED_COMPONENT_API:END -->
+
+## Tone guidance
+
+Choose the tone that supports scanning without replacing the label text:
+
+| Tone | When to use | Example labels |
+|------|------------|----------------|
+| `neutral` | Default. General-purpose tags and categories with no semantic weight. | "Branch office", "Q4 2025" |
+| `cool` | Informational context that benefits from a subtle blue tint. | "New", "Updated" |
+| `warm` | Items that need mild visual emphasis without implying risk. | "Pending review", "Draft" |
+| `positive` | Conditions that represent a good or completed state. | "Approved", "Active" |
+| `alert` | Conditions that need attention, without reaching alert-level urgency. | "Past due", "Expiring soon" |
+
+**The text must carry the meaning on its own.** Tone only supports scanning — if the badge text says "Approved", the `positive` tone reinforces that at a glance, but a user who cannot perceive color still understands the status.
 
 ## Best practices
 
@@ -111,12 +125,19 @@ A static text-first pill for tags, categories, and lightweight status labels.
 - The component does not support built-in leading icons, avatars, or numeric-dot variants.
 - Host-level hover, pressed, and focus visuals from the non-removable Figma exploration are intentionally not shipped in v1.
 
+## Choosing between Badge, Chip, and Alert
+
+These three components are frequently confused. Use the right one:
+
+- **Badge** (this component) = static metadata label. The user reads it but cannot act on it. Use for tags, categories, and status indicators.
+- **[Chip](/components/chip)** = user-removable token. The user can dismiss it from a visible set. Use for active filters and selected items.
+- **[Alert](/components/alert)** = system message requiring attention. Use for time-sensitive or high-priority information that changes the user's next step.
+
+If the user can dismiss it, use a chip. If it communicates something urgent, use an alert. For everything else, use a badge.
+
 ## Related components
 
 - [Chip](/components/chip) — dismissible pill with a real remove button
 - [Badge Group](/components/badge-group) — wrapping layout for related badges
 - [Chip Group](/components/chip-group) — wrapping layout for related chips
-
-## Related components
-
-- TODO
+- [Alert](/components/alert) — page-level or section-level messaging for time-sensitive information

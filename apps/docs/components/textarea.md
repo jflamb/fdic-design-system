@@ -7,6 +7,10 @@ A multiline text field for collecting descriptions, notes, comments, and other e
   <p>Use <code>fd-textarea</code> with <code>fd-label</code> and <code>fd-message</code> to build accessible multiline form fields with labeling, helper text, validation messages, and optional character counting.</p>
 </div>
 
+::: tip Wrap in fd-field
+This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the correct composition pattern.
+:::
+
 ## When to use
 
 - **Extended responses** — explanations, notes, comments, or case details that are too long for a single-line field.

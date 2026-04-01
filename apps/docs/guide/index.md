@@ -1,10 +1,21 @@
 # Guide
 
-The guide is still scaffold-stage, but it now starts documenting the design-system foundations pulled from the FDIC Figma exports.
+The FDIC Design System guide helps you build accessible, consistent government interfaces using the system's components and design tokens.
 
-## Available guides
+## Where to start
 
-- [Getting Started](./getting-started.md)
-- [Accessibility](./accessibility.md)
-- [Form Workflows](./form-workflows.md)
-- [Foundations](./foundations/index.md)
+Follow these steps in order if you are new to the system:
+
+1. **[Getting Started](/guide/getting-started)** — understand what the system provides, install it, and render your first component.
+2. **[Choosing a Component](/guide/choosing-a-component)** — find the right component for your use case using decision tables.
+3. **[Foundations](/guide/foundations/)** — learn the color, typography, and spacing building blocks that all components share.
+4. **[Form Workflows](/guide/form-workflows)** — build accessible forms with proper validation, error recovery, and workflow protections.
+5. **[Accessibility](/guide/accessibility)** — review the non-negotiable WCAG 2.1 AA requirements and understand what the system handles for you vs. what you are responsible for.
+
+## All guide pages
+
+- [Getting Started](/guide/getting-started)
+- [Choosing a Component](/guide/choosing-a-component)
+- [Accessibility](/guide/accessibility)
+- [Form Workflows](/guide/form-workflows)
+- [Foundations](/guide/foundations/)

@@ -90,7 +90,4 @@ A wrapping layout container for related badges.
 
 - [Badge](/components/badge) — static pill used inside the group
 - [Chip Group](/components/chip-group) — layout wrapper for dismissible chips
-
-## Related components
-
-- TODO
+- [Alert](/components/alert) — use alerts instead when the information is time-sensitive or requires attention
