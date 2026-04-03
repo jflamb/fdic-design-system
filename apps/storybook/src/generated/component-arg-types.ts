@@ -512,6 +512,38 @@ export const componentStoryApi = {
     "surveyRel": undefined,
     },
   },
+  "fd-event": {
+    argTypes: {
+    "tone": { control: "select", options: ["neutral","cool","warm"] },
+    "month": { control: "text" },
+    "day": { control: "text" },
+    "title": { control: "text" },
+    "href": { control: "text" },
+    "target": { control: "text" },
+    "rel": { control: "text" },
+    "metadata": { control: "text" },
+    },
+    args: {
+    "tone": "neutral",
+    "month": "",
+    "day": "",
+    "title": "",
+    "href": undefined,
+    "target": undefined,
+    "rel": undefined,
+    "metadata": "[]",
+    },
+  },
+  "fd-event-list": {
+    argTypes: {
+    "label": { control: "text" },
+    "tone": { control: "select", options: ["neutral","cool","warm"] },
+    },
+    args: {
+    "label": undefined,
+    "tone": "neutral",
+    },
+  },
   "fd-tile": {
     argTypes: {
     "tone": { control: "select", options: ["neutral","cool","warm"] },

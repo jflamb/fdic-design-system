@@ -37,6 +37,8 @@ export { FdPageHeader } from "./components/fd-page-header.js";
 export { FdPageHeaderButton } from "./components/fd-page-header-button.js";
 export { FdHero } from "./components/fd-hero.js";
 export { FdPageFeedback } from "./components/fd-page-feedback.js";
+export { FdEvent } from "./components/fd-event.js";
+export { FdEventList } from "./components/fd-event-list.js";
 export { FdTile } from "./components/fd-tile.js";
 export { FdTileList } from "./components/fd-tile-list.js";
 
@@ -62,6 +64,7 @@ export type { FdDrawerPlacement, FdDrawerCloseRequestDetail } from "./components
 export type { FdPageHeaderBreadcrumb } from "./components/fd-page-header.js";
 export type { HeroTone } from "./components/fd-hero.js";
 export type { PageFeedbackView, PageFeedbackViewChangeReason, PageFeedbackViewChangeDetail, PageFeedbackReportSubmitDetail } from "./components/fd-page-feedback.js";
+export type { EventTone } from "./components/fd-event.js";
 export type { TileTone, FdTileLinkItem } from "./components/fd-tile.js";
 export type { Placement } from "./components/placement.js";
 export type {

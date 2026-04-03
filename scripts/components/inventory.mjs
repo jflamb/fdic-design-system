@@ -809,7 +809,51 @@ export const componentInventory = [
       "PageFeedbackReportSubmitDetail",
     ],
   },
-    {
+  {
+    tagName: "fd-event",
+    className: "FdEvent",
+    sourceFile: "fd-event.ts",
+    docs: {
+      kind: "first-class",
+      title: "Event",
+      slug: "event",
+      category: "actions-navigation",
+      order: 47
+    },
+    storybook: {
+      title: "Components/Event",
+      file: "fd-event.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["EventTone"]
+  },
+  {
+    tagName: "fd-event-list",
+    className: "FdEventList",
+    sourceFile: "fd-event-list.ts",
+    docs: {
+      kind: "first-class",
+      title: "Event List",
+      slug: "event-list",
+      category: "actions-navigation",
+      order: 48
+    },
+    storybook: {
+      title: "Components/Event List",
+      file: "fd-event-list.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: []
+  },
+  {
     tagName: "fd-tile",
     className: "FdTile",
     sourceFile: "fd-tile.ts",
@@ -831,7 +875,7 @@ export const componentInventory = [
     },
     typeExports: ["TileTone", "FdTileLinkItem"]
   },
-    {
+  {
     tagName: "fd-tile-list",
     className: "FdTileList",
     sourceFile: "fd-tile-list.ts",
