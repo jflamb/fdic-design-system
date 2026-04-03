@@ -35,6 +35,7 @@ Required outcomes:
 - Decide and record taxonomy, semantic HTML strategy, keyboard model, focus behavior, focus recovery after removal if applicable, and state ownership before implementation.
 - When the component is decorative or static-only, explicitly decide whether the host should be hidden from assistive technology or merely remain semantically inert.
 - Create or reuse the required GitHub Discussion and implementation Issue.
+- Resolve the current GitHub artifact targets from live URLs, numbers, or fresh queries before posting comments or updates; do not rely on copied GraphQL node IDs from earlier context.
 - Complete the design-review loop and implementation-plan review loop.
 - Implement the component and update tests, docs, stories, metadata, and generated surfaces as required.
 - Keep all documentation fully in sync with the shipped design and implementation as each code change lands. Update narrative docs, Storybook stories, embeds, linked story IDs, examples, accessibility guidance, integration guidance, framework or CMS recipes, migration notes, and generated API surfaces in the same change whenever behavior, visuals, semantics, keyboarding, focus, motion, responsive behavior, or consumer implementation guidance changes.
@@ -53,6 +54,7 @@ Required outcomes:
 - Create follow-up issue(s) for deferred work that is materially useful, and explicitly open enhancement issues for important features that fall out of scope for v1.
 - Merge with `squash` when checks are green and no blocker findings remain.
 - Perform post-merge cleanup and verification on `main`.
+- If post-merge verification on `main` shows a single unexpected failure on a previously green surface, rerun that failing surface once in isolation before changing code; treat repeated failure as a real regression and record one-off flakes in the final report.
 - End with a self-reflection step that reviews whether this prompt and `docs/prompts/component-delivery-support.md` were sufficient. If meaningful improvements are warranted, update both prompt files directly and report what changed, why, and how it should improve future runs.
 
 Milestone reporting:

@@ -79,6 +79,7 @@ Before implementation, explicitly decide and record:
 ### 1. Discussion
 
 - Create or reuse a GitHub Discussion before implementation.
+- Resolve the current target artifact from its live URL, number, or a fresh GitHub query before posting follow-up comments. Do not rely on copied GraphQL node IDs or cached artifact identifiers from earlier runs.
 - Include:
   - draft problem statement
   - concise component description
@@ -192,6 +193,7 @@ Validation expectations:
 
 - Fix failures before proceeding.
 - If component-scoped work exposes a narrow shared validation or toolchain regression on a required surface, fix it in the same run when the cause is clear and the change is low-risk; document the fix in GitHub artifacts instead of treating the failure as unrelated noise.
+- If post-merge verification on `main` produces a single unexpected failure on a surface that was green before merge, rerun that failing surface once in isolation before changing code. Treat repeated failure as a real regression; treat a one-off pass-after-rerun as a flaky residual risk that still belongs in the final report.
 - When a browser-backed accessibility check conflicts with a supplied Figma visual value, treat the accessibility result as the blocker. Adjust the implementation to pass, then record the rationale and the specific divergence in the Discussion, Issue, and PR artifacts.
 - When Storybook interaction stories drive animated, overlay, or transition-based states, make the `play` function wait for the visually settled end state before returning. Addon-a11y runs after the interaction completes and can otherwise audit transitional frames such as partially transparent drawers or panels.
 - When docs-theme or performance CSS changes land, verify them in the running docs surface against the real VitePress DOM instead of assuming the authored Markdown structure matches the shipped markup.
