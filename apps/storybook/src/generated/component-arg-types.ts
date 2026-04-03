@@ -480,6 +480,24 @@ export const componentStoryApi = {
     "breadcrumbLabel": "Breadcrumbs",
     },
   },
+  "fd-hero": {
+    argTypes: {
+    "tone": { control: "select", options: ["cool","warm","neutral"] },
+    "imageSrc": { control: "text" },
+    "actionLabel": { control: "text" },
+    "actionHref": { control: "text" },
+    "actionTarget": { control: "text" },
+    "actionRel": { control: "text" },
+    },
+    args: {
+    "tone": "cool",
+    "imageSrc": undefined,
+    "actionLabel": undefined,
+    "actionHref": undefined,
+    "actionTarget": undefined,
+    "actionRel": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

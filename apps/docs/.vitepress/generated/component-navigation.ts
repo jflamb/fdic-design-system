@@ -43,6 +43,7 @@ export const componentSidebarGroups = [
     items: [
       { text: "Global Header", link: "/components/global-header" },
       { text: "Page Header", link: "/components/page-header" },
+      { text: "Hero", link: "/components/hero" },
       { text: "Header Search", link: "/components/header-search" },
       { text: "Drawer", link: "/components/drawer" },
       { text: "Stripe", link: "/components/stripe" }

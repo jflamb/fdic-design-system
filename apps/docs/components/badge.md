@@ -33,7 +33,7 @@ A static text-first pill for tags, categories, and lightweight status labels.
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `type` | `"neutral"` \| `"cool"` \| `"warm"` \| `"positive"` \| `"alert"` | `neutral` | Visual tone for the badge surface. See tone guidance below. |
+| `type` | `"neutral"` \| `"cool"` \| `"warm"` \| `"positive"` \| `"alert"` | `neutral` | Visual tone for the badge surface. |
 
 ## Slots
 
