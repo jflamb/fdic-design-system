@@ -809,6 +809,50 @@ export const componentInventory = [
       "PageFeedbackReportSubmitDetail",
     ],
   },
+    {
+    tagName: "fd-tile",
+    className: "FdTile",
+    sourceFile: "fd-tile.ts",
+    docs: {
+      kind: "first-class",
+      title: "Tile",
+      slug: "tile",
+      category: "actions-navigation",
+      order: 45
+    },
+    storybook: {
+      title: "Components/Tile",
+      file: "fd-tile.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-visual"]
+    },
+    typeExports: ["TileTone", "FdTileLinkItem"]
+  },
+    {
+    tagName: "fd-tile-list",
+    className: "FdTileList",
+    sourceFile: "fd-tile-list.ts",
+    docs: {
+      kind: "first-class",
+      title: "Tile List",
+      slug: "tile-list",
+      category: "actions-navigation",
+      order: 46
+    },
+    storybook: {
+      title: "Components/Tile List",
+      file: "fd-tile-list.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: []
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

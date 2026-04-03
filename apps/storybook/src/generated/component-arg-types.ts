@@ -512,6 +512,36 @@ export const componentStoryApi = {
     "surveyRel": undefined,
     },
   },
+  "fd-tile": {
+    argTypes: {
+    "tone": { control: "select", options: ["neutral","cool","warm"] },
+    "iconName": { control: "text" },
+    "title": { control: "text" },
+    "href": { control: "text" },
+    "target": { control: "text" },
+    "rel": { control: "text" },
+    "description": { control: "text" },
+    "links": { control: "text" },
+    },
+    args: {
+    "tone": "neutral",
+    "iconName": undefined,
+    "title": "",
+    "href": undefined,
+    "target": undefined,
+    "rel": undefined,
+    "description": undefined,
+    "links": "[]",
+    },
+  },
+  "fd-tile-list": {
+    argTypes: {
+    "label": { control: "text" },
+    },
+    args: {
+    "label": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

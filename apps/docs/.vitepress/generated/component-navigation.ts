@@ -25,6 +25,8 @@ export const componentSidebarGroups = [
       { text: "Split Button", link: "/components/split-button" },
       { text: "Link", link: "/components/link" },
       { text: "Menu", link: "/components/menu" },
+      { text: "Tile", link: "/components/tile" },
+      { text: "Tile List", link: "/components/tile-list" },
       { text: "Pagination", link: "/components/pagination" }
     ]
   },

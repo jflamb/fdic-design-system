@@ -3795,5 +3795,181 @@
       ],
       "after": ""
     }
+  },
+  "fd-tile": {
+    "properties": {
+      "rows": [
+        {
+          "name": "tone",
+          "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Decorative visual tone passed to the internal `fd-visual`."
+        },
+        {
+          "name": "icon-name",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional Phosphor registry icon name rendered inside the decorative visual. When omitted, `fd-visual` falls back to its built-in archive glyph."
+        },
+        {
+          "name": "title",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Visible primary text for the tile."
+        },
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional destination for the primary title. When omitted, the title renders as plain text."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link target applied to the primary title link."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native relationship tokens applied to the primary title link. `target=\"_blank\"` always adds `noopener noreferrer`."
+        },
+        {
+          "name": "description",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional supporting copy rendered under the primary title."
+        },
+        {
+          "name": "links",
+          "type": "`FdTileLinkItem[]`",
+          "defaultValue": "`[]`",
+          "description": "Optional supporting links rendered below the description. Set this as a JavaScript property; the component renders at most the first four valid entries."
+        }
+      ],
+      "after": "- `fd-tile` is static in v1. It owns decorative framing and layout only; the application owns link destinations, text content, analytics, and any dynamic item lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native links."
+    },
+    "slots": {
+      "rows": [],
+      "after": "- `fd-tile` does not expose consumer-authored content slots in v1. Use the documented properties so the component can keep its responsive layout and link structure consistent."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-tile-gap",
+          "default": "`12px`",
+          "description": "Gap between the decorative visual and the text column before larger responsive breakpoints."
+        },
+        {
+          "name": "--fd-tile-link-color",
+          "default": "`var(--ds-color-text-link, #1278b0)`",
+          "description": "Primary and supporting link color."
+        },
+        {
+          "name": "--fd-tile-description-color",
+          "default": "`var(--ds-color-text-secondary, #595961)`",
+          "description": "Supporting description color."
+        },
+        {
+          "name": "--fd-tile-links-gap",
+          "default": "`4px`",
+          "description": "Gap between supporting links in the optional link stack."
+        }
+      ],
+      "after": "- The component also forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively. Prefer the documented tile-level hooks before overriding the nested visual directly."
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper."
+        },
+        {
+          "name": "visual",
+          "description": "Decorative visual track that contains the internal `fd-visual`."
+        },
+        {
+          "name": "content",
+          "description": "Text and supporting-links column."
+        },
+        {
+          "name": "title",
+          "description": "Primary title wrapper."
+        },
+        {
+          "name": "description",
+          "description": "Supporting description paragraph."
+        },
+        {
+          "name": "links",
+          "description": "Optional supporting-links list."
+        },
+        {
+          "name": "link-item",
+          "description": "Individual supporting-link list item."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-tile-list": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
+        }
+      ],
+      "after": "- `fd-tile-list` is a static grouping container. It does not own selection, active-item, or keyboard navigation state."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Author one or more `fd-tile` children."
+        }
+      ],
+      "after": "- `fd-tile-list` assigns `role=\"listitem\"` to direct `fd-tile` children so the group is announced as a list without making the tiles themselves interactive."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-tile-list-min-column-size",
+          "default": "`344px`",
+          "description": "Minimum preferred inline size for each responsive tile column."
+        },
+        {
+          "name": "--fd-tile-list-row-gap",
+          "default": "`20px`",
+          "description": "Gap between tile rows."
+        },
+        {
+          "name": "--fd-tile-list-column-gap",
+          "default": "`24px`",
+          "description": "Gap between tile columns."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Responsive list/grid wrapper."
+        }
+      ],
+      "after": ""
+    }
   }
 }
