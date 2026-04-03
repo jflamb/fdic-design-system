@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import "../register/fd-hero.js";
+import { FdHero } from "./fd-hero.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createHero(
   attrs: Record<string, string> = {},
   innerHTML = `
-    <h1 slot="heading">Benefits</h1>
+    <h2 slot="heading">Benefits</h2>
     <p slot="lede">
       Your compensation at FDIC includes competitive pay, clear policies, and
       structured performance management.
@@ -60,6 +61,15 @@ describe("FdHero", () => {
     expect(getBase(el)?.getAttribute("aria-labelledby")).toBe(heading?.id);
   });
 
+  it("styles slotted copy with the inverted text token", async () => {
+    const stylesheet = Array.isArray(FdHero.styles)
+      ? FdHero.styles.map((style) => style.cssText).join("\n")
+      : FdHero.styles.cssText;
+
+    expect(stylesheet).toContain("::slotted([slot=\"heading\"])");
+    expect(stylesheet).toContain("color: var(--fdic-text-inverted, #ffffff);");
+  });
+
   it("preserves an authored heading id", async () => {
     const el = await createHero(
       {},
@@ -86,7 +96,7 @@ describe("FdHero", () => {
     const withoutBody = await createHero(
       {},
       `
-        <h1 slot="heading">Benefits</h1>
+        <h2 slot="heading">Benefits</h2>
         <p slot="lede">Introductory copy only.</p>
       `,
     );

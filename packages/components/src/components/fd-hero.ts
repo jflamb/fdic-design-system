@@ -230,7 +230,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="heading"]) {
       display: block;
       margin: 0;
-      color: inherit;
+      color: var(--fdic-text-inverted, #ffffff);
       font-size: var(--fdic-font-size-h2, 27px);
       font-weight: 600;
       line-height: 1.2;
@@ -241,7 +241,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="lede"]) {
       display: block;
       margin: 0;
-      color: inherit;
+      color: var(--fdic-text-inverted, #ffffff);
       font-size: var(--fdic-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
@@ -251,7 +251,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="body"]) {
       display: block;
       margin: 0;
-      color: inherit;
+      color: var(--fdic-text-inverted, #ffffff);
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;

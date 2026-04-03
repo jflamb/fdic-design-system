@@ -37,7 +37,7 @@ The Hero component creates a visually prominent introduction or spotlight sectio
   action-label="Explore benefits"
   action-href="/benefits"
 >
-  <h1 slot="heading">Benefits</h1>
+  <h2 slot="heading">Benefits</h2>
   <p slot="lede">
     Your compensation at FDIC includes competitive pay, clear policies, and
     structured performance management.
@@ -52,7 +52,7 @@ The Hero component creates a visually prominent introduction or spotlight sectio
 
 ### Implementation guide
 
-- **Provide a real heading element in the `heading` slot**. The component uses that heading to label the internal `<section>`. Choose `<h1>` when the Hero introduces the page and `<h2>` or lower when it highlights a subsection.
+- **Provide a real heading element in the `heading` slot**. The component uses that heading to label the internal `<section>`. Keep the page title as the only `<h1>` and use `<h2>` or lower in Hero unless the Hero itself is the page title.
 - **Treat `image-src` as decorative only**. If the media needs alt text, visible attribution, or legal context, place that content outside `fd-hero` instead of trying to overload the background image API.
 - **Keep the CTA singular and destination-focused**. `fd-hero` renders one native link. If a layout needs multiple actions, use surrounding composition rather than stretching the component API.
 - **Pair Hero and Page Header intentionally**. Use Hero for emphasis and `fd-page-header` for hierarchy. Some pages may need both, but they should not duplicate the same heading or CTA message.

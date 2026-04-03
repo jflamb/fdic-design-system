@@ -110,7 +110,7 @@ const meta = {
     actionHref: "/benefits",
     actionTarget: "",
     actionRel: "",
-    headingTag: "h1",
+    headingTag: "h2",
     heading: "Benefits",
     lede:
       "Your compensation at FDIC includes competitive pay, clear policies, and structured performance management.",
