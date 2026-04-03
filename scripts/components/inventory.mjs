@@ -782,6 +782,33 @@ export const componentInventory = [
     },
     typeExports: ["HeroTone"]
   },
+  {
+    tagName: "fd-page-feedback",
+    className: "FdPageFeedback",
+    sourceFile: "fd-page-feedback.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Page Feedback",
+      slug: "page-feedback",
+      category: DOCS_CATEGORIES.FEEDBACK_STATUS,
+      order: 20,
+    },
+    storybook: {
+      title: "Components/Page Feedback",
+      file: "fd-page-feedback.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-button", "fd-link", "fd-label", "fd-textarea"],
+    },
+    typeExports: [
+      "PageFeedbackView",
+      "PageFeedbackViewChangeReason",
+      "PageFeedbackViewChangeDetail",
+      "PageFeedbackReportSubmitDetail",
+    ],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

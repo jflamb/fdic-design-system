@@ -36,6 +36,7 @@ export { FdDrawer } from "./components/fd-drawer.js";
 export { FdPageHeader } from "./components/fd-page-header.js";
 export { FdPageHeaderButton } from "./components/fd-page-header-button.js";
 export { FdHero } from "./components/fd-hero.js";
+export { FdPageFeedback } from "./components/fd-page-feedback.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -58,6 +59,7 @@ export type { HeaderSearchSurface, FdHeaderSearchItem, FdHeaderSearchInputDetail
 export type { FdDrawerPlacement, FdDrawerCloseRequestDetail } from "./components/fd-drawer.js";
 export type { FdPageHeaderBreadcrumb } from "./components/fd-page-header.js";
 export type { HeroTone } from "./components/fd-hero.js";
+export type { PageFeedbackView, PageFeedbackViewChangeReason, PageFeedbackViewChangeDetail, PageFeedbackReportSubmitDetail } from "./components/fd-page-feedback.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

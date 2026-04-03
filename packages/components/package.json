@@ -169,6 +169,10 @@
       "types": "./dist/components/fd-hero.d.ts",
       "import": "./dist/components/fd-hero.js"
     },
+    "./fd-page-feedback": {
+      "types": "./dist/components/fd-page-feedback.d.ts",
+      "import": "./dist/components/fd-page-feedback.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

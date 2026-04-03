@@ -22,7 +22,7 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Feedback & Status</span>
-    <h3>Alert, Badge, Badge Group, Chip, Chip Group</h3>
+    <h3>Alert, Badge, Page Feedback, Badge Group, Chip, Chip Group</h3>
     <p>Components that communicate status, lightweight emphasis, selection context, or supporting state.</p>
   </div>
   <div class="fdic-card">
@@ -77,6 +77,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 
 - [Alert](./alert) documents alert usage, constraints, and accessibility guidance.
 - [Badge](./badge) documents badge usage, constraints, and accessibility guidance.
+- [Page Feedback](./page-feedback) documents page feedback usage, constraints, and accessibility guidance.
 - [Badge Group](./badge-group) documents badge group usage, constraints, and accessibility guidance.
 - [Chip](./chip) documents chip usage, constraints, and accessibility guidance.
 - [Chip Group](./chip-group) documents chip group usage, constraints, and accessibility guidance.
