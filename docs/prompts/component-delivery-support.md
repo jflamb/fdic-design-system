@@ -28,8 +28,10 @@ Use this precedence order unless the invoking prompt states otherwise:
 - If Figma is supplied, treat it as the primary visual and interaction reference.
 - If no Figma is supplied, use the closest shipped repo component family as the visual and behavioral baseline and document that fallback in GitHub artifacts.
 - Only stop for clarification when semantics, keyboarding, focus behavior, or state ownership remain materially ambiguous after applying the repo-pattern fallback.
+- If the maintainer supplies a design correction or updated Figma direction after implementation has started, reconcile the affected code, docs, metadata, generated surfaces, visual artifacts, and GitHub records before merge rather than treating the earlier interpretation as final.
 - If you intentionally diverge from Figma or repo precedent, document why in GitHub artifacts.
 - If a supplied Figma color or other visual value fails browser-backed accessibility validation, prefer the accessible implementation and document the deviation in GitHub artifacts rather than silently shipping the inaccessible value.
+- If Figma exposes a token name but the export or MCP response does not serialize a concrete runtime value, prefer consuming the token by its canonical name with a safe visible fallback and record that fallback explicitly in GitHub artifacts and PR notes.
 
 ## Design Decisions To Record
 

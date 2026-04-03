@@ -38,6 +38,7 @@ Required outcomes:
 - Complete the design-review loop and implementation-plan review loop.
 - Implement the component and update tests, docs, stories, metadata, and generated surfaces as required.
 - Keep all documentation fully in sync with the shipped design and implementation as each code change lands. Update narrative docs, Storybook stories, embeds, linked story IDs, examples, accessibility guidance, integration guidance, framework or CMS recipes, migration notes, and generated API surfaces in the same change whenever behavior, visuals, semantics, keyboarding, focus, motion, responsive behavior, or consumer implementation guidance changes.
+- If the design or token direction changes during the run, reconcile the affected implementation, docs, metadata, visual artifacts, and GitHub records before merge, then rerun the validation surfaces affected by that update.
 - Treat implementation guidance as a required deliverable, not optional polish. If the shipped work adds a new consumer-facing pattern, adapter layer, integration contract, workflow, or composition rule, document how to adopt it in the component docs before the PR is considered complete.
 - When native CSS or platform primitives replace legacy patterns, update the repo guidance and the relevant GitHub Discussion so future work starts from the new baseline instead of rediscovering it.
 - When editing `scripts/components/api-metadata.json`, escape union pipes as `\\|` so generated markdown tables render correctly.
