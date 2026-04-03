@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-github-dot-com
   cancel-in-progress: true
 
 jobs:
