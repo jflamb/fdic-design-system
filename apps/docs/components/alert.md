@@ -41,7 +41,7 @@ Alerts communicate important, time-sensitive, or contextual information that may
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `variant` | `"default"` \| `"slim"` \| `"site"` | `default` | Controls the supplied Figma layout family: standard stacked alert, compact slim alert, or page-level site alert. |
-| `type` | `"info"` \| `"success"` \| `"warning"` \| `"error"` \| `"emergency"` | `info` | Severity treatment for the alert surface, icon, and color system. See severity guidance below. |
+| `type` | `"info"` \| `"success"` \| `"warning"` \| `"error"` \| `"emergency"` | `info` | Severity treatment for the alert surface, icon, and color system. |
 | `title` | `string` | `` | Optional plain-text title rendered by the component. Slim alerts usually omit it, but the property is available across variants. |
 | `dismissible` | `boolean` | `false` | Shows the internal dismiss button. The component emits an event but does not remove itself. |
 | `dismiss-label` | `string \| undefined` | `undefined` | Optional accessible-name override for the dismiss button. Defaults to `Dismiss {title}` or `Dismiss alert`. |

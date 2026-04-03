@@ -760,6 +760,28 @@ export const componentInventory = [
     },
     typeExports: []
   },
+  {
+    tagName: "fd-hero",
+    className: "FdHero",
+    sourceFile: "fd-hero.ts",
+    docs: {
+      kind: "first-class",
+      title: "Hero",
+      slug: "hero",
+      category: "layout-shell",
+      order: 16
+    },
+    storybook: {
+      title: "Components/Hero",
+      file: "fd-hero.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["HeroTone"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

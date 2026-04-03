@@ -38,4 +38,5 @@ import "./fd-global-header.js";
 import "./fd-header-search.js";
 import "./fd-drawer.js";
 import "./fd-page-header.js";
+import "./fd-hero.js";
 import "../icons/phosphor-regular.js";

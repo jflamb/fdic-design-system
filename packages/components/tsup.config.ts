@@ -44,6 +44,7 @@ export default defineConfig({
     "components/fd-drawer": "src/components/fd-drawer.ts",
     "components/fd-page-header": "src/components/fd-page-header.ts",
     "components/fd-page-header-button": "src/components/fd-page-header-button.ts",
+    "components/fd-hero": "src/components/fd-hero.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -77,6 +78,7 @@ export default defineConfig({
     "register/fd-header-search": "src/register/fd-header-search.ts",
     "register/fd-drawer": "src/register/fd-drawer.ts",
     "register/fd-page-header": "src/register/fd-page-header.ts",
+    "register/fd-hero": "src/register/fd-hero.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

@@ -3507,5 +3507,160 @@
       ],
       "after": ""
     }
+  },
+  "fd-hero": {
+    "properties": {
+      "rows": [
+        {
+          "name": "tone",
+          "type": "`\"cool\"` \\| `\"warm\"` \\| `\"neutral\"`",
+          "defaultValue": "`\"cool\"`",
+          "description": "Tonal treatment for the Hero overlay, panel, and stripe."
+        },
+        {
+          "name": "image-src",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Decorative background image URL. The image remains excluded from assistive technology."
+        },
+        {
+          "name": "action-label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Visible label for the optional CTA link."
+        },
+        {
+          "name": "action-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the optional CTA link."
+        },
+        {
+          "name": "action-target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link target for the optional CTA."
+        },
+        {
+          "name": "action-rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link relationship tokens for the optional CTA. `target=\"_blank\"` always adds `noopener noreferrer`."
+        }
+      ],
+      "after": "- `fd-hero` labels its internal `<section>` from the first element assigned to the `heading` slot.\n- `fd-hero` stays static in v1. It does not expose custom events or component-managed interaction state."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "heading",
+          "description": "Required semantic heading element authored by the consumer."
+        },
+        {
+          "name": "lede",
+          "description": "Optional prominent introductory copy under the heading."
+        },
+        {
+          "name": "body",
+          "description": "Optional supporting body copy."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-hero-max-width",
+          "default": "`1440px`",
+          "description": "Maximum inline size of the inner Hero layout."
+        },
+        {
+          "name": "--fd-hero-padding-block",
+          "default": "`64px`",
+          "description": "Desktop block padding."
+        },
+        {
+          "name": "--fd-hero-padding-inline",
+          "default": "`64px`",
+          "description": "Desktop inline padding."
+        },
+        {
+          "name": "--fd-hero-padding-inline-mobile",
+          "default": "`16px`",
+          "description": "Inline padding below 640px."
+        },
+        {
+          "name": "--fd-hero-panel-max-width",
+          "default": "`480px`",
+          "description": "Maximum inline size of the text panel."
+        },
+        {
+          "name": "--fd-hero-panel-halo",
+          "default": "`24px`",
+          "description": "Desktop tonal halo size around the panel."
+        },
+        {
+          "name": "--fd-hero-image-position",
+          "default": "`center`",
+          "description": "Background image positioning."
+        },
+        {
+          "name": "--fd-hero-stripe-width",
+          "default": "`80px`",
+          "description": "Decorative stripe width."
+        },
+        {
+          "name": "--fd-hero-stripe-height",
+          "default": "`4px`",
+          "description": "Decorative stripe height."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root `<section>` element."
+        },
+        {
+          "name": "content",
+          "description": "Max-width content wrapper."
+        },
+        {
+          "name": "panel",
+          "description": "Tonal text panel."
+        },
+        {
+          "name": "heading",
+          "description": "Heading slot wrapper."
+        },
+        {
+          "name": "lede",
+          "description": "Lede slot wrapper."
+        },
+        {
+          "name": "stripe",
+          "description": "Decorative stripe element."
+        },
+        {
+          "name": "body",
+          "description": "Body slot wrapper."
+        },
+        {
+          "name": "action",
+          "description": "Internal CTA link."
+        },
+        {
+          "name": "action-icon",
+          "description": "Decorative CTA icon wrapper."
+        }
+      ],
+      "after": ""
+    }
   }
 }

@@ -158,6 +158,7 @@ Use `fd-page-header-button` for actions inside the page header. These render as 
 ## Related components
 
 - [`fd-global-header`](/components/global-header) — Site-level header with navigation, search, and branding. Place `fd-page-header` below it, inside `<main>`.
+- [`fd-hero`](/components/hero) — Use Hero when the page needs strong visual framing or a campaign-style introduction rather than breadcrumbs and structured hierarchy.
 - [`fd-icon`](/components/icon) — Used inside `fd-page-header-button` for action icons. Icons come from the Phosphor registry.
 
 <!-- GENERATED_COMPONENT_API:START fd-page-header -->
