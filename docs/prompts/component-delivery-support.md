@@ -208,6 +208,7 @@ Validation expectations:
   - committed image under the repository
   - PR attachment
   - stable Storybook or docs URL showing the relevant state
+- When capturing Storybook-based verification, prefer the rendered `iframe` story URL or another chrome-free surface and wait for the intended state to finish loading before capturing. Do not use a screenshot of the Storybook shell, loading spinner, or another transitional frame as the verification artifact.
 - For form controls, cover the primary state set and any materially distinct states changed by the work, such as error, disabled, or read-only when applicable.
 
 ## Documentation Truthfulness

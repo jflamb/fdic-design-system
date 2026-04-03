@@ -49,6 +49,7 @@ Required outcomes:
 - If component-scoped work exposes a narrow shared validation or toolchain regression on a required surface, fix it in the same run when the cause is clear and the change is low-risk, and record that rationale in GitHub artifacts.
 - If browser-backed accessibility validation shows that a supplied Figma visual value would ship an inaccessible result, prefer the accessible implementation and record the deviation in the Discussion, Issue, and PR artifacts.
 - Create or update a PR, include the required review prompt, include at least one visual verification artifact when the component has meaningful visual or interactive states, complete PR self-review, fix actionable findings, and ensure the implementation Issue will close on merge or is closed manually during post-merge cleanup.
+- When the visual verification artifact comes from Storybook, capture the rendered story state itself, not the Storybook chrome or a loading frame.
 - Create follow-up issue(s) for deferred work that is materially useful, and explicitly open enhancement issues for important features that fall out of scope for v1.
 - Merge with `squash` when checks are green and no blocker findings remain.
 - Perform post-merge cleanup and verification on `main`.
