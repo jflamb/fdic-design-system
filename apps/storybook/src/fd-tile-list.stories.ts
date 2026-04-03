@@ -13,7 +13,6 @@ import {
 } from "./docs-overview";
 
 type TileItem = {
-  tone: "neutral" | "cool" | "warm";
   iconName: string;
   title: string;
   href: string;
@@ -23,26 +22,24 @@ type TileItem = {
 
 type TileListArgs = {
   label: string;
+  tone: "neutral" | "cool" | "warm";
   density: "default" | "tight";
 };
 
 const SAMPLE_ITEMS: TileItem[] = [
   {
-    tone: "neutral",
     iconName: "download",
     title: "Dental insurance",
     href: "/benefits/dental",
     description: "Review plan summaries, enrollment steps, and provider details.",
   },
   {
-    tone: "cool",
     iconName: "eye",
     title: "Vision insurance",
     href: "/benefits/vision",
     description: "Compare coverage, network options, and annual deadlines.",
   },
   {
-    tone: "warm",
     iconName: "star",
     title: "Long-term disability insurance",
     href: "/benefits/disability",
@@ -53,7 +50,6 @@ const SAMPLE_ITEMS: TileItem[] = [
     ],
   },
   {
-    tone: "neutral",
     iconName: "download",
     title: "Flexible spending accounts",
     href: "/benefits/fsa",
@@ -63,7 +59,6 @@ const SAMPLE_ITEMS: TileItem[] = [
 
 const renderTile = (item: TileItem) => html`
   <fd-tile
-    tone=${item.tone}
     icon-name=${item.iconName}
     title=${item.title}
     href=${item.href}
@@ -75,6 +70,7 @@ const renderTile = (item: TileItem) => html`
 const renderTileList = (args: TileListArgs) => html`
   <fd-tile-list
     label=${args.label}
+    tone=${args.tone}
     style=${args.density === "tight"
       ? "--fd-tile-list-row-gap: 16px; --fd-tile-list-column-gap: 20px;"
       : ""}
@@ -103,6 +99,7 @@ const meta = {
   args: {
     ...getComponentArgs("fd-tile-list"),
     label: "Benefits links",
+    tone: "neutral",
     density: "default",
   },
   render: renderTileList,
@@ -119,6 +116,12 @@ export const TightSpacing: Story = {
   },
 };
 
+export const WarmSet: Story = {
+  args: {
+    tone: "warm",
+  },
+};
+
 export const DocsOverview: Story = {
   render: () => html`
     <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
@@ -126,6 +129,15 @@ export const DocsOverview: Story = {
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive wrapping</strong>
         ${renderTileList({
           label: "Benefits links",
+          tone: "neutral",
+          density: "default",
+        })}
+      </section>
+      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Shared warm tone</strong>
+        ${renderTileList({
+          label: "Benefits links",
+          tone: "warm",
           density: "default",
         })}
       </section>
@@ -133,6 +145,7 @@ export const DocsOverview: Story = {
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Tighter list density</strong>
         ${renderTileList({
           label: "Benefits links",
+          tone: "cool",
           density: "tight",
         })}
       </section>

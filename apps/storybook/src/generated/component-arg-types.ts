@@ -537,9 +537,11 @@ export const componentStoryApi = {
   "fd-tile-list": {
     argTypes: {
     "label": { control: "text" },
+    "tone": { control: "select", options: ["neutral","cool","warm"] },
     },
     args: {
     "label": undefined,
+    "tone": "neutral",
     },
   },
 } as const;
