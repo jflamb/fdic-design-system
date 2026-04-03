@@ -27,6 +27,8 @@ export const componentSidebarGroups = [
       { text: "Menu", link: "/components/menu" },
       { text: "Tile", link: "/components/tile" },
       { text: "Tile List", link: "/components/tile-list" },
+      { text: "Event", link: "/components/event" },
+      { text: "Event List", link: "/components/event-list" },
       { text: "Pagination", link: "/components/pagination" }
     ]
   },

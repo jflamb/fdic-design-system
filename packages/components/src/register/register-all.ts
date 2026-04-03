@@ -40,6 +40,8 @@ import "./fd-drawer.js";
 import "./fd-page-header.js";
 import "./fd-hero.js";
 import "./fd-page-feedback.js";
+import "./fd-event.js";
+import "./fd-event-list.js";
 import "./fd-tile.js";
 import "./fd-tile-list.js";
 import "../icons/phosphor-regular.js";

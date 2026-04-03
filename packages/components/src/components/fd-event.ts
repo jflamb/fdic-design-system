@@ -1,0 +1,347 @@
+import { LitElement, css, html, nothing } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
+
+export const EVENT_TONES = ["neutral", "cool", "warm"] as const;
+export type EventTone = (typeof EVENT_TONES)[number];
+
+const EVENT_TONE_SET = new Set<string>(EVENT_TONES);
+
+let eventTitleIds = 0;
+
+function normalizeEventTone(value: string | undefined): EventTone {
+  return value && EVENT_TONE_SET.has(value) ? (value as EventTone) : "neutral";
+}
+
+function normalizeLinkRel(target: string | undefined, rel: string | undefined) {
+  if (target !== "_blank") {
+    return rel;
+  }
+
+  const tokens = new Set(
+    (rel ?? "")
+      .split(/\s+/)
+      .map((token) => token.trim().toLowerCase())
+      .filter(Boolean),
+  );
+
+  tokens.add("noopener");
+  tokens.add("noreferrer");
+
+  return [...tokens].join(" ");
+}
+
+/**
+ * `fd-event` — Dated event summary with an optional native title link.
+ */
+export class FdEvent extends LitElement {
+  static properties = {
+    tone: { reflect: true },
+    month: { reflect: true },
+    day: { reflect: true },
+    title: { reflect: true },
+    href: { reflect: true },
+    target: { reflect: true },
+    rel: { reflect: true },
+    metadata: { attribute: false },
+  };
+
+  static styles = css`
+    :host {
+      display: block;
+      container-type: inline-size;
+      color: var(--fdic-text-primary, #212123);
+      font-family: var(
+        --fdic-font-family-sans-serif,
+        "Source Sans 3",
+        "Source Sans Pro",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif
+      );
+    }
+
+    :host([hidden]) {
+      display: none;
+    }
+
+    article {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--fd-event-gap, 12px);
+      min-inline-size: 0;
+      box-sizing: border-box;
+    }
+
+    [part="date"] {
+      display: flex;
+      flex: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      inline-size: var(--fd-event-date-size, 48px);
+      min-inline-size: var(--fd-event-date-size, 48px);
+      min-block-size: var(--fd-event-date-size, 48px);
+      padding: var(--fd-event-date-padding-block, 8px)
+        var(--fd-event-date-padding-inline, 4px);
+      gap: var(--fd-event-date-gap, 6px);
+      border-radius: var(--fd-event-date-radius, 3px);
+      box-sizing: border-box;
+      text-align: center;
+      white-space: nowrap;
+      background: var(
+        --fd-event-date-bg-neutral,
+        var(--fdic-overlay-emphasize-100, #f5f5f7)
+      );
+      color: var(--fd-event-date-color-neutral, var(--fdic-text-primary, #212123));
+    }
+
+    :host([tone="warm"]) [part="date"] {
+      background: var(
+        --fd-event-date-bg-warm,
+        var(--fdic-brand-highlight-lightest, #f8efda)
+      );
+      color: var(--fd-event-date-color-warm, var(--fdic-text-primary, #212123));
+    }
+
+    :host([tone="cool"]) [part="date"] {
+      background: var(
+        --fd-event-date-bg-cool,
+        var(--fdic-semantic-background-info, #f1f8fe)
+      );
+      color: var(--fd-event-date-color-cool, var(--fdic-text-primary, #212123));
+    }
+
+    article:has(.title-link:hover) [part="date"],
+    article:has(.title-link:focus-visible) [part="date"] {
+      background: var(
+        --fd-event-date-bg-neutral-emphasis,
+        var(--fdic-icon-primary, #424244)
+      );
+      color: var(
+        --fd-event-date-color-neutral-emphasis,
+        var(--fdic-text-inverted, #ffffff)
+      );
+    }
+
+    :host([tone="warm"]) article:has(.title-link:hover) [part="date"],
+    :host([tone="warm"]) article:has(.title-link:focus-visible) [part="date"] {
+      background: var(
+        --fd-event-date-bg-warm-emphasis,
+        var(--fdic-brand-highlight-darker, #88691c)
+      );
+      color: var(
+        --fd-event-date-color-warm-emphasis,
+        var(--fdic-text-inverted, #ffffff)
+      );
+    }
+
+    :host([tone="cool"]) article:has(.title-link:hover) [part="date"],
+    :host([tone="cool"]) article:has(.title-link:focus-visible) [part="date"] {
+      background: var(
+        --fd-event-date-bg-cool-emphasis,
+        var(--fdic-brand-primary, #0d6191)
+      );
+      color: var(
+        --fd-event-date-color-cool-emphasis,
+        var(--fdic-text-inverted, #ffffff)
+      );
+    }
+
+    [part="month"] {
+      margin: 0;
+      font-size: var(--fd-event-month-font-size, 12px);
+      font-weight: var(--fd-event-month-font-weight, 600);
+      line-height: var(--fd-event-month-line-height, 1.5);
+      letter-spacing: var(--fd-event-month-letter-spacing, 0.03em);
+      text-transform: uppercase;
+    }
+
+    [part="day"] {
+      margin: 0;
+      font-size: var(--fd-event-day-font-size, 22px);
+      font-weight: var(--fd-event-day-font-weight, 500);
+      line-height: var(--fd-event-day-line-height, 1.4545);
+    }
+
+    [part="content"] {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      gap: var(--fd-event-content-gap, 1px);
+      min-inline-size: 0;
+    }
+
+    [part="title"] {
+      min-inline-size: 0;
+    }
+
+    .title-link,
+    .title-text {
+      display: -webkit-box;
+      margin: 0;
+      min-inline-size: 0;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      font-size: var(--fd-event-title-font-size, 20px);
+      font-weight: var(--fd-event-title-font-weight, 450);
+      line-height: var(--fd-event-title-line-height, 1.25);
+    }
+
+    .title-text {
+      color: var(--fd-event-title-color, var(--fdic-text-primary, #212123));
+    }
+
+    .title-link {
+      color: var(--fd-event-link-color, var(--ds-color-text-link, #1278b0));
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      outline: none;
+      text-decoration-line: underline;
+      text-decoration-color: currentColor;
+      text-decoration-thickness: var(--fd-event-link-underline-thickness, 1px);
+      text-underline-offset: 0.12em;
+      text-decoration-skip-ink: auto;
+    }
+
+    .title-link:hover,
+    .title-link:focus-visible {
+      text-decoration-thickness: var(
+        --fd-event-link-underline-thickness-emphasis,
+        2px
+      );
+    }
+
+    .title-link:focus-visible {
+      box-shadow: 0 0 0 2px
+          var(--fd-event-focus-gap, var(--ds-color-bg-input, #ffffff)),
+        0 0 0 4px
+          var(
+            --fd-event-focus-ring,
+            var(--ds-color-border-input-focus, #38b6ff)
+          );
+    }
+
+    [part="metadata"] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(
+        --fd-event-metadata-color,
+        var(--ds-color-text-secondary, #595961)
+      );
+      font-size: var(--fd-event-metadata-font-size, 16px);
+      font-weight: 400;
+      line-height: var(--fd-event-metadata-line-height, 1.375);
+    }
+
+    [part="metadata-item"] {
+      display: inline-flex;
+      align-items: center;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+
+    [part="metadata-item"] + [part="metadata-item"]::before {
+      content: "|";
+      margin-inline: var(--fd-event-metadata-separator-gap, 6px);
+      color: currentColor;
+    }
+
+    @media (forced-colors: active) {
+      .title-link:focus-visible {
+        box-shadow: none;
+        outline: 2px solid Highlight;
+        outline-offset: 2px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [part="date"],
+      .title-link {
+        transition: none;
+      }
+    }
+  `;
+
+  declare tone: EventTone;
+  declare month: string;
+  declare day: string;
+  declare title: string;
+  declare href: string | undefined;
+  declare target: string | undefined;
+  declare rel: string | undefined;
+  declare metadata: string[];
+
+  private readonly _titleId = `fd-event-title-${eventTitleIds += 1}`;
+
+  constructor() {
+    super();
+    this.tone = "neutral";
+    this.month = "";
+    this.day = "";
+    this.title = "";
+    this.href = undefined;
+    this.target = undefined;
+    this.rel = undefined;
+    this.metadata = [];
+  }
+
+  render() {
+    const tone = normalizeEventTone(this.tone);
+    const title = this.title.trim();
+    const month = this.month.trim();
+    const day = this.day.trim();
+    const href = this.href?.trim() || undefined;
+    const target = this.target?.trim() || undefined;
+    const rel = normalizeLinkRel(target, this.rel?.trim() || undefined);
+    const metadata = this.metadata.filter((item) => item.trim().length > 0);
+    const titleTemplate = href
+      ? html`
+          <a
+            id=${this._titleId}
+            class="title-link"
+            href=${href}
+            target=${ifDefined(target)}
+            rel=${ifDefined(rel)}
+          >
+            ${title}
+          </a>
+        `
+      : html`<p id=${this._titleId} class="title-text">${title}</p>`;
+
+    return html`
+      <article
+        part="base"
+        aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
+      >
+        <div part="date">
+          <p part="month">${month}</p>
+          <p part="day">${day}</p>
+        </div>
+        <div part="content">
+          <div part="title">${title ? titleTemplate : nothing}</div>
+          ${metadata.length
+            ? html`
+                <ul part="metadata">
+                  ${metadata.map(
+                    (item) => html`<li part="metadata-item">${item}</li>`,
+                  )}
+                </ul>
+              `
+            : nothing}
+        </div>
+      </article>
+    `;
+  }
+}

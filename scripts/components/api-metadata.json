@@ -3977,5 +3977,191 @@
       ],
       "after": ""
     }
+  },
+  "fd-event": {
+    "properties": {
+      "rows": [
+        {
+          "name": "tone",
+          "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Decorative tone applied to the visible month and day block."
+        },
+        {
+          "name": "month",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Visible month text shown in the date block. Author uppercase abbreviations when that presentation matters."
+        },
+        {
+          "name": "day",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Visible day text shown in the date block."
+        },
+        {
+          "name": "title",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Visible event title. When `href` is supplied, the title renders as the primary native link."
+        },
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional destination for the event title. When omitted, the title renders as plain text."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link target applied to the title link."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native relationship tokens applied to the title link. `target=\"_blank\"` always adds `noopener noreferrer`."
+        },
+        {
+          "name": "metadata",
+          "type": "`string[]`",
+          "defaultValue": "`[]`",
+          "description": "Lightweight metadata items rendered in a single wrapped list below the title. Set this as a JavaScript property."
+        }
+      ],
+      "after": "- `fd-event` is static in v1. It owns presentation only; the application owns event routing, sorting, filtering, analytics, and lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native title link when present."
+    },
+    "slots": {
+      "rows": [],
+      "after": "- `fd-event` does not expose consumer-authored slots in v1. Use the documented properties so the component can keep the title and metadata layout consistent."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-event-gap",
+          "default": "`12px`",
+          "description": "Gap between the date block and the text column."
+        },
+        {
+          "name": "--fd-event-link-color",
+          "default": "`var(--ds-color-text-link, #1278b0)`",
+          "description": "Linked title color."
+        },
+        {
+          "name": "--fd-event-metadata-color",
+          "default": "`var(--ds-color-text-secondary, #595961)`",
+          "description": "Metadata text color."
+        },
+        {
+          "name": "--fd-event-date-size",
+          "default": "`48px`",
+          "description": "Visible month/day block size."
+        }
+      ],
+      "after": "- The component exposes tone-specific date-block hooks such as `--fd-event-date-bg-warm` and `--fd-event-date-bg-cool` when a product needs to align the event family to a different token mapping without changing the public API."
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper."
+        },
+        {
+          "name": "date",
+          "description": "Visible month and day block."
+        },
+        {
+          "name": "month",
+          "description": "Month text inside the date block."
+        },
+        {
+          "name": "day",
+          "description": "Day text inside the date block."
+        },
+        {
+          "name": "content",
+          "description": "Text column containing the title and metadata."
+        },
+        {
+          "name": "title",
+          "description": "Title wrapper."
+        },
+        {
+          "name": "metadata",
+          "description": "Wrapped metadata list."
+        },
+        {
+          "name": "metadata-item",
+          "description": "Individual metadata list item."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-event-list": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
+        },
+        {
+          "name": "tone",
+          "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Shared decorative tone applied to each direct `fd-event` child in the list."
+        }
+      ],
+      "after": "- `fd-event-list` is a static grouping container. It does not own active-item, selection, or keyboard navigation state."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Author one or more direct `fd-event` children. Each direct child inherits the list's shared tone."
+        }
+      ],
+      "after": "- `fd-event-list` assigns `role=\"listitem\"` to direct `fd-event` children so the group is announced as a list without making the events themselves interactive.\n- `fd-event-list` also applies a single shared `tone` to each direct child event."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-event-list-min-column-size",
+          "default": "`384px`",
+          "description": "Minimum preferred inline size for each responsive event column."
+        },
+        {
+          "name": "--fd-event-list-row-gap",
+          "default": "`20px`",
+          "description": "Gap between event rows."
+        },
+        {
+          "name": "--fd-event-list-column-gap",
+          "default": "`24px`",
+          "description": "Gap between event columns."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Responsive list/grid wrapper."
+        }
+      ],
+      "after": ""
+    }
   }
 }

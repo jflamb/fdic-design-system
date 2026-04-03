@@ -173,6 +173,14 @@
       "types": "./dist/components/fd-page-feedback.d.ts",
       "import": "./dist/components/fd-page-feedback.js"
     },
+    "./fd-event": {
+      "types": "./dist/components/fd-event.d.ts",
+      "import": "./dist/components/fd-event.js"
+    },
+    "./fd-event-list": {
+      "types": "./dist/components/fd-event-list.d.ts",
+      "import": "./dist/components/fd-event-list.js"
+    },
     "./fd-tile": {
       "types": "./dist/components/fd-tile.d.ts",
       "import": "./dist/components/fd-tile.js"
