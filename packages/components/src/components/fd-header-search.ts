@@ -240,6 +240,7 @@ export class FdHeaderSearch extends LitElement {
 
     .native::placeholder {
       color: var(--ds-color-text-secondary, #595961);
+      opacity: 1;
     }
 
     .native::-webkit-search-decoration,

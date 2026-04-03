@@ -24,6 +24,22 @@ type GlobalHeaderArgs = {
   shyThreshold?: number;
 };
 
+function waitForSettledFrame(canvasElement: Element) {
+  const view = canvasElement.ownerDocument.defaultView;
+
+  if (!view) {
+    return Promise.resolve();
+  }
+
+  return new Promise<void>((resolve) => {
+    view.requestAnimationFrame(() => {
+      view.requestAnimationFrame(() => {
+        view.setTimeout(resolve, 260);
+      });
+    });
+  });
+}
+
 function createStoryArgs(): GlobalHeaderArgs {
   return {
     navigation: structuredClone(fdGlobalHeaderReferenceNavigation),
@@ -555,6 +571,8 @@ MobileDrawer.play = async ({ canvasElement }) => {
     expect(drawer).toBeTruthy();
     expect(getComputedStyle(drawer!).opacity).toBe("1");
   });
+
+  await waitForSettledFrame(canvasElement);
 };
 
 export const MobileDrillDown: Story = {
@@ -600,6 +618,8 @@ MobileDrillDown.play = async ({ canvasElement }) => {
     expect(backButton?.textContent).toContain("News & Events Overview");
     expect(overviewLink?.textContent).toContain("News");
   });
+
+  await waitForSettledFrame(canvasElement);
 };
 
 export const MobileSearchOpen: Story = {
@@ -630,4 +650,6 @@ MobileSearchOpen.play = async ({ canvasElement }) => {
     const shell = host?.shadowRoot?.querySelector(".mobile-search-shell") as HTMLElement | null;
     expect(shell?.getAttribute("data-open")).toBe("true");
   });
+
+  await waitForSettledFrame(canvasElement);
 };

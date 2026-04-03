@@ -41,6 +41,7 @@ export { FdEvent } from "./components/fd-event.js";
 export { FdEventList } from "./components/fd-event-list.js";
 export { FdTile } from "./components/fd-tile.js";
 export { FdTileList } from "./components/fd-tile-list.js";
+export { FdCard } from "./components/fd-card.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";

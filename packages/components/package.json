@@ -189,6 +189,10 @@
       "types": "./dist/components/fd-tile-list.d.ts",
       "import": "./dist/components/fd-tile-list.js"
     },
+    "./fd-card": {
+      "types": "./dist/components/fd-card.d.ts",
+      "import": "./dist/components/fd-card.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

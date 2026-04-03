@@ -4163,5 +4163,145 @@
       ],
       "after": ""
     }
+  },
+  "fd-card": {
+    "properties": {
+      "rows": [
+        {
+          "name": "size",
+          "type": "`\"medium\"` \\| `\"large\"`",
+          "defaultValue": "`\"medium\"`",
+          "description": "Visual layout treatment. `medium` places text beside the image; `large` stacks the image above the text."
+        },
+        {
+          "name": "category",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible supporting category text rendered above the title."
+        },
+        {
+          "name": "title",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible card title. When `href` is supplied, the title renders as the primary native link."
+        },
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional destination for the title. When omitted, the title renders as plain text."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native link target applied to the title link."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native relationship tokens applied to the title link. `target=\"_blank\"` always adds `noopener noreferrer`."
+        },
+        {
+          "name": "metadata",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible footer metadata text."
+        },
+        {
+          "name": "image-src",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Decorative image URL shown inside the card. The image is excluded from assistive technology in v1."
+        }
+      ],
+      "after": "- `fd-card` is static in v1. It owns layout, visual framing, and title-link presentation only; the application owns content, destinations, analytics, and lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native title link when present."
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-card-radius",
+          "default": "`7px`",
+          "description": "Card corner radius."
+        },
+        {
+          "name": "--fd-card-shadow",
+          "default": "`layered drop shadow`",
+          "description": "Default card elevation."
+        },
+        {
+          "name": "--fd-card-shadow-hover",
+          "default": "`layered drop shadow`",
+          "description": "Elevated hover and focus-visible shadow applied when the title link is hovered or focused."
+        },
+        {
+          "name": "--fd-card-border-hover",
+          "default": "`#bdbdbf`",
+          "description": "Border color used during linked hover and focus-visible state."
+        },
+        {
+          "name": "--fd-card-medium-media-size",
+          "default": "`160px`",
+          "description": "Square media size in the `medium` layout."
+        },
+        {
+          "name": "--fd-card-large-media-aspect-ratio",
+          "default": "`67 / 44`",
+          "description": "Image aspect ratio in the `large` layout."
+        },
+        {
+          "name": "--fd-card-focus-ring",
+          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "description": "Outer focus-ring color for the title link."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper."
+        },
+        {
+          "name": "body",
+          "description": "Main content region above the footer."
+        },
+        {
+          "name": "media",
+          "description": "Decorative image wrapper."
+        },
+        {
+          "name": "content",
+          "description": "Text column containing the category and title."
+        },
+        {
+          "name": "category",
+          "description": "Supporting category text."
+        },
+        {
+          "name": "title",
+          "description": "Title wrapper."
+        },
+        {
+          "name": "footer",
+          "description": "Footer row containing metadata."
+        },
+        {
+          "name": "metadata",
+          "description": "Footer metadata text."
+        }
+      ],
+      "after": ""
+    }
   }
 }

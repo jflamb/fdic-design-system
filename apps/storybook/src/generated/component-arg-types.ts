@@ -576,6 +576,28 @@ export const componentStoryApi = {
     "tone": "neutral",
     },
   },
+  "fd-card": {
+    argTypes: {
+    "size": { control: "select", options: ["medium","large"] },
+    "category": { control: "text" },
+    "title": { control: "text" },
+    "href": { control: "text" },
+    "target": { control: "text" },
+    "rel": { control: "text" },
+    "metadata": { control: "text" },
+    "imageSrc": { control: "text" },
+    },
+    args: {
+    "size": "medium",
+    "category": "",
+    "title": "",
+    "href": undefined,
+    "target": undefined,
+    "rel": undefined,
+    "metadata": "",
+    "imageSrc": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

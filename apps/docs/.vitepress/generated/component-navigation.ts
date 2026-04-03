@@ -58,7 +58,8 @@ export const componentSidebarGroups = [
     text: "Visual & Media",
     items: [
       { text: "Icon", link: "/components/icon" },
-      { text: "Visual", link: "/components/visual" }
+      { text: "Visual", link: "/components/visual" },
+      { text: "Card", link: "/components/card" }
     ]
   }
 ];

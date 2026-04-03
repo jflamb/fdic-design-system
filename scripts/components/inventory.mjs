@@ -897,6 +897,28 @@ export const componentInventory = [
     },
     typeExports: []
   },
+    {
+    tagName: "fd-card",
+    className: "FdCard",
+    sourceFile: "fd-card.ts",
+    docs: {
+      kind: "first-class",
+      title: "Card",
+      slug: "card",
+      category: "visual-media",
+      order: 30
+    },
+    storybook: {
+      title: "Components/Card",
+      file: "fd-card.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: []
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

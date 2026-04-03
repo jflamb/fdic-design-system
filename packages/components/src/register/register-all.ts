@@ -44,4 +44,5 @@ import "./fd-event.js";
 import "./fd-event-list.js";
 import "./fd-tile.js";
 import "./fd-tile-list.js";
+import "./fd-card.js";
 import "../icons/phosphor-regular.js";
