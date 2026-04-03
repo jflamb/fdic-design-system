@@ -32,6 +32,7 @@ Use this precedence order unless the invoking prompt states otherwise:
 - If you intentionally diverge from Figma or repo precedent, document why in GitHub artifacts.
 - If a supplied Figma color or other visual value fails browser-backed accessibility validation, prefer the accessible implementation and document the deviation in GitHub artifacts rather than silently shipping the inaccessible value.
 - If Figma exposes a token name but the export or MCP response does not serialize a concrete runtime value, prefer consuming the token by its canonical name with a safe visible fallback and record that fallback explicitly in GitHub artifacts and PR notes.
+- If implementation constraints force a meaningful change from the design proposal or initial API plan, update the Discussion, implementation Issue, PR description, and affected docs in the same run so the shipped contract and the recorded rationale stay aligned.
 
 ## Design Decisions To Record
 
@@ -196,6 +197,7 @@ Validation expectations:
 - When docs-theme or performance CSS changes land, verify them in the running docs surface against the real VitePress DOM instead of assuming the authored Markdown structure matches the shipped markup.
 - Review generated outputs for malformed changes, accidental deletions, duplicate headings, placeholders, stale generated sections, or misleading guidance.
 - When editing `scripts/components/api-metadata.json`, escape markdown union pipes as `\\|`; raw `|` characters can break generated API tables in component docs.
+- In `scripts/components/api-metadata.json`, represent the unnamed slot as `default`; do not serialize it as `(default)` or other display-only text.
 - If generated files changed only by ordering or formatting noise, verify the change is expected and avoid committing avoidable churn.
 - Post-merge verification should run on `main` and should not rerun optional surfaces unless they changed as part of the merged work.
 
