@@ -53,6 +53,7 @@ The Tile component presents one primary destination with a decorative circular i
 
 - **Keep the tile shell non-interactive.** The component renders a static article wrapper. Navigation belongs to the rendered native links, not the surrounding shell.
 - **Treat the visual as decorative.** `icon-name` selects the decorative icon inside the internal `fd-visual`. The icon is excluded from assistive technology, so the title and description must carry the meaning.
+- **Use `fd-tile-list` to set a shared grouped tone.** A standalone tile can choose its own `tone`, but direct children of `fd-tile-list` inherit the list's tone so one set cannot mix visual types.
 - **Set `links` as a JavaScript property.** Supporting links are structured data, not an HTML string or JSON attribute. This keeps the rendered link list predictable and avoids fragile parsing contracts.
 - **Limit supporting links to closely related destinations.** The component renders at most the first four valid link objects. If the content needs more destinations, use a broader content list or page navigation instead of overloading one tile.
 - **Let the component size itself responsively.** `fd-tile` uses container queries internally, so the same API can render the small, medium, and large Figma family without a public size variant.

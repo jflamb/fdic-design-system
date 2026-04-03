@@ -3925,6 +3925,12 @@
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
           "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
+        },
+        {
+          "name": "tone",
+          "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
+          "defaultValue": "`\"neutral\"`",
+          "description": "Shared decorative visual tone applied to each direct `fd-tile` child in the list."
         }
       ],
       "after": "- `fd-tile-list` is a static grouping container. It does not own selection, active-item, or keyboard navigation state."
@@ -3933,10 +3939,10 @@
       "rows": [
         {
           "name": "default",
-          "description": "Author one or more `fd-tile` children."
+          "description": "Author one or more `fd-tile` children. Each direct child inherits the list's shared tone."
         }
       ],
-      "after": "- `fd-tile-list` assigns `role=\"listitem\"` to direct `fd-tile` children so the group is announced as a list without making the tiles themselves interactive."
+      "after": "- `fd-tile-list` assigns `role=\"listitem\"` to direct `fd-tile` children so the group is announced as a list without making the tiles themselves interactive.\n- `fd-tile-list` also applies a single shared `tone` to each direct `fd-tile` child so one list cannot mix cool, neutral, and warm tile visuals."
     },
     "events": {
       "rows": [],

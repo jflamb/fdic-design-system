@@ -42,6 +42,96 @@ describe("FdTileList", () => {
     await tile.updateComplete;
 
     expect(tile.getAttribute("role")).toBe("listitem");
+    expect(tile.getAttribute("tone")).toBe("neutral");
+
+    list.remove();
+  });
+
+  it("applies the shared list tone to direct tile children", async () => {
+    const list = document.createElement("fd-tile-list") as HTMLElement & {
+      updateComplete: Promise<void>;
+      tone: "neutral" | "cool" | "warm";
+    };
+    const firstTile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      tone: string;
+      title: string;
+    };
+    const secondTile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      tone: string;
+      title: string;
+    };
+
+    list.tone = "warm";
+    firstTile.tone = "cool";
+    firstTile.title = "First tile";
+    secondTile.tone = "neutral";
+    secondTile.title = "Second tile";
+
+    list.append(firstTile, secondTile);
+    document.body.appendChild(list);
+
+    await list.updateComplete;
+    await firstTile.updateComplete;
+    await secondTile.updateComplete;
+
+    expect(firstTile.getAttribute("tone")).toBe("warm");
+    expect(secondTile.getAttribute("tone")).toBe("warm");
+
+    list.remove();
+  });
+
+  it("updates child tile tones when the list tone changes", async () => {
+    const list = document.createElement("fd-tile-list") as HTMLElement & {
+      updateComplete: Promise<void>;
+      tone: "neutral" | "cool" | "warm";
+    };
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+
+    list.tone = "cool";
+    tile.title = "Health benefits";
+    list.append(tile);
+    document.body.appendChild(list);
+
+    await list.updateComplete;
+    expect(tile.getAttribute("tone")).toBe("cool");
+
+    list.tone = "warm";
+    await list.updateComplete;
+    await tile.updateComplete;
+
+    expect(tile.getAttribute("tone")).toBe("warm");
+
+    list.remove();
+  });
+
+  it("restores the shared list tone if a child tile tries to override it", async () => {
+    const list = document.createElement("fd-tile-list") as HTMLElement & {
+      updateComplete: Promise<void>;
+      tone: "neutral" | "cool" | "warm";
+    };
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+
+    list.tone = "cool";
+    tile.title = "Health benefits";
+    list.append(tile);
+    document.body.appendChild(list);
+
+    await list.updateComplete;
+    await tile.updateComplete;
+
+    tile.setAttribute("tone", "warm");
+    await Promise.resolve();
+    await tile.updateComplete;
+
+    expect(tile.getAttribute("tone")).toBe("cool");
 
     list.remove();
   });
