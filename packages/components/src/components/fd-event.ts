@@ -83,9 +83,10 @@ export class FdEvent extends LitElement {
       align-items: center;
       justify-content: center;
       inline-size: var(--fd-event-date-size, 48px);
+      block-size: var(--fd-event-date-size, 48px);
       min-inline-size: var(--fd-event-date-size, 48px);
       min-block-size: var(--fd-event-date-size, 48px);
-      padding: var(--fd-event-date-padding-block, 8px)
+      padding: var(--fd-event-date-padding-block, 4px)
         var(--fd-event-date-padding-inline, 4px);
       gap: var(--fd-event-date-gap, 6px);
       border-radius: var(--fd-event-date-radius, 3px);
@@ -155,7 +156,7 @@ export class FdEvent extends LitElement {
       margin: 0;
       font-size: var(--fd-event-month-font-size, 12px);
       font-weight: var(--fd-event-month-font-weight, 600);
-      line-height: var(--fd-event-month-line-height, 1.5);
+      line-height: var(--fd-event-month-line-height, 1);
       letter-spacing: var(--fd-event-month-letter-spacing, 0.03em);
       text-transform: uppercase;
     }
@@ -164,7 +165,7 @@ export class FdEvent extends LitElement {
       margin: 0;
       font-size: var(--fd-event-day-font-size, 22px);
       font-weight: var(--fd-event-day-font-weight, 500);
-      line-height: var(--fd-event-day-line-height, 1.4545);
+      line-height: var(--fd-event-day-line-height, 1);
     }
 
     [part="content"] {
