@@ -4,169 +4,85 @@
 > Auto-generated skill from repository analysis
 
 ## Overview
-
-This skill teaches you how to contribute to the `fdic-design-system` repository, a TypeScript-based design system for FDIC projects. It covers coding conventions, common workflows (such as adding components, updating CI, bumping dependencies, theming, and documentation), and testing patterns. By following these patterns, you can ensure your contributions are consistent, maintainable, and aligned with the project's standards.
+This skill teaches you the core development patterns and conventions used in the `fdic-design-system` TypeScript codebase. You'll learn about file organization, import/export styles, commit message formatting, and how to write and locate tests. This guide is designed to help contributors maintain consistency and quality throughout the project.
 
 ## Coding Conventions
 
-- **File Naming:** Use kebab-case for all files.
-  - Example: `button-group.ts`, `alert-banner.test.ts`
-- **Import Style:** Use absolute imports.
+### File Naming
+- Use **camelCase** for all file names.
+  - Example: `buttonComponent.ts`, `formField.ts`
+
+### Import Style
+- Use **relative imports** for referencing other modules within the codebase.
   - Example:
-    ```ts
-    import { Button } from 'packages/components/src/components/button'
+    ```typescript
+    import { Button } from './buttonComponent';
     ```
-- **Export Style:** Use named exports.
+
+### Export Style
+- Use **named exports** rather than default exports.
   - Example:
-    ```ts
-    // button.ts
-    export function Button(props: ButtonProps) { ... }
+    ```typescript
+    // buttonComponent.ts
+    export const Button = () => { /* ... */ };
     ```
-- **Commit Messages:** Follow Conventional Commits.
-  - Prefixes: `feat`, `fix`, `docs`, `chore`, `refactor`, `ci`
-  - Example: `feat(button): add loading state support`
-- **Code Structure:** Components live in `packages/components/src/components/`. Registration, stories, and docs are in their respective folders.
-- **Documentation:** Use Markdown for docs in `apps/docs/components/` and `apps/docs/guide/`.
+
+### Commit Messages
+- Follow **conventional commit** format.
+- Use the `feat` prefix for new features.
+  - Example:
+    ```
+    feat: add accessible button component
+    ```
 
 ## Workflows
 
-### Add or Update Component
-**Trigger:** When adding a new UI component or making significant updates to an existing one  
-**Command:** `/new-component`
+### Adding a New Component
+**Trigger:** When you need to introduce a new UI component.
+**Command:** `/add-component`
 
-1. Create or update the component file in `packages/components/src/components/`.
-2. Add or update the corresponding test file in the same directory.
-3. Register the component in `packages/components/src/register/` and/or update `packages/components/src/index.ts`.
-4. Update `packages/components/package.json` if needed (e.g., exports, dependencies).
-5. Add or update the Storybook story in `apps/storybook/src/`.
-6. Write or update the documentation page in `apps/docs/components/`.
-7. Sync or update `scripts/components/api-metadata.json` and `scripts/components/inventory.mjs`.
-8. If the component is new, update `apps/docs/.vitepress/generated/component-navigation.ts` and/or `apps/docs/components/index.md`.
+1. Create a new file using camelCase naming (e.g., `myNewComponent.ts`).
+2. Implement the component using TypeScript.
+3. Export the component using a named export.
+4. Write a corresponding test file named `myNewComponent.test.ts`.
+5. Commit your changes with a conventional commit message:
+    ```
+    feat: add my new component
+    ```
 
-**Example:**
-```ts
-// packages/components/src/components/alert-banner.ts
-export function AlertBanner(props: AlertBannerProps) { ... }
-```
-```ts
-// packages/components/src/components/alert-banner.test.ts
-import { describe, it, expect } from 'vitest'
-import { AlertBanner } from './alert-banner'
-describe('AlertBanner', () => {
-  it('renders', () => {
-    // test implementation
-  })
-})
-```
+### Writing Tests
+**Trigger:** When you add or update functionality.
+**Command:** `/write-test`
 
-### CI Workflow Update
-**Trigger:** When updating or refactoring GitHub Actions workflows for CI/CD  
-**Command:** `/update-ci`
+1. Create a test file with the pattern `*.test.ts` (e.g., `buttonComponent.test.ts`).
+2. Write tests covering the component or module logic.
+3. Run your test suite (framework unspecified; refer to project documentation if available).
+4. Ensure all tests pass before committing.
 
-1. Edit or create workflow files in `.github/workflows/` (e.g., `component-integrity.yml`).
-2. Edit or create files in `.github/actions/` if custom actions are needed.
-3. Update workflow inputs, runners, or action versions as required.
-4. Update related scripts or config files if necessary.
+### Refactoring Code
+**Trigger:** When improving or restructuring existing code.
+**Command:** `/refactor`
 
-**Example:**
-```yaml
-# .github/workflows/component-integrity.yml
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm test
-```
-
-### Dependency Bump
-**Trigger:** When a dependency update is available or required  
-**Command:** `/bump-dependency`
-
-1. Update `package.json` and/or `package-lock.json` in the relevant packages.
-2. Update workflow files in `.github/workflows/` if bumping GitHub Actions dependencies.
-3. Commit with a standardized message referencing the dependency and version change.
-
-**Example:**
-```json
-// packages/components/package.json
-{
-  "dependencies": {
-    "react": "^18.2.0"
-  }
-}
-```
-```yaml
-# .github/workflows/deploy-pages.yml
-- uses: actions/deploy-pages@v2
-```
-
-### Component CSS/Token/Theme Update
-**Trigger:** When updating design tokens, theme CSS, or component-level styles  
-**Command:** `/update-tokens`
-
-1. Edit CSS token files in `apps/docs/.vitepress/theme/` and/or `apps/storybook/.storybook/`.
-2. Update component styles in `packages/components/src/components/*.ts`.
-3. Update related documentation or stories if needed.
-
-**Example:**
-```css
-/* apps/docs/.vitepress/theme/tokens.css */
-:root {
-  --color-primary: #005ea2;
-}
-```
-```ts
-// packages/components/src/components/button.ts
-export function Button(props) {
-  return <button className="fdic-btn">{props.children}</button>
-}
-```
-
-### Documentation Expansion or Refactor
-**Trigger:** When improving, expanding, or reorganizing documentation  
-**Command:** `/update-docs`
-
-1. Edit or add Markdown files in `apps/docs/components/` or `apps/docs/guide/`.
-2. Update navigation or index files in `apps/docs/.vitepress/` or `apps/docs/components/index.md`.
-3. Optionally, update related prompts or `CONTRIBUTING.md`.
-
-**Example:**
-```markdown
-<!-- apps/docs/components/alert-banner.md -->
-# AlertBanner
-
-Displays an important message at the top of the page.
-```
+1. Identify the code to refactor.
+2. Make changes while preserving existing functionality.
+3. Update or add tests as needed.
+4. Use a conventional commit message:
+    ```
+    feat: refactor [component/module] for clarity
+    ```
 
 ## Testing Patterns
 
-- **Framework:** [Vitest](https://vitest.dev/)
-- **Test File Pattern:** `*.test.ts` (located alongside the component)
-- **Test Structure:** Use `describe`, `it`, and `expect` from Vitest.
-
-**Example:**
-```ts
-import { describe, it, expect } from 'vitest'
-import { Button } from './button'
-
-describe('Button', () => {
-  it('renders with label', () => {
-    // test implementation
-  })
-})
-```
+- Test files use the pattern `*.test.ts`.
+- The specific testing framework is not specified; check project documentation or existing test files for guidance.
+- Place test files alongside the modules they test or in a dedicated test directory.
+- Example test file name: `buttonComponent.test.ts`
 
 ## Commands
+| Command         | Purpose                                    |
+|-----------------|--------------------------------------------|
+| /add-component  | Scaffold and add a new UI component        |
+| /write-test     | Create and run tests for a component/module|
+| /refactor       | Refactor existing code with best practices |
 
-| Command           | Purpose                                                      |
-|-------------------|--------------------------------------------------------------|
-| /new-component    | Add or update a UI component, including tests and docs       |
-| /update-ci        | Update or refactor CI/CD GitHub Actions workflows            |
-| /bump-dependency  | Bump npm or GitHub Actions dependencies                      |
-| /update-tokens    | Update design tokens, theme CSS, or component-level styles   |
-| /update-docs      | Add or refactor documentation and guides                     |
 ```
