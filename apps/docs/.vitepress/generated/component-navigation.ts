@@ -33,6 +33,7 @@ export const componentSidebarGroups = [
     items: [
       { text: "Alert", link: "/components/alert" },
       { text: "Badge", link: "/components/badge" },
+      { text: "Page Feedback", link: "/components/page-feedback" },
       { text: "Badge Group", link: "/components/badge-group" },
       { text: "Chip", link: "/components/chip" },
       { text: "Chip Group", link: "/components/chip-group" }

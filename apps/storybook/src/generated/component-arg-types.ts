@@ -498,6 +498,20 @@ export const componentStoryApi = {
     "actionRel": undefined,
     },
   },
+  "fd-page-feedback": {
+    argTypes: {
+    "view": { control: "select", options: ["prompt","survey","report","thanks"] },
+    "surveyHref": { control: "text" },
+    "surveyTarget": { control: "text" },
+    "surveyRel": { control: "text" },
+    },
+    args: {
+    "view": "prompt",
+    "surveyHref": undefined,
+    "surveyTarget": undefined,
+    "surveyRel": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

@@ -3662,5 +3662,138 @@
       ],
       "after": ""
     }
+  },
+  "fd-page-feedback": {
+    "properties": {
+      "rows": [
+        {
+          "name": "view",
+          "type": "`\"prompt\"` \\| `\"survey\"` \\| `\"report\"` \\| `\"thanks\"`",
+          "defaultValue": "`\"prompt\"`",
+          "description": "Current visible state. The component updates this internally for its built-in flow, but hosts may also set it directly to reset or override the visible state."
+        },
+        {
+          "name": "survey-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional survey destination used by the survey follow-up link."
+        },
+        {
+          "name": "survey-target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional native target for the survey link."
+        },
+        {
+          "name": "survey-rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional native rel tokens for the survey link. Use this when the survey destination needs extra relationship hints beyond the component's default link behavior."
+        }
+      ],
+      "after": "`fd-page-feedback` intentionally keeps copy and field structure fixed in v1. Hosts configure the survey destination and respond to events instead of customizing every label."
+    },
+    "slots": {
+      "rows": [],
+      "after": "No slots in v1. The component ships as an opinionated pattern so adopters do not have to rebuild the same layout, focus recovery, and action hierarchy from scratch."
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-page-feedback-view-change",
+          "detail": "`{ view: \"prompt\" \\| \"survey\" \\| \"report\" \\| \"thanks\", previousView: \"prompt\" \\| \"survey\" \\| \"report\" \\| \"thanks\", reason: \"yes\" \\| \"no\" \\| \"report\" \\| \"cancel-survey\" \\| \"cancel-report\" \\| \"submit-report\" \\| \"external\" }`",
+          "description": "Fired whenever the visible view changes through the built-in interaction flow or an external `view` write."
+        },
+        {
+          "name": "fd-page-feedback-report-submit",
+          "detail": "`{ tryingToDo: string, wentWrong: string }`",
+          "description": "Cancelable event fired when the report action is submitted. If not canceled, the component clears the draft values and moves to the thank-you state."
+        }
+      ],
+      "after": "`fd-page-feedback-report-submit` is cancelable so the host can keep the report view open while it performs validation, analytics, or transport work."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-page-feedback-border-image",
+          "default": "`var(--fdic-gradient-brand-core, var(--fdic-brand-core-light, #38b6ff))`",
+          "description": "Decorative top rule fill applied to the feedback surface."
+        },
+        {
+          "name": "--fd-page-feedback-inline-padding",
+          "default": "`64px`",
+          "description": "Desktop inline padding."
+        },
+        {
+          "name": "--fd-page-feedback-inline-padding-mobile",
+          "default": "`16px`",
+          "description": "Mobile inline padding at `640px` and below."
+        },
+        {
+          "name": "--fd-page-feedback-block-padding",
+          "default": "`24px`",
+          "description": "Desktop block padding."
+        },
+        {
+          "name": "--fd-page-feedback-block-padding-mobile",
+          "default": "`20px`",
+          "description": "Mobile block padding at `640px` and below."
+        },
+        {
+          "name": "--fd-page-feedback-gap",
+          "default": "`16px`",
+          "description": "Gap between stacked elements inside survey and report states."
+        },
+        {
+          "name": "--fd-page-feedback-prompt-max-width",
+          "default": "`344px`",
+          "description": "Maximum inline size for the desktop prompt cluster."
+        },
+        {
+          "name": "--fd-page-feedback-heading-size",
+          "default": "`22.5px`",
+          "description": "Heading-size override for the survey and report titles."
+        },
+        {
+          "name": "--fd-page-feedback-thank-you-color",
+          "default": "`inherit`",
+          "description": "Thank-you message color."
+        }
+      ],
+      "after": "Buttons, links, icons, and textareas keep their own component-scoped tokens. `fd-page-feedback` only exposes framing and layout overrides in v1."
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Outer feedback surface."
+        },
+        {
+          "name": "prompt",
+          "description": "Active prompt or view heading text."
+        },
+        {
+          "name": "responses",
+          "description": "Yes/No response row in the prompt state."
+        },
+        {
+          "name": "survey-link",
+          "description": "Survey link wrapper in the survey state."
+        },
+        {
+          "name": "report-fields",
+          "description": "Stack containing the two report text areas."
+        },
+        {
+          "name": "actions",
+          "description": "Action row for the active state."
+        },
+        {
+          "name": "thank-you",
+          "description": "Focusable thank-you acknowledgement container."
+        }
+      ],
+      "after": ""
+    }
   }
 }
