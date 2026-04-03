@@ -32,7 +32,7 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Visual & Media</span>
-    <h3>Icon, Visual</h3>
+    <h3>Icon, Visual, Card</h3>
     <p>Icons and visual primitives that support other components and layouts without becoming full authored-content patterns.</p>
   </div>
   <div class="fdic-card">
@@ -99,3 +99,4 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 
 - [Icon](./icon) documents icon usage, constraints, and accessibility guidance.
 - [Visual](./visual) documents the supporting primitive contract for visual.
+- [Card](./card) documents card usage, constraints, and accessibility guidance.

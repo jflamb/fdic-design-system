@@ -10,6 +10,8 @@ type StorybookTheme = "dark" | "light";
 const EMBED_THEME_QUERY_PARAM = "fdic-theme";
 const STORYBOOK_THEME_GLOBAL = "theme";
 const STORYBOOK_THEME_MESSAGE_TYPE = "fdic-theme-change";
+const RESIZE_OBSERVER_LOOP_MESSAGE =
+  "ResizeObserver loop completed with undelivered notifications.";
 
 const isStorybookTheme = (value: unknown): value is StorybookTheme =>
   value === "dark" || value === "light";
@@ -67,6 +69,15 @@ const applyEmbedTheme = (theme: StorybookTheme = "light"): void => {
 };
 
 if (typeof window !== "undefined") {
+  // Chromium can surface benign ResizeObserver loop warnings during complex
+  // Storybook interactions such as the global-header stories. Ignore only this
+  // known browser noise so Vitest browser runs stay focused on real regressions.
+  window.addEventListener("error", (event) => {
+    if (event.message === RESIZE_OBSERVER_LOOP_MESSAGE) {
+      event.preventDefault();
+    }
+  });
+
   window.addEventListener("message", (event: MessageEvent<unknown>) => {
     const data = event.data;
 
