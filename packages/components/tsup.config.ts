@@ -46,6 +46,8 @@ export default defineConfig({
     "components/fd-page-header-button": "src/components/fd-page-header-button.ts",
     "components/fd-hero": "src/components/fd-hero.ts",
     "components/fd-page-feedback": "src/components/fd-page-feedback.ts",
+    "components/fd-tile": "src/components/fd-tile.ts",
+    "components/fd-tile-list": "src/components/fd-tile-list.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -81,6 +83,8 @@ export default defineConfig({
     "register/fd-page-header": "src/register/fd-page-header.ts",
     "register/fd-hero": "src/register/fd-hero.ts",
     "register/fd-page-feedback": "src/register/fd-page-feedback.ts",
+    "register/fd-tile": "src/register/fd-tile.ts",
+    "register/fd-tile-list": "src/register/fd-tile-list.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

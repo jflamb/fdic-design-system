@@ -173,6 +173,14 @@
       "types": "./dist/components/fd-page-feedback.d.ts",
       "import": "./dist/components/fd-page-feedback.js"
     },
+    "./fd-tile": {
+      "types": "./dist/components/fd-tile.d.ts",
+      "import": "./dist/components/fd-tile.js"
+    },
+    "./fd-tile-list": {
+      "types": "./dist/components/fd-tile-list.d.ts",
+      "import": "./dist/components/fd-tile-list.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"
