@@ -364,7 +364,7 @@ export class FdHeaderSearch extends LitElement {
       background: transparent;
       color: var(--ds-color-text-primary, #0c2336);
       text-decoration: none;
-      text-align: left;
+      text-align: start;
     }
 
     .result-link:hover,

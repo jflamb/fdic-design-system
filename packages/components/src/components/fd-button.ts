@@ -33,6 +33,7 @@ export class FdButton extends LitElement {
       gap: var(--fd-button-gap, var(--fdic-spacing-2xs, 4px));
       min-height: var(--fd-button-height, 44px);
       min-width: var(--fd-button-min-width, 44px);
+      min-inline-size: 0;
       padding-inline: 7px;
       border: none;
       border-radius: var(
@@ -235,6 +236,8 @@ export class FdButton extends LitElement {
       display: inline-flex;
       align-items: center;
       padding-inline: 6px;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
     }
     .icon-only .label,
     .icon-only .loading-label {

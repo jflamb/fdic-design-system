@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { normalizeLinkRel } from "./link-utils.js";
 
 export const EVENT_TONES = ["neutral", "cool", "warm"] as const;
 export type EventTone = (typeof EVENT_TONES)[number];
@@ -10,24 +11,6 @@ let eventTitleIds = 0;
 
 function normalizeEventTone(value: string | undefined): EventTone {
   return value && EVENT_TONE_SET.has(value) ? (value as EventTone) : "neutral";
-}
-
-function normalizeLinkRel(target: string | undefined, rel: string | undefined) {
-  if (target !== "_blank") {
-    return rel;
-  }
-
-  const tokens = new Set(
-    (rel ?? "")
-      .split(/\s+/)
-      .map((token) => token.trim().toLowerCase())
-      .filter(Boolean),
-  );
-
-  tokens.add("noopener");
-  tokens.add("noreferrer");
-
-  return [...tokens].join(" ");
 }
 
 /**

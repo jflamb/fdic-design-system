@@ -366,6 +366,13 @@ export class FdSlider extends LitElement {
       border: 0;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      [part="range"]::-webkit-slider-thumb,
+      [part="range"]::-moz-range-thumb {
+        transition: none;
+      }
+    }
+
     @media (forced-colors: active) {
       [part="track"] {
         background: GrayText;

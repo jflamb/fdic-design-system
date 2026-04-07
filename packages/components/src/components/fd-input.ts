@@ -647,11 +647,11 @@ export class FdInput extends LitElement {
 
     /* Reduce padding on native input when slots are present */
     .fd-input__has-prefix [part="native"] {
-      padding-left: 0;
+      padding-inline-start: 0;
     }
 
     .fd-input__has-suffix [part="native"] {
-      padding-right: 0;
+      padding-inline-end: 0;
     }
 
     /* Disabled slotted content */

@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { normalizeLinkRel } from "./link-utils.js";
 
 export const CARD_SIZES = ["medium", "large"] as const;
 export type CardSize = (typeof CARD_SIZES)[number];
@@ -10,24 +11,6 @@ let cardTitleIds = 0;
 
 function normalizeCardSize(value: string | undefined): CardSize {
   return value && CARD_SIZE_SET.has(value) ? (value as CardSize) : "medium";
-}
-
-function normalizeLinkRel(target: string | undefined, rel: string | undefined) {
-  if (target !== "_blank") {
-    return rel;
-  }
-
-  const tokens = new Set(
-    (rel ?? "")
-      .split(/\s+/)
-      .map((token) => token.trim().toLowerCase())
-      .filter(Boolean),
-  );
-
-  tokens.add("noopener");
-  tokens.add("noreferrer");
-
-  return [...tokens].join(" ");
 }
 
 /**

@@ -107,7 +107,7 @@ export class FdSelector extends LitElement {
       color: inherit;
       cursor: pointer;
       box-sizing: border-box;
-      text-align: left;
+      text-align: start;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }

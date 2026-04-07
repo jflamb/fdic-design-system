@@ -997,7 +997,7 @@ export class FdGlobalHeader extends LitElement {
       border: 0;
       background: transparent;
       color: var(--fd-global-header-color-text-primary);
-      text-align: left;
+      text-align: start;
       border-radius: 0;
       cursor: pointer;
       font-size: 1rem;
@@ -1214,7 +1214,7 @@ export class FdGlobalHeader extends LitElement {
       font-weight: 400;
       line-height: 1.375;
       cursor: pointer;
-      text-align: left;
+      text-align: start;
       transition:
         box-shadow 120ms ease,
         background-color 120ms ease,
@@ -1285,7 +1285,7 @@ export class FdGlobalHeader extends LitElement {
       border-radius: 0;
       background: var(--fd-global-header-color-surface-base);
       color: var(--fd-global-header-color-text-primary);
-      text-align: left;
+      text-align: start;
       text-decoration: none;
       transition:
         box-shadow 120ms ease,

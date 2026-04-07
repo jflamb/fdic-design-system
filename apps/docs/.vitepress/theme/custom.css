@@ -722,79 +722,22 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Storybook embed                                                     */
+/* Storybook & Figma embeds (shared structure)                         */
 /* ------------------------------------------------------------------ */
 
-.fdic-story-embed {
-  margin: 1.25rem 0 2rem;
-}
-
-.fdic-story-embed-frame {
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.fdic-story-embed-frame iframe {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.fdic-story-embed-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 12rem;
-  border: 2px dashed var(--fdic-docs-border);
-  border-radius: 12px;
-  background: var(--fdic-docs-surface);
-  color: var(--fdic-docs-muted);
-  text-align: center;
-  padding: 2rem;
-}
-
-.fdic-story-embed-placeholder-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  opacity: 0.4;
-}
-
-.fdic-story-embed-placeholder-hint {
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-}
-
-.fdic-story-embed-caption {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--fdic-docs-muted);
-}
-
-.fdic-story-embed-link {
-  font-size: 0.875rem;
-  white-space: nowrap;
-}
-
-/* ------------------------------------------------------------------ */
-/* Figma embed                                                         */
-/* ------------------------------------------------------------------ */
-
+.fdic-story-embed,
 .fdic-figma-embed {
   margin: 1.25rem 0 2rem;
 }
 
+.fdic-story-embed-frame,
 .fdic-figma-embed-frame {
   border: 1px solid var(--fdic-docs-border);
   border-radius: 12px;
   overflow: hidden;
 }
 
+.fdic-story-embed-frame iframe,
 .fdic-figma-embed-frame iframe {
   display: block;
   width: 100%;
@@ -802,6 +745,7 @@
   border: 0;
 }
 
+.fdic-story-embed-placeholder,
 .fdic-figma-embed-placeholder {
   display: flex;
   flex-direction: column;
@@ -816,17 +760,20 @@
   padding: 2rem;
 }
 
+.fdic-story-embed-placeholder-icon,
 .fdic-figma-embed-placeholder-icon {
   font-size: 2rem;
   margin-bottom: 0.5rem;
   opacity: 0.4;
 }
 
+.fdic-story-embed-placeholder-hint,
 .fdic-figma-embed-placeholder-hint {
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
 
+.fdic-story-embed-caption,
 .fdic-figma-embed-caption {
   display: flex;
   align-items: baseline;
@@ -836,6 +783,7 @@
   color: var(--fdic-docs-muted);
 }
 
+.fdic-story-embed-link,
 .fdic-figma-embed-link {
   font-size: 0.875rem;
   white-space: nowrap;

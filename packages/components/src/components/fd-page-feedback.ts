@@ -146,6 +146,7 @@ export class FdPageFeedback extends LitElement {
       font-size: var(--fdic-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
+      overflow-wrap: anywhere;
     }
 
     .prompt-copy--heading {
@@ -160,6 +161,7 @@ export class FdPageFeedback extends LitElement {
       font-weight: 400;
       line-height: 1.375;
       max-inline-size: 45rem;
+      overflow-wrap: anywhere;
     }
 
     .responses {
@@ -241,6 +243,7 @@ export class FdPageFeedback extends LitElement {
       color: var(--fd-page-feedback-thank-you-color, inherit);
       font-size: var(--fdic-font-size-body-big, 1.25rem);
       font-weight: 450;
+      overflow-wrap: anywhere;
       line-height: 1.25;
       outline: none;
     }

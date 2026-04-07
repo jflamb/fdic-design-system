@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { normalizeLinkRel } from "./link-utils.js";
 
 export const TILE_TONES = ["neutral", "cool", "warm"] as const;
 export type TileTone = (typeof TILE_TONES)[number];
@@ -17,24 +18,6 @@ let tileTitleIds = 0;
 
 function normalizeTileTone(value: string | undefined): TileTone {
   return value && TILE_TONE_SET.has(value) ? (value as TileTone) : "neutral";
-}
-
-function normalizeLinkRel(target: string | undefined, rel: string | undefined) {
-  if (target !== "_blank") {
-    return rel;
-  }
-
-  const tokens = new Set(
-    (rel ?? "")
-      .split(/\s+/)
-      .map((token) => token.trim().toLowerCase())
-      .filter(Boolean),
-  );
-
-  tokens.add("noopener");
-  tokens.add("noreferrer");
-
-  return [...tokens].join(" ");
 }
 
 /**
