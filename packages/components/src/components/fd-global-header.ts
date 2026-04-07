@@ -290,8 +290,8 @@ export class FdGlobalHeader extends LitElement {
       --fd-global-header-color-accent: var(--fdic-border-input-focus, #38b6ff);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, #84dbff);
       --fd-global-header-color-border-subtle: var(--fdic-border-divider, #bdbdbf);
-      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, var(--ds-color-bg-surface, #f7fafc));
-      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, var(--ds-color-bg-container, #edf3f7));
+      --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, #f5f5f7);
+      --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, #edf3f7);
       display: block;
       color: var(--fd-global-header-color-host);
       font-family: var(
