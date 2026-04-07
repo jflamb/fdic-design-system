@@ -352,7 +352,7 @@ export class FdGlobalHeader extends LitElement {
       transform: translateY(0);
       transition-property: transform;
       transition-duration: var(--_fd-global-header-shy-duration, 300ms);
-      transition-timing-function: ease;
+      transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
       will-change: transform;
     }
 
@@ -367,8 +367,8 @@ export class FdGlobalHeader extends LitElement {
     .base[data-compact-desktop="true"] {
       box-shadow: 0 10px 28px rgba(0, 18, 32, 0.18);
       transition:
-        transform var(--_fd-global-header-shy-duration, 300ms) ease,
-        box-shadow 250ms ease;
+        transform var(--_fd-global-header-shy-duration, 300ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        box-shadow 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .shell {
@@ -387,8 +387,8 @@ export class FdGlobalHeader extends LitElement {
 
     .base[data-shy-active="true"] .masthead {
       transition:
-        padding 250ms ease,
-        min-height 250ms ease;
+        padding 250ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        min-height 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .masthead-row {
@@ -540,10 +540,10 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-shell {
       overflow: clip;
       transition:
-        max-height 220ms ease,
-        opacity 180ms ease,
-        border-bottom-width 180ms ease,
-        visibility 180ms ease;
+        max-height 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 180ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        border-bottom-width 180ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        visibility 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .top-nav-list {
@@ -600,9 +600,9 @@ export class FdGlobalHeader extends LitElement {
       opacity: 0;
       transform: translateX(var(--top-nav-indicator-offset, 0px));
       transition:
-        transform 220ms ease,
-        width 220ms ease,
-        opacity 160ms ease;
+        transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        width 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 160ms cubic-bezier(0.2, 0.7, 0.2, 1);
       z-index: 0;
     }
 
@@ -646,7 +646,7 @@ export class FdGlobalHeader extends LitElement {
       height: 4px;
       background: var(--fd-global-header-color-accent);
       opacity: 0;
-      transition: opacity 120ms ease;
+      transition: opacity 120ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .top-nav-link:hover,
@@ -720,7 +720,7 @@ export class FdGlobalHeader extends LitElement {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 180ms ease, visibility 180ms ease;
+      transition: opacity 180ms cubic-bezier(0.2, 0.7, 0.2, 1), visibility 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
       z-index: 10;
     }
 
@@ -744,7 +744,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .base[data-shy-active="true"] ::slotted([slot="brand"]) {
-      transition: transform 250ms ease;
+      transition: transform 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] ::slotted([slot="brand"]) {
@@ -762,8 +762,8 @@ export class FdGlobalHeader extends LitElement {
 
     .base[data-shy-active="true"] ::slotted([slot="utility"]) {
       transition:
-        width 250ms ease,
-        height 250ms ease;
+        width 250ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        height 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] ::slotted([slot="utility"]) {
@@ -790,7 +790,7 @@ export class FdGlobalHeader extends LitElement {
 
     .base[data-compact-desktop="true"] .compact-menu-toggle fd-icon {
       --fd-icon-size: 1rem;
-      transition: transform 180ms ease;
+      transition: transform 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] .compact-menu-toggle[aria-expanded="true"] fd-icon {
@@ -814,8 +814,8 @@ export class FdGlobalHeader extends LitElement {
       pointer-events: none;
       transition:
         width 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
-        opacity 180ms ease,
-        transform 220ms ease;
+        opacity 180ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] .desktop-search-shell {
@@ -831,8 +831,8 @@ export class FdGlobalHeader extends LitElement {
       opacity: 1;
       transform: scale(1);
       transition:
-        opacity 140ms ease,
-        transform 180ms ease;
+        opacity 140ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] .compact-search-toggle {
@@ -930,12 +930,24 @@ export class FdGlobalHeader extends LitElement {
       z-index: 0;
     }
 
+    @keyframes mega-col-enter {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+    }
+
     .mega-col {
       position: relative;
       min-width: 0;
       padding: 0.5rem 0;
       z-index: 1;
+      animation: mega-col-enter 250ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
     }
+
+    .mega-col--l1 { animation-delay: 0ms; }
+    .mega-col--l2 { animation-delay: 40ms; }
+    .mega-col--l3 { animation-delay: 80ms; }
 
     .mega-col::before {
       content: "";
@@ -947,9 +959,9 @@ export class FdGlobalHeader extends LitElement {
       background: var(--fd-global-header-color-accent);
       opacity: var(--column-rail-opacity, 0);
       transition:
-        top 180ms ease,
-        height 180ms ease,
-        opacity 180ms ease;
+        top 180ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        height 180ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mega-col--l1 {
@@ -1127,9 +1139,9 @@ export class FdGlobalHeader extends LitElement {
       opacity: 0;
       visibility: hidden;
       transition:
-        transform 220ms ease,
-        opacity 220ms ease,
-        visibility 220ms ease;
+        transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        visibility 260ms cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 80;
       pointer-events: none;
       padding-bottom: 1.125rem;
@@ -1216,9 +1228,9 @@ export class FdGlobalHeader extends LitElement {
       cursor: pointer;
       text-align: start;
       transition:
-        box-shadow 120ms ease,
-        background-color 120ms ease,
-        transform 100ms ease;
+        box-shadow 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-back:hover {
@@ -1242,7 +1254,7 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-back fd-icon {
       --fd-icon-size: 1rem;
-      transition: transform 120ms ease;
+      transition: transform 120ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-back:hover fd-icon,
@@ -1288,9 +1300,9 @@ export class FdGlobalHeader extends LitElement {
       text-align: start;
       text-decoration: none;
       transition:
-        box-shadow 120ms ease,
-        background-color 120ms ease,
-        transform 100ms ease;
+        box-shadow 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-button {
@@ -1328,7 +1340,7 @@ export class FdGlobalHeader extends LitElement {
       background: var(--fd-global-header-color-accent);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 120ms ease;
+      transition: opacity 120ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-link::after {
@@ -1506,8 +1518,8 @@ export class FdGlobalHeader extends LitElement {
       opacity: 0;
       visibility: hidden;
       transition:
-        transform 220ms ease,
-        opacity 220ms ease,
+        transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
         visibility 0s 220ms;
       z-index: 80;
       pointer-events: none;
@@ -1519,8 +1531,8 @@ export class FdGlobalHeader extends LitElement {
       visibility: visible;
       pointer-events: auto;
       transition:
-        transform 220ms ease,
-        opacity 220ms ease,
+        transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
         visibility 0s 0s;
     }
 
@@ -1609,8 +1621,8 @@ export class FdGlobalHeader extends LitElement {
         opacity: 0;
         visibility: hidden;
         transition:
-          transform 220ms ease,
-          opacity 220ms ease,
+          transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+          opacity 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
           visibility 0s 220ms;
         z-index: 80;
         pointer-events: none;
@@ -1622,8 +1634,8 @@ export class FdGlobalHeader extends LitElement {
         visibility: visible;
         pointer-events: auto;
         transition:
-          transform 220ms ease,
-          opacity 220ms ease,
+          transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+          opacity 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
           visibility 0s 0s;
       }
 

@@ -586,6 +586,11 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+.fdic-mode-frame[data-mode="dark"] code {
+  color: #c4d8f0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .fdic-mode-meta {
   padding: 0.75rem 1rem 1rem;
   border-top: 1px solid var(--fdic-docs-border);
