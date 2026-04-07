@@ -528,14 +528,14 @@ describe("fd-global-header", () => {
     await nextFrame();
 
     expect(menuViewport.getAttribute("data-height-animating")).toBe("true");
-    expect(menuViewport.style.height).toBe("396px");
+    expect(menuViewport.style.maxHeight).toBe("396px");
 
     renderedHeight = 396;
     menuViewport.dispatchEvent(new Event("transitionend"));
     await nextFrame();
 
     expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
-    expect(menuViewport.style.height).toBe("");
+    expect(menuViewport.style.maxHeight).toBe("");
   });
 
   it("skips mega-menu height animation when reduced motion is requested", async () => {
@@ -581,7 +581,7 @@ describe("fd-global-header", () => {
     await nextFrame();
 
     expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
-    expect(menuViewport.style.height).toBe("");
+    expect(menuViewport.style.maxHeight).toBe("");
   });
 
   it("attaches scroll tracking only while shy mode is enabled and cleans it up on disconnect", async () => {

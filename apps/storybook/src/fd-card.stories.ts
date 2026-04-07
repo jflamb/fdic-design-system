@@ -6,9 +6,9 @@ import {
   getComponentArgs,
   getComponentArgTypes,
 } from "./generated/component-arg-types";
-import coolHero from "./assets/hero/cool.jpg";
-import warmHero from "./assets/hero/warm.png";
-import neutralHero from "./assets/hero/neutral.png";
+import coolHero from "./assets/hero/cool.webp";
+import warmHero from "./assets/hero/warm.webp";
+import neutralHero from "./assets/hero/neutral.webp";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_SECTION_STYLE,

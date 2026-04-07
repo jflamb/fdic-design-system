@@ -798,28 +798,28 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .base[data-compact-desktop="true"] .desktop-search-region {
-      width: 2.75rem;
+      max-width: 2.75rem;
       overflow: hidden;
-      transition: width 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: max-width 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] {
-      width: min(18rem, 32vw);
+      max-width: min(18rem, 32vw);
     }
 
     .base[data-compact-desktop="true"] .desktop-search-shell {
-      width: 0;
+      max-width: 0;
       opacity: 0;
       transform: translateX(0.75rem);
       pointer-events: none;
       transition:
-        width 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        max-width 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
         opacity 180ms cubic-bezier(0.2, 0.7, 0.2, 1),
         transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"] .desktop-search-region[data-search-expanded="true"] .desktop-search-shell {
-      width: 16rem;
+      max-width: 16rem;
       opacity: 1;
       transform: translateX(0);
       pointer-events: auto;
@@ -885,7 +885,7 @@ export class FdGlobalHeader extends LitElement {
     .mega-menu-viewport {
       position: relative;
       z-index: 1;
-      transition: height 160ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: max-height 160ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mega-menu-viewport[data-height-animating="true"] {
@@ -1747,7 +1747,7 @@ export class FdGlobalHeader extends LitElement {
     if (
       "propertyName" in transitionEvent &&
       transitionEvent.propertyName &&
-      transitionEvent.propertyName !== "height"
+      transitionEvent.propertyName !== "max-height"
     ) {
       return;
     }
@@ -2223,7 +2223,7 @@ export class FdGlobalHeader extends LitElement {
 
     this._clearMegaMenuHeightAnimationListener(target);
     target.removeAttribute("data-height-animating");
-    target.style.removeProperty("height");
+    target.style.removeProperty("max-height");
   }
 
   private _resetMegaMenuHeight() {
@@ -2295,7 +2295,7 @@ export class FdGlobalHeader extends LitElement {
 
     this._clearMegaMenuHeightAnimationListener(menuViewport);
     menuViewport.setAttribute("data-height-animating", "true");
-    menuViewport.style.height = `${startHeight}px`;
+    menuViewport.style.maxHeight = `${startHeight}px`;
     void menuViewport.offsetHeight;
     this._megaMenuHeightAnimationTarget = menuViewport;
     menuViewport.addEventListener(
@@ -2303,7 +2303,7 @@ export class FdGlobalHeader extends LitElement {
       this._onMegaMenuHeightTransitionEndBound,
       { once: true },
     );
-    menuViewport.style.height = `${nextHeight}px`;
+    menuViewport.style.maxHeight = `${nextHeight}px`;
   }
 
   private _syncResponsiveState(

@@ -7,6 +7,20 @@ export default defineConfig({
   title: "FDIC Design System",
   description: "Placeholder documentation site for the FDIC design system.",
   base: process.env.VITEPRESS_BASE || "/fdic-design-system/",
+  head: [
+    ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
+    [
+      "link",
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+    ],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400;1,600&display=swap",
+      },
+    ],
+  ],
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/" },

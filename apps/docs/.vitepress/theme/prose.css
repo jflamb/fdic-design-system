@@ -14,7 +14,7 @@
    In CodePen, you can also add this via Settings > Stuff for <head>.
    =========================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+/* Font loaded via <link> in .vitepress/config.ts head[] for non-blocking FCP */
 
 /* ===========================================================================
    1. DESIGN TOKENS
@@ -760,13 +760,6 @@
   margin-bottom: var(--fdic-spacing-xl, 1.25rem);
 }
 
-@supports (content-visibility: auto) {
-  .vp-doc :is(.fdic-story-embed, .fdic-figma-embed) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 24rem;
-  }
-}
-
 .prose .prose-table-wrapper table {
   margin-bottom: 0;
 }
@@ -788,11 +781,16 @@
 
 .prose table {
   width: 100%;
-  min-width: 480px;
   border-collapse: collapse;
   table-layout: auto;
   font-size: var(--fdic-font-size-body-small, 1rem);
   line-height: normal;
+}
+
+@media (min-width: 641px) {
+  .prose table {
+    min-width: 480px;
+  }
 }
 
 .prose thead th {
@@ -1561,13 +1559,13 @@ html {
 
 .dark .prose mark {
   background-color: rgba(255, 243, 205, 0.2);
-  color: #ffffff;
+  color: inherit;
 }
 
 /* --- Insertions ---- */
 
 .dark .prose ins {
-  background-color: rgba(97, 214, 115, 0.15);
+  background-color: rgba(230, 244, 234, 0.15);
 }
 
 /* --- Selection ---- */

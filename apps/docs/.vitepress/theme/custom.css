@@ -200,7 +200,7 @@
   height: 1.75rem;
   border-radius: 50%;
   background: var(--ds-color-primary-500, #0D6191);
-  color: #FFFFFF;
+  color: var(--ds-color-text-inverted, #FFFFFF);
   font-size: 0.875rem;
   font-weight: 600;
   display: flex;
@@ -1116,5 +1116,12 @@
   .fdic-swatch-grid > .fdic-swatch-card,
   .fdic-foundation-intro {
     animation: none;
+  }
+}
+
+@supports (content-visibility: auto) {
+  .vp-doc :is(.fdic-story-embed, .fdic-figma-embed) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 24rem;
   }
 }

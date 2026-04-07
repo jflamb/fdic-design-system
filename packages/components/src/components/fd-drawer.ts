@@ -58,7 +58,7 @@ export class FdDrawer extends LitElement {
     }
 
     dialog.base::backdrop {
-      background: rgba(0, 18, 32, 0.34);
+      background: var(--fd-drawer-backdrop, rgba(0, 18, 32, 0.34));
       opacity: 0;
       transition:
         opacity 240ms ease,
@@ -158,6 +158,8 @@ export class FdDrawer extends LitElement {
   declare modal: boolean;
   declare placement: FdDrawerPlacement;
 
+  private _previouslyFocused: Element | null = null;
+
   constructor() {
     super();
     this.open = false;
@@ -197,6 +199,7 @@ export class FdDrawer extends LitElement {
 
     if (this.open) {
       if (!dialog.hasAttribute("open")) {
+        this._previouslyFocused = document.activeElement;
         dialog.showModal();
       }
       return;
@@ -204,6 +207,10 @@ export class FdDrawer extends LitElement {
 
     if (dialog.hasAttribute("open")) {
       dialog.close();
+      if (this._previouslyFocused instanceof HTMLElement) {
+        this._previouslyFocused.focus();
+      }
+      this._previouslyFocused = null;
     }
   }
 

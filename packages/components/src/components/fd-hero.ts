@@ -62,6 +62,21 @@ export class FdHero extends LitElement {
         sans-serif
       );
       color: var(--fdic-text-inverted, #ffffff);
+
+      /* Cool tone overlay tokens (default) */
+      --fd-hero-overlay-cool-light: rgba(13, 97, 145, 0.1);
+      --fd-hero-overlay-cool-dark: rgba(7, 60, 91, 0.7);
+      --fd-hero-overlay-cool-panel: rgba(7, 60, 91, 0.7);
+
+      /* Warm tone overlay tokens */
+      --fd-hero-overlay-warm-light: rgba(136, 105, 28, 0.1);
+      --fd-hero-overlay-warm-dark: rgba(136, 105, 28, 0.7);
+      --fd-hero-overlay-warm-panel: rgba(96, 81, 27, 0.7);
+
+      /* Neutral tone overlay tokens */
+      --fd-hero-overlay-neutral-light: rgba(66, 66, 68, 0.1);
+      --fd-hero-overlay-neutral-dark: rgba(66, 66, 68, 0.7);
+      --fd-hero-overlay-neutral-panel: rgba(66, 66, 68, 0.7);
     }
 
     :host([hidden]) {
@@ -69,9 +84,9 @@ export class FdHero extends LitElement {
     }
 
     .base {
-      --_fd-hero-overlay-start: rgba(13, 97, 145, 0.1);
-      --_fd-hero-overlay-end: rgba(7, 60, 91, 0.7);
-      --_fd-hero-panel-bg: rgba(7, 60, 91, 0.7);
+      --_fd-hero-overlay-start: var(--fd-hero-overlay-cool-light, rgba(13, 97, 145, 0.1));
+      --_fd-hero-overlay-end: var(--fd-hero-overlay-cool-dark, rgba(7, 60, 91, 0.7));
+      --_fd-hero-panel-bg: var(--fd-hero-overlay-cool-panel, rgba(7, 60, 91, 0.7));
       --_fd-hero-stripe-bg: var(--fdic-brand-core-light, #38b6ff);
       display: block;
       box-sizing: border-box;
@@ -96,16 +111,16 @@ export class FdHero extends LitElement {
     }
 
     .tone-warm {
-      --_fd-hero-overlay-start: rgba(136, 105, 28, 0.1);
-      --_fd-hero-overlay-end: rgba(136, 105, 28, 0.7);
-      --_fd-hero-panel-bg: rgba(96, 81, 27, 0.7);
+      --_fd-hero-overlay-start: var(--fd-hero-overlay-warm-light, rgba(136, 105, 28, 0.1));
+      --_fd-hero-overlay-end: var(--fd-hero-overlay-warm-dark, rgba(136, 105, 28, 0.7));
+      --_fd-hero-panel-bg: var(--fd-hero-overlay-warm-panel, rgba(96, 81, 27, 0.7));
       --_fd-hero-stripe-bg: var(--fdic-brand-highlight-default, #d9af45);
     }
 
     .tone-neutral {
-      --_fd-hero-overlay-start: rgba(66, 66, 68, 0.1);
-      --_fd-hero-overlay-end: rgba(66, 66, 68, 0.7);
-      --_fd-hero-panel-bg: rgba(66, 66, 68, 0.7);
+      --_fd-hero-overlay-start: var(--fd-hero-overlay-neutral-light, rgba(66, 66, 68, 0.1));
+      --_fd-hero-overlay-end: var(--fd-hero-overlay-neutral-dark, rgba(66, 66, 68, 0.7));
+      --_fd-hero-panel-bg: var(--fd-hero-overlay-neutral-panel, rgba(66, 66, 68, 0.7));
       --_fd-hero-stripe-bg: var(--fdic-text-inverted, #ffffff);
     }
 
