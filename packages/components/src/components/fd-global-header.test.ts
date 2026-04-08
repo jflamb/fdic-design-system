@@ -314,6 +314,15 @@ describe("fd-global-header", () => {
     expect(customElements.get("fd-global-header")).toBeDefined();
   });
 
+  it("uses shared semantic glass tokens for mega-menu treatments", () => {
+    const styles = getStyleText(FdGlobalHeader.styles);
+
+    expect(styles).toContain("var(--ds-gradient-glass-sheen)");
+    expect(styles).toContain("var(--ds-color-overlay-scrim-soft)");
+    expect(styles).toContain("var(--ds-color-surface-glass-1)");
+    expect(styles).toContain("var(--ds-color-border-glass-soft)");
+  });
+
   it("suppresses transitions and animations across the component for reduced motion", () => {
     const stylesText = getStyleText(FdGlobalHeader.styles);
 
@@ -327,7 +336,9 @@ describe("fd-global-header", () => {
     const stylesText = getStyleText(FdGlobalHeader.styles);
 
     expect(stylesText).toContain(".mega-menu-frame::before");
-    expect(stylesText).toContain("box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22)");
+    expect(stylesText).toContain(
+      "box-shadow: 0 8px 16px oklch(from var(--fd-global-header-shadow-floating) l c h / 0.61)",
+    );
     expect(stylesText).toContain(".mega-menu-viewport[data-height-animating=\"true\"]");
     expect(stylesText).toContain("overflow: hidden");
   });

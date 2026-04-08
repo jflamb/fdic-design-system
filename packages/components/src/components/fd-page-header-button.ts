@@ -27,18 +27,14 @@ export class FdPageHeaderButton extends LitElement {
       padding-inline-start: var(--fd-page-header-button-padding-start, 8px);
       padding-inline-end: var(--fd-page-header-button-padding-end, 12px);
       border: 1px solid
-        var(--fd-page-header-button-border-color, rgba(255, 255, 255, 0.2));
+        var(--fd-page-header-button-border-color, var(--ds-color-border-glass));
       border-radius: var(--fd-page-header-button-radius, 9999px);
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.12),
-        rgba(255, 255, 255, 0.16)
-      );
+      background: var(--fd-page-header-button-background, var(--ds-gradient-glass-button));
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       color: var(
         --fd-page-header-button-text-color,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, light-dark(#ffffff, #000000))
       );
       font-family: var(
         --fdic-font-family-sans-serif,
@@ -73,12 +69,12 @@ export class FdPageHeaderButton extends LitElement {
 
     .base:hover::before {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
+        var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)));
     }
 
     .base:active::before {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
+        var(--ds-color-overlay-pressed, light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14)));
     }
 
     .base:focus {
@@ -87,8 +83,8 @@ export class FdPageHeaderButton extends LitElement {
 
     .base:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 2px var(--ds-color-bg-base, #ffffff),
-        0 0 0 4px var(--ds-color-border-input-focus, #38b6ff);
+      box-shadow: 0 0 0 2px var(--ds-color-bg-base, light-dark(#ffffff, #000000)),
+        0 0 0 4px var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
     }
 
     .icon {

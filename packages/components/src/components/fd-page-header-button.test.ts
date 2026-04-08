@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import "../register/fd-page-header.js";
 import "../icons/phosphor-regular.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import { FdPageHeaderButton } from "./fd-page-header-button.js";
 
 async function createButton(
   attrs: Record<string, string> = {},
@@ -69,6 +70,15 @@ describe("FdPageHeaderButton", () => {
   it("defaults icon to empty string", () => {
     const el = document.createElement("fd-page-header-button") as any;
     expect(el.icon).toBe("");
+  });
+
+  it("uses semantic glass tokens for its surface treatment", () => {
+    const stylesheet = Array.isArray(FdPageHeaderButton.styles)
+      ? FdPageHeaderButton.styles.map((style) => style.cssText).join("\n")
+      : FdPageHeaderButton.styles.cssText;
+
+    expect(stylesheet).toContain("var(--ds-gradient-glass-button)");
+    expect(stylesheet).toContain("var(--ds-color-border-glass)");
   });
 
   it("passes axe checks", async () => {

@@ -292,6 +292,15 @@ export class FdGlobalHeader extends LitElement {
       --fd-global-header-color-border-subtle: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
       --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, light-dark(#f5f5f7, #333335));
       --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, light-dark(#edf3f7, #424244));
+      --fd-global-header-shadow-floating: var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.36)));
+      --fd-global-header-glass-sheen: var(--fd-global-header-glass-sheen, var(--ds-gradient-glass-sheen));
+      --fd-global-header-glass-border: var(--fd-global-header-glass-border, var(--ds-color-border-glass-soft));
+      --fd-global-header-glass-surface-1: var(--fd-global-header-mega-col-1, var(--ds-color-surface-glass-1));
+      --fd-global-header-glass-surface-2: var(--fd-global-header-mega-col-2, var(--ds-color-surface-glass-2));
+      --fd-global-header-glass-surface-2-muted: var(--fd-global-header-mega-col-2-muted, var(--ds-color-surface-glass-2-muted));
+      --fd-global-header-glass-surface-3: var(--fd-global-header-mega-col-3, var(--ds-color-surface-glass-3));
+      --fd-global-header-glass-surface-3-muted-1: var(--fd-global-header-mega-col-3-muted, var(--ds-color-surface-glass-3-muted-1));
+      --fd-global-header-glass-surface-3-muted-2: var(--fd-global-header-mega-col-3-muted, var(--ds-color-surface-glass-3-muted-2));
       display: block;
       color: var(--fd-global-header-color-host);
       font-family: var(
@@ -365,7 +374,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .base[data-compact-desktop="true"] {
-      box-shadow: 0 10px 28px rgba(0, 18, 32, 0.18);
+      box-shadow: 0 10px 28px oklch(from var(--fd-global-header-shadow-floating) l c h / 0.5);
       transition:
         transform var(--_fd-global-header-shy-duration, 300ms) cubic-bezier(0.2, 0.7, 0.2, 1),
         box-shadow 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -716,7 +725,7 @@ export class FdGlobalHeader extends LitElement {
       top: 8.1875rem;
       inset-inline: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.08);
+      background: var(--ds-color-overlay-scrim-soft);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -857,27 +866,27 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mega-menu-frame {
-      --mega-col-1-surface: var(--fd-global-header-mega-col-1, rgba(255, 255, 255, 0.84));
-      --mega-col-2-surface: var(--fd-global-header-mega-col-2, rgba(245, 250, 255, 0.5));
-      --mega-col-3-surface: var(--fd-global-header-mega-col-3, rgba(232, 242, 249, 0.24));
+      --mega-col-1-surface: var(--fd-global-header-glass-surface-1);
+      --mega-col-2-surface: var(--fd-global-header-glass-surface-2);
+      --mega-col-3-surface: var(--fd-global-header-glass-surface-3);
       position: relative;
       width: min(90rem, calc(100% - 5rem));
     }
 
     .mega-menu-frame[data-visible-columns="1"] {
-      --mega-col-2-surface: var(--fd-global-header-mega-col-2-muted, rgba(245, 250, 255, 0.4));
-      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(232, 242, 249, 0.14));
+      --mega-col-2-surface: var(--fd-global-header-glass-surface-2-muted);
+      --mega-col-3-surface: var(--fd-global-header-glass-surface-3-muted-1);
     }
 
     .mega-menu-frame[data-visible-columns="2"] {
-      --mega-col-3-surface: var(--fd-global-header-mega-col-3-muted, rgba(232, 242, 249, 0.16));
+      --mega-col-3-surface: var(--fd-global-header-glass-surface-3-muted-2);
     }
 
     .mega-menu-frame::before {
       content: "";
       position: absolute;
       inset: 0;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 8px 16px oklch(from var(--fd-global-header-shadow-floating) l c h / 0.61);
       pointer-events: none;
       z-index: 0;
     }
@@ -909,12 +918,7 @@ export class FdGlobalHeader extends LitElement {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.24) 0%,
-          rgba(255, 255, 255, 0.08) 15%,
-          rgba(255, 255, 255, 0) 38%
-        ),
+        var(--fd-global-header-glass-sheen),
         linear-gradient(
           90deg,
           var(--mega-col-1-surface) 0%,
@@ -925,7 +929,7 @@ export class FdGlobalHeader extends LitElement {
           var(--mega-col-3-surface) 100%
         );
       border-style: solid;
-      border-color: rgba(9, 53, 84, 0.14);
+      border-color: var(--fd-global-header-glass-border);
       border-width: 0 1px 1px;
       z-index: 0;
     }
