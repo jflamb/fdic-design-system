@@ -74,7 +74,7 @@ export class FdButton extends LitElement {
       padding-inline: 0;
     }
     .has-leading-visual:not(.icon-only) {
-      padding-inline-start: var(--fd-button-icon-edge-padding, 11px);
+      padding-inline-start: 13px;
     }
     .has-icon-end:not(.icon-only) {
       padding-inline-end: var(--fd-button-icon-edge-padding, 11px);

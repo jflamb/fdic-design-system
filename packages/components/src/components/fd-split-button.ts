@@ -77,6 +77,10 @@ export class FdSplitButton extends LitElement {
       border-radius: 0;
     }
 
+    .primary-segment.has-icon-start {
+      padding-inline-start: 13px;
+    }
+
     .trigger-segment {
       min-width: var(--fd-split-button-trigger-width, 44px);
       min-height: var(--fd-button-height, 44px);
@@ -519,6 +523,7 @@ export class FdSplitButton extends LitElement {
   render() {
     const isDisabled = this.disabled;
     const isTriggerDisabled = this.triggerDisabled || isDisabled;
+    const hasIconStart = Boolean(this.querySelector('[slot="icon-start"]'));
 
     const containerClasses = {
       container: true,
@@ -527,11 +532,16 @@ export class FdSplitButton extends LitElement {
       "trigger-disabled": !isDisabled && this.triggerDisabled,
     };
 
+    const primaryClasses = {
+      "primary-segment": true,
+      "has-icon-start": hasIconStart,
+    };
+
     return html`
       <div part="container" class=${classMap(containerClasses)}>
         <button
           part="primary"
-          class="primary-segment"
+          class=${classMap(primaryClasses)}
           ?disabled=${isDisabled}
           @click=${this._onPrimaryClick}
         >
