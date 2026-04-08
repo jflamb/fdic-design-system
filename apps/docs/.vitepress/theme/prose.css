@@ -584,10 +584,6 @@
   transition: transform 0.2s ease;
 }
 
-.prose details[open] > summary {
-  margin-bottom: var(--fdic-spacing-xs, 0.5rem);
-}
-
 .prose details[open] > summary::after {
   transform: rotate(180deg);
 }
@@ -610,30 +606,40 @@
   padding: calc(var(--fdic-spacing-md, 1rem) - 2px);
 }
 
-/* Content area when expanded — indent to align with summary text,
-   no background so the summary pill stays visually self-contained. */
-.prose details[open] > *:not(summary) {
+/* Content area — indent to align with summary text. The static rule keeps the
+   content block aligned throughout the open/close animation instead of
+   dropping the inline padding as soon as `open` is removed. */
+.prose details > *:not(summary) {
   padding-left: var(--fdic-spacing-md, 1rem);
   padding-right: var(--fdic-spacing-md, 1rem);
 }
 
-/* Smooth content reveal — interpolate-size enables animating to
-   auto height; opacity provides a fade-in. Older browsers that
-   don't support interpolate-size get an instant reveal (graceful). */
-.prose details {
-  interpolate-size: allow-keywords;
-}
+/* Smooth content reveal/collapse — use ::details-content where supported so
+   native <details> can animate on every open and close, not just the first
+   expansion. Browsers without support keep the native instant toggle. */
+@supports selector(details::details-content) {
+  .prose details {
+    interpolate-size: allow-keywords;
+  }
 
-.prose details > *:not(summary) {
-  overflow: hidden;
-  opacity: 0;
-  height: 0;
-  transition: height 0.25s ease, opacity 0.2s ease;
-}
+  .prose details::details-content {
+    display: block;
+    block-size: 0;
+    opacity: 0;
+    padding-top: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.25s ease,
+      opacity 0.2s ease,
+      padding-top 0.25s ease,
+      content-visibility 0.25s ease allow-discrete;
+  }
 
-.prose details[open] > *:not(summary) {
-  opacity: 1;
-  height: auto;
+  .prose details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+    padding-top: var(--fdic-spacing-xs, 0.5rem);
+  }
 }
 
 /* Remove bottom margin from last child in content */
@@ -999,6 +1005,11 @@
 .prose-callout-content {
   flex: 1;
   min-width: 0;
+}
+
+.prose-callout-content > :first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 .prose-callout-content > *:last-child {
