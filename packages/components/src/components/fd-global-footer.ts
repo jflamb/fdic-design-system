@@ -438,8 +438,8 @@ export class FdGlobalFooter extends LitElement {
         <div class="base">
           <div class="content" part="content">
             <div class="seal" part="seal" aria-hidden="true">
-              <span class="seal-light">${unsafeSVG(GLOBAL_FOOTER_SEAL_LIGHT)}</span>
-              <span class="seal-dark">${unsafeSVG(GLOBAL_FOOTER_SEAL_DARK)}</span>
+              <span class="seal-light">${unsafeSVG(GLOBAL_FOOTER_SEAL_DARK)}</span>
+              <span class="seal-dark">${unsafeSVG(GLOBAL_FOOTER_SEAL_LIGHT)}</span>
             </div>
 
             <div class="body">
