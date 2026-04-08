@@ -176,6 +176,47 @@ describe("FdAlert", () => {
     expect(getBase(el)?.className).toContain("type-emergency");
   });
 
+  it("keeps managed link colors token-driven when the resolved token is empty", async () => {
+    const originalGetComputedStyle = window.getComputedStyle.bind(window);
+    const getComputedStyleSpy = vi
+      .spyOn(window, "getComputedStyle")
+      .mockImplementation((element: Element) => {
+        const styles = originalGetComputedStyle(element);
+
+        if (element.tagName === "FD-ALERT") {
+          return new Proxy(styles, {
+            get(target, prop, receiver) {
+              if (prop === "getPropertyValue") {
+                return (name: string) => {
+                  if (name === "--_fd-alert-link") {
+                    return "";
+                  }
+
+                  return target.getPropertyValue(name);
+                };
+              }
+
+              return Reflect.get(target, prop, receiver);
+            },
+          });
+        }
+
+        return styles;
+      });
+
+    try {
+      const el = await createAlert(
+        {},
+        'Review the <a href="/status">latest advisory</a>.',
+      );
+      const link = el.querySelector("a") as HTMLAnchorElement;
+
+      expect(link.style.color).toBe("var(--_fd-alert-link)");
+    } finally {
+      getComputedStyleSpy.mockRestore();
+    }
+  });
+
   it("renders nothing when both title and body content are absent", async () => {
     const el = await createAlert({}, "   ");
     el.removeAttribute("title");

@@ -584,6 +584,7 @@ export class FdAlert extends LitElement {
     // chain and responds to dark mode, rather than the public API override
     // (--fd-alert-link-color) which is typically unset.
     const linkColor = styles.getPropertyValue("--_fd-alert-link").trim();
+    const inlineLinkColor = linkColor || "var(--_fd-alert-link)";
 
     this._restoreManagedLinks(retainedLinks);
 
@@ -597,7 +598,7 @@ export class FdAlert extends LitElement {
         });
       }
 
-      link.style.color = linkColor || (isEmergency ? "#ffffff" : "#0d6191");
+      link.style.color = inlineLinkColor;
       link.style.textDecoration = "underline";
       link.style.textUnderlineOffset = "0.12em";
       link.style.fontWeight = isEmergency ? "600" : "";
