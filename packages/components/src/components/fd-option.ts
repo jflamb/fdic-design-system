@@ -230,6 +230,12 @@ export class FdOption extends LitElement {
         transition: none !important;
       }
     }
+
+    @media print {
+      [part="option"]::after {
+        box-shadow: none;
+      }
+    }
   `;
 
   declare value: string;

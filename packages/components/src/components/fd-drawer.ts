@@ -143,12 +143,25 @@ export class FdDrawer extends LitElement {
       .surface {
         border-color: CanvasText;
         box-shadow: none;
-        forced-color-adjust: none;
       }
 
       dialog.base::backdrop {
         background: Canvas;
         opacity: 0.65;
+      }
+    }
+
+    @media print {
+      dialog.base,
+      dialog.base::backdrop {
+        display: none;
+      }
+
+      .base--inline .surface {
+        box-shadow: none;
+        border: 1px solid #000;
+        transform: none;
+        opacity: 1;
       }
     }
   `;
@@ -248,7 +261,7 @@ export class FdDrawer extends LitElement {
         part="surface"
         data-placement=${this.placement}
         role=${regionRole}
-        aria-label=${this.label || nothing}
+        aria-label=${!this.modal && this.label ? this.label : nothing}
         tabindex="-1"
       >
         <div

@@ -188,8 +188,8 @@ export class FdFileInput extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
-      min-width: 44px;
+      min-height: var(--fd-file-input-height, 44px);
+      min-width: var(--fd-file-input-min-width, 44px);
       padding-inline: 11px;
       gap: var(--fdic-spacing-2xs, 4px);
       border-radius: var(--fdic-corner-radius-sm, 3px);
@@ -210,7 +210,7 @@ export class FdFileInput extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
+      min-height: var(--fd-file-input-height, 44px);
       padding-inline: 6px;
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
@@ -495,6 +495,22 @@ export class FdFileInput extends LitElement {
       [part="item-action"]:focus-visible {
         box-shadow: none;
         outline-color: LinkText;
+      }
+    }
+
+    @media print {
+      [part="container"] {
+        border: 1px solid #000;
+        background: none;
+        box-shadow: none;
+      }
+
+      [part="container"]::before {
+        display: none;
+      }
+
+      .fd-file-input__status-icon--uploading {
+        animation: none;
       }
     }
   `;

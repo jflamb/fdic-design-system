@@ -64,6 +64,14 @@ export class FdMenu extends LitElement {
         transition: none;
       }
     }
+
+    @media print {
+      .surface {
+        position: static;
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+    }
   `;
 
   declare anchor: string | undefined;

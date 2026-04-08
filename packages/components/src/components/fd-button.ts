@@ -292,6 +292,17 @@ export class FdButton extends LitElement {
         color: GrayText;
       }
     }
+
+    @media print {
+      .base {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+
+      .spinner {
+        animation: none;
+      }
+    }
   `;
 
   static properties = {

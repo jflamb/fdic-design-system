@@ -95,7 +95,7 @@ export class FdSlider extends LitElement {
       align-items: center;
       flex: 1 1 auto;
       min-width: 0;
-      min-height: 44px;
+      min-height: var(--fd-slider-touch-target-height, 44px);
     }
 
     [part="track"],
@@ -416,6 +416,20 @@ export class FdSlider extends LitElement {
         background: CanvasText;
         color: Canvas;
         box-shadow: none;
+      }
+    }
+
+    @media print {
+      [part="track"] {
+        background: #ccc;
+      }
+
+      [part="fill"] {
+        background: #000;
+      }
+
+      [part="value-bubble"] {
+        display: none;
       }
     }
   `;

@@ -187,6 +187,16 @@ export class FdCheckbox extends LitElement {
         transition: none !important;
       }
     }
+
+    @media print {
+      .icon {
+        box-shadow: none;
+      }
+
+      [part="control"] {
+        color: #000;
+      }
+    }
   `;
 
   declare checked: boolean;

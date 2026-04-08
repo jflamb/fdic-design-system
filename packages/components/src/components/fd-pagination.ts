@@ -320,6 +320,13 @@ export class FdPagination extends LitElement {
         transition: none !important;
       }
     }
+
+    @media print {
+      .control {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+    }
   `;
 
   declare currentPage: number;

@@ -207,6 +207,16 @@ export class FdRadio extends LitElement {
         transition: none !important;
       }
     }
+
+    @media print {
+      .visual {
+        box-shadow: none;
+      }
+
+      [part="control"] {
+        color: #000;
+      }
+    }
   `;
 
   declare checked: boolean;

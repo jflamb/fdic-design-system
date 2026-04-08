@@ -111,6 +111,7 @@ export class FdInput extends LitElement {
 
   private _formController: SingleValueFormController;
   private _siblingObserver: MutationObserver | null = null;
+  private _pendingDiscovery: number | null = null;
   private _charCountId: string;
   private _srCharCountId: string;
   /** Track which thresholds have been announced to avoid repeats */
@@ -269,17 +270,22 @@ export class FdInput extends LitElement {
 
   private _observeSiblings() {
     this._stopObservingSiblings();
-    // Observe the same root used for discovery so late-added siblings
-    // anywhere in the DOM root are detected, not just under parentElement.
-    const rootNode = this.getRootNode();
+    // Prefer local parent to limit observation scope and avoid O(n*m)
+    // cost when many fd-input instances each observe document.body.
     const observeTarget =
-      rootNode instanceof Document
-        ? rootNode.body
-        : rootNode instanceof ShadowRoot
-          ? (rootNode as unknown as Node)
-          : this.parentElement || document.body;
+      this.parentElement ||
+      (this.getRootNode() instanceof ShadowRoot
+        ? (this.getRootNode() as unknown as Node)
+        : document.body);
     this._siblingObserver = new MutationObserver(() => {
-      this._discoverSiblings();
+      // Debounce via rAF so rapid DOM mutations (e.g. framework renders)
+      // coalesce into a single _discoverSiblings() call per frame.
+      if (this._pendingDiscovery == null) {
+        this._pendingDiscovery = requestAnimationFrame(() => {
+          this._pendingDiscovery = null;
+          this._discoverSiblings();
+        });
+      }
     });
     this._siblingObserver.observe(observeTarget, {
       childList: true,
@@ -290,6 +296,10 @@ export class FdInput extends LitElement {
   }
 
   private _stopObservingSiblings() {
+    if (this._pendingDiscovery != null) {
+      cancelAnimationFrame(this._pendingDiscovery);
+      this._pendingDiscovery = null;
+    }
     if (this._siblingObserver) {
       this._siblingObserver.disconnect();
       this._siblingObserver = null;
