@@ -66,7 +66,6 @@ Standalone checkboxes (such as consent or acknowledgement patterns) should be wr
 | `--fd-checkbox-size` | `1.5em` | Size of the checkbox control, scaled to the component's label text by default |
 | `--fd-checkbox-border-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
 | `--fd-checkbox-radius` | `var(--fdic-corner-radius-sm, 3px)` | Checkbox corner radius |
-| `--fd-checkbox-icon-size` | `24px` | Size of the internal state icon |
 | `--fd-checkbox-focus-color` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
 | `--fd-checkbox-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
 | `--fd-checkbox-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |

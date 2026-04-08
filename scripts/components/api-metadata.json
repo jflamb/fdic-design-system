@@ -378,11 +378,6 @@
           "description": "Checkbox corner radius"
         },
         {
-          "name": "--fd-checkbox-icon-size",
-          "default": "`24px`",
-          "description": "Size of the internal state icon"
-        },
-        {
           "name": "--fd-checkbox-focus-color",
           "default": "`var(--fdic-border-input-focus, #38b6ff)`",
           "description": "Focus ring color"
@@ -1013,21 +1008,6 @@
           "name": "--fd-radio-icon-color",
           "default": "`var(--fdic-text-primary, #212123)`",
           "description": "Resting control color"
-        },
-        {
-          "name": "--fd-radio-glyph-size",
-          "default": "`22px`",
-          "description": "Size of the circular radio glyph"
-        },
-        {
-          "name": "--fd-radio-border-width",
-          "default": "`2px`",
-          "description": "Stroke width of the outer ring"
-        },
-        {
-          "name": "--fd-radio-dot-size",
-          "default": "`8px`",
-          "description": "Size of the selected-state dot"
         },
         {
           "name": "--fd-radio-focus-color",

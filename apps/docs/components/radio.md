@@ -60,9 +60,6 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 | `--fd-radio-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
 | `--fd-radio-size` | `1.5em` | Size of the radio control wrapper, scaled to the component's label text by default |
 | `--fd-radio-icon-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
-| `--fd-radio-glyph-size` | `22px` | Size of the circular radio glyph |
-| `--fd-radio-border-width` | `2px` | Stroke width of the outer ring |
-| `--fd-radio-dot-size` | `8px` | Size of the selected-state dot |
 | `--fd-radio-focus-color` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
 | `--fd-radio-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
 | `--fd-radio-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
