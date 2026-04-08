@@ -27,7 +27,7 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Layout & Shell</span>
-    <h3>Global Header, Page Header, Hero, Header Search, Drawer, Stripe</h3>
+    <h3>Global Header, Page Header, Hero, Global Footer, Header Search, Drawer, Stripe</h3>
     <p>Shell-level and structural components for headers, drawers, search surfaces, and grouped layout treatments.</p>
   </div>
   <div class="fdic-card">
@@ -91,6 +91,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Global Header](./global-header) documents global header usage, constraints, and accessibility guidance.
 - [Page Header](./page-header) documents page header usage, constraints, and accessibility guidance.
 - [Hero](./hero) documents hero usage, constraints, and accessibility guidance.
+- [Global Footer](./global-footer) documents global footer usage, constraints, and accessibility guidance.
 - [Header Search](./header-search) documents the supporting primitive contract for header search.
 - [Drawer](./drawer) documents the supporting primitive contract for drawer.
 - [Stripe](./stripe) documents the supporting primitive contract for stripe.

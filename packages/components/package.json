@@ -193,6 +193,10 @@
       "types": "./dist/components/fd-card.d.ts",
       "import": "./dist/components/fd-card.js"
     },
+    "./fd-global-footer": {
+      "types": "./dist/components/fd-global-footer.d.ts",
+      "import": "./dist/components/fd-global-footer.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

@@ -4283,5 +4283,156 @@
       ],
       "after": ""
     }
+  },
+  "fd-global-footer": {
+    "properties": {
+      "rows": [
+        {
+          "name": "agency-name",
+          "type": "string",
+          "default": "``",
+          "description": "Visible agency name rendered in the footer brand block."
+        },
+        {
+          "name": "agency-href",
+          "type": "string",
+          "default": "``",
+          "description": "Optional destination for the agency name. When omitted, the agency name renders as static text."
+        },
+        {
+          "name": "utilityLinks",
+          "type": "FdGlobalFooterLink[]",
+          "default": "`[]`",
+          "description": "Secondary footer links rendered as a text-link list. Each item accepts `label`, `href`, and optional native `target` / `rel` values."
+        },
+        {
+          "name": "socialLinks",
+          "type": "FdGlobalFooterSocialLink[]",
+          "default": "`[]`",
+          "description": "Icon-only social destinations rendered as accessible links. Each item accepts `label`, `href`, `icon`, and optional native `target` / `rel` values."
+        },
+        {
+          "name": "updated-text",
+          "type": "string",
+          "default": "``",
+          "description": "Visible footer metadata such as the page's last-updated label. The component renders the provided text verbatim in v1."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "feedback",
+          "description": "Optional composed page-level feedback content rendered before the footer landmark."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-global-footer-background",
+          "default": "`#003256`",
+          "description": "Footer background color."
+        },
+        {
+          "name": "--fd-global-footer-text-color",
+          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "description": "Inverted text color used inside the footer shell."
+        },
+        {
+          "name": "--fd-global-footer-stripe",
+          "default": "`linear-gradient(90deg, #d4a62a 0%, #f0cf74 30%, #c59316 60%, #e9c45d 100%)`",
+          "description": "Decorative top stripe fill."
+        },
+        {
+          "name": "--fd-global-footer-padding-inline",
+          "default": "`64px`",
+          "description": "Desktop inline padding."
+        },
+        {
+          "name": "--fd-global-footer-padding-block",
+          "default": "`48px`",
+          "description": "Desktop block padding."
+        },
+        {
+          "name": "--fd-global-footer-padding-inline-mobile",
+          "default": "`16px`",
+          "description": "Mobile inline padding at `640px` and below."
+        },
+        {
+          "name": "--fd-global-footer-padding-block-mobile",
+          "default": "`16px`",
+          "description": "Mobile block padding at `640px` and below."
+        },
+        {
+          "name": "--fd-global-footer-feedback-gap",
+          "default": "`0px`",
+          "description": "Gap after the optional feedback slot wrapper."
+        },
+        {
+          "name": "--fd-global-footer-seal-size",
+          "default": "`80px`",
+          "description": "Decorative seal badge size."
+        },
+        {
+          "name": "--fd-global-footer-social-size",
+          "default": "`36px`",
+          "description": "Desktop social-link target size."
+        },
+        {
+          "name": "--fd-global-footer-social-size-mobile",
+          "default": "`32px`",
+          "description": "Mobile social-link target size."
+        }
+      ],
+      "after": "`fd-global-footer` keeps its styling hooks focused on layout and shell treatment in v1. Link content, social-link labels, and the composed feedback pattern remain application-authored."
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "feedback",
+          "description": "Wrapper around the optional named feedback slot."
+        },
+        {
+          "name": "base",
+          "description": "Footer landmark element."
+        },
+        {
+          "name": "content",
+          "description": "Constrained footer layout container."
+        },
+        {
+          "name": "seal",
+          "description": "Decorative seal badge."
+        },
+        {
+          "name": "brand",
+          "description": "Agency and utility-link stack."
+        },
+        {
+          "name": "agency",
+          "description": "Agency-name text or link."
+        },
+        {
+          "name": "utility-links",
+          "description": "Utility-link list."
+        },
+        {
+          "name": "social-links",
+          "description": "Social destination list."
+        },
+        {
+          "name": "updated",
+          "description": "Footer metadata text."
+        }
+      ],
+      "after": ""
+    }
   }
 }
