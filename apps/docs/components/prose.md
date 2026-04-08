@@ -56,6 +56,8 @@ Prose is the FDIC design system's authored-content layer. Apply the `.prose` con
     <footer><cite>FDIC design system documentation principle</cite></footer>
   </blockquote>
 
+  <hr />
+
   <h2 id="prose-supporting">Supporting patterns</h2>
   <div class="prose-callout prose-callout-info" role="note" aria-label="Information">
     <span class="prose-callout-icon" aria-hidden="true"></span>
@@ -72,6 +74,34 @@ Prose is the FDIC design system's authored-content layer. Apply the `.prose` con
   <h2 id="prose-references">References and navigation</h2>
   <p>Long documents often need structured navigation and citation support. Prose includes patterns for tables of contents, footnotes, scrollable tables, and technical code examples so those needs can be met without inventing page-specific styling every time.</p>
 </div>
+
+## Horizontal rules
+
+Use `<hr>` to mark a thematic break between sections of content. Inside `.prose`, horizontal rules receive extra vertical spacing (`--fdic-spacing-3xl` / 3rem above and below) to clearly separate major content groups.
+
+```html
+<article class="prose">
+  <p>End of one topic.</p>
+  <hr />
+  <p>Beginning of a new topic.</p>
+</article>
+```
+
+<div class="prose">
+  <p>Horizontal rules signal a shift in topic or scope. They carry more visual weight than a heading alone, so use them sparingly — typically between major thematic sections rather than between every heading.</p>
+  <hr />
+  <p>After the rule, the reader understands they are entering a distinct part of the document.</p>
+</div>
+
+### When to use
+
+- Between major thematic sections that are conceptually independent.
+- Before a footnotes section (the footnotes component includes its own narrower `<hr>`).
+
+### When not to use
+
+- Between every heading — headings already create visual separation.
+- As a decorative element — use only when there is a genuine shift in topic.
 
 ## Prose topic map
 
