@@ -27,7 +27,7 @@ export class FdOption extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--fd-selector-option-text, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
+      color: var(--fd-selector-option-text, var(--ds-color-text-primary));
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -39,7 +39,7 @@ export class FdOption extends LitElement {
 
     :host([disabled]) {
       cursor: default;
-      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf));
+      color: var(--ds-color-text-disabled);
     }
 
     [part="option"] {
@@ -48,7 +48,7 @@ export class FdOption extends LitElement {
       gap: 8px;
       padding: 8px 12px;
       position: relative;
-      background: var(--fd-selector-option-bg, var(--ds-color-bg-base, light-dark(#ffffff, #000000)));
+      background: var(--fd-selector-option-bg, var(--ds-color-bg-base));
       overflow: clip;
       min-height: 36px;
       box-sizing: border-box;
@@ -57,7 +57,7 @@ export class FdOption extends LitElement {
     :host([selected]) [part="option"] {
       background: var(
         --fd-selector-option-bg-selected,
-        var(--ds-color-bg-selected, light-dark(#b4e4f8, #003256))
+        var(--ds-color-bg-selected)
       );
     }
 
@@ -68,14 +68,14 @@ export class FdOption extends LitElement {
       pointer-events: none;
       border-radius: inherit;
       box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
-      transition: box-shadow 0.15s ease;
+      transition: box-shadow var(--ds-motion-duration-normal, 150ms) var(--ds-motion-easing-default, ease);
     }
 
     :host(:not([disabled]):hover) [part="option"]::after {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-selector-option-bg-hover,
-          var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)))
+          var(--ds-color-overlay-hover)
         );
     }
 
@@ -83,13 +83,13 @@ export class FdOption extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-selector-option-bg-press,
-          var(--ds-color-overlay-pressed, light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14)))
+          var(--ds-color-overlay-pressed)
         );
     }
 
     :host([data-focused]) [part="option"] {
       outline: 2px solid
-        var(--fd-selector-focus-color, var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191)));
+        var(--fd-selector-focus-color, var(--ds-focus-ring-color));
       outline-offset: -2px;
     }
 
@@ -102,11 +102,11 @@ export class FdOption extends LitElement {
       flex-shrink: 0;
       width: 22px;
       height: 22px;
-      color: var(--fd-selector-indicator-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
+      color: var(--fd-selector-indicator-color, var(--ds-color-text-primary));
     }
 
     :host([disabled]) [part="indicator"] {
-      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf));
+      color: var(--ds-color-text-disabled);
     }
 
     /* Radio indicator */
@@ -131,7 +131,7 @@ export class FdOption extends LitElement {
     :host([selected]) .radio-outer {
       color: var(
         --fd-selector-indicator-selected,
-        var(--ds-color-bg-active, light-dark(#0d6191, #84dbff))
+        var(--ds-color-bg-active)
       );
     }
 
@@ -154,7 +154,7 @@ export class FdOption extends LitElement {
     :host([selected]) .checkbox-outer {
       color: var(
         --fd-selector-indicator-selected,
-        var(--ds-color-bg-active, light-dark(#0d6191, #84dbff))
+        var(--ds-color-bg-active)
       );
       background: currentColor;
     }
@@ -167,7 +167,7 @@ export class FdOption extends LitElement {
 
     :host([selected]) .checkbox-check {
       display: block;
-      color: var(--ds-color-text-inverted, light-dark(#ffffff, #000000));
+      color: var(--ds-color-text-inverted);
     }
 
     /* --- Text content --- */
@@ -183,7 +183,7 @@ export class FdOption extends LitElement {
 
     [part="option-description"] {
       display: block;
-      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
+      color: var(--ds-color-text-secondary);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 

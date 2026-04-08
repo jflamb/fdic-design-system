@@ -171,9 +171,7 @@ describe("fd-selector", () => {
       (customElements.get("fd-selector") as any).styles?.cssText ?? "",
     );
     expect(styles).toContain(":host([disabled]) [part=\"label-text\"]");
-    expect(styles).toContain(
-      "var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))",
-    );
+    expect(styles).toContain("var(--ds-color-text-secondary)");
   });
 
   // --- ARIA on listbox ---

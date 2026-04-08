@@ -39,7 +39,7 @@ export class FdTile extends LitElement {
     :host {
       display: block;
       container-type: inline-size;
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -109,7 +109,7 @@ export class FdTile extends LitElement {
     .title-link,
     .title-text,
     .support-link {
-      color: var(--fd-tile-link-color, var(--ds-color-text-link, light-dark(#1278b0, #add8e6)));
+      color: var(--fd-tile-link-color, var(--ds-color-text-link));
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
@@ -131,7 +131,7 @@ export class FdTile extends LitElement {
     }
 
     .title-text {
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
       text-decoration-line: none;
     }
 
@@ -141,7 +141,7 @@ export class FdTile extends LitElement {
     .support-link:focus-visible {
       background: var(
         --fd-tile-link-hover-overlay,
-        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
+        var(--ds-color-overlay-hover)
       );
       text-decoration-thickness: var(
         --fd-tile-link-underline-thickness-emphasis,
@@ -151,12 +151,12 @@ export class FdTile extends LitElement {
 
     .title-link:focus-visible,
     .support-link:focus-visible {
-      box-shadow: 0 0 0 2px
-          var(--fd-tile-focus-gap, var(--ds-color-bg-input, light-dark(#ffffff, #212123))),
-        0 0 0 4px
+      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px)
+          var(--fd-tile-focus-gap, var(--ds-focus-gap-color)),
+        0 0 0 var(--ds-focus-ring-width, 4px)
           var(
             --fd-tile-focus-ring,
-            var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
+            var(--ds-focus-ring-color)
           );
     }
 
@@ -164,7 +164,7 @@ export class FdTile extends LitElement {
       margin: 0;
       color: var(
         --fd-tile-description-color,
-        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
+        var(--ds-color-text-secondary)
       );
       font-size: var(--fd-tile-description-font-size, 16px);
       font-weight: 400;

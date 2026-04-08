@@ -501,7 +501,7 @@ export class FdInput extends LitElement {
       border: 2px solid transparent;
       border-color: var(
         --fd-input-border-color,
-        var(--ds-color-border-input, light-dark(#bdbdbf, #595961))
+        var(--ds-color-border-input)
       );
       /* Reserve 2px border at rest so focus (which also uses 2px) causes no
          layout shift.  The visual difference vs. the old 1px border is
@@ -510,7 +510,7 @@ export class FdInput extends LitElement {
         --fd-input-border-radius,
         var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-input-bg, var(--ds-color-bg-base, light-dark(#ffffff, #000000)));
+      background: var(--fd-input-bg, var(--ds-color-bg-base));
       box-sizing: border-box;
     }
 
@@ -535,7 +535,7 @@ export class FdInput extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-input-placeholder-color,
-        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
+        var(--ds-color-text-secondary)
       );
       opacity: 1;
     }
@@ -550,26 +550,26 @@ export class FdInput extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-input-border-color-hover,
-        var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2))
+        var(--ds-color-border-input-active)
       );
     }
 
     /* --- Focus (on native input) --- */
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border-color: var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2));
+      border-color: var(--ds-color-border-input-active);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-input-border-color-focus,
-          var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
+          var(--ds-focus-ring-color)
         );
     }
 
     /* --- Disabled --- */
     :host([disabled]) [part="base"] {
-      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #9e9ea0));
-      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
-      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
+      color: var(--ds-color-text-disabled);
+      border-color: var(--ds-color-border-divider);
+      background: var(--ds-color-bg-container);
       cursor: not-allowed;
     }
 
@@ -579,8 +579,8 @@ export class FdInput extends LitElement {
 
     /* --- Read-only --- */
     :host([readonly]) [part="base"] {
-      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
-      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+      background: var(--ds-color-bg-container);
+      border-color: var(--ds-color-border-divider);
       border-style: dashed;
     }
 
@@ -640,20 +640,19 @@ export class FdInput extends LitElement {
 
     ::slotted(button[slot="suffix"]:hover) {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
+        var(--ds-color-overlay-hover);
     }
 
     ::slotted(button[slot="suffix"]:active) {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
+        var(--ds-color-overlay-pressed);
     }
 
     /* Suffix button focus — inset ring, independent of container */
     ::slotted(button[slot="suffix"]:focus-visible) {
       outline: 2px solid var(--ds-color-border-input-active, #424244);
       outline-offset: -2px;
-      box-shadow: 0 0 2.5px 2px
-        var(--ds-color-border-input-focus, #38b6ff);
+      box-shadow: 0 0 2.5px 2px var(--ds-focus-ring-color, #38b6ff);
       border-radius: var(--fdic-corner-radius-sm, 3px);
     }
 

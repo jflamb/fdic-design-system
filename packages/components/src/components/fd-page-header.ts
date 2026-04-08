@@ -38,7 +38,7 @@ export class FdPageHeader extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fd-page-header-text-color, var(--ds-color-text-inverted, light-dark(#ffffff, #000000)));
+      color: var(--fd-page-header-text-color, var(--ds-color-text-inverted));
     }
 
     :host([hidden]) {
@@ -52,7 +52,7 @@ export class FdPageHeader extends LitElement {
       box-sizing: border-box;
       background: var(
         --fd-page-header-bg,
-        var(--ds-color-primary-500, light-dark(#0d6191, #84dbff))
+        var(--ds-color-primary-500)
       );
       padding-block: var(--fd-page-header-padding-block, 48px);
       padding-inline: var(--fd-page-header-padding-inline, 64px);

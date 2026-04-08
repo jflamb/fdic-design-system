@@ -34,7 +34,7 @@ export class FdPageHeaderButton extends LitElement {
       -webkit-backdrop-filter: blur(12px);
       color: var(
         --fd-page-header-button-text-color,
-        var(--ds-color-text-inverted, light-dark(#ffffff, #000000))
+        var(--ds-color-text-inverted)
       );
       font-family: var(
         --fdic-font-family-sans-serif,
@@ -68,13 +68,11 @@ export class FdPageHeaderButton extends LitElement {
     }
 
     .base:hover::before {
-      box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)));
+      box-shadow: inset 0 0 0 999px var(--ds-color-overlay-hover);
     }
 
     .base:active::before {
-      box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-pressed, light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14)));
+      box-shadow: inset 0 0 0 999px var(--ds-color-overlay-pressed);
     }
 
     .base:focus {
@@ -83,8 +81,8 @@ export class FdPageHeaderButton extends LitElement {
 
     .base:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 2px var(--ds-color-bg-base, light-dark(#ffffff, #000000)),
-        0 0 0 4px var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
+      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px) var(--ds-color-bg-base),
+        0 0 0 var(--ds-focus-ring-width, 4px) var(--ds-focus-ring-color);
     }
 
     .icon {

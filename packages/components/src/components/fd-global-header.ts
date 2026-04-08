@@ -281,19 +281,19 @@ export class FdGlobalHeader extends LitElement {
   static styles = css`
     :host {
       --fd-global-header-color-host: var(--fd-global-header-text-host, light-dark(#10243e, #ffffff));
-      --fd-global-header-color-text-primary: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
-      --fd-global-header-color-text-secondary: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
-      --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
-      --fd-global-header-color-surface-base: var(--ds-color-bg-surface, light-dark(#ffffff, #212123));
+      --fd-global-header-color-text-primary: var(--ds-color-text-primary);
+      --fd-global-header-color-text-secondary: var(--ds-color-text-secondary);
+      --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--ds-color-neutral-000));
+      --fd-global-header-color-surface-base: var(--ds-color-bg-surface);
       --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, light-dark(#003256, #84dbff));
       --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, light-dark(#0b466f, #38b6ff));
-      --fd-global-header-color-accent: var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
+      --fd-global-header-color-accent: var(--ds-focus-ring-color);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, light-dark(#84dbff, #e6f4fa));
-      --fd-global-header-color-border-subtle: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+      --fd-global-header-color-border-subtle: var(--ds-color-border-divider);
       --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, light-dark(#f5f5f7, #333335));
       --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, light-dark(#edf3f7, #424244));
-      --fd-global-header-shadow-floating: var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.36)));
-      --fd-global-header-shadow-panel: var(--ds-color-effect-shadow-panel, light-dark(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.48)));
+      --fd-global-header-shadow-floating: var(--ds-color-effect-shadow);
+      --fd-global-header-shadow-panel: var(--ds-color-effect-shadow-panel);
       --fd-global-header-glass-sheen: var(--fd-global-header-glass-sheen, var(--ds-gradient-glass-sheen));
       --fd-global-header-glass-border: var(--fd-global-header-glass-border, var(--ds-color-border-glass-soft));
       --fd-global-header-glass-border-strong: var(--fd-global-header-glass-border-strong, var(--ds-color-border-glass));
@@ -661,7 +661,7 @@ export class FdGlobalHeader extends LitElement {
       height: 4px;
       background: var(--fd-global-header-color-accent);
       opacity: 0;
-      transition: opacity 120ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: opacity var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .top-nav-link:hover,
@@ -1240,8 +1240,8 @@ export class FdGlobalHeader extends LitElement {
       cursor: pointer;
       text-align: start;
       transition:
-        box-shadow 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
-        background-color 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
         transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
@@ -1266,7 +1266,7 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-back fd-icon {
       --fd-icon-size: 1rem;
-      transition: transform 120ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: transform var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-back:hover fd-icon,
@@ -1312,8 +1312,8 @@ export class FdGlobalHeader extends LitElement {
       text-align: start;
       text-decoration: none;
       transition:
-        box-shadow 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
-        background-color 120ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
         transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
@@ -1352,7 +1352,7 @@ export class FdGlobalHeader extends LitElement {
       background: var(--fd-global-header-color-accent);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 120ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: opacity var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-link::after {

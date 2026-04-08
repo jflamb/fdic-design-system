@@ -380,7 +380,7 @@ export class FdTextarea extends LitElement {
       border: 1px solid
         var(
           --fd-textarea-border-color,
-          var(--ds-color-border-input, light-dark(#bdbdbf, #595961))
+          var(--ds-color-border-input)
         );
       border-radius: var(
         --fd-textarea-border-radius,
@@ -388,7 +388,7 @@ export class FdTextarea extends LitElement {
       );
       background: var(
         --fd-textarea-bg,
-        var(--ds-color-bg-base, light-dark(#ffffff, #000000))
+        var(--ds-color-bg-base)
       );
       box-sizing: border-box;
     }
@@ -415,7 +415,7 @@ export class FdTextarea extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-textarea-placeholder-color,
-        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
+        var(--ds-color-text-secondary)
       );
       opacity: 1;
     }
@@ -423,24 +423,24 @@ export class FdTextarea extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-textarea-border-color-hover,
-        var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2))
+        var(--ds-color-border-input-active)
       );
     }
 
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border: 2px solid var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2));
+      border: 2px solid var(--ds-color-border-input-active);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-textarea-border-color-focus,
-          var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
+          var(--ds-focus-ring-color)
         );
     }
 
     :host([disabled]) [part="base"] {
-      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #9e9ea0));
-      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
-      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
+      color: var(--ds-color-text-disabled);
+      border-color: var(--ds-color-border-divider);
+      background: var(--ds-color-bg-container);
       cursor: not-allowed;
     }
 
@@ -450,8 +450,8 @@ export class FdTextarea extends LitElement {
     }
 
     :host([readonly]) [part="base"] {
-      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
-      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+      background: var(--ds-color-bg-container);
+      border-color: var(--ds-color-border-divider);
       border-style: dashed;
     }
 

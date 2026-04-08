@@ -43,7 +43,8 @@ Here is a minimal working page that uses an FDIC button:
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FDIC Design System — Hello World</title>
   <script type="module">
-    import '@fdic/components';
+    import "@fdic-ds/tokens/semantic.css";
+    import "@fdic-ds/components/register-all";
   </script>
 </head>
 <body>
@@ -53,7 +54,7 @@ Here is a minimal working page that uses an FDIC button:
 </html>
 ```
 
-That is all you need. The `fd-button` element registers itself, renders a native `<button>` inside Shadow DOM, and includes keyboard support, focus rings, and FDIC styling automatically.
+The token stylesheet is required. Components consume the shared `--ds-*` semantic tokens for color, motion, and effects, so using the component package without `@fdic-ds/tokens/semantic.css` is unsupported.
 
 ## Where to go next
 

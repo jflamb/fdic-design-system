@@ -43,7 +43,7 @@ export class FdSelector extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
       position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -66,22 +66,22 @@ export class FdSelector extends LitElement {
 
     [part="label-text"] {
       font-weight: 400;
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
     }
 
     [part="required-marker"] {
       font-weight: 600;
-      color: var(--fd-selector-required-color, var(--ds-color-text-error, light-dark(#d80e3a, #ffcccc)));
+      color: var(--fd-selector-required-color, var(--ds-color-text-error));
     }
 
     :host([disabled]) [part="label-text"] {
-      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
+      color: var(--ds-color-text-secondary);
     }
 
     /* --- Description --- */
 
     [part="description"] {
-      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
+      color: var(--ds-color-text-secondary);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
@@ -101,10 +101,10 @@ export class FdSelector extends LitElement {
       border: 1px solid
         var(
           --fd-selector-trigger-border,
-          var(--ds-color-border-input, light-dark(#bdbdbf, #595961))
+          var(--ds-color-border-input)
         );
       border-radius: var(--fd-selector-border-radius, var(--fdic-corner-radius-sm, 3px));
-      background: var(--fd-selector-trigger-bg, var(--ds-color-bg-base, light-dark(#ffffff, #000000)));
+      background: var(--fd-selector-trigger-bg, var(--ds-color-bg-base));
       font: inherit;
       color: inherit;
       cursor: pointer;
@@ -116,7 +116,7 @@ export class FdSelector extends LitElement {
       outline: 2px solid
         var(
           --fd-selector-trigger-border-focus,
-          var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
+          var(--ds-focus-ring-color)
         );
       outline-offset: 2px;
       border-radius: 2px;
@@ -129,7 +129,7 @@ export class FdSelector extends LitElement {
     }
 
     :host([data-user-invalid]) [part="trigger"] {
-      border-color: var(--fd-selector-error-border, var(--ds-color-semantic-border-error, light-dark(#b10b2d, #f66f8b)));
+      border-color: var(--fd-selector-error-border, var(--ds-color-semantic-border-error));
     }
 
     [part="value-display"] {
@@ -144,7 +144,7 @@ export class FdSelector extends LitElement {
     .placeholder {
       color: var(
         --fd-selector-trigger-placeholder,
-        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
+        var(--ds-color-text-secondary)
       );
     }
 
@@ -160,7 +160,7 @@ export class FdSelector extends LitElement {
     .chevron-icon {
       width: 24px;
       height: 24px;
-      transition: transform 0.2s ease;
+      transition: transform var(--ds-motion-duration-normal, 150ms) var(--ds-motion-easing-default, ease);
     }
 
     :host([open]) .chevron-icon {
@@ -177,18 +177,14 @@ export class FdSelector extends LitElement {
       margin-top: 2px;
       max-height: var(--fd-selector-dropdown-max-height, 280px);
       overflow-y: auto;
-      background: var(--fd-selector-dropdown-bg, var(--ds-color-bg-base, light-dark(#ffffff, #000000)));
+      background: var(--fd-selector-dropdown-bg, var(--ds-color-bg-base));
       border: 1px solid
         var(
           --fd-selector-dropdown-border,
-          var(--ds-color-border-input, light-dark(#bdbdbf, #595961))
+          var(--ds-color-border-input)
         );
       border-radius: var(--fd-selector-border-radius, var(--fdic-corner-radius-sm, 3px));
-      box-shadow: var(
-        --fd-selector-dropdown-shadow,
-        0px 1px 2px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.28))),
-        0px 2px 12px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.28)))
-      );
+      box-shadow: var(--fd-selector-dropdown-shadow, var(--ds-shadow-dropdown));
       z-index: 9999;
       box-sizing: border-box;
     }
@@ -204,7 +200,7 @@ export class FdSelector extends LitElement {
     /* --- Error --- */
 
     [part="error"] {
-      color: var(--fd-selector-error-color, var(--ds-color-semantic-fg-error, light-dark(#b10b2d, #f66f8b)));
+      color: var(--fd-selector-error-color, var(--ds-color-semantic-fg-error));
       font-size: var(--fdic-font-size-body-small, 1rem);
       margin-top: var(--fdic-spacing-3xs, 2px);
     }

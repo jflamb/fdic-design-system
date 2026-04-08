@@ -115,10 +115,11 @@ export class FdFileInput extends LitElement {
       inset: 0;
       pointer-events: none;
       border-radius: inherit;
-      box-shadow: inset 0 0 0 0
-        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0));
-      transition: box-shadow 120ms ease, background-color 120ms ease,
-        border-color 120ms ease;
+      box-shadow: inset 0 0 0 0 var(--ds-color-overlay-hover, rgba(0, 0, 0, 0));
+      transition:
+        box-shadow var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
+        background-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
+        border-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
     }
 
     [part="container"]:hover {
@@ -145,7 +146,7 @@ export class FdFileInput extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-file-input-drop-overlay,
-          var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
+          var(--ds-color-overlay-hover)
         );
     }
 
@@ -155,7 +156,7 @@ export class FdFileInput extends LitElement {
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-file-input-focus-ring,
-          var(--ds-color-border-input-focus, #38b6ff)
+          var(--ds-focus-ring-color, #38b6ff)
         );
     }
 
@@ -371,18 +372,18 @@ export class FdFileInput extends LitElement {
 
     [part="item-action"]:hover {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
+        var(--ds-color-overlay-hover);
     }
 
     [part="item-action"]:active {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
+        var(--ds-color-overlay-pressed);
     }
 
     [part="item-action"]:focus-visible {
       outline: 2px solid var(--ds-color-border-input-active, #424244);
       outline-offset: -2px;
-      box-shadow: 0 0 2.5px 2px var(--ds-color-border-input-focus, #38b6ff);
+      box-shadow: 0 0 2.5px 2px var(--ds-focus-ring-color, #38b6ff);
     }
 
     :host([disabled]) [part="item-action"] {
@@ -407,7 +408,7 @@ export class FdFileInput extends LitElement {
         var(--ds-color-border-input-focus, #38b6ff)
       );
       min-inline-size: 0;
-      transition: inline-size 120ms ease;
+      transition: inline-size var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
     }
 
     [data-state="success"] .fd-file-input__indicator-progress {

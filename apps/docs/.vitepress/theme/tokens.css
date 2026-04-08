@@ -34,11 +34,11 @@
     --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
 
     /* Mega-menu column surfaces — darker translucent tints for glass effect */
-    --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
-    --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
-    --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
-    --fd-global-header-mega-col-2-muted: rgba(28, 38, 48, 0.4);
-    --fd-global-header-mega-col-3-muted: rgba(20, 32, 44, 0.14);
+    --fd-global-header-mega-col-1: var(--ds-color-surface-glass-1);
+    --fd-global-header-mega-col-2: var(--ds-color-surface-glass-2);
+    --fd-global-header-mega-col-3: var(--ds-color-surface-glass-3);
+    --fd-global-header-mega-col-2-muted: var(--ds-color-surface-glass-2-muted);
+    --fd-global-header-mega-col-3-muted: var(--ds-color-surface-glass-3-muted-1);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -46,11 +46,11 @@
       color-scheme: dark;
 
       --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
-      --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
-      --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
-      --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
-      --fd-global-header-mega-col-2-muted: rgba(28, 38, 48, 0.4);
-      --fd-global-header-mega-col-3-muted: rgba(20, 32, 44, 0.14);
+      --fd-global-header-mega-col-1: var(--ds-color-surface-glass-1);
+      --fd-global-header-mega-col-2: var(--ds-color-surface-glass-2);
+      --fd-global-header-mega-col-3: var(--ds-color-surface-glass-3);
+      --fd-global-header-mega-col-2-muted: var(--ds-color-surface-glass-2-muted);
+      --fd-global-header-mega-col-3-muted: var(--ds-color-surface-glass-3-muted-1);
     }
   }
 }

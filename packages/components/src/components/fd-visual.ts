@@ -86,11 +86,11 @@ export class FdVisual extends LitElement {
       border-radius: var(--fd-visual-radius, 9999px);
       background: var(
         --fd-visual-bg-neutral,
-        var(--ds-color-bg-interactive, light-dark(#f5f5f7, #212123))
+        var(--ds-color-bg-interactive)
       );
       color: var(
         --fd-visual-fg-neutral,
-        var(--ds-color-text-primary, light-dark(#212123, #ffffff))
+        var(--ds-color-text-primary)
       );
     }
 
@@ -101,25 +101,25 @@ export class FdVisual extends LitElement {
     .avatar-surface {
       padding: 0;
       background: var(--fd-visual-bg-avatar, transparent);
-      color: var(--fd-visual-avatar-placeholder-color, var(--ds-color-icon-disabled, light-dark(#bdbdbf, #595961)));
+      color: var(--fd-visual-avatar-placeholder-color, var(--ds-color-icon-disabled));
     }
 
     .type-cool {
-      background: var(--fd-visual-bg-cool, var(--ds-color-info-100, light-dark(#38b6ff, #1e3a5f)));
+      background: var(--fd-visual-bg-cool, var(--ds-color-info-100));
       color: var(
         --fd-visual-fg-cool,
-        var(--ds-color-text-inverted, light-dark(#ffffff, #000000))
+        var(--ds-color-text-inverted)
       );
     }
 
     .type-warm {
       background: var(
         --fd-visual-bg-warm,
-        var(--ds-color-secondary-200, light-dark(#ebd49b, #60511b))
+        var(--ds-color-secondary-200)
       );
       color: var(
         --fd-visual-fg-warm,
-        var(--ds-color-text-primary, light-dark(#212123, #ffffff))
+        var(--ds-color-text-primary)
       );
     }
 

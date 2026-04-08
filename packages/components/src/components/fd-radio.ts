@@ -18,7 +18,7 @@ export class FdRadio extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       font-family: var(
@@ -59,7 +59,7 @@ export class FdRadio extends LitElement {
       place-content: center;
       inline-size: var(--fd-radio-size, 1.5em);
       block-size: var(--fd-radio-size, 1.5em);
-      color: var(--fd-radio-icon-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
+      color: var(--fd-radio-icon-color, var(--ds-color-text-primary));
       flex-shrink: 0;
     }
 
@@ -71,16 +71,16 @@ export class FdRadio extends LitElement {
       accent-color: currentColor;
       outline-color: transparent;
       transition:
-        outline-color 120ms ease,
-        box-shadow 120ms ease,
-        color 120ms ease;
+        outline-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
+        box-shadow var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
+        color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
     }
 
     [part="control"] input:focus-visible {
       outline: 2.5px solid
         var(
           --fd-radio-focus-color,
-          var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
+          var(--ds-focus-ring-color)
         );
       outline-offset: 2px;
     }
@@ -89,7 +89,7 @@ export class FdRadio extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-radio-overlay-hover,
-          var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
+          var(--ds-color-overlay-hover)
         );
     }
 
@@ -97,16 +97,16 @@ export class FdRadio extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-radio-overlay-active,
-          var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))
+          var(--ds-color-overlay-pressed)
         );
     }
 
     :host([disabled]) [part="control"] {
-      color: var(--fd-radio-icon-disabled, var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf)));
+      color: var(--fd-radio-icon-disabled, var(--ds-color-text-disabled));
     }
 
     :host([data-user-invalid]) [part="control"] {
-      color: var(--fd-radio-invalid-color, var(--ds-color-semantic-fg-error, light-dark(#b10b2d, #f66f8b)));
+      color: var(--fd-radio-invalid-color, var(--ds-color-semantic-fg-error));
     }
 
     [part="label"] {
@@ -123,7 +123,7 @@ export class FdRadio extends LitElement {
 
     [part="description"] {
       display: block;
-      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
+      color: var(--ds-color-text-secondary);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
@@ -132,7 +132,7 @@ export class FdRadio extends LitElement {
     }
 
     :host([disabled]) [part="label"] {
-      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf));
+      color: var(--ds-color-text-disabled);
     }
 
     @media (forced-colors: active) {

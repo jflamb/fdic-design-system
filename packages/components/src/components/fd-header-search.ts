@@ -326,8 +326,8 @@ export class FdHeaderSearch extends LitElement {
       outline: 2px solid transparent;
       outline-offset: 2px;
       box-shadow:
-        0 0 0 2px var(--ds-color-bg-input, #ffffff),
-        0 0 0 4px var(--ds-color-border-input-focus, #38b6ff);
+        0 0 0 var(--ds-focus-gap-width, 2px) var(--ds-focus-gap-color, #ffffff),
+        0 0 0 var(--ds-focus-ring-width, 4px) var(--ds-focus-ring-color, #38b6ff);
     }
 
     .panel {
@@ -339,7 +339,7 @@ export class FdHeaderSearch extends LitElement {
       border: 1px solid var(--ds-color-border-divider, rgba(9, 53, 84, 0.14));
       border-radius: var(--fdic-corner-radius-sm, 3px);
       background: var(--ds-color-bg-surface, #ffffff);
-      box-shadow: 0 18px 48px var(--ds-color-effect-shadow, rgba(0, 18, 32, 0.22));
+      box-shadow: var(--ds-shadow-panel);
       z-index: 20;
     }
 

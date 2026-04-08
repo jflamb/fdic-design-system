@@ -47,9 +47,9 @@ export class FdDrawer extends LitElement {
       opacity: 0;
       overflow: visible;
       transition:
-        opacity 240ms ease,
-        overlay 240ms allow-discrete,
-        display 240ms allow-discrete;
+        opacity var(--ds-motion-duration-slow, 240ms) var(--ds-motion-easing-default, ease),
+        overlay var(--ds-motion-duration-slow, 240ms) allow-discrete,
+        display var(--ds-motion-duration-slow, 240ms) allow-discrete;
       transition-behavior: allow-discrete;
     }
 
@@ -60,16 +60,13 @@ export class FdDrawer extends LitElement {
     dialog.base::backdrop {
       background: var(
         --fd-drawer-backdrop,
-        var(
-          --ds-color-overlay-scrim,
-          light-dark(rgba(0, 18, 32, 0.34), rgba(0, 0, 0, 0.64))
-        )
+        var(--ds-color-overlay-scrim)
       );
       opacity: 0;
       transition:
-        opacity 240ms ease,
-        overlay 240ms allow-discrete,
-        display 240ms allow-discrete;
+        opacity var(--ds-motion-duration-slow, 240ms) var(--ds-motion-easing-default, ease),
+        overlay var(--ds-motion-duration-slow, 240ms) allow-discrete,
+        display var(--ds-motion-duration-slow, 240ms) allow-discrete;
       transition-behavior: allow-discrete;
     }
 
@@ -83,26 +80,19 @@ export class FdDrawer extends LitElement {
       display: grid;
       gap: 0.875rem;
       width: 100%;
-      background: var(--fd-drawer-surface, var(--ds-color-bg-surface, light-dark(#ffffff, #212123)));
+      background: var(--fd-drawer-surface, var(--ds-color-bg-surface));
       color: var(--fd-drawer-color, inherit);
       border-block-end: 1px solid
         var(
           --fd-drawer-border-color,
-          var(
-            --ds-color-border-divider,
-            light-dark(rgba(9, 53, 84, 0.14), rgba(255, 255, 255, 0.16))
-          )
+          var(--ds-color-border-divider)
         );
-      box-shadow: var(
-        --fd-drawer-shadow,
-        0 18px 48px
-          light-dark(rgba(0, 18, 32, 0.22), rgba(0, 0, 0, 0.48))
-      );
+      box-shadow: var(--fd-drawer-shadow, var(--ds-shadow-panel));
       transform: translateY(-1.25rem);
       opacity: 0;
       transition:
-        transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
-        opacity 240ms ease;
+        transform var(--ds-motion-duration-slow, 240ms) cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity var(--ds-motion-duration-slow, 240ms) var(--ds-motion-easing-default, ease);
       will-change: transform, opacity;
     }
 

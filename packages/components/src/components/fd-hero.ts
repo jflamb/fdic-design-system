@@ -61,7 +61,7 @@ export class FdHero extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--ds-color-text-inverted, light-dark(#ffffff, #000000));
+      color: var(--ds-color-text-inverted);
 
       /* Cool tone overlay tokens (default) */
       --fd-hero-overlay-cool-panel: oklch(from var(--ds-color-primary-800) l c h / 0.7);
@@ -108,7 +108,7 @@ export class FdHero extends LitElement {
     .tone-neutral {
       --_fd-hero-overlay-gradient: var(--fd-hero-overlay-neutral, var(--ds-gradient-hero-overlay-neutral));
       --_fd-hero-panel-bg: var(--fd-hero-overlay-neutral-panel, oklch(from var(--ds-color-neutral-800) l c h / 0.7));
-      --_fd-hero-stripe-bg: var(--ds-color-text-inverted, light-dark(#ffffff, #000000));
+      --_fd-hero-stripe-bg: var(--ds-color-text-inverted);
     }
 
     .content {
@@ -203,7 +203,7 @@ export class FdHero extends LitElement {
         0 0 0 4px
           var(
             --fd-hero-focus-ring,
-            var(--ds-color-border-input-focus, #38b6ff)
+            var(--ds-focus-ring-color, #38b6ff)
           );
       text-decoration: underline;
       text-decoration-thickness: 1px;
@@ -233,7 +233,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="heading"]) {
       display: block;
       margin: 0;
-      color: var(--ds-color-text-inverted, light-dark(#ffffff, #000000)) !important;
+      color: var(--ds-color-text-inverted) !important;
       font-size: var(--fdic-font-size-h2, 27px);
       font-weight: 600;
       line-height: 1.2;
@@ -244,7 +244,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="lede"]) {
       display: block;
       margin: 0;
-      color: var(--ds-color-text-inverted, light-dark(#ffffff, #000000)) !important;
+      color: var(--ds-color-text-inverted) !important;
       font-size: var(--fdic-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
@@ -254,7 +254,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="body"]) {
       display: block;
       margin: 0;
-      color: var(--ds-color-text-inverted, light-dark(#ffffff, #000000)) !important;
+      color: var(--ds-color-text-inverted) !important;
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;

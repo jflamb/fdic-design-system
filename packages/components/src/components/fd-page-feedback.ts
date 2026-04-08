@@ -80,7 +80,7 @@ export class FdPageFeedback extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
     }
 
     :host([hidden]) {
@@ -95,7 +95,7 @@ export class FdPageFeedback extends LitElement {
       padding-inline: var(--fd-page-feedback-inline-padding, 64px);
       background: var(
         --fd-page-feedback-background,
-        var(--ds-color-bg-base, light-dark(#ffffff, #000000))
+        var(--ds-color-bg-base)
       );
     }
 

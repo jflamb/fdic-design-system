@@ -40,7 +40,7 @@ export class FdMenuItem extends LitElement {
       );
       font-size: var(--fd-menu-item-font-size, var(--fdic-font-size-body, 18px));
       line-height: 1.375;
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
       text-align: start;
       cursor: pointer;
       box-sizing: border-box;
@@ -48,8 +48,7 @@ export class FdMenuItem extends LitElement {
 
     .base:hover {
       background-color: var(
-        --ds-color-overlay-hover,
-        light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08))
+        --ds-color-overlay-hover
       );
     }
 
@@ -59,20 +58,19 @@ export class FdMenuItem extends LitElement {
 
     .base:focus-visible {
       background-color: var(
-        --ds-color-overlay-pressed,
-        light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14))
+        --ds-color-overlay-pressed
       );
-      outline: 2px solid var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
+      outline: 2px solid var(--ds-focus-ring-color);
       outline-offset: -2px;
       border-radius: 2px;
     }
 
     .destructive {
-      color: var(--fd-menu-item-destructive-color, var(--ds-color-bg-destructive, light-dark(#d80e3a, #442121)));
+      color: var(--fd-menu-item-destructive-color, var(--ds-color-bg-destructive));
     }
 
     .disabled {
-      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf));
+      color: var(--ds-color-text-disabled);
       cursor: default;
     }
 

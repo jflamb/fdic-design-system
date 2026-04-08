@@ -94,10 +94,10 @@ export class FdAlert extends LitElement {
 
   static styles = css`
     :host {
-      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info, light-dark(#f1f8fe, #1e3a5f)));
-      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info, light-dark(#0b4f82, #4eaff9)));
-      --_fd-alert-text: var(--fd-alert-text-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
-      --_fd-alert-link: var(--fd-alert-link-color, var(--ds-color-bg-active, light-dark(#0d6191, #84dbff)));
+      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info));
+      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info));
+      --_fd-alert-text: var(--fd-alert-text-color, var(--ds-color-text-primary));
+      --_fd-alert-link: var(--fd-alert-link-color, var(--ds-color-bg-active));
       display: block;
       font-family: var(
         --fdic-font-family-sans-serif,
@@ -111,7 +111,7 @@ export class FdAlert extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+      color: var(--ds-color-text-primary);
     }
 
     :host([hidden]) {
@@ -119,30 +119,30 @@ export class FdAlert extends LitElement {
     }
 
     :host([type="info"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info, light-dark(#f1f8fe, #1e3a5f)));
-      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info, light-dark(#0b4f82, #4eaff9)));
+      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info));
+      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info));
     }
 
     :host([type="success"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-success, var(--ds-color-semantic-bg-success, light-dark(#e8f5e9, #204520)));
-      --_fd-alert-accent: var(--fd-alert-accent-success, var(--ds-color-semantic-border-success, light-dark(#2e7d32, #61d673)));
+      --_fd-alert-bg: var(--fd-alert-bg-success, var(--ds-color-semantic-bg-success));
+      --_fd-alert-accent: var(--fd-alert-accent-success, var(--ds-color-semantic-border-success));
     }
 
     :host([type="warning"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-warning, var(--ds-color-semantic-bg-warning, light-dark(#fcf7ee, #663d00)));
-      --_fd-alert-accent: var(--fd-alert-accent-warning, var(--ds-color-semantic-border-warning, light-dark(#8b5e00, #ffbf47)));
+      --_fd-alert-bg: var(--fd-alert-bg-warning, var(--ds-color-semantic-bg-warning));
+      --_fd-alert-accent: var(--fd-alert-accent-warning, var(--ds-color-semantic-border-warning));
     }
 
     :host([type="error"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-error, var(--ds-color-semantic-bg-error, light-dark(#fdedea, #442121)));
-      --_fd-alert-accent: var(--fd-alert-accent-error, var(--ds-color-semantic-border-error, light-dark(#b10b2d, #f66f8b)));
+      --_fd-alert-bg: var(--fd-alert-bg-error, var(--ds-color-semantic-bg-error));
+      --_fd-alert-accent: var(--fd-alert-accent-error, var(--ds-color-semantic-border-error));
     }
 
     :host([type="emergency"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-emergency, var(--ds-color-bg-destructive, light-dark(#d80e3a, #442121)));
-      --_fd-alert-accent: var(--fd-alert-accent-emergency, var(--ds-color-semantic-border-error, light-dark(#b10b2d, #f66f8b)));
-      --_fd-alert-text: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
-      --_fd-alert-link: var(--fd-alert-link-color-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
+      --_fd-alert-bg: var(--fd-alert-bg-emergency, var(--ds-color-bg-destructive));
+      --_fd-alert-accent: var(--fd-alert-accent-emergency, var(--ds-color-semantic-border-error));
+      --_fd-alert-text: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000));
+      --_fd-alert-link: var(--fd-alert-link-color-inverted, var(--ds-color-neutral-000));
     }
 
     .base {
@@ -245,7 +245,7 @@ export class FdAlert extends LitElement {
     }
 
     .type-emergency .icon {
-      color: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
+      color: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000));
     }
 
     .icon svg {
@@ -299,7 +299,7 @@ export class FdAlert extends LitElement {
     }
 
     .body-slot::slotted(a:focus-visible) {
-      outline: 2px solid var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191)));
+      outline: 2px solid var(--fd-alert-focus-ring, var(--ds-focus-ring-color));
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -339,7 +339,7 @@ export class FdAlert extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-alert-dismiss-overlay-hover,
-          var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)))
+          var(--ds-color-overlay-hover)
         );
     }
 
@@ -347,7 +347,7 @@ export class FdAlert extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-alert-dismiss-overlay-active,
-          var(--ds-color-overlay-pressed, light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14)))
+          var(--ds-color-overlay-pressed)
         );
     }
 
@@ -357,8 +357,10 @@ export class FdAlert extends LitElement {
 
     .dismiss-button:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 2px var(--fd-alert-focus-gap, var(--ds-color-bg-surface, light-dark(#ffffff, #212123))),
-        0 0 0 4px var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191)));
+      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px)
+          var(--fd-alert-focus-gap, var(--ds-color-bg-surface)),
+        0 0 0 var(--ds-focus-ring-width, 4px)
+          var(--fd-alert-focus-ring, var(--ds-focus-ring-color));
     }
 
     .variant-slim .dismiss-button {

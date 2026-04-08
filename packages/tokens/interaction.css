@@ -1,0 +1,13 @@
+/*
+ * Shared interaction tokens — focus geometry, overlay intensities, motion.
+ */
+
+:root {
+  --ds-focus-gap-color: var(--ds-color-bg-input);
+  --ds-focus-ring-color: var(--ds-color-border-input-focus);
+
+  --ds-motion-duration-fast: 120ms;
+  --ds-motion-duration-normal: 150ms;
+  --ds-motion-duration-slow: 240ms;
+  --ds-motion-easing-default: ease;
+}

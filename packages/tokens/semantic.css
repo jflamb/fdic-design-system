@@ -1,3 +1,5 @@
+@import "./interaction.css";
+
 /*
  * FDIC Design System — Semantic color tokens
  *
@@ -224,9 +226,27 @@
     oklch(from var(--ds-color-neutral-1000) l c h / 0.36)
   );
   --ds-color-effect-shadow-panel: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.24),
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.22),
     oklch(from var(--ds-color-neutral-1000) l c h / 0.48)
   );
+  --ds-focus-gap-width: 2px;
+  --ds-focus-ring-width: 4px;
+  --ds-shadow-raised:
+    0 1px 1px var(--ds-color-effect-shadow),
+    0 2px 2px var(--ds-color-effect-shadow),
+    0 4px 4px var(--ds-color-effect-shadow),
+    0 6px 8px var(--ds-color-effect-shadow);
+  --ds-shadow-raised-hover:
+    0 1px 1px var(--ds-color-effect-shadow),
+    0 2px 2px var(--ds-color-effect-shadow),
+    0 4px 4px var(--ds-color-effect-shadow),
+    0 8px 8px var(--ds-color-effect-shadow),
+    0 16px 16px var(--ds-color-effect-shadow);
+  --ds-shadow-dropdown:
+    0 1px 2px var(--ds-color-effect-shadow),
+    0 2px 12px var(--ds-color-effect-shadow);
+  --ds-shadow-menu: 0 4px 12px var(--ds-color-effect-shadow);
+  --ds-shadow-panel: 0 18px 48px var(--ds-color-effect-shadow-panel);
 
   /* Gradient */
   --ds-gradient-brand-core: linear-gradient(

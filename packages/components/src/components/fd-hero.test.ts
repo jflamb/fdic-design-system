@@ -67,9 +67,7 @@ describe("FdHero", () => {
       : FdHero.styles.cssText;
 
     expect(stylesheet).toContain("::slotted([slot=\"heading\"])");
-    expect(stylesheet).toContain(
-      "color: var(--ds-color-text-inverted, light-dark(#ffffff, #000000)) !important;",
-    );
+    expect(stylesheet).toContain("color: var(--ds-color-text-inverted) !important;");
   });
 
   it("uses semantic gradient tokens for hero overlays", () => {
