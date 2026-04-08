@@ -769,9 +769,11 @@
   border: 1px solid var(--fdic-docs-mode-panel-dark-border);
 }
 
-.fdic-mode-frame[data-mode="dark"] code {
+.prose .fdic-mode-frame[data-mode="dark"] :not(pre) > code,
+.prose .fdic-mode-meta :not(pre) > code {
   color: var(--fdic-docs-mode-code-dark);
   background: var(--fdic-docs-mode-code-dark-bg);
+  border: 1px solid var(--fdic-docs-mode-panel-dark-border);
 }
 
 .fdic-mode-meta {

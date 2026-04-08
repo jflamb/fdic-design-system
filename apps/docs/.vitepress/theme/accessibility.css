@@ -89,6 +89,13 @@
       outline-color: Highlight;
     }
 
+    .vp-doc .prose :where(.fdic-mode-frame, .fdic-mode-meta) :not(pre) > code {
+      color: CanvasText;
+      background: Canvas;
+      border: 1px solid CanvasText;
+      forced-color-adjust: none;
+    }
+
     .vp-doc :where(.fdic-story-embed-placeholder-icon, .fdic-figma-embed-placeholder-icon) {
       forced-color-adjust: none;
     }
