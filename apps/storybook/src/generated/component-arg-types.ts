@@ -598,6 +598,22 @@ export const componentStoryApi = {
     "imageSrc": undefined,
     },
   },
+  "fd-global-footer": {
+    argTypes: {
+    "agencyName": { control: "text" },
+    "agencyHref": { control: "text" },
+    "updatedText": { control: "text" },
+    "utilityLinks": { control: "text" },
+    "socialLinks": { control: "text" },
+    },
+    args: {
+    "agencyName": "",
+    "agencyHref": "",
+    "updatedText": "",
+    "utilityLinks": "[]",
+    "socialLinks": "[]",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

@@ -919,6 +919,32 @@ export const componentInventory = [
     },
     typeExports: []
   },
+  {
+    tagName: "fd-global-footer",
+    className: "FdGlobalFooter",
+    sourceFile: "fd-global-footer.ts",
+    docs: {
+      kind: COMPONENT_KINDS.FIRST_CLASS,
+      title: "Global Footer",
+      slug: "global-footer",
+      category: DOCS_CATEGORIES.LAYOUT_SHELL,
+      order: 17,
+    },
+    storybook: {
+      title: "Components/Global Footer",
+      file: "fd-global-footer.stories.ts",
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: [],
+    },
+    typeExports: [
+      "GlobalFooterSocialIcon",
+      "FdGlobalFooterLink",
+      "FdGlobalFooterSocialLink",
+    ],
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

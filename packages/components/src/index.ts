@@ -42,6 +42,7 @@ export { FdEventList } from "./components/fd-event-list.js";
 export { FdTile } from "./components/fd-tile.js";
 export { FdTileList } from "./components/fd-tile-list.js";
 export { FdCard } from "./components/fd-card.js";
+export { FdGlobalFooter } from "./components/fd-global-footer.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -67,6 +68,7 @@ export type { HeroTone } from "./components/fd-hero.js";
 export type { PageFeedbackView, PageFeedbackViewChangeReason, PageFeedbackViewChangeDetail, PageFeedbackReportSubmitDetail } from "./components/fd-page-feedback.js";
 export type { EventTone } from "./components/fd-event.js";
 export type { TileTone, FdTileLinkItem } from "./components/fd-tile.js";
+export type { GlobalFooterSocialIcon, FdGlobalFooterLink, FdGlobalFooterSocialLink } from "./components/fd-global-footer.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,
