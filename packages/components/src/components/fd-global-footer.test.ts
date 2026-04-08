@@ -23,14 +23,12 @@ describe("FdGlobalFooter", () => {
       { icon: "facebook", label: "Follow the FDIC on Facebook", href: "https://facebook.com/fdicgov" },
       { icon: "x", label: "Follow the FDIC on X", href: "https://x.com/fdicgov" },
     ],
-    feedback = "",
   }: {
     agencyName?: string;
     agencyHref?: string;
     updatedText?: string;
     utilityLinks?: FdGlobalFooterLink[];
     socialLinks?: FdGlobalFooterSocialLink[];
-    feedback?: string;
   } = {}) {
     const el = document.createElement("fd-global-footer") as any;
     el.agencyName = agencyName;
@@ -38,7 +36,6 @@ describe("FdGlobalFooter", () => {
     el.updatedText = updatedText;
     el.utilityLinks = utilityLinks;
     el.socialLinks = socialLinks;
-    el.innerHTML = feedback;
     document.body.appendChild(el);
     await el.updateComplete;
     return el;
@@ -50,8 +47,10 @@ describe("FdGlobalFooter", () => {
     const agency = el.shadowRoot?.querySelector("[part=agency] a");
     const utilityLinks = el.shadowRoot?.querySelectorAll("[part=utility-links] a");
     const updated = el.shadowRoot?.querySelector("[part=updated]");
+    const seal = el.shadowRoot?.querySelector("[part=seal] svg");
 
     expect(footer).toBeTruthy();
+    expect(seal).toBeTruthy();
     expect(agency?.textContent?.trim()).toBe(
       "Federal Deposit Insurance Corporation",
     );
@@ -103,17 +102,5 @@ describe("FdGlobalFooter", () => {
 
     expect(link?.getAttribute("rel")).toContain("noopener");
     expect(link?.getAttribute("rel")).toContain("noreferrer");
-  });
-
-  it("shows the feedback slot wrapper only when assigned content exists", async () => {
-    const el = await createFooter({
-      feedback:
-        '<fd-page-feedback slot="feedback" survey-href="https://www.fdic.gov/feedback"></fd-page-feedback>',
-    });
-    const feedback = el.shadowRoot?.querySelector("[part=feedback]") as
-      | HTMLElement
-      | null;
-
-    expect(feedback?.hidden).toBe(false);
   });
 });

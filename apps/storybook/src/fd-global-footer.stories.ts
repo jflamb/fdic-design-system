@@ -29,7 +29,6 @@ type GlobalFooterArgs = {
   updatedText: string;
   utilityLinks: FooterStoryLink[];
   socialLinks: FooterStorySocialLink[];
-  includeFeedback: boolean;
   mobile: boolean;
 };
 
@@ -90,15 +89,7 @@ const renderFooter = (args: GlobalFooterArgs) => html`
       updated-text=${ifDefined(args.updatedText || undefined)}
       .utilityLinks=${args.utilityLinks}
       .socialLinks=${args.socialLinks}
-    >
-      ${args.includeFeedback
-        ? html`<fd-page-feedback
-            slot="feedback"
-            survey-href="https://www.fdic.gov/feedback-survey"
-            survey-target="_blank"
-          ></fd-page-feedback>`
-        : null}
-    </fd-global-footer>
+    ></fd-global-footer>
   </div>
 `;
 
@@ -112,11 +103,6 @@ const meta = {
   },
   argTypes: {
     ...getComponentArgTypes("fd-global-footer"),
-    includeFeedback: {
-      control: "boolean",
-      description:
-        "Story-only flag that composes fd-page-feedback in the named feedback slot.",
-    },
     mobile: {
       control: "boolean",
       description: "Story-only flag that constrains the preview to the Figma mobile width.",
@@ -129,7 +115,6 @@ const meta = {
     updatedText: "Updated August 7, 2024",
     utilityLinks: createUtilityLinks(),
     socialLinks: createSocialLinks(),
-    includeFeedback: false,
     mobile: false,
   },
   render: renderFooter,
@@ -142,7 +127,6 @@ export const Playground: Story = {};
 
 export const Desktop: Story = {
   args: {
-    includeFeedback: false,
     mobile: false,
   },
 };
@@ -153,24 +137,17 @@ export const Mobile: Story = {
   },
 };
 
-export const WithFeedback: Story = {
-  args: {
-    includeFeedback: true,
-  },
-};
-
 export const DocsOverview: Story = {
   render: () => html`
     <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
       <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Global footer with composed page feedback</p>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Global footer shell</p>
         ${renderFooter({
           agencyName: "Federal Deposit Insurance Corporation",
           agencyHref: "/",
           updatedText: "Updated August 7, 2024",
           utilityLinks: createUtilityLinks(),
           socialLinks: createSocialLinks(),
-          includeFeedback: true,
           mobile: false,
         })}
       </div>

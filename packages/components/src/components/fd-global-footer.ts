@@ -2,7 +2,11 @@ import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { normalizeLinkRel } from "./link-utils.js";
-import { GLOBAL_FOOTER_SOCIAL_ICONS } from "./fd-global-footer.icons.js";
+import {
+  GLOBAL_FOOTER_SEAL_DARK,
+  GLOBAL_FOOTER_SEAL_LIGHT,
+  GLOBAL_FOOTER_SOCIAL_ICONS,
+} from "./fd-global-footer.icons.js";
 
 export const GLOBAL_FOOTER_SOCIAL_ICON_NAMES = [
   "facebook",
@@ -53,7 +57,7 @@ function normalizeSocialLinks(
 
 /**
  * `fd-global-footer` — Static FDICnet footer shell with agency, utility,
- * social, and updated metadata plus an optional composed feedback slot.
+ * social, and updated metadata.
  */
 export class FdGlobalFooter extends LitElement {
   static properties = {
@@ -62,7 +66,6 @@ export class FdGlobalFooter extends LitElement {
     updatedText: { attribute: "updated-text", reflect: true },
     utilityLinks: { attribute: false },
     socialLinks: { attribute: false },
-    _hasFeedback: { state: true },
   };
 
   static styles = css`
@@ -85,10 +88,6 @@ export class FdGlobalFooter extends LitElement {
 
     :host([hidden]) {
       display: none;
-    }
-
-    .feedback {
-      margin-block-end: var(--fd-global-footer-feedback-gap, 0px);
     }
 
     footer {
@@ -136,44 +135,19 @@ export class FdGlobalFooter extends LitElement {
       flex: none;
       inline-size: var(--fd-global-footer-seal-size, 80px);
       block-size: var(--fd-global-footer-seal-size, 80px);
-      border: 1.5px solid currentColor;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
+      display: block;
       box-sizing: border-box;
       position: relative;
-      overflow: hidden;
     }
 
-    .seal::before {
-      content: "";
-      position: absolute;
-      inset: 9px;
-      border: 1px solid currentColor;
-      border-radius: inherit;
-      opacity: 0.72;
+    .seal svg {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
     }
 
-    .seal-mark {
-      display: grid;
-      gap: 2px;
-      justify-items: center;
-      line-height: 1;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
-    }
-
-    .seal-mark strong {
-      font-size: 0.98rem;
-      font-weight: 700;
-    }
-
-    .seal-mark span {
-      font-size: 0.48rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+    .seal-dark {
+      display: none;
     }
 
     .body {
@@ -399,6 +373,14 @@ export class FdGlobalFooter extends LitElement {
       .social-link::before {
         box-shadow: inset 0 0 0 1px currentColor;
       }
+
+      .seal-light {
+        display: none;
+      }
+
+      .seal-dark {
+        display: block;
+      }
     }
   `;
 
@@ -407,7 +389,6 @@ export class FdGlobalFooter extends LitElement {
   declare updatedText: string;
   declare utilityLinks: FdGlobalFooterLink[];
   declare socialLinks: FdGlobalFooterSocialLink[];
-  private declare _hasFeedback: boolean;
 
   constructor() {
     super();
@@ -416,33 +397,6 @@ export class FdGlobalFooter extends LitElement {
     this.updatedText = "";
     this.utilityLinks = [];
     this.socialLinks = [];
-    this._hasFeedback = false;
-  }
-
-  private _handleFeedbackSlotChange(event: Event) {
-    const slot = event.target as HTMLSlotElement;
-    this._hasFeedback = this._slotHasContent(slot);
-  }
-
-  private _slotHasContent(slot: HTMLSlotElement) {
-    const assigned = slot.assignedNodes({ flatten: true });
-    return assigned.some((node) =>
-      node.nodeType === Node.ELEMENT_NODE
-        ? true
-        : Boolean(node.textContent?.trim()),
-    );
-  }
-
-  firstUpdated() {
-    const slot = this.shadowRoot?.querySelector(
-      'slot[name="feedback"]',
-    ) as HTMLSlotElement | null;
-
-    if (!slot) {
-      return;
-    }
-
-    this._hasFeedback = this._slotHasContent(slot);
   }
 
   private _renderLink(link: FdGlobalFooterLink, className: string) {
@@ -480,22 +434,12 @@ export class FdGlobalFooter extends LitElement {
     const updatedText = normalizeText(this.updatedText);
 
     return html`
-      <div
-        class="feedback"
-        part="feedback"
-        ?hidden=${!this._hasFeedback}
-      >
-        <slot name="feedback" @slotchange=${this._handleFeedbackSlotChange}></slot>
-      </div>
-
       <footer part="base">
         <div class="base">
           <div class="content" part="content">
             <div class="seal" part="seal" aria-hidden="true">
-              <div class="seal-mark">
-                <strong>FDIC</strong>
-                <span>1933</span>
-              </div>
+              <span class="seal-light">${unsafeSVG(GLOBAL_FOOTER_SEAL_LIGHT)}</span>
+              <span class="seal-dark">${unsafeSVG(GLOBAL_FOOTER_SEAL_DARK)}</span>
             </div>
 
             <div class="body">

@@ -4321,12 +4321,7 @@
       "after": ""
     },
     "slots": {
-      "rows": [
-        {
-          "name": "feedback",
-          "description": "Optional composed page-level feedback content rendered before the footer landmark."
-        }
-      ],
+      "rows": [],
       "after": ""
     },
     "events": {
@@ -4371,11 +4366,6 @@
           "description": "Mobile block padding at `640px` and below."
         },
         {
-          "name": "--fd-global-footer-feedback-gap",
-          "default": "`0px`",
-          "description": "Gap after the optional feedback slot wrapper."
-        },
-        {
           "name": "--fd-global-footer-seal-size",
           "default": "`80px`",
           "description": "Decorative seal badge size."
@@ -4391,14 +4381,10 @@
           "description": "Mobile social-link target size."
         }
       ],
-      "after": "`fd-global-footer` keeps its styling hooks focused on layout and shell treatment in v1. Link content, social-link labels, and the composed feedback pattern remain application-authored."
+      "after": "`fd-global-footer` keeps its styling hooks focused on layout and shell treatment in v1. Link content and social-link labels remain application-authored."
     },
     "shadowParts": {
       "rows": [
-        {
-          "name": "feedback",
-          "description": "Wrapper around the optional named feedback slot."
-        },
         {
           "name": "base",
           "description": "Footer landmark element."

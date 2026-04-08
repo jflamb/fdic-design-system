@@ -4,19 +4,20 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-global-footer</code> once at the bottom of the overall page shell when the experience needs the approved FDICnet footer treatment and a consistent place for agency information, supporting links, and optional composed page feedback.</p>
+  <p>Use <code>fd-global-footer</code> once at the bottom of the overall page shell when the experience needs the approved FDICnet footer treatment and a consistent place for agency information, supporting links, and visible page-update metadata.</p>
 </div>
 
 ## When to use
 
 - **The page needs one durable site footer contract** — the component keeps the shell consistent across routes instead of repeating one-off footer markup.
 - **The application already knows the footer destinations** — the host provides utility links, social links, and the visible updated text as structured data.
-- **A page-level feedback surface should sit directly above the footer** — use the named <code>feedback</code> slot to compose <code>fd-page-feedback</code> or another approved feedback block outside the footer landmark.
+- **The page needs a simple, static footer shell** — the component stays focused on footer content rather than owning adjacent page-level interactions.
 
 ## When not to use
 
 - **Don't use it for article metadata or in-page section endings** — this is the site footer, not a content footer.
 - **Don't use it when another shell already owns the footer landmark** — avoid nesting competing footer contracts.
+- **Don't use it to mount page feedback or report forms** — place adjacent components such as <code>fd-page-feedback</code> in the page shell, outside the footer component.
 - **Don't use it as a CMS adapter or analytics abstraction** — normalize data and attach instrumentation in the host application.
 
 ## Examples
@@ -24,8 +25,8 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 <StoryEmbed
   storyId="components-global-footer--docs-overview"
   linkStoryId="components-global-footer--playground"
-  height="1240"
-  caption="Global Footer overview — the desktop shell with the recommended page-feedback composition above the footer landmark. Open Storybook for the interactive playground plus dedicated desktop and mobile stories."
+  height="980"
+  caption="Global Footer overview — the desktop footer shell. Open Storybook for the interactive playground plus dedicated desktop and mobile stories."
 />
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -39,12 +40,6 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 | `socialLinks` | FdGlobalFooterSocialLink[] | `[]` | Icon-only social destinations rendered as accessible links. Each item accepts `label`, `href`, `icon`, and optional native `target` / `rel` values. |
 | `updated-text` | string | `undefined` | Visible footer metadata such as the page's last-updated label. The component renders the provided text verbatim in v1. |
 
-## Slots
-
-| Name | Description |
-|---|---|
-| `feedback` | Optional composed page-level feedback content rendered before the footer landmark. |
-
 ## CSS custom properties
 
 | Name | Default | Description |
@@ -56,18 +51,16 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 | `--fd-global-footer-padding-block` | `48px` | Desktop block padding. |
 | `--fd-global-footer-padding-inline-mobile` | `16px` | Mobile inline padding at `640px` and below. |
 | `--fd-global-footer-padding-block-mobile` | `16px` | Mobile block padding at `640px` and below. |
-| `--fd-global-footer-feedback-gap` | `0px` | Gap after the optional feedback slot wrapper. |
 | `--fd-global-footer-seal-size` | `80px` | Decorative seal badge size. |
 | `--fd-global-footer-social-size` | `36px` | Desktop social-link target size. |
 | `--fd-global-footer-social-size-mobile` | `32px` | Mobile social-link target size. |
 
-`fd-global-footer` keeps its styling hooks focused on layout and shell treatment in v1. Link content, social-link labels, and the composed feedback pattern remain application-authored.
+`fd-global-footer` keeps its styling hooks focused on layout and shell treatment in v1. Link content and social-link labels remain application-authored.
 
 ## Shadow parts
 
 | Name | Description |
 |---|---|
-| `feedback` | Wrapper around the optional named feedback slot. |
 | `base` | Footer landmark element. |
 | `content` | Constrained footer layout container. |
 | `seal` | Decorative seal badge. |
@@ -83,8 +76,8 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 <div class="fdic-do-dont-grid">
   <div class="fdic-do-card">
     <span class="fdic-eyebrow">Do</span>
-    <h4>Compose feedback above the footer landmark</h4>
-    <p>Keep interactive page-feedback patterns in the named <code>feedback</code> slot so the footer itself stays a static shell with honest semantics.</p>
+    <h4>Keep the footer focused on footer content</h4>
+    <p>Use the component for agency identity, supporting links, social destinations, and updated text only.</p>
   </div>
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
@@ -142,32 +135,16 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 </script>
 ```
 
-Use the `feedback` slot for page-level feedback composition:
-
-```html
-<fd-global-footer
-  agency-name="Federal Deposit Insurance Corporation"
-  agency-href="/"
-  updated-text="Updated August 7, 2024"
->
-  <fd-page-feedback
-    slot="feedback"
-    survey-href="https://www.fdic.gov/feedback-survey"
-    survey-target="_blank"
-  ></fd-page-feedback>
-</fd-global-footer>
-```
-
 Integration rules:
 
-- **Keep the feedback block outside the footer landmark.** The component already does this when you use the named slot, so you do not need to wrap the feedback content manually.
 - **Pass a fully formatted update string.** The footer does not format or parse dates in v1.
 - **Use structured data, not hand-authored child links, for the footer shell.** This keeps the component's rendering predictable across desktop and mobile layouts.
 - **Prefer native navigation behavior.** The component renders standard anchors. If your framework uses client-side routing, intercept clicks in the host layer rather than changing the component contract.
+- **Compose adjacent page feedback in the page shell, not inside the footer.** If the page also needs <code>fd-page-feedback</code>, render it as a separate sibling before the footer component.
 
 ## Accessibility
 
-- The component renders an internal `<footer>` landmark for the actual footer shell while keeping the optional `feedback` slot outside that landmark. This preserves honest semantics when the page composes interactive feedback above the footer.
+- The component renders a single internal `<footer>` landmark for the footer shell itself.
 - Utility links and social destinations remain native anchors in plain tab order. No custom keyboarding or focus management is added in v1.
 - Icon-only social links require full accessible labels in the `socialLinks` data so screen readers announce the destination rather than an unlabeled glyph.
 - The decorative seal badge and stripe are marked as decorative only and are hidden from assistive technology.
@@ -176,7 +153,6 @@ Integration rules:
 
 ## Known limitations
 
-- **The decorative seal is simplified in v1** — the shipped badge preserves the circular seal affordance but does not attempt to reproduce every interior line from the Figma artwork.
 - **No built-in date formatting** — `updated-text` is visible copy, not a date object or formatter API.
 - **No back-to-top or subscription affordances** — those broader footer features are out of scope for the initial shell component.
 - **No CMS adapters yet** — normalize source data in the host application before assigning the component's properties.
@@ -184,5 +160,5 @@ Integration rules:
 ## Related components
 
 - [Global Header](/components/global-header) — the matching site-shell header component for navigation and search.
-- [Page Feedback](/components/page-feedback) — the recommended feedback block to compose into the footer's `feedback` slot.
+- [Page Feedback](/components/page-feedback) — a separate adjacent component when the page also needs a feedback surface.
 - [Link](/components/link) — use this as the text-link reference when deciding which destinations belong in utility links rather than social icons.
