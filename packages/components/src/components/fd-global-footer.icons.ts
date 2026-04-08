@@ -147,8 +147,4 @@ export const GLOBAL_FOOTER_SEAL_LIGHT =
 
 export const GLOBAL_FOOTER_SEAL_DARK = GLOBAL_FOOTER_SEAL_LIGHT
   .replaceAll("clip0_148_1401", "clip0_148_1525")
-  .replaceAll("#212123", "white")
-  .replace(
-    '<g clip-path="url(#clip0_148_1525)">',
-    '<g clip-path="url(#clip0_148_1525)">\n<rect width="120" height="120" rx="60" fill="#212123"/>',
-  );
+  .replaceAll("#212123", "white");
