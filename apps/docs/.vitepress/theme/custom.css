@@ -10,6 +10,140 @@
     --fdic-docs-success: var(--ds-color-semantic-fg-success, #2E7D32);
     --fdic-docs-warning: var(--ds-color-semantic-fg-warning, #8B5E00);
     --fdic-docs-danger: var(--ds-color-semantic-fg-error, #B10B2D);
+    --fdic-docs-raised-border: rgba(13, 97, 145, 0.12);
+    --fdic-docs-card-hover-border: rgba(13, 97, 145, 0.3);
+    --fdic-docs-card-hover-border-subtle: rgba(13, 97, 145, 0.2);
+    --fdic-docs-card-hover-glow-strong: rgba(13, 97, 145, 0.08);
+    --fdic-docs-card-hover-glow-soft: rgba(13, 97, 145, 0.06);
+    --fdic-docs-chip-brand-border: rgba(13, 97, 145, 0.3);
+    --fdic-docs-chip-brand-bg: rgba(13, 97, 145, 0.08);
+    --fdic-docs-chip-warning-border: rgba(159, 91, 0, 0.25);
+    --fdic-docs-chip-warning-bg: rgba(159, 91, 0, 0.08);
+    --fdic-docs-chip-success-border: rgba(30, 130, 50, 0.25);
+    --fdic-docs-chip-success-bg: rgba(30, 130, 50, 0.08);
+    --fdic-docs-chip-danger-border: rgba(190, 40, 40, 0.2);
+    --fdic-docs-chip-danger-bg: rgba(190, 40, 40, 0.08);
+    --fdic-docs-do-card-border: rgba(30, 130, 50, 0.3);
+    --fdic-docs-do-card-hover-glow: rgba(30, 130, 50, 0.08);
+    --fdic-docs-dont-card-border: rgba(190, 40, 40, 0.25);
+    --fdic-docs-dont-card-hover-glow: rgba(190, 40, 40, 0.08);
+    --fdic-docs-content-do-bg: rgba(30, 130, 50, 0.08);
+    --fdic-docs-content-dont-bg: rgba(190, 40, 40, 0.08);
+  }
+
+  .dark {
+    --fdic-docs-raised-border: rgba(132, 219, 255, 0.15);
+    --fdic-docs-card-hover-border: rgba(132, 219, 255, 0.3);
+    --fdic-docs-card-hover-border-subtle: rgba(132, 219, 255, 0.2);
+    --fdic-docs-card-hover-glow-strong: rgba(132, 219, 255, 0.08);
+    --fdic-docs-card-hover-glow-soft: rgba(132, 219, 255, 0.06);
+    --fdic-docs-chip-brand-border: rgba(132, 219, 255, 0.25);
+    --fdic-docs-chip-brand-bg: rgba(132, 219, 255, 0.1);
+    --fdic-docs-chip-warning-border: rgba(255, 191, 71, 0.25);
+    --fdic-docs-chip-warning-bg: rgba(255, 191, 71, 0.1);
+    --fdic-docs-chip-success-border: rgba(97, 214, 115, 0.25);
+    --fdic-docs-chip-success-bg: rgba(97, 214, 115, 0.1);
+    --fdic-docs-chip-danger-border: rgba(246, 111, 139, 0.2);
+    --fdic-docs-chip-danger-bg: rgba(246, 111, 139, 0.1);
+    --fdic-docs-do-card-border: rgba(97, 214, 115, 0.3);
+    --fdic-docs-do-card-hover-glow: rgba(97, 214, 115, 0.1);
+    --fdic-docs-dont-card-border: rgba(246, 111, 139, 0.25);
+    --fdic-docs-dont-card-hover-glow: rgba(246, 111, 139, 0.1);
+    --fdic-docs-content-do-bg: rgba(97, 214, 115, 0.08);
+    --fdic-docs-content-dont-bg: rgba(246, 111, 139, 0.08);
+  }
+
+  @supports (color: color-mix(in srgb, white 50%, transparent)) {
+    :root,
+    .dark {
+      --fdic-docs-raised-border: color-mix(in srgb, var(--fdic-docs-brand) 15%, transparent);
+      --fdic-docs-card-hover-border: color-mix(in srgb, var(--fdic-docs-brand) 30%, transparent);
+      --fdic-docs-card-hover-border-subtle: color-mix(
+        in srgb,
+        var(--fdic-docs-brand) 20%,
+        transparent
+      );
+      --fdic-docs-card-hover-glow-strong: color-mix(
+        in srgb,
+        var(--fdic-docs-brand) 8%,
+        transparent
+      );
+      --fdic-docs-card-hover-glow-soft: color-mix(
+        in srgb,
+        var(--fdic-docs-brand) 6%,
+        transparent
+      );
+      --fdic-docs-chip-brand-border: color-mix(
+        in srgb,
+        var(--fdic-docs-brand) 25%,
+        transparent
+      );
+      --fdic-docs-chip-brand-bg: color-mix(
+        in srgb,
+        var(--fdic-docs-brand) 10%,
+        transparent
+      );
+      --fdic-docs-chip-warning-border: color-mix(
+        in srgb,
+        var(--fdic-docs-warning) 25%,
+        transparent
+      );
+      --fdic-docs-chip-warning-bg: color-mix(
+        in srgb,
+        var(--fdic-docs-warning) 10%,
+        transparent
+      );
+      --fdic-docs-chip-success-border: color-mix(
+        in srgb,
+        var(--fdic-docs-success) 25%,
+        transparent
+      );
+      --fdic-docs-chip-success-bg: color-mix(
+        in srgb,
+        var(--fdic-docs-success) 10%,
+        transparent
+      );
+      --fdic-docs-chip-danger-border: color-mix(
+        in srgb,
+        var(--fdic-docs-danger) 20%,
+        transparent
+      );
+      --fdic-docs-chip-danger-bg: color-mix(
+        in srgb,
+        var(--fdic-docs-danger) 10%,
+        transparent
+      );
+      --fdic-docs-do-card-border: color-mix(
+        in srgb,
+        var(--fdic-docs-success) 30%,
+        transparent
+      );
+      --fdic-docs-do-card-hover-glow: color-mix(
+        in srgb,
+        var(--fdic-docs-success) 10%,
+        transparent
+      );
+      --fdic-docs-dont-card-border: color-mix(
+        in srgb,
+        var(--fdic-docs-danger) 25%,
+        transparent
+      );
+      --fdic-docs-dont-card-hover-glow: color-mix(
+        in srgb,
+        var(--fdic-docs-danger) 10%,
+        transparent
+      );
+      --fdic-docs-content-do-bg: color-mix(
+        in srgb,
+        var(--fdic-docs-success) 8%,
+        transparent
+      );
+      --fdic-docs-content-dont-bg: color-mix(
+        in srgb,
+        var(--fdic-docs-danger) 8%,
+        transparent
+      );
+    }
   }
 
   .fdic-surface,
@@ -70,10 +204,10 @@
 
 .fdic-card {
   --_fdic-surface-radius: 12px;
-  --_fdic-hover-border: rgba(13, 97, 145, 0.3);
+  --_fdic-hover-border: var(--fdic-docs-card-hover-border);
   --_fdic-hover-shadow:
     0 2px 4px rgba(0, 0, 0, 0.04),
-    0 8px 24px rgba(13, 97, 145, 0.08);
+    0 8px 24px var(--fdic-docs-card-hover-glow-strong);
   --_fdic-hover-lift: -2px;
 }
 
@@ -370,8 +504,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  --_fdic-hover-border: rgba(13, 97, 145, 0.2);
-  --_fdic-hover-shadow: 0 4px 16px rgba(13, 97, 145, 0.06);
+  --_fdic-hover-border: var(--fdic-docs-card-hover-border-subtle);
+  --_fdic-hover-shadow: 0 4px 16px var(--fdic-docs-card-hover-glow-soft);
   --_fdic-hover-lift: -1px;
 }
 
@@ -412,26 +546,26 @@
 }
 
 .fdic-chip[data-tone="brand"] {
-  border-color: rgba(13, 97, 145, 0.3);
-  background: rgba(13, 97, 145, 0.08);
+  border-color: var(--fdic-docs-chip-brand-border);
+  background: var(--fdic-docs-chip-brand-bg);
   color: var(--fdic-docs-brand);
 }
 
 .fdic-chip[data-tone="warning"] {
-  border-color: rgba(159, 91, 0, 0.25);
-  background: rgba(159, 91, 0, 0.08);
+  border-color: var(--fdic-docs-chip-warning-border);
+  background: var(--fdic-docs-chip-warning-bg);
   color: var(--fdic-docs-warning);
 }
 
 .fdic-chip[data-tone="success"] {
-  border-color: rgba(47, 111, 79, 0.25);
-  background: rgba(47, 111, 79, 0.08);
+  border-color: var(--fdic-docs-chip-success-border);
+  background: var(--fdic-docs-chip-success-bg);
   color: var(--fdic-docs-success);
 }
 
 .fdic-chip[data-tone="danger"] {
-  border-color: rgba(180, 35, 24, 0.2);
-  background: rgba(180, 35, 24, 0.08);
+  border-color: var(--fdic-docs-chip-danger-border);
+  background: var(--fdic-docs-chip-danger-bg);
   color: var(--fdic-docs-danger);
 }
 
@@ -523,7 +657,7 @@
 }
 
 .fdic-surface-card[data-surface="raised"] {
-  --_fdic-surface-border: rgba(13, 97, 145, 0.12);
+  --_fdic-surface-border: var(--fdic-docs-raised-border);
   --_fdic-surface-background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
   --_fdic-surface-shadow: 0 10px 30px rgba(31, 41, 51, 0.06);
 }
@@ -615,46 +749,16 @@
 }
 
 .dark .fdic-surface-card[data-surface="raised"] {
-  --_fdic-surface-border: rgba(132, 219, 255, 0.15);
+  --_fdic-surface-border: var(--fdic-docs-raised-border);
   --_fdic-surface-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.dark .fdic-chip[data-tone="brand"] {
-  border-color: rgba(132, 219, 255, 0.25);
-  background: rgba(132, 219, 255, 0.1);
-}
-
-.dark .fdic-chip[data-tone="warning"] {
-  border-color: rgba(255, 191, 71, 0.25);
-  background: rgba(255, 191, 71, 0.1);
-}
-
-.dark .fdic-chip[data-tone="success"] {
-  border-color: rgba(97, 214, 115, 0.25);
-  background: rgba(97, 214, 115, 0.1);
-}
-
-.dark .fdic-chip[data-tone="danger"] {
-  border-color: rgba(246, 111, 139, 0.2);
-  background: rgba(246, 111, 139, 0.1);
-}
-
-.dark .fdic-do-card {
-  --_status-border-color: rgba(97, 214, 115, 0.3);
-  --_fdic-hover-shadow: 0 4px 16px rgba(97, 214, 115, 0.1);
-}
-
-.dark .fdic-dont-card {
-  --_status-border-color: rgba(246, 111, 139, 0.25);
-  --_fdic-hover-shadow: 0 4px 16px rgba(246, 111, 139, 0.1);
-}
-
 .dark .fdic-content-do {
-  background: rgba(97, 214, 115, 0.08);
+  background: var(--fdic-docs-content-do-bg);
 }
 
 .dark .fdic-content-dont {
-  background: rgba(246, 111, 139, 0.08);
+  background: var(--fdic-docs-content-dont-bg);
 }
 
 @media (max-width: 640px) {
@@ -823,14 +927,14 @@
 
 .fdic-do-card {
   --_status-color: var(--fdic-docs-success);
-  --_status-border-color: rgba(30, 130, 50, 0.3);
-  --_fdic-hover-shadow: 0 4px 16px rgba(30, 130, 50, 0.08);
+  --_status-border-color: var(--fdic-docs-do-card-border);
+  --_fdic-hover-shadow: 0 4px 16px var(--fdic-docs-do-card-hover-glow);
 }
 
 .fdic-dont-card {
   --_status-color: var(--fdic-docs-danger);
-  --_status-border-color: rgba(190, 40, 40, 0.25);
-  --_fdic-hover-shadow: 0 4px 16px rgba(190, 40, 40, 0.08);
+  --_status-border-color: var(--fdic-docs-dont-card-border);
+  --_fdic-hover-shadow: 0 4px 16px var(--fdic-docs-dont-card-hover-glow);
 }
 
 .fdic-do-card > .fdic-eyebrow,
@@ -993,27 +1097,27 @@
 
 /* --- Dark mode: adjust hover shadows --- */
 .dark .fdic-card:hover {
-  --_fdic-hover-border: rgba(132, 219, 255, 0.3);
+  --_fdic-hover-border: var(--fdic-docs-card-hover-border);
   --_fdic-hover-shadow:
     0 2px 4px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(132, 219, 255, 0.08);
+    0 8px 24px var(--fdic-docs-card-hover-glow-strong);
 }
 
 .dark .fdic-swatch-card {
-  --_fdic-hover-border: rgba(132, 219, 255, 0.25);
+  --_fdic-hover-border: var(--fdic-docs-chip-brand-border);
   --_fdic-hover-shadow:
     0 2px 4px rgba(0, 0, 0, 0.12),
-    0 6px 16px rgba(132, 219, 255, 0.06);
+    0 6px 16px var(--fdic-docs-card-hover-glow-soft);
 }
 
 .dark .fdic-anatomy-panel {
-  --_fdic-hover-border: rgba(132, 219, 255, 0.2);
-  --_fdic-hover-shadow: 0 4px 16px rgba(132, 219, 255, 0.06);
+  --_fdic-hover-border: var(--fdic-docs-card-hover-border-subtle);
+  --_fdic-hover-shadow: 0 4px 16px var(--fdic-docs-card-hover-glow-soft);
 }
 
 .dark .fdic-example-card {
-  --_fdic-hover-border: rgba(132, 219, 255, 0.2);
-  --_fdic-hover-shadow: 0 4px 16px rgba(132, 219, 255, 0.06);
+  --_fdic-hover-border: var(--fdic-docs-card-hover-border-subtle);
+  --_fdic-hover-shadow: 0 4px 16px var(--fdic-docs-card-hover-glow-soft);
 }
 
 @supports (content-visibility: auto) {
