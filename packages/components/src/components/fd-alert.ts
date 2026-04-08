@@ -94,10 +94,10 @@ export class FdAlert extends LitElement {
 
   static styles = css`
     :host {
-      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info, #f1f8fe));
-      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info, #0776cb));
-      --_fd-alert-text: var(--fd-alert-text-color, var(--ds-color-text-primary, #212123));
-      --_fd-alert-link: var(--fd-alert-link-color, var(--ds-color-bg-active, #0d6191));
+      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info, light-dark(#f1f8fe, #1e3a5f)));
+      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info, light-dark(#0b4f82, #4eaff9)));
+      --_fd-alert-text: var(--fd-alert-text-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
+      --_fd-alert-link: var(--fd-alert-link-color, var(--ds-color-bg-active, light-dark(#0d6191, #84dbff)));
       display: block;
       font-family: var(
         --fdic-font-family-sans-serif,
@@ -119,30 +119,30 @@ export class FdAlert extends LitElement {
     }
 
     :host([type="info"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info, #f1f8fe));
-      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info, #0776cb));
+      --_fd-alert-bg: var(--fd-alert-bg-info, var(--ds-color-semantic-bg-info, light-dark(#f1f8fe, #1e3a5f)));
+      --_fd-alert-accent: var(--fd-alert-accent-info, var(--ds-color-semantic-border-info, light-dark(#0b4f82, #4eaff9)));
     }
 
     :host([type="success"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-success, var(--ds-color-semantic-bg-success, #e8f5e9));
-      --_fd-alert-accent: var(--fd-alert-accent-success, var(--ds-color-semantic-border-success, #4caf50));
+      --_fd-alert-bg: var(--fd-alert-bg-success, var(--ds-color-semantic-bg-success, light-dark(#e8f5e9, #204520)));
+      --_fd-alert-accent: var(--fd-alert-accent-success, var(--ds-color-semantic-border-success, light-dark(#2e7d32, #61d673)));
     }
 
     :host([type="warning"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-warning, var(--ds-color-semantic-bg-warning, #fcf7ee));
-      --_fd-alert-accent: var(--fd-alert-accent-warning, var(--ds-color-semantic-border-warning, #f49f00));
+      --_fd-alert-bg: var(--fd-alert-bg-warning, var(--ds-color-semantic-bg-warning, light-dark(#fcf7ee, #663d00)));
+      --_fd-alert-accent: var(--fd-alert-accent-warning, var(--ds-color-semantic-border-warning, light-dark(#8b5e00, #ffbf47)));
     }
 
     :host([type="error"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-error, var(--ds-color-semantic-bg-error, #fdedea));
-      --_fd-alert-accent: var(--fd-alert-accent-error, var(--ds-color-semantic-border-error, #b10b2d));
+      --_fd-alert-bg: var(--fd-alert-bg-error, var(--ds-color-semantic-bg-error, light-dark(#fdedea, #442121)));
+      --_fd-alert-accent: var(--fd-alert-accent-error, var(--ds-color-semantic-border-error, light-dark(#b10b2d, #f66f8b)));
     }
 
     :host([type="emergency"]) {
-      --_fd-alert-bg: var(--fd-alert-bg-emergency, var(--ds-color-bg-destructive, #d80e3a));
-      --_fd-alert-accent: var(--fd-alert-accent-emergency, var(--ds-color-semantic-border-error, #b10b2d));
-      --_fd-alert-text: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000, #ffffff));
-      --_fd-alert-link: var(--fd-alert-link-color-inverted, var(--ds-color-neutral-000, #ffffff));
+      --_fd-alert-bg: var(--fd-alert-bg-emergency, var(--ds-color-bg-destructive, light-dark(#d80e3a, #442121)));
+      --_fd-alert-accent: var(--fd-alert-accent-emergency, var(--ds-color-semantic-border-error, light-dark(#b10b2d, #f66f8b)));
+      --_fd-alert-text: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
+      --_fd-alert-link: var(--fd-alert-link-color-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
     }
 
     .base {

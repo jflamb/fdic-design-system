@@ -501,7 +501,7 @@ export class FdInput extends LitElement {
       border: 2px solid transparent;
       border-color: var(
         --fd-input-border-color,
-        var(--ds-color-border-input, #bdbdbf)
+        var(--ds-color-border-input, light-dark(#bdbdbf, #595961))
       );
       /* Reserve 2px border at rest so focus (which also uses 2px) causes no
          layout shift.  The visual difference vs. the old 1px border is
@@ -510,7 +510,7 @@ export class FdInput extends LitElement {
         --fd-input-border-radius,
         var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-input-bg, var(--ds-color-bg-base, #ffffff));
+      background: var(--fd-input-bg, var(--ds-color-bg-base, light-dark(#ffffff, #000000)));
       box-sizing: border-box;
     }
 
@@ -535,7 +535,7 @@ export class FdInput extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-input-placeholder-color,
-        var(--ds-color-text-secondary, #595961)
+        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
       );
       opacity: 1;
     }
@@ -550,26 +550,26 @@ export class FdInput extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-input-border-color-hover,
-        var(--ds-color-border-input-active, #424244)
+        var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2))
       );
     }
 
     /* --- Focus (on native input) --- */
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border-color: var(--ds-color-border-input-active, #424244);
+      border-color: var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2));
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-input-border-color-focus,
-          var(--ds-color-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
         );
     }
 
     /* --- Disabled --- */
     :host([disabled]) [part="base"] {
-      color: var(--ds-color-text-disabled, #9e9ea0);
-      border-color: var(--ds-color-border-divider, #bdbdbf);
-      background: var(--ds-color-bg-container, #f5f5f7);
+      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #9e9ea0));
+      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
       cursor: not-allowed;
     }
 
@@ -579,8 +579,8 @@ export class FdInput extends LitElement {
 
     /* --- Read-only --- */
     :host([readonly]) [part="base"] {
-      background: var(--ds-color-bg-container, #f5f5f7);
-      border-color: var(--ds-color-border-divider, #bdbdbf);
+      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
+      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
       border-style: dashed;
     }
 

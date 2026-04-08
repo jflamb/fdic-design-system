@@ -58,7 +58,13 @@ export class FdDrawer extends LitElement {
     }
 
     dialog.base::backdrop {
-      background: var(--fd-drawer-backdrop, rgba(0, 18, 32, 0.34));
+      background: var(
+        --fd-drawer-backdrop,
+        var(
+          --ds-color-overlay-scrim,
+          light-dark(rgba(0, 18, 32, 0.34), rgba(0, 0, 0, 0.64))
+        )
+      );
       opacity: 0;
       transition:
         opacity 240ms ease,
@@ -80,10 +86,17 @@ export class FdDrawer extends LitElement {
       background: var(--fd-drawer-surface, var(--ds-color-bg-surface, #ffffff));
       color: var(--fd-drawer-color, inherit);
       border-block-end: 1px solid
-        var(--fd-drawer-border-color, rgba(9, 53, 84, 0.14));
+        var(
+          --fd-drawer-border-color,
+          var(
+            --ds-color-border-divider,
+            light-dark(rgba(9, 53, 84, 0.14), rgba(255, 255, 255, 0.16))
+          )
+        );
       box-shadow: var(
         --fd-drawer-shadow,
-        0 18px 48px rgba(0, 18, 32, 0.22)
+        0 18px 48px
+          light-dark(rgba(0, 18, 32, 0.22), rgba(0, 0, 0, 0.48))
       );
       transform: translateY(-1.25rem);
       opacity: 0;

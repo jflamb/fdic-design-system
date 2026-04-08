@@ -60,7 +60,10 @@ export class FdLink extends LitElement {
     }
 
     .base {
-      color: var(--fd-link-color-normal, var(--ds-color-bg-active, #0d6191));
+      color: var(
+        --fd-link-color-normal,
+        var(--ds-color-bg-active, light-dark(#0d6191, #84dbff))
+      );
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -103,43 +106,49 @@ export class FdLink extends LitElement {
 
     .base:focus-visible {
       box-shadow: 0 0 0 2px
-          var(--fd-link-focus-gap, var(--ds-color-bg-input, #ffffff)),
+          var(--fd-link-focus-gap, var(--ds-color-bg-input, light-dark(#ffffff, #212123))),
         0 0 0 4px
           var(
             --fd-link-focus-ring,
-            var(--ds-color-border-input-focus, #38b6ff)
+            var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
           );
     }
 
     .variant-normal {
-      color: var(--fd-link-color-normal, var(--ds-color-bg-active, #0d6191));
+      color: var(
+        --fd-link-color-normal,
+        var(--ds-color-bg-active, light-dark(#0d6191, #84dbff))
+      );
     }
 
     .variant-visited {
       color: var(
         --fd-link-color-visited,
-        var(--ds-color-text-link-visited, #855aa5)
+        var(--ds-color-text-link-visited, light-dark(#855aa5, #b19cd9))
       );
     }
 
     .variant-subtle {
       color: var(
         --fd-link-color-subtle,
-        var(--ds-color-text-primary, #212123)
+        var(--ds-color-text-primary, light-dark(#212123, #ffffff))
       );
       text-decoration-line: none;
     }
 
     .variant-subtle:hover,
     .variant-subtle:focus-visible {
-      color: var(--fd-link-color-normal, var(--ds-color-bg-active, #0d6191));
+      color: var(
+        --fd-link-color-normal,
+        var(--ds-color-bg-active, light-dark(#0d6191, #84dbff))
+      );
       text-decoration-line: underline;
     }
 
     .variant-inverted {
       color: var(
         --fd-link-color-inverted,
-        var(--ds-color-neutral-000, #ffffff)
+        var(--ds-color-neutral-000, light-dark(#ffffff, #000000))
       );
     }
 
