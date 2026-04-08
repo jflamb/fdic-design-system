@@ -43,7 +43,7 @@ export class FdSelector extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -66,7 +66,7 @@ export class FdSelector extends LitElement {
 
     [part="label-text"] {
       font-weight: 400;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
     }
 
     [part="required-marker"] {
@@ -75,13 +75,13 @@ export class FdSelector extends LitElement {
     }
 
     :host([disabled]) [part="label-text"] {
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
     }
 
     /* --- Description --- */
 
     [part="description"] {
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
@@ -101,10 +101,10 @@ export class FdSelector extends LitElement {
       border: 1px solid
         var(
           --fd-selector-trigger-border,
-          var(--fdic-border-input-rest, #bdbdbf)
+          var(--ds-color-border-input, #bdbdbf)
         );
       border-radius: var(--fd-selector-border-radius, var(--fdic-corner-radius-sm, 3px));
-      background: var(--fd-selector-trigger-bg, var(--fdic-background-base, #ffffff));
+      background: var(--fd-selector-trigger-bg, var(--ds-color-bg-base, #ffffff));
       font: inherit;
       color: inherit;
       cursor: pointer;
@@ -116,7 +116,7 @@ export class FdSelector extends LitElement {
       outline: 2px solid
         var(
           --fd-selector-trigger-border-focus,
-          var(--fdic-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, #38b6ff)
         );
       outline-offset: 2px;
       border-radius: 2px;
@@ -144,7 +144,7 @@ export class FdSelector extends LitElement {
     .placeholder {
       color: var(
         --fd-selector-trigger-placeholder,
-        var(--fdic-text-secondary, #595961)
+        var(--ds-color-text-secondary, #595961)
       );
     }
 
@@ -177,11 +177,11 @@ export class FdSelector extends LitElement {
       margin-top: 2px;
       max-height: var(--fd-selector-dropdown-max-height, 280px);
       overflow-y: auto;
-      background: var(--fd-selector-dropdown-bg, var(--fdic-background-base, #ffffff));
+      background: var(--fd-selector-dropdown-bg, var(--ds-color-bg-base, #ffffff));
       border: 1px solid
         var(
           --fd-selector-dropdown-border,
-          var(--fdic-border-input-rest, #bdbdbf)
+          var(--ds-color-border-input, #bdbdbf)
         );
       border-radius: var(--fd-selector-border-radius, var(--fdic-corner-radius-sm, 3px));
       box-shadow: var(

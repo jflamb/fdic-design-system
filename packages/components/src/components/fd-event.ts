@@ -32,7 +32,7 @@ export class FdEvent extends LitElement {
     :host {
       display: block;
       container-type: inline-size;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -78,36 +78,36 @@ export class FdEvent extends LitElement {
       white-space: nowrap;
       background: var(
         --fd-event-date-bg-neutral,
-        var(--fdic-overlay-emphasize-100, #f5f5f7)
+        var(--ds-color-overlay-hover, #f5f5f7)
       );
-      color: var(--fd-event-date-color-neutral, var(--fdic-text-primary, #212123));
+      color: var(--fd-event-date-color-neutral, var(--ds-color-text-primary, #212123));
     }
 
     :host([tone="warm"]) [part="date"] {
       background: var(
         --fd-event-date-bg-warm,
-        var(--fdic-brand-highlight-lightest, #f8efda)
+        var(--ds-color-secondary-050, #f8efda)
       );
-      color: var(--fd-event-date-color-warm, var(--fdic-text-primary, #212123));
+      color: var(--fd-event-date-color-warm, var(--ds-color-text-primary, #212123));
     }
 
     :host([tone="cool"]) [part="date"] {
       background: var(
         --fd-event-date-bg-cool,
-        var(--fdic-semantic-background-info, #f1f8fe)
+        var(--ds-color-semantic-bg-info, #f1f8fe)
       );
-      color: var(--fd-event-date-color-cool, var(--fdic-text-primary, #212123));
+      color: var(--fd-event-date-color-cool, var(--ds-color-text-primary, #212123));
     }
 
     article:has(.title-link:hover) [part="date"],
     article:has(.title-link:focus-visible) [part="date"] {
       background: var(
         --fd-event-date-bg-neutral-emphasis,
-        var(--fdic-icon-primary, #424244)
+        var(--ds-color-icon-primary, #424244)
       );
       color: var(
         --fd-event-date-color-neutral-emphasis,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
     }
 
@@ -115,11 +115,11 @@ export class FdEvent extends LitElement {
     :host([tone="warm"]) article:has(.title-link:focus-visible) [part="date"] {
       background: var(
         --fd-event-date-bg-warm-emphasis,
-        var(--fdic-brand-highlight-darker, #88691c)
+        var(--ds-color-secondary-800, #88691c)
       );
       color: var(
         --fd-event-date-color-warm-emphasis,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
     }
 
@@ -127,11 +127,11 @@ export class FdEvent extends LitElement {
     :host([tone="cool"]) article:has(.title-link:focus-visible) [part="date"] {
       background: var(
         --fd-event-date-bg-cool-emphasis,
-        var(--fdic-brand-primary, #0d6191)
+        var(--ds-color-primary-500, #0d6191)
       );
       color: var(
         --fd-event-date-color-cool-emphasis,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
     }
 
@@ -179,7 +179,7 @@ export class FdEvent extends LitElement {
     }
 
     .title-text {
-      color: var(--fd-event-title-color, var(--fdic-text-primary, #212123));
+      color: var(--fd-event-title-color, var(--ds-color-text-primary, #212123));
     }
 
     .title-link {

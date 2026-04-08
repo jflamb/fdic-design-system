@@ -18,7 +18,7 @@ export class FdRadio extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       font-family: var(
@@ -59,7 +59,7 @@ export class FdRadio extends LitElement {
       place-content: center;
       inline-size: var(--fd-radio-size, 1.5em);
       block-size: var(--fd-radio-size, 1.5em);
-      color: var(--fd-radio-icon-color, var(--fdic-text-primary, #212123));
+      color: var(--fd-radio-icon-color, var(--ds-color-text-primary, #212123));
       flex-shrink: 0;
     }
 
@@ -80,7 +80,7 @@ export class FdRadio extends LitElement {
       outline: 2.5px solid
         var(
           --fd-radio-focus-color,
-          var(--fdic-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, #38b6ff)
         );
       outline-offset: 2px;
     }
@@ -102,7 +102,7 @@ export class FdRadio extends LitElement {
     }
 
     :host([disabled]) [part="control"] {
-      color: var(--fd-radio-icon-disabled, var(--fdic-text-disabled, #9e9ea0));
+      color: var(--fd-radio-icon-disabled, var(--ds-color-text-disabled, #9e9ea0));
     }
 
     :host([data-user-invalid]) [part="control"] {
@@ -123,7 +123,7 @@ export class FdRadio extends LitElement {
 
     [part="description"] {
       display: block;
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
@@ -132,7 +132,7 @@ export class FdRadio extends LitElement {
     }
 
     :host([disabled]) [part="label"] {
-      color: var(--fdic-text-disabled, var(--ds-color-text-disabled, #9e9ea0));
+      color: var(--ds-color-text-disabled, #9e9ea0);
     }
 
     @media (forced-colors: active) {

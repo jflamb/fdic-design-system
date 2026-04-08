@@ -406,7 +406,7 @@ describe("fd-input", () => {
     expect(styles).toContain(
       ':host([data-state="error"]) ::slotted(fd-icon[slot="suffix"])',
     );
-    expect(styles).toContain("color: var(--fdic-status-error, #d80e3a);");
+    expect(styles).toContain("color: var(--ds-color-semantic-fg-error, #d80e3a);");
   });
 
   // --- Cardinality warning ---

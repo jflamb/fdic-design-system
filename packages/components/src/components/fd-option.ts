@@ -27,7 +27,7 @@ export class FdOption extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--fd-selector-option-text, var(--fdic-text-primary, #212123));
+      color: var(--fd-selector-option-text, var(--ds-color-text-primary, #212123));
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -39,7 +39,7 @@ export class FdOption extends LitElement {
 
     :host([disabled]) {
       cursor: default;
-      color: var(--fdic-text-disabled, #9e9ea0);
+      color: var(--ds-color-text-disabled, #9e9ea0);
     }
 
     [part="option"] {
@@ -48,7 +48,7 @@ export class FdOption extends LitElement {
       gap: 8px;
       padding: 8px 12px;
       position: relative;
-      background: var(--fd-selector-option-bg, var(--fdic-background-base, #ffffff));
+      background: var(--fd-selector-option-bg, var(--ds-color-bg-base, #ffffff));
       overflow: clip;
       min-height: 36px;
       box-sizing: border-box;
@@ -89,7 +89,7 @@ export class FdOption extends LitElement {
 
     :host([data-focused]) [part="option"] {
       outline: 2px solid
-        var(--fd-selector-focus-color, var(--fdic-border-input-focus, #38b6ff));
+        var(--fd-selector-focus-color, var(--ds-color-border-input-focus, #38b6ff));
       outline-offset: -2px;
     }
 
@@ -102,11 +102,11 @@ export class FdOption extends LitElement {
       flex-shrink: 0;
       width: 22px;
       height: 22px;
-      color: var(--fd-selector-indicator-color, var(--fdic-text-primary, #212123));
+      color: var(--fd-selector-indicator-color, var(--ds-color-text-primary, #212123));
     }
 
     :host([disabled]) [part="indicator"] {
-      color: var(--fdic-text-disabled, #9e9ea0);
+      color: var(--ds-color-text-disabled, #9e9ea0);
     }
 
     /* Radio indicator */
@@ -167,7 +167,7 @@ export class FdOption extends LitElement {
 
     :host([selected]) .checkbox-check {
       display: block;
-      color: var(--fdic-text-inverted, #ffffff);
+      color: var(--ds-color-text-inverted, #ffffff);
     }
 
     /* --- Text content --- */
@@ -183,7 +183,7 @@ export class FdOption extends LitElement {
 
     [part="option-description"] {
       display: block;
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 

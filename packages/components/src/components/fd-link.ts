@@ -93,7 +93,7 @@ export class FdLink extends LitElement {
     .base:focus-visible {
       background: var(
         --fd-link-hover-overlay,
-        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))
+        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
       );
       text-decoration-thickness: var(
         --fd-link-underline-thickness-emphasis,

@@ -61,7 +61,7 @@ export class FdHero extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fdic-text-inverted, #ffffff);
+      color: var(--ds-color-text-inverted, #ffffff);
 
       /* Cool tone overlay tokens (default) */
       --fd-hero-overlay-cool-light: rgba(13, 97, 145, 0.1);
@@ -87,7 +87,7 @@ export class FdHero extends LitElement {
       --_fd-hero-overlay-start: var(--fd-hero-overlay-cool-light, rgba(13, 97, 145, 0.1));
       --_fd-hero-overlay-end: var(--fd-hero-overlay-cool-dark, rgba(7, 60, 91, 0.7));
       --_fd-hero-panel-bg: var(--fd-hero-overlay-cool-panel, rgba(7, 60, 91, 0.7));
-      --_fd-hero-stripe-bg: var(--fdic-brand-core-light, #38b6ff);
+      --_fd-hero-stripe-bg: var(--ds-color-primary-400, #38b6ff);
       display: block;
       box-sizing: border-box;
       padding-block: var(--fd-hero-padding-block, 64px);
@@ -114,14 +114,14 @@ export class FdHero extends LitElement {
       --_fd-hero-overlay-start: var(--fd-hero-overlay-warm-light, rgba(136, 105, 28, 0.1));
       --_fd-hero-overlay-end: var(--fd-hero-overlay-warm-dark, rgba(136, 105, 28, 0.7));
       --_fd-hero-panel-bg: var(--fd-hero-overlay-warm-panel, rgba(96, 81, 27, 0.7));
-      --_fd-hero-stripe-bg: var(--fdic-brand-highlight-default, #d9af45);
+      --_fd-hero-stripe-bg: var(--ds-color-secondary-500, #d9af45);
     }
 
     .tone-neutral {
       --_fd-hero-overlay-start: var(--fd-hero-overlay-neutral-light, rgba(66, 66, 68, 0.1));
       --_fd-hero-overlay-end: var(--fd-hero-overlay-neutral-dark, rgba(66, 66, 68, 0.7));
       --_fd-hero-panel-bg: var(--fd-hero-overlay-neutral-panel, rgba(66, 66, 68, 0.7));
-      --_fd-hero-stripe-bg: var(--fdic-text-inverted, #ffffff);
+      --_fd-hero-stripe-bg: var(--ds-color-text-inverted, #ffffff);
     }
 
     .content {
@@ -246,7 +246,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="heading"]) {
       display: block;
       margin: 0;
-      color: var(--fdic-text-inverted, #ffffff) !important;
+      color: var(--ds-color-text-inverted, #ffffff) !important;
       font-size: var(--fdic-font-size-h2, 27px);
       font-weight: 600;
       line-height: 1.2;
@@ -257,7 +257,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="lede"]) {
       display: block;
       margin: 0;
-      color: var(--fdic-text-inverted, #ffffff) !important;
+      color: var(--ds-color-text-inverted, #ffffff) !important;
       font-size: var(--fdic-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
@@ -267,7 +267,7 @@ export class FdHero extends LitElement {
     ::slotted([slot="body"]) {
       display: block;
       margin: 0;
-      color: var(--fdic-text-inverted, #ffffff) !important;
+      color: var(--ds-color-text-inverted, #ffffff) !important;
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;

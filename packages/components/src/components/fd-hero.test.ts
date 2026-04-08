@@ -68,7 +68,7 @@ describe("FdHero", () => {
 
     expect(stylesheet).toContain("::slotted([slot=\"heading\"])");
     expect(stylesheet).toContain(
-      "color: var(--fdic-text-inverted, #ffffff) !important;",
+      "color: var(--ds-color-text-inverted, #ffffff) !important;",
     );
   });
 

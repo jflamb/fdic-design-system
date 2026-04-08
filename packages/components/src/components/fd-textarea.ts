@@ -360,7 +360,7 @@ export class FdTextarea extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -380,7 +380,7 @@ export class FdTextarea extends LitElement {
       border: 1px solid
         var(
           --fd-textarea-border-color,
-          var(--fdic-border-input-rest, #bdbdbf)
+          var(--ds-color-border-input, #bdbdbf)
         );
       border-radius: var(
         --fd-textarea-border-radius,
@@ -388,7 +388,7 @@ export class FdTextarea extends LitElement {
       );
       background: var(
         --fd-textarea-bg,
-        var(--fdic-background-base, #ffffff)
+        var(--ds-color-bg-base, #ffffff)
       );
       box-sizing: border-box;
     }
@@ -415,7 +415,7 @@ export class FdTextarea extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-textarea-placeholder-color,
-        var(--fdic-text-secondary, #595961)
+        var(--ds-color-text-secondary, #595961)
       );
       opacity: 1;
     }
@@ -423,24 +423,24 @@ export class FdTextarea extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-textarea-border-color-hover,
-        var(--fdic-border-input-active, #424244)
+        var(--ds-color-border-input-active, #424244)
       );
     }
 
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border: 2px solid var(--fdic-border-input-active, #424244);
+      border: 2px solid var(--ds-color-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-textarea-border-color-focus,
-          var(--fdic-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, #38b6ff)
         );
     }
 
     :host([disabled]) [part="base"] {
-      color: var(--fdic-text-disabled, #9e9ea0);
-      border-color: var(--fdic-border-divider, #bdbdbf);
-      background: var(--fdic-background-container, #f5f5f7);
+      color: var(--ds-color-text-disabled, #9e9ea0);
+      border-color: var(--ds-color-border-divider, #bdbdbf);
+      background: var(--ds-color-bg-container, #f5f5f7);
       cursor: not-allowed;
     }
 
@@ -450,24 +450,24 @@ export class FdTextarea extends LitElement {
     }
 
     :host([readonly]) [part="base"] {
-      background: var(--fdic-background-container, #f5f5f7);
-      border-color: var(--fdic-border-divider, #bdbdbf);
+      background: var(--ds-color-bg-container, #f5f5f7);
+      border-color: var(--ds-color-border-divider, #bdbdbf);
       border-style: dashed;
     }
 
     :host([data-state="error"]) [part="base"] {
       border-width: 2px;
-      border-color: var(--fdic-status-error, #d80e3a);
+      border-color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     :host([data-state="warning"]) [part="base"] {
       border-width: 2px;
-      border-color: var(--fdic-status-warning, #b48c14);
+      border-color: var(--ds-color-semantic-fg-warning, #b48c14);
     }
 
     :host([data-state="success"]) [part="base"] {
       border-width: 2px;
-      border-color: var(--fdic-status-success, #1e8232);
+      border-color: var(--ds-color-semantic-fg-success, #1e8232);
     }
 
     [part="char-count"] {
@@ -475,15 +475,15 @@ export class FdTextarea extends LitElement {
       justify-content: flex-end;
       margin-top: 4px;
       font-size: var(--fdic-font-size-body-small, 1rem);
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
     }
 
     :host([data-char-warn]) [part="char-count"] {
-      color: var(--fdic-status-warning, #8a6100);
+      color: var(--ds-color-semantic-fg-warning, #8a6100);
     }
 
     :host([data-char-limit]) [part="char-count"] {
-      color: var(--fdic-status-error, #d80e3a);
+      color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     .fd-textarea__sr-only {

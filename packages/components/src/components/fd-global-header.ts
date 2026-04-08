@@ -281,15 +281,15 @@ export class FdGlobalHeader extends LitElement {
   static styles = css`
     :host {
       --fd-global-header-color-host: var(--fd-global-header-text-host, #10243e);
-      --fd-global-header-color-text-primary: var(--fdic-text-primary, #212123);
-      --fd-global-header-color-text-secondary: var(--fdic-text-secondary, #595961);
+      --fd-global-header-color-text-primary: var(--ds-color-text-primary, #212123);
+      --fd-global-header-color-text-secondary: var(--ds-color-text-secondary, #595961);
       --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--ds-color-neutral-000, #ffffff));
       --fd-global-header-color-surface-base: var(--ds-color-bg-surface, #ffffff);
       --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, #003256);
       --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, #0b466f);
-      --fd-global-header-color-accent: var(--fdic-border-input-focus, #38b6ff);
+      --fd-global-header-color-accent: var(--ds-color-border-input-focus, #38b6ff);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, #84dbff);
-      --fd-global-header-color-border-subtle: var(--fdic-border-divider, #bdbdbf);
+      --fd-global-header-color-border-subtle: var(--ds-color-border-divider, #bdbdbf);
       --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, #f5f5f7);
       --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, #edf3f7);
       display: block;

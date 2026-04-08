@@ -38,7 +38,7 @@ export class FdPageHeader extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fd-page-header-text-color, var(--fdic-text-inverted, #ffffff));
+      color: var(--fd-page-header-text-color, var(--ds-color-text-inverted, #ffffff));
     }
 
     :host([hidden]) {
@@ -52,7 +52,7 @@ export class FdPageHeader extends LitElement {
       box-sizing: border-box;
       background: var(
         --fd-page-header-bg,
-        var(--fdic-brand-core-default, #0d6191)
+        var(--ds-color-primary-500, #0d6191)
       );
       padding-block: var(--fd-page-header-padding-block, 48px);
       padding-inline: var(--fd-page-header-padding-inline, 64px);
@@ -96,7 +96,7 @@ export class FdPageHeader extends LitElement {
     .breadcrumb-link {
       color: var(
         --fd-page-header-breadcrumb-color,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
       text-decoration: underline;
       text-decoration-thickness: 1px;
@@ -108,7 +108,7 @@ export class FdPageHeader extends LitElement {
     }
 
     .breadcrumb-link:focus-visible {
-      outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+      outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -116,7 +116,7 @@ export class FdPageHeader extends LitElement {
     .breadcrumb-current {
       color: var(
         --fd-page-header-breadcrumb-current-color,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
     }
 
@@ -128,7 +128,7 @@ export class FdPageHeader extends LitElement {
       block-size: 16px;
       color: var(
         --fd-page-header-separator-color,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
       flex-shrink: 0;
     }

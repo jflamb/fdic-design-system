@@ -111,7 +111,7 @@ export class FdAlert extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
     }
 
     :host([hidden]) {

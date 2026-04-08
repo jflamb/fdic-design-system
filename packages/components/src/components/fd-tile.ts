@@ -39,7 +39,7 @@ export class FdTile extends LitElement {
     :host {
       display: block;
       container-type: inline-size;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -131,7 +131,7 @@ export class FdTile extends LitElement {
     }
 
     .title-text {
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       text-decoration-line: none;
     }
 
@@ -141,7 +141,7 @@ export class FdTile extends LitElement {
     .support-link:focus-visible {
       background: var(
         --fd-tile-link-hover-overlay,
-        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))
+        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
       );
       text-decoration-thickness: var(
         --fd-tile-link-underline-thickness-emphasis,

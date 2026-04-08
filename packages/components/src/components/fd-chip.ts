@@ -158,7 +158,7 @@ export class FdChip extends LitElement {
       box-shadow: inset 0 0 0 2.5px
         var(
           --fd-chip-remove-focus-ring,
-          var(--fdic-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, #38b6ff)
         );
     }
 

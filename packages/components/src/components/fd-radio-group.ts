@@ -56,11 +56,11 @@ export class FdRadioGroup extends LitElement {
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 600;
       line-height: 1.375;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
     }
 
     [part="description"] {
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
       font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: var(--fdic-line-height-body, 1.5);
       margin: 0 0 var(--fd-radio-group-description-gap, var(--fdic-spacing-sm, 12px)) 0;

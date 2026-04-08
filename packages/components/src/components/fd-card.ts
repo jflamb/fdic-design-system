@@ -31,7 +31,7 @@ export class FdCard extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -167,7 +167,7 @@ export class FdCard extends LitElement {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       line-clamp: 2;
-      color: var(--fd-card-title-color, var(--fdic-text-primary, #212123));
+      color: var(--fd-card-title-color, var(--ds-color-text-primary, #212123));
     }
 
     .title-link {

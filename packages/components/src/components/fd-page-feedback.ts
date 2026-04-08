@@ -80,7 +80,7 @@ export class FdPageFeedback extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
     }
 
     :host([hidden]) {
@@ -95,7 +95,7 @@ export class FdPageFeedback extends LitElement {
       padding-inline: var(--fd-page-feedback-inline-padding, 64px);
       background: var(
         --fd-page-feedback-background,
-        var(--fdic-background-base, #ffffff)
+        var(--ds-color-bg-base, #ffffff)
       );
     }
 
@@ -107,7 +107,11 @@ export class FdPageFeedback extends LitElement {
       block-size: 4px;
       background: var(
         --fd-page-feedback-border-image,
-        var(--fdic-gradient-brand-core, var(--fdic-brand-core-light, #38b6ff))
+        linear-gradient(
+          135deg,
+          var(--ds-color-primary-500, #0d6191),
+          var(--ds-color-primary-400, #38b6ff)
+        )
       );
       pointer-events: none;
     }
@@ -196,7 +200,7 @@ export class FdPageFeedback extends LitElement {
       align-items: center;
       gap: 4px;
       min-inline-size: 0;
-      color: var(--fdic-text-link, #1278b0);
+      color: var(--ds-color-text-link, #1278b0);
     }
 
     .survey-link-icon {

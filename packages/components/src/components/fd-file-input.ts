@@ -79,7 +79,7 @@ export class FdFileInput extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
     }
 
     :host([hidden]) {
@@ -95,7 +95,7 @@ export class FdFileInput extends LitElement {
       border: 1px solid
         var(
           --fd-file-input-border-color,
-          var(--fdic-border-input-rest, #bdbdbf)
+          var(--ds-color-border-input, #bdbdbf)
         );
       border-radius: var(
         --fd-file-input-radius,
@@ -103,7 +103,7 @@ export class FdFileInput extends LitElement {
       );
       background: var(
         --fd-file-input-background,
-        var(--fdic-background-base, #ffffff)
+        var(--ds-color-bg-base, #ffffff)
       );
       box-sizing: border-box;
       overflow: clip;
@@ -116,7 +116,7 @@ export class FdFileInput extends LitElement {
       pointer-events: none;
       border-radius: inherit;
       box-shadow: inset 0 0 0 0
-        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0));
+        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0));
       transition: box-shadow 120ms ease, background-color 120ms ease,
         border-color 120ms ease;
     }
@@ -124,20 +124,20 @@ export class FdFileInput extends LitElement {
     [part="container"]:hover {
       border-color: var(
         --fd-file-input-border-color-hover,
-        var(--fdic-border-input-active, #424244)
+        var(--ds-color-border-input-active, #424244)
       );
     }
 
     :host([data-user-invalid]) [part="container"] {
       border-width: 2px;
-      border-color: var(--fdic-status-error, #d80e3a);
+      border-color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     :host([data-drag-active]) [part="container"] {
       border-width: 2px;
       border-color: var(
         --fd-file-input-border-color-hover,
-        var(--fdic-border-input-active, #424244)
+        var(--ds-color-border-input-active, #424244)
       );
     }
 
@@ -145,24 +145,24 @@ export class FdFileInput extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-file-input-drop-overlay,
-          var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))
+          var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
         );
     }
 
     [part="container"]:focus-within {
       border-width: 2px;
-      border-color: var(--fdic-border-input-active, #424244);
+      border-color: var(--ds-color-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-file-input-focus-ring,
-          var(--fdic-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, #38b6ff)
         );
     }
 
     :host([disabled]) [part="container"] {
-      border-color: var(--fdic-border-divider, #d6d6d8);
-      background: var(--fdic-background-container, #f5f5f7);
-      color: var(--fdic-text-secondary, #595961);
+      border-color: var(--ds-color-border-divider, #d6d6d8);
+      background: var(--ds-color-bg-container, #f5f5f7);
+      color: var(--ds-color-text-secondary, #595961);
     }
 
     [part="label"] {
@@ -173,7 +173,7 @@ export class FdFileInput extends LitElement {
     }
 
     .fd-file-input__required {
-      color: var(--fdic-status-error, #d80e3a);
+      color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     .fd-file-input__controls {
@@ -193,7 +193,7 @@ export class FdFileInput extends LitElement {
       padding-inline: 11px;
       gap: var(--fdic-spacing-2xs, 4px);
       border-radius: var(--fdic-corner-radius-sm, 3px);
-      background: var(--fdic-background-interactive, #f5f5f7);
+      background: var(--ds-color-bg-interactive, #f5f5f7);
       color: inherit;
       box-sizing: border-box;
       overflow: hidden;
@@ -234,7 +234,7 @@ export class FdFileInput extends LitElement {
     }
 
     .fd-file-input__browse:has([part="native"]:focus-visible) {
-      outline: 2px solid var(--fdic-border-input-active, #424244);
+      outline: 2px solid var(--ds-color-border-input-active, #424244);
       outline-offset: 2px;
     }
 
@@ -257,15 +257,15 @@ export class FdFileInput extends LitElement {
 
     [part="hint"],
     [part="summary"] {
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
     }
 
     [part="error"] {
-      color: var(--fdic-status-error, #d80e3a);
+      color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     [part="limit"] {
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
     }
@@ -290,10 +290,10 @@ export class FdFileInput extends LitElement {
       border: 1px solid
         var(
           --fd-file-input-item-border-color,
-          var(--fdic-border-input-interactive, #e8e8ed)
+          var(--ds-color-border-input-interactive, #e8e8ed)
         );
       border-radius: var(--fdic-corner-radius-sm, 3px);
-      background: var(--fdic-background-base, #ffffff);
+      background: var(--ds-color-bg-base, #ffffff);
       box-sizing: border-box;
     }
 
@@ -327,7 +327,7 @@ export class FdFileInput extends LitElement {
       gap: var(--fdic-spacing-2xs, 4px);
       font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
     }
 
     .fd-file-input__status-icon {
@@ -343,15 +343,15 @@ export class FdFileInput extends LitElement {
     }
 
     [data-state="error"] [part="item-status"] {
-      color: var(--fdic-status-error, #d80e3a);
+      color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     [data-state="success"] [part="item-status"] {
-      color: var(--fdic-status-success, #1e8232);
+      color: var(--ds-color-semantic-fg-success, #1e8232);
     }
 
     [data-state="invalid"] [part="item-status"] {
-      color: var(--fdic-status-warning, #8a6100);
+      color: var(--ds-color-semantic-fg-warning, #8a6100);
     }
 
     [part="item-action"] {
@@ -371,18 +371,18 @@ export class FdFileInput extends LitElement {
 
     [part="item-action"]:hover {
       box-shadow: inset 0 0 0 999px
-        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04));
+        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
     }
 
     [part="item-action"]:active {
       box-shadow: inset 0 0 0 999px
-        var(--fdic-overlay-emphasize-200, rgba(0, 0, 0, 0.08));
+        var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
     }
 
     [part="item-action"]:focus-visible {
-      outline: 2px solid var(--fdic-border-input-active, #424244);
+      outline: 2px solid var(--ds-color-border-input-active, #424244);
       outline-offset: -2px;
-      box-shadow: 0 0 2.5px 2px var(--fdic-border-input-focus, #38b6ff);
+      box-shadow: 0 0 2.5px 2px var(--ds-color-border-input-focus, #38b6ff);
     }
 
     :host([disabled]) [part="item-action"] {
@@ -397,14 +397,14 @@ export class FdFileInput extends LitElement {
       block-size: 2px;
       overflow: hidden;
       border-radius: 1px;
-      background: var(--fdic-background-interactive, #f5f5f7);
+      background: var(--ds-color-bg-interactive, #f5f5f7);
     }
 
     .fd-file-input__indicator-progress {
       block-size: 100%;
       background: var(
         --fd-file-input-progress-color,
-        var(--fdic-border-input-focus, #38b6ff)
+        var(--ds-color-border-input-focus, #38b6ff)
       );
       min-inline-size: 0;
       transition: inline-size 120ms ease;
@@ -412,17 +412,17 @@ export class FdFileInput extends LitElement {
 
     [data-state="success"] .fd-file-input__indicator-progress {
       inline-size: 100%;
-      background: var(--fdic-status-success, #1e8232);
+      background: var(--ds-color-semantic-fg-success, #1e8232);
     }
 
     [data-state="error"] .fd-file-input__indicator-progress {
       inline-size: 100%;
-      background: var(--fdic-status-error, #d80e3a);
+      background: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     [data-state="invalid"] .fd-file-input__indicator-progress {
       inline-size: 100%;
-      background: var(--fdic-status-warning, #8a6100);
+      background: var(--ds-color-semantic-fg-warning, #8a6100);
     }
 
     .fd-file-input__sr-only {

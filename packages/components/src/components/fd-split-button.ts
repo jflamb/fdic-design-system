@@ -219,7 +219,7 @@ export class FdSplitButton extends LitElement {
     .container.outline .divider {
       background-color: var(
         --fd-split-button-divider-color,
-        var(--fdic-border-divider, #bdbdbf)
+        var(--ds-color-border-divider, #bdbdbf)
       );
     }
 
@@ -251,7 +251,7 @@ export class FdSplitButton extends LitElement {
     .container.disabled .divider {
       background-color: var(
         --fd-split-button-divider-color,
-        var(--fdic-border-divider, #bdbdbf)
+        var(--ds-color-border-divider, #bdbdbf)
       );
     }
 

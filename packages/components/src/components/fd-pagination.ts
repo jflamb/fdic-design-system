@@ -42,7 +42,7 @@ export class FdPagination extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -237,7 +237,7 @@ export class FdPagination extends LitElement {
       border: 1px solid
         var(
           --fd-pagination-select-border,
-          var(--fdic-border-input-rest, #bdbdbf)
+          var(--ds-color-border-input, #bdbdbf)
         );
       border-radius: var(
         --fd-pagination-radius,

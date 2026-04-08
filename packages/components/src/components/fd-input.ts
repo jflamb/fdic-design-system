@@ -479,7 +479,7 @@ export class FdInput extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -501,7 +501,7 @@ export class FdInput extends LitElement {
       border: 2px solid transparent;
       border-color: var(
         --fd-input-border-color,
-        var(--fdic-border-input-rest, #bdbdbf)
+        var(--ds-color-border-input, #bdbdbf)
       );
       /* Reserve 2px border at rest so focus (which also uses 2px) causes no
          layout shift.  The visual difference vs. the old 1px border is
@@ -510,7 +510,7 @@ export class FdInput extends LitElement {
         --fd-input-border-radius,
         var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-input-bg, var(--fdic-background-base, #ffffff));
+      background: var(--fd-input-bg, var(--ds-color-bg-base, #ffffff));
       box-sizing: border-box;
     }
 
@@ -535,7 +535,7 @@ export class FdInput extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-input-placeholder-color,
-        var(--fdic-text-secondary, #595961)
+        var(--ds-color-text-secondary, #595961)
       );
       opacity: 1;
     }
@@ -550,26 +550,26 @@ export class FdInput extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-input-border-color-hover,
-        var(--fdic-border-input-active, #424244)
+        var(--ds-color-border-input-active, #424244)
       );
     }
 
     /* --- Focus (on native input) --- */
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border-color: var(--fdic-border-input-active, #424244);
+      border-color: var(--ds-color-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-input-border-color-focus,
-          var(--fdic-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, #38b6ff)
         );
     }
 
     /* --- Disabled --- */
     :host([disabled]) [part="base"] {
-      color: var(--fdic-text-disabled, #9e9ea0);
-      border-color: var(--fdic-border-divider, #bdbdbf);
-      background: var(--fdic-background-container, #f5f5f7);
+      color: var(--ds-color-text-disabled, #9e9ea0);
+      border-color: var(--ds-color-border-divider, #bdbdbf);
+      background: var(--ds-color-bg-container, #f5f5f7);
       cursor: not-allowed;
     }
 
@@ -579,22 +579,22 @@ export class FdInput extends LitElement {
 
     /* --- Read-only --- */
     :host([readonly]) [part="base"] {
-      background: var(--fdic-background-container, #f5f5f7);
-      border-color: var(--fdic-border-divider, #bdbdbf);
+      background: var(--ds-color-bg-container, #f5f5f7);
+      border-color: var(--ds-color-border-divider, #bdbdbf);
       border-style: dashed;
     }
 
     /* --- Validation state borders --- */
     :host([data-state="error"]) [part="base"] {
-      border-color: var(--fdic-status-error, #d80e3a);
+      border-color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     :host([data-state="warning"]) [part="base"] {
-      border-color: var(--fdic-status-warning, #b48c14);
+      border-color: var(--ds-color-semantic-fg-warning, #b48c14);
     }
 
     :host([data-state="success"]) [part="base"] {
-      border-color: var(--fdic-status-success, #1e8232);
+      border-color: var(--ds-color-semantic-fg-success, #1e8232);
     }
 
     /* --- Prefix/suffix: decorative icons ---
@@ -612,7 +612,7 @@ export class FdInput extends LitElement {
 
     /* Decorative state icons should inherit the field state color. */
     :host([data-state="error"]) ::slotted(fd-icon[slot="suffix"]) {
-      color: var(--fdic-status-error, #d80e3a);
+      color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     /* --- Prefix/suffix: action buttons ---
@@ -640,20 +640,20 @@ export class FdInput extends LitElement {
 
     ::slotted(button[slot="suffix"]:hover) {
       box-shadow: inset 0 0 0 999px
-        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04));
+        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
     }
 
     ::slotted(button[slot="suffix"]:active) {
       box-shadow: inset 0 0 0 999px
-        var(--fdic-overlay-emphasize-200, rgba(0, 0, 0, 0.08));
+        var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
     }
 
     /* Suffix button focus — inset ring, independent of container */
     ::slotted(button[slot="suffix"]:focus-visible) {
-      outline: 2px solid var(--fdic-border-input-active, #424244);
+      outline: 2px solid var(--ds-color-border-input-active, #424244);
       outline-offset: -2px;
       box-shadow: 0 0 2.5px 2px
-        var(--fdic-border-input-focus, #38b6ff);
+        var(--ds-color-border-input-focus, #38b6ff);
       border-radius: var(--fdic-corner-radius-sm, 3px);
     }
 
@@ -679,15 +679,15 @@ export class FdInput extends LitElement {
       justify-content: flex-end;
       margin-top: 4px;
       font-size: var(--fdic-font-size-body-small, 1rem);
-      color: var(--fdic-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, #595961);
     }
 
     :host([data-char-warn]) [part="char-count"] {
-      color: var(--fdic-status-warning, #8a6100);
+      color: var(--ds-color-semantic-fg-warning, #8a6100);
     }
 
     :host([data-char-limit]) [part="char-count"] {
-      color: var(--fdic-status-error, #d80e3a);
+      color: var(--ds-color-semantic-fg-error, #d80e3a);
     }
 
     /* --- SR-only --- */

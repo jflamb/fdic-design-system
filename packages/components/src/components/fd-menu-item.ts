@@ -40,7 +40,7 @@ export class FdMenuItem extends LitElement {
       );
       font-size: var(--fd-menu-item-font-size, var(--fdic-font-size-body, 18px));
       line-height: 1.375;
-      color: var(--fdic-text-primary, #212123);
+      color: var(--ds-color-text-primary, #212123);
       text-align: start;
       cursor: pointer;
       box-sizing: border-box;
@@ -48,7 +48,7 @@ export class FdMenuItem extends LitElement {
 
     .base:hover {
       background-color: var(
-        --fdic-overlay-emphasize-100,
+        --ds-color-overlay-hover,
         rgba(0, 0, 0, 0.04)
       );
     }
@@ -59,10 +59,10 @@ export class FdMenuItem extends LitElement {
 
     .base:focus-visible {
       background-color: var(
-        --fdic-overlay-emphasize-200,
+        --ds-color-overlay-pressed,
         rgba(0, 0, 0, 0.08)
       );
-      outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+      outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
       outline-offset: -2px;
       border-radius: 2px;
     }
@@ -72,7 +72,7 @@ export class FdMenuItem extends LitElement {
     }
 
     .disabled {
-      color: var(--fdic-text-disabled, var(--ds-color-text-disabled, #9e9ea0));
+      color: var(--ds-color-text-disabled, #9e9ea0);
       cursor: default;
     }
 

@@ -111,7 +111,7 @@ export class FdMessage extends LitElement {
         );
         font-size: var(--fdic-font-size-body-small, 1rem);
         line-height: 1.375;
-        color: var(--fdic-text-secondary, #595961);
+        color: var(--ds-color-text-secondary, #595961);
       }
 
       fd-message[hidden] {
@@ -137,15 +137,15 @@ export class FdMessage extends LitElement {
       /* --- State colors --- */
 
       fd-message[state="error"] [part="message"] {
-        color: var(--fdic-status-error, #d80e3a);
+        color: var(--ds-color-semantic-fg-error, #d80e3a);
       }
 
       fd-message[state="warning"] [part="message"] {
-        color: var(--fdic-status-warning, #8a6100);
+        color: var(--ds-color-semantic-fg-warning, #8a6100);
       }
 
       fd-message[state="success"] [part="message"] {
-        color: var(--fdic-status-success, #1e8232);
+        color: var(--ds-color-semantic-fg-success, #1e8232);
       }
 
       /* --- Forced colors --- */

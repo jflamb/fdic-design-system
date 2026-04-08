@@ -38,7 +38,7 @@ export class FdPageHeaderButton extends LitElement {
       -webkit-backdrop-filter: blur(12px);
       color: var(
         --fd-page-header-button-text-color,
-        var(--fdic-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, #ffffff)
       );
       font-family: var(
         --fdic-font-family-sans-serif,
@@ -73,12 +73,12 @@ export class FdPageHeaderButton extends LitElement {
 
     .base:hover::before {
       box-shadow: inset 0 0 0 999px
-        var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04));
+        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
     }
 
     .base:active::before {
       box-shadow: inset 0 0 0 999px
-        var(--fdic-overlay-emphasize-200, rgba(0, 0, 0, 0.08));
+        var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
     }
 
     .base:focus {
@@ -87,8 +87,8 @@ export class FdPageHeaderButton extends LitElement {
 
     .base:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 2px var(--fdic-background-base, #ffffff),
-        0 0 0 4px var(--fdic-border-input-focus, #38b6ff);
+      box-shadow: 0 0 0 2px var(--ds-color-bg-base, #ffffff),
+        0 0 0 4px var(--ds-color-border-input-focus, #38b6ff);
     }
 
     .icon {
