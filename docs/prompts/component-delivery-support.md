@@ -80,6 +80,7 @@ Before implementation, explicitly decide and record:
 
 - Create or reuse a GitHub Discussion before implementation.
 - Resolve the current target artifact from its live URL, number, or a fresh GitHub query before posting follow-up comments. Do not rely on copied GraphQL node IDs or cached artifact identifiers from earlier runs.
+- If the default GitHub connector cannot post a required Discussion comment, fall back to a live GraphQL or `gh` workflow in the same run rather than skipping the artifact silently.
 - Include:
   - draft problem statement
   - concise component description
@@ -196,6 +197,7 @@ Validation expectations:
 - If post-merge verification on `main` produces a single unexpected failure on a surface that was green before merge, rerun that failing surface once in isolation before changing code. Treat repeated failure as a real regression; treat a one-off pass-after-rerun as a flaky residual risk that still belongs in the final report.
 - When a browser-backed accessibility check conflicts with a supplied Figma visual value, treat the accessibility result as the blocker. Adjust the implementation to pass, then record the rationale and the specific divergence in the Discussion, Issue, and PR artifacts.
 - When Storybook interaction stories drive animated, overlay, or transition-based states, make the `play` function wait for the visually settled end state before returning. Addon-a11y runs after the interaction completes and can otherwise audit transitional frames such as partially transparent drawers or panels.
+- When Storybook docs-overview coverage would duplicate a unique landmark such as `header`, `footer`, `main`, or `banner`, keep the overview story to a single representative instance and use separate stories for additional variants so addon-a11y evaluates a truthful landmark structure.
 - When docs-theme or performance CSS changes land, verify them in the running docs surface against the real VitePress DOM instead of assuming the authored Markdown structure matches the shipped markup.
 - Review generated outputs for malformed changes, accidental deletions, duplicate headings, placeholders, stale generated sections, or misleading guidance.
 - When editing `scripts/components/api-metadata.json`, escape markdown union pipes as `\\|`; raw `|` characters can break generated API tables in component docs.
@@ -218,6 +220,7 @@ Validation expectations:
 - Treat documentation and stories as part of implementation, not follow-up polish.
 - Keep docs and stories aligned with the shipped API and the shipped adoption path.
 - When code changes semantics, keyboarding, focus management, motion, responsive behavior, accessibility expectations, or visual state coverage, update the corresponding docs page, Storybook stories, embeds, captions, and linked story IDs in the same change.
+- If validation or semantics force a docs-overview story to narrow from multiple composed examples to a single representative instance, update the embed caption and nearby narrative in the same change so the docs do not claim coverage the story no longer shows.
 - When code introduces or changes a consumer-facing implementation pattern such as data normalization, adapters, integration contracts, composition rules, migration steps, or framework/CMS handoff expectations, update the component docs in the same change with thorough implementation guidance rather than a passing mention.
 - Prefer documenting implementation guidance on the affected component page when it is necessary to adopt the shipped work correctly. Add dedicated sections such as `Integration`, `Implementation guide`, `Recipes`, `Framework integration`, or `CMS integration` when the consumer workflow is non-trivial.
 - If one ecosystem is an expected consumer for the new pattern, such as Drupal or React, include at least one concrete example for that ecosystem when it materially improves adoption clarity.
