@@ -48,7 +48,7 @@ export class FdSlider extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
     }
 
     :host([hidden]) {
@@ -56,7 +56,7 @@ export class FdSlider extends LitElement {
     }
 
     :host([disabled]) {
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
     }
 
     .fd-slider {
@@ -75,7 +75,7 @@ export class FdSlider extends LitElement {
     [part="hint"] {
       margin: 0;
       font-size: var(--fdic-font-size-body-small, 1rem);
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
     }
 
     [part="hint"][hidden] {
@@ -115,7 +115,7 @@ export class FdSlider extends LitElement {
     [part="track"] {
       background: var(
         --fd-slider-track-background,
-        var(--ds-color-border-input-interactive, #e0e0e2)
+        var(--ds-color-border-input-interactive, light-dark(#e0e0e2, #333335))
       );
     }
 
@@ -124,12 +124,12 @@ export class FdSlider extends LitElement {
       width: calc(var(--fd-slider-percent, 0) * 1%);
       background: var(
         --fd-slider-track-fill,
-        var(--ds-color-primary-500, #0d6191)
+        var(--ds-color-primary-500, light-dark(#0d6191, #84dbff))
       );
     }
 
     :host([disabled]) [part="fill"] {
-      background: var(--ds-color-border-divider, #bdbdbf);
+      background: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
     }
 
     [part="range"] {
@@ -143,7 +143,7 @@ export class FdSlider extends LitElement {
       appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
-      accent-color: var(--ds-color-primary-500, #0d6191);
+      accent-color: var(--ds-color-primary-500, light-dark(#0d6191, #84dbff));
     }
 
     [part="range"]:focus {
@@ -181,12 +181,12 @@ export class FdSlider extends LitElement {
       border: 4px solid
         var(
           --fd-slider-thumb-border,
-          var(--ds-color-icon-active, #1278b0)
+          var(--ds-color-icon-active, light-dark(#1278b0, #add8e6))
         );
       border-radius: 9999px;
       background: var(
         --fd-slider-thumb-background,
-        var(--ds-color-bg-base, #ffffff)
+        var(--ds-color-bg-base, light-dark(#ffffff, #000000))
       );
       box-sizing: border-box;
       appearance: none;
@@ -201,12 +201,12 @@ export class FdSlider extends LitElement {
       border: 4px solid
         var(
           --fd-slider-thumb-border,
-          var(--ds-color-icon-active, #1278b0)
+          var(--ds-color-icon-active, light-dark(#1278b0, #add8e6))
         );
       border-radius: 9999px;
       background: var(
         --fd-slider-thumb-background,
-        var(--ds-color-bg-base, #ffffff)
+        var(--ds-color-bg-base, light-dark(#ffffff, #000000))
       );
       box-sizing: border-box;
       transition: background-color 120ms ease, border-color 120ms ease,
@@ -216,51 +216,51 @@ export class FdSlider extends LitElement {
     :host([data-range-hover]) [part="range"]::-webkit-slider-thumb {
       background: var(
         --fd-slider-thumb-hover-background,
-        var(--ds-color-bg-container, #f5f5f7)
+        var(--ds-color-bg-container, light-dark(#f5f5f7, #212123))
       );
     }
 
     :host([data-range-hover]) [part="range"]::-moz-range-thumb {
       background: var(
         --fd-slider-thumb-hover-background,
-        var(--ds-color-bg-container, #f5f5f7)
+        var(--ds-color-bg-container, light-dark(#f5f5f7, #212123))
       );
     }
 
     :host([data-range-dragging]) [part="range"]::-webkit-slider-thumb {
       background: var(
         --fd-slider-thumb-pressed-background,
-        var(--ds-color-bg-selected, #b4e4f8)
+        var(--ds-color-bg-selected, light-dark(#b4e4f8, #003256))
       );
     }
 
     :host([data-range-dragging]) [part="range"]::-moz-range-thumb {
       background: var(
         --fd-slider-thumb-pressed-background,
-        var(--ds-color-bg-selected, #b4e4f8)
+        var(--ds-color-bg-selected, light-dark(#b4e4f8, #003256))
       );
     }
 
     [part="range"]:focus-visible::-webkit-slider-thumb {
       box-shadow:
-        0 0 0 2px var(--ds-color-bg-base, #ffffff),
-        0 0 0 4px var(--ds-color-border-input-focus, #38b6ff);
+        0 0 0 2px var(--ds-color-bg-base, light-dark(#ffffff, #000000)),
+        0 0 0 4px var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
     }
 
     [part="range"]:focus-visible::-moz-range-thumb {
       box-shadow:
-        0 0 0 2px var(--ds-color-bg-base, #ffffff),
-        0 0 0 4px var(--ds-color-border-input-focus, #38b6ff);
+        0 0 0 2px var(--ds-color-bg-base, light-dark(#ffffff, #000000)),
+        0 0 0 4px var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
     }
 
     :host([disabled]) [part="range"]::-webkit-slider-thumb {
-      border-color: var(--ds-color-border-divider, #bdbdbf);
-      background: var(--ds-color-bg-container, #f5f5f7);
+      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
     }
 
     :host([disabled]) [part="range"]::-moz-range-thumb {
-      border-color: var(--ds-color-border-divider, #bdbdbf);
-      background: var(--ds-color-bg-container, #f5f5f7);
+      border-color: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
     }
 
     [part="value-bubble"] {
@@ -277,8 +277,8 @@ export class FdSlider extends LitElement {
         --fd-slider-bubble-radius,
         var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-slider-bubble-background, var(--ds-color-bg-inverted, #212123));
-      color: var(--fd-slider-bubble-color, var(--ds-color-text-inverted, #ffffff));
+      background: var(--fd-slider-bubble-background, var(--ds-color-bg-inverted, light-dark(#212123, #f5f5f7)));
+      color: var(--fd-slider-bubble-color, var(--ds-color-text-inverted, light-dark(#ffffff, #000000)));
       font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
       text-align: center;
@@ -316,7 +316,7 @@ export class FdSlider extends LitElement {
       border: 1px solid
         var(
           --fd-slider-input-border-color,
-          var(--ds-color-border-input, #bdbdbf)
+          var(--ds-color-border-input, light-dark(#bdbdbf, #595961))
         );
       border-radius: var(
         --fd-slider-input-radius,
@@ -324,7 +324,7 @@ export class FdSlider extends LitElement {
       );
       background: var(
         --fd-slider-input-background,
-        var(--ds-color-bg-base, #ffffff)
+        var(--ds-color-bg-base, light-dark(#ffffff, #000000))
       );
       box-sizing: border-box;
       font: inherit;
@@ -335,10 +335,10 @@ export class FdSlider extends LitElement {
     }
 
     [part="input"]:focus-visible {
-      outline: 2px solid var(--ds-color-border-input-active, #424244);
+      outline: 2px solid var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2));
       outline-offset: 0;
       border-width: 2px;
-      box-shadow: 0 0 2.5px 2px var(--ds-color-border-input-focus, #38b6ff);
+      box-shadow: 0 0 2.5px 2px var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
     }
 
     [part="input"]::-webkit-outer-spin-button,
@@ -348,8 +348,8 @@ export class FdSlider extends LitElement {
     }
 
     :host([disabled]) [part="input"] {
-      border-color: var(--ds-color-border-divider, #d6d6d8);
-      background: var(--ds-color-bg-container, #f5f5f7);
+      border-color: var(--ds-color-border-divider, light-dark(#d6d6d8, #595961));
+      background: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
       color: var(--ds-color-text-disabled, #9e9ea0);
       cursor: not-allowed;
     }

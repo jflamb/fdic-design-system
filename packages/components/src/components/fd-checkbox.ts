@@ -19,7 +19,7 @@ export class FdCheckbox extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       font-family: var(
@@ -60,7 +60,7 @@ export class FdCheckbox extends LitElement {
       place-content: center;
       inline-size: var(--fd-checkbox-size, 1.5em);
       block-size: var(--fd-checkbox-size, 1.5em);
-      color: var(--fd-checkbox-border-color, var(--ds-color-text-primary, #212123));
+      color: var(--fd-checkbox-border-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
       flex-shrink: 0;
     }
 
@@ -85,7 +85,7 @@ export class FdCheckbox extends LitElement {
       outline: 2.5px solid
         var(
           --fd-checkbox-focus-color,
-          var(--ds-color-border-input-focus, #38b6ff)
+          var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
         );
       outline-offset: 2px;
     }
@@ -111,7 +111,7 @@ export class FdCheckbox extends LitElement {
     }
 
     :host([data-user-invalid]) [part="control"] {
-      color: var(--fd-checkbox-invalid-color, var(--ds-color-semantic-fg-error, #B10B2D));
+      color: var(--fd-checkbox-invalid-color, var(--ds-color-semantic-fg-error, light-dark(#b10b2d, #f66f8b)));
     }
 
     [part="label"] {
@@ -128,7 +128,7 @@ export class FdCheckbox extends LitElement {
 
     [part="description"] {
       display: block;
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
       font-size: var(--fdic-font-size-body-small, 1rem);
     }
 

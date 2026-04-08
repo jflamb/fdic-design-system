@@ -78,36 +78,36 @@ export class FdEvent extends LitElement {
       white-space: nowrap;
       background: var(
         --fd-event-date-bg-neutral,
-        var(--ds-color-overlay-hover, #f5f5f7)
+        var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)))
       );
-      color: var(--fd-event-date-color-neutral, var(--ds-color-text-primary, #212123));
+      color: var(--fd-event-date-color-neutral, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
     }
 
     :host([tone="warm"]) [part="date"] {
       background: var(
         --fd-event-date-bg-warm,
-        var(--ds-color-secondary-050, #f8efda)
+        var(--ds-color-secondary-050, light-dark(#f8efda, #60511b))
       );
-      color: var(--fd-event-date-color-warm, var(--ds-color-text-primary, #212123));
+      color: var(--fd-event-date-color-warm, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
     }
 
     :host([tone="cool"]) [part="date"] {
       background: var(
         --fd-event-date-bg-cool,
-        var(--ds-color-semantic-bg-info, #f1f8fe)
+        var(--ds-color-semantic-bg-info, light-dark(#f1f8fe, #1e3a5f))
       );
-      color: var(--fd-event-date-color-cool, var(--ds-color-text-primary, #212123));
+      color: var(--fd-event-date-color-cool, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
     }
 
     article:has(.title-link:hover) [part="date"],
     article:has(.title-link:focus-visible) [part="date"] {
       background: var(
         --fd-event-date-bg-neutral-emphasis,
-        var(--ds-color-icon-primary, #424244)
+        var(--ds-color-icon-primary, light-dark(#424244, #e0e0e2))
       );
       color: var(
         --fd-event-date-color-neutral-emphasis,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, light-dark(#ffffff, #000000))
       );
     }
 
@@ -115,11 +115,11 @@ export class FdEvent extends LitElement {
     :host([tone="warm"]) article:has(.title-link:focus-visible) [part="date"] {
       background: var(
         --fd-event-date-bg-warm-emphasis,
-        var(--ds-color-secondary-800, #88691c)
+        var(--ds-color-secondary-800, light-dark(#88691c, #f8efda))
       );
       color: var(
         --fd-event-date-color-warm-emphasis,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, light-dark(#ffffff, #000000))
       );
     }
 
@@ -127,11 +127,11 @@ export class FdEvent extends LitElement {
     :host([tone="cool"]) article:has(.title-link:focus-visible) [part="date"] {
       background: var(
         --fd-event-date-bg-cool-emphasis,
-        var(--ds-color-primary-500, #0d6191)
+        var(--ds-color-primary-500, light-dark(#0d6191, #84dbff))
       );
       color: var(
         --fd-event-date-color-cool-emphasis,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--ds-color-text-inverted, light-dark(#ffffff, #000000))
       );
     }
 
@@ -179,11 +179,11 @@ export class FdEvent extends LitElement {
     }
 
     .title-text {
-      color: var(--fd-event-title-color, var(--ds-color-text-primary, #212123));
+      color: var(--fd-event-title-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
     }
 
     .title-link {
-      color: var(--fd-event-link-color, var(--ds-color-text-link, #1278b0));
+      color: var(--fd-event-link-color, var(--ds-color-text-link, light-dark(#1278b0, #add8e6)));
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
@@ -205,11 +205,11 @@ export class FdEvent extends LitElement {
 
     .title-link:focus-visible {
       box-shadow: 0 0 0 2px
-          var(--fd-event-focus-gap, var(--ds-color-bg-input, #ffffff)),
+          var(--fd-event-focus-gap, var(--ds-color-bg-input, light-dark(#ffffff, #212123))),
         0 0 0 4px
           var(
             --fd-event-focus-ring,
-            var(--ds-color-border-input-focus, #38b6ff)
+            var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
           );
     }
 
@@ -222,7 +222,7 @@ export class FdEvent extends LitElement {
       list-style: none;
       color: var(
         --fd-event-metadata-color,
-        var(--ds-color-text-secondary, #595961)
+        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
       );
       font-size: var(--fd-event-metadata-font-size, 16px);
       font-weight: 400;

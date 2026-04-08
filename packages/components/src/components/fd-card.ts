@@ -31,7 +31,7 @@ export class FdCard extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -59,13 +59,13 @@ export class FdCard extends LitElement {
       border: 1px solid transparent;
       border-radius: var(--fd-card-radius, 7px);
       box-sizing: border-box;
-      background: var(--fd-card-background, #ffffff);
+      background: var(--fd-card-background, light-dark(#ffffff, #212123));
       box-shadow: var(
         --fd-card-shadow,
-        0 1px 1px rgba(0, 0, 0, 0.08),
-        0 2px 2px rgba(0, 0, 0, 0.08),
-        0 4px 4px rgba(0, 0, 0, 0.08),
-        0 6px 8px rgba(0, 0, 0, 0.08)
+        0 1px 1px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 2px 2px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 4px 4px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 6px 8px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28)))
       );
     }
 
@@ -75,14 +75,14 @@ export class FdCard extends LitElement {
 
     article:has(.title-link:hover),
     article:has(.title-link:focus-visible) {
-      border-color: var(--fd-card-border-hover, #bdbdbf);
+      border-color: var(--fd-card-border-hover, light-dark(#bdbdbf, #595961));
       box-shadow: var(
         --fd-card-shadow-hover,
-        0 1px 1px rgba(0, 0, 0, 0.08),
-        0 2px 2px rgba(0, 0, 0, 0.08),
-        0 4px 4px rgba(0, 0, 0, 0.08),
-        0 8px 8px rgba(0, 0, 0, 0.08),
-        0 16px 16px rgba(0, 0, 0, 0.08)
+        0 1px 1px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 2px 2px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 4px 4px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 8px 8px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28))),
+        0 16px 16px var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28)))
       );
     }
 
@@ -122,7 +122,7 @@ export class FdCard extends LitElement {
     [part="media"] {
       flex: none;
       overflow: hidden;
-      background: var(--fd-card-media-background, #f5f5f7);
+      background: var(--fd-card-media-background, light-dark(#f5f5f7, #212123));
     }
 
     [part="media"].size-medium {
@@ -146,7 +146,7 @@ export class FdCard extends LitElement {
     [part="category"],
     [part="metadata"] {
       margin: 0;
-      color: var(--fd-card-supporting-color, var(--ds-color-text-secondary, #595961));
+      color: var(--fd-card-supporting-color, var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2)));
       font-size: var(--fd-card-supporting-font-size, 16px);
       font-weight: 400;
       line-height: 1.375;
@@ -167,7 +167,7 @@ export class FdCard extends LitElement {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       line-clamp: 2;
-      color: var(--fd-card-title-color, var(--ds-color-text-primary, #212123));
+      color: var(--fd-card-title-color, var(--ds-color-text-primary, light-dark(#212123, #ffffff)));
     }
 
     .title-link {
@@ -180,7 +180,7 @@ export class FdCard extends LitElement {
 
     .title-link:hover,
     .title-link:focus-visible {
-      color: var(--fd-card-title-link-color, var(--ds-color-text-link, #1278b0));
+      color: var(--fd-card-title-link-color, var(--ds-color-text-link, light-dark(#1278b0, #add8e6)));
       text-decoration-line: underline;
       text-decoration-color: currentColor;
       text-decoration-thickness: var(--fd-card-link-underline-thickness, 1px);
@@ -190,11 +190,11 @@ export class FdCard extends LitElement {
 
     .title-link:focus-visible {
       box-shadow:
-        0 0 0 2px var(--fd-card-focus-gap, var(--fd-card-background, #ffffff)),
+        0 0 0 2px var(--fd-card-focus-gap, var(--fd-card-background, light-dark(#ffffff, #212123))),
         0 0 0 4px
           var(
             --fd-card-focus-ring,
-            var(--ds-color-border-input-focus, #38b6ff)
+            var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
           );
     }
 
@@ -218,7 +218,7 @@ export class FdCard extends LitElement {
       min-inline-size: 0;
       padding: var(--fd-card-footer-padding, 12px 16px);
       border-top: 1px solid
-        var(--fd-card-divider-color, var(--ds-color-border-subtle, #e0e0e2));
+        var(--fd-card-divider-color, var(--ds-color-border-subtle, light-dark(#e0e0e2, #595961)));
       box-sizing: border-box;
     }
 

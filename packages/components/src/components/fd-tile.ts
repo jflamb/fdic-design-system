@@ -39,7 +39,7 @@ export class FdTile extends LitElement {
     :host {
       display: block;
       container-type: inline-size;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -109,7 +109,7 @@ export class FdTile extends LitElement {
     .title-link,
     .title-text,
     .support-link {
-      color: var(--fd-tile-link-color, var(--ds-color-text-link, #1278b0));
+      color: var(--fd-tile-link-color, var(--ds-color-text-link, light-dark(#1278b0, #add8e6)));
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
@@ -131,7 +131,7 @@ export class FdTile extends LitElement {
     }
 
     .title-text {
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
       text-decoration-line: none;
     }
 
@@ -152,11 +152,11 @@ export class FdTile extends LitElement {
     .title-link:focus-visible,
     .support-link:focus-visible {
       box-shadow: 0 0 0 2px
-          var(--fd-tile-focus-gap, var(--ds-color-bg-input, #ffffff)),
+          var(--fd-tile-focus-gap, var(--ds-color-bg-input, light-dark(#ffffff, #212123))),
         0 0 0 4px
           var(
             --fd-tile-focus-ring,
-            var(--ds-color-border-input-focus, #38b6ff)
+            var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191))
           );
     }
 
@@ -164,7 +164,7 @@ export class FdTile extends LitElement {
       margin: 0;
       color: var(
         --fd-tile-description-color,
-        var(--ds-color-text-secondary, #595961)
+        var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2))
       );
       font-size: var(--fd-tile-description-font-size, 16px);
       font-weight: 400;
