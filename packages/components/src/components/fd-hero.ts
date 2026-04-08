@@ -200,7 +200,7 @@ export class FdHero extends LitElement {
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
-      outline: none;
+      outline-color: transparent;
       overflow-wrap: anywhere;
     }
 

@@ -769,10 +769,9 @@
 
 .fdic-story-embed-placeholder,
 .fdic-figma-embed-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-content: center;
+  justify-items: center;
   min-height: 12rem;
   border: 2px dashed var(--fdic-docs-border);
   border-radius: 12px;

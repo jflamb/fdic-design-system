@@ -364,8 +364,8 @@
         },
         {
           "name": "--fd-checkbox-size",
-          "default": "`24px`",
-          "description": "Size of the checkbox control"
+          "default": "`1.5em`",
+          "description": "Size of the checkbox control, scaled to the component's label text by default"
         },
         {
           "name": "--fd-checkbox-border-color",
@@ -1006,8 +1006,8 @@
         },
         {
           "name": "--fd-radio-size",
-          "default": "`24px`",
-          "description": "Size of the radio control wrapper"
+          "default": "`1.5em`",
+          "description": "Size of the radio control wrapper, scaled to the component's label text by default"
         },
         {
           "name": "--fd-radio-icon-color",

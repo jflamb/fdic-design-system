@@ -223,7 +223,7 @@ export class FdHeaderSearch extends LitElement {
       font-size: 1.125rem;
       font-weight: 400;
       line-height: 1.375;
-      outline: none;
+      outline-color: transparent;
     }
 
     .field[data-action-count="1"] .native {
@@ -350,6 +350,7 @@ export class FdHeaderSearch extends LitElement {
       max-height: min(52vh, 32.5rem);
       overflow: auto;
       overscroll-behavior: contain;
+      scrollbar-gutter: stable;
     }
 
     .result-item + .result-item {
@@ -371,7 +372,7 @@ export class FdHeaderSearch extends LitElement {
     .result-link:focus-visible,
     .result-link[data-active="true"] {
       background: var(--ds-color-bg-hovered, rgba(0, 110, 190, 0.08));
-      outline: none;
+      outline-color: transparent;
     }
 
     .result-title {

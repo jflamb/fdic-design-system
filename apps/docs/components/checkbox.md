@@ -63,7 +63,7 @@ Standalone checkboxes (such as consent or acknowledgement patterns) should be wr
 | Name | Default | Description |
 |---|---|---|
 | `--fd-checkbox-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
-| `--fd-checkbox-size` | `24px` | Size of the checkbox control |
+| `--fd-checkbox-size` | `1.5em` | Size of the checkbox control, scaled to the component's label text by default |
 | `--fd-checkbox-border-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
 | `--fd-checkbox-radius` | `var(--fdic-corner-radius-sm, 3px)` | Checkbox corner radius |
 | `--fd-checkbox-icon-size` | `24px` | Size of the internal state icon |

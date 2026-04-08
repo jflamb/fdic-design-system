@@ -1,7 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/fd-checkbox.js";
-import "../register/fd-icon.js";
-import "../icons/phosphor-regular.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createCheckbox(

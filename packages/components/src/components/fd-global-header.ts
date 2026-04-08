@@ -655,7 +655,7 @@ export class FdGlobalHeader extends LitElement {
     .top-nav-button:focus-visible,
     .top-nav-button[aria-expanded="true"] {
       background-color: var(--fd-global-header-color-surface-brand-hover);
-      outline: none;
+      outline-color: transparent;
     }
 
     .top-nav-link:hover::after,
@@ -1046,7 +1046,7 @@ export class FdGlobalHeader extends LitElement {
     .menu-item-link--l3:focus-visible,
     .menu-item-link--l3[data-active="true"] {
       background: rgba(0, 110, 190, 0.14);
-      outline: none;
+      outline-color: transparent;
     }
 
     .menu-item-label {
@@ -1133,6 +1133,8 @@ export class FdGlobalHeader extends LitElement {
       height: 100vh;
       height: 100dvh;
       overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
       background: var(--fd-global-header-color-surface-base);
       border-inline-end: 1px solid var(--fd-global-header-color-border-subtle);
       transform: translateX(-104%);
@@ -1199,7 +1201,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-drawer-close:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow:
         inset 0 0 0 2px rgba(0, 94, 162, 0.35),
         inset 0 0 0 4px var(--fd-global-header-color-accent);
@@ -1238,7 +1240,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-back:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow:
         0 0 0 2px var(--fd-global-header-color-surface-base),
         0 0 0 4px var(--fd-global-header-color-accent);
@@ -1372,7 +1374,7 @@ export class FdGlobalHeader extends LitElement {
     .mobile-overview-link:focus-visible,
     .mobile-link:focus-visible,
     .mobile-button:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow:
         0 0 0 2px var(--fd-global-header-color-surface-base),
         0 0 0 4px var(--fd-global-header-color-accent);

@@ -406,7 +406,8 @@ export class FdTextarea extends LitElement {
       line-height: inherit;
       color: inherit;
       box-sizing: border-box;
-      outline: none;
+      outline-color: transparent;
+      caret-color: currentColor;
       resize: vertical;
       overflow: auto;
     }
@@ -427,7 +428,7 @@ export class FdTextarea extends LitElement {
     }
 
     [part="base"]:has([part="native"]:focus-visible) {
-      outline: none;
+      outline-color: transparent;
       border: 2px solid var(--fdic-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
         var(

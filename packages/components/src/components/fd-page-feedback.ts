@@ -200,9 +200,8 @@ export class FdPageFeedback extends LitElement {
     }
 
     .survey-link-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-grid;
+      place-content: center;
       inline-size: 18px;
       block-size: 18px;
       flex: none;
@@ -245,7 +244,7 @@ export class FdPageFeedback extends LitElement {
       font-weight: 450;
       overflow-wrap: anywhere;
       line-height: 1.25;
-      outline: none;
+      outline-color: transparent;
     }
 
     @media (max-width: 640px) {

@@ -58,7 +58,7 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 | Name | Default | Description |
 |---|---|---|
 | `--fd-radio-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
-| `--fd-radio-size` | `24px` | Size of the radio control wrapper |
+| `--fd-radio-size` | `1.5em` | Size of the radio control wrapper, scaled to the component's label text by default |
 | `--fd-radio-icon-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
 | `--fd-radio-glyph-size` | `22px` | Size of the circular radio glyph |
 | `--fd-radio-border-width` | `2px` | Stroke width of the outer ring |

@@ -82,10 +82,10 @@ export class FdButton extends LitElement {
 
     /* --- Focus --- */
     .base:focus {
-      outline: none;
+      outline-color: transparent;
     }
     .base:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow: 0 0 0 2px
           var(--fd-button-focus-gap, var(--ds-color-bg-input, #ffffff)),
         0 0 0 4px

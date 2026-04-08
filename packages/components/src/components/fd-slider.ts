@@ -147,7 +147,7 @@ export class FdSlider extends LitElement {
     }
 
     [part="range"]:focus {
-      outline: none;
+      outline-color: transparent;
     }
 
     :host([disabled]) [part="range"] {

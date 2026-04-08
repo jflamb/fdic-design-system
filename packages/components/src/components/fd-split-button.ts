@@ -94,11 +94,11 @@ export class FdSplitButton extends LitElement {
     /* --- Focus --- */
     .primary-segment:focus,
     .trigger-segment:focus {
-      outline: none;
+      outline-color: transparent;
     }
     .primary-segment:focus-visible,
     .trigger-segment:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow: 0 0 0 2px
           var(--fd-button-focus-gap, var(--ds-color-bg-input, #ffffff)),
         0 0 0 4px

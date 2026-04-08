@@ -15,6 +15,7 @@
  * ```
  */
 import { iconRegistry } from "./registry.js";
+// @ts-expect-error Generated ESM data module is consumed at runtime.
 import { phosphorRegularIcons } from "./phosphor-data.mjs";
 
 iconRegistry.register(phosphorRegularIcons);

@@ -82,11 +82,11 @@ export class FdPageHeaderButton extends LitElement {
     }
 
     .base:focus {
-      outline: none;
+      outline-color: transparent;
     }
 
     .base:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow: 0 0 0 2px var(--fdic-background-base, #ffffff),
         0 0 0 4px var(--fdic-border-input-focus, #38b6ff);
     }

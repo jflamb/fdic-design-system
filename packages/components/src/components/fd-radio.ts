@@ -55,72 +55,28 @@ export class FdRadio extends LitElement {
     }
 
     [part="control"] {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: var(--fd-radio-size, 24px);
-      block-size: var(--fd-radio-size, 24px);
+      display: grid;
+      place-content: center;
+      inline-size: var(--fd-radio-size, 1.5em);
+      block-size: var(--fd-radio-size, 1.5em);
       color: var(--fd-radio-icon-color, var(--fdic-text-primary, #212123));
       flex-shrink: 0;
     }
 
     [part="control"] input {
-      position: absolute;
-      inline-size: 1px;
-      block-size: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-      opacity: 0;
-    }
-
-    .visual {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: 100%;
-      block-size: 100%;
-      border-radius: 9999px;
+      inline-size: var(--fd-radio-size, 1.5em);
+      block-size: var(--fd-radio-size, 1.5em);
+      margin: 0;
       box-sizing: border-box;
+      accent-color: currentColor;
+      outline-color: transparent;
       transition:
+        outline-color 120ms ease,
         box-shadow 120ms ease,
-        color 120ms ease,
-        opacity 120ms ease;
+        color 120ms ease;
     }
 
-    .outer {
-      inline-size: var(--fd-radio-glyph-size, 22px);
-      block-size: var(--fd-radio-glyph-size, 22px);
-      border-radius: 9999px;
-      border: var(--fd-radio-border-width, 2px) solid currentColor;
-      box-sizing: border-box;
-    }
-
-    .dot {
-      position: absolute;
-      inline-size: var(--fd-radio-dot-size, 8px);
-      block-size: var(--fd-radio-dot-size, 8px);
-      border-radius: 9999px;
-      background: currentColor;
-      opacity: 0;
-      transform: scale(0.75);
-      transition:
-        opacity 120ms ease,
-        transform 120ms ease;
-    }
-
-    :host([checked]) .dot {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    [part="control"]:has(input:focus-visible) .outer,
-    [part="control"] input:focus-visible + .visual .outer {
+    [part="control"] input:focus-visible {
       outline: 2.5px solid
         var(
           --fd-radio-focus-color,
@@ -129,7 +85,7 @@ export class FdRadio extends LitElement {
       outline-offset: 2px;
     }
 
-    :host(:hover:not([disabled])) .visual {
+    :host(:hover:not([disabled])) [part="control"] input {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-radio-overlay-hover,
@@ -137,7 +93,7 @@ export class FdRadio extends LitElement {
         );
     }
 
-    :host(:active:not([disabled])) .visual {
+    :host(:active:not([disabled])) [part="control"] input {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-radio-overlay-active,
@@ -180,36 +136,28 @@ export class FdRadio extends LitElement {
     }
 
     @media (forced-colors: active) {
-      .visual {
-        forced-color-adjust: none;
+      [part="control"] input {
         box-shadow: none;
-        color: ButtonText;
+        outline-color: transparent;
       }
 
-      :host([disabled]) .visual {
+      :host([disabled]) [part="control"] input {
         color: GrayText;
       }
 
-      :host([checked]) .outer,
-      :host([checked]) .dot {
-        color: Highlight;
-      }
-
-      [part="control"]:has(input:focus-visible) .outer,
-      [part="control"] input:focus-visible + .visual .outer {
+      [part="control"] input:focus-visible {
         outline-color: LinkText;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .visual,
-      .dot {
+      [part="control"] input {
         transition: none !important;
       }
     }
 
     @media print {
-      .visual {
+      [part="control"] input {
         box-shadow: none;
       }
 
@@ -467,10 +415,6 @@ export class FdRadio extends LitElement {
             @keydown=${this._onKeydown}
             @blur=${this._onBlur}
           />
-          <span class="visual" aria-hidden="true">
-            <span class="outer"></span>
-            <span class="dot"></span>
-          </span>
         </span>
         <span part="label">
           <span class="label-text"><slot></slot></span>

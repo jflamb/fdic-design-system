@@ -187,7 +187,7 @@ export class FdEvent extends LitElement {
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
-      outline: none;
+      outline-color: transparent;
       text-decoration-line: underline;
       text-decoration-color: currentColor;
       text-decoration-thickness: var(--fd-event-link-underline-thickness, 1px);

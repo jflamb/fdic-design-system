@@ -54,7 +54,7 @@ export class FdMenuItem extends LitElement {
     }
 
     .base:focus {
-      outline: none;
+      outline-color: transparent;
     }
 
     .base:focus-visible {

@@ -83,7 +83,7 @@ export class FdLink extends LitElement {
       text-underline-offset: var(--fd-link-underline-offset, 0.12em);
       text-decoration-skip-ink: auto;
       border-radius: 2px;
-      outline: none;
+      outline-color: transparent;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
       overflow-wrap: anywhere;

@@ -32,6 +32,8 @@ export class FdMenu extends LitElement {
       max-width: var(--fd-menu-max-width, 320px);
       max-height: var(--fd-menu-max-height, min(300px, 60dvh));
       overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
       box-sizing: border-box;
     }
 

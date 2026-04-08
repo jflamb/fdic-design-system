@@ -352,11 +352,11 @@ export class FdAlert extends LitElement {
     }
 
     .dismiss-button:focus {
-      outline: none;
+      outline-color: transparent;
     }
 
     .dismiss-button:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow: 0 0 0 2px var(--fd-alert-focus-gap, var(--ds-color-bg-surface, #ffffff)),
         0 0 0 4px var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, #38b6ff));
     }

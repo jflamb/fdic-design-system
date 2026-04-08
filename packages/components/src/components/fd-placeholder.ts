@@ -8,9 +8,8 @@ import { LitElement, css, html } from "lit";
 export class FdPlaceholder extends LitElement {
   static styles = css`
     :host {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      display: inline-grid;
+      place-content: center;
       min-width: 12rem;
       padding: 0.75rem 1rem;
       border: 1px dashed var(--ds-color-border-divider, #7a7a7a);
@@ -26,4 +25,3 @@ export class FdPlaceholder extends LitElement {
     return html`<span>Placeholder component</span>`;
   }
 }
-

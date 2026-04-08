@@ -2,7 +2,6 @@ import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { SingleValueFormController } from "./single-value-form-controller.js";
-import "./fd-icon.js";
 
 export class FdCheckbox extends LitElement {
   static formAssociated = true;
@@ -57,59 +56,41 @@ export class FdCheckbox extends LitElement {
     }
 
     [part="control"] {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: var(--fd-checkbox-size, 24px);
-      block-size: var(--fd-checkbox-size, 24px);
+      display: grid;
+      place-content: center;
+      inline-size: var(--fd-checkbox-size, 1.5em);
+      block-size: var(--fd-checkbox-size, 1.5em);
       color: var(--fd-checkbox-border-color, var(--fdic-text-primary, #212123));
       flex-shrink: 0;
     }
 
     [part="control"] input {
-      position: absolute;
-      inline-size: 1px;
-      block-size: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-      opacity: 0;
-    }
-
-    .icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      inline-size: 100%;
-      block-size: 100%;
+      inline-size: var(--fd-checkbox-size, 1.5em);
+      block-size: var(--fd-checkbox-size, 1.5em);
+      margin: 0;
       border-radius: var(
         --fd-checkbox-radius,
         var(--fdic-corner-radius-sm, 3px)
       );
+      accent-color: currentColor;
       box-sizing: border-box;
+      outline-color: transparent;
       transition:
+        outline-color 120ms ease,
         box-shadow 120ms ease,
-        color 120ms ease,
-        opacity 120ms ease;
+        color 120ms ease;
     }
 
-    .icon fd-icon {
-      --fd-icon-size: var(--fd-checkbox-icon-size, 24px);
-    }
-
-    [part="control"]:has(input:focus-visible) .icon {
-      box-shadow: inset 0 0 0 2.5px
+    [part="control"] input:focus-visible {
+      outline: 2.5px solid
         var(
           --fd-checkbox-focus-color,
           var(--fdic-border-input-focus, #38b6ff)
         );
+      outline-offset: 2px;
     }
 
-    :host(:hover:not([disabled])) .icon {
+    :host(:hover:not([disabled])) [part="control"] input {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-checkbox-overlay-hover,
@@ -117,7 +98,7 @@ export class FdCheckbox extends LitElement {
         );
     }
 
-    :host(:active:not([disabled])) .icon {
+    :host(:active:not([disabled])) [part="control"] input {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-checkbox-overlay-active,
@@ -160,36 +141,29 @@ export class FdCheckbox extends LitElement {
     }
 
     @media (forced-colors: active) {
-      .icon {
-        forced-color-adjust: none;
+      [part="control"] input {
         box-shadow: none;
-        color: ButtonText;
+        outline-color: transparent;
       }
 
-      :host([disabled]) .icon {
+      :host([disabled]) [part="control"] input {
         color: GrayText;
       }
 
-      :host([checked]) .icon,
-      :host([indeterminate]) .icon {
-        background: Highlight;
-        color: HighlightText;
-      }
-
-      [part="control"]:has(input:focus-visible) .icon {
+      [part="control"] input:focus-visible {
         outline: 2px solid LinkText;
         outline-offset: 2px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .icon {
+      [part="control"] input {
         transition: none !important;
       }
     }
 
     @media print {
-      .icon {
+      [part="control"] input {
         box-shadow: none;
       }
 
@@ -321,18 +295,6 @@ export class FdCheckbox extends LitElement {
     this._formController.internals.setValidity({});
   }
 
-  private _getIconName() {
-    if (this.indeterminate) {
-      return "minus-square";
-    }
-
-    if (this.checked) {
-      return "check-square";
-    }
-
-    return "square";
-  }
-
   private _slotHasContent(name: string) {
     return Array.from(this.querySelectorAll(`[slot="${name}"]`)).some(
       (node) => Boolean(node.textContent?.trim()),
@@ -378,9 +340,6 @@ export class FdCheckbox extends LitElement {
             @change=${this._onChange}
             @blur=${this._onBlur}
           />
-          <span class="icon" aria-hidden="true">
-            <fd-icon name=${this._getIconName()}></fd-icon>
-          </span>
         </span>
         <span part="label">
           <span class="label-text"><slot></slot></span>

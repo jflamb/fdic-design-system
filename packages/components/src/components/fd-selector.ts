@@ -198,7 +198,7 @@ export class FdSelector extends LitElement {
     }
 
     [part="listbox"]:focus-visible {
-      outline: none;
+      outline-color: transparent;
     }
 
     /* --- Error --- */

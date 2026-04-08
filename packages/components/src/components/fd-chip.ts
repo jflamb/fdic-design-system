@@ -150,11 +150,11 @@ export class FdChip extends LitElement {
     }
 
     .remove-button:focus {
-      outline: none;
+      outline-color: transparent;
     }
 
     .remove-button:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow: inset 0 0 0 2.5px
         var(
           --fd-chip-remove-focus-ring,

@@ -143,12 +143,12 @@ export class FdPagination extends LitElement {
     }
 
     .control:focus {
-      outline: none;
+      outline-color: transparent;
     }
 
     .control:focus-visible,
     .mobile-select:focus-visible {
-      outline: none;
+      outline-color: transparent;
       box-shadow: 0 0 0 2px
           var(--fd-pagination-focus-gap, var(--ds-color-bg-input, #ffffff)),
         0 0 0 4px
