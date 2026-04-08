@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { iconRegistry } from "./registry.js";
 
 describe("iconRegistry", () => {
@@ -51,6 +51,38 @@ describe("iconRegistry", () => {
     expect(result).not.toContain("onload");
     expect(result).not.toContain("onmouseover");
     expect(result).toContain('<path d="M0 0"/>');
+  });
+
+  it("strips script tags with whitespace in the closing tag in the fallback path", () => {
+    vi.stubGlobal("DOMParser", undefined);
+    try {
+      const dirty =
+        '<svg><script type="application/ecmascript">alert(1)</script ><path d="M0 0"/></svg>';
+      iconRegistry.register("scripted-fallback", dirty);
+
+      const result = iconRegistry.get("scripted-fallback")!;
+      expect(result).not.toContain("<script");
+      expect(result).not.toContain("</script");
+      expect(result).toContain('<path d="M0 0"/>');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it("repeats fallback sanitization until event handlers are fully removed", () => {
+    vi.stubGlobal("DOMParser", undefined);
+    try {
+      const dirty =
+        '<svg onload="&quot; onfocus=alert(1)"><path d="M0 0"/></svg>';
+      iconRegistry.register("handlers-fallback", dirty);
+
+      const result = iconRegistry.get("handlers-fallback")!;
+      expect(result).not.toContain("onload");
+      expect(result).not.toContain("onfocus");
+      expect(result).toContain('<path d="M0 0"/>');
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 
   it("names() returns a sorted list of registered icon names", () => {

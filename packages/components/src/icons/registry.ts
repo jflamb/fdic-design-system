@@ -19,11 +19,22 @@
  * string. Uses DOM parsing when available (browser), falls back to regex
  * stripping in non-browser environments (e.g. SSR / Node.js).
  */
+function sanitizeWithoutDomParser(svg: string): string {
+  let sanitized = svg;
+
+  do {
+    svg = sanitized;
+    sanitized = sanitized
+      .replace(/<script\b[^>]*>[^]*?<\/script\s*>/gi, "")
+      .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  } while (sanitized !== svg);
+
+  return sanitized;
+}
+
 function sanitize(svg: string): string {
   if (typeof DOMParser === "undefined") {
-    return svg
-      .replace(/<script[\s>][\s\S]*?<\/script>/gi, "")
-      .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+    return sanitizeWithoutDomParser(svg);
   }
 
   const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
