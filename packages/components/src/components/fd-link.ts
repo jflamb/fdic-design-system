@@ -51,6 +51,8 @@ export class FdLink extends LitElement {
     :host {
       display: inline;
       vertical-align: baseline;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     :host([hidden]) {
@@ -85,8 +87,6 @@ export class FdLink extends LitElement {
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
       overflow-wrap: anywhere;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .base:hover,

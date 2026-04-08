@@ -482,6 +482,8 @@ export class FdLabel extends LitElement {
         line-height: 1.375;
         color: var(--fdic-text-primary, #212123);
         position: relative;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
       fd-label[hidden] {
@@ -557,8 +559,6 @@ export class FdLabel extends LitElement {
         /* Shift right so the icon's right edge (not the padding) aligns with container edge */
         right: -6px;
         box-sizing: border-box;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
       }
 
       fd-label [part="infotip-trigger"]:hover {

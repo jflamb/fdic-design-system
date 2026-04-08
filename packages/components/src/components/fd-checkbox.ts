@@ -21,6 +21,8 @@ export class FdCheckbox extends LitElement {
     :host {
       display: block;
       color: var(--fdic-text-primary, #212123);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       font-family: var(
         --fdic-font-family-sans-serif,
         "Source Sans 3",
@@ -48,8 +50,6 @@ export class FdCheckbox extends LitElement {
       max-inline-size: 100%;
       cursor: pointer;
       position: relative;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     :host([disabled]) label {

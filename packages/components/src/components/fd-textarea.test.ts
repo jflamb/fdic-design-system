@@ -388,8 +388,11 @@ describe("fd-textarea", () => {
   });
 
   it("includes a vertical resize rule in the component styles", () => {
+    const rawStyles = (customElements.get("fd-textarea") as any).styles;
     const styles = String(
-      (customElements.get("fd-textarea") as any).styles?.cssText ?? "",
+      Array.isArray(rawStyles)
+        ? rawStyles.map((s: any) => s.cssText ?? "").join(" ")
+        : rawStyles?.cssText ?? "",
     );
     expect(styles).toContain("resize: vertical;");
   });

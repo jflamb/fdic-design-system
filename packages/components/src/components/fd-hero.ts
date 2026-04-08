@@ -139,6 +139,7 @@ export class FdHero extends LitElement {
       inline-size: min(100%, var(--fd-hero-panel-max-width, 480px));
       min-inline-size: 0;
       background: var(--_fd-hero-panel-bg);
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
       box-shadow: 0 0 0 var(--fd-hero-panel-halo, 24px) var(--_fd-hero-panel-bg);
       color: inherit;
@@ -311,6 +312,7 @@ export class FdHero extends LitElement {
         inline-size: 100%;
         background: none;
         box-shadow: none;
+        -webkit-backdrop-filter: none;
         backdrop-filter: none;
         color: inherit;
       }
@@ -331,6 +333,7 @@ export class FdHero extends LitElement {
         background: Canvas;
         box-shadow: none;
         border: 1px solid CanvasText;
+        -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
 

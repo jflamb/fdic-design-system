@@ -45,6 +45,8 @@ export class FdSelector extends LitElement {
       line-height: 1.375;
       color: var(--fdic-text-primary, #212123);
       position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     :host([hidden]) {
@@ -108,8 +110,6 @@ export class FdSelector extends LitElement {
       cursor: pointer;
       box-sizing: border-box;
       text-align: start;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     [part="trigger"]:focus-visible {

@@ -26,6 +26,8 @@ export class FdSplitButton extends LitElement {
     :host {
       display: inline-flex;
       vertical-align: middle;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     :host([disabled]) {
       pointer-events: none;
@@ -65,8 +67,6 @@ export class FdSplitButton extends LitElement {
       line-height: 1.375;
       cursor: pointer;
       box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       position: relative;
     }
 
@@ -277,6 +277,20 @@ export class FdSplitButton extends LitElement {
       display: inline-flex;
       align-items: center;
       flex-shrink: 0;
+    }
+
+    /* --- Responsive: prevent overflow on narrow viewports --- */
+    @media (max-width: 640px) {
+      :host {
+        display: flex;
+      }
+      .container {
+        width: 100%;
+      }
+      .primary-segment {
+        flex: 1 1 auto;
+        min-inline-size: 0;
+      }
     }
 
     /* --- Forced colors --- */

@@ -20,6 +20,8 @@ export class FdButton extends LitElement {
     :host {
       display: inline-flex;
       vertical-align: middle;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     :host([disabled]),
     :host([loading]) {
@@ -58,8 +60,6 @@ export class FdButton extends LitElement {
       cursor: pointer;
       position: relative;
       box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
     .icon-only {
       width: var(

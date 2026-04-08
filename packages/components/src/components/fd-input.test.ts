@@ -396,7 +396,12 @@ describe("fd-input", () => {
     await new Promise((r) => setTimeout(r, 50));
     await el.updateComplete;
 
-    const styles = String((customElements.get("fd-input") as any).styles?.cssText ?? "");
+    const rawStyles = (customElements.get("fd-input") as any).styles;
+    const styles = String(
+      Array.isArray(rawStyles)
+        ? rawStyles.map((s: any) => s.cssText ?? "").join(" ")
+        : rawStyles?.cssText ?? "",
+    );
 
     expect(styles).toContain(
       ':host([data-state="error"]) ::slotted(fd-icon[slot="suffix"])',

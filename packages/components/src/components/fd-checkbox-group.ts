@@ -5,6 +5,7 @@ import type { FdCheckboxGroupChangeDetail } from "../public-events.js";
 import { GroupFormController } from "./group-form-controller.js";
 import type { FdCheckbox } from "./fd-checkbox.js";
 import "./fd-checkbox.js";
+import { forcedColorsFieldGroup } from "./forced-colors.js";
 
 export type CheckboxGroupOrientation = "vertical" | "horizontal";
 
@@ -20,7 +21,7 @@ export class FdCheckboxGroup extends LitElement {
     _errorHasContent: { state: true },
   };
 
-  static styles = css`
+  static styles = [forcedColorsFieldGroup, css`
     :host {
       display: block;
       max-inline-size: var(--fd-checkbox-group-max-width, 32rem);
@@ -94,22 +95,14 @@ export class FdCheckboxGroup extends LitElement {
       padding-inline-start: var(--fdic-spacing-sm, 12px);
     }
 
-    @media (forced-colors: active) {
-      :host([data-user-invalid]) [part="fieldset"] {
-        border-inline-start-color: LinkText;
-      }
-
-      [part="error"] {
-        color: LinkText;
-      }
-    }
+    /* forced-colors: provided by forcedColorsFieldGroup */
 
     @media (prefers-reduced-motion: reduce) {
       :host {
         transition: none !important;
       }
     }
-  `;
+  `];
 
   declare orientation: CheckboxGroupOrientation;
   declare required: boolean;

@@ -222,6 +222,13 @@ export class FdCard extends LitElement {
       box-sizing: border-box;
     }
 
+    @media (max-width: 768px) {
+      [part="media"].size-medium {
+        inline-size: var(--fd-card-medium-media-size-tablet, 120px);
+        block-size: var(--fd-card-medium-media-size-tablet, 120px);
+      }
+    }
+
     @media (forced-colors: active) {
       article {
         border-color: CanvasText;

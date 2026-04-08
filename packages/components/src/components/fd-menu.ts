@@ -30,7 +30,7 @@ export class FdMenu extends LitElement {
       box-shadow: 0 4px 12px var(--ds-color-effect-shadow, rgba(0, 0, 0, 0.08));
       min-width: var(--fd-menu-min-width, 180px);
       max-width: var(--fd-menu-max-width, 320px);
-      max-height: var(--fd-menu-max-height, 300px);
+      max-height: var(--fd-menu-max-height, min(300px, 60dvh));
       overflow-y: auto;
       box-sizing: border-box;
     }
@@ -48,6 +48,12 @@ export class FdMenu extends LitElement {
       list-style: none;
       margin: 0;
       padding: var(--fdic-spacing-2xs, 4px) 0;
+    }
+
+    @media (max-width: 768px) {
+      .surface {
+        max-width: var(--fd-menu-max-width-mobile, none);
+      }
     }
 
     /* --- Forced colors --- */

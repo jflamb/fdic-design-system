@@ -3,6 +3,7 @@ import type { PropertyValues } from "lit";
 import { SingleValueFormController } from "./single-value-form-controller.js";
 import type { FdLabel } from "./fd-label.js";
 import type { FdMessage, MessageState } from "./fd-message.js";
+import { forcedColorsTextInput } from "./forced-colors.js";
 
 export type InputType =
   | "text"
@@ -461,7 +462,7 @@ export class FdInput extends LitElement {
 
   // --- Styles ---
 
-  static styles = css`
+  static styles = [forcedColorsTextInput, css`
     :host {
       display: block;
       font-family: var(
@@ -479,6 +480,8 @@ export class FdInput extends LitElement {
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       color: var(--fdic-text-primary, #212123);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     :host([hidden]) {
@@ -526,8 +529,6 @@ export class FdInput extends LitElement {
       color: inherit;
       box-sizing: border-box;
       outline: none;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     [part="native"]::placeholder {
@@ -701,36 +702,11 @@ export class FdInput extends LitElement {
       border: 0;
     }
 
-    /* --- Forced colors --- */
+    /* --- Forced colors (base provided by forcedColorsTextInput) --- */
     @media (forced-colors: active) {
-      [part="base"] {
-        border-color: ButtonText;
-      }
-
-      [part="base"]:has([part="native"]:focus-visible) {
-        border-color: LinkText;
-        outline: 2px solid LinkText;
-      }
-
-      :host([data-state="error"]) [part="base"] {
-        border-color: LinkText;
-        forced-color-adjust: none;
-      }
-
       :host([data-state="error"]) ::slotted(fd-icon[slot="suffix"]) {
         color: LinkText;
         forced-color-adjust: none;
-      }
-
-      :host([data-state="warning"]) [part="base"],
-      :host([data-state="success"]) [part="base"] {
-        border-color: ButtonText;
-        forced-color-adjust: none;
-      }
-
-      :host([disabled]) [part="base"] {
-        border-color: GrayText;
-        color: GrayText;
       }
 
       ::slotted(button[slot="suffix"]:focus-visible) {
@@ -753,7 +729,7 @@ export class FdInput extends LitElement {
         display: none;
       }
     }
-  `;
+  `];
 
   // --- Slot change handling ---
 

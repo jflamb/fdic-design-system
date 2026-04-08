@@ -57,6 +57,8 @@ export class FdPagination extends LitElement {
       );
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     :host([hidden]) {
@@ -132,8 +134,6 @@ export class FdPagination extends LitElement {
       line-height: 1.375;
       text-decoration: none;
       box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .control:hover:not(.disabled),

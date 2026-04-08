@@ -13,6 +13,8 @@ export class FdMenuItem extends LitElement {
   static styles = css`
     :host {
       display: block;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .base {
@@ -41,8 +43,6 @@ export class FdMenuItem extends LitElement {
       text-align: start;
       cursor: pointer;
       box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .base:hover {
