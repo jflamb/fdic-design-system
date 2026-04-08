@@ -69,6 +69,44 @@ The table of contents provides in-page navigation for long-form documents. It he
 - **Active section highlight** — As the reader scrolls, the active section highlights in the TOC, showing which section is currently in view. The active state updates automatically based on scroll position — no manual interaction needed.
 - **Keyboard navigation** — TOC links are keyboard navigable — users can Tab through them and activate with Enter, following the standard link interaction model.
 
+## Returning to the top
+
+Back-to-top links are the companion return path for the TOC. The TOC helps readers move down into a long document; a back-to-top link at the end of each `h2` section lets them return to the TOC without manually scrolling back up.
+
+Place one `<p class="prose-back-to-top">` at the end of each `h2` section's content. The link target should point back to the TOC container near the top of the page.
+
+```html
+<article class="prose">
+  <nav class="prose-toc" id="article-toc" aria-label="Table of contents">
+    <p class="prose-toc-title">On this page</p>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#growth">Growth in NDFI Lending</a></li>
+      <li><a href="#call-report">Changes to the Call Report</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="overview">Overview</h2>
+  <p>Section content...</p>
+  <p class="prose-back-to-top"><a href="#article-toc">Back to top</a></p>
+</article>
+```
+
+<div class="fdic-do-dont-grid">
+  <div class="fdic-do-card">
+    <span class="fdic-eyebrow">Do</span>
+    <h4>Place one after each h2 section</h4>
+    <p>Treat back-to-top as the return half of the TOC pattern. Readers should be able to reorient after every major section, not just after finishing the entire page.</p>
+  </div>
+  <div class="fdic-dont-card">
+    <span class="fdic-eyebrow">Don't</span>
+    <h4>Don't add only one at the bottom</h4>
+    <p>A single link at the very end breaks the navigation loop. It helps only readers who reached the bottom instead of supporting section-by-section movement.</p>
+  </div>
+</div>
+
+See the Storybook <code>FullPageNavigation</code> story for the full working example of the paired TOC and back-to-top pattern.
+
 ## Accessibility
 
 - The TOC is wrapped in a `<nav>` landmark with `aria-label="Table of contents"`, so screen reader users can find it quickly from their landmarks list.
@@ -82,5 +120,6 @@ The table of contents provides in-page navigation for long-form documents. It he
 ## Related components
 
 <ul class="fdic-related-list">
+  <li><code>.prose-back-to-top</code> — Use back-to-top links as the paired return path for section-level TOC navigation on long-form pages.</li>
   <li><a href="./footnotes">Footnotes</a> — Both are document navigation aids. TOC navigates between sections; footnotes navigate between references and their sources.</li>
 </ul>
