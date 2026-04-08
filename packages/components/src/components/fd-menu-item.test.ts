@@ -133,6 +133,13 @@ describe("fd-menu-item", () => {
     expect(iconSlot).not.toBeNull();
   });
 
+  it("has a minimum height of 44px for touch target accessibility", async () => {
+    const el = await createMenuItem();
+    const inner = getInternal(el);
+    const minHeight = getComputedStyle(inner).minHeight;
+    expect(minHeight).toBe("44px");
+  });
+
   it("has no axe violations for a default menu item", async () => {
     // Wrap in a menu role container for valid ARIA context
     const wrapper = document.createElement("div");

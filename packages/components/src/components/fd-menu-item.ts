@@ -23,6 +23,7 @@ export class FdMenuItem extends LitElement {
       gap: var(--fd-menu-item-gap, var(--fdic-spacing-xs, 8px));
       width: 100%;
       padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
+      min-height: var(--fd-menu-item-min-height, 44px);
       border: none;
       background: none;
       font-family: var(
