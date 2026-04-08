@@ -1,3 +1,8 @@
+import {
+  DOMParser as XmlDomParser,
+  XMLSerializer as XmlSerializer,
+} from "@xmldom/xmldom";
+
 /**
  * Global Icon Registry
  *
@@ -16,43 +21,46 @@
 
 /**
  * Strip `<script>` elements and `on*` event-handler attributes from an SVG
- * string. Uses DOM parsing when available (browser), falls back to regex
- * stripping in non-browser environments (e.g. SSR / Node.js).
+ * string. Uses the browser DOM parser when available and falls back to an XML
+ * DOM implementation for non-browser environments such as SSR.
  */
-function sanitizeWithoutDomParser(svg: string): string {
-  let sanitized = svg;
-
-  do {
-    svg = sanitized;
-    sanitized = sanitized
-      .replace(/<script\b[^>]*>[^]*?<\/script\s*>/gi, "")
-      .replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
-  } while (sanitized !== svg);
-
-  return sanitized;
-}
-
-function sanitize(svg: string): string {
-  if (typeof DOMParser === "undefined") {
-    return sanitizeWithoutDomParser(svg);
+function sanitizeNode(node: Node): void {
+  if (node.nodeType !== 1) {
+    return;
   }
 
-  const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+  const element = node as Element;
 
-  for (const el of doc.querySelectorAll("script")) {
-    el.remove();
+  if (element.nodeName.toLowerCase() === "script") {
+    element.parentNode?.removeChild(element);
+    return;
   }
 
-  for (const el of doc.querySelectorAll("*")) {
-    for (const attr of [...el.attributes]) {
-      if (attr.name.toLowerCase().startsWith("on")) {
-        el.removeAttribute(attr.name);
-      }
+  for (const attr of [...element.attributes]) {
+    if (attr.name.toLowerCase().startsWith("on")) {
+      element.removeAttribute(attr.name);
     }
   }
 
+  for (const child of [...element.childNodes]) {
+    sanitizeNode(child);
+  }
+}
+
+function sanitize(svg: string): string {
+  const useNativeDomParser =
+    typeof DOMParser !== "undefined" && typeof XMLSerializer !== "undefined";
+  const Parser = useNativeDomParser ? DOMParser : XmlDomParser;
+  const Serializer = useNativeDomParser ? XMLSerializer : XmlSerializer;
+
+  const doc = new Parser().parseFromString(svg, "image/svg+xml");
   const root = doc.documentElement;
-  return new XMLSerializer().serializeToString(root);
+  if (!root) {
+    return "";
+  }
+
+  sanitizeNode(root as Node);
+  return new Serializer().serializeToString(root as any);
 }
 
 const registry = new Map<string, string>();

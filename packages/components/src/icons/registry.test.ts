@@ -69,11 +69,11 @@ describe("iconRegistry", () => {
     }
   });
 
-  it("repeats fallback sanitization until event handlers are fully removed", () => {
+  it("strips event handler attributes in the parser fallback path", () => {
     vi.stubGlobal("DOMParser", undefined);
     try {
       const dirty =
-        '<svg onload="&quot; onfocus=alert(1)"><path d="M0 0"/></svg>';
+        '<svg onload="alert(1)"><path d="M0 0" onfocus="alert(2)"/></svg>';
       iconRegistry.register("handlers-fallback", dirty);
 
       const result = iconRegistry.get("handlers-fallback")!;

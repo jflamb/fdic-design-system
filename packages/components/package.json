@@ -207,6 +207,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@xmldom/xmldom": "^0.9.9",
     "lit": "^3.2.1"
   },
   "devDependencies": {
