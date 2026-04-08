@@ -1,0 +1,17 @@
+{
+  "name": "@fdic-ds/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./semantic.css": "./semantic.css",
+    "./legacy-fdic-colors.css": "./legacy-fdic-colors.css"
+  },
+  "files": [
+    "semantic.css",
+    "legacy-fdic-colors.css"
+  ]
+}

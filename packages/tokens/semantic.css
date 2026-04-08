@@ -1,0 +1,195 @@
+/*
+ * FDIC Design System — Semantic color tokens
+ *
+ * Primitives (--ds-color-[family]-[step]) are internal reference values.
+ * Consumers should use semantic tokens (--ds-color-[role]-[variant]).
+ *
+ * Dark mode: semantic tokens use light-dark() so they respond automatically
+ * to color-scheme.
+ *
+ * Source: docs/plans/2026-03-19-color-palette-design.md
+ */
+
+@property --ds-color-bg-hovered {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(0, 0, 0, 0.04);
+}
+
+@property --ds-color-bg-pressed {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(0, 0, 0, 0.08);
+}
+
+@property --ds-color-overlay-hover {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(0, 0, 0, 0.04);
+}
+
+@property --ds-color-overlay-pressed {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(0, 0, 0, 0.08);
+}
+
+:root {
+  color-scheme: light;
+  accent-color: var(--ds-color-primary-500, #0d6191);
+
+  /* ===== Primitives ===== */
+
+  /* Neutral */
+  --ds-color-neutral-000: #ffffff;
+  --ds-color-neutral-050: #fafafc;
+  --ds-color-neutral-100: #f5f5f7;
+  --ds-color-neutral-150: #e8e8ed; /* private — checkbox/radio border */
+  --ds-color-neutral-200: #e0e0e2;
+  --ds-color-neutral-300: #d6d6d8;
+  --ds-color-neutral-400: #bdbdbf;
+  --ds-color-neutral-500: #9e9ea0;
+  --ds-color-neutral-700: #595961;
+  --ds-color-neutral-800: #424244;
+  --ds-color-neutral-850: #333335; /* private — checkbox/radio border */
+  --ds-color-neutral-900: #212123;
+  --ds-color-neutral-1000: #000000;
+
+  /* Primary brand (blue) */
+  --ds-color-primary-050: #e6f4fa;
+  --ds-color-primary-200: #84dbff;
+  --ds-color-primary-400: #38b6ff;
+  --ds-color-primary-500: #0d6191;
+  --ds-color-primary-700: #09496d;
+  --ds-color-primary-800: #073c5b;
+  --ds-color-primary-900: #003256;
+
+  /* Secondary brand (gold) */
+  --ds-color-secondary-050: #f8efda;
+  --ds-color-secondary-300: #ebd49b;
+  --ds-color-secondary-400: #e1c16e;
+  --ds-color-secondary-500: #d9af45;
+  --ds-color-secondary-600: #bd9327;
+  --ds-color-secondary-800: #88691c;
+  --ds-color-secondary-900: #60511b;
+
+  /* Success (green) */
+  --ds-color-success-050: #e8f5e9;
+  --ds-color-success-200: #a5d6a7;
+  --ds-color-success-300: #61d673;
+  --ds-color-success-500: #2e7d32;
+  --ds-color-success-600: #1b5e20;
+  --ds-color-success-800: #204520;
+  --ds-color-success-900: #1b3a1b;
+
+  /* Warning (amber) */
+  --ds-color-warning-050: #fcf7ee;
+  --ds-color-warning-200: #ffcc80;
+  --ds-color-warning-300: #ffbf47;
+  --ds-color-warning-500: #8b5e00;
+  --ds-color-warning-600: #6d4a00;
+  --ds-color-warning-800: #663d00;
+  --ds-color-warning-900: #4d2e00;
+
+  /* Error (red) */
+  --ds-color-error-050: #fdedea;
+  --ds-color-error-150: #ffcccc;
+  --ds-color-error-200: #f5a3a3;
+  --ds-color-error-300: #f66f8b;
+  --ds-color-error-500: #b10b2d;
+  --ds-color-error-600: #d80e3a;
+  --ds-color-error-800: #442121;
+  --ds-color-error-900: #331919;
+
+  /* Info (blue) */
+  --ds-color-info-050: #f1f8fe;
+  --ds-color-info-200: #90caf9;
+  --ds-color-info-300: #4eaff9;
+  --ds-color-info-500: #0b4f82;
+  --ds-color-info-600: #0d4b7a;
+  --ds-color-info-800: #1e3a5f;
+  --ds-color-info-900: #162d4a;
+
+  /* Link */
+  --ds-color-link-default: #1278b0;
+  --ds-color-link-visited: #855aa5;
+  --ds-color-link-300: #add8e6;
+  --ds-color-link-visited-300: #b19cd9;
+
+  /* ===== Semantic tokens ===== */
+
+  /* Background */
+  --ds-color-bg-base: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
+  --ds-color-bg-surface: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-900));
+  --ds-color-bg-container: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-900));
+  --ds-color-bg-overlay: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-900));
+  --ds-color-bg-modal: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-800));
+  --ds-color-bg-input: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-900));
+  --ds-color-bg-interactive: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-900));
+  --ds-color-bg-inverted: light-dark(var(--ds-color-neutral-900), var(--ds-color-neutral-100));
+  --ds-color-bg-brand: light-dark(var(--ds-color-primary-900), var(--ds-color-primary-050));
+  --ds-color-bg-highlight: var(--ds-color-primary-400);
+  --ds-color-bg-selected: light-dark(var(--ds-color-primary-050), var(--ds-color-primary-900));
+  --ds-color-bg-active: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
+  --ds-color-bg-hovered: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08));
+  --ds-color-bg-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14));
+  --ds-color-bg-destructive: light-dark(var(--ds-color-error-600), var(--ds-color-error-800));
+  --ds-color-bg-readonly: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-800));
+
+  /* Text */
+  --ds-color-text-primary: light-dark(var(--ds-color-neutral-900), var(--ds-color-neutral-000));
+  --ds-color-text-secondary: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-200));
+  --ds-color-text-placeholder: var(--ds-color-neutral-500);
+  --ds-color-text-disabled: var(--ds-color-neutral-500);
+  --ds-color-text-inverted: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
+  --ds-color-text-brand: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
+  --ds-color-text-warm: light-dark(var(--ds-color-secondary-900), var(--ds-color-secondary-050));
+  --ds-color-text-link: light-dark(var(--ds-color-link-default), var(--ds-color-link-300));
+  --ds-color-text-link-visited: light-dark(var(--ds-color-link-visited), var(--ds-color-link-visited-300));
+  --ds-color-text-error: light-dark(var(--ds-color-error-600), var(--ds-color-error-150));
+  --ds-color-text-wordmark: light-dark(var(--ds-color-primary-900), var(--ds-color-neutral-000));
+
+  /* Icon */
+  --ds-color-icon-primary: light-dark(var(--ds-color-neutral-800), var(--ds-color-neutral-200));
+  --ds-color-icon-secondary: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-400));
+  --ds-color-icon-placeholder: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-500));
+  --ds-color-icon-disabled: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
+  --ds-color-icon-inverted: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
+  --ds-color-icon-warm: light-dark(var(--ds-color-secondary-900), var(--ds-color-secondary-050));
+  --ds-color-icon-active: light-dark(var(--ds-color-link-default), var(--ds-color-link-300));
+  --ds-color-icon-link: light-dark(var(--ds-color-link-default), var(--ds-color-link-300));
+
+  /* Border */
+  --ds-color-border-divider: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
+  --ds-color-border-image: var(--ds-color-neutral-000);
+  --ds-color-border-input: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
+  --ds-color-border-input-hover: var(--ds-color-neutral-500);
+  --ds-color-border-input-focus: light-dark(var(--ds-color-primary-400), var(--ds-color-primary-500));
+  --ds-color-border-input-active: light-dark(var(--ds-color-neutral-800), var(--ds-color-neutral-200));
+  --ds-color-border-input-readonly: light-dark(var(--ds-color-neutral-200), var(--ds-color-neutral-400));
+  --ds-color-border-input-interactive: light-dark(var(--ds-color-neutral-150), var(--ds-color-neutral-850));
+  --ds-color-border-input-disabled: light-dark(var(--ds-color-neutral-300), var(--ds-color-neutral-500));
+
+  /* Semantic status */
+  --ds-color-semantic-bg-success: light-dark(var(--ds-color-success-050), var(--ds-color-success-800));
+  --ds-color-semantic-bg-warning: light-dark(var(--ds-color-warning-050), var(--ds-color-warning-800));
+  --ds-color-semantic-bg-error: light-dark(var(--ds-color-error-050), var(--ds-color-error-800));
+  --ds-color-semantic-bg-info: light-dark(var(--ds-color-info-050), var(--ds-color-info-800));
+  --ds-color-semantic-bg-warm: light-dark(var(--ds-color-secondary-050), var(--ds-color-secondary-900));
+  --ds-color-semantic-fg-success: light-dark(var(--ds-color-success-500), var(--ds-color-success-300));
+  --ds-color-semantic-fg-warning: light-dark(var(--ds-color-warning-500), var(--ds-color-warning-300));
+  --ds-color-semantic-fg-error: light-dark(var(--ds-color-error-500), var(--ds-color-error-300));
+  --ds-color-semantic-fg-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
+  --ds-color-semantic-border-success: light-dark(var(--ds-color-success-500), var(--ds-color-success-300));
+  --ds-color-semantic-border-warning: light-dark(var(--ds-color-warning-500), var(--ds-color-warning-300));
+  --ds-color-semantic-border-error: light-dark(var(--ds-color-error-500), var(--ds-color-error-300));
+  --ds-color-semantic-border-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
+
+  /* Overlay */
+  --ds-color-overlay-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08));
+  --ds-color-overlay-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14));
+  --ds-color-overlay-scrim: rgba(0, 0, 0, 0.48);
+
+  /* Effect */
+  --ds-color-effect-shadow: light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0));
+}
