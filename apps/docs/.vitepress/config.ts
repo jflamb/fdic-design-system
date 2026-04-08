@@ -8,6 +8,11 @@ export default defineConfig({
   description: "Placeholder documentation site for the FDIC design system.",
   base: process.env.VITEPRESS_BASE || "/fdic-design-system/",
   head: [
+    [
+      "script",
+      {},
+      `(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"auto",a=window.matchMedia("(prefers-color-scheme: dark)").matches,d=(!e||e==="auto")?a:e==="dark";!d&&document.documentElement.classList.add("light")})();`,
+    ],
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     [
       "link",
