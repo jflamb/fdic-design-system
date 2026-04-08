@@ -62,7 +62,9 @@ const applyEmbedTheme = (theme: StorybookTheme = "light"): void => {
   const isDark = theme === "dark";
 
   root.classList.toggle("dark", isDark);
+  root.classList.toggle("light", !isDark);
   body.classList.toggle("dark", isDark);
+  body.classList.toggle("light", !isDark);
 
   root.style.colorScheme = isDark ? "dark" : "light";
   body.style.colorScheme = isDark ? "dark" : "light";
