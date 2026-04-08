@@ -1,0 +1,2 @@
+/* Shared docs-theme cascade order. Keep global contracts ahead of feature CSS. */
+@layer tokens, a11y, prose, docs-components, docs-utilities;

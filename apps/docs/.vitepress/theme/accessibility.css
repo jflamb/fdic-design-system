@@ -1,0 +1,105 @@
+@layer a11y {
+  :root {
+    --fdic-docs-focus-ring-color: var(--fdic-border-input-focus, #38b6ff);
+    --fdic-docs-focus-ring-width: 2px;
+    --fdic-docs-focus-ring-offset: 2px;
+    --fdic-docs-print-border: #999;
+  }
+
+  .vp-doc
+    :where(
+      a[href],
+      button,
+      summary,
+      [role="button"],
+      [tabindex]:not([tabindex="-1"])
+    ):focus-visible {
+    outline: var(--fdic-docs-focus-ring-width) solid var(--fdic-docs-focus-ring-color);
+    outline-offset: var(--fdic-docs-focus-ring-offset);
+  }
+
+  .vp-doc :where(.fdic-story-embed-link, .fdic-figma-embed-link):focus-visible {
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vp-doc :where(.fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-example-card, .fdic-do-card, .fdic-dont-card) {
+      transition: none;
+    }
+
+    .vp-doc :where(.fdic-card, .fdic-swatch-card, .fdic-example-card, .fdic-do-card, .fdic-dont-card):hover {
+      transform: none;
+    }
+
+    .vp-doc :where(.fdic-card-grid > .fdic-card, .fdic-swatch-grid > .fdic-swatch-card, .fdic-foundation-intro) {
+      animation: none;
+    }
+  }
+
+  @media print {
+    .vp-doc :where(.fdic-foundation-intro, .fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-example-card, .fdic-do-card, .fdic-dont-card, .fdic-palette-group, .fdic-surface-card, .fdic-mode-card, .fdic-role-card, .fdic-type-specimen, .fdic-roles-table) {
+      color: #000;
+      background: none !important;
+      box-shadow: none !important;
+      break-inside: avoid;
+    }
+
+    .vp-doc :where(.fdic-foundation-intro, .fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-example-card, .fdic-do-card, .fdic-dont-card, .fdic-palette-group, .fdic-surface-card, .fdic-mode-card, .fdic-role-card, .fdic-story-embed, .fdic-figma-embed, .fdic-type-specimen, .fdic-roles-table) {
+      border-color: var(--fdic-docs-print-border) !important;
+    }
+
+    .vp-doc :where(.fdic-story-embed-link, .fdic-figma-embed-link)::after {
+      content: " (" attr(href) ")";
+      font-size: 0.85em;
+      font-weight: 400;
+      word-break: break-all;
+    }
+
+    .vp-doc :where(.fdic-story-embed-frame, .fdic-figma-embed-frame, .fdic-story-embed-placeholder-icon, .fdic-figma-embed-placeholder-icon) {
+      display: none !important;
+    }
+
+    .vp-doc :where(.fdic-swatch-sample, .fdic-mode-frame, .fdic-mode-panel, .fdic-role-demo, .fdic-surface-demo) {
+      border: 1px solid var(--fdic-docs-print-border);
+      background: none !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .vp-doc :where(.fdic-foundation-intro, .fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-example-card, .fdic-do-card, .fdic-dont-card, .fdic-palette-group, .fdic-surface-card, .fdic-mode-card, .fdic-role-card, .fdic-story-embed, .fdic-figma-embed, .fdic-type-specimen, .fdic-roles-table) {
+      border: 2px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+      box-shadow: none;
+    }
+
+    .vp-doc :where(.fdic-do-card, .fdic-dont-card) {
+      border-top-width: 3px;
+    }
+
+    .vp-doc :where(.fdic-eyebrow, .fdic-token-meta, .fdic-doc-card-copy > p, .fdic-decision-flow li p, .fdic-docs-overview-meta) {
+      color: CanvasText;
+    }
+
+    .vp-doc :where(.fdic-story-embed-link, .fdic-figma-embed-link) {
+      color: LinkText;
+    }
+
+    .vp-doc :where(.fdic-story-embed-link, .fdic-figma-embed-link):focus-visible {
+      outline-color: Highlight;
+    }
+
+    .vp-doc :where(.fdic-story-embed-placeholder-icon, .fdic-figma-embed-placeholder-icon) {
+      forced-color-adjust: none;
+    }
+
+    .vp-doc :where(.fdic-decision-flow li::before, .fdic-role-dot, .fdic-chip, .fdic-state-chip) {
+      forced-color-adjust: none;
+      border: 1px solid CanvasText;
+    }
+
+    .vp-doc .fdic-decision-flow li::after {
+      background: CanvasText;
+    }
+  }
+}

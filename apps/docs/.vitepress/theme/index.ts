@@ -1,7 +1,9 @@
 import DefaultTheme from "vitepress/theme";
 import { useData } from "vitepress";
 import "@fdic-ds/components";
+import "./layers.css";
 import "./tokens.css";
+import "./accessibility.css";
 import "./prose.css";
 import "./docs-utilities.css";
 import "./custom.css";

@@ -18,7 +18,9 @@
 
 /* Font loaded via <link> in .vitepress/config.ts head[] for non-blocking FCP */
 
-@import "./generated/icon-masks.css";
+@import "./generated/icon-masks.css" layer(prose);
+
+@layer prose {
 
 /* ===========================================================================
    1. DESIGN TOKENS
@@ -1843,4 +1845,5 @@ html {
     outline: 3px solid LinkText;
     box-shadow: none;
   }
+}
 }

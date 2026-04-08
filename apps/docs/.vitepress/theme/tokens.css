@@ -5,8 +5,8 @@
  * Keep this file only as a stable local import surface for docs and Storybook.
  */
 
-@import "../../../../packages/tokens/semantic.css";
-@import "../../../../packages/tokens/legacy-fdic-colors.css";
+@import "../../../../packages/tokens/semantic.css" layer(tokens);
+@import "../../../../packages/tokens/legacy-fdic-colors.css" layer(tokens);
 
 @property --fdic-spacing-md {
   syntax: "<length>";
@@ -20,35 +20,37 @@
   initial-value: 1.25rem;
 }
 
-/*
- * VitePress toggles .dark on <html> to activate dark mode.
- * The @media query provides a no-JS fallback for OS dark preference.
- * The shared semantic tokens respond via light-dark(); only the remaining
- * component-specific non-semantic overrides live here.
- */
-.dark {
-  color-scheme: dark;
-
-  /* Visual component — warm variant needs a dark gold bg for icon contrast */
-  --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
-
-  /* Mega-menu column surfaces — darker translucent tints for glass effect */
-  --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
-  --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
-  --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
-  --fd-global-header-mega-col-2-muted: rgba(28, 38, 48, 0.4);
-  --fd-global-header-mega-col-3-muted: rgba(20, 32, 44, 0.14);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
+@layer tokens {
+  /*
+   * VitePress toggles .dark on <html> to activate dark mode.
+   * The @media query provides a no-JS fallback for OS dark preference.
+   * The shared semantic tokens respond via light-dark(); only the remaining
+   * component-specific non-semantic overrides live here.
+   */
+  .dark {
     color-scheme: dark;
 
+    /* Visual component — warm variant needs a dark gold bg for icon contrast */
     --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
+
+    /* Mega-menu column surfaces — darker translucent tints for glass effect */
     --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
     --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
     --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
     --fd-global-header-mega-col-2-muted: rgba(28, 38, 48, 0.4);
     --fd-global-header-mega-col-3-muted: rgba(20, 32, 44, 0.14);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      color-scheme: dark;
+
+      --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
+      --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
+      --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
+      --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
+      --fd-global-header-mega-col-2-muted: rgba(28, 38, 48, 0.4);
+      --fd-global-header-mega-col-3-muted: rgba(20, 32, 44, 0.14);
+    }
   }
 }

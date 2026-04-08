@@ -1,15 +1,51 @@
-:root {
-  --fdic-docs-ink: var(--ds-color-text-primary, #212123);
-  --fdic-docs-muted: var(--ds-color-text-secondary, #595961);
-  --fdic-docs-border: var(--ds-color-border-divider, #BDBDBF);
-  --fdic-docs-surface: var(--ds-color-bg-container, #F5F5F7);
-  --fdic-docs-surface-strong: var(--ds-color-bg-surface, #FFFFFF);
-  --fdic-docs-brand: var(--ds-color-text-brand, #0D6191);
-  --fdic-docs-accent: var(--ds-color-text-warm, #60511B);
-  --fdic-docs-success: var(--ds-color-semantic-fg-success, #2E7D32);
-  --fdic-docs-warning: var(--ds-color-semantic-fg-warning, #8B5E00);
-  --fdic-docs-danger: var(--ds-color-semantic-fg-error, #B10B2D);
-}
+@layer docs-components {
+  :root {
+    --fdic-docs-ink: var(--ds-color-text-primary, #212123);
+    --fdic-docs-muted: var(--ds-color-text-secondary, #595961);
+    --fdic-docs-border: var(--ds-color-border-divider, #BDBDBF);
+    --fdic-docs-surface: var(--ds-color-bg-container, #F5F5F7);
+    --fdic-docs-surface-strong: var(--ds-color-bg-surface, #FFFFFF);
+    --fdic-docs-brand: var(--ds-color-text-brand, #0D6191);
+    --fdic-docs-accent: var(--ds-color-text-warm, #60511B);
+    --fdic-docs-success: var(--ds-color-semantic-fg-success, #2E7D32);
+    --fdic-docs-warning: var(--ds-color-semantic-fg-warning, #8B5E00);
+    --fdic-docs-danger: var(--ds-color-semantic-fg-error, #B10B2D);
+  }
+
+  .fdic-surface,
+  :is(.fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-role-card, .fdic-example-card, .fdic-palette-group, .fdic-surface-card, .fdic-mode-card, .fdic-do-card, .fdic-dont-card, .fdic-type-specimen, .fdic-roles-table) {
+    padding: var(--_fdic-surface-padding, 1rem);
+    border: 1px solid var(--_fdic-surface-border, var(--fdic-docs-border));
+    border-radius: var(--_fdic-surface-radius, 14px);
+    background: var(--_fdic-surface-background, var(--ds-color-bg-surface, #FFFFFF));
+    color: var(--_fdic-surface-color, var(--fdic-docs-ink));
+    box-shadow: var(--_fdic-surface-shadow, none);
+  }
+
+  .fdic-interactive-surface,
+  :is(.fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-example-card, .fdic-do-card, .fdic-dont-card) {
+    transition: var(
+      --_fdic-interactive-transition,
+      border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1)
+    );
+  }
+
+  .fdic-interactive-surface:hover,
+  :is(.fdic-card, .fdic-swatch-card, .fdic-anatomy-panel, .fdic-example-card, .fdic-do-card, .fdic-dont-card):hover {
+    border-color: var(--_fdic-hover-border, var(--_fdic-surface-border, var(--fdic-docs-border)));
+    box-shadow: var(--_fdic-hover-shadow, var(--_fdic-surface-shadow, none));
+    transform: translateY(var(--_fdic-hover-lift, 0));
+  }
+
+  .fdic-status-surface,
+  :is(.fdic-do-card, .fdic-dont-card) {
+    --_fdic-surface-border: var(--_status-border-color, var(--fdic-docs-border));
+    --_fdic-surface-radius: 12px;
+    border-top-width: 3px;
+    border-top-color: var(--_status-color, currentColor);
+  }
 
 .fdic-foundation-intro {
   margin: 1.25rem 0 2rem;
@@ -33,23 +69,12 @@
 }
 
 .fdic-card {
-  padding: 1rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 12px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
-  color: var(--fdic-docs-ink);
-  transition:
-    border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    box-shadow 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.fdic-card:hover {
-  border-color: rgba(13, 97, 145, 0.3);
-  box-shadow:
+  --_fdic-surface-radius: 12px;
+  --_fdic-hover-border: rgba(13, 97, 145, 0.3);
+  --_fdic-hover-shadow:
     0 2px 4px rgba(0, 0, 0, 0.04),
     0 8px 24px rgba(13, 97, 145, 0.08);
-  transform: translateY(-2px);
+  --_fdic-hover-lift: -2px;
 }
 
 .fdic-card:active {
@@ -99,10 +124,11 @@
 
 .fdic-swatch-card {
   overflow: hidden;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
-  color: var(--fdic-docs-ink);
+  --_fdic-hover-border: rgba(13, 97, 145, 0.25);
+  --_fdic-hover-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 6px 16px rgba(13, 97, 145, 0.06);
+  --_fdic-hover-lift: -1px;
 }
 
 .fdic-swatch-sample {
@@ -146,11 +172,9 @@
 }
 
 .fdic-anatomy-panel {
-  padding: 1rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
-  color: var(--fdic-docs-ink);
+  --_fdic-surface-background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
+  --_fdic-hover-border: rgba(13, 97, 145, 0.2);
+  --_fdic-hover-shadow: 0 4px 16px rgba(13, 97, 145, 0.06);
 }
 
 .fdic-anatomy-demo {
@@ -239,14 +263,6 @@
   margin: 1.25rem 0 2rem;
 }
 
-.fdic-palette-group {
-  padding: 1rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
-  color: var(--fdic-docs-ink);
-}
-
 .fdic-palette-swatches {
   display: grid;
   gap: 0.5rem;
@@ -297,11 +313,7 @@
 }
 
 .fdic-role-card {
-  padding: 1rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
-  color: var(--fdic-docs-ink);
+  --_fdic-surface-background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
 }
 
 .fdic-role-demo {
@@ -357,11 +369,10 @@
 .fdic-example-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
   overflow: hidden;
-  color: var(--fdic-docs-ink);
+  --_fdic-hover-border: rgba(13, 97, 145, 0.2);
+  --_fdic-hover-shadow: 0 4px 16px rgba(13, 97, 145, 0.06);
+  --_fdic-hover-lift: -1px;
 }
 
 .fdic-example-header {
@@ -426,10 +437,8 @@
 
 .fdic-type-specimen {
   margin: 1.25rem 0 2rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
+  --_fdic-surface-padding: 0;
   overflow: hidden;
-  background: var(--ds-color-bg-surface, #FFFFFF);
 }
 
 .fdic-type-row {
@@ -505,25 +514,23 @@
 }
 
 .fdic-surface-card {
-  padding: 1rem;
-  border-radius: 14px;
-  color: var(--fdic-docs-ink);
+  --_fdic-surface-radius: 14px;
 }
 
 .fdic-surface-card[data-surface="base"] {
-  border: 1px solid var(--fdic-docs-border);
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  --_fdic-surface-border: var(--fdic-docs-border);
+  --_fdic-surface-background: var(--ds-color-bg-surface, #FFFFFF);
 }
 
 .fdic-surface-card[data-surface="raised"] {
-  border: 1px solid rgba(13, 97, 145, 0.12);
-  background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
-  box-shadow: 0 10px 30px rgba(31, 41, 51, 0.06);
+  --_fdic-surface-border: rgba(13, 97, 145, 0.12);
+  --_fdic-surface-background: linear-gradient(180deg, var(--ds-color-bg-surface, #FFFFFF), var(--fdic-docs-surface));
+  --_fdic-surface-shadow: 0 10px 30px rgba(31, 41, 51, 0.06);
 }
 
 .fdic-surface-card[data-surface="overlay"] {
-  color: var(--ds-color-text-inverted, #FFFFFF);
-  background: linear-gradient(180deg, rgba(15, 35, 49, 0.92), rgba(15, 35, 49, 0.82));
+  --_fdic-surface-color: var(--ds-color-text-inverted, #FFFFFF);
+  --_fdic-surface-background: linear-gradient(180deg, rgba(15, 35, 49, 0.92), rgba(15, 35, 49, 0.82));
 }
 
 .fdic-surface-card[data-surface="overlay"] > p {
@@ -541,10 +548,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
-  color: var(--fdic-docs-ink);
 }
 
 .fdic-mode-frame {
@@ -612,8 +615,8 @@
 }
 
 .dark .fdic-surface-card[data-surface="raised"] {
-  border-color: rgba(132, 219, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --_fdic-surface-border: rgba(132, 219, 255, 0.15);
+  --_fdic-surface-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .dark .fdic-chip[data-tone="brand"] {
@@ -637,13 +640,13 @@
 }
 
 .dark .fdic-do-card {
-  border-color: rgba(97, 214, 115, 0.3);
-  border-top-color: var(--fdic-docs-success);
+  --_status-border-color: rgba(97, 214, 115, 0.3);
+  --_fdic-hover-shadow: 0 4px 16px rgba(97, 214, 115, 0.1);
 }
 
 .dark .fdic-dont-card {
-  border-color: rgba(246, 111, 139, 0.25);
-  border-top-color: var(--fdic-docs-danger);
+  --_status-border-color: rgba(246, 111, 139, 0.25);
+  --_fdic-hover-shadow: 0 4px 16px rgba(246, 111, 139, 0.1);
 }
 
 .dark .fdic-content-do {
@@ -663,8 +666,7 @@
 
 .fdic-roles-table {
   margin: 1.25rem 0 2rem;
-  border: 1px solid var(--fdic-docs-border);
-  border-radius: 14px;
+  --_fdic-surface-padding: 0;
   overflow: hidden;
 }
 
@@ -747,28 +749,24 @@
 /* Storybook & Figma embeds (shared structure)                         */
 /* ------------------------------------------------------------------ */
 
-.fdic-story-embed,
-.fdic-figma-embed {
+:is(.fdic-story-embed, .fdic-figma-embed) {
   margin: 1.25rem 0 2rem;
 }
 
-.fdic-story-embed-frame,
-.fdic-figma-embed-frame {
+:is(.fdic-story-embed-frame, .fdic-figma-embed-frame) {
   border: 1px solid var(--fdic-docs-border);
   border-radius: 12px;
   overflow: hidden;
 }
 
-.fdic-story-embed-frame iframe,
-.fdic-figma-embed-frame iframe {
+:is(.fdic-story-embed-frame, .fdic-figma-embed-frame) iframe {
   display: block;
   width: 100%;
   height: 100%;
   border: 0;
 }
 
-.fdic-story-embed-placeholder,
-.fdic-figma-embed-placeholder {
+:is(.fdic-story-embed-placeholder, .fdic-figma-embed-placeholder) {
   display: grid;
   place-content: center;
   justify-items: center;
@@ -781,21 +779,18 @@
   padding: 2rem;
 }
 
-.fdic-story-embed-placeholder-icon,
-.fdic-figma-embed-placeholder-icon {
+:is(.fdic-story-embed-placeholder-icon, .fdic-figma-embed-placeholder-icon) {
   font-size: 2rem;
   margin-bottom: 0.5rem;
   opacity: 0.4;
 }
 
-.fdic-story-embed-placeholder-hint,
-.fdic-figma-embed-placeholder-hint {
+:is(.fdic-story-embed-placeholder-hint, .fdic-figma-embed-placeholder-hint) {
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
 
-.fdic-story-embed-caption,
-.fdic-figma-embed-caption {
+:is(.fdic-story-embed-caption, .fdic-figma-embed-caption) {
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
@@ -804,8 +799,7 @@
   color: var(--fdic-docs-muted);
 }
 
-.fdic-story-embed-link,
-.fdic-figma-embed-link {
+:is(.fdic-story-embed-link, .fdic-figma-embed-link) {
   font-size: 0.875rem;
   white-space: nowrap;
 }
@@ -823,28 +817,25 @@
 
 .fdic-do-card,
 .fdic-dont-card {
-  padding: 1rem;
-  border-radius: 12px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
-  color: var(--fdic-docs-ink);
+  --_fdic-surface-radius: 12px;
+  --_fdic-hover-lift: -1px;
 }
 
 .fdic-do-card {
-  border: 1px solid rgba(30, 130, 50, 0.3);
-  border-top: 3px solid var(--fdic-docs-success);
+  --_status-color: var(--fdic-docs-success);
+  --_status-border-color: rgba(30, 130, 50, 0.3);
+  --_fdic-hover-shadow: 0 4px 16px rgba(30, 130, 50, 0.08);
 }
 
 .fdic-dont-card {
-  border: 1px solid rgba(190, 40, 40, 0.25);
-  border-top: 3px solid var(--fdic-docs-danger);
+  --_status-color: var(--fdic-docs-danger);
+  --_status-border-color: rgba(190, 40, 40, 0.25);
+  --_fdic-hover-shadow: 0 4px 16px rgba(190, 40, 40, 0.08);
 }
 
-.fdic-do-card > .fdic-eyebrow {
-  color: var(--fdic-docs-success);
-}
-
+.fdic-do-card > .fdic-eyebrow,
 .fdic-dont-card > .fdic-eyebrow {
-  color: var(--fdic-docs-danger);
+  color: var(--_status-color);
 }
 
 .fdic-do-card > p:last-child,
@@ -992,65 +983,6 @@
 }
 
 /* --- Swatch card hover --- */
-.fdic-swatch-card {
-  transition:
-    border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    box-shadow 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.fdic-swatch-card:hover {
-  border-color: rgba(13, 97, 145, 0.25);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.04),
-    0 6px 16px rgba(13, 97, 145, 0.06);
-  transform: translateY(-1px);
-}
-
-/* --- Anatomy panel hover --- */
-.fdic-anatomy-panel {
-  transition:
-    border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    box-shadow 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.fdic-anatomy-panel:hover {
-  border-color: rgba(13, 97, 145, 0.2);
-  box-shadow: 0 4px 16px rgba(13, 97, 145, 0.06);
-}
-
-/* --- Example card hover --- */
-.fdic-example-card {
-  transition:
-    border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    box-shadow 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.fdic-example-card:hover {
-  border-color: rgba(13, 97, 145, 0.2);
-  box-shadow: 0 4px 16px rgba(13, 97, 145, 0.06);
-  transform: translateY(-1px);
-}
-
-/* --- Do/Don't card subtle hover --- */
-.fdic-do-card,
-.fdic-dont-card {
-  transition:
-    box-shadow 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.fdic-do-card:hover {
-  box-shadow: 0 4px 16px rgba(30, 130, 50, 0.08);
-  transform: translateY(-1px);
-}
-
-.fdic-dont-card:hover {
-  box-shadow: 0 4px 16px rgba(190, 40, 40, 0.08);
-  transform: translateY(-1px);
-}
-
 /* --- Eyebrow brand underline reveal on parent hover --- */
 .fdic-card:hover > .fdic-eyebrow {
   background-image: linear-gradient(currentColor, currentColor);
@@ -1061,61 +993,27 @@
 
 /* --- Dark mode: adjust hover shadows --- */
 .dark .fdic-card:hover {
-  border-color: rgba(132, 219, 255, 0.3);
-  box-shadow:
+  --_fdic-hover-border: rgba(132, 219, 255, 0.3);
+  --_fdic-hover-shadow:
     0 2px 4px rgba(0, 0, 0, 0.12),
     0 8px 24px rgba(132, 219, 255, 0.08);
 }
 
-.dark .fdic-swatch-card:hover {
-  border-color: rgba(132, 219, 255, 0.25);
-  box-shadow:
+.dark .fdic-swatch-card {
+  --_fdic-hover-border: rgba(132, 219, 255, 0.25);
+  --_fdic-hover-shadow:
     0 2px 4px rgba(0, 0, 0, 0.12),
     0 6px 16px rgba(132, 219, 255, 0.06);
 }
 
-.dark .fdic-anatomy-panel:hover {
-  border-color: rgba(132, 219, 255, 0.2);
-  box-shadow: 0 4px 16px rgba(132, 219, 255, 0.06);
+.dark .fdic-anatomy-panel {
+  --_fdic-hover-border: rgba(132, 219, 255, 0.2);
+  --_fdic-hover-shadow: 0 4px 16px rgba(132, 219, 255, 0.06);
 }
 
-.dark .fdic-example-card:hover {
-  border-color: rgba(132, 219, 255, 0.2);
-  box-shadow: 0 4px 16px rgba(132, 219, 255, 0.06);
-}
-
-.dark .fdic-do-card:hover {
-  box-shadow: 0 4px 16px rgba(97, 214, 115, 0.1);
-}
-
-.dark .fdic-dont-card:hover {
-  box-shadow: 0 4px 16px rgba(246, 111, 139, 0.1);
-}
-
-/* --- Reduced motion: suppress all overdrive animations --- */
-@media (prefers-reduced-motion: reduce) {
-  .fdic-card,
-  .fdic-swatch-card,
-  .fdic-anatomy-panel,
-  .fdic-example-card,
-  .fdic-do-card,
-  .fdic-dont-card {
-    transition: none;
-  }
-
-  .fdic-card:hover,
-  .fdic-swatch-card:hover,
-  .fdic-example-card:hover,
-  .fdic-do-card:hover,
-  .fdic-dont-card:hover {
-    transform: none;
-  }
-
-  .fdic-card-grid > .fdic-card,
-  .fdic-swatch-grid > .fdic-swatch-card,
-  .fdic-foundation-intro {
-    animation: none;
-  }
+.dark .fdic-example-card {
+  --_fdic-hover-border: rgba(132, 219, 255, 0.2);
+  --_fdic-hover-shadow: 0 4px 16px rgba(132, 219, 255, 0.06);
 }
 
 @supports (content-visibility: auto) {
@@ -1123,4 +1021,5 @@
     content-visibility: auto;
     contain-intrinsic-size: auto 24rem;
   }
+}
 }
