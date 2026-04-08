@@ -111,7 +111,7 @@ export class FdAlert extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
     }
 
     :host([hidden]) {
@@ -245,7 +245,7 @@ export class FdAlert extends LitElement {
     }
 
     .type-emergency .icon {
-      color: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000, #ffffff));
+      color: var(--fd-alert-text-color-inverted, var(--ds-color-neutral-000, light-dark(#ffffff, #000000)));
     }
 
     .icon svg {
@@ -299,7 +299,7 @@ export class FdAlert extends LitElement {
     }
 
     .body-slot::slotted(a:focus-visible) {
-      outline: 2px solid var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, #38b6ff));
+      outline: 2px solid var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191)));
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -339,7 +339,7 @@ export class FdAlert extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-alert-dismiss-overlay-hover,
-          var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
+          var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)))
         );
     }
 
@@ -347,7 +347,7 @@ export class FdAlert extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-alert-dismiss-overlay-active,
-          var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))
+          var(--ds-color-overlay-pressed, light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14)))
         );
     }
 
@@ -357,8 +357,8 @@ export class FdAlert extends LitElement {
 
     .dismiss-button:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 2px var(--fd-alert-focus-gap, var(--ds-color-bg-surface, #ffffff)),
-        0 0 0 4px var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, #38b6ff));
+      box-shadow: 0 0 0 2px var(--fd-alert-focus-gap, var(--ds-color-bg-surface, light-dark(#ffffff, #212123))),
+        0 0 0 4px var(--fd-alert-focus-ring, var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191)));
     }
 
     .variant-slim .dismiss-button {

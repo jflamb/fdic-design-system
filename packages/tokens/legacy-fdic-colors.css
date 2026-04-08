@@ -9,62 +9,61 @@
 
 :root {
   /* Text */
-  --fdic-text-primary: var(--ds-color-text-primary, #212123);
-  --fdic-text-secondary: var(--ds-color-text-secondary, #595961);
-  --fdic-text-inverted: var(--ds-color-text-inverted, #ffffff);
-  --fdic-text-link: var(--ds-color-text-link, #1278b0);
-  --fdic-text-link-visited: var(--ds-color-text-link-visited, #855aa5);
+  --fdic-text-primary: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
+  --fdic-text-secondary: var(--ds-color-text-secondary, light-dark(#595961, #e0e0e2));
+  --fdic-text-inverted: var(--ds-color-text-inverted, light-dark(#ffffff, #000000));
+  --fdic-text-link: var(--ds-color-text-link, light-dark(#1278b0, #add8e6));
+  --fdic-text-link-visited: var(--ds-color-text-link-visited, light-dark(#855aa5, #b19cd9));
   --fdic-text-link-visited-hover: light-dark(#79579f, #a38bc8);
-  --fdic-text-disabled: var(--ds-color-text-disabled, #9e9ea0);
-  --fdic-text-error: var(--ds-color-text-error, #d80e3a);
+  --fdic-text-disabled: var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf));
+  --fdic-text-error: var(--ds-color-text-error, light-dark(#d80e3a, #ffcccc));
   --fdic-body-text: var(--ds-color-text-primary, #1b1b1b);
 
   /* Link state */
-  --link-unvisited: var(--ds-color-text-link, #1278b0);
+  --link-unvisited: var(--ds-color-text-link, light-dark(#1278b0, #add8e6));
   --link-unvisited-hover: light-dark(var(--ds-color-primary-500, #0d6191), var(--ds-color-primary-200, #84dbff));
-  --link-visited: var(--ds-color-text-link-visited, #855aa5);
+  --link-visited: var(--ds-color-text-link-visited, light-dark(#855aa5, #b19cd9));
   --link-visited-hover: light-dark(#79579f, #a38bc8);
 
   /* Brand */
-  --fdic-brand-core-default: var(--ds-color-primary-500, #0d6191);
-  --fdic-color-brand-primary-500: var(--ds-color-primary-500, #0d6191);
-  --fdic-brand-primary: var(--ds-color-primary-500, #0d6191);
-  --fdic-brand-core-light: var(--ds-color-primary-400, #38b6ff);
-  --fdic-brand-highlight-default: var(--ds-color-secondary-500, #d9af45);
-  --fdic-brand-highlight-lightest: var(--ds-color-secondary-050, #f8efda);
-  --fdic-brand-highlight-darker: var(--ds-color-secondary-800, #88691c);
-  --fdic-gradient-brand-core: linear-gradient(
-    135deg,
-    var(--ds-color-primary-500, #0d6191),
-    var(--ds-color-primary-400, #38b6ff)
+  --fdic-brand-core-default: var(--ds-color-primary-500, light-dark(#0d6191, #84dbff));
+  --fdic-color-brand-primary-500: var(--ds-color-primary-500, light-dark(#0d6191, #84dbff));
+  --fdic-brand-primary: var(--ds-color-primary-500, light-dark(#0d6191, #84dbff));
+  --fdic-brand-core-light: var(--ds-color-primary-400, light-dark(#38b6ff, #84dbff));
+  --fdic-brand-highlight-default: var(--ds-color-secondary-500, light-dark(#d9af45, #ebd49b));
+  --fdic-brand-highlight-lightest: var(--ds-color-secondary-050, light-dark(#f8efda, #60511b));
+  --fdic-brand-highlight-darker: var(--ds-color-secondary-800, light-dark(#88691c, #f8efda));
+  --fdic-gradient-brand-core: var(
+    --ds-gradient-brand-core,
+    linear-gradient(135deg in oklch, var(--ds-color-primary-500), var(--ds-color-primary-400))
   );
 
   /* Background */
-  --fdic-background-base: var(--ds-color-bg-base, #ffffff);
-  --fdic-background-container: var(--ds-color-bg-container, #f5f5f7);
-  --fdic-background-subtle: var(--ds-color-bg-container, #f5f5f7);
-  --fdic-background-interactive: var(--ds-color-bg-interactive, #f5f5f7);
-  --fdic-background-selected: var(--ds-color-bg-selected, #b4e4f8);
-  --fdic-background-tooltip: var(--ds-color-bg-inverted, #212123);
+  --fdic-background-base: var(--ds-color-bg-base, light-dark(#ffffff, #000000));
+  --fdic-background-container: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
+  --fdic-background-subtle: var(--ds-color-bg-container, light-dark(#f5f5f7, #212123));
+  --fdic-background-interactive: var(--ds-color-bg-interactive, light-dark(#f5f5f7, #212123));
+  --fdic-background-selected: var(--ds-color-bg-selected, light-dark(#b4e4f8, #003256));
+  --fdic-background-tooltip: var(--ds-color-bg-inverted, light-dark(#212123, #f5f5f7));
 
   /* Border */
-  --fdic-border-divider: var(--ds-color-border-divider, #bdbdbf);
-  --fdic-border-input-rest: var(--ds-color-border-input, #bdbdbf);
-  --fdic-border-input-active: var(--ds-color-border-input-active, #424244);
-  --fdic-border-input-focus: var(--ds-color-border-input-focus, #38b6ff);
-  --fdic-border-input-interactive: var(--ds-color-border-input-interactive, #e8e8ed);
+  --fdic-border-divider: var(--ds-color-border-divider, light-dark(#bdbdbf, #595961));
+  --fdic-border-input-rest: var(--ds-color-border-input, light-dark(#bdbdbf, #595961));
+  --fdic-border-input-active: var(--ds-color-border-input-active, light-dark(#424244, #e0e0e2));
+  --fdic-border-input-focus: var(--ds-color-border-input-focus, light-dark(#38b6ff, #0d6191));
+  --fdic-border-input-interactive: var(--ds-color-border-input-interactive, light-dark(#e8e8ed, #333335));
 
   /* Overlay */
-  --fdic-overlay-emphasize-100: var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
-  --fdic-overlay-emphasize-200: var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
+  --fdic-overlay-emphasize-100: var(--ds-color-overlay-hover, light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08)));
+  --fdic-overlay-emphasize-200: var(--ds-color-overlay-pressed, light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14)));
 
   /* Icon */
-  --fdic-icon-primary: var(--ds-color-icon-primary, #424244);
-  --fdic-color-icon-active: var(--ds-color-icon-active, #1278b0);
+  --fdic-icon-primary: var(--ds-color-icon-primary, light-dark(#424244, #e0e0e2));
+  --fdic-color-icon-active: var(--ds-color-icon-active, light-dark(#1278b0, #add8e6));
 
   /* Status and semantic */
-  --fdic-status-error: var(--ds-color-semantic-fg-error, #b10b2d);
-  --fdic-status-warning: var(--ds-color-semantic-fg-warning, #8b5e00);
-  --fdic-status-success: var(--ds-color-semantic-fg-success, #2e7d32);
-  --fdic-semantic-background-info: var(--ds-color-semantic-bg-info, #f1f8fe);
+  --fdic-status-error: var(--ds-color-semantic-fg-error, light-dark(#b10b2d, #f66f8b));
+  --fdic-status-warning: var(--ds-color-semantic-fg-warning, light-dark(#8b5e00, #ffbf47));
+  --fdic-status-success: var(--ds-color-semantic-fg-success, light-dark(#2e7d32, #61d673));
+  --fdic-semantic-background-info: var(--ds-color-semantic-bg-info, light-dark(#f1f8fe, #1e3a5f));
 }

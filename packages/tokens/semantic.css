@@ -13,25 +13,25 @@
 @property --ds-color-bg-hovered {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgba(0, 0, 0, 0.04);
+  initial-value: oklch(0 0 0 / 0.04);
 }
 
 @property --ds-color-bg-pressed {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgba(0, 0, 0, 0.08);
+  initial-value: oklch(0 0 0 / 0.08);
 }
 
 @property --ds-color-overlay-hover {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgba(0, 0, 0, 0.04);
+  initial-value: oklch(0 0 0 / 0.04);
 }
 
 @property --ds-color-overlay-pressed {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgba(0, 0, 0, 0.08);
+  initial-value: oklch(0 0 0 / 0.08);
 }
 
 :root {
@@ -131,8 +131,14 @@
   --ds-color-bg-highlight: var(--ds-color-primary-400);
   --ds-color-bg-selected: light-dark(var(--ds-color-primary-050), var(--ds-color-primary-900));
   --ds-color-bg-active: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
-  --ds-color-bg-hovered: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08));
-  --ds-color-bg-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14));
+  --ds-color-bg-hovered: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.04),
+    oklch(from var(--ds-color-neutral-000) l c h / 0.08)
+  );
+  --ds-color-bg-pressed: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
+    oklch(from var(--ds-color-neutral-000) l c h / 0.14)
+  );
   --ds-color-bg-destructive: light-dark(var(--ds-color-error-600), var(--ds-color-error-800));
   --ds-color-bg-readonly: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-800));
 
@@ -140,7 +146,7 @@
   --ds-color-text-primary: light-dark(var(--ds-color-neutral-900), var(--ds-color-neutral-000));
   --ds-color-text-secondary: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-200));
   --ds-color-text-placeholder: var(--ds-color-neutral-500);
-  --ds-color-text-disabled: var(--ds-color-neutral-500);
+  --ds-color-text-disabled: light-dark(var(--ds-color-neutral-500), var(--ds-color-neutral-400));
   --ds-color-text-inverted: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
   --ds-color-text-brand: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
   --ds-color-text-warm: light-dark(var(--ds-color-secondary-900), var(--ds-color-secondary-050));
@@ -161,6 +167,7 @@
 
   /* Border */
   --ds-color-border-divider: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
+  --ds-color-border-subtle: light-dark(var(--ds-color-neutral-200), var(--ds-color-neutral-700));
   --ds-color-border-image: var(--ds-color-neutral-000);
   --ds-color-border-input: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
   --ds-color-border-input-hover: var(--ds-color-neutral-500);
@@ -186,10 +193,29 @@
   --ds-color-semantic-border-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
 
   /* Overlay */
-  --ds-color-overlay-hover: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08));
-  --ds-color-overlay-pressed: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.14));
-  --ds-color-overlay-scrim: rgba(0, 0, 0, 0.48);
+  --ds-color-overlay-hover: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.04),
+    oklch(from var(--ds-color-neutral-000) l c h / 0.08)
+  );
+  --ds-color-overlay-pressed: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
+    oklch(from var(--ds-color-neutral-000) l c h / 0.14)
+  );
+  --ds-color-overlay-scrim: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.48),
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.72)
+  );
 
   /* Effect */
-  --ds-color-effect-shadow: light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0));
+  --ds-color-effect-shadow: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.36)
+  );
+
+  /* Gradient */
+  --ds-gradient-brand-core: linear-gradient(
+    135deg in oklch,
+    var(--ds-color-primary-500),
+    var(--ds-color-primary-400)
+  );
 }

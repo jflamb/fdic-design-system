@@ -31,18 +31,18 @@ export class FdStripe extends LitElement {
       border-radius: var(--fd-stripe-radius, 0);
       background: var(
         --fd-stripe-bg-neutral,
-        var(--ds-color-border-divider, #bdbdbf)
+        var(--ds-color-border-divider, light-dark(#bdbdbf, #595961))
       );
     }
 
     .type-cool {
-      background: var(--fd-stripe-bg-cool, var(--ds-color-info-100, #38b6ff));
+      background: var(--fd-stripe-bg-cool, var(--ds-color-info-100, light-dark(#38b6ff, #1e3a5f)));
     }
 
     .type-warm {
       background: var(
         --fd-stripe-bg-warm,
-        var(--ds-color-secondary-500, #d9af45)
+        var(--ds-color-secondary-500, light-dark(#d9af45, #ebd49b))
       );
     }
 

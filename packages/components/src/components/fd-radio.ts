@@ -102,7 +102,7 @@ export class FdRadio extends LitElement {
     }
 
     :host([disabled]) [part="control"] {
-      color: var(--fd-radio-icon-disabled, var(--ds-color-text-disabled, #9e9ea0));
+      color: var(--fd-radio-icon-disabled, var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf)));
     }
 
     :host([data-user-invalid]) [part="control"] {
@@ -132,7 +132,7 @@ export class FdRadio extends LitElement {
     }
 
     :host([disabled]) [part="label"] {
-      color: var(--ds-color-text-disabled, #9e9ea0);
+      color: var(--ds-color-text-disabled, light-dark(#9e9ea0, #bdbdbf));
     }
 
     @media (forced-colors: active) {

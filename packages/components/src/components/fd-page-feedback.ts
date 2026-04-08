@@ -80,7 +80,7 @@ export class FdPageFeedback extends LitElement {
         Arial,
         sans-serif
       );
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--ds-color-text-primary, light-dark(#212123, #ffffff));
     }
 
     :host([hidden]) {
@@ -95,7 +95,7 @@ export class FdPageFeedback extends LitElement {
       padding-inline: var(--fd-page-feedback-inline-padding, 64px);
       background: var(
         --fd-page-feedback-background,
-        var(--ds-color-bg-base, #ffffff)
+        var(--ds-color-bg-base, light-dark(#ffffff, #000000))
       );
     }
 
@@ -107,10 +107,13 @@ export class FdPageFeedback extends LitElement {
       block-size: 4px;
       background: var(
         --fd-page-feedback-border-image,
-        linear-gradient(
-          135deg,
-          var(--ds-color-primary-500, #0d6191),
-          var(--ds-color-primary-400, #38b6ff)
+        var(
+          --ds-gradient-brand-core,
+          linear-gradient(
+            135deg in oklch,
+            var(--ds-color-primary-500),
+            var(--ds-color-primary-400)
+          )
         )
       );
       pointer-events: none;
