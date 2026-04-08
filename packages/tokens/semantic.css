@@ -205,11 +205,27 @@
     oklch(from var(--ds-color-neutral-1000) l c h / 0.48),
     oklch(from var(--ds-color-neutral-1000) l c h / 0.72)
   );
+  --ds-color-overlay-brand-hover: light-dark(
+    oklch(from var(--ds-color-primary-500) l c h / 0.08),
+    oklch(from var(--ds-color-primary-200) l c h / 0.14)
+  );
+  --ds-color-overlay-brand-selected: light-dark(
+    oklch(from var(--ds-color-primary-500) l c h / 0.14),
+    oklch(from var(--ds-color-primary-200) l c h / 0.18)
+  );
+  --ds-color-overlay-brand-pressed: light-dark(
+    oklch(from var(--ds-color-primary-500) l c h / 0.16),
+    oklch(from var(--ds-color-primary-200) l c h / 0.22)
+  );
 
   /* Effect */
   --ds-color-effect-shadow: light-dark(
     oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
     oklch(from var(--ds-color-neutral-1000) l c h / 0.36)
+  );
+  --ds-color-effect-shadow-panel: light-dark(
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.24),
+    oklch(from var(--ds-color-neutral-1000) l c h / 0.48)
   );
 
   /* Gradient */
@@ -257,6 +273,10 @@
   --ds-color-border-glass-soft: light-dark(
     oklch(from var(--ds-color-primary-900) l c h / 0.14),
     oklch(from var(--ds-color-neutral-000) l c h / 0.14)
+  );
+  --ds-color-border-focus-inner: light-dark(
+    oklch(from var(--ds-color-primary-500) l c h / 0.35),
+    oklch(from var(--ds-color-primary-200) l c h / 0.35)
   );
   --ds-color-overlay-scrim-soft: light-dark(
     oklch(from var(--ds-color-neutral-1000) l c h / 0.08),

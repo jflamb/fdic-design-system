@@ -293,8 +293,14 @@ export class FdGlobalHeader extends LitElement {
       --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, light-dark(#f5f5f7, #333335));
       --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, light-dark(#edf3f7, #424244));
       --fd-global-header-shadow-floating: var(--ds-color-effect-shadow, light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.36)));
+      --fd-global-header-shadow-panel: var(--ds-color-effect-shadow-panel, light-dark(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.48)));
       --fd-global-header-glass-sheen: var(--fd-global-header-glass-sheen, var(--ds-gradient-glass-sheen));
       --fd-global-header-glass-border: var(--fd-global-header-glass-border, var(--ds-color-border-glass-soft));
+      --fd-global-header-glass-border-strong: var(--fd-global-header-glass-border-strong, var(--ds-color-border-glass));
+      --fd-global-header-overlay-hover: var(--ds-color-overlay-brand-hover);
+      --fd-global-header-overlay-selected: var(--ds-color-overlay-brand-selected);
+      --fd-global-header-overlay-pressed: var(--ds-color-overlay-brand-pressed);
+      --fd-global-header-focus-inner: var(--ds-color-border-focus-inner);
       --fd-global-header-glass-surface-1: var(--fd-global-header-mega-col-1, var(--ds-color-surface-glass-1));
       --fd-global-header-glass-surface-2: var(--fd-global-header-mega-col-2, var(--ds-color-surface-glass-2));
       --fd-global-header-glass-surface-2-muted: var(--fd-global-header-mega-col-2-muted, var(--ds-color-surface-glass-2-muted));
@@ -1049,7 +1055,7 @@ export class FdGlobalHeader extends LitElement {
     .menu-item-link--l3:hover,
     .menu-item-link--l3:focus-visible,
     .menu-item-link--l3[data-active="true"] {
-      background: rgba(0, 110, 190, 0.14);
+      background: var(--fd-global-header-overlay-selected);
       outline-color: transparent;
     }
 
@@ -1109,7 +1115,7 @@ export class FdGlobalHeader extends LitElement {
     .menu-divider {
       height: 1px;
       margin: 0 1.5rem 0.625rem;
-      background: rgba(9, 53, 84, 0.12);
+      background: var(--fd-global-header-glass-border);
     }
 
     .mega-col--l1 .menu-description {
@@ -1164,7 +1170,7 @@ export class FdGlobalHeader extends LitElement {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: var(--ds-color-overlay-scrim-strong);
         -webkit-backdrop-filter: blur(4px) saturate(135%);
         backdrop-filter: blur(4px) saturate(135%);
       opacity: 0;
@@ -1207,7 +1213,7 @@ export class FdGlobalHeader extends LitElement {
     .mobile-drawer-close:focus-visible {
       outline-color: transparent;
       box-shadow:
-        inset 0 0 0 2px rgba(0, 94, 162, 0.35),
+        inset 0 0 0 2px var(--fd-global-header-focus-inner),
         inset 0 0 0 4px var(--fd-global-header-color-accent);
     }
 
@@ -1240,7 +1246,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-back:hover {
-      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.08);
+      box-shadow: inset 0 0 0 999px var(--fd-global-header-overlay-hover);
     }
 
     .mobile-back:focus-visible {
@@ -1248,13 +1254,13 @@ export class FdGlobalHeader extends LitElement {
       box-shadow:
         0 0 0 2px var(--fd-global-header-color-surface-base),
         0 0 0 4px var(--fd-global-header-color-accent);
-      background: rgba(0, 110, 190, 0.08);
+      background: var(--fd-global-header-overlay-hover);
       position: relative;
       z-index: 1;
     }
 
     .mobile-back:active {
-      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.16);
+      box-shadow: inset 0 0 0 999px var(--fd-global-header-overlay-pressed);
       transform: translateY(1px);
     }
 
@@ -1360,7 +1366,7 @@ export class FdGlobalHeader extends LitElement {
     .mobile-overview-link:hover,
     .mobile-link:hover,
     .mobile-button:hover {
-      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.08);
+      box-shadow: inset 0 0 0 999px var(--fd-global-header-overlay-hover);
     }
 
     .mobile-overview-link:hover::before,
@@ -1382,7 +1388,7 @@ export class FdGlobalHeader extends LitElement {
       box-shadow:
         0 0 0 2px var(--fd-global-header-color-surface-base),
         0 0 0 4px var(--fd-global-header-color-accent);
-      background: rgba(0, 110, 190, 0.08);
+      background: var(--fd-global-header-overlay-hover);
       position: relative;
       z-index: 1;
     }
@@ -1390,7 +1396,7 @@ export class FdGlobalHeader extends LitElement {
     .mobile-overview-link:active,
     .mobile-link:active,
     .mobile-button:active {
-      box-shadow: inset 0 0 0 999px rgba(0, 110, 190, 0.16);
+      box-shadow: inset 0 0 0 999px var(--fd-global-header-overlay-pressed);
       transform: translateY(1px);
     }
 
@@ -1476,7 +1482,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     :host([mobile-layout]) .mobile-controls [data-mobile-toggle="menu"] {
-      border: 1px solid rgba(255, 255, 255, 0.55);
+      border: 1px solid var(--fd-global-header-glass-border-strong);
       border-radius: 4px;
     }
 
@@ -1519,7 +1525,7 @@ export class FdGlobalHeader extends LitElement {
       display: block;
       background: var(--fd-global-header-color-surface-base);
       border-inline-start: 1px solid var(--fd-global-header-color-border-subtle);
-      box-shadow: -18px 0 48px rgba(0, 18, 32, 0.24);
+      box-shadow: -18px 0 48px var(--fd-global-header-shadow-panel);
       transform: translateX(104%);
       opacity: 0;
       visibility: hidden;
@@ -1577,7 +1583,7 @@ export class FdGlobalHeader extends LitElement {
       }
 
       .mobile-controls [data-mobile-toggle="menu"] {
-        border: 1px solid rgba(255, 255, 255, 0.55);
+        border: 1px solid var(--fd-global-header-glass-border-strong);
         border-radius: 4px;
       }
 
@@ -1622,7 +1628,7 @@ export class FdGlobalHeader extends LitElement {
         display: block;
         background: var(--fd-global-header-color-surface-base);
         border-inline-start: 1px solid var(--fd-global-header-color-border-subtle);
-        box-shadow: -18px 0 48px rgba(0, 18, 32, 0.24);
+        box-shadow: -18px 0 48px var(--fd-global-header-shadow-panel);
         transform: translateX(104%);
         opacity: 0;
         visibility: hidden;
