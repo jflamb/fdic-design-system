@@ -322,8 +322,12 @@ export class FdHeaderSearch extends LitElement {
       display: none;
     }
     .field:focus-within .input-row {
-      outline: 2px solid var(--ds-color-border-input-focus, #9ad8f7);
-      outline-offset: 1px;
+      border-color: transparent;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      box-shadow:
+        0 0 0 2px var(--ds-color-bg-input, #ffffff),
+        0 0 0 4px var(--ds-color-border-input-focus, #38b6ff);
     }
 
     .panel {

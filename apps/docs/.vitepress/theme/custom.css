@@ -211,6 +211,16 @@
   --_fdic-hover-lift: -2px;
 }
 
+.fdic-card:has(:focus-visible) {
+  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline-offset: 2px;
+  border-radius: 12px;
+  border-color: var(--fdic-docs-card-hover-border);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 24px var(--fdic-docs-card-hover-glow-strong);
+}
+
 .fdic-card:active {
   transform: translateY(0);
   transition-duration: 80ms;
