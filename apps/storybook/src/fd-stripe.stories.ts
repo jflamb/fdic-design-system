@@ -49,6 +49,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
 
+export const Cool: Story = {
+  args: {
+    type: "cool",
+  },
+};
+
+export const Warm: Story = {
+  args: {
+    type: "warm",
+  },
+};
+
+export const Neutral: Story = {
+  args: {
+    type: "neutral",
+  },
+};
+
 Playground.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-stripe");
   expect(host?.getAttribute("aria-hidden")).toBe("true");
