@@ -117,4 +117,18 @@ describe("FdGlobalFooter", () => {
     expect(cssText).toContain("container-type: inline-size");
     expect(cssText).toContain("@container (max-width: 640px)");
   });
+
+  it("keeps the mobile agency block centered without collapsing it to min-content width", () => {
+    const styles = (
+      customElements.get("fd-global-footer") as typeof HTMLElement & {
+        styles?: { cssText?: string } | Array<{ cssText?: string }>;
+      }
+    ).styles;
+    const cssText = Array.isArray(styles)
+      ? styles.map((value) => value?.cssText ?? "").join("\n")
+      : styles?.cssText ?? "";
+
+    expect(cssText).toContain(".brand-block,\n      .bottom-row {\n        text-align: center;");
+    expect(cssText).not.toContain(".brand-block,\n      .bottom-row {\n        justify-items: center;");
+  });
 });

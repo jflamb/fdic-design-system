@@ -317,7 +317,6 @@ export class FdGlobalFooter extends LitElement {
 
       .brand-block,
       .bottom-row {
-        justify-items: center;
         text-align: center;
       }
 
