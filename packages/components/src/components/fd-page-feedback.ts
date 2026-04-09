@@ -140,7 +140,6 @@ export class FdPageFeedback extends LitElement {
       gap: 24px;
       flex: 1 1 auto;
       min-inline-size: 0;
-      max-inline-size: var(--fd-page-feedback-prompt-max-width, 344px);
     }
 
     [part="prompt"] {
@@ -154,12 +153,14 @@ export class FdPageFeedback extends LitElement {
       font-weight: 400;
       line-height: 1.375;
       overflow-wrap: anywhere;
+      max-inline-size: var(--fd-page-feedback-prompt-max-width, 344px);
     }
 
     .prompt-copy--heading {
       font-size: var(--fd-page-feedback-heading-size, 22.5px);
       font-weight: 600;
       line-height: 1.25;
+      max-inline-size: none;
     }
 
     .survey-body {
@@ -284,7 +285,6 @@ export class FdPageFeedback extends LitElement {
 
       .prompt-shell {
         inline-size: 100%;
-        max-inline-size: none;
       }
 
       .prompt-copy {
