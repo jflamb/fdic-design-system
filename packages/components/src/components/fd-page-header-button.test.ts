@@ -18,7 +18,7 @@ async function createButton(
   return el;
 }
 
-function getBase(el: any): HTMLButtonElement | null {
+function getBase(el: any): HTMLElement | null {
   return el.shadowRoot?.querySelector("[part=base]") ?? null;
 }
 
@@ -35,18 +35,19 @@ describe("FdPageHeaderButton", () => {
     expect(customElements.get("fd-page-header-button")).toBeDefined();
   });
 
-  it("renders a native button element", async () => {
+  it("renders an fd-button with the subtle variant", async () => {
     const el = await createButton();
     const base = getBase(el);
     expect(base).not.toBeNull();
-    expect(base?.tagName).toBe("BUTTON");
-    expect(base?.type).toBe("button");
+    expect(base?.tagName).toBe("FD-BUTTON");
+    expect(base?.getAttribute("variant")).toBe("subtle");
+    expect(base?.getAttribute("type")).toBe("button");
   });
 
   it("renders slotted label text", async () => {
     const el = await createButton({}, "Add to Quick Links");
     const base = getBase(el);
-    const slot = base?.querySelector("slot");
+    const slot = base?.shadowRoot?.querySelector("slot:not([name])");
     expect(slot).not.toBeNull();
   });
 
@@ -72,15 +73,15 @@ describe("FdPageHeaderButton", () => {
     expect(el.icon).toBe("");
   });
 
-  it("uses semantic glass tokens for its surface treatment", () => {
+  it("configures fd-button tokens for page-header usage", () => {
     const stylesheet = Array.isArray(FdPageHeaderButton.styles)
       ? FdPageHeaderButton.styles.map((style) => style.cssText).join("\n")
       : FdPageHeaderButton.styles.cssText;
 
-    expect(stylesheet).toContain("var(--ds-gradient-glass-button)");
-    expect(stylesheet).toContain("var(--ds-gradient-glass-sheen)");
-    expect(stylesheet).toContain("var(--ds-color-border-glass)");
-    expect(stylesheet).toContain("backdrop-filter: blur(12px) saturate(140%)");
+    expect(stylesheet).toContain("--fd-button-text-subtle");
+    expect(stylesheet).toContain("--fd-button-overlay-hover");
+    expect(stylesheet).toContain("--fd-button-overlay-active");
+    expect(stylesheet).toContain("--fd-button-height");
   });
 
   it("passes axe checks", async () => {

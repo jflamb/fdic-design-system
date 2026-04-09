@@ -1,4 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
+import "../register/fd-button-group.js";
+import "../register/fd-button.js";
 import "../register/fd-page-header.js";
 import type { FdPageHeaderBreadcrumb } from "./fd-page-header.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
@@ -33,6 +35,18 @@ function makeButton(label: string): HTMLButtonElement {
   btn.type = "button";
   btn.textContent = label;
   return btn;
+}
+
+function makeButtonGroup(labels: string[]): HTMLElement {
+  const group = document.createElement("fd-button-group");
+  group.setAttribute("label", "Page actions");
+  for (const label of labels) {
+    const button = document.createElement("fd-button");
+    button.setAttribute("variant", "subtle");
+    button.textContent = label;
+    group.appendChild(button);
+  }
+  return group;
 }
 
 function getBase(el: any): Element | null {
@@ -226,6 +240,34 @@ describe("FdPageHeader", () => {
     await el.updateComplete;
     const actions = getActionsContainer(el);
     expect(actions?.classList.contains("actions-hidden")).toBe(false);
+  });
+
+  it("shows actions container when an fd-button-group is slotted", async () => {
+    const el = await createPageHeader(
+      { heading: "Account Overview" },
+      { actionElements: [makeButtonGroup(["Share", "Add to Quick Links"])] },
+    );
+    await new Promise((r) => setTimeout(r, 0));
+    await el.updateComplete;
+    const actions = getActionsContainer(el);
+    expect(actions?.classList.contains("actions-hidden")).toBe(false);
+  });
+
+  it("applies page-header action tokens to a slotted fd-button-group", async () => {
+    const group = makeButtonGroup(["Share", "Add to Quick Links"]);
+    const el = await createPageHeader(
+      { heading: "Account Overview" },
+      { actionElements: [group] },
+    );
+    await new Promise((r) => setTimeout(r, 0));
+    await el.updateComplete;
+
+    expect(group.style.getPropertyValue("--fd-button-overlay-hover")).toContain(
+      "--fd-page-header-action-overlay-hover",
+    );
+    expect(group.style.getPropertyValue("--fd-button-focus-gap")).toContain(
+      "--fd-page-header-action-focus-gap",
+    );
   });
 
   it("uses the button-group spacing token for slotted action groups", async () => {

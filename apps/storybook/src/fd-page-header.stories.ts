@@ -50,12 +50,16 @@ const meta = {
     >
       ${args.showActions
         ? html`
-            <fd-page-header-button slot="actions" icon="share-fat"
-              >Share</fd-page-header-button
-            >
-            <fd-page-header-button slot="actions" icon="plus"
-              >Add to Quick Links</fd-page-header-button
-            >
+            <fd-button-group slot="actions" label="Page actions">
+              <fd-button variant="subtle">
+                <fd-icon slot="icon-start" name="share-fat"></fd-icon>
+                Share
+              </fd-button>
+              <fd-button variant="subtle">
+                <fd-icon slot="icon-start" name="plus"></fd-icon>
+                Add to Quick Links
+              </fd-button>
+            </fd-button-group>
           `
         : ""}
     </fd-page-header>

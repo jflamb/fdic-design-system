@@ -1,6 +1,6 @@
 # Page Header
 
-The page header provides consistent page-level context and navigation on a brand-blue background with inverted text. It includes breadcrumbs, a title, an optional kicker, and optional glassmorphism action buttons.
+The page header provides consistent page-level context and navigation on a brand-blue background with inverted text. It includes breadcrumbs, a title, an optional kicker, and optional action buttons built as an `fd-button-group` of shared `fd-button` actions.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -55,17 +55,30 @@ The last breadcrumb item renders as a non-interactive `<span>` with `aria-curren
   heading="Quarterly Banking Profile"
   kicker="Analysis"
 >
-  <fd-page-header-button slot="actions" icon="share-fat">Share</fd-page-header-button>
-  <fd-page-header-button slot="actions" icon="plus">Add to Quick Links</fd-page-header-button>
+  <fd-button-group slot="actions" label="Page actions">
+    <fd-button variant="subtle">
+      <fd-icon slot="icon-start" name="share-fat"></fd-icon>
+      Share
+    </fd-button>
+    <fd-button variant="subtle">
+      <fd-icon slot="icon-start" name="plus"></fd-icon>
+      Add to Quick Links
+    </fd-button>
+  </fd-button-group>
 </fd-page-header>
 ```
 
 ### Page header buttons
 
-Use `fd-page-header-button` for actions inside the page header. These render as glassmorphism pill buttons designed for the brand-blue background. Each button takes an `icon` property (a Phosphor icon name) and label text.
+Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `variant="subtle"` for each action inside the group. The page header action area supplies the inverted text and interaction tokens needed for the brand-blue background. If you need a compatibility wrapper, `fd-page-header-button` now renders an internal subtle `fd-button`.
 
 ```html
-<fd-page-header-button icon="share-fat">Share</fd-page-header-button>
+<fd-button-group label="Page actions">
+  <fd-button variant="subtle">
+    <fd-icon slot="icon-start" name="share-fat"></fd-icon>
+    Share
+  </fd-button>
+</fd-button-group>
 ```
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -82,7 +95,7 @@ Use `fd-page-header-button` for actions inside the page header. These render as 
 
 | Name | Description |
 |---|---|
-| `actions` | Optional action buttons or links displayed alongside the page title. |
+| `actions` | Optional action group displayed alongside the page title. Use `fd-button-group` for multiple related page actions. |
 
 ## CSS custom properties
 
@@ -121,7 +134,8 @@ Use `fd-page-header-button` for actions inside the page header. These render as 
 **Don't**
 
 - Don't add a separate `<h1>` elsewhere on the page — the component already renders one.
-- Don't use generic `fd-button` in the actions slot — use `fd-page-header-button` for visual consistency on the brand-blue background.
+- Don't slot multiple loose buttons side by side. Use `fd-button-group` so related page actions share one layout wrapper.
+- Don't mix button variants in the actions group. Keep page-level utility actions on `fd-button variant="subtle"` for a consistent hierarchy.
 - Don't use the actions slot for primary navigation — it's for page-level utility actions.
 - Don't include more than 5 breadcrumb levels — keep the hierarchy shallow and scannable.
 
@@ -144,7 +158,8 @@ Use `fd-page-header-button` for actions inside the page header. These render as 
 - All interactive elements (breadcrumb links, action buttons) have visible focus indicators using the standard FDIC focus ring pattern.
 - The component uses plain tab order — no custom keyboard navigation is needed.
 - White text on the brand-blue background (#0d6191) exceeds WCAG AA contrast requirements (4.62:1).
-- `fd-page-header-button` renders a native `<button>` with visible focus ring (2px white gap + 4px blue ring).
+- `fd-button-group` remains a layout wrapper in the actions slot; it does not change button semantics.
+- `fd-button variant="subtle"` inside the actions group keeps the standard FDIC focus ring and uses inverted text tokens supplied by the page-header action region.
 - In forced-colors mode, the brand-blue background is replaced with `Canvas`, text uses `CanvasText`, breadcrumb links use `LinkText`, and the section gets a bottom border for visual separation.
 - In print, breadcrumbs and actions are hidden; the background is removed and text is printed in black.
 
@@ -159,7 +174,9 @@ Use `fd-page-header-button` for actions inside the page header. These render as 
 
 - [`fd-global-header`](/components/global-header) — Site-level header with navigation, search, and branding. Place `fd-page-header` below it, inside `<main>`.
 - [`fd-hero`](/components/hero) — Use Hero when the page needs strong visual framing or a campaign-style introduction rather than breadcrumbs and structured hierarchy.
-- [`fd-icon`](/components/icon) — Used inside `fd-page-header-button` for action icons. Icons come from the Phosphor registry.
+- [`fd-button-group`](/components/button-group) — Use this in the `actions` slot to cluster related page-level utility actions.
+- [`fd-button`](/components/button) — Shared button component used inside the page-header action group.
+- [`fd-icon`](/components/icon) — Used inside page-header action buttons. Icons come from the Phosphor registry.
 
 <!-- GENERATED_COMPONENT_API:START fd-page-header -->
 <!-- GENERATED_COMPONENT_API:END -->

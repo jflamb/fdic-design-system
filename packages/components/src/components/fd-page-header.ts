@@ -15,6 +15,19 @@ const SEPARATOR_SVG =
  * Renders on a brand-blue background with inverted (white) text.
  */
 export class FdPageHeader extends LitElement {
+  private static readonly ACTION_STYLE_MAP = {
+    "--fd-button-text-subtle":
+      "var(--fd-page-header-action-text-color, var(--ds-color-text-inverted))",
+    "--fd-button-overlay-hover":
+      "var(--fd-page-header-action-overlay-hover, rgba(255, 255, 255, 0.12))",
+    "--fd-button-overlay-active":
+      "var(--fd-page-header-action-overlay-active, rgba(255, 255, 255, 0.18))",
+    "--fd-button-focus-gap":
+      "var(--fd-page-header-action-focus-gap, var(--ds-color-primary-500))",
+    "--fd-button-focus-ring":
+      "var(--fd-page-header-action-focus-ring, var(--ds-focus-ring-color))",
+  } as const;
+
   static properties = {
     heading: { reflect: true },
     kicker: { reflect: true },
@@ -189,6 +202,11 @@ export class FdPageHeader extends LitElement {
       padding-block-end: var(--fd-page-header-actions-offset, 8px);
     }
 
+    ::slotted(fd-button-group) {
+      inline-size: auto;
+      max-inline-size: 100%;
+    }
+
     .actions-hidden {
       display: none;
     }
@@ -320,10 +338,39 @@ export class FdPageHeader extends LitElement {
     super.disconnectedCallback();
   }
 
+  override updated() {
+    const slot = this.shadowRoot?.querySelector(
+      'slot[name="actions"]',
+    ) as HTMLSlotElement | null;
+    if (slot) {
+      this._applyActionsContextFromSlot(slot);
+    }
+  }
+
   private _syncActionsContent() {
     this._hasActions = Array.from(this.children).some(
       (child) => (child as HTMLElement).slot === "actions",
     );
+  }
+
+  private _applyActionContext(element: HTMLElement) {
+    if (
+      element.tagName.toLowerCase() === "fd-button-group" &&
+      !element.style.inlineSize
+    ) {
+      element.style.inlineSize = "auto";
+    }
+
+    for (const [name, value] of Object.entries(FdPageHeader.ACTION_STYLE_MAP)) {
+      element.style.setProperty(name, value);
+    }
+  }
+
+  private _applyActionsContextFromSlot(slot: HTMLSlotElement) {
+    const elements = slot.assignedElements({ flatten: true }) as HTMLElement[];
+    for (const element of elements) {
+      this._applyActionContext(element);
+    }
   }
 
   private _handleActionsSlotChange = (event: Event) => {
@@ -333,6 +380,7 @@ export class FdPageHeader extends LitElement {
       if (node.nodeType === Node.ELEMENT_NODE) return true;
       return node.nodeType === Node.TEXT_NODE && Boolean(node.textContent?.trim());
     });
+    this._applyActionsContextFromSlot(slot);
   };
 
   private _renderBreadcrumbs() {

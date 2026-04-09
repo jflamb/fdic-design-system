@@ -741,7 +741,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-icon", "fd-page-header-button"]
+      dependencies: ["fd-icon", "fd-button", "fd-page-header-button"]
     },
     typeExports: ["FdPageHeaderBreadcrumb"]
   },
@@ -756,7 +756,7 @@ export const componentInventory = [
     register: {
       exportSubpath: false,
       includeInRegisterAll: false,
-      dependencies: ["fd-icon"]
+      dependencies: ["fd-button"]
     },
     typeExports: []
   },
