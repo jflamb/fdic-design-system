@@ -174,7 +174,10 @@ export class FdPageFeedback extends LitElement {
     .responses {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(
+        --fd-page-feedback-action-gap,
+        var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem))
+      );
       flex-wrap: wrap;
       min-inline-size: 0;
     }
@@ -234,7 +237,10 @@ export class FdPageFeedback extends LitElement {
     .actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: var(
+        --fd-page-feedback-action-gap,
+        var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem))
+      );
       flex-wrap: wrap;
       min-inline-size: 0;
     }
@@ -299,10 +305,6 @@ export class FdPageFeedback extends LitElement {
         inline-size: 100%;
         min-inline-size: 64px;
         --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
-      }
-
-      .actions {
-        gap: 8px;
       }
 
       .survey-link-icon {

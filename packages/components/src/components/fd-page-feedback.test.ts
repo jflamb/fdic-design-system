@@ -243,4 +243,22 @@ describe("FdPageFeedback", () => {
     const el = await createFeedback();
     await expectNoAxeViolations(el);
   });
+
+  it("uses the button-group spacing token for grouped actions", async () => {
+    const el = await createFeedback();
+    el.style.setProperty("--fd-button-group-gap", "1.5rem");
+    await el.updateComplete;
+
+    const responses = getPart(el, "responses");
+    const actions = el.shadowRoot?.querySelector(".actions") as HTMLElement | null;
+
+    expect(getComputedStyle(responses as HTMLElement).gap).toContain(
+      "--fd-page-feedback-action-gap",
+    );
+    expect(getComputedStyle(responses as HTMLElement).gap).toContain("1.5rem");
+    expect(getComputedStyle(actions as HTMLElement).gap).toContain(
+      "--fd-page-feedback-action-gap",
+    );
+    expect(getComputedStyle(actions as HTMLElement).gap).toContain("1.5rem");
+  });
 });

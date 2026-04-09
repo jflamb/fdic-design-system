@@ -181,7 +181,10 @@ export class FdPageHeader extends LitElement {
     .actions {
       display: flex;
       align-items: flex-end;
-      gap: var(--fd-page-header-actions-gap, 8px);
+      gap: var(
+        --fd-page-header-actions-gap,
+        var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem))
+      );
       flex-shrink: 0;
       padding-block-end: var(--fd-page-header-actions-offset, 8px);
     }
@@ -224,7 +227,6 @@ export class FdPageHeader extends LitElement {
 
       .actions {
         padding-block-end: 0;
-        gap: var(--fd-page-header-actions-gap-mobile, 6px);
       }
     }
 

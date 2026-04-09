@@ -228,6 +228,21 @@ describe("FdPageHeader", () => {
     expect(actions?.classList.contains("actions-hidden")).toBe(false);
   });
 
+  it("uses the button-group spacing token for slotted action groups", async () => {
+    const el = await createPageHeader(
+      { heading: "Account Overview" },
+      { actionElements: [makeButton("Print"), makeButton("Share")] },
+    );
+    el.style.setProperty("--fd-button-group-gap", "1.5rem");
+    await el.updateComplete;
+    const actions = getActionsContainer(el) as HTMLElement | null;
+
+    expect(getComputedStyle(actions as HTMLElement).gap).toContain(
+      "--fd-page-header-actions-gap",
+    );
+    expect(getComputedStyle(actions as HTMLElement).gap).toContain("1.5rem");
+  });
+
   // --- Property defaults ---
 
   it("defaults heading to empty string", async () => {
