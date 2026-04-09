@@ -79,6 +79,7 @@ const renderFooter = (args: GlobalFooterArgs) => html`
     style=${[
       FRAME_STYLE,
       "padding: 0",
+      "width: 100%",
       `max-width: ${args.mobile ? "390px" : "1200px"}`,
       `margin: 0 auto`,
     ].join("; ")}
