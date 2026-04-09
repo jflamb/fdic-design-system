@@ -66,6 +66,15 @@ All interactive elements must use the standard focus ring approach:
 
 ## 2. Component Specifications
 
+### 2.0 Collection Layouts (`fd-card-group`, `fd-tile-list`, `fd-event-list`)
+- Collection wrappers use CSS Grid to flow items left-to-right, then top-to-bottom.
+- Use the approved layout recipes only: `2`, `3`, and `4` columns.
+- Width constraints and gaps must come from the corresponding Figma `col-#-min`, `col-#-max`, and `col-#-gap` variables.
+- Collection layout behavior is container-aware. Components should react to their available inline size rather than only to the viewport.
+- When Figma uses very large mobile max values to indicate effectively unbounded tracks, treat that as a fill behavior in code rather than exposing a literal `9999px` contract.
+- Collection wrappers own the responsive grid rules. Child cards, tiles, and event items should stretch to fill the assigned track instead of defining competing layout widths.
+- Preserve list semantics for content collections: the wrapper should expose `role="list"` and direct collection items should expose `role="listitem"` when native semantics do not already provide the correct structure.
+
 ### 2.1 Buttons (`fd-button`)
 - **Focus State:** Employs the standard 2px gap and 4px focus ring.
 - **Hover/Active:** Utilizes `--ds-color-overlay-hover` and `--ds-color-bg-active` over the base background to indicate interactivity.
