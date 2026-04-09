@@ -28,6 +28,24 @@ describe("FdCardGroup", () => {
     el.remove();
   });
 
+  it("normalizes invalid columns values back to the default recipe", async () => {
+    const el = document.createElement("fd-card-group") as HTMLElement & {
+      columns?: "2" | "3" | "4";
+      updateComplete: Promise<void>;
+    };
+
+    el.setAttribute("columns", "5");
+    document.body.appendChild(el);
+
+    await el.updateComplete;
+    await el.updateComplete;
+
+    expect(el.columns).toBe("3");
+    expect(el.getAttribute("columns")).toBe("3");
+
+    el.remove();
+  });
+
   it("assigns listitem semantics to slotted fd-card children", async () => {
     const group = document.createElement("fd-card-group") as HTMLElement & {
       updateComplete: Promise<void>;

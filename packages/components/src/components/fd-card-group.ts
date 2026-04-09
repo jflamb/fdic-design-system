@@ -65,14 +65,9 @@ export class FdCardGroup extends LitElement {
       display: contents;
     }
 
-    ::slotted(fd-card) {
-      display: block;
+    ::slotted(*) {
       inline-size: 100%;
       min-inline-size: 0;
-      max-inline-size: 100%;
-    }
-
-    ::slotted(*) {
       max-inline-size: 100%;
     }
   `,
@@ -103,6 +98,7 @@ export class FdCardGroup extends LitElement {
   }
 
   override firstUpdated() {
+    super.firstUpdated();
     this._childController.sync();
     this._updateNarrowLayout();
   }
@@ -115,6 +111,8 @@ export class FdCardGroup extends LitElement {
   }
 
   override updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
     if (changedProperties.has("columns")) {
       const normalized = normalizeColumns(this.columns);
       if (normalized !== this.columns) {

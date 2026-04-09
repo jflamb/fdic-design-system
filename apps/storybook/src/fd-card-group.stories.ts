@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -94,7 +95,7 @@ const meta = {
     label: "Latest updates",
   },
   render: (args: CardGroupArgs) => html`
-    <fd-card-group columns=${args.columns} label=${args.label}>
+    <fd-card-group columns=${args.columns} label=${ifDefined(args.label)}>
       ${renderCardSet()}
     </fd-card-group>
   `,
