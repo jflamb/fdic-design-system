@@ -6,7 +6,6 @@ import {
   COLLECTION_COLUMNS,
   type CollectionColumns,
   collectionGridStyles,
-  getCollectionNarrowThresholdPx,
 } from "./collection-grid.js";
 import { EVENT_TONES, type EventTone } from "./fd-event.js";
 
@@ -87,7 +86,6 @@ export class FdEventList extends LitElement {
     isManagedChild: isEventElement,
     slot: () => this.shadowRoot?.querySelector("slot") ?? null,
   });
-  private _resizeObserver: ResizeObserver | null = null;
 
   constructor() {
     super();
@@ -96,15 +94,9 @@ export class FdEventList extends LitElement {
     this.tone = "neutral";
   }
 
-  override connectedCallback() {
-    super.connectedCallback();
-    this._startObservingLayout();
-  }
-
   override firstUpdated(changedProperties: PropertyValues) {
     super.firstUpdated(changedProperties);
     this._childController.sync();
-    this._updateNarrowLayout();
   }
 
   override updated(changedProperties: PropertyValues) {
@@ -116,8 +108,6 @@ export class FdEventList extends LitElement {
         this.columns = normalized;
         return;
       }
-
-      this._updateNarrowLayout();
     }
 
     if (changedProperties.has("tone")) {
@@ -126,22 +116,8 @@ export class FdEventList extends LitElement {
   }
 
   override disconnectedCallback() {
-    this._resizeObserver?.disconnect();
-    this._resizeObserver = null;
     this._childController.disconnect();
     super.disconnectedCallback();
-  }
-
-  private _startObservingLayout() {
-    if (typeof ResizeObserver === "undefined") {
-      return;
-    }
-
-    this._resizeObserver?.disconnect();
-    this._resizeObserver = new ResizeObserver(() => {
-      this._updateNarrowLayout();
-    });
-    this._resizeObserver.observe(this);
   }
 
   private _applyToneToEvent(element: HTMLElement, tone: EventTone) {
@@ -149,23 +125,6 @@ export class FdEventList extends LitElement {
 
     if (element.getAttribute("tone") !== tone) {
       element.setAttribute("tone", tone);
-    }
-  }
-
-  private _updateNarrowLayout() {
-    const columns = normalizeColumns(this.columns);
-    const threshold = getCollectionNarrowThresholdPx(
-      this,
-      "fd-event-list",
-      columns,
-    );
-    const inlineSize = this.clientWidth || this.getBoundingClientRect().width || 0;
-    const shouldUseNarrow = inlineSize > 0 && inlineSize < threshold;
-
-    if (shouldUseNarrow) {
-      this.setAttribute("data-narrow", "");
-    } else {
-      this.removeAttribute("data-narrow");
     }
   }
 

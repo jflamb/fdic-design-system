@@ -97,7 +97,7 @@ describe("FdCardGroup", () => {
     expect(styles).toContain("--fd-card-group-col-4-min-mobile: 160px;");
     expect(styles).toContain("--fd-card-group-col-4-max-mobile: 180px;");
     expect(styles).toContain("--fd-card-group-col-4-gap-mobile: 16px;");
-    expect(styles).toContain(":host([data-narrow][columns=\"2\"])");
+    expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
 
     el.remove();

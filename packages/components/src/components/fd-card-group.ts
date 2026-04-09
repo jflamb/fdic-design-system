@@ -6,7 +6,6 @@ import {
   COLLECTION_COLUMNS,
   type CollectionColumns,
   collectionGridStyles,
-  getCollectionNarrowThresholdPx,
 } from "./collection-grid.js";
 
 export const CARD_GROUP_COLUMNS = COLLECTION_COLUMNS;
@@ -84,7 +83,6 @@ export class FdCardGroup extends LitElement {
     isManagedChild: isCardElement,
     slot: () => this.shadowRoot?.querySelector("slot") ?? null,
   });
-  private _resizeObserver: ResizeObserver | null = null;
 
   constructor() {
     super();
@@ -92,20 +90,12 @@ export class FdCardGroup extends LitElement {
     this.label = undefined;
   }
 
-  override connectedCallback() {
-    super.connectedCallback();
-    this._startObservingLayout();
-  }
-
   override firstUpdated() {
     super.firstUpdated();
     this._childController.sync();
-    this._updateNarrowLayout();
   }
 
   override disconnectedCallback() {
-    this._resizeObserver?.disconnect();
-    this._resizeObserver = null;
     this._childController.disconnect();
     super.disconnectedCallback();
   }
@@ -119,37 +109,6 @@ export class FdCardGroup extends LitElement {
         this.columns = normalized;
         return;
       }
-
-      this._updateNarrowLayout();
-    }
-  }
-
-  private _startObservingLayout() {
-    if (typeof ResizeObserver === "undefined") {
-      return;
-    }
-
-    this._resizeObserver?.disconnect();
-    this._resizeObserver = new ResizeObserver(() => {
-      this._updateNarrowLayout();
-    });
-    this._resizeObserver.observe(this);
-  }
-
-  private _updateNarrowLayout() {
-    const columns = normalizeColumns(this.columns);
-    const threshold = getCollectionNarrowThresholdPx(
-      this,
-      "fd-card-group",
-      columns,
-    );
-    const inlineSize = this.clientWidth || this.getBoundingClientRect().width || 0;
-    const shouldUseNarrow = inlineSize > 0 && inlineSize < threshold;
-
-    if (shouldUseNarrow) {
-      this.setAttribute("data-narrow", "");
-    } else {
-      this.removeAttribute("data-narrow");
     }
   }
 

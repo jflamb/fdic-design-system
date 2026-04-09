@@ -9,6 +9,11 @@ const FIGMA_NARROW_MAX_PX: Record<CollectionColumns, number> = {
   "3": 9999,
   "4": 180,
 };
+const FIGMA_NARROW_THRESHOLD_PX: Record<CollectionColumns, number> = {
+  "2": 816,
+  "3": 1176,
+  "4": 1168,
+};
 
 function trackMinToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
   const suffix = narrow ? `col-${columns}-min-mobile` : `col-${columns}-min`;
@@ -30,11 +35,13 @@ function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boole
 }
 
 function selector(columns: CollectionColumns, narrow: boolean) {
-  return narrow ? `:host([data-narrow][columns="${columns}"])` : `:host([columns="${columns}"])`;
+  return narrow ? `:host([columns="${columns}"])` : `:host([columns="${columns}"])`;
 }
 
 function defaultSelector(narrow: boolean) {
-  return narrow ? ":host([data-narrow]):not([columns]), :host([data-narrow][columns=\"3\"])" : ":host(:not([columns])), :host([columns=\"3\"])";
+  return narrow
+    ? ":host(:not([columns])), :host([columns=\"3\"])"
+    : ":host(:not([columns])), :host([columns=\"3\"])";
 }
 
 export function collectionGridStyles(prefix: string) {
@@ -66,24 +73,6 @@ export function collectionGridStyles(prefix: string) {
       ${internalGap}: var(${trackGapToken(prefix, "4", false)});
     }
 
-    ${unsafeCSS(defaultSelector(true))} {
-      ${internalMin}: min(100%, var(${trackMinToken(prefix, "3", true)}));
-      ${internalMax}: ${trackMaxValue(prefix, "3", true)};
-      ${internalGap}: var(${trackGapToken(prefix, "3", true)});
-    }
-
-    ${unsafeCSS(selector("2", true))} {
-      ${internalMin}: min(100%, var(${trackMinToken(prefix, "2", true)}));
-      ${internalMax}: ${trackMaxValue(prefix, "2", true)};
-      ${internalGap}: var(${trackGapToken(prefix, "2", true)});
-    }
-
-    ${unsafeCSS(selector("4", true))} {
-      ${internalMin}: min(100%, var(${trackMinToken(prefix, "4", true)}));
-      ${internalMax}: ${trackMaxValue(prefix, "4", true)};
-      ${internalGap}: var(${trackGapToken(prefix, "4", true)});
-    }
-
     [part="base"] {
       display: grid;
       grid-auto-flow: row;
@@ -97,52 +86,31 @@ export function collectionGridStyles(prefix: string) {
       inline-size: 100%;
       box-sizing: border-box;
     }
+
+    @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["3"] - 1}px`)}) {
+      ${unsafeCSS(defaultSelector(true))} {
+        ${internalMin}: min(100%, var(${trackMinToken(prefix, "3", true)}));
+        ${internalMax}: ${trackMaxValue(prefix, "3", true)};
+        ${internalGap}: var(${trackGapToken(prefix, "3", true)});
+      }
+    }
+
+    @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["2"] - 1}px`)}) {
+      ${unsafeCSS(selector("2", true))} {
+        ${internalMin}: min(100%, var(${trackMinToken(prefix, "2", true)}));
+        ${internalMax}: ${trackMaxValue(prefix, "2", true)};
+        ${internalGap}: var(${trackGapToken(prefix, "2", true)});
+      }
+    }
+
+    @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["4"] - 1}px`)}) {
+      ${unsafeCSS(selector("4", true))} {
+        ${internalMin}: min(100%, var(${trackMinToken(prefix, "4", true)}));
+        ${internalMax}: ${trackMaxValue(prefix, "4", true)};
+        ${internalGap}: var(${trackGapToken(prefix, "4", true)});
+      }
+    }
   `;
-}
-
-function parseLengthToPx(value: string, computedStyle: CSSStyleDeclaration) {
-  const normalized = value.trim();
-  if (!normalized) {
-    return 0;
-  }
-
-  if (normalized.endsWith("px")) {
-    return Number.parseFloat(normalized);
-  }
-
-  if (normalized.endsWith("rem")) {
-    const rootFontSize = Number.parseFloat(
-      getComputedStyle(document.documentElement).fontSize || "16",
-    );
-    return Number.parseFloat(normalized) * rootFontSize;
-  }
-
-  if (normalized.endsWith("em")) {
-    const fontSize = Number.parseFloat(computedStyle.fontSize || "16");
-    return Number.parseFloat(normalized) * fontSize;
-  }
-
-  const parsed = Number.parseFloat(normalized);
-  return Number.isFinite(parsed) ? parsed : 0;
-}
-
-export function getCollectionNarrowThresholdPx(
-  host: HTMLElement,
-  prefix: string,
-  columns: CollectionColumns,
-) {
-  const computedStyle = getComputedStyle(host);
-  const count = Number.parseInt(columns, 10);
-  const min = parseLengthToPx(
-    computedStyle.getPropertyValue(`--${prefix}-col-${columns}-min`),
-    computedStyle,
-  );
-  const gap = parseLengthToPx(
-    computedStyle.getPropertyValue(`--${prefix}-col-${columns}-gap`),
-    computedStyle,
-  );
-
-  return count * min + (count - 1) * gap;
 }
 
 function isUnboundedTrackValue(value: number | string) {

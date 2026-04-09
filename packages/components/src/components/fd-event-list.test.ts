@@ -145,7 +145,7 @@ describe("FdEventList", () => {
     expect(styles).toContain("--fd-event-list-col-2-min: 384px;");
     expect(styles).toContain("--fd-event-list-col-3-max: 440px;");
     expect(styles).toContain("--fd-event-list-col-4-gap-mobile: 16px;");
-    expect(styles).toContain(":host([data-narrow][columns=\"2\"])");
+    expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
   });
 });
