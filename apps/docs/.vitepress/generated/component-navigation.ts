@@ -4,40 +4,40 @@ export const componentSidebarGroups = [
     text: "Forms & Input",
     items: [
       { text: "Label", link: "/components/label" },
+      { text: "Field", link: "/components/field" },
+      { text: "Message", link: "/components/message" },
       { text: "Input", link: "/components/input" },
       { text: "Text Area", link: "/components/textarea" },
+      { text: "Selector", link: "/components/selector" },
       { text: "Checkbox", link: "/components/checkbox" },
       { text: "Checkbox Group", link: "/components/checkbox-group" },
       { text: "Radio", link: "/components/radio" },
       { text: "Radio Group", link: "/components/radio-group" },
-      { text: "Selector", link: "/components/selector" },
-      { text: "File Input", link: "/components/file-input" },
       { text: "Slider", link: "/components/slider" },
-      { text: "Field", link: "/components/field" },
-      { text: "Message", link: "/components/message" }
+      { text: "File Input", link: "/components/file-input" }
     ]
   },
   {
     text: "Actions & Navigation",
     items: [
+      { text: "Link", link: "/components/link" },
       { text: "Button", link: "/components/button" },
       { text: "Button Group", link: "/components/button-group" },
       { text: "Split Button", link: "/components/split-button" },
-      { text: "Link", link: "/components/link" },
       { text: "Menu", link: "/components/menu" },
+      { text: "Pagination", link: "/components/pagination" },
       { text: "Tile", link: "/components/tile" },
       { text: "Tile List", link: "/components/tile-list" },
       { text: "Event", link: "/components/event" },
-      { text: "Event List", link: "/components/event-list" },
-      { text: "Pagination", link: "/components/pagination" }
+      { text: "Event List", link: "/components/event-list" }
     ]
   },
   {
     text: "Feedback & Status",
     items: [
       { text: "Alert", link: "/components/alert" },
-      { text: "Badge", link: "/components/badge" },
       { text: "Page Feedback", link: "/components/page-feedback" },
+      { text: "Badge", link: "/components/badge" },
       { text: "Badge Group", link: "/components/badge-group" },
       { text: "Chip", link: "/components/chip" },
       { text: "Chip Group", link: "/components/chip-group" }
@@ -47,21 +47,21 @@ export const componentSidebarGroups = [
     text: "Layout & Shell",
     items: [
       { text: "Global Header", link: "/components/global-header" },
-      { text: "Page Header", link: "/components/page-header" },
-      { text: "Hero", link: "/components/hero" },
-      { text: "Global Footer", link: "/components/global-footer" },
       { text: "Header Search", link: "/components/header-search" },
       { text: "Drawer", link: "/components/drawer" },
+      { text: "Page Header", link: "/components/page-header" },
+      { text: "Hero", link: "/components/hero" },
       { text: "Card Group", link: "/components/card-group" },
-      { text: "Stripe", link: "/components/stripe" }
+      { text: "Stripe", link: "/components/stripe" },
+      { text: "Global Footer", link: "/components/global-footer" }
     ]
   },
   {
     text: "Visual & Media",
     items: [
-      { text: "Icon", link: "/components/icon" },
+      { text: "Card", link: "/components/card" },
       { text: "Visual", link: "/components/visual" },
-      { text: "Card", link: "/components/card" }
+      { text: "Icon", link: "/components/icon" }
     ]
   }
 ];

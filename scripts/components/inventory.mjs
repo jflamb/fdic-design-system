@@ -23,7 +23,7 @@ export const componentInventory = [
       title: "Button",
       slug: "button",
       category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
-      order: 10,
+      order: 20,
     },
     storybook: {
       title: "Components/Button",
@@ -45,7 +45,7 @@ export const componentInventory = [
       title: "Button Group",
       slug: "button-group",
       category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
-      order: 20,
+      order: 30,
     },
     storybook: {
       title: "Components/Button Group",
@@ -67,7 +67,7 @@ export const componentInventory = [
       title: "Checkbox",
       slug: "checkbox",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 40,
+      order: 70,
     },
     storybook: {
       title: "Components/Checkbox",
@@ -89,7 +89,7 @@ export const componentInventory = [
       title: "Checkbox Group",
       slug: "checkbox-group",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 50,
+      order: 80,
     },
     storybook: {
       title: "Components/Checkbox Group",
@@ -111,7 +111,7 @@ export const componentInventory = [
       title: "Field",
       slug: "field",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 100,
+      order: 20,
     },
     storybook: {
       title: "Supporting Primitives/Field",
@@ -133,7 +133,7 @@ export const componentInventory = [
       title: "Icon",
       slug: "icon",
       category: DOCS_CATEGORIES.VISUAL_MEDIA,
-      order: 10,
+      order: 30,
     },
     storybook: {
       title: "Components/Icon",
@@ -155,7 +155,7 @@ export const componentInventory = [
       title: "Input",
       slug: "input",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 20,
+      order: 40,
     },
     storybook: {
       title: "Components/Input",
@@ -199,7 +199,7 @@ export const componentInventory = [
       title: "Menu",
       slug: "menu",
       category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
-      order: 40,
+      order: 50,
     },
     storybook: {
       title: "Components/Menu",
@@ -237,7 +237,7 @@ export const componentInventory = [
       title: "Message",
       slug: "message",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 110,
+      order: 30,
     },
     storybook: {
       title: "Supporting Primitives/Message",
@@ -275,7 +275,7 @@ export const componentInventory = [
       title: "Radio",
       slug: "radio",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 60,
+      order: 90,
     },
     storybook: {
       title: "Components/Radio",
@@ -297,7 +297,7 @@ export const componentInventory = [
       title: "Radio Group",
       slug: "radio-group",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 70,
+      order: 100,
     },
     storybook: {
       title: "Components/Radio Group",
@@ -319,7 +319,7 @@ export const componentInventory = [
       title: "Selector",
       slug: "selector",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 80,
+      order: 60,
     },
     storybook: {
       title: "Components/Selector",
@@ -341,7 +341,7 @@ export const componentInventory = [
       title: "Split Button",
       slug: "split-button",
       category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
-      order: 30,
+      order: 40,
     },
     storybook: {
       title: "Components/Split Button",
@@ -378,7 +378,7 @@ export const componentInventory = [
       title: "File Input",
       slug: "file-input",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 90,
+      order: 120,
     },
     storybook: {
       title: "Components/File Input",
@@ -407,7 +407,7 @@ export const componentInventory = [
       title: "Slider",
       slug: "slider",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 95,
+      order: 110,
     },
     storybook: {
       title: "Components/Slider",
@@ -429,7 +429,7 @@ export const componentInventory = [
       title: "Badge",
       slug: "badge",
       category: DOCS_CATEGORIES.FEEDBACK_STATUS,
-      order: 20,
+      order: 30,
     },
     storybook: {
       title: "Components/Badge",
@@ -451,7 +451,7 @@ export const componentInventory = [
       title: "Badge Group",
       slug: "badge-group",
       category: DOCS_CATEGORIES.FEEDBACK_STATUS,
-      order: 30,
+      order: 40,
     },
     storybook: {
       title: "Components/Badge Group",
@@ -473,7 +473,7 @@ export const componentInventory = [
       title: "Chip",
       slug: "chip",
       category: DOCS_CATEGORIES.FEEDBACK_STATUS,
-      order: 40,
+      order: 50,
     },
     storybook: {
       title: "Components/Chip",
@@ -495,7 +495,7 @@ export const componentInventory = [
       title: "Chip Group",
       slug: "chip-group",
       category: DOCS_CATEGORIES.FEEDBACK_STATUS,
-      order: 50,
+      order: 60,
     },
     storybook: {
       title: "Components/Chip Group",
@@ -517,7 +517,7 @@ export const componentInventory = [
       title: "Text Area",
       slug: "textarea",
       category: DOCS_CATEGORIES.FORMS_INPUT,
-      order: 30,
+      order: 50,
     },
     storybook: {
       title: "Components/Text Area",
@@ -583,7 +583,7 @@ export const componentInventory = [
       title: "Stripe",
       slug: "stripe",
       category: DOCS_CATEGORIES.LAYOUT_SHELL,
-      order: 40,
+      order: 70,
     },
     storybook: {
       title: "Supporting Primitives/Stripe",
@@ -605,7 +605,7 @@ export const componentInventory = [
       title: "Link",
       slug: "link",
       category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
-      order: 35,
+      order: 10,
     },
     storybook: {
       title: "Components/Link",
@@ -627,7 +627,7 @@ export const componentInventory = [
       title: "Pagination",
       slug: "pagination",
       category: DOCS_CATEGORIES.ACTIONS_NAVIGATION,
-      order: 50,
+      order: 60,
     },
     storybook: {
       title: "Components/Pagination",
@@ -732,7 +732,7 @@ export const componentInventory = [
       title: "Page Header",
       slug: "page-header",
       category: "layout-shell",
-      order: 15
+      order: 40
     },
     storybook: {
       title: "Components/Page Header",
@@ -769,7 +769,7 @@ export const componentInventory = [
       title: "Hero",
       slug: "hero",
       category: "layout-shell",
-      order: 16
+      order: 50
     },
     storybook: {
       title: "Components/Hero",
@@ -818,7 +818,7 @@ export const componentInventory = [
       title: "Event",
       slug: "event",
       category: "actions-navigation",
-      order: 47
+      order: 90
     },
     storybook: {
       title: "Components/Event",
@@ -840,7 +840,7 @@ export const componentInventory = [
       title: "Event List",
       slug: "event-list",
       category: "actions-navigation",
-      order: 48
+      order: 100
     },
     storybook: {
       title: "Components/Event List",
@@ -862,7 +862,7 @@ export const componentInventory = [
       title: "Tile",
       slug: "tile",
       category: "actions-navigation",
-      order: 45
+      order: 70
     },
     storybook: {
       title: "Components/Tile",
@@ -884,7 +884,7 @@ export const componentInventory = [
       title: "Tile List",
       slug: "tile-list",
       category: "actions-navigation",
-      order: 46
+      order: 80
     },
     storybook: {
       title: "Components/Tile List",
@@ -906,7 +906,7 @@ export const componentInventory = [
       title: "Card",
       slug: "card",
       category: "visual-media",
-      order: 30
+      order: 10
     },
     storybook: {
       title: "Components/Card",
@@ -928,7 +928,7 @@ export const componentInventory = [
       title: "Global Footer",
       slug: "global-footer",
       category: DOCS_CATEGORIES.LAYOUT_SHELL,
-      order: 17,
+      order: 80,
     },
     storybook: {
       title: "Components/Global Footer",
@@ -954,7 +954,7 @@ export const componentInventory = [
       title: "Card Group",
       slug: "card-group",
       category: "layout-shell",
-      order: 40
+      order: 60
     },
     storybook: {
       title: "Components/Card Group",
