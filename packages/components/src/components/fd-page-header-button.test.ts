@@ -80,7 +80,7 @@ describe("FdPageHeaderButton", () => {
     expect(stylesheet).toContain("var(--ds-gradient-glass-button)");
     expect(stylesheet).toContain("var(--ds-gradient-glass-sheen)");
     expect(stylesheet).toContain("var(--ds-color-border-glass)");
-    expect(stylesheet).toContain("backdrop-filter: blur(16px) saturate(165%)");
+    expect(stylesheet).toContain("backdrop-filter: blur(12px) saturate(140%)");
   });
 
   it("passes axe checks", async () => {

@@ -15,11 +15,11 @@ export class FdPageHeaderButton extends LitElement {
       display: inline-flex;
       --fd-page-header-button-sheen: var(--ds-gradient-glass-sheen);
       --fd-page-header-button-shadow:
-        0 10px 24px oklch(from var(--ds-color-neutral-1000) l c h / 0.16),
-        0 2px 6px oklch(from var(--ds-color-neutral-1000) l c h / 0.12);
+        0 6px 16px oklch(from var(--ds-color-neutral-1000) l c h / 0.12),
+        0 1px 3px oklch(from var(--ds-color-neutral-1000) l c h / 0.08);
       --fd-page-header-button-shadow-hover:
-        0 14px 28px oklch(from var(--ds-color-neutral-1000) l c h / 0.2),
-        0 4px 10px oklch(from var(--ds-color-neutral-1000) l c h / 0.14);
+        0 8px 18px oklch(from var(--ds-color-neutral-1000) l c h / 0.14),
+        0 2px 5px oklch(from var(--ds-color-neutral-1000) l c h / 0.1);
       --fd-page-header-button-overlay-hover: var(--ds-color-overlay-brand-hover);
       --fd-page-header-button-overlay-active: var(--ds-color-overlay-brand-pressed);
     }
@@ -41,8 +41,8 @@ export class FdPageHeaderButton extends LitElement {
       background:
         var(--fd-page-header-button-sheen),
         var(--fd-page-header-button-background, var(--ds-gradient-glass-button));
-      backdrop-filter: blur(16px) saturate(165%);
-      -webkit-backdrop-filter: blur(16px) saturate(165%);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
       color: var(
         --fd-page-header-button-text-color,
         var(--ds-color-text-inverted)
@@ -70,8 +70,8 @@ export class FdPageHeaderButton extends LitElement {
       overflow: clip;
       isolation: isolate;
       box-shadow:
-        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.32),
-        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.18),
+        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.22),
+        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.12),
         var(--fd-page-header-button-shadow);
       transition:
         box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -89,10 +89,10 @@ export class FdPageHeaderButton extends LitElement {
       background:
         radial-gradient(
           circle at top left,
-          oklch(from var(--ds-color-neutral-000) l c h / 0.34) 0%,
+          oklch(from var(--ds-color-neutral-000) l c h / 0.22) 0%,
           oklch(from var(--ds-color-neutral-000) l c h / 0) 60%
         );
-      opacity: 0.95;
+      opacity: 0.72;
       transition:
         box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
         opacity var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -103,42 +103,42 @@ export class FdPageHeaderButton extends LitElement {
       position: absolute;
       inset: 1px;
       border-radius: inherit;
-      border: 1px solid oklch(from var(--ds-color-neutral-000) l c h / 0.14);
+      border: 1px solid oklch(from var(--ds-color-neutral-000) l c h / 0.1);
       pointer-events: none;
-      opacity: 0.7;
+      opacity: 0.5;
       transition: opacity var(--ds-motion-duration-fast, 120ms)
         cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base:hover {
       box-shadow:
-        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.42),
-        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.22),
+        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.28),
+        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.16),
         var(--fd-page-header-button-shadow-hover);
-      transform: translateY(-1px);
+      transform: translateY(-0.5px);
     }
 
     .base:hover::before {
       box-shadow: inset 0 0 0 999px var(--fd-page-header-button-overlay-hover);
-      opacity: 1;
+      opacity: 0.82;
     }
 
     .base:active::before {
       box-shadow: inset 0 0 0 999px var(--fd-page-header-button-overlay-active);
-      opacity: 0.85;
+      opacity: 0.72;
     }
 
     .base:active {
       transform: translateY(0);
       box-shadow:
-        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.24),
-        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.28),
-        0 6px 16px oklch(from var(--ds-color-neutral-1000) l c h / 0.16);
+        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.18),
+        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.18),
+        0 4px 10px oklch(from var(--ds-color-neutral-1000) l c h / 0.12);
     }
 
     .base:hover::after,
     .base:focus-visible::after {
-      opacity: 0.95;
+      opacity: 0.7;
     }
 
     .base:focus {
