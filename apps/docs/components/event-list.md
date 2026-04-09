@@ -1,6 +1,6 @@
 # Event List
 
-The Event List component arranges direct event children in a responsive wrapping layout and enforces one shared tone across the set.
+The Event List component arranges direct event children in a responsive wrapping layout, uses the FDIC Figma column-width constraints for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared tone across the set.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -11,6 +11,7 @@ The Event List component arranges direct event children in a responsive wrapping
 
 - **Responsive groups of related events** — use Event List when one event row is not enough and the set should wrap naturally across wider layouts.
 - **Collections that should share one time-intent tone** — choose a single `tone` for the list so every grouped event uses the same warm, neutral, or cool treatment.
+- **Layouts that need a specific FDIC column density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the design-system width ranges.
 - **Pages that already provide visible section context** — use `label` only when nearby visible copy does not already name the set clearly.
 
 ## When not to use
@@ -64,7 +65,8 @@ The Event List component arranges direct event children in a responsive wrapping
 - **Author direct `fd-event` children.** `fd-event-list` assigns list-item semantics and shared tone to direct children only.
 - **Set tone on the list, not on individual grouped events.** The list enforces one shared tone so a set reads as one coherent group.
 - **Use `label` only when needed.** If visible heading text already names the set, leave `label` unset to avoid redundant announcements.
-- **Let the layout wrap naturally.** The component defaults to a `384px` minimum preferred column size. Override the documented spacing hooks only when a page layout truly needs denser or looser wrapping.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the FDIC Figma `col-2`, `col-3`, and `col-4` width and gap variables.
+- **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Keep grouping honest.** Event List does not add active state, filtering, sorting, or focus management. Those remain application concerns.
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -72,6 +74,7 @@ The Event List component arranges direct event children in a responsive wrapping
 
 | Name | Type | Default | Description |
 |---|---|---|---|
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Shared decorative tone applied to each direct `fd-event` child in the list. |
 
@@ -90,9 +93,22 @@ The Event List component arranges direct event children in a responsive wrapping
 
 | Name | Default | Description |
 |---|---|---|
-| `--fd-event-list-min-column-size` | `384px` | Minimum preferred inline size for each responsive event column. |
-| `--fd-event-list-row-gap` | `20px` | Gap between event rows. |
-| `--fd-event-list-column-gap` | `24px` | Gap between event columns. |
+| `--fd-event-list-col-2-min` | `384px` | Desktop minimum event-track width for the two-column constraint set. |
+| `--fd-event-list-col-2-max` | `688px` | Desktop maximum event-track width for the two-column constraint set. |
+| `--fd-event-list-col-2-gap` | `48px` | Desktop row and column gap for the two-column constraint set. |
+| `--fd-event-list-col-3-min` | `360px` | Desktop minimum event-track width for the three-column constraint set. |
+| `--fd-event-list-col-3-max` | `440px` | Desktop maximum event-track width for the three-column constraint set. |
+| `--fd-event-list-col-3-gap` | `48px` | Desktop row and column gap for the three-column constraint set. |
+| `--fd-event-list-col-4-min` | `256px` | Desktop minimum event-track width for the four-column constraint set. |
+| `--fd-event-list-col-4-max` | `320px` | Desktop maximum event-track width for the four-column constraint set. |
+| `--fd-event-list-col-4-gap` | `48px` | Desktop row and column gap for the four-column constraint set. |
+| `--fd-event-list-col-2-min-mobile` | `320px` | Narrow-screen minimum event-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum. |
+| `--fd-event-list-col-2-gap-mobile` | `16px` | Narrow-screen row and column gap for the two-column constraint set. |
+| `--fd-event-list-col-3-min-mobile` | `200px` | Narrow-screen minimum event-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum. |
+| `--fd-event-list-col-3-gap-mobile` | `16px` | Narrow-screen row and column gap for the three-column constraint set. |
+| `--fd-event-list-col-4-min-mobile` | `160px` | Narrow-screen minimum event-track width for the four-column constraint set. |
+| `--fd-event-list-col-4-max-mobile` | `180px` | Narrow-screen maximum event-track width for the four-column constraint set. |
+| `--fd-event-list-col-4-gap-mobile` | `16px` | Narrow-screen row and column gap for the four-column constraint set. |
 
 ## Shadow parts
 

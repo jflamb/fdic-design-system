@@ -8,56 +8,53 @@ import {
   collectionGridStyles,
   getCollectionNarrowThresholdPx,
 } from "./collection-grid.js";
-import { EVENT_TONES, type EventTone } from "./fd-event.js";
 
-function isEventElement(node: Element): node is HTMLElement {
-  return node.tagName.toLowerCase() === "fd-event";
+export const CARD_GROUP_COLUMNS = COLLECTION_COLUMNS;
+export type CardGroupColumns = CollectionColumns;
+
+const CARD_GROUP_COLUMNS_SET = new Set<string>(CARD_GROUP_COLUMNS);
+
+function isCardElement(node: Element): node is HTMLElement {
+  return node.tagName.toLowerCase() === "fd-card";
 }
 
-const EVENT_TONE_SET = new Set<string>(EVENT_TONES);
-const EVENT_LIST_COLUMNS_SET = new Set<string>(COLLECTION_COLUMNS);
-
-function normalizeEventTone(value: string | undefined): EventTone {
-  return value && EVENT_TONE_SET.has(value) ? (value as EventTone) : "neutral";
-}
-
-function normalizeColumns(value: string | undefined): CollectionColumns {
-  return value && EVENT_LIST_COLUMNS_SET.has(value)
-    ? (value as CollectionColumns)
+function normalizeColumns(value: string | undefined): CardGroupColumns {
+  return value && CARD_GROUP_COLUMNS_SET.has(value)
+    ? (value as CardGroupColumns)
     : "3";
 }
 
 /**
- * `fd-event-list` — Responsive list layout for direct `fd-event` children.
+ * `fd-card-group` — Responsive list/grid wrapper for related cards.
  */
-export class FdEventList extends LitElement {
+export class FdCardGroup extends LitElement {
   static properties = {
     columns: { reflect: true },
     label: { reflect: true },
-    tone: { reflect: true },
   };
 
   static styles = [
-    collectionGridStyles("fd-event-list"),
+    collectionGridStyles("fd-card-group"),
     css`
     :host {
       display: block;
-      --fd-event-list-col-2-min: 384px;
-      --fd-event-list-col-2-max: 688px;
-      --fd-event-list-col-2-gap: 48px;
-      --fd-event-list-col-3-min: 360px;
-      --fd-event-list-col-3-max: 440px;
-      --fd-event-list-col-3-gap: 48px;
-      --fd-event-list-col-4-min: 256px;
-      --fd-event-list-col-4-max: 320px;
-      --fd-event-list-col-4-gap: 48px;
-      --fd-event-list-col-2-min-mobile: 320px;
-      --fd-event-list-col-2-gap-mobile: 16px;
-      --fd-event-list-col-3-min-mobile: 200px;
-      --fd-event-list-col-3-gap-mobile: 16px;
-      --fd-event-list-col-4-min-mobile: 160px;
-      --fd-event-list-col-4-max-mobile: 180px;
-      --fd-event-list-col-4-gap-mobile: 16px;
+      --fd-card-group-col-2-min: 384px;
+      --fd-card-group-col-2-max: 688px;
+      --fd-card-group-col-2-gap: 48px;
+      --fd-card-group-col-3-min: 360px;
+      --fd-card-group-col-3-max: 440px;
+      --fd-card-group-col-3-gap: 48px;
+      --fd-card-group-col-4-min: 256px;
+      --fd-card-group-col-4-max: 320px;
+      --fd-card-group-col-4-gap: 48px;
+
+      --fd-card-group-col-2-min-mobile: 320px;
+      --fd-card-group-col-2-gap-mobile: 16px;
+      --fd-card-group-col-3-min-mobile: 200px;
+      --fd-card-group-col-3-gap-mobile: 16px;
+      --fd-card-group-col-4-min-mobile: 160px;
+      --fd-card-group-col-4-max-mobile: 180px;
+      --fd-card-group-col-4-gap-mobile: 16px;
     }
 
     :host([hidden]) {
@@ -68,23 +65,28 @@ export class FdEventList extends LitElement {
       display: contents;
     }
 
-    ::slotted(fd-event) {
+    ::slotted(fd-card) {
+      display: block;
       inline-size: 100%;
       min-inline-size: 0;
+      max-inline-size: 100%;
+    }
+
+    ::slotted(*) {
       max-inline-size: 100%;
     }
   `,
   ];
 
-  declare columns: CollectionColumns;
+  declare columns: CardGroupColumns;
   declare label: string | undefined;
-  declare tone: EventTone;
 
   private readonly _childController = new CollectionChildController({
-    applyToChild: (element) =>
-      this._applyToneToEvent(element, normalizeEventTone(this.tone)),
-    attributeFilter: ["role", "tone"],
-    isManagedChild: isEventElement,
+    applyToChild: (element) => {
+      element.setAttribute("role", "listitem");
+    },
+    attributeFilter: ["role"],
+    isManagedChild: isCardElement,
     slot: () => this.shadowRoot?.querySelector("slot") ?? null,
   });
   private _resizeObserver: ResizeObserver | null = null;
@@ -93,7 +95,6 @@ export class FdEventList extends LitElement {
     super();
     this.columns = "3";
     this.label = undefined;
-    this.tone = "neutral";
   }
 
   override connectedCallback() {
@@ -101,15 +102,19 @@ export class FdEventList extends LitElement {
     this._startObservingLayout();
   }
 
-  override firstUpdated(changedProperties: PropertyValues) {
-    super.firstUpdated(changedProperties);
+  override firstUpdated() {
     this._childController.sync();
     this._updateNarrowLayout();
   }
 
-  override updated(changedProperties: PropertyValues) {
-    super.updated(changedProperties);
+  override disconnectedCallback() {
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = null;
+    this._childController.disconnect();
+    super.disconnectedCallback();
+  }
 
+  override updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has("columns")) {
       const normalized = normalizeColumns(this.columns);
       if (normalized !== this.columns) {
@@ -119,17 +124,6 @@ export class FdEventList extends LitElement {
 
       this._updateNarrowLayout();
     }
-
-    if (changedProperties.has("tone")) {
-      this._childController.sync();
-    }
-  }
-
-  override disconnectedCallback() {
-    this._resizeObserver?.disconnect();
-    this._resizeObserver = null;
-    this._childController.disconnect();
-    super.disconnectedCallback();
   }
 
   private _startObservingLayout() {
@@ -144,19 +138,11 @@ export class FdEventList extends LitElement {
     this._resizeObserver.observe(this);
   }
 
-  private _applyToneToEvent(element: HTMLElement, tone: EventTone) {
-    element.setAttribute("role", "listitem");
-
-    if (element.getAttribute("tone") !== tone) {
-      element.setAttribute("tone", tone);
-    }
-  }
-
   private _updateNarrowLayout() {
     const columns = normalizeColumns(this.columns);
     const threshold = getCollectionNarrowThresholdPx(
       this,
-      "fd-event-list",
+      "fd-card-group",
       columns,
     );
     const inlineSize = this.clientWidth || this.getBoundingClientRect().width || 0;

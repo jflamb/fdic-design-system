@@ -52,6 +52,7 @@ export const componentSidebarGroups = [
       { text: "Global Footer", link: "/components/global-footer" },
       { text: "Header Search", link: "/components/header-search" },
       { text: "Drawer", link: "/components/drawer" },
+      { text: "Card Group", link: "/components/card-group" },
       { text: "Stripe", link: "/components/stripe" }
     ]
   },

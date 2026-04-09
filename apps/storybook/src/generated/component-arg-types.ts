@@ -536,10 +536,12 @@ export const componentStoryApi = {
   },
   "fd-event-list": {
     argTypes: {
+    "columns": { control: "select", options: ["2","3","4"] },
     "label": { control: "text" },
     "tone": { control: "select", options: ["neutral","cool","warm"] },
     },
     args: {
+    "columns": "3",
     "label": undefined,
     "tone": "neutral",
     },
@@ -568,10 +570,12 @@ export const componentStoryApi = {
   },
   "fd-tile-list": {
     argTypes: {
+    "columns": { control: "select", options: ["2","3","4"] },
     "label": { control: "text" },
     "tone": { control: "select", options: ["neutral","cool","warm"] },
     },
     args: {
+    "columns": "3",
     "label": undefined,
     "tone": "neutral",
     },
@@ -612,6 +616,16 @@ export const componentStoryApi = {
     "updatedText": "",
     "utilityLinks": "[]",
     "socialLinks": "[]",
+    },
+  },
+  "fd-card-group": {
+    argTypes: {
+    "columns": { control: "select", options: ["2","3","4"] },
+    "label": { control: "text" },
+    },
+    args: {
+    "columns": "3",
+    "label": undefined,
     },
   },
 } as const;

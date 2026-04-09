@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { FdTileList } from "./fd-tile-list.js";
 import "../register/fd-tile.js";
 import "../register/fd-tile-list.js";
 
@@ -9,6 +10,7 @@ describe("FdTileList", () => {
 
   it("renders a labelled list container", async () => {
     const el = document.createElement("fd-tile-list") as HTMLElement & {
+      columns?: "2" | "3" | "4";
       updateComplete: Promise<void>;
       label?: string;
     };
@@ -21,6 +23,7 @@ describe("FdTileList", () => {
 
     expect(list?.getAttribute("role")).toBe("list");
     expect(list?.getAttribute("aria-label")).toBe("Benefits links");
+    expect(el.getAttribute("columns")).toBe("3");
 
     el.remove();
   });
@@ -134,5 +137,42 @@ describe("FdTileList", () => {
     expect(tile.getAttribute("tone")).toBe("cool");
 
     list.remove();
+  });
+
+  it("restores list semantics if a child tile tries to override its role", async () => {
+    const list = document.createElement("fd-tile-list") as HTMLElement & {
+      updateComplete: Promise<void>;
+    };
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+
+    tile.title = "Health benefits";
+    list.append(tile);
+    document.body.appendChild(list);
+
+    await list.updateComplete;
+    await tile.updateComplete;
+
+    tile.setAttribute("role", "presentation");
+    await Promise.resolve();
+    await tile.updateComplete;
+
+    expect(tile.getAttribute("role")).toBe("listitem");
+
+    list.remove();
+  });
+
+  it("defines Figma-backed column constraints in the component stylesheet", () => {
+    const styles = FdTileList.styles
+      .map((value) => value.cssText)
+      .join("\n");
+
+    expect(styles).toContain("--fd-tile-list-col-2-min: 384px;");
+    expect(styles).toContain("--fd-tile-list-col-3-max: 440px;");
+    expect(styles).toContain("--fd-tile-list-col-4-gap-mobile: 16px;");
+    expect(styles).toContain(":host([data-narrow][columns=\"2\"])");
+    expect(styles).toContain("1fr");
   });
 });

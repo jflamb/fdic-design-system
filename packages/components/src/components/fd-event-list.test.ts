@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { FdEventList } from "./fd-event-list.js";
 import "../register/fd-event.js";
 import "../register/fd-event-list.js";
 
@@ -9,6 +10,7 @@ describe("FdEventList", () => {
 
   it("renders a labelled list container", async () => {
     const el = document.createElement("fd-event-list") as HTMLElement & {
+      columns?: "2" | "3" | "4";
       updateComplete: Promise<void>;
       label?: string;
     };
@@ -21,6 +23,7 @@ describe("FdEventList", () => {
 
     expect(list?.getAttribute("role")).toBe("list");
     expect(list?.getAttribute("aria-label")).toBe("Upcoming events");
+    expect(el.getAttribute("columns")).toBe("3");
 
     el.remove();
   });
@@ -107,5 +110,42 @@ describe("FdEventList", () => {
     expect(event.getAttribute("tone")).toBe("cool");
 
     list.remove();
+  });
+
+  it("restores list semantics if a child event tries to override its role", async () => {
+    const list = document.createElement("fd-event-list") as HTMLElement & {
+      updateComplete: Promise<void>;
+    };
+    const event = document.createElement("fd-event") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+
+    event.title = "Upcoming conference";
+    list.append(event);
+    document.body.appendChild(list);
+
+    await list.updateComplete;
+    await event.updateComplete;
+
+    event.setAttribute("role", "presentation");
+    await Promise.resolve();
+    await event.updateComplete;
+
+    expect(event.getAttribute("role")).toBe("listitem");
+
+    list.remove();
+  });
+
+  it("defines Figma-backed column constraints in the component stylesheet", () => {
+    const styles = FdEventList.styles
+      .map((value) => value.cssText)
+      .join("\n");
+
+    expect(styles).toContain("--fd-event-list-col-2-min: 384px;");
+    expect(styles).toContain("--fd-event-list-col-3-max: 440px;");
+    expect(styles).toContain("--fd-event-list-col-4-gap-mobile: 16px;");
+    expect(styles).toContain(":host([data-narrow][columns=\"2\"])");
+    expect(styles).toContain("1fr");
   });
 });

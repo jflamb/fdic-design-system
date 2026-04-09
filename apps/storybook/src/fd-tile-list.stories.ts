@@ -21,6 +21,7 @@ type TileItem = {
 };
 
 type TileListArgs = {
+  columns: "2" | "3" | "4";
   label: string;
   tone: "neutral" | "cool" | "warm";
   density: "default" | "tight";
@@ -69,11 +70,10 @@ const renderTile = (item: TileItem) => html`
 
 const renderTileList = (args: TileListArgs) => html`
   <fd-tile-list
+    columns=${args.columns}
     label=${args.label}
     tone=${args.tone}
-    style=${args.density === "tight"
-      ? "--fd-tile-list-row-gap: 16px; --fd-tile-list-column-gap: 20px;"
-      : ""}
+    style=${args.density === "tight" ? "--fd-tile-list-col-3-gap: 20px;" : ""}
   >
     ${SAMPLE_ITEMS.map((item) => renderTile(item))}
   </fd-tile-list>
@@ -89,6 +89,10 @@ const meta = {
   },
   argTypes: {
     ...getComponentArgTypes("fd-tile-list"),
+    columns: {
+      control: "radio",
+      options: ["2", "3", "4"],
+    },
     density: {
       control: "radio",
       options: ["default", "tight"],
@@ -98,6 +102,7 @@ const meta = {
   },
   args: {
     ...getComponentArgs("fd-tile-list"),
+    columns: "3",
     label: "Benefits links",
     tone: "neutral",
     density: "default",
@@ -116,6 +121,12 @@ export const TightSpacing: Story = {
   },
 };
 
+export const TwoColumns: Story = {
+  args: {
+    columns: "2",
+  },
+};
+
 export const WarmSet: Story = {
   args: {
     tone: "warm",
@@ -128,6 +139,7 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive wrapping</strong>
         ${renderTileList({
+          columns: "3",
           label: "Benefits links",
           tone: "neutral",
           density: "default",
@@ -136,6 +148,7 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Shared warm tone</strong>
         ${renderTileList({
+          columns: "4",
           label: "Benefits links",
           tone: "warm",
           density: "default",
@@ -144,6 +157,7 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Tighter list density</strong>
         ${renderTileList({
+          columns: "2",
           label: "Benefits links",
           tone: "cool",
           density: "tight",

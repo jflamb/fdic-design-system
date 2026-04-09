@@ -3901,6 +3901,12 @@
     "properties": {
       "rows": [
         {
+          "name": "columns",
+          "type": "`\"2\"` \\| `\"3\"` \\| `\"4\"`",
+          "defaultValue": "`\"3\"`",
+          "description": "Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics."
+        },
+        {
           "name": "label",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
@@ -3931,19 +3937,84 @@
     "cssProperties": {
       "rows": [
         {
-          "name": "--fd-tile-list-min-column-size",
-          "default": "`344px`",
-          "description": "Minimum preferred inline size for each responsive tile column."
+          "name": "--fd-tile-list-col-2-min",
+          "default": "`384px`",
+          "description": "Desktop minimum tile-track width for the two-column constraint set."
         },
         {
-          "name": "--fd-tile-list-row-gap",
-          "default": "`20px`",
-          "description": "Gap between tile rows."
+          "name": "--fd-tile-list-col-2-max",
+          "default": "`688px`",
+          "description": "Desktop maximum tile-track width for the two-column constraint set."
         },
         {
-          "name": "--fd-tile-list-column-gap",
-          "default": "`24px`",
-          "description": "Gap between tile columns."
+          "name": "--fd-tile-list-col-2-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-3-min",
+          "default": "`360px`",
+          "description": "Desktop minimum tile-track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-3-max",
+          "default": "`440px`",
+          "description": "Desktop maximum tile-track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-3-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-4-min",
+          "default": "`256px`",
+          "description": "Desktop minimum tile-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-4-max",
+          "default": "`320px`",
+          "description": "Desktop maximum tile-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-4-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the four-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-2-min-mobile",
+          "default": "`320px`",
+          "description": "Narrow-screen minimum tile-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+        },
+        {
+          "name": "--fd-tile-list-col-2-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-3-min-mobile",
+          "default": "`200px`",
+          "description": "Narrow-screen minimum tile-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+        },
+        {
+          "name": "--fd-tile-list-col-3-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-4-min-mobile",
+          "default": "`160px`",
+          "description": "Narrow-screen minimum tile-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-4-max-mobile",
+          "default": "`180px`",
+          "description": "Narrow-screen maximum tile-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-tile-list-col-4-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the four-column constraint set."
         }
       ],
       "after": ""
@@ -4087,6 +4158,12 @@
     "properties": {
       "rows": [
         {
+          "name": "columns",
+          "type": "`\"2\"` \\| `\"3\"` \\| `\"4\"`",
+          "defaultValue": "`\"3\"`",
+          "description": "Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics."
+        },
+        {
           "name": "label",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
@@ -4117,19 +4194,84 @@
     "cssProperties": {
       "rows": [
         {
-          "name": "--fd-event-list-min-column-size",
+          "name": "--fd-event-list-col-2-min",
           "default": "`384px`",
-          "description": "Minimum preferred inline size for each responsive event column."
+          "description": "Desktop minimum event-track width for the two-column constraint set."
         },
         {
-          "name": "--fd-event-list-row-gap",
-          "default": "`20px`",
-          "description": "Gap between event rows."
+          "name": "--fd-event-list-col-2-max",
+          "default": "`688px`",
+          "description": "Desktop maximum event-track width for the two-column constraint set."
         },
         {
-          "name": "--fd-event-list-column-gap",
-          "default": "`24px`",
-          "description": "Gap between event columns."
+          "name": "--fd-event-list-col-2-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-3-min",
+          "default": "`360px`",
+          "description": "Desktop minimum event-track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-3-max",
+          "default": "`440px`",
+          "description": "Desktop maximum event-track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-3-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-4-min",
+          "default": "`256px`",
+          "description": "Desktop minimum event-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-4-max",
+          "default": "`320px`",
+          "description": "Desktop maximum event-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-4-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the four-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-2-min-mobile",
+          "default": "`320px`",
+          "description": "Narrow-screen minimum event-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+        },
+        {
+          "name": "--fd-event-list-col-2-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-3-min-mobile",
+          "default": "`200px`",
+          "description": "Narrow-screen minimum event-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+        },
+        {
+          "name": "--fd-event-list-col-3-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-4-min-mobile",
+          "default": "`160px`",
+          "description": "Narrow-screen minimum event-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-4-max-mobile",
+          "default": "`180px`",
+          "description": "Narrow-screen maximum event-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-event-list-col-4-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the four-column constraint set."
         }
       ],
       "after": ""
@@ -4416,6 +4558,132 @@
         {
           "name": "updated",
           "description": "Footer metadata text."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-card-group": {
+    "properties": {
+      "rows": [
+        {
+          "name": "columns",
+          "type": "`\"2\"` \\| `\"3\"` \\| `\"4\"`",
+          "defaultValue": "`\"3\"`",
+          "description": "Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics."
+        },
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
+        }
+      ],
+      "after": "- `fd-card-group` is a static grouping container. It does not own selection, active-item, or carousel behavior."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "One or more direct `fd-card` children. Direct `fd-card` children receive `role=\"listitem\"` automatically."
+        }
+      ],
+      "after": "- `fd-card-group` keeps the collection semantics on the wrapper and leaves each card's internal interactive behavior unchanged."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-card-group-col-2-min",
+          "default": "`384px`",
+          "description": "Desktop minimum card-track width for the two-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-2-max",
+          "default": "`688px`",
+          "description": "Desktop maximum card-track width for the two-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-2-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-3-min",
+          "default": "`360px`",
+          "description": "Desktop minimum card-track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-3-max",
+          "default": "`440px`",
+          "description": "Desktop maximum card-track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-3-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-4-min",
+          "default": "`256px`",
+          "description": "Desktop minimum card-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-4-max",
+          "default": "`320px`",
+          "description": "Desktop maximum card-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-4-gap",
+          "default": "`48px`",
+          "description": "Desktop row and column gap for the four-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-2-min-mobile",
+          "default": "`320px`",
+          "description": "Narrow-screen minimum card-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+        },
+        {
+          "name": "--fd-card-group-col-2-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-3-min-mobile",
+          "default": "`200px`",
+          "description": "Narrow-screen minimum card-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+        },
+        {
+          "name": "--fd-card-group-col-3-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-4-min-mobile",
+          "default": "`160px`",
+          "description": "Narrow-screen minimum card-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-4-max-mobile",
+          "default": "`180px`",
+          "description": "Narrow-screen maximum card-track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-card-group-col-4-gap-mobile",
+          "default": "`16px`",
+          "description": "Narrow-screen row and column gap for the four-column constraint set."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Responsive list/grid wrapper."
         }
       ],
       "after": ""

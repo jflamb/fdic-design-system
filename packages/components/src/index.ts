@@ -43,6 +43,7 @@ export { FdTile } from "./components/fd-tile.js";
 export { FdTileList } from "./components/fd-tile-list.js";
 export { FdCard } from "./components/fd-card.js";
 export { FdGlobalFooter } from "./components/fd-global-footer.js";
+export { FdCardGroup } from "./components/fd-card-group.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";

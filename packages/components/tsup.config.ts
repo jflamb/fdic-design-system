@@ -52,6 +52,7 @@ export default defineConfig({
     "components/fd-tile-list": "src/components/fd-tile-list.ts",
     "components/fd-card": "src/components/fd-card.ts",
     "components/fd-global-footer": "src/components/fd-global-footer.ts",
+    "components/fd-card-group": "src/components/fd-card-group.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -93,6 +94,7 @@ export default defineConfig({
     "register/fd-tile-list": "src/register/fd-tile-list.ts",
     "register/fd-card": "src/register/fd-card.ts",
     "register/fd-global-footer": "src/register/fd-global-footer.ts",
+    "register/fd-card-group": "src/register/fd-card-group.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

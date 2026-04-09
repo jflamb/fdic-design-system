@@ -46,4 +46,5 @@ import "./fd-tile.js";
 import "./fd-tile-list.js";
 import "./fd-card.js";
 import "./fd-global-footer.js";
+import "./fd-card-group.js";
 import "../icons/phosphor-regular.js";

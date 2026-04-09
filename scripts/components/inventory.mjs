@@ -945,6 +945,28 @@ export const componentInventory = [
       "FdGlobalFooterSocialLink",
     ],
   },
+    {
+    tagName: "fd-card-group",
+    className: "FdCardGroup",
+    sourceFile: "fd-card-group.ts",
+    docs: {
+      kind: "first-class",
+      title: "Card Group",
+      slug: "card-group",
+      category: "layout-shell",
+      order: 40
+    },
+    storybook: {
+      title: "Components/Card Group",
+      file: "fd-card-group.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: []
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

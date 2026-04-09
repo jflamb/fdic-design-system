@@ -1,6 +1,6 @@
 # Tile List
 
-The Tile List component arranges related tiles in a responsive wrapping layout and enforces one shared visual tone across every tile in the set.
+The Tile List component arranges related tiles in a responsive wrapping layout, uses the FDIC Figma column-width constraints for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared visual tone across every tile in the set.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -12,6 +12,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout a
 - **Groups of related tiles** — use Tile List when the set itself needs a consistent responsive layout.
 - **Sets that should share one visual type** — choose a single `tone` on the list so every grouped tile uses the same cool, neutral, or warm treatment.
 - **Content collections that should reflow across screen sizes** — the component uses a responsive grid that collapses naturally without additional author CSS.
+- **Layouts that need a specific FDIC column density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the design-system width ranges.
 - **Sets that already have visible context nearby** — provide `label` only when the surrounding content does not already name the set clearly.
 
 ## When not to use
@@ -62,7 +63,8 @@ The Tile List component arranges related tiles in a responsive wrapping layout a
 - **Author direct `fd-tile` children.** `fd-tile-list` assigns list-item semantics to direct tile children so assistive technology announces the set as a list.
 - **Set the tone on the list, not on individual grouped tiles.** `fd-tile-list` applies one shared `tone` to every direct `fd-tile` child, so a single list cannot mix cool, neutral, and warm visuals.
 - **Use `label` only when needed.** If nearby visible copy already names the set, leave `label` unset to avoid redundant announcements.
-- **Let the layout wrap naturally.** The component defaults to a `344px` minimum preferred column size. Override the documented CSS custom properties only when a page layout truly needs denser or looser wrapping.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the FDIC Figma `col-2`, `col-3`, and `col-4` width and gap variables.
+- **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Keep grouping honest.** Tile List does not add composite keyboarding or item state. If the interaction starts behaving like a menu, selector, or card-action grid, use a different pattern instead.
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -70,6 +72,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout a
 
 | Name | Type | Default | Description |
 |---|---|---|---|
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Shared decorative visual tone applied to each direct `fd-tile` child in the list. |
 
@@ -88,9 +91,22 @@ The Tile List component arranges related tiles in a responsive wrapping layout a
 
 | Name | Default | Description |
 |---|---|---|
-| `--fd-tile-list-min-column-size` | `344px` | Minimum preferred inline size for each responsive tile column. |
-| `--fd-tile-list-row-gap` | `20px` | Gap between tile rows. |
-| `--fd-tile-list-column-gap` | `24px` | Gap between tile columns. |
+| `--fd-tile-list-col-2-min` | `384px` | Desktop minimum tile-track width for the two-column constraint set. |
+| `--fd-tile-list-col-2-max` | `688px` | Desktop maximum tile-track width for the two-column constraint set. |
+| `--fd-tile-list-col-2-gap` | `48px` | Desktop row and column gap for the two-column constraint set. |
+| `--fd-tile-list-col-3-min` | `360px` | Desktop minimum tile-track width for the three-column constraint set. |
+| `--fd-tile-list-col-3-max` | `440px` | Desktop maximum tile-track width for the three-column constraint set. |
+| `--fd-tile-list-col-3-gap` | `48px` | Desktop row and column gap for the three-column constraint set. |
+| `--fd-tile-list-col-4-min` | `256px` | Desktop minimum tile-track width for the four-column constraint set. |
+| `--fd-tile-list-col-4-max` | `320px` | Desktop maximum tile-track width for the four-column constraint set. |
+| `--fd-tile-list-col-4-gap` | `48px` | Desktop row and column gap for the four-column constraint set. |
+| `--fd-tile-list-col-2-min-mobile` | `320px` | Narrow-screen minimum tile-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum. |
+| `--fd-tile-list-col-2-gap-mobile` | `16px` | Narrow-screen row and column gap for the two-column constraint set. |
+| `--fd-tile-list-col-3-min-mobile` | `200px` | Narrow-screen minimum tile-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum. |
+| `--fd-tile-list-col-3-gap-mobile` | `16px` | Narrow-screen row and column gap for the three-column constraint set. |
+| `--fd-tile-list-col-4-min-mobile` | `160px` | Narrow-screen minimum tile-track width for the four-column constraint set. |
+| `--fd-tile-list-col-4-max-mobile` | `180px` | Narrow-screen maximum tile-track width for the four-column constraint set. |
+| `--fd-tile-list-col-4-gap-mobile` | `16px` | Narrow-screen row and column gap for the four-column constraint set. |
 
 ## Shadow parts
 

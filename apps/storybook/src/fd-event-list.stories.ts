@@ -20,6 +20,7 @@ type EventItem = {
 };
 
 type EventListArgs = {
+  columns: "2" | "3" | "4";
   label: string;
   tone: "neutral" | "cool" | "warm";
   density: "default" | "tight";
@@ -64,11 +65,10 @@ const renderEvent = (item: EventItem) => html`
 
 const renderEventList = (args: EventListArgs) => html`
   <fd-event-list
+    columns=${args.columns}
     label=${args.label}
     tone=${args.tone}
-    style=${args.density === "tight"
-      ? "--fd-event-list-row-gap: 16px; --fd-event-list-column-gap: 20px;"
-      : ""}
+    style=${args.density === "tight" ? "--fd-event-list-col-3-gap: 20px;" : ""}
   >
     ${SAMPLE_EVENTS.map((item) => renderEvent(item))}
   </fd-event-list>
@@ -84,6 +84,10 @@ const meta = {
   },
   argTypes: {
     ...getComponentArgTypes("fd-event-list"),
+    columns: {
+      control: "radio",
+      options: ["2", "3", "4"],
+    },
     density: {
       control: "radio",
       options: ["default", "tight"],
@@ -93,6 +97,7 @@ const meta = {
   },
   args: {
     ...getComponentArgs("fd-event-list"),
+    columns: "3",
     label: "Upcoming events",
     tone: "cool",
     density: "default",
@@ -111,6 +116,12 @@ export const OfficialSet: Story = {
   },
 };
 
+export const TwoColumns: Story = {
+  args: {
+    columns: "2",
+  },
+};
+
 export const TightSpacing: Story = {
   args: {
     density: "tight",
@@ -123,6 +134,7 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive event grouping</strong>
         ${renderEventList({
+          columns: "3",
           label: "Upcoming events",
           tone: "cool",
           density: "default",
@@ -131,6 +143,7 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Shared official-event tone</strong>
         ${renderEventList({
+          columns: "4",
           label: "Official events",
           tone: "warm",
           density: "tight",
