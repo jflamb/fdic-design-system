@@ -217,6 +217,52 @@ describe("FdAlert", () => {
     }
   });
 
+  it("applies system hyperlink hover treatment to emergency links", async () => {
+    const el = await createAlert(
+      {
+        type: "emergency",
+      },
+      'Branch access is suspended. <a href="/alternatives">Get service alternatives</a>.',
+    );
+    const link = el.querySelector("a") as HTMLAnchorElement;
+
+    link.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+
+    expect(link.style.textDecorationThickness).toBe(
+      "var(--fd-link-underline-thickness-emphasis, 2px)",
+    );
+    expect(link.style.boxShadow).toBe(
+      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04)))",
+    );
+
+    link.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true }));
+
+    expect(link.style.textDecorationThickness).toBe(
+      "var(--fd-link-underline-thickness, 1px)",
+    );
+    expect(link.style.boxShadow).toBe("");
+  });
+
+  it("applies system hyperlink focus treatment to emergency links", async () => {
+    const el = await createAlert(
+      {
+        type: "emergency",
+      },
+      'Branch access is suspended. <a href="/alternatives">Get service alternatives</a>.',
+    );
+    const link = el.querySelector("a") as HTMLAnchorElement;
+
+    link.dispatchEvent(new FocusEvent("focus"));
+
+    expect(link.style.boxShadow).toBe(
+      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))), 0 0 0 var(--ds-focus-gap-width, 2px) var(--fd-link-focus-gap, var(--ds-focus-gap-color)), 0 0 0 var(--ds-focus-ring-width, 4px) var(--fd-link-focus-ring, var(--ds-focus-ring-color))",
+    );
+
+    link.dispatchEvent(new FocusEvent("blur"));
+
+    expect(link.style.boxShadow).toBe("");
+  });
+
   it("renders nothing when both title and body content are absent", async () => {
     const el = await createAlert({}, "   ");
     el.removeAttribute("title");

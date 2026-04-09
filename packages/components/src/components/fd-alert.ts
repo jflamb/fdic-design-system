@@ -470,8 +470,18 @@ export class FdAlert extends LitElement {
     {
       color: string;
       textDecoration: string;
+      textDecorationThickness: string;
       textUnderlineOffset: string;
       fontWeight: string;
+      borderRadius: string;
+      outlineColor: string;
+      boxDecorationBreak: string;
+      webkitBoxDecorationBreak: string;
+      boxShadow: string;
+      handleMouseEnter: EventListener;
+      handleMouseLeave: EventListener;
+      handleFocus: EventListener;
+      handleBlur: EventListener;
     }
   >();
 
@@ -570,10 +580,43 @@ export class FdAlert extends LitElement {
 
       link.style.color = previous.color;
       link.style.textDecoration = previous.textDecoration;
+      link.style.textDecorationThickness = previous.textDecorationThickness;
       link.style.textUnderlineOffset = previous.textUnderlineOffset;
       link.style.fontWeight = previous.fontWeight;
+      link.style.borderRadius = previous.borderRadius;
+      link.style.outlineColor = previous.outlineColor;
+      link.style.boxDecorationBreak = previous.boxDecorationBreak;
+      link.style.webkitBoxDecorationBreak = previous.webkitBoxDecorationBreak;
+      link.style.boxShadow = previous.boxShadow;
+      link.removeEventListener("mouseenter", previous.handleMouseEnter);
+      link.removeEventListener("mouseleave", previous.handleMouseLeave);
+      link.removeEventListener("focus", previous.handleFocus);
+      link.removeEventListener("blur", previous.handleBlur);
       this._managedLinks.delete(link);
     }
+  }
+
+  private _clearManagedLinkInteractiveStyles(link: HTMLAnchorElement) {
+    if (!this._managedLinks.has(link)) {
+      return;
+    }
+
+    link.style.textDecorationThickness =
+      "var(--fd-link-underline-thickness, 1px)";
+    link.style.boxShadow = "";
+  }
+
+  private _applyManagedLinkInteractiveStyles(link: HTMLAnchorElement) {
+    link.style.textDecorationThickness =
+      "var(--fd-link-underline-thickness-emphasis, 2px)";
+    link.style.boxShadow =
+      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04)))";
+  }
+
+  private _applyManagedLinkFocusStyles(link: HTMLAnchorElement) {
+    this._applyManagedLinkInteractiveStyles(link);
+    link.style.boxShadow =
+      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))), 0 0 0 var(--ds-focus-gap-width, 2px) var(--fd-link-focus-gap, var(--ds-focus-gap-color)), 0 0 0 var(--ds-focus-ring-width, 4px) var(--fd-link-focus-ring, var(--ds-focus-ring-color))";
   }
 
   private _syncManagedLinkStyles() {
@@ -592,18 +635,53 @@ export class FdAlert extends LitElement {
 
     for (const link of links) {
       if (!this._managedLinks.has(link)) {
+        const handleMouseEnter = () => {
+          this._applyManagedLinkInteractiveStyles(link);
+        };
+        const handleMouseLeave = () => {
+          this._clearManagedLinkInteractiveStyles(link);
+        };
+        const handleFocus = () => {
+          this._applyManagedLinkFocusStyles(link);
+        };
+        const handleBlur = () => {
+          this._clearManagedLinkInteractiveStyles(link);
+        };
+
         this._managedLinks.set(link, {
           color: link.style.color,
           textDecoration: link.style.textDecoration,
+          textDecorationThickness: link.style.textDecorationThickness,
           textUnderlineOffset: link.style.textUnderlineOffset,
           fontWeight: link.style.fontWeight,
+          borderRadius: link.style.borderRadius,
+          outlineColor: link.style.outlineColor,
+          boxDecorationBreak: link.style.boxDecorationBreak,
+          webkitBoxDecorationBreak: link.style.webkitBoxDecorationBreak,
+          boxShadow: link.style.boxShadow,
+          handleMouseEnter,
+          handleMouseLeave,
+          handleFocus,
+          handleBlur,
         });
+
+        link.addEventListener("mouseenter", handleMouseEnter);
+        link.addEventListener("mouseleave", handleMouseLeave);
+        link.addEventListener("focus", handleFocus);
+        link.addEventListener("blur", handleBlur);
       }
 
       link.style.color = inlineLinkColor;
       link.style.textDecoration = "underline";
+      link.style.textDecorationThickness =
+        "var(--fd-link-underline-thickness, 1px)";
       link.style.textUnderlineOffset = "0.12em";
       link.style.fontWeight = isEmergency ? "600" : "";
+      link.style.borderRadius = "2px";
+      link.style.outlineColor = "transparent";
+      link.style.boxDecorationBreak = "clone";
+      link.style.webkitBoxDecorationBreak = "clone";
+      link.style.boxShadow = "";
     }
   }
 
