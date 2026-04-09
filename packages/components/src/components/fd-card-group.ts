@@ -90,8 +90,8 @@ export class FdCardGroup extends LitElement {
     this.label = undefined;
   }
 
-  override firstUpdated() {
-    super.firstUpdated();
+  override firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties);
     this._childController.sync();
   }
 
