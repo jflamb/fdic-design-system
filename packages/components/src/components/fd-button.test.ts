@@ -182,6 +182,15 @@ describe("fd-button", () => {
     expect(inner.classList.contains("subtle-inverted")).toBe(true);
   });
 
+  it("expands the internal surface to match an explicit host width", async () => {
+    const el = await createButton({}, "Yes");
+    el.style.inlineSize = "80px";
+    await el.updateComplete;
+
+    const inner = getInternal(el);
+    expect(getComputedStyle(inner).inlineSize).toBe("100%");
+  });
+
   it("has default slot, icon-start slot, and icon-end slot", async () => {
     const el = await createButton(
       {},

@@ -32,6 +32,7 @@ export class FdButton extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      inline-size: 100%;
       gap: var(--fd-button-gap, var(--fdic-spacing-2xs, 4px));
       min-height: var(--fd-button-height, 44px);
       min-width: var(--fd-button-min-width, 44px);
