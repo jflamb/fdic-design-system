@@ -121,7 +121,9 @@ export class FdEventList extends LitElement {
   }
 
   private _applyToneToEvent(element: HTMLElement, tone: EventTone) {
-    element.setAttribute("role", "listitem");
+    if (element.getAttribute("role") !== "listitem") {
+      element.setAttribute("role", "listitem");
+    }
 
     if (element.getAttribute("tone") !== tone) {
       element.setAttribute("tone", tone);

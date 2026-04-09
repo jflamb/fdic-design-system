@@ -77,7 +77,9 @@ export class FdCardGroup extends LitElement {
 
   private readonly _childController = new CollectionChildController({
     applyToChild: (element) => {
-      element.setAttribute("role", "listitem");
+      if (element.getAttribute("role") !== "listitem") {
+        element.setAttribute("role", "listitem");
+      }
     },
     attributeFilter: ["role"],
     isManagedChild: isCardElement,

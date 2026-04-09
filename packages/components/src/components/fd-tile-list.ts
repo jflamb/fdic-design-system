@@ -123,7 +123,9 @@ export class FdTileList extends LitElement {
   }
 
   private _applyToneToTile(element: HTMLElement, tone: TileTone) {
-    element.setAttribute("role", "listitem");
+    if (element.getAttribute("role") !== "listitem") {
+      element.setAttribute("role", "listitem");
+    }
 
     if (element.getAttribute("tone") !== tone) {
       element.setAttribute("tone", tone);
