@@ -572,6 +572,22 @@ export class FdAlert extends LitElement {
     this._hasBodyContent = hasRenderableNodes(this.childNodes);
   }
 
+  private _getWebkitBoxDecorationBreak(style: CSSStyleDeclaration) {
+    return style.getPropertyValue("-webkit-box-decoration-break");
+  }
+
+  private _setWebkitBoxDecorationBreak(
+    style: CSSStyleDeclaration,
+    value: string,
+  ) {
+    if (value) {
+      style.setProperty("-webkit-box-decoration-break", value);
+      return;
+    }
+
+    style.removeProperty("-webkit-box-decoration-break");
+  }
+
   private _restoreManagedLinks(retain = new Set<HTMLAnchorElement>()) {
     for (const [link, previous] of this._managedLinks) {
       if (retain.has(link)) {
@@ -586,7 +602,10 @@ export class FdAlert extends LitElement {
       link.style.borderRadius = previous.borderRadius;
       link.style.outlineColor = previous.outlineColor;
       link.style.boxDecorationBreak = previous.boxDecorationBreak;
-      link.style.webkitBoxDecorationBreak = previous.webkitBoxDecorationBreak;
+      this._setWebkitBoxDecorationBreak(
+        link.style,
+        previous.webkitBoxDecorationBreak,
+      );
       link.style.boxShadow = previous.boxShadow;
       link.removeEventListener("mouseenter", previous.handleMouseEnter);
       link.removeEventListener("mouseleave", previous.handleMouseLeave);
@@ -657,7 +676,9 @@ export class FdAlert extends LitElement {
           borderRadius: link.style.borderRadius,
           outlineColor: link.style.outlineColor,
           boxDecorationBreak: link.style.boxDecorationBreak,
-          webkitBoxDecorationBreak: link.style.webkitBoxDecorationBreak,
+          webkitBoxDecorationBreak: this._getWebkitBoxDecorationBreak(
+            link.style,
+          ),
           boxShadow: link.style.boxShadow,
           handleMouseEnter,
           handleMouseLeave,
@@ -680,7 +701,7 @@ export class FdAlert extends LitElement {
       link.style.borderRadius = "2px";
       link.style.outlineColor = "transparent";
       link.style.boxDecorationBreak = "clone";
-      link.style.webkitBoxDecorationBreak = "clone";
+      this._setWebkitBoxDecorationBreak(link.style, "clone");
       link.style.boxShadow = "";
     }
   }
