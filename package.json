@@ -11,10 +11,12 @@
   "scripts": {
     "sync:components": "node scripts/components/sync.mjs",
     "validate:components": "node scripts/components/validate.mjs",
+    "validate:tokens": "npm run validate --workspace @fdic-ds/tokens",
     "new:component": "node scripts/components/scaffold.mjs",
+    "build:tokens": "npm run build --workspace @fdic-ds/tokens",
     "generate:icon-masks": "node scripts/icons/generate-icon-masks.mjs",
     "validate:icon-masks": "node scripts/icons/validate-icon-masks.mjs",
-    "build": "npm run build:components && npm run generate:icon-masks && npm run build:react && npm run build:docs",
+    "build": "npm run build:tokens && npm run build:components && npm run generate:icon-masks && npm run build:react && npm run build:docs",
     "dev:docs": "npm run docs:dev --workspace @fdic-ds/docs",
     "dev:storybook": "npm run storybook --workspace @fdic-ds/storybook",
     "build:docs": "npm run build --workspace @fdic-ds/docs",
@@ -27,8 +29,5 @@
     "dev-server:stop": "node scripts/dev/local-dev-servers.mjs stop",
     "dev-server:status": "node scripts/dev/local-dev-servers.mjs status",
     "dev-server:url": "node scripts/dev/local-dev-servers.mjs url"
-  },
-  "overrides": {
-    "vite": "8.0.7"
   }
 }

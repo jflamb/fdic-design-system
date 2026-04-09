@@ -1,16 +1,26 @@
 {
   "name": "@fdic-ds/tokens",
   "version": "0.1.0",
-  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/tokens/generate-dtcg.mjs",
+    "validate": "node ../../scripts/tokens/generate-dtcg.mjs --check"
+  },
   "sideEffects": [
     "*.css"
   ],
   "exports": {
+    "./fdic.tokens.json": "./fdic.tokens.json",
+    "./interaction.css": "./interaction.css",
     "./semantic.css": "./semantic.css",
     "./legacy-fdic-colors.css": "./legacy-fdic-colors.css"
   },
   "files": [
+    "fdic.tokens.json",
+    "interaction.css",
     "semantic.css",
     "legacy-fdic-colors.css"
   ]

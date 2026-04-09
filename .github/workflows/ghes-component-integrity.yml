@@ -40,6 +40,9 @@ jobs:
         shell: pwsh
         run: jf npm ci
 
+      - name: Validate token automation
+        run: npm run validate:tokens
+
       - name: Validate component automation
         run: npm run validate:components
 

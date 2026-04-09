@@ -9,7 +9,7 @@
  * Dark mode: semantic tokens use light-dark() so they respond automatically
  * to color-scheme.
  *
- * Source: docs/plans/2026-03-19-color-palette-design.md
+ * Source: scripts/tokens/source.mjs
  */
 
 @property --ds-color-bg-hovered {
@@ -46,18 +46,18 @@
   --ds-color-neutral-000: oklch(1 0 0);
   --ds-color-neutral-050: oklch(0.9857 0.0026 286.35);
   --ds-color-neutral-100: oklch(0.9707 0.0027 286.35);
-  --ds-color-neutral-150: oklch(0.9324 0.0067 286.27); /* private — checkbox/radio border */
+  --ds-color-neutral-150: oklch(0.9324 0.0067 286.27);
   --ds-color-neutral-200: oklch(0.9073 0.0027 286.35);
   --ds-color-neutral-300: oklch(0.8767 0.0027 286.34);
   --ds-color-neutral-400: oklch(0.799 0.0028 286.34);
   --ds-color-neutral-500: oklch(0.6999 0.0029 286.33);
   --ds-color-neutral-700: oklch(0.4668 0.0128 285.89);
   --ds-color-neutral-800: oklch(0.3798 0.0034 286.24);
-  --ds-color-neutral-850: oklch(0.3218 0.0035 286.2); /* private — checkbox/radio border */
+  --ds-color-neutral-850: oklch(0.3218 0.0035 286.2);
   --ds-color-neutral-900: oklch(0.2486 0.0037 286.12);
   --ds-color-neutral-1000: oklch(0 0 0);
 
-  /* Primary brand (blue) */
+  /* Primary */
   --ds-color-primary-050: oklch(0.9585 0.0169 225.19);
   --ds-color-primary-200: oklch(0.8495 0.0978 226.58);
   --ds-color-primary-400: oklch(0.741 0.1499 239.59);
@@ -66,7 +66,7 @@
   --ds-color-primary-800: oklch(0.3408 0.0748 241.24);
   --ds-color-primary-900: oklch(0.3084 0.0809 246.91);
 
-  /* Secondary brand (gold) */
+  /* Secondary */
   --ds-color-secondary-050: oklch(0.9536 0.0293 87.55);
   --ds-color-secondary-300: oklch(0.8756 0.0778 88.57);
   --ds-color-secondary-400: oklch(0.8212 0.1089 88.87);
@@ -75,7 +75,7 @@
   --ds-color-secondary-800: oklch(0.538 0.099 85.44);
   --ds-color-secondary-900: oklch(0.4387 0.0744 93.45);
 
-  /* Success (green) */
+  /* Success */
   --ds-color-success-050: oklch(0.9571 0.021 147.64);
   --ds-color-success-200: oklch(0.8292 0.0827 145.82);
   --ds-color-success-300: oklch(0.7852 0.1737 146.79);
@@ -84,7 +84,7 @@
   --ds-color-success-800: oklch(0.3524 0.0751 143.78);
   --ds-color-success-900: oklch(0.3154 0.0651 143.84);
 
-  /* Warning (amber) */
+  /* Warning */
   --ds-color-warning-050: oklch(0.9775 0.013 82.4);
   --ds-color-warning-200: oklch(0.8741 0.1102 76.47);
   --ds-color-warning-300: oklch(0.843 0.15 79.47);
@@ -93,7 +93,7 @@
   --ds-color-warning-800: oklch(0.4 0.0877 68.06);
   --ds-color-warning-900: oklch(0.3319 0.072 69.83);
 
-  /* Error (red) */
+  /* Error */
   --ds-color-error-050: oklch(0.9579 0.0179 30.27);
   --ds-color-error-150: oklch(0.8897 0.058 18.3);
   --ds-color-error-200: oklch(0.7959 0.0978 19.46);
@@ -103,7 +103,7 @@
   --ds-color-error-800: oklch(0.2959 0.0538 20.82);
   --ds-color-error-900: oklch(0.2499 0.0417 20.45);
 
-  /* Info (blue) */
+  /* Info */
   --ds-color-info-050: oklch(0.9756 0.011 243.65);
   --ds-color-info-200: oklch(0.8163 0.0896 243.62);
   --ds-color-info-300: oklch(0.7282 0.1409 244.66);
@@ -113,9 +113,9 @@
   --ds-color-info-900: oklch(0.2943 0.0607 255.12);
 
   /* Link */
+  --ds-color-link-300: oklch(0.8562 0.0489 219.65);
   --ds-color-link-default: oklch(0.5471 0.1213 240.63);
   --ds-color-link-visited: oklch(0.5447 0.1216 309.32);
-  --ds-color-link-300: oklch(0.8562 0.0489 219.65);
   --ds-color-link-visited-300: oklch(0.7329 0.0895 299.99);
 
   /* ===== Semantic tokens ===== */
@@ -133,14 +133,8 @@
   --ds-color-bg-highlight: var(--ds-color-primary-400);
   --ds-color-bg-selected: light-dark(var(--ds-color-primary-050), var(--ds-color-primary-900));
   --ds-color-bg-active: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
-  --ds-color-bg-hovered: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.04),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.08)
-  );
-  --ds-color-bg-pressed: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.14)
-  );
+  --ds-color-bg-hovered: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.04), oklch(from var(--ds-color-neutral-000) l c h / 0.08));
+  --ds-color-bg-pressed: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
   --ds-color-bg-destructive: light-dark(var(--ds-color-error-600), var(--ds-color-error-800));
   --ds-color-bg-readonly: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-800));
 
@@ -178,8 +172,11 @@
   --ds-color-border-input-readonly: light-dark(var(--ds-color-neutral-200), var(--ds-color-neutral-400));
   --ds-color-border-input-interactive: light-dark(var(--ds-color-neutral-150), var(--ds-color-neutral-850));
   --ds-color-border-input-disabled: light-dark(var(--ds-color-neutral-300), var(--ds-color-neutral-500));
+  --ds-color-border-glass: light-dark(oklch(from var(--ds-color-neutral-000) l c h / 0.55), oklch(from var(--ds-color-neutral-000) l c h / 0.2));
+  --ds-color-border-glass-soft: light-dark(oklch(from var(--ds-color-primary-900) l c h / 0.14), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
+  --ds-color-border-focus-inner: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.35), oklch(from var(--ds-color-primary-200) l c h / 0.35));
 
-  /* Semantic status */
+  /* Semantic */
   --ds-color-semantic-bg-success: light-dark(var(--ds-color-success-050), var(--ds-color-success-800));
   --ds-color-semantic-bg-warning: light-dark(var(--ds-color-warning-050), var(--ds-color-warning-800));
   --ds-color-semantic-bg-error: light-dark(var(--ds-color-error-050), var(--ds-color-error-800));
@@ -195,54 +192,40 @@
   --ds-color-semantic-border-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
 
   /* Overlay */
-  --ds-color-overlay-hover: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.04),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.08)
-  );
-  --ds-color-overlay-pressed: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.14)
-  );
-  --ds-color-overlay-scrim: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.48),
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.72)
-  );
-  --ds-color-overlay-brand-hover: light-dark(
-    oklch(from var(--ds-color-primary-500) l c h / 0.08),
-    oklch(from var(--ds-color-primary-200) l c h / 0.14)
-  );
-  --ds-color-overlay-brand-selected: light-dark(
-    oklch(from var(--ds-color-primary-500) l c h / 0.14),
-    oklch(from var(--ds-color-primary-200) l c h / 0.18)
-  );
-  --ds-color-overlay-brand-pressed: light-dark(
-    oklch(from var(--ds-color-primary-500) l c h / 0.16),
-    oklch(from var(--ds-color-primary-200) l c h / 0.22)
-  );
+  --ds-color-overlay-hover: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.04), oklch(from var(--ds-color-neutral-000) l c h / 0.08));
+  --ds-color-overlay-pressed: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
+  --ds-color-overlay-scrim: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.48), oklch(from var(--ds-color-neutral-1000) l c h / 0.72));
+  --ds-color-overlay-brand-hover: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.08), oklch(from var(--ds-color-primary-200) l c h / 0.14));
+  --ds-color-overlay-brand-selected: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.14), oklch(from var(--ds-color-primary-200) l c h / 0.18));
+  --ds-color-overlay-brand-pressed: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.16), oklch(from var(--ds-color-primary-200) l c h / 0.22));
+  --ds-color-overlay-scrim-soft: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-1000) l c h / 0.24));
+  --ds-color-overlay-scrim-strong: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.45), oklch(from var(--ds-color-neutral-1000) l c h / 0.64));
 
   /* Effect */
-  --ds-color-effect-shadow: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.36)
-  );
-  --ds-color-effect-shadow-panel: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.22),
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.48)
-  );
-  --ds-focus-gap-width: 2px;
-  --ds-focus-ring-width: 4px;
-  --ds-shadow-raised:
+  --ds-color-effect-shadow: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-1000) l c h / 0.36));
+  --ds-color-effect-shadow-panel: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.22), oklch(from var(--ds-color-neutral-1000) l c h / 0.48));
+
+  /* Surface */
+  --ds-color-surface-glass-1: oklch(from var(--ds-color-neutral-000) l c h / 0.84);
+  --ds-color-surface-glass-2: oklch(from var(--ds-color-primary-050) l c h / 0.5);
+  --ds-color-surface-glass-2-muted: oklch(from var(--ds-color-primary-050) l c h / 0.4);
+  --ds-color-surface-glass-3: oklch(from var(--ds-color-primary-050) l c h / 0.24);
+  --ds-color-surface-glass-3-muted-1: oklch(from var(--ds-color-primary-050) l c h / 0.14);
+  --ds-color-surface-glass-3-muted-2: oklch(from var(--ds-color-primary-050) l c h / 0.16);
+
+  /* Effect */
+  --ds-shadow-raised: 
     0 1px 1px var(--ds-color-effect-shadow),
     0 2px 2px var(--ds-color-effect-shadow),
     0 4px 4px var(--ds-color-effect-shadow),
     0 6px 8px var(--ds-color-effect-shadow);
-  --ds-shadow-raised-hover:
+  --ds-shadow-raised-hover: 
     0 1px 1px var(--ds-color-effect-shadow),
     0 2px 2px var(--ds-color-effect-shadow),
     0 4px 4px var(--ds-color-effect-shadow),
     0 8px 8px var(--ds-color-effect-shadow),
     0 16px 16px var(--ds-color-effect-shadow);
-  --ds-shadow-dropdown:
+  --ds-shadow-dropdown: 
     0 1px 2px var(--ds-color-effect-shadow),
     0 2px 12px var(--ds-color-effect-shadow);
   --ds-shadow-menu: 0 4px 12px var(--ds-color-effect-shadow);
@@ -279,31 +262,5 @@
     oklch(from var(--ds-color-neutral-000) l c h / 0.24) 0%,
     oklch(from var(--ds-color-neutral-000) l c h / 0.08) 15%,
     oklch(from var(--ds-color-neutral-000) l c h / 0) 38%
-  );
-  --ds-color-surface-glass-1: oklch(from var(--ds-color-neutral-000) l c h / 0.84);
-  --ds-color-surface-glass-2: oklch(from var(--ds-color-primary-050) l c h / 0.5);
-  --ds-color-surface-glass-2-muted: oklch(from var(--ds-color-primary-050) l c h / 0.4);
-  --ds-color-surface-glass-3: oklch(from var(--ds-color-primary-050) l c h / 0.24);
-  --ds-color-surface-glass-3-muted-1: oklch(from var(--ds-color-primary-050) l c h / 0.14);
-  --ds-color-surface-glass-3-muted-2: oklch(from var(--ds-color-primary-050) l c h / 0.16);
-  --ds-color-border-glass: light-dark(
-    oklch(from var(--ds-color-neutral-000) l c h / 0.55),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.2)
-  );
-  --ds-color-border-glass-soft: light-dark(
-    oklch(from var(--ds-color-primary-900) l c h / 0.14),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.14)
-  );
-  --ds-color-border-focus-inner: light-dark(
-    oklch(from var(--ds-color-primary-500) l c h / 0.35),
-    oklch(from var(--ds-color-primary-200) l c h / 0.35)
-  );
-  --ds-color-overlay-scrim-soft: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.08),
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.24)
-  );
-  --ds-color-overlay-scrim-strong: light-dark(
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.45),
-    oklch(from var(--ds-color-neutral-1000) l c h / 0.64)
   );
 }

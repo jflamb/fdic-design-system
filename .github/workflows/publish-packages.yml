@@ -5,7 +5,7 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -26,10 +26,26 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build tokens
+        run: npm run build:tokens
+
       - name: Build components
         run: npm run build:components
+
+      - name: Publish @fdic-ds/tokens
+        run: npm publish --workspace @fdic-ds/tokens
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish @fdic-ds/components
         run: npm publish --workspace @fdic-ds/components
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload DTCG release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" \
+            packages/tokens/fdic.tokens.json#fdic.tokens.json \
+            --clobber

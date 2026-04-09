@@ -216,3 +216,16 @@ The next incremental step should be a placeholder `packages/tokens` package that
 - preserves aliases
 - records scope metadata for documentation and tooling
 - does not yet commit to a production CSS variable contract
+
+## Current repo artifact
+
+The repository now includes a DTCG-formatted token file at `packages/tokens/fdic.tokens.json`.
+
+Current characteristics:
+
+- Uses the DTCG 2025.10 format schema
+- Preserves the existing core and semantic color contract with explicit `light` and `dark` groups
+- Includes shared typography family tokens and interaction tokens for focus widths, motion durations, and easing
+- Ships alongside the existing CSS token outputs rather than replacing them
+- Is generated from the repository token sources during `npm run build:tokens` and the root `npm run build`
+- The repo-local authoring source is `scripts/tokens/source.mjs`, which generates `semantic.css`, `interaction.css`, and `fdic.tokens.json`
