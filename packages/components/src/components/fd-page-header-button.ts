@@ -13,6 +13,15 @@ export class FdPageHeaderButton extends LitElement {
   static styles = css`
     :host {
       display: inline-flex;
+      --fd-page-header-button-sheen: var(--ds-gradient-glass-sheen);
+      --fd-page-header-button-shadow:
+        0 10px 24px oklch(from var(--ds-color-neutral-1000) l c h / 0.16),
+        0 2px 6px oklch(from var(--ds-color-neutral-1000) l c h / 0.12);
+      --fd-page-header-button-shadow-hover:
+        0 14px 28px oklch(from var(--ds-color-neutral-1000) l c h / 0.2),
+        0 4px 10px oklch(from var(--ds-color-neutral-1000) l c h / 0.14);
+      --fd-page-header-button-overlay-hover: var(--ds-color-overlay-brand-hover);
+      --fd-page-header-button-overlay-active: var(--ds-color-overlay-brand-pressed);
     }
 
     :host([hidden]) {
@@ -29,9 +38,11 @@ export class FdPageHeaderButton extends LitElement {
       border: 1px solid
         var(--fd-page-header-button-border-color, var(--ds-color-border-glass));
       border-radius: var(--fd-page-header-button-radius, 9999px);
-      background: var(--fd-page-header-button-background, var(--ds-gradient-glass-button));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background:
+        var(--fd-page-header-button-sheen),
+        var(--fd-page-header-button-background, var(--ds-gradient-glass-button));
+      backdrop-filter: blur(16px) saturate(165%);
+      -webkit-backdrop-filter: blur(16px) saturate(165%);
       color: var(
         --fd-page-header-button-text-color,
         var(--ds-color-text-inverted)
@@ -57,6 +68,16 @@ export class FdPageHeaderButton extends LitElement {
       box-sizing: border-box;
       margin: 0;
       overflow: clip;
+      isolation: isolate;
+      box-shadow:
+        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.32),
+        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.18),
+        var(--fd-page-header-button-shadow);
+      transition:
+        box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        border-color var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        background var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base::before {
@@ -65,14 +86,59 @@ export class FdPageHeaderButton extends LitElement {
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
+      background:
+        radial-gradient(
+          circle at top left,
+          oklch(from var(--ds-color-neutral-000) l c h / 0.34) 0%,
+          oklch(from var(--ds-color-neutral-000) l c h / 0) 60%
+        );
+      opacity: 0.95;
+      transition:
+        box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .base::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      border: 1px solid oklch(from var(--ds-color-neutral-000) l c h / 0.14);
+      pointer-events: none;
+      opacity: 0.7;
+      transition: opacity var(--ds-motion-duration-fast, 120ms)
+        cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .base:hover {
+      box-shadow:
+        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.42),
+        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.22),
+        var(--fd-page-header-button-shadow-hover);
+      transform: translateY(-1px);
     }
 
     .base:hover::before {
-      box-shadow: inset 0 0 0 999px var(--ds-color-overlay-hover);
+      box-shadow: inset 0 0 0 999px var(--fd-page-header-button-overlay-hover);
+      opacity: 1;
     }
 
     .base:active::before {
-      box-shadow: inset 0 0 0 999px var(--ds-color-overlay-pressed);
+      box-shadow: inset 0 0 0 999px var(--fd-page-header-button-overlay-active);
+      opacity: 0.85;
+    }
+
+    .base:active {
+      transform: translateY(0);
+      box-shadow:
+        inset 0 1px 0 oklch(from var(--ds-color-neutral-000) l c h / 0.24),
+        inset 0 -1px 0 oklch(from var(--ds-color-primary-900) l c h / 0.28),
+        0 6px 16px oklch(from var(--ds-color-neutral-1000) l c h / 0.16);
+    }
+
+    .base:hover::after,
+    .base:focus-visible::after {
+      opacity: 0.95;
     }
 
     .base:focus {
@@ -124,12 +190,16 @@ export class FdPageHeaderButton extends LitElement {
         border-color: ButtonText;
         color: ButtonText;
         background: Canvas;
+        box-shadow: none;
         forced-color-adjust: none;
       }
 
       .base:hover::before,
-      .base:active::before {
+      .base:active::before,
+      .base::after {
         box-shadow: none;
+        background: none;
+        opacity: 1;
       }
 
       .base:focus-visible {

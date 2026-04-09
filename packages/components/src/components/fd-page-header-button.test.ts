@@ -78,7 +78,9 @@ describe("FdPageHeaderButton", () => {
       : FdPageHeaderButton.styles.cssText;
 
     expect(stylesheet).toContain("var(--ds-gradient-glass-button)");
+    expect(stylesheet).toContain("var(--ds-gradient-glass-sheen)");
     expect(stylesheet).toContain("var(--ds-color-border-glass)");
+    expect(stylesheet).toContain("backdrop-filter: blur(16px) saturate(165%)");
   });
 
   it("passes axe checks", async () => {
