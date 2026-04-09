@@ -13,6 +13,7 @@ export class FdMenuItem extends LitElement {
   static styles = css`
     :host {
       display: block;
+      inline-size: 100%;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -21,7 +22,7 @@ export class FdMenuItem extends LitElement {
       display: flex;
       align-items: center;
       gap: var(--fd-menu-item-gap, var(--fdic-spacing-xs, 8px));
-      width: 100%;
+      inline-size: 100%;
       padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
       min-height: var(--fd-menu-item-min-height, 44px);
       border: none;

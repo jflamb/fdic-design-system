@@ -93,6 +93,24 @@ describe("fd-menu", () => {
     expect(cssText).not.toContain("scrollbar-gutter: stable");
   });
 
+  it("stretches menu items to the full menu width", async () => {
+    const el = await createMenu();
+    const firstItem = el.querySelector("fd-menu-item") as HTMLElement | null;
+    expect(firstItem).not.toBeNull();
+
+    const itemStyles = (
+      customElements.get("fd-menu-item") as typeof HTMLElement & {
+        styles?: { cssText?: string } | Array<{ cssText?: string }>;
+      }
+    ).styles;
+    const cssText = Array.isArray(itemStyles)
+      ? itemStyles.map((value) => value?.cssText ?? "").join("\n")
+      : itemStyles?.cssText ?? "";
+
+    expect(cssText).toContain(":host");
+    expect(cssText).toContain("inline-size: 100%");
+  });
+
   it("defaults to placement='bottom-start'", async () => {
     const el = await createMenu();
     expect(el.placement).toBe("bottom-start");
