@@ -103,4 +103,18 @@ describe("FdGlobalFooter", () => {
     expect(link?.getAttribute("rel")).toContain("noopener");
     expect(link?.getAttribute("rel")).toContain("noreferrer");
   });
+
+  it("uses container queries for the narrow layout so constrained embeds render correctly", () => {
+    const styles = (
+      customElements.get("fd-global-footer") as typeof HTMLElement & {
+        styles?: { cssText?: string } | Array<{ cssText?: string }>;
+      }
+    ).styles;
+    const cssText = Array.isArray(styles)
+      ? styles.map((value) => value?.cssText ?? "").join("\n")
+      : styles?.cssText ?? "";
+
+    expect(cssText).toContain("container-type: inline-size");
+    expect(cssText).toContain("@container (max-width: 640px)");
+  });
 });

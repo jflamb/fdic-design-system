@@ -71,6 +71,7 @@ export class FdGlobalFooter extends LitElement {
   static styles = css`
     :host {
       display: block;
+      container-type: inline-size;
       color: var(--ds-color-text-primary);
       font-family: var(
         --fdic-font-family-sans-serif,
@@ -289,7 +290,7 @@ export class FdGlobalFooter extends LitElement {
       block-size: 100%;
     }
 
-    @media (max-width: 640px) {
+    @container (max-width: 640px) {
       .base {
         padding-block: var(--fd-global-footer-padding-block-mobile, 16px);
         padding-inline: var(--fd-global-footer-padding-inline-mobile, 16px);
