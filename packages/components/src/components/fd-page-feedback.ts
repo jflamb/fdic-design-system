@@ -173,9 +173,9 @@ export class FdPageFeedback extends LitElement {
     }
 
     fd-button-group.responses {
-      inline-size: auto;
+      inline-size: 100%;
       min-inline-size: 0;
-      flex: none;
+      flex: 1 1 auto;
       --fd-button-group-gap: var(
         --fd-page-feedback-action-gap,
         var(--fdic-spacing-sm, 0.75rem)
@@ -246,9 +246,9 @@ export class FdPageFeedback extends LitElement {
     }
 
     fd-button-group.actions {
-      inline-size: auto;
+      inline-size: 100%;
       min-inline-size: 0;
-      flex: none;
+      flex: 1 1 auto;
       --fd-button-group-gap: var(
         --fd-page-feedback-action-gap,
         var(--fdic-spacing-sm, 0.75rem)

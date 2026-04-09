@@ -1,6 +1,6 @@
 # Button Group
 
-Button groups present a small set of related actions with consistent spacing, predictable ordering, and responsive stacking.
+Button groups present a small set of related actions with consistent spacing, predictable ordering, and wrapping behavior in narrow containers.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -11,7 +11,7 @@ Button groups present a small set of related actions with consistent spacing, pr
 
 - **A task needs several closely related actions** — For example, "Save," "Save and continue," and "Cancel" at the end of a form or workflow step.
 - **You need consistent spacing and alignment** — The group keeps teams from rebuilding one-off flex wrappers with inconsistent gaps and ordering.
-- **Actions must remain visible on narrow screens** — The component stacks actions instead of hiding them in an overflow menu.
+- **Actions must remain visible on narrow screens** — The component wraps actions instead of hiding them in an overflow menu.
 
 ## When not to use
 
@@ -25,7 +25,7 @@ Button groups present a small set of related actions with consistent spacing, pr
   storyId="components-button-group--docs-overview"
   linkStoryId="components-button-group--playground"
   height="420"
-  caption="Common button group patterns: default horizontal layout, spread alignment, labeled action sets, and responsive stacking. Open Storybook for the full set of alignment and direction examples."
+  caption="Common button group patterns: default horizontal layout, spread alignment, labeled action sets, and wrapping in narrow containers. Open Storybook for the full set of alignment and direction examples."
 />
 
 ## Usage
@@ -54,7 +54,7 @@ With semantic grouping:
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `align` | `"start"` \| `"end"` \| `"spread"` | `start` | Controls inline alignment for horizontal groups. `spread` keeps the first action at inline start and pushes the remaining actions to inline end. |
-| `direction` | `"horizontal"` \| `"vertical"` | `horizontal` | Horizontal groups wrap and can stack responsively. Vertical groups always stack. |
+| `direction` | `"horizontal"` \| `"vertical"` | `horizontal` | Horizontal groups stay in a wrapping row. Vertical groups always stack. |
 | `label` | `string` | — | Adds `role="group"` and `aria-label` when the action set needs a semantic label. Omit for purely visual grouping. |
 
 ## Slots
@@ -68,7 +68,6 @@ With semantic grouping:
 | Name | Default | Description |
 |---|---|---|
 | `--fd-button-group-gap` | `var(--fdic-spacing-sm, 0.75rem)` | Gap between actions in the group |
-| `--fd-button-group-stack-at` | `480px` | Width threshold below which horizontal groups stack vertically |
 
 ## Shadow parts
 
@@ -83,7 +82,7 @@ With semantic grouping:
 - When `label` is provided, the internal container gets **`role="group"` plus `aria-label`**. Use this only when the set benefits from a shared name, such as "Document actions" or "Approval actions."
 - **Native button semantics stay intact.** Each `fd-button` keeps its own tab stop, focus ring, and activation behavior.
 - **No arrow-key interception.** This is not a toolbar pattern. Users move through actions with normal Tab order.
-- **Responsive stacking preserves DOM order.** Keyboard navigation and screen reader reading order remain stable when the layout changes.
+- **Wrapping preserves DOM order.** Keyboard navigation and screen reader reading order remain stable when the layout changes.
 
 ## Content guidelines
 
@@ -96,8 +95,7 @@ With semantic grouping:
 
 - **Toolbar behavior is out of scope in v1** — `fd-button-group` does not implement roving tabindex or arrow-key navigation.
 - **Hierarchy is documented, not enforced** — The component does not prevent multiple primary buttons. Teams must apply the documented hierarchy intentionally.
-- **`align` only affects horizontal, non-stacked groups** — Vertical groups and auto-stacked groups always align actions in a single column.
-- **Responsive stacking is width-based** — The component stacks when its own rendered width is at or below `--fd-button-group-stack-at`. It does not hide actions or move them into a menu.
+- **`align` only affects horizontal groups** — Vertical groups always align actions in a single column.
 
 ## Related components
 

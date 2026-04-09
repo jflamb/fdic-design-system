@@ -82,10 +82,10 @@ export const AlignSpread: Story = {
   },
 };
 
-export const ResponsiveStack: Story = {
+export const NarrowWrap: Story = {
   render: () => html`
     <div style="max-width: 320px; border: 1px dashed #bdbdbf; padding: 12px;">
-      <fd-button-group style="--fd-button-group-stack-at: 480px;">
+      <fd-button-group>
         <fd-button variant="primary">Approve</fd-button>
         <fd-button variant="outline">Request changes</fd-button>
         <fd-button variant="subtle">Cancel</fd-button>
@@ -141,9 +141,9 @@ export const DocsOverview: Story = {
       </section>
 
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive stacking in a narrow container</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Wrapping in a narrow container</strong>
         <div style="max-width: 320px;">
-          <fd-button-group style="--fd-button-group-stack-at: 480px;">
+          <fd-button-group>
             <fd-button variant="primary">Approve</fd-button>
             <fd-button variant="outline">Escalate</fd-button>
             <fd-button variant="subtle">Cancel</fd-button>

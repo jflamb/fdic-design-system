@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import "../register/fd-button-group.js";
 import "../register/fd-button.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
@@ -104,49 +104,18 @@ describe("fd-button-group", () => {
     expect(assigned[1].tagName).toBe("FD-BUTTON");
   });
 
-  it("switches to stacked mode below the configured threshold", async () => {
+  it("keeps horizontal groups in a wrapping row regardless of inline size", async () => {
     const el = await createButtonGroup();
-    Object.defineProperty(el, "clientWidth", {
-      configurable: true,
-      value: 320,
-    });
-    el.style.setProperty("--fd-button-group-stack-at", "480px");
-
-    (el as any)._updateStacked();
     await el.updateComplete;
 
     const container = getContainer(el);
-    expect(el.stacked).toBe(true);
-    expect(container.classList.contains("stacked")).toBe(true);
-    expect(container.hasAttribute("data-stacked")).toBe(true);
+    expect(container.classList.contains("horizontal")).toBe(true);
+    expect(container.classList.contains("stacked")).toBe(false);
+    expect(container.hasAttribute("data-stacked")).toBe(false);
   });
 
   it("has no obvious accessibility violations in default layout", async () => {
     const el = await createButtonGroup({ label: "Form actions" });
     await expectNoAxeViolations(el);
-  });
-
-  it("disconnects its ResizeObserver when removed from the DOM", async () => {
-    const disconnect = vi.fn();
-    const observe = vi.fn();
-    const originalResizeObserver = globalThis.ResizeObserver;
-
-    class ResizeObserverMock {
-      observe = observe;
-      disconnect = disconnect;
-    }
-
-    (globalThis as any).ResizeObserver = ResizeObserverMock;
-
-    try {
-      const el = await createButtonGroup();
-      expect(observe).toHaveBeenCalledTimes(1);
-
-      el.remove();
-
-      expect(disconnect).toHaveBeenCalledTimes(1);
-    } finally {
-      (globalThis as any).ResizeObserver = originalResizeObserver;
-    }
   });
 });

@@ -240,7 +240,7 @@
           "name": "direction",
           "type": "`\"horizontal\"` \\| `\"vertical\"`",
           "defaultValue": "`\"horizontal\"`",
-          "description": "Horizontal groups wrap and can stack responsively. Vertical groups always stack."
+          "description": "Horizontal groups stay in a wrapping row. Vertical groups always stack."
         },
         {
           "name": "label",
@@ -266,11 +266,6 @@
           "name": "--fd-button-group-gap",
           "default": "`var(--fdic-spacing-sm, 0.75rem)`",
           "description": "Gap between actions in the group"
-        },
-        {
-          "name": "--fd-button-group-stack-at",
-          "default": "`480px`",
-          "description": "Width threshold below which horizontal groups stack vertically"
         }
       ],
       "after": ""
