@@ -80,6 +80,19 @@ describe("fd-menu", () => {
     expect(surface.getAttribute("popover")).toBe("auto");
   });
 
+  it("does not reserve a persistent scrollbar gutter on the menu surface", () => {
+    const styles = (
+      customElements.get("fd-menu") as typeof HTMLElement & {
+        styles?: { cssText?: string } | Array<{ cssText?: string }>;
+      }
+    ).styles;
+    const cssText = Array.isArray(styles)
+      ? styles.map((value) => value?.cssText ?? "").join("\n")
+      : styles?.cssText ?? "";
+
+    expect(cssText).not.toContain("scrollbar-gutter: stable");
+  });
+
   it("defaults to placement='bottom-start'", async () => {
     const el = await createMenu();
     expect(el.placement).toBe("bottom-start");
