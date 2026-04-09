@@ -171,19 +171,14 @@ export class FdPageFeedback extends LitElement {
       overflow-wrap: anywhere;
     }
 
-    .responses {
-      display: flex;
-      align-items: center;
-      gap: var(
-        --fd-page-feedback-action-gap,
-        var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem))
-      );
-      flex-wrap: wrap;
+    fd-button-group.responses {
+      inline-size: auto;
       min-inline-size: 0;
-    }
-
-    [part="responses"] {
-      display: block;
+      flex: none;
+      --fd-button-group-gap: var(
+        --fd-page-feedback-action-gap,
+        var(--fdic-spacing-sm, 0.75rem)
+      );
     }
 
     fd-button.choice-button {
@@ -247,6 +242,16 @@ export class FdPageFeedback extends LitElement {
 
     [part="actions"] {
       display: block;
+    }
+
+    fd-button-group.actions {
+      inline-size: auto;
+      min-inline-size: 0;
+      flex: none;
+      --fd-button-group-gap: var(
+        --fd-page-feedback-action-gap,
+        var(--fdic-spacing-sm, 0.75rem)
+      );
     }
 
     [part="thank-you"] {
@@ -511,7 +516,7 @@ export class FdPageFeedback extends LitElement {
           >
             Is this page useful?
           </p>
-          <div part="responses" class="responses">
+          <fd-button-group part="responses" class="responses" label="Page feedback responses">
             <fd-button
               class="choice-button"
               variant="neutral"
@@ -527,7 +532,7 @@ export class FdPageFeedback extends LitElement {
             >
               No
             </fd-button>
-          </div>
+          </fd-button-group>
         </div>
         <div part="actions" class="actions">
           <fd-button
@@ -639,7 +644,7 @@ export class FdPageFeedback extends LitElement {
             this._onWrongInput,
           )}
         </div>
-        <div part="actions" class="actions">
+        <fd-button-group part="actions" class="actions" label="Report actions">
           <fd-button
             class="send-button"
             variant="primary"
@@ -655,7 +660,7 @@ export class FdPageFeedback extends LitElement {
           >
             Cancel
           </fd-button>
-        </div>
+        </fd-button-group>
       </div>
     `;
   }

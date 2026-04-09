@@ -800,7 +800,13 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-button", "fd-link", "fd-label", "fd-textarea"],
+      dependencies: [
+        "fd-button",
+        "fd-button-group",
+        "fd-link",
+        "fd-label",
+        "fd-textarea",
+      ],
     },
     typeExports: [
       "PageFeedbackView",

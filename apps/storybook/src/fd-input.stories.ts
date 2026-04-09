@@ -350,10 +350,10 @@ export const ValidationLifecycle: Story = {
         message=""
         live="polite"
       ></fd-message>
-      <div style="display: flex; gap: 8px;">
+      <fd-button-group>
         <fd-button type="submit">Submit</fd-button>
         <fd-button type="reset">Reset</fd-button>
-      </div>
+      </fd-button-group>
     </form>
   `,
   parameters: {

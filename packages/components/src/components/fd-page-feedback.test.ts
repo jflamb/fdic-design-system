@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/fd-page-feedback.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import { FdButtonGroup } from "./fd-button-group.js";
 
 async function createFeedback(
   attrs: Record<string, string> = {
@@ -76,6 +77,7 @@ describe("FdPageFeedback", () => {
     expect(getPart(el, "responses")).toBeTruthy();
     expect(getButtonHost(el, "no-button")).toBeTruthy();
     expect(getButtonHost(el, "report-trigger")).toBeTruthy();
+    expect(getPart(el, "responses")?.tagName).toBe("FD-BUTTON-GROUP");
   });
 
   it("moves from prompt to survey and focuses the survey link", async () => {
@@ -244,21 +246,20 @@ describe("FdPageFeedback", () => {
     await expectNoAxeViolations(el);
   });
 
-  it("uses the button-group spacing token for grouped actions", async () => {
+  it("uses fd-button-group for multi-button response and action states", async () => {
     const el = await createFeedback();
-    el.style.setProperty("--fd-button-group-gap", "1.5rem");
-    await el.updateComplete;
 
     const responses = getPart(el, "responses");
-    const actions = el.shadowRoot?.querySelector(".actions") as HTMLElement | null;
+    await clickInner(getButtonHost(el, "report-trigger"));
+    const actions = getPart(el, "actions");
+    const groupStyles = Array.isArray(FdButtonGroup.styles)
+      ? FdButtonGroup.styles.map((style) => style.cssText).join("\n")
+      : FdButtonGroup.styles.cssText;
 
-    expect(getComputedStyle(responses as HTMLElement).gap).toContain(
-      "--fd-page-feedback-action-gap",
+    expect(responses?.tagName).toBe("FD-BUTTON-GROUP");
+    expect(actions?.tagName).toBe("FD-BUTTON-GROUP");
+    expect(groupStyles).toContain(
+      "gap: var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem));",
     );
-    expect(getComputedStyle(responses as HTMLElement).gap).toContain("1.5rem");
-    expect(getComputedStyle(actions as HTMLElement).gap).toContain(
-      "--fd-page-feedback-action-gap",
-    );
-    expect(getComputedStyle(actions as HTMLElement).gap).toContain("1.5rem");
   });
 });

@@ -219,10 +219,10 @@ export const FormValidation: Story = {
         <fd-option value="cd">Certificate of Deposit</fd-option>
       </fd-selector>
 
-      <div style="display: flex; gap: 0.5rem;">
+      <fd-button-group>
         <fd-button type="submit">Submit</fd-button>
         <fd-button type="reset">Reset</fd-button>
-      </div>
+      </fd-button-group>
       <pre id="result" style="font-size: 0.875rem; margin: 0;"></pre>
     </form>
   `,
