@@ -95,7 +95,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 
 | Name | Description |
 |---|---|
-| `actions` | Optional action group displayed alongside the page title. Use `fd-button-group` for multiple related page actions. |
+| `actions` | Optional action buttons or links displayed alongside the page title. |
 
 ## CSS custom properties
 
