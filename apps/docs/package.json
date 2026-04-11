@@ -8,7 +8,7 @@
     "build": "vitepress build ."
   },
   "dependencies": {
-    "@fdic-ds/components": "0.1.0"
+    "@fdic-ds/components": "file:../../packages/components"
   },
   "devDependencies": {
     "typescript": "^6.0.2",
