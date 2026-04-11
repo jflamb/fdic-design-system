@@ -961,7 +961,7 @@ export class FdGlobalHeader extends LitElement {
       animation: mega-col-enter 250ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
     }
 
-    .mega-col--l1 { animation-delay: 0ms; }
+    .mega-col--l1 { animation-delay: 0ms; margin-inline-start: -1.5rem; }
     .mega-col--l2 { animation-delay: 40ms; }
     .mega-col--l3 { animation-delay: 80ms; }
 
