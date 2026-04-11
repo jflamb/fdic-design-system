@@ -388,8 +388,8 @@ export class FdGlobalHeader extends LitElement {
 
     .shell {
       width: min(
-        var(--fd-global-header-shell-max-width, 82rem),
-        calc(100% - var(--fd-global-header-shell-inline-gutter, 8rem))
+        var(--ds-layout-content-max-width, 1312px),
+        calc(100% - 2 * var(--ds-layout-gutter, 64px))
       );
       margin-inline: auto;
     }
@@ -880,8 +880,8 @@ export class FdGlobalHeader extends LitElement {
       --mega-col-3-surface: var(--fd-global-header-glass-surface-3);
       position: relative;
       width: min(
-        var(--fd-global-header-shell-max-width, 82rem),
-        calc(100% - var(--fd-global-header-panel-inline-gutter, 5rem))
+        var(--ds-layout-content-max-width, 1312px),
+        calc(100% - 2 * var(--ds-layout-gutter, 64px))
       );
     }
 
@@ -1455,8 +1455,8 @@ export class FdGlobalHeader extends LitElement {
     @media (min-width: 769px) and (max-width: 1049px) {
       .shell {
         width: min(
-          var(--fd-global-header-shell-max-width, 82rem),
-          calc(100% - var(--fd-global-header-shell-inline-gutter-tablet, 4rem))
+          var(--ds-layout-content-max-width, 1312px),
+          calc(100% - 2 * var(--ds-layout-gutter-tablet, 32px))
         );
       }
     }
