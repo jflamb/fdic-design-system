@@ -387,7 +387,10 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .shell {
-      width: min(90rem, calc(100% - 8rem));
+      width: min(
+        var(--fd-global-header-shell-max-width, 82rem),
+        calc(100% - var(--fd-global-header-shell-inline-gutter, 8rem))
+      );
       margin-inline: auto;
     }
 
@@ -876,7 +879,10 @@ export class FdGlobalHeader extends LitElement {
       --mega-col-2-surface: var(--fd-global-header-glass-surface-2);
       --mega-col-3-surface: var(--fd-global-header-glass-surface-3);
       position: relative;
-      width: min(90rem, calc(100% - 5rem));
+      width: min(
+        var(--fd-global-header-shell-max-width, 82rem),
+        calc(100% - var(--fd-global-header-panel-inline-gutter, 5rem))
+      );
     }
 
     .mega-menu-frame[data-visible-columns="1"] {
@@ -1448,7 +1454,10 @@ export class FdGlobalHeader extends LitElement {
 
     @media (min-width: 769px) and (max-width: 1049px) {
       .shell {
-        width: min(90rem, calc(100% - 4rem));
+        width: min(
+          var(--fd-global-header-shell-max-width, 82rem),
+          calc(100% - var(--fd-global-header-shell-inline-gutter-tablet, 4rem))
+        );
       }
     }
 

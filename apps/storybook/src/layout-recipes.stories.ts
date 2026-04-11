@@ -13,6 +13,10 @@ const PAGE_STYLE = [
   "gap: 0",
   "width: 100%",
   "background: var(--ds-color-bg-base, #ffffff)",
+  "--fdic-layout-shell-max: 1440px",
+  "--fdic-layout-shell-gutter: 64px",
+  "--fdic-layout-shell-gutter-mobile: 16px",
+  "--fdic-layout-content-max: calc(var(--fdic-layout-shell-max) - (2 * var(--fdic-layout-shell-gutter)))",
 ].join("; ");
 
 const SECTION_SHELL_STYLE = [
@@ -22,17 +26,17 @@ const SECTION_SHELL_STYLE = [
 
 const SECTION_CONTENT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, 1440px)",
+  "width: min(100%, var(--fdic-layout-shell-max))",
   "margin-inline: auto",
-  "padding-inline: 64px",
+  "padding-inline: var(--fdic-layout-shell-gutter)",
   "padding-block: 32px",
 ].join("; ");
 
 const SECTION_CONTENT_TIGHT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, 1440px)",
+  "width: min(100%, var(--fdic-layout-shell-max))",
   "margin-inline: auto",
-  "padding-inline: 64px",
+  "padding-inline: var(--fdic-layout-shell-gutter)",
   "padding-block: 24px",
 ].join("; ");
 
@@ -120,6 +124,24 @@ const EVENTS = [
   },
 ];
 
+const GLOBAL_HEADER_SOURCE = {
+  items: [
+    { kind: "link", label: "News & Events", href: "#news", current: true },
+    { kind: "link", label: "Learning", href: "#learning" },
+    { kind: "link", label: "Knowledge Base", href: "#knowledge-base" },
+    { kind: "link", label: "Benefits", href: "#benefits" },
+    { kind: "link", label: "Support", href: "#support" },
+    { kind: "link", label: "About", href: "#about" },
+  ],
+  search: {
+    action: "#search",
+    paramName: "keys",
+    label: "Search FDICnet",
+    placeholder: "Search FDICnet",
+    searchAllLabel: "Search all FDICnet",
+  },
+};
+
 const renderQuickLinks = () => html`
   <fd-tile-list
     columns="3"
@@ -178,21 +200,40 @@ const renderRecipe = () => html`
   <style>
     @media (max-width: 640px) {
       .fdic-layout-recipe-content {
-        padding-inline: 16px !important;
+        padding-inline: var(--fdic-layout-shell-gutter-mobile) !important;
         padding-block: 24px !important;
       }
     }
   </style>
   <div style=${PAGE_STYLE}>
+    <fd-global-header
+      .navigation=${GLOBAL_HEADER_SOURCE.items}
+      .search=${GLOBAL_HEADER_SOURCE.search}
+      style=${[
+        "--fd-global-header-shell-max-width: var(--fdic-layout-content-max)",
+        "--fd-global-header-shell-inline-gutter: calc(2 * var(--fdic-layout-shell-gutter))",
+        "--fd-global-header-shell-inline-gutter-tablet: 4rem",
+        "--fd-global-header-panel-inline-gutter: 5rem",
+      ].join("; ")}
+    >
+      <a
+        slot="brand"
+        href="#home"
+        style="display:inline-flex; align-items:center; color:inherit; text-decoration:none; font-size:2.25rem; font-weight:700; line-height:1;"
+      >
+        FDICnet
+      </a>
+    </fd-global-header>
+
     <fd-page-header
       heading="FDICnet"
       kicker="Employee resources, updates, and tools"
       breadcrumb-label="Breadcrumbs"
       .breadcrumbs=${[{ label: "Home", href: "#" }]}
       style=${[
-        "--fd-page-header-max-width: 1440px",
-        "--fd-page-header-padding-inline: 64px",
-        "--fd-page-header-padding-inline-mobile: 16px",
+        "--fd-page-header-max-width: var(--fdic-layout-content-max)",
+        "--fd-page-header-padding-inline: var(--fdic-layout-shell-gutter)",
+        "--fd-page-header-padding-inline-mobile: var(--fdic-layout-shell-gutter-mobile)",
         "--fd-page-header-padding-block: 32px",
       ].join("; ")}
     ></fd-page-header>
@@ -203,7 +244,9 @@ const renderRecipe = () => html`
           <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Full-bleed cool section with constrained tile list</strong>
           <p class=${DOCS_OVERVIEW_META_CLASS}>
             Use a full-width background on the outer section, then keep interactive content inside a
-            centered 1440px container with 64px desktop gutters and 16px mobile gutters.
+            centered shell that tops out at 1440px. The shell owns the 64px desktop gutters and 16px
+            mobile gutters, while DS components with their own padding use the derived 1312px content
+            column so their edges line up with the page sections.
           </p>
           ${renderQuickLinks()}
         </div>
@@ -244,13 +287,14 @@ const renderRecipe = () => html`
       .socialLinks=${[
         { icon: "facebook", label: "Follow the FDIC on Facebook", href: "#" },
         { icon: "x", label: "Follow the FDIC on X", href: "#" },
+        { icon: "instagram", label: "Follow the FDIC on Instagram", href: "#" },
         { icon: "youtube", label: "Follow the FDIC on YouTube", href: "#" },
         { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
       ]}
       style=${[
-        "--fd-global-footer-max-width: 1440px",
-        "--fd-global-footer-padding-inline: 64px",
-        "--fd-global-footer-padding-inline-mobile: 16px",
+        "--fd-global-footer-max-width: var(--fdic-layout-content-max)",
+        "--fd-global-footer-padding-inline: var(--fdic-layout-shell-gutter)",
+        "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-shell-gutter-mobile)",
       ].join("; ")}
     ></fd-global-footer>
   </div>
@@ -278,8 +322,9 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Homepage section shell</strong>
         <p class=${DOCS_OVERVIEW_META_CLASS}>
-          Recipe: full-bleed section backgrounds and borders on the outside, 1440px max content width
-          on the inside, 64px desktop gutters, and 16px mobile gutters.
+          Recipe: full-bleed section backgrounds and borders on the outside, a 1440px outer shell with
+          64px desktop gutters and 16px mobile gutters, and a derived 1312px inner content column for
+          DS chrome components that already manage their own internal padding.
         </p>
         ${renderRecipe()}
       </section>
