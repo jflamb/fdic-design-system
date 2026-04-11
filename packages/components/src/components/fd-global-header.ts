@@ -319,7 +319,7 @@ export class FdGlobalHeader extends LitElement {
         sans-serif
       );
       position: relative;
-      z-index: 0;
+      z-index: 10;
     }
 
     :host([shy]) {
