@@ -53,7 +53,7 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
 
 | Name | Default | Description |
 |---|---|---|
-| `--fd-page-feedback-border-image` | `var(--fdic-gradient-brand-core, var(--fdic-brand-core-light, #38b6ff))` | Decorative top rule fill applied to the feedback surface. |
+| `--fd-page-feedback-border-image` | `var(--ds-gradient-brand-core, linear-gradient(135deg in oklch, var(--ds-color-primary-500), var(--ds-color-primary-400)))` | Decorative top rule fill applied to the feedback surface. |
 | `--fd-page-feedback-inline-padding` | `64px` | Desktop inline padding. |
 | `--fd-page-feedback-inline-padding-mobile` | `16px` | Mobile inline padding at `640px` and below. |
 | `--fd-page-feedback-block-padding` | `24px` | Desktop block padding. |

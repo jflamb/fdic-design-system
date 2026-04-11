@@ -319,7 +319,7 @@ Links use a four-state color model with underline thickness transitions:
   </div>
 </div>
 
-- **Focus**: `outline: 2px solid var(--fdic-border-input-focus)`, `outline-offset: 2px`, `border-radius: 2px`
+- **Focus**: `outline: 2px solid var(--ds-color-border-input-focus)`, `outline-offset: 2px`, `border-radius: 2px`
 - **External links** (`a[href^="http"]:not([href*="fdic.gov"])`): Phosphor ArrowSquareOut icon appended via `background-image` with `padding-right`; visited variant swaps icon fill to visited purple
 - **Content guidance**: Use descriptive link text that makes sense out of context — avoid "click here" or "read more"
 

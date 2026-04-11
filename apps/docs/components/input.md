@@ -71,12 +71,12 @@ This component should almost always be wrapped in [`fd-field`](/components/field
 | Name | Default | Description |
 |---|---|---|
 | `--fd-input-height` | `44px` | Minimum input height |
-| `--fd-input-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color at rest |
-| `--fd-input-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Border color on hover |
-| `--fd-input-border-color-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus glow color |
+| `--fd-input-border-color` | `var(--ds-color-border-input, #bdbdbf)` | Border color at rest |
+| `--fd-input-border-color-hover` | `var(--ds-color-border-input-active, #424244)` | Border color on hover |
+| `--fd-input-border-color-focus` | `var(--ds-color-border-input-focus, #38b6ff)` | Focus glow color |
 | `--fd-input-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius |
-| `--fd-input-bg` | `var(--fdic-background-base, #ffffff)` | Background color |
-| `--fd-input-placeholder-color` | `var(--fdic-text-secondary, #595961)` | Placeholder text color |
+| `--fd-input-bg` | `var(--ds-color-bg-base, #ffffff)` | Background color |
+| `--fd-input-placeholder-color` | `var(--ds-color-text-secondary, #595961)` | Placeholder text color |
 | `--fd-input-slot-size` | `44px` | Width of prefix and suffix slot containers |
 | `--fd-input-icon-size` | `22px` | Icon size inside prefix and suffix slots |
 

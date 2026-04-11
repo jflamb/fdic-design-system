@@ -248,7 +248,7 @@
 }
 
 .fdic-card:has(:focus-visible) {
-  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   border-radius: 12px;
   border-color: var(--fdic-docs-card-hover-border);

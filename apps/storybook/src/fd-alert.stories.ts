@@ -33,7 +33,7 @@ const ALERT_FRAME_STYLE =
   "display: grid; gap: var(--fdic-spacing-md, 1rem); max-width: 46rem;";
 
 const SITE_FRAME_STYLE =
-  "display: block; background: var(--fdic-background-subtle, #f5f5f7); padding: 0 0 2rem;";
+  "display: block; background: var(--ds-color-bg-container, #f5f5f7); padding: 0 0 2rem;";
 
 const renderAlert = (args: AlertArgs) => {
   const content = html`

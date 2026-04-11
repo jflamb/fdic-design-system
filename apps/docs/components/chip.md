@@ -66,7 +66,7 @@ A dismissible pill for active filters, selected tokens, or removable lightweight
 | `--fd-chip-bg-alert` | `var(--ds-color-error-050, #fdedea)` | Alert chip background. |
 | `--fd-chip-remove-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay for the internal remove button. |
 | `--fd-chip-remove-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Pressed overlay for the internal remove button. |
-| `--fd-chip-remove-focus-ring` | `var(--fdic-border-input-focus, #38b6ff)` | Focus-ring color for the internal remove button. |
+| `--fd-chip-remove-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Focus-ring color for the internal remove button. |
 
 ## Shadow parts
 

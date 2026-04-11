@@ -64,13 +64,13 @@ A file-upload control for selecting supporting documents by browsing or dragging
 |---|---|---|
 | `--fd-file-input-gap` | `var(--fdic-spacing-md, 16px)` | Vertical gap between the main content blocks inside the container. |
 | `--fd-file-input-radius` | `var(--fdic-corner-radius-md, 5px)` | Outer container corner radius. |
-| `--fd-file-input-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Container border color at rest. |
-| `--fd-file-input-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Container border color for hover and drag-target emphasis. |
-| `--fd-file-input-background` | `var(--fdic-background-base, #ffffff)` | Container background color. |
-| `--fd-file-input-focus-ring` | `var(--fdic-border-input-focus, #38b6ff)` | Outer focus glow color when the internal input is focused. |
-| `--fd-file-input-drop-overlay` | `var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))` | Overlay color used for the active drop-target state. |
-| `--fd-file-input-item-border-color` | `var(--fdic-border-input-interactive, #e8e8ed)` | Border color for file rows. |
-| `--fd-file-input-progress-color` | `var(--fdic-border-input-focus, #38b6ff)` | Indicator color for `uploading` rows. |
+| `--fd-file-input-border-color` | `var(--ds-color-border-input, #bdbdbf)` | Container border color at rest. |
+| `--fd-file-input-border-color-hover` | `var(--ds-color-border-input-active, #424244)` | Container border color for hover and drag-target emphasis. |
+| `--fd-file-input-background` | `var(--ds-color-bg-base, #ffffff)` | Container background color. |
+| `--fd-file-input-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus glow color when the internal input is focused. |
+| `--fd-file-input-drop-overlay` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Overlay color used for the active drop-target state. |
+| `--fd-file-input-item-border-color` | `var(--ds-color-border-input-interactive, #e8e8ed)` | Border color for file rows. |
+| `--fd-file-input-progress-color` | `var(--ds-color-border-input-focus, #38b6ff)` | Indicator color for `uploading` rows. |
 
 ## Shadow parts
 

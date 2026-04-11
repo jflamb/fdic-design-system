@@ -20,7 +20,7 @@ const meta = {
     code: `.prose {
   max-width: var(--prose-max-width, 65ch);
   line-height: var(--fdic-line-height-body, 1.5);
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
 }`,
     language: "css",
     showCopyButton: false
@@ -55,7 +55,7 @@ export const DocsOverview: Story = {
       <pre><code class="language-css">.prose {
   max-width: var(--prose-max-width, 65ch);
   line-height: var(--fdic-line-height-body, 1.5);
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
 }</code></pre>
 
       <pre style="position: relative;"><code class="language-bash">npm run build

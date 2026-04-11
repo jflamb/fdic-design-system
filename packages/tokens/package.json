@@ -15,13 +15,11 @@
   "exports": {
     "./fdic.tokens.json": "./fdic.tokens.json",
     "./interaction.css": "./interaction.css",
-    "./semantic.css": "./semantic.css",
-    "./legacy-fdic-colors.css": "./legacy-fdic-colors.css"
+    "./semantic.css": "./semantic.css"
   },
   "files": [
     "fdic.tokens.json",
     "interaction.css",
-    "semantic.css",
-    "legacy-fdic-colors.css"
+    "semantic.css"
   ]
 }

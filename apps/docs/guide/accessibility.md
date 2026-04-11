@@ -29,7 +29,7 @@ These ten rules govern every element, component, and pattern in the system. Viol
 <ol>
   <li>
     <strong>Focus rings on all interactive elements</strong>
-    <p>Every focusable element must use <code>:focus-visible</code> with <code>outline: 2px solid var(--fdic-border-input-focus, #38b6ff)</code>, <code>outline-offset: 2px</code>, and <code>border-radius: 2px</code>. No exceptions. Never remove or suppress focus indicators.</p>
+    <p>Every focusable element must use <code>:focus-visible</code> with <code>outline: 2px solid var(--ds-color-border-input-focus, #38b6ff)</code>, <code>outline-offset: 2px</code>, and <code>border-radius: 2px</code>. No exceptions. Never remove or suppress focus indicators.</p>
   </li>
   <li>
     <strong>Skip link</strong>

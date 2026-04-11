@@ -6,7 +6,6 @@
  */
 
 @import "../../../../packages/tokens/semantic.css" layer(tokens);
-@import "../../../../packages/tokens/legacy-fdic-colors.css" layer(tokens);
 
 @property --fdic-spacing-md {
   syntax: "<length>";

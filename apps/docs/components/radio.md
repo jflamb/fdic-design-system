@@ -59,11 +59,11 @@ Radio buttons let users make one explicit selection from a short list of mutuall
 |---|---|---|
 | `--fd-radio-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between the control and the label text |
 | `--fd-radio-size` | `1.5em` | Size of the radio control wrapper, scaled to the component's label text by default |
-| `--fd-radio-icon-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
-| `--fd-radio-focus-color` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
+| `--fd-radio-icon-color` | `var(--ds-color-text-primary, #212123)` | Resting control color |
+| `--fd-radio-focus-color` | `var(--ds-color-border-input-focus, #38b6ff)` | Focus ring color |
 | `--fd-radio-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
 | `--fd-radio-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
-| `--fd-radio-icon-disabled` | `var(--fdic-text-disabled, #9e9ea0)` | Control color while disabled |
+| `--fd-radio-icon-disabled` | `var(--ds-color-text-disabled, #9e9ea0)` | Control color while disabled |
 | `--fd-radio-invalid-color` | `rgb(190, 40, 40)` | Control color while visible invalid state is active |
 
 ## Shadow parts

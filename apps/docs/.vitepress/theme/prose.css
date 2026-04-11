@@ -73,8 +73,8 @@
   --fdic-corner-radius-lg: 7px;
 
   /* Callout colors — derived from brand palette with transparency */
-  --fdic-callout-bg: var(--fdic-background-container, #f5f5f7);
-  --fdic-callout-border: var(--fdic-border-divider, #bdbdbf);
+  --fdic-callout-bg: var(--ds-color-bg-container, #f5f5f7);
+  --fdic-callout-border: var(--ds-color-border-divider, #bdbdbf);
   --fdic-callout-info-bg: light-dark(rgba(18, 120, 176, 0.08), rgba(78, 175, 249, 0.1));
   --fdic-callout-info-border: light-dark(rgba(18, 120, 176, 0.25), rgba(78, 175, 249, 0.25));
   --fdic-callout-warning-bg: light-dark(rgba(180, 140, 20, 0.08), rgba(255, 191, 71, 0.1));
@@ -126,7 +126,7 @@
   font-size: var(--fdic-font-size-body, 1.125rem);
   font-weight: 400;
   line-height: var(--fdic-line-height-body, 1.5);
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
   text-wrap: pretty;
   hanging-punctuation: first allow-end last;
 }
@@ -152,7 +152,7 @@
 .prose .prose-lead {
   font-size: var(--fdic-font-size-body-big, 1.25rem);
   line-height: var(--fdic-line-height-body, 1.5);
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
 }
 
 /* --- Headings ------------------------------------------------------------ */
@@ -174,7 +174,7 @@
 .prose h1 {
   margin-top: 0;
   padding-bottom: var(--fdic-spacing-xs, 8px);
-  border-bottom: 1px solid var(--fdic-border-divider, #bdbdbf);
+  border-bottom: 1px solid var(--ds-color-border-divider, #bdbdbf);
 }
 
 .prose h2 {
@@ -199,7 +199,7 @@
 
 .prose abbr[title] {
   text-decoration: underline dotted;
-  text-decoration-color: var(--fdic-text-secondary, #595961);
+  text-decoration-color: var(--ds-color-text-secondary, #595961);
   text-underline-offset: 0.15em;
   cursor: help;
 }
@@ -209,8 +209,8 @@
 .prose kbd {
   font-family: var(--fdic-font-family-mono);
   font-size: 0.8em;
-  background: var(--fdic-background-container, #f5f5f7);
-  border: 1px solid var(--fdic-border-divider, #bdbdbf);
+  background: var(--ds-color-bg-container, #f5f5f7);
+  border: 1px solid var(--ds-color-border-divider, #bdbdbf);
   border-bottom-width: 2px;
   border-radius: var(--fdic-corner-radius-sm, 3px);
   padding: 0.125em 0.375em;
@@ -230,7 +230,7 @@
 
 .prose time[datetime][title] {
   text-decoration: underline dotted;
-  text-decoration-color: var(--fdic-text-secondary, #595961);
+  text-decoration-color: var(--ds-color-text-secondary, #595961);
   text-underline-offset: 0.15em;
   cursor: help;
 }
@@ -240,8 +240,8 @@
 .prose samp {
   font-family: var(--fdic-font-family-mono);
   font-size: 0.8em;
-  background: var(--fdic-background-container, #f5f5f7);
-  border-left: 3px solid var(--fdic-border-divider, #bdbdbf);
+  background: var(--ds-color-bg-container, #f5f5f7);
+  border-left: 3px solid var(--ds-color-border-divider, #bdbdbf);
   border-radius: 0 var(--fdic-corner-radius-sm, 3px) var(--fdic-corner-radius-sm, 3px) 0;
   padding: 0.15em 0.4em;
 }
@@ -272,8 +272,8 @@
 .prose output {
   font-family: var(--fdic-font-family-mono);
   font-size: 0.8em;
-  background: var(--fdic-background-container, #f5f5f7);
-  border: 1px solid var(--fdic-border-divider, #bdbdbf);
+  background: var(--ds-color-bg-container, #f5f5f7);
+  border: 1px solid var(--ds-color-border-divider, #bdbdbf);
   border-radius: var(--fdic-corner-radius-sm, 3px);
   padding: 0.125em 0.375em;
 }
@@ -282,7 +282,7 @@
 
 .prose del {
   text-decoration: line-through;
-  text-decoration-color: var(--fdic-text-secondary, #595961);
+  text-decoration-color: var(--ds-color-text-secondary, #595961);
 }
 
 .prose ins {
@@ -296,7 +296,7 @@
 
 .prose small {
   font-size: 0.875em;
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
 }
 
 /* --- Superscript & subscript --------------------------------------------- */
@@ -322,8 +322,8 @@
 .prose blockquote {
   font-size: var(--fdic-font-size-body, 1.125rem);
   line-height: 1.6;
-  color: var(--fdic-text-primary, #212123);
-  border-left: 4px solid var(--fdic-brand-core-default, #0d6191);
+  color: var(--ds-color-text-primary, #212123);
+  border-left: 4px solid var(--ds-color-primary-500, #0d6191);
   padding: var(--fdic-spacing-sm, 12px) var(--fdic-spacing-xl, 1.25rem);
   margin-left: 0;
   margin-right: 0;
@@ -345,13 +345,13 @@
   display: block;
   font-style: normal;
   font-size: 0.875em;
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
 }
 
 /* Nested blockquotes — lighter border to show hierarchy */
 .prose blockquote blockquote {
   margin-top: var(--fdic-spacing-xs, 0.5rem);
-  border-left-color: var(--fdic-border-divider, #bdbdbf);
+  border-left-color: var(--ds-color-border-divider, #bdbdbf);
 }
 
 /* --- Aside / pull quote -------------------------------------------------- */
@@ -361,8 +361,8 @@
   width: 40%;
   margin: 0 0 var(--fdic-spacing-md, 1rem) var(--fdic-spacing-xl, 1.25rem);
   padding: var(--fdic-spacing-md, 1rem);
-  border-left: 3px solid var(--fdic-brand-core-default, #0d6191);
-  color: var(--fdic-text-secondary, #595961);
+  border-left: 3px solid var(--ds-color-primary-500, #0d6191);
+  color: var(--ds-color-text-secondary, #595961);
 }
 
 .prose aside > *:last-child {
@@ -374,7 +374,7 @@
 .prose code {
   font-family: var(--fdic-font-family-mono);
   font-size: 0.8em;
-  background: var(--fdic-background-container, #f5f5f7);
+  background: var(--ds-color-bg-container, #f5f5f7);
   border-radius: var(--fdic-corner-radius-sm, 3px);
   padding: 0.125em 0.35em;
   word-break: break-word;
@@ -396,8 +396,8 @@
   font-family: var(--fdic-font-family-mono);
   font-size: 0.875rem;
   line-height: 1.625;
-  background: var(--fdic-background-container, #f5f5f7);
-  border: 1px solid var(--fdic-border-divider, #bdbdbf);
+  background: var(--ds-color-bg-container, #f5f5f7);
+  border: 1px solid var(--ds-color-border-divider, #bdbdbf);
   border-radius: var(--fdic-corner-radius-lg, 7px);
   padding: var(--fdic-spacing-md, 16px) var(--fdic-spacing-xl, 1.25rem);
   overflow-x: auto;
@@ -516,7 +516,7 @@
 
 .prose dt {
   font-weight: 600;
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
   margin-top: var(--fdic-spacing-md, 1rem);
   margin-bottom: var(--fdic-spacing-2xs, 0.25rem);
 }
@@ -546,7 +546,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--fdic-spacing-md, 1rem);
-  background: var(--fdic-background-container, #f5f5f7);
+  background: var(--ds-color-bg-container, #f5f5f7);
   border-radius: var(--fdic-corner-radius-lg, 7px);
   padding: var(--fdic-spacing-md, 1rem);
   font-weight: 600;
@@ -590,19 +590,19 @@
 
 /* Hover overlay */
 .prose summary:hover {
-  box-shadow: inset 0 0 0 999px var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04));
+  box-shadow: inset 0 0 0 999px var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
 }
 
 /* Pressed / active overlay */
 .prose summary:active {
-  box-shadow: inset 0 0 0 999px var(--fdic-overlay-emphasize-200, rgba(0, 0, 0, 0.08));
+  box-shadow: inset 0 0 0 999px var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
 }
 
 /* Focus state — border + blue glow */
 .prose summary:focus-visible {
   outline-color: transparent;
-  border: 2px solid var(--fdic-border-input-active, #424244);
-  box-shadow: 0 0 2.5px 2px var(--fdic-border-input-focus, #38b6ff);
+  border: 2px solid var(--ds-color-border-input-active, #424244);
+  box-shadow: 0 0 2.5px 2px var(--ds-color-border-input-focus, #38b6ff);
   padding: calc(var(--fdic-spacing-md, 1rem) - 2px);
 }
 
@@ -651,7 +651,7 @@
 
 .prose hr {
   border: none;
-  border-top: 1px solid var(--fdic-border-divider, #bdbdbf);
+  border-top: 1px solid var(--ds-color-border-divider, #bdbdbf);
   margin-top: var(--fdic-spacing-3xl, 48px);
   margin-bottom: var(--fdic-spacing-3xl, 48px);
 }
@@ -679,7 +679,7 @@
 .prose figcaption {
   font-size: var(--fdic-font-size-body-small, 1rem);
   line-height: var(--fdic-line-height-body, 1.5);
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
   margin-top: var(--fdic-spacing-sm, 12px);
 }
 
@@ -727,7 +727,7 @@
 }
 
 .prose a:has(> img):hover img {
-  box-shadow: 0 0 0 3px var(--fdic-text-link, #1278b0);
+  box-shadow: 0 0 0 3px var(--ds-color-text-link, #1278b0);
 }
 
 .prose a:has(> img):focus-visible {
@@ -735,7 +735,7 @@
 }
 
 .prose a:has(> img):focus-visible img {
-  box-shadow: 0 0 0 3px var(--fdic-border-input-focus, #38b6ff);
+  box-shadow: 0 0 0 3px var(--ds-color-border-input-focus, #38b6ff);
 }
 
 /* --- Tables -------------------------------------------------------------- */
@@ -752,7 +752,7 @@
 }
 
 .prose .prose-table-wrapper:focus-visible {
-  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   border-radius: var(--fdic-corner-radius-lg, 7px);
 }
@@ -761,7 +761,7 @@
   caption-side: top;
   font-size: var(--fdic-font-size-body-small, 1rem);
   font-weight: 600;
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
   text-align: left;
   padding-bottom: var(--fdic-spacing-xs, 0.5rem);
 }
@@ -784,8 +784,8 @@
   font-size: var(--fdic-font-size-body-small, 1rem);
   font-weight: 600;
   line-height: normal;
-  background: var(--fdic-color-brand-primary-500, #0d6191);
-  color: var(--fdic-text-inverted, #ffffff);
+  background: var(--ds-color-primary-500, #0d6191);
+  color: var(--ds-color-text-inverted, #ffffff);
   text-align: left;
   padding: var(--fdic-spacing-sm, 12px) var(--fdic-spacing-md, 16px);
 }
@@ -801,14 +801,14 @@
 .prose tbody td,
 .prose tbody th {
   padding: var(--fdic-spacing-sm, 12px) var(--fdic-spacing-md, 16px);
-  border-bottom: 1px solid var(--fdic-border-divider, #bdbdbf);
+  border-bottom: 1px solid var(--ds-color-border-divider, #bdbdbf);
   vertical-align: top;
 }
 
 /* Row headers in tbody — use body styling, not thead styling */
 .prose tbody th {
   background: transparent;
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
   text-align: left;
   font-weight: 600;
 }
@@ -818,11 +818,11 @@
 }
 
 .prose tbody tr:nth-child(even) {
-  background-color: var(--fdic-background-container, #f5f5f7);
+  background-color: var(--ds-color-bg-container, #f5f5f7);
 }
 
 .prose tbody tr:hover {
-  background-color: var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04));
+  background-color: var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
 }
 
 .prose tbody tr:last-child td {
@@ -834,8 +834,8 @@
 .prose tfoot td {
   font-weight: 600;
   padding: var(--fdic-spacing-sm, 12px) var(--fdic-spacing-md, 16px);
-  border-top: 2px solid var(--fdic-border-divider, #bdbdbf);
-  background: var(--fdic-background-container, #f5f5f7);
+  border-top: 2px solid var(--ds-color-border-divider, #bdbdbf);
+  background: var(--ds-color-bg-container, #f5f5f7);
 }
 
 .prose tfoot tr:last-child th:first-child {
@@ -859,7 +859,7 @@
 .prose sup a[href^="#fn"] {
   text-decoration: none;
   font-weight: 600;
-  color: var(--fdic-text-link, #1278b0);
+  color: var(--ds-color-text-link, #1278b0);
   padding: 0.5em 0.35em;
   margin: -0.5em -0.25em;
 }
@@ -869,7 +869,7 @@
 }
 
 .prose sup a[href^="#fn"]:focus-visible {
-  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -877,7 +877,7 @@
 /* Footnote section */
 .prose .prose-footnotes {
   font-size: 0.875em;
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
 }
 
 .prose .prose-footnotes hr {
@@ -915,7 +915,7 @@
 }
 
 .prose .prose-footnotes a[href^="#ref"]:focus-visible {
-  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -1087,25 +1087,25 @@
   height: 0.75rem;
   border: none;
   border-radius: 999px;
-  background: var(--fdic-background-container, #f5f5f7);
+  background: var(--ds-color-bg-container, #f5f5f7);
   overflow: hidden;
 }
 
 /* Progress — WebKit */
 .prose progress::-webkit-progress-bar {
-  background: var(--fdic-background-container, #f5f5f7);
+  background: var(--ds-color-bg-container, #f5f5f7);
   border-radius: 999px;
 }
 
 .prose progress::-webkit-progress-value {
-  background: var(--fdic-brand-core-default, #0d6191);
+  background: var(--ds-color-primary-500, #0d6191);
   border-radius: 999px;
   transition: width 0.3s ease;
 }
 
 /* Progress — Firefox */
 .prose progress::-moz-progress-bar {
-  background: var(--fdic-brand-core-default, #0d6191);
+  background: var(--ds-color-primary-500, #0d6191);
   border-radius: 999px;
 }
 
@@ -1118,12 +1118,12 @@
 .prose progress:indeterminate {
   background-image: linear-gradient(
     -45deg,
-    var(--fdic-border-divider, #bdbdbf) 25%,
-    var(--fdic-background-container, #f5f5f7) 25%,
-    var(--fdic-background-container, #f5f5f7) 50%,
-    var(--fdic-border-divider, #bdbdbf) 50%,
-    var(--fdic-border-divider, #bdbdbf) 75%,
-    var(--fdic-background-container, #f5f5f7) 75%
+    var(--ds-color-border-divider, #bdbdbf) 25%,
+    var(--ds-color-bg-container, #f5f5f7) 25%,
+    var(--ds-color-bg-container, #f5f5f7) 50%,
+    var(--ds-color-border-divider, #bdbdbf) 50%,
+    var(--ds-color-border-divider, #bdbdbf) 75%,
+    var(--ds-color-bg-container, #f5f5f7) 75%
   );
   background-size: 24px 24px;
   animation: prose-progress-stripes 0.8s linear infinite;
@@ -1139,7 +1139,7 @@
 
 /* Meter — WebKit */
 .prose meter::-webkit-meter-bar {
-  background: var(--fdic-background-container, #f5f5f7);
+  background: var(--ds-color-bg-container, #f5f5f7);
   border: none;
   border-radius: 999px;
 }
@@ -1187,8 +1187,8 @@
 /* --- Table of contents --------------------------------------------------- */
 
 .prose-toc {
-  background: var(--fdic-background-container, #f5f5f7);
-  border: 1px solid var(--fdic-border-divider, #bdbdbf);
+  background: var(--ds-color-bg-container, #f5f5f7);
+  border: 1px solid var(--ds-color-border-divider, #bdbdbf);
   border-radius: var(--fdic-corner-radius-lg, 7px);
   padding: var(--fdic-spacing-md, 1rem);
   margin-bottom: var(--fdic-spacing-xl, 1.25rem);
@@ -1198,7 +1198,7 @@
   font-size: var(--fdic-font-size-h3, 1.4063rem);
   line-height: var(--fdic-line-height-h3, 1.25);
   font-weight: 600;
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
   margin-top: 0;
   margin-bottom: var(--fdic-spacing-xs, 0.5rem);
 }
@@ -1271,7 +1271,7 @@ html {
 .prose h6 {
   font-family: var(--fdic-font-family-sans-serif);
   font-weight: 600;
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
 }
 
 .prose h1 {
@@ -1301,7 +1301,7 @@ html {
 /* --- Link styles (scoped from base reset) ------------------------------ */
 
 .prose a {
-  color: var(--link-unvisited, #1278B0);
+  color: var(--ds-color-text-link, #1278B0);
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-skip-ink: auto;
@@ -1311,21 +1311,21 @@ html {
 }
 
 .prose a:hover {
-  color: var(--link-unvisited-hover, #0D6191);
+  color: var(--ds-color-link-default, #0D6191);
   text-decoration-thickness: 2px;
 }
 
 .prose a:visited {
-  color: var(--link-visited, #855AA5);
+  color: var(--ds-color-text-link-visited, #855AA5);
 }
 
 .prose a:visited:hover {
-  color: var(--link-visited-hover, #79579F);
+  color: var(--ds-color-link-visited, #79579F);
   text-decoration-thickness: 2px;
 }
 
 .prose a:focus-visible {
-  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -1364,9 +1364,9 @@ html {
   clip: auto;
   overflow: visible;
   white-space: normal;
-  background: var(--fdic-background-base, #ffffff);
-  color: var(--fdic-text-link, #1278b0);
-  border: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  background: var(--ds-color-bg-base, #ffffff);
+  color: var(--ds-color-text-link, #1278b0);
+  border: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   border-radius: var(--fdic-corner-radius-sm, 3px);
   font-weight: 600;
   text-decoration: none;
@@ -1381,13 +1381,13 @@ html {
 
 .prose .prose-back-to-top a {
   font-size: var(--fdic-font-size-body-small, 1rem);
-  color: var(--fdic-text-secondary, #595961);
+  color: var(--ds-color-text-secondary, #595961);
   text-decoration: none;
 }
 
 .prose .prose-back-to-top a:hover,
 .prose .prose-back-to-top a:focus {
-  color: var(--fdic-text-link, #1278b0);
+  color: var(--ds-color-text-link, #1278b0);
   text-decoration: underline;
 }
 
@@ -1398,7 +1398,7 @@ html {
 }
 
 .prose-toc a.prose-toc-active {
-  color: var(--fdic-text-primary, #212123);
+  color: var(--ds-color-text-primary, #212123);
   font-weight: 600;
 }
 
@@ -1412,9 +1412,9 @@ html {
   font-family: var(--fdic-font-family-sans-serif);
   font-size: var(--fdic-font-size-body-small, 1rem);
   font-weight: 600;
-  color: var(--fdic-text-secondary, #595961);
-  background: var(--fdic-background-base, #ffffff);
-  border: 1px solid var(--fdic-border-divider, #bdbdbf);
+  color: var(--ds-color-text-secondary, #595961);
+  background: var(--ds-color-bg-base, #ffffff);
+  border: 1px solid var(--ds-color-border-divider, #bdbdbf);
   border-radius: var(--fdic-corner-radius-sm, 3px);
   cursor: pointer;
   opacity: 0;
@@ -1428,12 +1428,12 @@ html {
 }
 
 .prose-copy-btn:hover {
-  color: var(--fdic-text-primary, #212123);
-  border-color: var(--fdic-border-input-active, #424244);
+  color: var(--ds-color-text-primary, #212123);
+  border-color: var(--ds-color-border-input-active, #424244);
 }
 
 .prose-copy-btn:focus-visible {
-  outline: 2px solid var(--fdic-border-input-focus, #38b6ff);
+  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   opacity: 1;
 }
@@ -1480,7 +1480,7 @@ html {
 .prose :not(pre) > code {
   font-family: var(--fdic-font-family-mono, ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace);
   font-size: 0.8em;
-  background: var(--fdic-background-container, #f5f5f7);
+  background: var(--ds-color-bg-container, #f5f5f7);
   border-radius: var(--fdic-corner-radius-sm, 3px);
   padding: 0.125em 0.35em;
   color: inherit;
@@ -1505,8 +1505,8 @@ html {
 .prose blockquote {
   font-size: var(--fdic-font-size-body, 1.125rem);
   line-height: 1.6;
-  color: var(--fdic-text-primary, #212123);
-  border-left: 4px solid var(--fdic-brand-core-default, #0d6191);
+  color: var(--ds-color-text-primary, #212123);
+  border-left: 4px solid var(--ds-color-primary-500, #0d6191);
 }
 
 .prose blockquote > p {
@@ -1570,7 +1570,7 @@ html {
 
 .dark .prose thead th {
   background: var(--ds-color-bg-surface, #1A1A1C);
-  color: var(--fdic-text-primary, #ffffff);
+  color: var(--ds-color-text-inverted, #ffffff);
 }
 
 /* --- Copy button success state ---- */

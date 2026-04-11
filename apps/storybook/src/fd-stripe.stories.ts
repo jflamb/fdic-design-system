@@ -90,7 +90,7 @@ export const InContext: Story = {
         <fd-stripe type="cool"></fd-stripe>
         <div>
           <h3 style="margin: 0;">Account activity</h3>
-          <p style="margin: 0.5rem 0 0; color: var(--fdic-text-secondary, #595961);">
+          <p style="margin: 0.5rem 0 0; color: var(--ds-color-text-secondary, #595961);">
             Use the stripe as a decorative accent when the heading and surrounding
             copy already explain the grouping.
           </p>
@@ -101,7 +101,7 @@ export const InContext: Story = {
         <fd-stripe type="warm"></fd-stripe>
         <div>
           <h3 style="margin: 0;">Document checklist</h3>
-          <p style="margin: 0.5rem 0 0; color: var(--fdic-text-secondary, #595961);">
+          <p style="margin: 0.5rem 0 0; color: var(--ds-color-text-secondary, #595961);">
             Color supports scanning, but the visible text still carries the meaning.
           </p>
         </div>
@@ -129,7 +129,7 @@ export const DocsOverview: Story = {
             <fd-stripe type="cool"></fd-stripe>
             <div>
               <h3 style="margin: 0;">Account activity</h3>
-              <p style="margin: 0.5rem 0 0; color: var(--fdic-text-secondary, #595961);">
+              <p style="margin: 0.5rem 0 0; color: var(--ds-color-text-secondary, #595961);">
                 Decorative accent above a section heading.
               </p>
             </div>
@@ -139,7 +139,7 @@ export const DocsOverview: Story = {
             <fd-stripe type="warm"></fd-stripe>
             <div>
               <h3 style="margin: 0;">Document checklist</h3>
-              <p style="margin: 0.5rem 0 0; color: var(--fdic-text-secondary, #595961);">
+              <p style="margin: 0.5rem 0 0; color: var(--ds-color-text-secondary, #595961);">
                 Lightweight grouping without pretending to be the document structure.
               </p>
             </div>
