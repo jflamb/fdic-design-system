@@ -1982,6 +1982,7 @@ export class FdGlobalHeader extends LitElement {
       this.updateComplete.then(() => {
         this._syncColumnRails();
         this._syncTopNavIndicator();
+        this._checkNavOverflow();
       });
     });
     this._resizeObserver.observe(this);
@@ -2359,6 +2360,29 @@ export class FdGlobalHeader extends LitElement {
     }
 
     if (isMobile) {
+      this._topNavIndicatorVisible = false;
+    }
+  }
+
+  private _isTopNavOverflowing(): boolean {
+    const navList = this.shadowRoot?.querySelector<HTMLElement>(".top-nav-list");
+    if (!navList) {
+      return false;
+    }
+    return navList.scrollWidth > navList.clientWidth + 1;
+  }
+
+  private _checkNavOverflow() {
+    if (this._isMobile || !this.navigation.length) {
+      return;
+    }
+
+    if (this._isTopNavOverflowing()) {
+      this._isMobile = true;
+      this.toggleAttribute("mobile-layout", true);
+      this._menuOpen = false;
+      this._compactDesktopMenuVisible = false;
+      this._compactDesktopSearchExpanded = false;
       this._topNavIndicatorVisible = false;
     }
   }
