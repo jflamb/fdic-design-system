@@ -69,7 +69,7 @@ export class FdEvent extends LitElement {
       block-size: var(--fd-event-date-size, 48px);
       min-inline-size: var(--fd-event-date-size, 48px);
       min-block-size: var(--fd-event-date-size, 48px);
-      padding: var(--fd-event-date-padding-block, 4px)
+      padding: var(--fd-event-date-padding-block, 8px)
         var(--fd-event-date-padding-inline, 4px);
       gap: var(--fd-event-date-gap, 6px);
       border-radius: var(--fd-event-date-radius, 3px);
@@ -86,7 +86,7 @@ export class FdEvent extends LitElement {
     :host([tone="warm"]) [part="date"] {
       background: var(
         --fd-event-date-bg-warm,
-        var(--ds-color-secondary-050)
+        var(--ds-color-secondary-200)
       );
       color: var(--fd-event-date-color-warm, var(--ds-color-text-primary));
     }
