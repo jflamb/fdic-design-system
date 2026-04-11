@@ -1,5 +1,5 @@
 {
-  "name": "@fdic-ds/components",
+  "name": "@jflamb/fdic-ds-components",
   "version": "0.1.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

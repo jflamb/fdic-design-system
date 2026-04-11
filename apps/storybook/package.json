@@ -9,7 +9,7 @@
     "test": "vitest --project=storybook run"
   },
   "dependencies": {
-    "@fdic-ds/components": "0.1.0"
+    "@fdic-ds/components": "file:../../packages/components"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.3.1",

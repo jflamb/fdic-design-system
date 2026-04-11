@@ -1,5 +1,5 @@
 {
-  "name": "@fdic-ds/tokens",
+  "name": "@jflamb/fdic-ds-tokens",
   "version": "0.1.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
