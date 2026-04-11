@@ -211,6 +211,89 @@ export const tokenSource = {
       },
     },
   },
+  typography: {
+    fontFamily: {
+      "sans-serif": '"Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      mono: 'ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+    },
+    fontSize: {
+      h1: "2.53125rem",   // 40.5px
+      h2: "1.6875rem",    // 27px
+      h3: "1.40625rem",   // 22.5px
+      h4: "1.125rem",     // 18px
+      h5: "0.984375rem",  // 15.75px
+      h6: "0.84375rem",   // 13.5px
+      body: "1.125rem",   // 18px
+      "body-big": "1.25rem",  // 20px
+      "body-small": "1rem",   // 16px
+      "body-smaller": "0.8125rem", // 13px
+      lg: "1.375rem",     // 22px
+    },
+    fontWeight: {
+      regular: "400",
+      medium: "450",
+      semibold: "600",
+      bold: "700",
+    },
+    lineHeight: {
+      h1: "1.15",
+      h2: "1.2",
+      h3: "1.25",
+      h4: "1.25",
+      h5: "1.25",
+      h6: "1.25",
+      body: "1.375",
+      tight: "1.25",
+    },
+    letterSpacing: {
+      h1: "-0.025em",
+      h2: "-0.019em",
+      h6: "0.148em",
+      none: "0",
+    },
+    headingPadding: {
+      "h1-top": "3.796875rem",
+      "h1-bottom": "1.265625rem",
+      "h2-top": "3rem",
+      "h2-bottom": "1rem",
+      "h3-top": "2.109375rem",
+      "h3-bottom": "0.703125rem",
+      "h4-top": "1.6875rem",
+      "h4-bottom": "0.5625rem",
+      "h5-top": "1.4765625rem",
+      "h5-bottom": "0.4921875rem",
+      "h6-top": "1.265625rem",
+      "h6-bottom": "0.421875rem",
+    },
+  },
+  spacing: {
+    "3xs": "0.125rem",  // 2px
+    "2xs": "0.25rem",   // 4px
+    xs: "0.5rem",       // 8px
+    sm: "0.75rem",      // 12px
+    md: "1rem",         // 16px
+    lg: "1.25rem",      // 20px
+    xl: "1.5rem",       // 24px
+    "2xl": "2rem",      // 32px
+    "3xl": "3rem",      // 48px
+    "5xl": "5rem",      // 80px
+    none: "0",
+  },
+  cornerRadius: {
+    sm: "3px",
+    md: "5px",
+    lg: "7px",
+    xl: "9px",
+    full: "9999px",
+  },
+  layout: {
+    "max-width": "1440px",
+    gutter: "64px",
+    "gutter-tablet": "32px",
+    "gutter-mobile": "16px",
+    "content-max-width": "calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter))",
+    "paragraph-max-width": "720px",
+  },
   cssEffects: {
     shadow: {
       raised: [

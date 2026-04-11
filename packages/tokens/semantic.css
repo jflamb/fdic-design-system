@@ -191,13 +191,6 @@
   --ds-color-semantic-border-error: light-dark(var(--ds-color-error-500), var(--ds-color-error-300));
   --ds-color-semantic-border-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
 
-  /* Layout */
-  --ds-layout-max-width: 1440px;
-  --ds-layout-gutter: 64px;
-  --ds-layout-gutter-tablet: 32px;
-  --ds-layout-gutter-mobile: 16px;
-  --ds-layout-content-max-width: calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter));
-
   /* Overlay */
   --ds-color-overlay-hover: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.04), oklch(from var(--ds-color-neutral-000) l c h / 0.08));
   --ds-color-overlay-pressed: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
@@ -270,4 +263,90 @@
     oklch(from var(--ds-color-neutral-000) l c h / 0.08) 15%,
     oklch(from var(--ds-color-neutral-000) l c h / 0) 38%
   );
+
+  /* ===== Typography ===== */
+
+  /* Font family */
+  --fdic-font-family-sans-serif: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fdic-font-family-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Font size */
+  --fdic-font-size-h1: 2.53125rem;
+  --fdic-font-size-h2: 1.6875rem;
+  --fdic-font-size-h3: 1.40625rem;
+  --fdic-font-size-h4: 1.125rem;
+  --fdic-font-size-h5: 0.984375rem;
+  --fdic-font-size-h6: 0.84375rem;
+  --fdic-font-size-body: 1.125rem;
+  --fdic-font-size-body-big: 1.25rem;
+  --fdic-font-size-body-small: 1rem;
+  --fdic-font-size-body-smaller: 0.8125rem;
+  --fdic-font-size-lg: 1.375rem;
+
+  /* Font weight */
+  --fdic-font-weight-regular: 400;
+  --fdic-font-weight-medium: 450;
+  --fdic-font-weight-semibold: 600;
+  --fdic-font-weight-bold: 700;
+
+  /* Line height */
+  --fdic-line-height-h1: 1.15;
+  --fdic-line-height-h2: 1.2;
+  --fdic-line-height-h3: 1.25;
+  --fdic-line-height-h4: 1.25;
+  --fdic-line-height-h5: 1.25;
+  --fdic-line-height-h6: 1.25;
+  --fdic-line-height-body: 1.375;
+  --fdic-line-height-tight: 1.25;
+
+  /* Letter spacing */
+  --fdic-letter-spacing-h1: -0.025em;
+  --fdic-letter-spacing-h2: -0.019em;
+  --fdic-letter-spacing-h6: 0.148em;
+  --fdic-letter-spacing-none: 0;
+
+  /* Heading padding */
+  --fdic-heading-padding-h1-top: 3.796875rem;
+  --fdic-heading-padding-h1-bottom: 1.265625rem;
+  --fdic-heading-padding-h2-top: 3rem;
+  --fdic-heading-padding-h2-bottom: 1rem;
+  --fdic-heading-padding-h3-top: 2.109375rem;
+  --fdic-heading-padding-h3-bottom: 0.703125rem;
+  --fdic-heading-padding-h4-top: 1.6875rem;
+  --fdic-heading-padding-h4-bottom: 0.5625rem;
+  --fdic-heading-padding-h5-top: 1.4765625rem;
+  --fdic-heading-padding-h5-bottom: 0.4921875rem;
+  --fdic-heading-padding-h6-top: 1.265625rem;
+  --fdic-heading-padding-h6-bottom: 0.421875rem;
+
+  /* ===== Spacing ===== */
+
+  --ds-spacing-3xs: 0.125rem;
+  --ds-spacing-2xs: 0.25rem;
+  --ds-spacing-xs: 0.5rem;
+  --ds-spacing-sm: 0.75rem;
+  --ds-spacing-md: 1rem;
+  --ds-spacing-lg: 1.25rem;
+  --ds-spacing-xl: 1.5rem;
+  --ds-spacing-2xl: 2rem;
+  --ds-spacing-3xl: 3rem;
+  --ds-spacing-5xl: 5rem;
+  --ds-spacing-none: 0;
+
+  /* ===== Corner radius ===== */
+
+  --ds-corner-radius-sm: 3px;
+  --ds-corner-radius-md: 5px;
+  --ds-corner-radius-lg: 7px;
+  --ds-corner-radius-xl: 9px;
+  --ds-corner-radius-full: 9999px;
+
+  /* ===== Layout ===== */
+
+  --ds-layout-max-width: 1440px;
+  --ds-layout-gutter: 64px;
+  --ds-layout-gutter-tablet: 32px;
+  --ds-layout-gutter-mobile: 16px;
+  --ds-layout-content-max-width: calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter));
+  --ds-layout-paragraph-max-width: 720px;
 }

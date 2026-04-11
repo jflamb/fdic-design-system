@@ -150,6 +150,66 @@ function renderSemanticCss(source) {
     );
   }
 
+  lines.push("");
+  lines.push("  /* ===== Typography ===== */");
+  lines.push("");
+
+  lines.push("  /* Font family */");
+  for (const [name, value] of Object.entries(source.typography.fontFamily)) {
+    lines.push(`  --fdic-font-family-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* Font size */");
+  for (const [name, value] of Object.entries(source.typography.fontSize)) {
+    lines.push(`  --fdic-font-size-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* Font weight */");
+  for (const [name, value] of Object.entries(source.typography.fontWeight)) {
+    lines.push(`  --fdic-font-weight-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* Line height */");
+  for (const [name, value] of Object.entries(source.typography.lineHeight)) {
+    lines.push(`  --fdic-line-height-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* Letter spacing */");
+  for (const [name, value] of Object.entries(source.typography.letterSpacing)) {
+    lines.push(`  --fdic-letter-spacing-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* Heading padding */");
+  for (const [name, value] of Object.entries(source.typography.headingPadding)) {
+    lines.push(`  --fdic-heading-padding-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* ===== Spacing ===== */");
+  lines.push("");
+  for (const [name, value] of Object.entries(source.spacing)) {
+    lines.push(`  --ds-spacing-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* ===== Corner radius ===== */");
+  lines.push("");
+  for (const [name, value] of Object.entries(source.cornerRadius)) {
+    lines.push(`  --ds-corner-radius-${name}: ${value};`);
+  }
+  lines.push("");
+
+  lines.push("  /* ===== Layout ===== */");
+  lines.push("");
+  for (const [name, value] of Object.entries(source.layout)) {
+    lines.push(`  --ds-layout-${name}: ${value};`);
+  }
+
   lines.push("}");
   lines.push("");
   return lines.join("\n");
@@ -179,10 +239,38 @@ function renderDtcgJson(source) {
       font: {
         family: {
           $type: "fontFamily",
-          sans: { $value: ["Source Sans 3", "Arial", "sans-serif"] },
-          serif: { $value: ["Lora", "Georgia", "serif"] },
+          sans: { $value: ["Source Sans 3", "Source Sans Pro", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"] },
+          mono: { $value: ["ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"] },
         },
       },
+      fontSize: {
+        $type: "dimension",
+        ...Object.fromEntries(Object.entries(source.typography.fontSize).map(([k, v]) => [k, { $value: parseDimension(v) }])),
+      },
+      fontWeight: {
+        $type: "number",
+        ...Object.fromEntries(Object.entries(source.typography.fontWeight).map(([k, v]) => [k, { $value: Number(v) }])),
+      },
+      lineHeight: {
+        $type: "number",
+        ...Object.fromEntries(Object.entries(source.typography.lineHeight).map(([k, v]) => [k, { $value: Number(v) }])),
+      },
+    },
+    spacing: {
+      $type: "dimension",
+      ...Object.fromEntries(Object.entries(source.spacing).filter(([k]) => k !== "none").map(([k, v]) => [k, { $value: parseDimension(v) }])),
+    },
+    cornerRadius: {
+      $type: "dimension",
+      ...Object.fromEntries(Object.entries(source.cornerRadius).filter(([k]) => k !== "full").map(([k, v]) => [k, { $value: parseDimension(v) }])),
+    },
+    layout: {
+      $type: "dimension",
+      "max-width": { $value: parseDimension(source.layout["max-width"]) },
+      gutter: { $value: parseDimension(source.layout.gutter) },
+      "gutter-tablet": { $value: parseDimension(source.layout["gutter-tablet"]) },
+      "gutter-mobile": { $value: parseDimension(source.layout["gutter-mobile"]) },
+      "paragraph-max-width": { $value: parseDimension(source.layout["paragraph-max-width"]) },
     },
     interaction: {
       focus: {
