@@ -191,6 +191,13 @@
   --ds-color-semantic-border-error: light-dark(var(--ds-color-error-500), var(--ds-color-error-300));
   --ds-color-semantic-border-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
 
+  /* Layout */
+  --ds-layout-max-width: 1440px;
+  --ds-layout-gutter: 64px;
+  --ds-layout-gutter-tablet: 32px;
+  --ds-layout-gutter-mobile: 16px;
+  --ds-layout-content-max-width: calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter));
+
   /* Overlay */
   --ds-color-overlay-hover: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.04), oklch(from var(--ds-color-neutral-000) l c h / 0.08));
   --ds-color-overlay-pressed: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-000) l c h / 0.14));

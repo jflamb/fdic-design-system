@@ -323,19 +323,12 @@ describe("fd-global-header", () => {
     expect(styles).toContain("var(--ds-color-border-glass-soft)");
   });
 
-  it("exposes shell width and gutter variables for page-level alignment", () => {
+  it("uses DS layout tokens for shell width and gutter alignment", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 
-    expect(styles).toContain("var(--fd-global-header-shell-max-width, 82rem)");
-    expect(styles).toContain(
-      "var(--fd-global-header-shell-inline-gutter, 8rem)",
-    );
-    expect(styles).toContain(
-      "var(--fd-global-header-shell-inline-gutter-tablet, 4rem)",
-    );
-    expect(styles).toContain(
-      "var(--fd-global-header-panel-inline-gutter, 5rem)",
-    );
+    expect(styles).toContain("var(--ds-layout-content-max-width, 1312px)");
+    expect(styles).toContain("var(--ds-layout-gutter, 64px)");
+    expect(styles).toContain("var(--ds-layout-gutter-tablet, 32px)");
   });
 
   it("suppresses transitions and animations across the component for reduced motion", () => {
