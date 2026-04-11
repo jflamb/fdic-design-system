@@ -67,18 +67,7 @@ export class FdFileInput extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-primary, #212123);
     }
 
@@ -90,8 +79,8 @@ export class FdFileInput extends LitElement {
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: var(--fd-file-input-gap, var(--fdic-spacing-md, 16px));
-      padding: var(--fdic-spacing-lg, 20px) var(--fdic-spacing-xl, 24px);
+      gap: var(--fd-file-input-gap, var(--ds-spacing-md, 16px));
+      padding: var(--ds-spacing-lg, 20px) var(--ds-spacing-xl, 24px);
       border: 1px solid
         var(
           --fd-file-input-border-color,
@@ -99,7 +88,7 @@ export class FdFileInput extends LitElement {
         );
       border-radius: var(
         --fd-file-input-radius,
-        var(--fdic-corner-radius-md, 5px)
+        var(--ds-corner-radius-md, 5px)
       );
       background: var(
         --fd-file-input-background,
@@ -180,7 +169,7 @@ export class FdFileInput extends LitElement {
     .fd-file-input__controls {
       display: flex;
       align-items: center;
-      gap: var(--fdic-spacing-xl, 24px);
+      gap: var(--ds-spacing-xl, 24px);
       flex-wrap: wrap;
     }
 
@@ -192,8 +181,8 @@ export class FdFileInput extends LitElement {
       min-height: var(--fd-file-input-height, 44px);
       min-width: var(--fd-file-input-min-width, 44px);
       padding-inline: 11px;
-      gap: var(--fdic-spacing-2xs, 4px);
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      gap: var(--ds-spacing-2xs, 4px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
       background: var(--ds-color-bg-interactive, #f5f5f7);
       color: inherit;
       box-sizing: border-box;
@@ -274,7 +263,7 @@ export class FdFileInput extends LitElement {
     [part="list"] {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--fdic-spacing-md, 16px);
+      gap: var(--ds-spacing-md, 16px);
       list-style: none;
       padding: 0;
       margin: 0;
@@ -285,15 +274,15 @@ export class FdFileInput extends LitElement {
       flex: 1 1 344px;
       min-width: 280px;
       flex-direction: column;
-      gap: var(--fdic-spacing-xs, 8px);
-      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px)
-        var(--fdic-spacing-sm, 12px);
+      gap: var(--ds-spacing-xs, 8px);
+      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px)
+        var(--ds-spacing-sm, 12px);
       border: 1px solid
         var(
           --fd-file-input-item-border-color,
           var(--ds-color-border-input-interactive, #e8e8ed)
         );
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
       background: var(--ds-color-bg-base, #ffffff);
       box-sizing: border-box;
     }
@@ -302,14 +291,14 @@ export class FdFileInput extends LitElement {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: var(--fdic-spacing-sm, 12px);
+      gap: var(--ds-spacing-sm, 12px);
     }
 
     .fd-file-input__item-copy {
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
-      gap: var(--fdic-spacing-2xs, 4px);
+      gap: var(--ds-spacing-2xs, 4px);
       min-width: 0;
     }
 
@@ -325,7 +314,7 @@ export class FdFileInput extends LitElement {
     [part="item-status"] {
       display: inline-flex;
       align-items: flex-start;
-      gap: var(--fdic-spacing-2xs, 4px);
+      gap: var(--ds-spacing-2xs, 4px);
       font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
       color: var(--ds-color-text-secondary, #595961);
@@ -363,7 +352,7 @@ export class FdFileInput extends LitElement {
       block-size: 44px;
       padding: 0;
       border: none;
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
       background: transparent;
       color: inherit;
       cursor: pointer;

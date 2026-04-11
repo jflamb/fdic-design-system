@@ -190,7 +190,7 @@ export class FdHeaderSearch extends LitElement {
       align-items: center;
       min-height: 2.75rem;
       border: 1px solid var(--ds-color-border-input, #bdbdbf);
-      border-radius: 3px;
+      border-radius: var(--ds-corner-radius-sm, 3px);
       background: var(--ds-color-bg-input, #ffffff);
       gap: 0.5rem;
       padding-inline-start: 0.75rem;
@@ -337,7 +337,7 @@ export class FdHeaderSearch extends LitElement {
       width: min(42.5rem, 100vw - 2.5rem);
       overflow: hidden;
       border: 1px solid var(--ds-color-border-divider, rgba(9, 53, 84, 0.14));
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
       background: var(--ds-color-bg-surface, #ffffff);
       box-shadow: var(--ds-shadow-panel);
       z-index: 20;
@@ -380,7 +380,7 @@ export class FdHeaderSearch extends LitElement {
     }
 
     .result-title {
-      font-size: 1rem;
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 700;
       color: var(--ds-color-text-primary, #0c2336);
       line-height: 1.25;

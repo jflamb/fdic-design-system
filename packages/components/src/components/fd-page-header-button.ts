@@ -40,11 +40,17 @@ export class FdPageHeaderButton extends LitElement {
         --fd-page-header-button-focus-ring,
         var(--ds-focus-ring-color)
       );
-      --fd-button-gap: var(--fd-page-header-button-gap, 8px);
+      --fd-button-gap: var(--fd-page-header-button-gap, var(--ds-spacing-xs, 8px));
       --fd-button-height: var(--fd-page-header-button-height, 32px);
-      --fd-button-font-size: var(--fd-page-header-button-font-size, 16px);
-      --fd-button-radius: var(--fd-page-header-button-radius, 9999px);
-      --fd-button-icon-edge-padding: var(--fd-page-header-button-padding-end, 8px);
+      --fd-button-font-size: var(
+        --fd-page-header-button-font-size,
+        var(--fdic-font-size-body-small, 16px)
+      );
+      --fd-button-radius: var(--fd-page-header-button-radius, var(--ds-corner-radius-full, 9999px));
+      --fd-button-icon-edge-padding: var(
+        --fd-page-header-button-padding-end,
+        var(--ds-spacing-xs, 8px)
+      );
     }
 
     .icon {

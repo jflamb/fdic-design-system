@@ -43,18 +43,7 @@ export class FdPagination extends LitElement {
     :host {
       display: block;
       color: var(--ds-color-text-primary);
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       -webkit-font-smoothing: antialiased;
@@ -77,13 +66,13 @@ export class FdPagination extends LitElement {
 
     .desktop {
       display: flex;
-      gap: var(--fd-pagination-gap, var(--fdic-spacing-xl, 24px));
+      gap: var(--fd-pagination-gap, var(--ds-spacing-xl, 24px));
       justify-content: flex-start;
     }
 
     .mobile {
       display: flex;
-      gap: var(--fd-pagination-mobile-gap, var(--fdic-spacing-sm, 12px));
+      gap: var(--fd-pagination-mobile-gap, var(--ds-spacing-sm, 12px));
       justify-content: flex-start;
     }
 
@@ -95,7 +84,7 @@ export class FdPagination extends LitElement {
     [part="list"] {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--fd-pagination-page-gap, var(--fdic-spacing-xs, 8px));
+      gap: var(--fd-pagination-page-gap, var(--ds-spacing-xs, 8px));
       align-items: center;
       list-style: none;
       padding: 0;
@@ -112,14 +101,14 @@ export class FdPagination extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: var(--fdic-spacing-xs, 8px);
+      gap: var(--ds-spacing-xs, 8px);
       min-block-size: var(--fd-pagination-control-min-size, 44px);
       min-inline-size: var(--fd-pagination-control-min-size, 44px);
       padding-inline: 7px;
       border: none;
       border-radius: var(
         --fd-pagination-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       background: var(
         --fd-pagination-control-bg,
@@ -240,7 +229,7 @@ export class FdPagination extends LitElement {
         );
       border-radius: var(
         --fd-pagination-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       background: var(
         --fd-pagination-select-bg,

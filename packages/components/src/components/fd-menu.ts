@@ -25,7 +25,7 @@ export class FdMenu extends LitElement {
       margin: 0;
       padding: 0;
       border: 1px solid var(--ds-color-border-divider, #bdbdbf);
-      border-radius: var(--fd-menu-border-radius, var(--fdic-corner-radius-lg, 7px));
+      border-radius: var(--fd-menu-border-radius, var(--ds-corner-radius-lg, 7px));
       background: var(--ds-color-bg-surface, #ffffff);
       box-shadow: var(
         --fd-menu-shadow,
@@ -51,7 +51,7 @@ export class FdMenu extends LitElement {
     .menu {
       list-style: none;
       margin: 0;
-      padding: var(--fdic-spacing-2xs, 4px) 0;
+      padding: var(--ds-spacing-2xs, 4px) 0;
     }
 
     @media (max-width: 768px) {

@@ -1028,7 +1028,7 @@ export class FdGlobalHeader extends LitElement {
       text-align: start;
       border-radius: 0;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.4;
       text-decoration: none;
@@ -1066,7 +1066,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .menu-item-label {
-      font-size: 1rem;
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.4;
       color: var(--fd-global-header-color-text-primary);
@@ -1240,7 +1240,7 @@ export class FdGlobalHeader extends LitElement {
       border: 0;
       background: var(--fd-global-header-color-surface-base);
       color: var(--fd-global-header-color-text-primary);
-      font-size: 1rem;
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.375;
       cursor: pointer;
@@ -1339,7 +1339,7 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-overview-link {
       min-height: 2.5rem;
-      font-size: 1rem;
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 600;
       line-height: 1.375;
       text-underline-offset: 2px;
@@ -1423,7 +1423,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-item-label {
-      font-size: 1rem;
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: inherit;
       line-height: inherit;
       color: var(--fd-global-header-color-text-primary);

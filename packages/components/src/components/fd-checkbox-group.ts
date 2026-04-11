@@ -25,18 +25,7 @@ export class FdCheckboxGroup extends LitElement {
     :host {
       display: block;
       max-inline-size: var(--fd-checkbox-group-max-width, 32rem);
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     [part="fieldset"] {
@@ -50,7 +39,7 @@ export class FdCheckboxGroup extends LitElement {
 
     [part="legend"] {
       padding: 0;
-      margin: 0 0 var(--fd-checkbox-group-legend-gap, var(--fdic-spacing-xs, 8px)) 0;
+      margin: 0 0 var(--fd-checkbox-group-legend-gap, var(--ds-spacing-xs, 8px)) 0;
       float: none;
       width: 100%;
       font-size: var(--fdic-font-size-body, 18px);
@@ -63,7 +52,7 @@ export class FdCheckboxGroup extends LitElement {
       color: var(--ds-color-text-secondary, #595961);
       font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: var(--fdic-line-height-body, 1.5);
-      margin: 0 0 var(--fd-checkbox-group-description-gap, var(--fdic-spacing-sm, 12px)) 0;
+      margin: 0 0 var(--fd-checkbox-group-description-gap, var(--ds-spacing-sm, 12px)) 0;
     }
 
     [part="description"][hidden] {
@@ -72,7 +61,7 @@ export class FdCheckboxGroup extends LitElement {
 
     [part="items"] {
       display: grid;
-      gap: var(--fd-checkbox-group-gap, var(--fdic-spacing-sm, 12px));
+      gap: var(--fd-checkbox-group-gap, var(--ds-spacing-sm, 12px));
     }
 
     [part="items"].horizontal {
@@ -92,7 +81,7 @@ export class FdCheckboxGroup extends LitElement {
 
     :host([data-user-invalid]) [part="fieldset"] {
       border-inline-start: 3px solid var(--ds-color-semantic-border-error, #B10B2D);
-      padding-inline-start: var(--fdic-spacing-sm, 12px);
+      padding-inline-start: var(--ds-spacing-sm, 12px);
     }
 
     /* forced-colors: provided by forcedColorsFieldGroup */

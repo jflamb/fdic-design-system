@@ -49,18 +49,7 @@ export class FdHero extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-inverted);
 
       /* Cool tone overlay tokens (default) */
@@ -83,8 +72,8 @@ export class FdHero extends LitElement {
       --_fd-hero-stripe-bg: var(--ds-color-primary-400, #38b6ff);
       display: block;
       box-sizing: border-box;
-      padding-block: var(--fd-hero-padding-block, 64px);
-      padding-inline: var(--fd-hero-padding-inline, 64px);
+      padding-block: var(--fd-hero-padding-block, var(--ds-layout-gutter, 64px));
+      padding-inline: var(--fd-hero-padding-inline, var(--ds-layout-gutter, 64px));
       background-color: var(--_fd-hero-panel-bg);
       background-image:
         var(--_fd-hero-overlay-gradient),
@@ -115,7 +104,7 @@ export class FdHero extends LitElement {
       display: flex;
       align-items: center;
       min-block-size: var(--fd-hero-min-height, 332px);
-      max-inline-size: var(--fd-hero-max-width, 1440px);
+      max-inline-size: var(--fd-hero-max-width, var(--ds-layout-max-width, 1440px));
       margin-inline: auto;
       width: 100%;
     }
@@ -148,17 +137,17 @@ export class FdHero extends LitElement {
     .copy {
       display: flex;
       flex-direction: column;
-      gap: var(--fd-hero-copy-gap, 20px);
+      gap: var(--fd-hero-copy-gap, var(--ds-spacing-lg, 20px));
     }
 
     .lede-shell {
-      margin-block-start: var(--fd-hero-heading-gap, 16px);
+      margin-block-start: var(--fd-hero-heading-gap, var(--ds-spacing-md, 16px));
     }
 
     .stripe-shell {
       display: flex;
       align-items: center;
-      padding-block: 12px;
+      padding-block: var(--ds-spacing-sm, 12px);
     }
 
     .stripe-shell.is-hidden {
@@ -176,9 +165,9 @@ export class FdHero extends LitElement {
     .action {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: var(--ds-spacing-2xs, 4px);
       align-self: flex-start;
-      margin-block-start: var(--fd-hero-action-gap, 24px);
+      margin-block-start: var(--fd-hero-action-gap, var(--ds-spacing-xl, 24px));
       color: inherit;
       font-size: var(--fdic-font-size-body-big, 20px);
       font-weight: 450;
@@ -263,7 +252,7 @@ export class FdHero extends LitElement {
 
     @media (max-width: 640px) {
       .base {
-        padding-inline: var(--fd-hero-padding-inline-mobile, 16px);
+        padding-inline: var(--fd-hero-padding-inline-mobile, var(--ds-layout-gutter-mobile, 16px));
       }
 
       .content {

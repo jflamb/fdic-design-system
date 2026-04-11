@@ -73,7 +73,7 @@ export class FdVisual extends LitElement {
 
     .surface {
       --_fd-visual-size: 40px;
-      --_fd-visual-padding: 8px;
+      --_fd-visual-padding: var(--ds-spacing-xs, 8px);
       --_fd-visual-content-size: 18px;
       display: inline-flex;
       align-items: center;
@@ -83,7 +83,7 @@ export class FdVisual extends LitElement {
       box-sizing: border-box;
       overflow: hidden;
       position: relative;
-      border-radius: var(--fd-visual-radius, 9999px);
+      border-radius: var(--fd-visual-radius, var(--ds-corner-radius-full, 9999px));
       background: var(
         --fd-visual-bg-neutral,
         var(--ds-color-bg-interactive)
@@ -125,7 +125,7 @@ export class FdVisual extends LitElement {
 
     .size-xs {
       --_fd-visual-size: 24px;
-      --_fd-visual-padding: 4px;
+      --_fd-visual-padding: var(--ds-spacing-2xs, 4px);
       --_fd-visual-content-size: 13px;
     }
 
@@ -137,13 +137,13 @@ export class FdVisual extends LitElement {
 
     .size-md {
       --_fd-visual-size: 40px;
-      --_fd-visual-padding: 8px;
+      --_fd-visual-padding: var(--ds-spacing-xs, 8px);
       --_fd-visual-content-size: 18px;
     }
 
     .size-lg {
       --_fd-visual-size: 48px;
-      --_fd-visual-padding: 8px;
+      --_fd-visual-padding: var(--ds-spacing-xs, 8px);
       --_fd-visual-content-size: 22px;
     }
 
@@ -155,7 +155,7 @@ export class FdVisual extends LitElement {
 
     .size-2xl {
       --_fd-visual-size: 72px;
-      --_fd-visual-padding: 12px;
+      --_fd-visual-padding: var(--ds-spacing-sm, 12px);
       --_fd-visual-content-size: 36px;
     }
 

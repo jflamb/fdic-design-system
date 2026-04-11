@@ -25,12 +25,12 @@ export class FdBadge extends LitElement {
       min-block-size: var(--fd-badge-height, 28px);
       max-inline-size: 100%;
       box-sizing: border-box;
-      padding-block: var(--fdic-spacing-2xs, 4px);
+      padding-block: var(--ds-spacing-2xs, 4px);
       padding-inline: var(
         --fd-badge-padding-inline,
-        var(--fdic-spacing-sm, 12px)
+        var(--ds-spacing-sm, 12px)
       );
-      border-radius: var(--fd-badge-radius, 9999px);
+      border-radius: var(--fd-badge-radius, var(--ds-corner-radius-full, 9999px));
       background: var(
         --fd-badge-bg-neutral,
         var(--ds-color-bg-interactive, #f5f5f7)
@@ -39,18 +39,7 @@ export class FdBadge extends LitElement {
         --fd-badge-text-color,
         var(--ds-color-text-primary, #212123)
       );
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(
         --fd-badge-font-size,
         var(--fdic-font-size-body-small, 1rem)

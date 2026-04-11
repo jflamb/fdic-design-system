@@ -64,18 +64,7 @@ export class FdLink extends LitElement {
         --fd-link-color-normal,
         var(--ds-color-bg-active)
       );
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;

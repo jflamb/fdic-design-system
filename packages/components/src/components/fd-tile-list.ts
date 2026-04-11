@@ -46,20 +46,20 @@ export class FdTileList extends LitElement {
       display: block;
       --fd-tile-list-col-2-min: 384px;
       --fd-tile-list-col-2-max: 688px;
-      --fd-tile-list-col-2-gap: 48px;
+      --fd-tile-list-col-2-gap: var(--ds-spacing-3xl, 48px);
       --fd-tile-list-col-3-min: 360px;
       --fd-tile-list-col-3-max: 440px;
-      --fd-tile-list-col-3-gap: 48px;
+      --fd-tile-list-col-3-gap: var(--ds-spacing-3xl, 48px);
       --fd-tile-list-col-4-min: 256px;
       --fd-tile-list-col-4-max: 320px;
-      --fd-tile-list-col-4-gap: 48px;
+      --fd-tile-list-col-4-gap: var(--ds-spacing-3xl, 48px);
       --fd-tile-list-col-2-min-mobile: 320px;
-      --fd-tile-list-col-2-gap-mobile: 16px;
+      --fd-tile-list-col-2-gap-mobile: var(--ds-spacing-md, 16px);
       --fd-tile-list-col-3-min-mobile: 200px;
-      --fd-tile-list-col-3-gap-mobile: 16px;
+      --fd-tile-list-col-3-gap-mobile: var(--ds-spacing-md, 16px);
       --fd-tile-list-col-4-min-mobile: 160px;
       --fd-tile-list-col-4-max-mobile: 180px;
-      --fd-tile-list-col-4-gap-mobile: 16px;
+      --fd-tile-list-col-4-gap-mobile: var(--ds-spacing-md, 16px);
     }
 
     :host([hidden]) {

@@ -34,18 +34,7 @@ export class FdSlider extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       color: var(--ds-color-text-primary);
@@ -62,7 +51,7 @@ export class FdSlider extends LitElement {
     .fd-slider {
       display: flex;
       flex-direction: column;
-      gap: var(--fdic-spacing-xs, 8px);
+      gap: var(--ds-spacing-xs, 8px);
       width: 100%;
     }
 
@@ -85,7 +74,7 @@ export class FdSlider extends LitElement {
     [part="control"] {
       display: flex;
       align-items: center;
-      gap: var(--fdic-spacing-md, 16px);
+      gap: var(--ds-spacing-md, 16px);
       width: 100%;
     }
 
@@ -107,7 +96,7 @@ export class FdSlider extends LitElement {
       transform: translateY(-50%);
       border-radius: var(
         --fd-slider-track-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       pointer-events: none;
     }
@@ -160,7 +149,7 @@ export class FdSlider extends LitElement {
       border: none;
       border-radius: var(
         --fd-slider-track-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
     }
 
@@ -170,7 +159,7 @@ export class FdSlider extends LitElement {
       border: none;
       border-radius: var(
         --fd-slider-track-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
     }
 
@@ -183,7 +172,7 @@ export class FdSlider extends LitElement {
           --fd-slider-thumb-border,
           var(--ds-color-icon-active)
         );
-      border-radius: 9999px;
+      border-radius: var(--ds-corner-radius-full, 9999px);
       background: var(
         --fd-slider-thumb-background,
         var(--ds-color-bg-base)
@@ -205,7 +194,7 @@ export class FdSlider extends LitElement {
           --fd-slider-thumb-border,
           var(--ds-color-icon-active)
         );
-      border-radius: 9999px;
+      border-radius: var(--ds-corner-radius-full, 9999px);
       background: var(
         --fd-slider-thumb-background,
         var(--ds-color-bg-base)
@@ -276,10 +265,10 @@ export class FdSlider extends LitElement {
       bottom: calc(50% + (var(--fd-slider-thumb-size, 20px) / 2) + 8px);
       z-index: 3;
       min-width: 24px;
-      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
+      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
       border-radius: var(
         --fd-slider-bubble-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       background: var(--fd-slider-bubble-background, var(--ds-color-bg-inverted));
       color: var(--fd-slider-bubble-color, var(--ds-color-text-inverted));
@@ -324,7 +313,7 @@ export class FdSlider extends LitElement {
         );
       border-radius: var(
         --fd-slider-input-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       background: var(
         --fd-slider-input-background,

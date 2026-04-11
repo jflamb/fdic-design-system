@@ -99,18 +99,7 @@ export class FdAlert extends LitElement {
       --_fd-alert-text: var(--fd-alert-text-color, var(--ds-color-text-primary));
       --_fd-alert-link: var(--fd-alert-link-color, var(--ds-color-bg-active));
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-primary);
     }
 
@@ -321,7 +310,7 @@ export class FdAlert extends LitElement {
       padding: 0;
       margin: 0;
       border: none;
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
       background: transparent;
       color: inherit;
       cursor: pointer;

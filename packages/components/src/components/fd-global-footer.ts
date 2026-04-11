@@ -73,18 +73,7 @@ export class FdGlobalFooter extends LitElement {
       display: block;
       container-type: inline-size;
       color: var(--ds-color-text-primary);
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -119,15 +108,15 @@ export class FdGlobalFooter extends LitElement {
 
     .base {
       box-sizing: border-box;
-      padding-block: var(--fd-global-footer-padding-block, 48px);
-      padding-inline: var(--fd-global-footer-padding-inline, 64px);
+      padding-block: var(--fd-global-footer-padding-block, var(--ds-spacing-3xl, 48px));
+      padding-inline: var(--fd-global-footer-padding-inline, var(--ds-layout-gutter, 64px));
     }
 
     .content {
       display: flex;
-      gap: var(--fd-global-footer-content-gap, 20px);
+      gap: var(--fd-global-footer-content-gap, var(--ds-spacing-lg, 20px));
       align-items: flex-start;
-      max-inline-size: var(--fd-global-footer-max-width, 1440px);
+      max-inline-size: var(--fd-global-footer-max-width, var(--ds-layout-max-width, 1440px));
       margin-inline: auto;
       min-inline-size: 0;
     }
@@ -153,7 +142,7 @@ export class FdGlobalFooter extends LitElement {
 
     .body {
       display: grid;
-      gap: var(--fd-global-footer-body-gap, 8px);
+      gap: var(--fd-global-footer-body-gap, var(--ds-spacing-xs, 8px));
       flex: 1 1 auto;
       min-inline-size: 0;
     }
@@ -163,20 +152,23 @@ export class FdGlobalFooter extends LitElement {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 16px;
+      gap: var(--ds-spacing-md, 16px);
       min-inline-size: 0;
     }
 
     .brand-block {
       display: grid;
-      gap: 8px;
+      gap: var(--ds-spacing-xs, 8px);
       min-inline-size: 0;
     }
 
     .agency,
     .updated {
       margin: 0;
-      font-size: var(--fd-global-footer-body-font-size, 18px);
+      font-size: var(
+        --fd-global-footer-body-font-size,
+        var(--fdic-font-size-body, 18px)
+      );
       font-weight: 400;
       line-height: 1.375;
       color: inherit;
@@ -197,7 +189,10 @@ export class FdGlobalFooter extends LitElement {
 
     .agency-link {
       text-decoration-line: none;
-      font-size: var(--fd-global-footer-agency-font-size, 18px);
+      font-size: var(
+        --fd-global-footer-agency-font-size,
+        var(--fdic-font-size-body, 18px)
+      );
       font-weight: 600;
       line-height: 1.25;
     }
@@ -225,7 +220,10 @@ export class FdGlobalFooter extends LitElement {
     }
 
     .agency-text {
-      font-size: var(--fd-global-footer-agency-font-size, 18px);
+      font-size: var(
+        --fd-global-footer-agency-font-size,
+        var(--fdic-font-size-body, 18px)
+      );
       font-weight: 600;
       line-height: 1.25;
     }
@@ -235,7 +233,7 @@ export class FdGlobalFooter extends LitElement {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: var(--ds-spacing-xs, 8px);
       padding: 0;
       margin: 0;
       min-inline-size: 0;
@@ -243,13 +241,16 @@ export class FdGlobalFooter extends LitElement {
 
     .utility-link,
     .updated {
-      font-size: var(--fd-global-footer-body-font-size, 18px);
+      font-size: var(
+        --fd-global-footer-body-font-size,
+        var(--fdic-font-size-body, 18px)
+      );
       line-height: 1.375;
     }
 
     .social-list {
       justify-content: flex-end;
-      gap: 4px;
+      gap: var(--ds-spacing-2xs, 4px);
       flex: none;
     }
 
@@ -267,7 +268,7 @@ export class FdGlobalFooter extends LitElement {
       content: "";
       position: absolute;
       inset: 0;
-      border-radius: 3px;
+      border-radius: var(--ds-corner-radius-sm, 3px);
       box-shadow: inset 0 0 0 0 transparent;
     }
 
@@ -292,14 +293,14 @@ export class FdGlobalFooter extends LitElement {
 
     @container (max-width: 640px) {
       .base {
-        padding-block: var(--fd-global-footer-padding-block-mobile, 16px);
-        padding-inline: var(--fd-global-footer-padding-inline-mobile, 16px);
+        padding-block: var(--fd-global-footer-padding-block-mobile, var(--ds-spacing-md, 16px));
+        padding-inline: var(--fd-global-footer-padding-inline-mobile, var(--ds-layout-gutter-mobile, 16px));
       }
 
       .content {
         flex-direction: column;
         align-items: center;
-        gap: var(--fd-global-footer-content-gap-mobile, 20px);
+        gap: var(--fd-global-footer-content-gap-mobile, var(--ds-spacing-lg, 20px));
       }
 
       .body,
@@ -312,7 +313,7 @@ export class FdGlobalFooter extends LitElement {
       .top-row {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: var(--ds-spacing-lg, 20px);
       }
 
       .brand-block,
@@ -325,7 +326,10 @@ export class FdGlobalFooter extends LitElement {
       .agency-text,
       .updated,
       .utility-link {
-        font-size: var(--fd-global-footer-body-font-size-mobile, 16px);
+        font-size: var(
+          --fd-global-footer-body-font-size-mobile,
+          var(--fdic-font-size-body-small, 16px)
+        );
       }
 
       .agency-link,

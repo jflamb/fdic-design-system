@@ -39,21 +39,21 @@ export class FdCardGroup extends LitElement {
       display: block;
       --fd-card-group-col-2-min: 384px;
       --fd-card-group-col-2-max: 688px;
-      --fd-card-group-col-2-gap: 48px;
+      --fd-card-group-col-2-gap: var(--ds-spacing-3xl, 48px);
       --fd-card-group-col-3-min: 360px;
       --fd-card-group-col-3-max: 440px;
-      --fd-card-group-col-3-gap: 48px;
+      --fd-card-group-col-3-gap: var(--ds-spacing-3xl, 48px);
       --fd-card-group-col-4-min: 256px;
       --fd-card-group-col-4-max: 320px;
-      --fd-card-group-col-4-gap: 48px;
+      --fd-card-group-col-4-gap: var(--ds-spacing-3xl, 48px);
 
       --fd-card-group-col-2-min-mobile: 320px;
-      --fd-card-group-col-2-gap-mobile: 16px;
+      --fd-card-group-col-2-gap-mobile: var(--ds-spacing-md, 16px);
       --fd-card-group-col-3-min-mobile: 200px;
-      --fd-card-group-col-3-gap-mobile: 16px;
+      --fd-card-group-col-3-gap-mobile: var(--ds-spacing-md, 16px);
       --fd-card-group-col-4-min-mobile: 160px;
       --fd-card-group-col-4-max-mobile: 180px;
-      --fd-card-group-col-4-gap-mobile: 16px;
+      --fd-card-group-col-4-gap-mobile: var(--ds-spacing-md, 16px);
     }
 
     :host([hidden]) {

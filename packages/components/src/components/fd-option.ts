@@ -13,18 +13,7 @@ export class FdOption extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       color: var(--fd-selector-option-text, var(--ds-color-text-primary));
@@ -45,8 +34,8 @@ export class FdOption extends LitElement {
     [part="option"] {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      gap: var(--ds-spacing-xs, 8px);
+      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
       position: relative;
       background: var(--fd-selector-option-bg, var(--ds-color-bg-base));
       overflow: clip;
@@ -113,7 +102,7 @@ export class FdOption extends LitElement {
     .radio-outer {
       width: 20px;
       height: 20px;
-      border-radius: 9999px;
+      border-radius: var(--ds-corner-radius-full, 9999px);
       border: 2px solid currentColor;
       box-sizing: border-box;
       display: flex;
@@ -124,7 +113,7 @@ export class FdOption extends LitElement {
     .radio-dot {
       width: 8px;
       height: 8px;
-      border-radius: 9999px;
+      border-radius: var(--ds-corner-radius-full, 9999px);
       background: transparent;
     }
 
@@ -143,7 +132,7 @@ export class FdOption extends LitElement {
     .checkbox-outer {
       width: 20px;
       height: 20px;
-      border-radius: 3px;
+      border-radius: var(--ds-corner-radius-sm, 3px);
       border: 2px solid currentColor;
       box-sizing: border-box;
       display: flex;

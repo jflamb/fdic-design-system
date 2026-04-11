@@ -259,7 +259,7 @@ describe("FdPageFeedback", () => {
     expect(responses?.tagName).toBe("FD-BUTTON-GROUP");
     expect(actions?.tagName).toBe("FD-BUTTON-GROUP");
     expect(groupStyles).toContain(
-      "gap: var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem));",
+      "gap: var(--fd-button-group-gap, var(--ds-spacing-sm, 0.75rem));",
     );
   });
 });

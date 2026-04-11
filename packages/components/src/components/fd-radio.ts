@@ -21,18 +21,7 @@ export class FdRadio extends LitElement {
       color: var(--ds-color-text-primary);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
     }
@@ -44,7 +33,7 @@ export class FdRadio extends LitElement {
     label {
       display: flex;
       align-items: flex-start;
-      gap: var(--fd-radio-gap, var(--fdic-spacing-xs, 8px));
+      gap: var(--fd-radio-gap, var(--ds-spacing-xs, 8px));
       max-inline-size: 100%;
       cursor: pointer;
       position: relative;
@@ -111,7 +100,7 @@ export class FdRadio extends LitElement {
 
     [part="label"] {
       display: grid;
-      gap: var(--fdic-spacing-3xs, 2px);
+      gap: var(--ds-spacing-3xs, 2px);
       min-inline-size: 0;
       flex: 1;
       color: inherit;

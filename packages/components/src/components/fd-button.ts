@@ -33,7 +33,7 @@ export class FdButton extends LitElement {
       align-items: center;
       justify-content: center;
       inline-size: 100%;
-      gap: var(--fd-button-gap, var(--fdic-spacing-2xs, 4px));
+      gap: var(--fd-button-gap, var(--ds-spacing-2xs, 4px));
       min-height: var(--fd-button-height, 44px);
       min-width: var(--fd-button-min-width, 44px);
       min-inline-size: 0;
@@ -41,20 +41,9 @@ export class FdButton extends LitElement {
       border: none;
       border-radius: var(
         --fd-button-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fd-button-font-size, var(--fdic-font-size-body, 18px));
       line-height: 1.375;
       text-decoration: none;

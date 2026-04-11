@@ -192,6 +192,12 @@ Token architecture should separate:
 - semantic tokens
 - component tokens
 
+Token usage rule:
+
+- Reuse existing design-system tokens before introducing new ones.
+- Do not invent a new token name when an existing token already covers the need.
+- When refactoring component styles, prefer replacing raw values with existing semantic, spacing, typography, radius, or layout tokens rather than creating component-specific tokens without a clear gap in the system.
+
 Before introducing non-trivial components, clarify:
 
 - browser support expectations

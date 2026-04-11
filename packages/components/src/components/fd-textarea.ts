@@ -346,18 +346,7 @@ export class FdTextarea extends LitElement {
   static styles = [forcedColorsTextInput, css`
     :host {
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       color: var(--ds-color-text-primary, #212123);
@@ -384,7 +373,7 @@ export class FdTextarea extends LitElement {
         );
       border-radius: var(
         --fd-textarea-border-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       background: var(
         --fd-textarea-bg,
@@ -397,7 +386,7 @@ export class FdTextarea extends LitElement {
       display: block;
       width: 100%;
       min-height: var(--fd-textarea-min-height, 140px);
-      padding: 8px 12px;
+      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
       border: none;
       background: transparent;
       font-family: inherit;
@@ -473,7 +462,7 @@ export class FdTextarea extends LitElement {
     [part="char-count"] {
       display: flex;
       justify-content: flex-end;
-      margin-top: 4px;
+      margin-top: var(--ds-spacing-2xs, 4px);
       font-size: var(--fdic-font-size-body-small, 1rem);
       color: var(--ds-color-text-secondary, #595961);
     }

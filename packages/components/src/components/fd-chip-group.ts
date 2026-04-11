@@ -17,7 +17,7 @@ export class FdChipGroup extends LitElement {
     .container {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--fd-chip-group-gap, var(--fdic-spacing-2xs, 4px));
+      gap: var(--fd-chip-group-gap, var(--ds-spacing-2xs, 4px));
       align-items: flex-start;
       inline-size: 100%;
       box-sizing: border-box;

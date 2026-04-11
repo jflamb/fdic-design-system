@@ -465,18 +465,7 @@ export class FdInput extends LitElement {
   static styles = [forcedColorsTextInput, css`
     :host {
       display: block;
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       color: var(--ds-color-text-primary, #212123);
@@ -508,7 +497,7 @@ export class FdInput extends LitElement {
          negligible at this scale and the trade-off is worth the stability. */
       border-radius: var(
         --fd-input-border-radius,
-        var(--fdic-corner-radius-sm, 3px)
+        var(--ds-corner-radius-sm, 3px)
       );
       background: var(--fd-input-bg, var(--ds-color-bg-base));
       box-sizing: border-box;
@@ -519,7 +508,7 @@ export class FdInput extends LitElement {
       flex: 1 1 auto;
       min-width: 0;
       min-height: var(--fd-input-height, 44px);
-      padding: 8px 12px;
+      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
       border: none;
       background: transparent;
       font-family: inherit;
@@ -632,7 +621,7 @@ export class FdInput extends LitElement {
       border: none;
       background: transparent;
       cursor: pointer;
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
       padding: 0;
       color: inherit;
       box-sizing: border-box;
@@ -653,7 +642,7 @@ export class FdInput extends LitElement {
       outline: 2px solid var(--ds-color-border-input-active, #424244);
       outline-offset: -2px;
       box-shadow: 0 0 2.5px 2px var(--ds-focus-ring-color, #38b6ff);
-      border-radius: var(--fdic-corner-radius-sm, 3px);
+      border-radius: var(--ds-corner-radius-sm, 3px);
     }
 
     /* Reduce padding on native input when slots are present */
@@ -676,7 +665,7 @@ export class FdInput extends LitElement {
     [part="char-count"] {
       display: flex;
       justify-content: flex-end;
-      margin-top: 4px;
+      margin-top: var(--ds-spacing-2xs, 4px);
       font-size: var(--fdic-font-size-body-small, 1rem);
       color: var(--ds-color-text-secondary, #595961);
     }

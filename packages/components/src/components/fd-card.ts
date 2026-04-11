@@ -32,18 +32,7 @@ export class FdCard extends LitElement {
     :host {
       display: block;
       color: var(--ds-color-text-primary);
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -57,7 +46,7 @@ export class FdCard extends LitElement {
       min-block-size: var(--fd-card-min-height-medium, 192px);
       overflow: clip;
       border: 1px solid transparent;
-      border-radius: var(--fd-card-radius, 7px);
+      border-radius: var(--fd-card-radius, var(--ds-corner-radius-lg, 7px));
       box-sizing: border-box;
       background: var(--fd-card-background, var(--ds-color-bg-surface));
       box-shadow: var(--fd-card-shadow, var(--ds-shadow-raised));
@@ -80,9 +69,9 @@ export class FdCard extends LitElement {
     }
 
     [part="body"].size-medium {
-      gap: var(--fd-card-medium-gap, 24px);
+      gap: var(--fd-card-medium-gap, var(--ds-spacing-xl, 24px));
       align-items: flex-start;
-      padding: var(--fd-card-medium-padding, 16px);
+      padding: var(--fd-card-medium-padding, var(--ds-spacing-md, 16px));
     }
 
     [part="body"].size-large {
@@ -97,13 +86,16 @@ export class FdCard extends LitElement {
     }
 
     [part="content"].size-medium {
-      gap: var(--fd-card-medium-content-gap, 16px);
+      gap: var(--fd-card-medium-content-gap, var(--ds-spacing-md, 16px));
       padding-block: 0;
     }
 
     [part="content"].size-large {
-      gap: var(--fd-card-large-content-gap, 8px);
-      padding: var(--fd-card-large-content-padding, 8px 16px 16px);
+      gap: var(--fd-card-large-content-gap, var(--ds-spacing-xs, 8px));
+      padding: var(
+        --fd-card-large-content-padding,
+        var(--ds-spacing-xs, 8px) var(--ds-spacing-md, 16px) var(--ds-spacing-md, 16px)
+      );
     }
 
     [part="media"] {
@@ -115,7 +107,7 @@ export class FdCard extends LitElement {
     [part="media"].size-medium {
       inline-size: var(--fd-card-medium-media-size, 160px);
       block-size: var(--fd-card-medium-media-size, 160px);
-      border-radius: var(--fd-card-media-radius, 3px);
+      border-radius: var(--fd-card-media-radius, var(--ds-corner-radius-sm, 3px));
     }
 
     [part="media"].size-large {
@@ -134,7 +126,10 @@ export class FdCard extends LitElement {
     [part="metadata"] {
       margin: 0;
       color: var(--fd-card-supporting-color, var(--ds-color-text-secondary));
-      font-size: var(--fd-card-supporting-font-size, 16px);
+      font-size: var(
+        --fd-card-supporting-font-size,
+        var(--fdic-font-size-body-small, 16px)
+      );
       font-weight: 400;
       line-height: 1.375;
       overflow-wrap: anywhere;
@@ -187,15 +182,25 @@ export class FdCard extends LitElement {
     }
 
     .title-medium {
-      min-block-size: calc(var(--fd-card-medium-title-font-size, 20px) * 1.25 * 2);
-      font-size: var(--fd-card-medium-title-font-size, 20px);
+      min-block-size: calc(
+        var(--fd-card-medium-title-font-size, var(--fdic-font-size-body-big, 20px)) * 1.25 * 2
+      );
+      font-size: var(
+        --fd-card-medium-title-font-size,
+        var(--fdic-font-size-body-big, 20px)
+      );
       font-weight: var(--fd-card-medium-title-font-weight, 450);
       line-height: var(--fd-card-medium-title-line-height, 1.25);
     }
 
     .title-large {
-      min-block-size: calc(var(--fd-card-large-title-font-size, 18px) * 1.375 * 2);
-      font-size: var(--fd-card-large-title-font-size, 18px);
+      min-block-size: calc(
+        var(--fd-card-large-title-font-size, var(--fdic-font-size-body, 18px)) * 1.375 * 2
+      );
+      font-size: var(
+        --fd-card-large-title-font-size,
+        var(--fdic-font-size-body, 18px)
+      );
       font-weight: var(--fd-card-large-title-font-weight, 600);
       line-height: var(--fd-card-large-title-line-height, 1.375);
     }
@@ -204,7 +209,10 @@ export class FdCard extends LitElement {
       display: flex;
       align-items: center;
       min-inline-size: 0;
-      padding: var(--fd-card-footer-padding, 12px 16px);
+      padding: var(
+        --fd-card-footer-padding,
+        var(--ds-spacing-sm, 12px) var(--ds-spacing-md, 16px)
+      );
       border-top: 1px solid
         var(--fd-card-divider-color, var(--ds-color-border-subtle));
       box-sizing: border-box;

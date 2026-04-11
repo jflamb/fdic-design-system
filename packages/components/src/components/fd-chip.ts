@@ -31,9 +31,9 @@ export class FdChip extends LitElement {
       box-sizing: border-box;
       padding-inline-start: var(
         --fd-chip-padding-inline-start,
-        var(--fdic-spacing-sm, 12px)
+        var(--ds-spacing-sm, 12px)
       );
-      border-radius: var(--fd-chip-radius, 9999px);
+      border-radius: var(--fd-chip-radius, var(--ds-corner-radius-full, 9999px));
       background: var(
         --fd-chip-bg-neutral,
         var(--ds-color-bg-interactive, #f5f5f7)
@@ -42,18 +42,7 @@ export class FdChip extends LitElement {
         --fd-chip-text-color,
         var(--ds-color-text-primary, #212123)
       );
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(
         --fd-chip-font-size,
         var(--fdic-font-size-body-small, 1rem)
@@ -95,7 +84,7 @@ export class FdChip extends LitElement {
       min-inline-size: 0;
       overflow-wrap: anywhere;
       word-break: break-word;
-      padding-block: var(--fdic-spacing-2xs, 4px);
+      padding-block: var(--ds-spacing-2xs, 4px);
     }
 
     .remove-wrap {
@@ -103,7 +92,7 @@ export class FdChip extends LitElement {
       align-items: center;
       padding-inline-start: var(
         --fd-chip-remove-gap,
-        var(--fdic-spacing-3xs, 2px)
+        var(--ds-spacing-3xs, 2px)
       );
     }
 
@@ -114,7 +103,7 @@ export class FdChip extends LitElement {
       inline-size: var(--fd-chip-remove-size, 28px);
       block-size: var(--fd-chip-remove-size, 28px);
       border: none;
-      border-radius: 9999px;
+      border-radius: var(--ds-corner-radius-full, 9999px);
       background: transparent;
       color: inherit;
       padding: 0;

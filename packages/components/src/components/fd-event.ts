@@ -33,18 +33,7 @@ export class FdEvent extends LitElement {
       display: block;
       container-type: inline-size;
       color: var(--ds-color-text-primary, #212123);
-      font-family: var(
-        --fdic-font-family-sans-serif,
-        "Source Sans 3",
-        "Source Sans Pro",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        "Helvetica Neue",
-        Arial,
-        sans-serif
-      );
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -54,7 +43,7 @@ export class FdEvent extends LitElement {
     article {
       display: flex;
       align-items: flex-start;
-      gap: var(--fd-event-gap, 12px);
+      gap: var(--fd-event-gap, var(--ds-spacing-sm, 12px));
       min-inline-size: 0;
       box-sizing: border-box;
     }
@@ -69,10 +58,10 @@ export class FdEvent extends LitElement {
       block-size: var(--fd-event-date-size, 48px);
       min-inline-size: var(--fd-event-date-size, 48px);
       min-block-size: var(--fd-event-date-size, 48px);
-      padding: var(--fd-event-date-padding-block, 8px)
-        var(--fd-event-date-padding-inline, 4px);
+      padding: var(--fd-event-date-padding-block, var(--ds-spacing-xs, 8px))
+        var(--fd-event-date-padding-inline, var(--ds-spacing-2xs, 4px));
       gap: var(--fd-event-date-gap, 6px);
-      border-radius: var(--fd-event-date-radius, 3px);
+      border-radius: var(--fd-event-date-radius, var(--ds-corner-radius-sm, 3px));
       box-sizing: border-box;
       text-align: center;
       white-space: nowrap;
@@ -173,7 +162,10 @@ export class FdEvent extends LitElement {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       line-clamp: 2;
-      font-size: var(--fd-event-title-font-size, 20px);
+      font-size: var(
+        --fd-event-title-font-size,
+        var(--fdic-font-size-body-big, 20px)
+      );
       font-weight: var(--fd-event-title-font-weight, 450);
       line-height: var(--fd-event-title-line-height, 1.25);
     }
@@ -224,7 +216,10 @@ export class FdEvent extends LitElement {
         --fd-event-metadata-color,
         var(--ds-color-text-secondary)
       );
-      font-size: var(--fd-event-metadata-font-size, 16px);
+      font-size: var(
+        --fd-event-metadata-font-size,
+        var(--fdic-font-size-body-small, 16px)
+      );
       font-weight: 400;
       line-height: var(--fd-event-metadata-line-height, 1.375);
     }
