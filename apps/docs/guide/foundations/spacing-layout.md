@@ -1,6 +1,6 @@
 # Spacing and Layout
 
-This page documents the stable spacing and layout tokens published in the FDIC runtime stylesheet, plus the documented layout patterns that rely on them.
+This page is the canonical public layout contract for the FDIC Design System. It documents the stable spacing and layout tokens published in the runtime stylesheet, plus the documented layout patterns that rely on them.
 
 These tokens should be documented as usability constraints, not just visual measurements.
 
@@ -19,6 +19,13 @@ The public runtime contract includes these spacing and layout foundations:
 - section and flow spacing: `--ds-layout-section-block-padding`, `--ds-layout-section-block-padding-compact`, `--ds-layout-content-gap`, `--ds-layout-split-gap`, and `--ds-layout-stack-gap`
 - common split rail: `--ds-layout-sidebar-width`
 - shared collection layouts: `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` for documented min, max, and gap values, plus the `*-narrow` variants used on narrow screens
+
+The broader public naming convention is intentionally narrow:
+
+- public system tokens use `--ds-*`
+- public typography tokens currently use the shipped `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` families
+- public component override hooks use `--fd-*` only when a component page documents them explicitly
+- public docs do not treat `--fdic-*` names as supported consumer API
 
 This v1 contract stays intentionally small. If a layout need can be taught clearly as a pattern, it stays a pattern instead of becoming a public token.
 
@@ -107,6 +114,10 @@ The design system now publishes the documented 2-column, 3-column, and 4-column 
 
 `fd-card-group`, `fd-tile-list`, and `fd-event-list` default to these shared tokens. Override the component-level `--fd-*` variables only when a specific collection needs to diverge from the system recipe.
 
+Collection components are container-aware. They adapt to the inline space available to the component instead of only reacting to the viewport.
+
+The exact collapse thresholds are intentionally private implementation details. Consumers should rely on the documented collection recipes and component-level override hooks, not on a published breakpoint or threshold contract.
+
 ## Visual anatomy
 
 <div class="fdic-scale-grid">
@@ -140,7 +151,7 @@ The design system now publishes the documented 2-column, 3-column, and 4-column 
 <div class="fdic-anatomy">
   <div class="fdic-anatomy-panel fdic-doc-card-copy">
     <span class="fdic-eyebrow">Readable width</span>
-    <p>Document `Width.content-max` and `Width.paragraph-max` as controls on comprehension, not just container dimensions.</p>
+    <p>Document `--ds-layout-content-max-width` and `--ds-layout-paragraph-max-width` as controls on comprehension, not just container dimensions.</p>
     <div class="fdic-anatomy-demo">
       <div style="height:0.75rem; width:100%; background:#0D6191; border-radius:999px;"></div>
       <div style="height:0.75rem; width:58%; margin-top:0.75rem; background:#D9AF45; border-radius:999px;"></div>

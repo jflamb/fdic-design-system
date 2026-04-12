@@ -68,7 +68,7 @@ import "@jflamb/fdic-ds-components/register-all";
 <fd-button variant="primary">Submit filing</fd-button>
 ```
 
-The stylesheet import is required. FDIC components consume shared `--ds-*` and `--fdic-*` runtime tokens, so using the component package without `@jflamb/fdic-ds-components/styles.css` is unsupported. The registration modules also warn at runtime when those tokens are missing.
+The stylesheet import is required. FDIC components consume shared `--ds-*` system tokens and documented `--fd-*` component override hooks, so using the component package without `@jflamb/fdic-ds-components/styles.css` is unsupported. The registration modules also warn at runtime when those tokens are missing.
 
 ## Stable public API
 
@@ -82,7 +82,8 @@ Compatibility note: <code>@jflamb/fdic-ds-tokens/semantic.css</code> remains ava
 ## Where to go next
 
 1. **Understand the building blocks** — read the [Foundations](/guide/foundations/) section to learn about colors, typography, and spacing.
-2. **Pick the right component** — read [Choosing a Component](/guide/choosing-a-component) to find the correct element for your use case.
-3. **Build a form** — read [Form Workflows](/guide/form-workflows) for step-by-step guidance on building accessible, high-stakes forms.
-4. **Check accessibility requirements** — read [Accessibility](/guide/accessibility) to understand the non-negotiable WCAG 2.1 AA rules.
-5. **Browse components** — the [Components](/components/) section documents every available element with usage examples, API tables, and Do/Don't guidance.
+2. **Learn the public layout contract** — read [Spacing and Layout](/guide/foundations/spacing-layout) for the canonical shell, readable-width, and collection-layout guidance.
+3. **Pick the right component** — read [Choosing a Component](/guide/choosing-a-component) to find the correct element for your use case.
+4. **Build a form** — read [Form Workflows](/guide/form-workflows) for step-by-step guidance on building accessible, high-stakes forms.
+5. **Check accessibility requirements** — read [Accessibility](/guide/accessibility) to understand the non-negotiable WCAG 2.1 AA rules.
+6. **Browse components** — the [Components](/components/) section documents every available element with usage examples, API tables, and Do/Don't guidance.

@@ -9,7 +9,7 @@ The foundations section documents the v1 design-system building blocks that are 
 
 ## Current scope
 
-The current Figma exports provide foundations for:
+The current public foundations guidance covers:
 
 - colors
 - typography
@@ -21,10 +21,13 @@ The current Figma exports provide foundations for:
 
 - Stable stylesheet: `@jflamb/fdic-ds-tokens/styles.css`
 - Stable token prefixes: `--ds-color-*`, `--ds-spacing-*`, `--ds-corner-radius-*`, `--ds-layout-*`, `--ds-shadow-*`, `--ds-gradient-*`, `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*`
+- Stable component override prefix: `--fd-*` only when a component page documents the token explicitly
 - Stable data export: `@jflamb/fdic-ds-tokens/fdic.tokens.json`
 - Supported component stylesheet: `@jflamb/fdic-ds-components/styles.css`
 
 These pages explain how to use that contract safely and where the public API intentionally stops.
+
+The [Spacing and Layout](./spacing-layout.md) page is the canonical public layout contract. Other public docs should defer to that page rather than restating layout tokens or implementation details independently.
 
 ## Deferred from v1
 
@@ -62,4 +65,4 @@ These pages explain how to use that contract safely and where the public API int
 
 ## Internal reference
 
-For the fuller source inventory and implementation notes, see `docs/architecture/token-inventory.md` in the repository.
+For the fuller source inventory and implementation notes, including historical Figma export labels that are not part of the public API, see `docs/architecture/token-inventory.md` in the repository.

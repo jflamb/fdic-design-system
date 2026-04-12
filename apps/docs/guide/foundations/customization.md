@@ -15,8 +15,8 @@ These token families are the supported customization surface for v1:
 - `--ds-spacing-*` for spacing rhythm
 - `--ds-corner-radius-*` for corner treatments
 - `--ds-layout-*` for width and gutter constraints
-- `--ds-shadow-*` and `--ds-gradient-*` for elevation and surface effects
 - `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` for typography
+- `--ds-shadow-*` and `--ds-gradient-*` for elevation and surface effects
 
 Use those tokens when you are styling page chrome, authored content, or wrapper layout around FDIC components.
 

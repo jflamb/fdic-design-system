@@ -1,6 +1,6 @@
 # Tile List
 
-The Tile List component arranges related tiles in a responsive wrapping layout, uses the FDIC Figma column-width constraints for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared visual tone across every tile in the set.
+The Tile List component arranges related tiles in a responsive wrapping layout, uses the shared public collection recipes for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared visual tone across every tile in the set.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -12,7 +12,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 - **Groups of related tiles** — use Tile List when the set itself needs a consistent responsive layout.
 - **Sets that should share one visual type** — choose a single `tone` on the list so every grouped tile uses the same cool, neutral, or warm treatment.
 - **Content collections that should reflow across screen sizes** — the component uses a responsive grid that collapses naturally without additional author CSS.
-- **Layouts that need a specific FDIC column density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the design-system width ranges.
+- **Layouts that need a specific collection density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the documented design-system collection recipes.
 - **Sets that already have visible context nearby** — provide `label` only when the surrounding content does not already name the set clearly.
 
 ## When not to use
@@ -63,9 +63,10 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 - **Author direct `fd-tile` children.** `fd-tile-list` assigns list-item semantics to direct tile children so assistive technology announces the set as a list.
 - **Set the tone on the list, not on individual grouped tiles.** `fd-tile-list` applies one shared `tone` to every direct `fd-tile` child, so a single list cannot mix cool, neutral, and warm visuals.
 - **Use `label` only when needed.** If nearby visible copy already names the set, leave `label` unset to avoid redundant announcements.
-- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the FDIC Figma `col-2`, `col-3`, and `col-4` width and gap variables.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` recipe families.
 - **Treat the list as a collection contract, not a page-layout utility.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; general section and split spacing belong to the foundations layout contract.
 - **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
+- **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Tile List does not add composite keyboarding or item state. If the interaction starts behaving like a menu, selector, or card-action grid, use a different pattern instead.
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -73,7 +74,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred collection recipe. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Shared decorative visual tone applied to each direct `fd-tile` child in the list. |
 
@@ -130,6 +131,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 - The component expects **one shared visual tone per list**. Use separate lists when sections need different tones.
 - Tile List does not manage focus, selection, expansion, or removal.
 - Layout tuning is intentionally narrow: column size and gaps only.
+- Exact collapse thresholds are internal implementation details and may change.
 
 ## Related components
 

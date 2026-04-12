@@ -1,6 +1,6 @@
 # Event List
 
-The Event List component arranges direct event children in a responsive wrapping layout, uses the FDIC Figma column-width constraints for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared tone across the set.
+The Event List component arranges direct event children in a responsive wrapping layout, uses the shared public collection recipes for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared tone across the set.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -11,7 +11,7 @@ The Event List component arranges direct event children in a responsive wrapping
 
 - **Responsive groups of related events** — use Event List when one event row is not enough and the set should wrap naturally across wider layouts.
 - **Collections that should share one time-intent tone** — choose a single `tone` for the list so every grouped event uses the same warm, neutral, or cool treatment.
-- **Layouts that need a specific FDIC column density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the design-system width ranges.
+- **Layouts that need a specific collection density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the documented design-system collection recipes.
 - **Pages that already provide visible section context** — use `label` only when nearby visible copy does not already name the set clearly.
 
 ## When not to use
@@ -65,9 +65,10 @@ The Event List component arranges direct event children in a responsive wrapping
 - **Author direct `fd-event` children.** `fd-event-list` assigns list-item semantics and shared tone to direct children only.
 - **Set tone on the list, not on individual grouped events.** The list enforces one shared tone so a set reads as one coherent group.
 - **Use `label` only when needed.** If visible heading text already names the set, leave `label` unset to avoid redundant announcements.
-- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the FDIC Figma `col-2`, `col-3`, and `col-4` width and gap variables.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` recipe families.
 - **Treat the list as a collection contract, not a page-layout utility.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; section shells and split layouts use the separate foundations layout contract.
 - **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
+- **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Event List does not add active state, filtering, sorting, or focus management. Those remain application concerns.
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -75,7 +76,7 @@ The Event List component arranges direct event children in a responsive wrapping
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred collection recipe. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Shared decorative tone applied to each direct `fd-event` child in the list. |
 
@@ -131,6 +132,7 @@ The Event List component arranges direct event children in a responsive wrapping
 - The component expects **direct `fd-event` children** for its list-item semantics and shared-tone behavior.
 - The component expects **one shared tone per list**. Use separate lists when content groups need different time-intent treatments.
 - Event List does not manage focus, sorting, filtering, selection, or removal.
+- Exact collapse thresholds are internal implementation details and may change.
 
 ## Related components
 

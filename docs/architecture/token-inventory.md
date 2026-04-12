@@ -2,7 +2,15 @@
 
 This document records the current token exports provided from the FDIC Figma file.
 
-It is an inventory and translation aid, not a final implementation spec. The repository is still in scaffold stage, so this note favors traceability and reversibility over locking in package APIs or delivery format.
+It is an internal inventory and translation aid, not a final implementation spec. This note favors traceability and reversibility over locking in package APIs or delivery format.
+
+Consumer-facing docs should not treat the Figma export labels in this file as supported API names. The public docs intentionally translate those source labels into the narrower runtime contract:
+
+- public system tokens use `--ds-*`
+- public typography tokens currently ship as `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*`
+- public radius tokens currently ship as `--ds-corner-radius-*`
+- public component override hooks use documented `--fd-*` tokens only
+- raw Figma export labels such as `Width.content-max` and `Padding.section-horizontal` are internal source vocabulary
 
 ## Source files
 
@@ -121,6 +129,7 @@ Examples from the `Desktop` mode:
 Notes:
 
 - `metrics` mixes layout tokens and presentation sizing tokens.
+- Labels such as `Width.content-max`, `Width.paragraph-max`, and `Padding.section-horizontal` are source-inventory labels, not public runtime token names.
 - `Target` is currently a string token set to the active mode label, for example `Desktop`.
 - The mode split between `Desktop` and `Mobile` is important and should be preserved in future token delivery.
 
@@ -229,3 +238,5 @@ Current characteristics:
 - Ships alongside the existing CSS token outputs rather than replacing them
 - Is generated from the repository token sources during `npm run build:tokens` and the root `npm run build`
 - The repo-local authoring source is `scripts/tokens/source.mjs`, which generates `semantic.css`, `interaction.css`, and `fdic.tokens.json`
+
+This section describes the current repo artifact shape, not the narrowed consumer-facing naming contract documented in the public docs.

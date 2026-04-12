@@ -13,10 +13,6 @@ const PAGE_STYLE = [
   "gap: 0",
   "width: 100%",
   "background: var(--ds-color-bg-base, #ffffff)",
-  "--fdic-layout-shell-max: 1440px",
-  "--fdic-layout-shell-gutter: 64px",
-  "--fdic-layout-shell-gutter-mobile: 16px",
-  "--fdic-layout-content-max: calc(var(--fdic-layout-shell-max) - (2 * var(--fdic-layout-shell-gutter)))",
 ].join("; ");
 
 const SECTION_SHELL_STYLE = [
@@ -26,18 +22,18 @@ const SECTION_SHELL_STYLE = [
 
 const SECTION_CONTENT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, var(--fdic-layout-shell-max))",
+  "width: min(100%, var(--ds-layout-shell-max-width, 1312px))",
   "margin-inline: auto",
-  "padding-inline: var(--fdic-layout-shell-gutter)",
-  "padding-block: 32px",
+  "padding-inline: var(--ds-layout-gutter, 64px)",
+  "padding-block: var(--ds-layout-section-block-padding, 48px)",
 ].join("; ");
 
 const SECTION_CONTENT_TIGHT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, var(--fdic-layout-shell-max))",
+  "width: min(100%, var(--ds-layout-shell-max-width, 1312px))",
   "margin-inline: auto",
-  "padding-inline: var(--fdic-layout-shell-gutter)",
-  "padding-block: 24px",
+  "padding-inline: var(--ds-layout-gutter, 64px)",
+  "padding-block: var(--ds-layout-section-block-padding-compact, 24px)",
 ].join("; ");
 
 const SECTION_RULE_STYLE =
@@ -200,8 +196,7 @@ const renderRecipe = () => html`
   <style>
     @media (max-width: 640px) {
       .fdic-layout-recipe-content {
-        padding-inline: var(--fdic-layout-shell-gutter-mobile) !important;
-        padding-block: 24px !important;
+        padding-inline: var(--ds-layout-gutter-mobile, 16px) !important;
       }
     }
   </style>
@@ -210,9 +205,9 @@ const renderRecipe = () => html`
       .navigation=${GLOBAL_HEADER_SOURCE.items}
       .search=${GLOBAL_HEADER_SOURCE.search}
       style=${[
-        "--fd-global-header-shell-max-width: var(--fdic-layout-content-max)",
-        "--fd-global-header-shell-inline-gutter: calc(2 * var(--fdic-layout-shell-gutter))",
-        "--fd-global-header-shell-inline-gutter-tablet: 4rem",
+        "--fd-global-header-shell-max-width: var(--ds-layout-content-max-width, 1312px)",
+        "--fd-global-header-shell-inline-gutter: calc(2 * var(--ds-layout-gutter, 64px))",
+        "--fd-global-header-shell-inline-gutter-tablet: calc(2 * var(--ds-layout-gutter-tablet, 32px))",
         "--fd-global-header-panel-inline-gutter: 5rem",
       ].join("; ")}
     >
@@ -231,10 +226,10 @@ const renderRecipe = () => html`
       breadcrumb-label="Breadcrumbs"
       .breadcrumbs=${[{ label: "Home", href: "#" }]}
       style=${[
-        "--fd-page-header-max-width: var(--fdic-layout-content-max)",
-        "--fd-page-header-padding-inline: var(--fdic-layout-shell-gutter)",
-        "--fd-page-header-padding-inline-mobile: var(--fdic-layout-shell-gutter-mobile)",
-        "--fd-page-header-padding-block: 32px",
+        "--fd-page-header-max-width: var(--ds-layout-content-max-width, 1312px)",
+        "--fd-page-header-padding-inline: var(--ds-layout-gutter, 64px)",
+        "--fd-page-header-padding-inline-mobile: var(--ds-layout-gutter-mobile, 16px)",
+        "--fd-page-header-padding-block: var(--ds-layout-section-block-padding, 48px)",
       ].join("; ")}
     ></fd-page-header>
 
@@ -243,10 +238,11 @@ const renderRecipe = () => html`
         <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
           <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Full-bleed cool section with constrained tile list</strong>
           <p class=${DOCS_OVERVIEW_META_CLASS}>
-            Use a full-width background on the outer section, then keep interactive content inside a
-            centered shell that tops out at 1440px. The shell owns the 64px desktop gutters and 16px
-            mobile gutters, while DS components with their own padding use the derived 1312px content
-            column so their edges line up with the page sections.
+            Use a full-width background on the outer section, then keep interactive content inside the
+            shared page shell. The section wrapper uses the documented
+            <code>--ds-layout-shell-max-width</code>, <code>--ds-layout-gutter</code>, and
+            <code>--ds-layout-section-block-padding</code> tokens, while DS components that own their
+            own padding align to <code>--ds-layout-content-max-width</code>.
           </p>
           ${renderQuickLinks()}
         </div>
@@ -259,7 +255,8 @@ const renderRecipe = () => html`
           <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Warm event section using the same shell</strong>
           <p class=${DOCS_OVERVIEW_META_CLASS}>
             Keep borders and fills on the full-bleed wrapper. Let <code>fd-event-list</code> handle the
-            internal column math while the shared container controls page rhythm.
+            internal column math while the shared container controls page rhythm through the canonical
+            <code>--ds-layout-*</code> contract.
           </p>
           ${renderEvents()}
         </div>
@@ -292,9 +289,9 @@ const renderRecipe = () => html`
         { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
       ]}
       style=${[
-        "--fd-global-footer-max-width: var(--fdic-layout-content-max)",
-        "--fd-global-footer-padding-inline: var(--fdic-layout-shell-gutter)",
-        "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-shell-gutter-mobile)",
+        "--fd-global-footer-max-width: var(--ds-layout-content-max-width, 1312px)",
+        "--fd-global-footer-padding-inline: var(--ds-layout-gutter, 64px)",
+        "--fd-global-footer-padding-inline-mobile: var(--ds-layout-gutter-mobile, 16px)",
       ].join("; ")}
     ></fd-global-footer>
   </div>

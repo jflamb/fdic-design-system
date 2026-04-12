@@ -1,6 +1,6 @@
 # Card Group
 
-The Card Group component arranges related `fd-card` items into a responsive collection using the FDIC Figma column-width constraints for two-, three-, and four-column layouts, then adapts those recipes based on the container's available inline space.
+The Card Group component arranges related `fd-card` items into a responsive collection using the shared public two-, three-, and four-column layout recipes, then adapts those recipes based on the container's available inline space.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -10,21 +10,21 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 ## When to use
 
 - **Editorial or resource collections** — use `fd-card-group` when multiple cards represent one peer set of updates, reports, or links.
-- **Responsive card grids that must stay inside FDIC sizing bounds** — the component applies the Figma `col-2`, `col-3`, and `col-4` metric ranges directly.
+- **Responsive card grids that must stay inside the documented collection recipes** — the component applies the shared `col-2`, `col-3`, and `col-4` layout ranges directly.
 - **Accessible card sets** — `fd-card-group` adds list semantics to the collection and direct `fd-card` children.
 
 ## When not to use
 
 - **Do not use it for unrelated promotional blocks** — if the items are not one coherent set, separate them with headings or distinct regions instead.
 - **Do not use it when cards need carousel, paging, or masonry behavior** — `fd-card-group` is intentionally a straightforward left-to-right, top-to-bottom flow container.
-- **Do not use it to force custom card widths** — the component is designed around the Figma layout constraints and should not become an arbitrary grid utility.
+- **Do not use it to force custom card widths** — the component is designed around the documented collection recipes and should not become an arbitrary grid utility.
 
 ## Examples
 
 <StoryEmbed
   storyId="components-card-group--docs-overview"
   linkStoryId="components-card-group--playground"
-  caption="Card Group supports FDIC Figma-backed two-, three-, and four-column constraints while preserving responsive reflow."
+  caption="Card Group supports the shared two-, three-, and four-column collection recipes while preserving responsive reflow."
 />
 
 ### Basic usage
@@ -52,9 +52,10 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 
 ### Implementation guide
 
-- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the FDIC Figma `col-2`, `col-3`, and `col-4` width and gap variables.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` recipe families.
 - **Treat the list as a collection contract, not a general page grid.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; broader page-layout gaps and shells live in the foundations layout contract instead.
 - **Let the component own reflow.** `fd-card-group` adapts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
+- **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Use a nearby heading first, then `label` only when needed.** If visible copy already names the set, the accessible label may be omitted.
 - **Slot direct `fd-card` children.** The component assigns `role="listitem"` only to direct `fd-card` children so the announced structure matches the visible collection.
 
@@ -63,7 +64,7 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred collection recipe. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 
 - `fd-card-group` is a static grouping container. It does not own selection, active-item, or carousel behavior.
@@ -114,7 +115,7 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 
 - `fd-card-group` only assigns listitem semantics to direct `fd-card` children. Nested wrappers will interrupt that behavior.
 - The component is intentionally layout-only. It does not normalize card heights, equalize copy length, or provide carousel controls.
-- The current implementation uses the user-provided Figma file's metric variables because the linked node now points to an unrelated frame.
+- Exact collapse thresholds are internal implementation details and may change.
 
 ## Related components
 

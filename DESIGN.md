@@ -40,6 +40,8 @@ The system uses an `oklch`-based palette. Always use the semantic tokens rather 
 - `--ds-color-semantic-border-error`: Error state borders
 
 ### 1.2 Typography
+Public typography naming currently uses the shipped `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` families.
+
 **Font Families**
 - **Sans-Serif:** `'Source Sans 3', Arial, sans-serif`
 - **Serif:** `'Lora', Georgia, serif`
@@ -85,6 +87,7 @@ All interactive elements must use the standard focus ring approach:
 - Use the approved layout recipes only: `2`, `3`, and `4` columns.
 - Width constraints and gaps must come from the shared `--ds-layout-col-*` tokens, which encode the approved Figma `col-#-min`, `col-#-max`, and `col-#-gap` recipes.
 - Collection layout behavior is container-aware. Components should react to their available inline size rather than only to the viewport.
+- Exact collection collapse thresholds are intentionally private implementation details. Do not document or depend on a published threshold contract.
 - When Figma uses very large mobile max values to indicate effectively unbounded tracks, treat that as a fill behavior in code rather than exposing a literal `9999px` contract.
 - Collection wrappers own the responsive grid rules. Child cards, tiles, and event items should stretch to fill the assigned track instead of defining competing layout widths.
 - Preserve the component-level `--fd-*` layout variables as explicit override hooks, but default them to the shared `--ds-layout-col-*` tokens instead of duplicating recipe values inside each component.

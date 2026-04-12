@@ -82,7 +82,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A responsive collection wrapper for related cards. It uses the FDIC Figma `col-2`, `col-3`, and `col-4` metric ranges as width constraints and collapses fluidly as space tightens.",
+          "A responsive collection wrapper for related cards. It uses the public `--ds-layout-col-*` collection recipes and adapts fluidly as container space tightens.",
       },
     },
   },
