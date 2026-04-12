@@ -174,6 +174,12 @@ export class FdSelector extends LitElement {
         );
       border-radius: var(--fd-selector-border-radius, var(--ds-corner-radius-sm, 3px));
       box-shadow: var(--fd-selector-dropdown-shadow, var(--ds-shadow-dropdown));
+      /*
+       * Revisit this once the repo defines a browser support matrix that
+       * explicitly guarantees both the Popover API and CSS anchor positioning.
+       * Until then, this selector keeps the positioned listbox path to avoid
+       * regressing a core form control on browsers that lag those primitives.
+       */
       z-index: 9999;
       box-sizing: border-box;
     }
