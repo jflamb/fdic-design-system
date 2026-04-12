@@ -71,6 +71,17 @@ const applyEmbedTheme = (theme: StorybookTheme = "light"): void => {
 };
 
 if (typeof window !== "undefined") {
+  // Suppress known non-actionable console noise during Vitest browser runs
+  // so CI output stays focused on real regressions.
+  const _originalWarn = console.warn;
+  console.warn = (...args: unknown[]) => {
+    const msg = typeof args[0] === "string" ? args[0] : "";
+    // Lit dev mode warning — fires because Storybook dev server resolves the
+    // "development" export condition. Not actionable without a prod build.
+    if (msg.includes("Lit is in dev mode")) return;
+    _originalWarn.apply(console, args);
+  };
+
   // Chromium can surface benign ResizeObserver loop warnings during complex
   // Storybook interactions such as the global-header stories. Ignore only this
   // known browser noise so Vitest browser runs stay focused on real regressions.

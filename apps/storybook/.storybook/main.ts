@@ -10,6 +10,7 @@ const config: StorybookConfig = {
   async viteFinal(existingConfig) {
     existingConfig.resolve ??= {};
     existingConfig.optimizeDeps ??= {};
+
     const alias = existingConfig.resolve.alias;
     const componentIndexSource = resolve(
       import.meta.dirname,

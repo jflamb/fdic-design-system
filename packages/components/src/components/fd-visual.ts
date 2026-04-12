@@ -258,8 +258,12 @@ export class FdVisual extends LitElement {
     this.setAttribute("aria-hidden", "true");
   }
 
-  override firstUpdated() {
-    this._syncAssignedContent();
+  override willUpdate() {
+    // Sync slotted content detection before render to avoid triggering
+    // a redundant update cycle (Lit "change-in-update" warning).
+    if (!this.hasUpdated) {
+      this._syncAssignedContent();
+    }
   }
 
   private _syncAssignedContent() {
