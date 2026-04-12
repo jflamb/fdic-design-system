@@ -176,4 +176,22 @@ describe("FdCardGroup", () => {
     const styles = FdCardGroup.styles.map((value) => value.cssText).join("\n");
     expect(styles).toContain(`${token}: var(${sourceToken})`);
   });
+
+  it("preserves the supported 2-column recipe", async () => {
+    const el = await createGroup({ columns: "2" });
+
+    expect(el.getAttribute("columns")).toBe("2");
+  });
+
+  it("preserves the supported 4-column recipe", async () => {
+    const el = await createGroup({ columns: "4" });
+
+    expect(el.getAttribute("columns")).toBe("4");
+  });
+
+  it("renders the slot inside the list wrapper", async () => {
+    const el = await createGroup();
+
+    expect(el.shadowRoot?.querySelector("[part=base] slot")).not.toBeNull();
+  });
 });

@@ -94,4 +94,57 @@ describe("FdVisual", () => {
     const el = await createVisual({ type: "warm" });
     await expectNoAxeViolations(el);
   });
+
+  it("applies the cool tone class", async () => {
+    const el = await createVisual({ type: "cool" });
+
+    expect(el.shadowRoot?.querySelector("[part=surface]")?.className).toContain(
+      "type-cool",
+    );
+  });
+
+  it("applies the xs size class", async () => {
+    const el = await createVisual({ size: "xs" });
+
+    expect(el.shadowRoot?.querySelector("[part=surface]")?.className).toContain(
+      "size-xs",
+    );
+  });
+
+  it("applies the 2xl size class", async () => {
+    const el = await createVisual({ size: "2xl" });
+
+    expect(el.shadowRoot?.querySelector("[part=surface]")?.className).toContain(
+      "size-2xl",
+    );
+  });
+
+  it("renders the surface as a decorative span wrapper", async () => {
+    const el = await createVisual();
+
+    expect(el.shadowRoot?.querySelector("[part=surface]")?.tagName).toBe("SPAN");
+  });
+
+  it("keeps the host aria-hidden for decorative usage", async () => {
+    const el = await createVisual();
+
+    expect(el.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("renders the slot inside the content wrapper", async () => {
+    const el = await createVisual();
+
+    expect(el.shadowRoot?.querySelector(".content slot")).not.toBeNull();
+  });
+
+  it("includes a forced-colors fallback for the visual surface", () => {
+    const styles = (
+      customElements.get("fd-visual") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("@media (forced-colors: active)");
+    expect(styles).toContain("border: 1px solid ButtonText");
+  });
 });

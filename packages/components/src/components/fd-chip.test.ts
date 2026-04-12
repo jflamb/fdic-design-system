@@ -146,4 +146,19 @@ describe("FdChip", () => {
     const el = await createChip();
     await expectNoAxeViolations(el);
   });
+
+  it("ignores a whitespace-only remove-label override", async () => {
+    const el = await createChip({ "remove-label": "   " }, "Pending review");
+
+    expect(getRemoveButton(el)?.getAttribute("aria-label")).toBe(
+      "Remove Pending review",
+    );
+  });
+
+  it("renders the label and remove shells as inline spans", async () => {
+    const el = await createChip();
+
+    expect(el.shadowRoot?.querySelector("[part=label]")?.tagName).toBe("SPAN");
+    expect(el.shadowRoot?.querySelector(".remove-wrap")?.tagName).toBe("SPAN");
+  });
 });

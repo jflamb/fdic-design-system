@@ -143,11 +143,37 @@ describe("FdHero", () => {
     expect(action?.getAttribute("rel")).toBe("external noopener noreferrer");
   });
 
+  it("forwards the CTA target when both action attributes are present", async () => {
+    const el = await createHero({
+      "action-label": "Explore benefits",
+      "action-href": "https://www.fdic.gov",
+      "action-target": "_blank",
+    });
+    const action = el.shadowRoot?.querySelector("[part=action]") as
+      | HTMLAnchorElement
+      | null;
+
+    expect(action?.getAttribute("target")).toBe("_blank");
+  });
+
   it("applies the decorative background image through a CSS custom property", async () => {
     const el = await createHero({ "image-src": "/hero.jpg" });
 
     expect(getBase(el)?.style.getPropertyValue("--_fd-hero-image")).toContain(
       "/hero.jpg",
+    );
+  });
+
+  it("hides the copy wrapper when both lede and body slots are empty", async () => {
+    const el = await createHero(
+      {},
+      `
+        <h2 slot="heading">Benefits</h2>
+      `,
+    );
+
+    expect(el.shadowRoot?.querySelector(".copy")?.className).toContain(
+      "is-empty",
     );
   });
 

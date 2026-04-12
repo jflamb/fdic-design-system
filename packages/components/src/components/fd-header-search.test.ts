@@ -306,4 +306,40 @@ describe("fd-header-search", () => {
     const el = await createSearch();
     await expectNoAxeViolations(el.shadowRoot!);
   });
+
+  it("returns no matches for an empty normalized query", () => {
+    expect(getHeaderSearchMatches("   ", [...SAMPLE_ITEMS])).toEqual([]);
+  });
+
+  it("builds fallback hrefs with the provided query parameter name", () => {
+    expect(
+      buildHeaderSearchFallbackHref("/search", "query", "Deposit Insurance"),
+    ).toContain("query=Deposit+Insurance");
+  });
+
+  it("hides the desktop shortcut button on the mobile surface", async () => {
+    const el = await createSearch({ surface: "mobile" });
+
+    expect(el.shadowRoot?.querySelector("fd-button.shortcut")).toBeNull();
+  });
+
+  it("opens the desktop result panel after a matching query", async () => {
+    const el = await createSearch();
+    const input = getInput(el);
+
+    input?.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
+    if (input) {
+      input.value = "fdicnews";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+    await el.updateComplete;
+
+    expect(
+      (el.shadowRoot?.querySelector(".panel") as HTMLElement | null)?.hidden,
+    ).toBe(false);
+  });
 });

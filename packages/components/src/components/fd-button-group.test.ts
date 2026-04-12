@@ -118,4 +118,30 @@ describe("fd-button-group", () => {
     const el = await createButtonGroup({ label: "Form actions" });
     await expectNoAxeViolations(el);
   });
+
+  it("keeps vertical groups aligned to the start even when align='end'", async () => {
+    const el = await createButtonGroup({ direction: "vertical", align: "end" });
+    const container = getContainer(el);
+
+    expect(container.classList.contains("align-start")).toBe(true);
+    expect(container.classList.contains("align-end")).toBe(false);
+  });
+
+  it("removes group semantics when the label is cleared after render", async () => {
+    const el = await createButtonGroup({ label: "Form actions" });
+    const container = getContainer(el);
+
+    el.label = "   ";
+    await el.updateComplete;
+
+    expect(container.hasAttribute("role")).toBe(false);
+    expect(container.hasAttribute("aria-label")).toBe(false);
+  });
+
+  it("renders the default slot inside the container shell", async () => {
+    const el = await createButtonGroup();
+    const container = getContainer(el);
+
+    expect(container.querySelector("slot")).not.toBeNull();
+  });
 });

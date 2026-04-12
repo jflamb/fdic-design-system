@@ -88,4 +88,51 @@ describe("FdPageHeaderButton", () => {
     const el = await createButton({ icon: "share-fat" }, "Share");
     await expectNoAxeViolations(el);
   });
+
+  it("trims surrounding whitespace from the icon name", async () => {
+    const el = await createButton({ icon: " share-fat " });
+
+    expect(getIcon(el)).not.toBeNull();
+  });
+
+  it("renders the icon into the fd-button icon-start slot", async () => {
+    const el = await createButton({ icon: "share-fat" });
+
+    expect(getIcon(el)?.getAttribute("slot")).toBe("icon-start");
+  });
+
+  it("updates the icon when the host attribute changes after render", async () => {
+    const el = await createButton();
+
+    el.icon = "share-fat";
+    await el.updateComplete;
+
+    expect(getIcon(el)).not.toBeNull();
+  });
+
+  it("keeps the host inline-flex for header action layouts", () => {
+    const stylesheet = Array.isArray(FdPageHeaderButton.styles)
+      ? FdPageHeaderButton.styles.map((style) => style.cssText).join("\n")
+      : FdPageHeaderButton.styles.cssText;
+
+    expect(stylesheet).toContain(":host {\n      display: inline-flex;");
+  });
+
+  it("defines responsive overrides for compact header layouts", () => {
+    const stylesheet = Array.isArray(FdPageHeaderButton.styles)
+      ? FdPageHeaderButton.styles.map((style) => style.cssText).join("\n")
+      : FdPageHeaderButton.styles.cssText;
+
+    expect(stylesheet).toContain("@media (max-width: 640px)");
+    expect(stylesheet).toContain("--fd-page-header-button-height-mobile");
+  });
+
+  it("hides the wrapper in print styles", () => {
+    const stylesheet = Array.isArray(FdPageHeaderButton.styles)
+      ? FdPageHeaderButton.styles.map((style) => style.cssText).join("\n")
+      : FdPageHeaderButton.styles.cssText;
+
+    expect(stylesheet).toContain("@media print");
+    expect(stylesheet).toContain("display: none;");
+  });
 });

@@ -107,6 +107,34 @@ describe("FdBadge", () => {
     expect(el.shadowRoot?.querySelector("[part=container]")?.tagName.toLowerCase()).toBe("span");
   });
 
+  it("updates the rendered tone class when type changes after connection", async () => {
+    const el = await createBadge();
+
+    el.type = "warm";
+    await el.updateComplete;
+
+    expect(el.shadowRoot?.querySelector("[part=container]")?.className).toContain(
+      "warm",
+    );
+  });
+
+  it("renders the label shell as a span wrapper", async () => {
+    const el = await createBadge();
+
+    expect(el.shadowRoot?.querySelector("[part=label]")?.tagName).toBe("SPAN");
+  });
+
+  it("keeps the host inline-flex for authored inline layouts", () => {
+    const styles = (
+      customElements.get("fd-badge") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain(":host {\n      display: inline-flex;");
+    expect(styles).toContain("max-inline-size: 100%;");
+  });
+
   it("has no obvious accessibility violations", async () => {
     const el = await createBadge();
     await expectNoAxeViolations(el);

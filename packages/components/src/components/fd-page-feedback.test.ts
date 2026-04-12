@@ -277,4 +277,21 @@ describe("FdPageFeedback", () => {
       "gap: var(--fd-button-group-gap, var(--ds-spacing-sm, 0.75rem));",
     );
   });
+
+  it("forwards survey link target and rel attributes when provided", async () => {
+    const el = await createFeedback({
+      "survey-href": "https://example.com/survey",
+      "survey-target": "_blank",
+      "survey-rel": "external noopener",
+    });
+
+    await clickInner(getButtonHost(el, "no-button"));
+
+    const link = getLinkHost(el)?.shadowRoot?.querySelector("[part=base]") as
+      | HTMLAnchorElement
+      | null;
+
+    expect(link?.getAttribute("target")).toBe("_blank");
+    expect(link?.getAttribute("rel")).toBe("external noopener noreferrer");
+  });
 });

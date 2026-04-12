@@ -143,6 +143,16 @@ describe("fd-link", () => {
     expect(el.textContent?.trim()).toBe("Read more");
   });
 
+  it("updates forwarded aria attributes after host mutations", async () => {
+    const el = await createLink({ href: "/coverage" }, "Read more");
+    const inner = getInternal(el);
+
+    el.setAttribute("aria-label", "Updated label");
+    await el.updateComplete;
+
+    expect(inner.getAttribute("aria-label")).toBe("Updated label");
+  });
+
   it("has no axe violations for a standard link", async () => {
     const el = await createLink({ href: "/coverage" }, "Read the handbook");
 
