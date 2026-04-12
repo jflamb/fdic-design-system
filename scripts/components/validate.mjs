@@ -34,9 +34,13 @@ const generatedFiles = [
   "apps/docs/.vitepress/generated/component-navigation.ts",
   "apps/docs/components/index.md",
   "packages/react/src/index.ts",
-  "packages/react/src/generated/fd-button.ts",
-  "packages/react/src/generated/fd-input.ts",
-  "packages/react/src/generated/fd-alert.ts",
+  ...componentInventory
+    .filter(
+      (component) =>
+        component.docs.kind === "first-class" &&
+        component.register.exportSubpath,
+    )
+    .map((component) => `packages/react/src/generated/${component.tagName}.ts`),
   ...registerExportComponents.map(
     (component) => `packages/components/src/register/${component.sourceFile}`,
   ),

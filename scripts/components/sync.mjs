@@ -81,11 +81,8 @@ const additionalPublicModules = [
     rootExports: [],
   },
 ];
-const reactWrapperDefinitions = [
-  { tagName: "fd-button" },
-  { tagName: "fd-input" },
-  {
-    tagName: "fd-alert",
+const reactWrapperDefinitions = new Map([
+  ["fd-alert", {
     events: [
       {
         propName: "onFdAlertDismiss",
@@ -93,8 +90,8 @@ const reactWrapperDefinitions = [
         detailType: "FdAlertDismissDetail",
       },
     ],
-  },
-];
+  }],
+]);
 
 const apiMetadata = loadApiMetadata();
 
@@ -665,20 +662,17 @@ export function getComponentArgs(tagName: keyof typeof componentStoryApi) {
 }
 
 function getReactWrapperComponents() {
-  return reactWrapperDefinitions.map((definition) => {
-    const component = componentInventory.find(
-      (candidate) => candidate.tagName === definition.tagName,
-    );
-
-    if (!component) {
-      throw new Error(`Missing component inventory entry for ${definition.tagName}`);
-    }
-
-    return {
-      ...definition,
+  return componentInventory
+    .filter(
+      (component) =>
+        component.docs.kind === "first-class" &&
+        component.register.exportSubpath,
+    )
+    .map((component) => ({
+      tagName: component.tagName,
+      ...reactWrapperDefinitions.get(component.tagName),
       component,
-    };
-  });
+    }));
 }
 
 function generateReactWrapperFile({ component, events = [] }) {
