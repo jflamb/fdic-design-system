@@ -5,10 +5,10 @@ export const tokenSource = {
       "FDIC Design System tokens in DTCG format. This file is generated from the repository token sources.",
   },
   propertyRegistrations: [
-    { name: "--ds-color-bg-hovered", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.04)" },
-    { name: "--ds-color-bg-pressed", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.08)" },
-    { name: "--ds-color-overlay-hover", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.04)" },
-    { name: "--ds-color-overlay-pressed", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.08)" },
+    { name: "--fdic-color-bg-hovered", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.04)" },
+    { name: "--fdic-color-bg-pressed", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.08)" },
+    { name: "--fdic-color-overlay-hover", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.04)" },
+    { name: "--fdic-color-overlay-pressed", syntax: "<color>", inherits: true, initialValue: "oklch(0 0 0 / 0.08)" },
   ],
   runtime: {
     root: {
@@ -292,7 +292,7 @@ export const tokenSource = {
     gutter: "64px",
     "gutter-tablet": "32px",
     "gutter-mobile": "16px",
-    "content-max-width": "calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter))",
+    "content-max-width": "calc(var(--fdic-layout-max-width) - 2 * var(--fdic-layout-gutter))",
     "paragraph-max-width": "720px",
     "section-block-padding": "3rem",
     "section-block-padding-compact": "1.5rem",
@@ -320,64 +320,64 @@ export const tokenSource = {
   cssEffects: {
     shadow: {
       raised: [
-        "0 1px 1px var(--ds-color-effect-shadow)",
-        "0 2px 2px var(--ds-color-effect-shadow)",
-        "0 4px 4px var(--ds-color-effect-shadow)",
-        "0 6px 8px var(--ds-color-effect-shadow)",
+        "0 1px 1px var(--fdic-color-effect-shadow)",
+        "0 2px 2px var(--fdic-color-effect-shadow)",
+        "0 4px 4px var(--fdic-color-effect-shadow)",
+        "0 6px 8px var(--fdic-color-effect-shadow)",
       ],
       "raised-hover": [
-        "0 1px 1px var(--ds-color-effect-shadow)",
-        "0 2px 2px var(--ds-color-effect-shadow)",
-        "0 4px 4px var(--ds-color-effect-shadow)",
-        "0 8px 8px var(--ds-color-effect-shadow)",
-        "0 16px 16px var(--ds-color-effect-shadow)",
+        "0 1px 1px var(--fdic-color-effect-shadow)",
+        "0 2px 2px var(--fdic-color-effect-shadow)",
+        "0 4px 4px var(--fdic-color-effect-shadow)",
+        "0 8px 8px var(--fdic-color-effect-shadow)",
+        "0 16px 16px var(--fdic-color-effect-shadow)",
       ],
       dropdown: [
-        "0 1px 2px var(--ds-color-effect-shadow)",
-        "0 2px 12px var(--ds-color-effect-shadow)",
+        "0 1px 2px var(--fdic-color-effect-shadow)",
+        "0 2px 12px var(--fdic-color-effect-shadow)",
       ],
-      menu: "0 4px 12px var(--ds-color-effect-shadow)",
-      panel: "0 18px 48px var(--ds-color-effect-shadow-panel)",
+      menu: "0 4px 12px var(--fdic-color-effect-shadow)",
+      panel: "0 18px 48px var(--fdic-color-effect-shadow-panel)",
     },
     gradient: {
       "brand-core": {
         angle: "135deg in oklch",
-        stops: ["var(--ds-color-primary-500)", "var(--ds-color-primary-400)"],
+        stops: ["var(--fdic-color-primary-500)", "var(--fdic-color-primary-400)"],
       },
       "hero-overlay-cool": {
         angle: "180deg in oklch",
         stops: [
-          "oklch(from var(--ds-color-primary-500) l c h / 0.1) 0%",
-          "oklch(from var(--ds-color-primary-800) l c h / 0.7) 100%",
+          "oklch(from var(--fdic-color-primary-500) l c h / 0.1) 0%",
+          "oklch(from var(--fdic-color-primary-800) l c h / 0.7) 100%",
         ],
       },
       "hero-overlay-warm": {
         angle: "180deg in oklch",
         stops: [
-          "oklch(from var(--ds-color-secondary-800) l c h / 0.1) 0%",
-          "oklch(from var(--ds-color-secondary-800) l c h / 0.7) 100%",
+          "oklch(from var(--fdic-color-secondary-800) l c h / 0.1) 0%",
+          "oklch(from var(--fdic-color-secondary-800) l c h / 0.7) 100%",
         ],
       },
       "hero-overlay-neutral": {
         angle: "180deg in oklch",
         stops: [
-          "oklch(from var(--ds-color-neutral-800) l c h / 0.1) 0%",
-          "oklch(from var(--ds-color-neutral-800) l c h / 0.7) 100%",
+          "oklch(from var(--fdic-color-neutral-800) l c h / 0.1) 0%",
+          "oklch(from var(--fdic-color-neutral-800) l c h / 0.7) 100%",
         ],
       },
       "glass-button": {
         angle: "180deg in oklch",
         stops: [
-          "oklch(from var(--ds-color-neutral-000) l c h / 0.12)",
-          "oklch(from var(--ds-color-neutral-000) l c h / 0.16)",
+          "oklch(from var(--fdic-color-neutral-000) l c h / 0.12)",
+          "oklch(from var(--fdic-color-neutral-000) l c h / 0.16)",
         ],
       },
       "glass-sheen": {
         angle: "180deg in oklch",
         stops: [
-          "oklch(from var(--ds-color-neutral-000) l c h / 0.24) 0%",
-          "oklch(from var(--ds-color-neutral-000) l c h / 0.08) 15%",
-          "oklch(from var(--ds-color-neutral-000) l c h / 0) 38%",
+          "oklch(from var(--fdic-color-neutral-000) l c h / 0.24) 0%",
+          "oklch(from var(--fdic-color-neutral-000) l c h / 0.08) 15%",
+          "oklch(from var(--fdic-color-neutral-000) l c h / 0) 38%",
         ],
       },
     },

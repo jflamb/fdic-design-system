@@ -3,14 +3,14 @@
  */
 
 :root {
-  --ds-focus-gap-color: var(--ds-color-bg-input);
-  --ds-focus-ring-color: var(--ds-color-border-input-focus);
+  --fdic-focus-gap-color: var(--fdic-color-bg-input);
+  --fdic-focus-ring-color: var(--fdic-color-border-input-focus);
 
-  --ds-focus-gap-width: 2px;
-  --ds-focus-ring-width: 4px;
+  --fdic-focus-gap-width: 2px;
+  --fdic-focus-ring-width: 4px;
 
-  --ds-motion-duration-fast: 120ms;
-  --ds-motion-duration-normal: 150ms;
-  --ds-motion-duration-slow: 240ms;
-  --ds-motion-easing-default: ease;
+  --fdic-motion-duration-fast: 120ms;
+  --fdic-motion-duration-normal: 150ms;
+  --fdic-motion-duration-slow: 240ms;
+  --fdic-motion-easing-default: ease;
 }

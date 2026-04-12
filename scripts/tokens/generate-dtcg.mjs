@@ -71,16 +71,16 @@ function renderInteractionCss(source) {
     " */",
     "",
     ":root {",
-    `  --ds-focus-gap-color: ${renderCssReference(source.interaction.focus.color.gap)};`,
-    `  --ds-focus-ring-color: ${renderCssReference(source.interaction.focus.color.ring)};`,
+    `  --fdic-focus-gap-color: ${renderCssReference(source.interaction.focus.color.gap)};`,
+    `  --fdic-focus-ring-color: ${renderCssReference(source.interaction.focus.color.ring)};`,
     "",
-    `  --ds-focus-gap-width: ${source.interaction.focus.width.gap};`,
-    `  --ds-focus-ring-width: ${source.interaction.focus.width.ring};`,
+    `  --fdic-focus-gap-width: ${source.interaction.focus.width.gap};`,
+    `  --fdic-focus-ring-width: ${source.interaction.focus.width.ring};`,
     "",
-    `  --ds-motion-duration-fast: ${source.interaction.motion.duration.fast};`,
-    `  --ds-motion-duration-normal: ${source.interaction.motion.duration.normal};`,
-    `  --ds-motion-duration-slow: ${source.interaction.motion.duration.slow};`,
-    `  --ds-motion-easing-default: ${source.interaction.motion.easing.default};`,
+    `  --fdic-motion-duration-fast: ${source.interaction.motion.duration.fast};`,
+    `  --fdic-motion-duration-normal: ${source.interaction.motion.duration.normal};`,
+    `  --fdic-motion-duration-slow: ${source.interaction.motion.duration.slow};`,
+    `  --fdic-motion-easing-default: ${source.interaction.motion.easing.default};`,
     "}",
     "",
   ];
@@ -100,10 +100,10 @@ function renderStylesCss(source) {
     " * This stylesheet publishes the supported runtime custom properties for",
     " * colors, interaction, effects, typography, spacing, radius, and layout.",
     " *",
-    " * Consumers should prefer semantic role tokens (--ds-color-[role]-[variant])",
-    " * and foundation tokens (--ds-spacing-*, --ds-layout-*, --ds-font-*).",
-    " * Legacy --fdic-* typography aliases are preserved for backward compatibility",
-    " * but --ds-* is the canonical namespace for all new work.",
+    " * Consumers should prefer semantic role tokens (--fdic-color-[role]-[variant])",
+    " * and foundation tokens (--fdic-spacing-*, --fdic-layout-*, --fdic-font-*).",
+    " * Deprecated --ds-* aliases are preserved for backward compatibility",
+    " * but --fdic-* is the canonical namespace for all new work.",
     " *",
     " * Dark mode is activated by the active color-scheme and semantic tokens",
     " * use light-dark() so they adapt automatically.",
@@ -143,20 +143,20 @@ function renderStylesCss(source) {
   for (const [group, tokens] of Object.entries(source.semanticColors)) {
     lines.push(`  /* ${labelize(group)} */`);
     for (const [token, value] of Object.entries(tokens)) {
-      lines.push(`  --ds-color-${semanticVariableName(group, token)}: ${renderCssTokenValue(value)};`);
+      lines.push(`  --fdic-color-${semanticVariableName(group, token)}: ${renderCssTokenValue(value)};`);
     }
     lines.push("");
   }
 
   lines.push("  /* Effect */");
   for (const [name, value] of Object.entries(source.cssEffects.shadow)) {
-    lines.push(`  --ds-shadow-${name}: ${Array.isArray(value) ? `\n    ${value.join(",\n    ")}` : value};`);
+    lines.push(`  --fdic-shadow-${name}: ${Array.isArray(value) ? `\n    ${value.join(",\n    ")}` : value};`);
   }
   lines.push("");
   lines.push("  /* Gradient */");
   for (const [name, gradient] of Object.entries(source.cssEffects.gradient)) {
     lines.push(
-      `  --ds-gradient-${name}: linear-gradient(\n    ${gradient.angle},\n    ${gradient.stops.join(",\n    ")}\n  );`,
+      `  --fdic-gradient-${name}: linear-gradient(\n    ${gradient.angle},\n    ${gradient.stops.join(",\n    ")}\n  );`,
     );
   }
 
@@ -166,83 +166,103 @@ function renderStylesCss(source) {
 
   lines.push("  /* Font family */");
   for (const [name, value] of Object.entries(source.typography.fontFamily)) {
-    lines.push(`  --ds-font-family-${name}: ${value};`);
+    lines.push(`  --fdic-font-family-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Font size */");
   for (const [name, value] of Object.entries(source.typography.fontSize)) {
-    lines.push(`  --ds-font-size-${name}: ${value};`);
+    lines.push(`  --fdic-font-size-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Font weight */");
   for (const [name, value] of Object.entries(source.typography.fontWeight)) {
-    lines.push(`  --ds-font-weight-${name}: ${value};`);
+    lines.push(`  --fdic-font-weight-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Line height */");
   for (const [name, value] of Object.entries(source.typography.lineHeight)) {
-    lines.push(`  --ds-line-height-${name}: ${value};`);
+    lines.push(`  --fdic-line-height-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Letter spacing */");
   for (const [name, value] of Object.entries(source.typography.letterSpacing)) {
-    lines.push(`  --ds-letter-spacing-${name}: ${value};`);
+    lines.push(`  --fdic-letter-spacing-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Heading padding */");
   for (const [name, value] of Object.entries(source.typography.headingPadding)) {
-    lines.push(`  --ds-heading-padding-${name}: ${value};`);
-  }
-  lines.push("");
-
-  // Deprecated --fdic-* aliases for backward compatibility
-  lines.push("  /* --- Deprecated aliases (--fdic-* \u2192 --ds-*) ---");
-  lines.push("     These preserve backward compatibility. Prefer --ds-* in new work.");
-  lines.push("     Scheduled for removal in a future major version.");
-  lines.push("  */");
-  for (const [name] of Object.entries(source.typography.fontFamily)) {
-    lines.push(`  --fdic-font-family-${name}: var(--ds-font-family-${name});`);
-  }
-  for (const [name] of Object.entries(source.typography.fontSize)) {
-    lines.push(`  --fdic-font-size-${name}: var(--ds-font-size-${name});`);
-  }
-  for (const [name] of Object.entries(source.typography.fontWeight)) {
-    lines.push(`  --fdic-font-weight-${name}: var(--ds-font-weight-${name});`);
-  }
-  for (const [name] of Object.entries(source.typography.lineHeight)) {
-    lines.push(`  --fdic-line-height-${name}: var(--ds-line-height-${name});`);
-  }
-  for (const [name] of Object.entries(source.typography.letterSpacing)) {
-    lines.push(`  --fdic-letter-spacing-${name}: var(--ds-letter-spacing-${name});`);
-  }
-  for (const [name] of Object.entries(source.typography.headingPadding)) {
-    lines.push(`  --fdic-heading-padding-${name}: var(--ds-heading-padding-${name});`);
+    lines.push(`  --fdic-heading-padding-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* ===== Spacing ===== */");
   lines.push("");
   for (const [name, value] of Object.entries(source.spacing)) {
-    lines.push(`  --ds-spacing-${name}: ${value};`);
+    lines.push(`  --fdic-spacing-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* ===== Corner radius ===== */");
   lines.push("");
   for (const [name, value] of Object.entries(source.cornerRadius)) {
-    lines.push(`  --ds-corner-radius-${name}: ${value};`);
+    lines.push(`  --fdic-corner-radius-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* ===== Layout ===== */");
   lines.push("");
   for (const [name, value] of Object.entries(source.layout)) {
-    lines.push(`  --ds-layout-${name}: ${value};`);
+    lines.push(`  --fdic-layout-${name}: ${value};`);
+  }
+
+  lines.push("");
+  lines.push("  /* --- Deprecated aliases (--ds-* \u2192 --fdic-*) ---");
+  lines.push("     Scheduled for removal in a future major version.");
+  lines.push("  */");
+
+  // Color primitives
+  for (const [family, tokens] of Object.entries(source.coreColors)) {
+    for (const [token] of Object.entries(tokens)) {
+      const canonical = coreCssVariableName(family, token);
+      const alias = canonical.replace("--fdic-", "--ds-");
+      lines.push(`  ${alias}: var(${canonical});`);
+    }
+  }
+
+  // Semantic colors
+  for (const [group, tokens] of Object.entries(source.semanticColors)) {
+    for (const [token] of Object.entries(tokens)) {
+      const name = semanticVariableName(group, token);
+      lines.push(`  --ds-color-${name}: var(--fdic-color-${name});`);
+    }
+  }
+
+  // Effects
+  for (const [name] of Object.entries(source.cssEffects.shadow)) {
+    lines.push(`  --ds-shadow-${name}: var(--fdic-shadow-${name});`);
+  }
+  for (const [name] of Object.entries(source.cssEffects.gradient)) {
+    lines.push(`  --ds-gradient-${name}: var(--fdic-gradient-${name});`);
+  }
+
+  // Spacing
+  for (const [name] of Object.entries(source.spacing)) {
+    lines.push(`  --ds-spacing-${name}: var(--fdic-spacing-${name});`);
+  }
+
+  // Corner radius
+  for (const [name] of Object.entries(source.cornerRadius)) {
+    lines.push(`  --ds-corner-radius-${name}: var(--fdic-corner-radius-${name});`);
+  }
+
+  // Layout
+  for (const [name] of Object.entries(source.layout)) {
+    lines.push(`  --ds-layout-${name}: var(--fdic-layout-${name});`);
   }
 
   lines.push("}");
@@ -423,11 +443,11 @@ function cssVariableNameForReference(reference) {
   }
 
   if (path[0] === "semantic" && path[1] === "color") {
-    return `--ds-color-${semanticVariableName(path[2], path[3])}`;
+    return `--fdic-color-${semanticVariableName(path[2], path[3])}`;
   }
 
   if (path[0] === "interaction" && path[1] === "focus" && path[2] === "color") {
-    return path[3] === "gap" ? "--ds-focus-gap-color" : "--ds-focus-ring-color";
+    return path[3] === "gap" ? "--fdic-focus-gap-color" : "--fdic-focus-ring-color";
   }
 
   throw new Error(`Unsupported reference: ${reference}`);
@@ -459,7 +479,7 @@ function semanticVariableName(group, token) {
 }
 
 function coreCssVariableName(family, token) {
-  return family === "link" ? `--ds-color-link-${token}` : `--ds-color-${token}`;
+  return family === "link" ? `--fdic-color-link-${token}` : `--fdic-color-${token}`;
 }
 
 function labelize(value) {

@@ -8,10 +8,10 @@
  * This stylesheet publishes the supported runtime custom properties for
  * colors, interaction, effects, typography, spacing, radius, and layout.
  *
- * Consumers should prefer semantic role tokens (--ds-color-[role]-[variant])
- * and foundation tokens (--ds-spacing-*, --ds-layout-*, --ds-font-*).
- * Legacy --fdic-* typography aliases are preserved for backward compatibility
- * but --ds-* is the canonical namespace for all new work.
+ * Consumers should prefer semantic role tokens (--fdic-color-[role]-[variant])
+ * and foundation tokens (--fdic-spacing-*, --fdic-layout-*, --fdic-font-*).
+ * Deprecated --ds-* aliases are preserved for backward compatibility
+ * but --fdic-* is the canonical namespace for all new work.
  *
  * Dark mode is activated by the active color-scheme and semantic tokens
  * use light-dark() so they adapt automatically.
@@ -19,25 +19,25 @@
  * Source: scripts/tokens/source.mjs
  */
 
-@property --ds-color-bg-hovered {
+@property --fdic-color-bg-hovered {
   syntax: "<color>";
   inherits: true;
   initial-value: oklch(0 0 0 / 0.04);
 }
 
-@property --ds-color-bg-pressed {
+@property --fdic-color-bg-pressed {
   syntax: "<color>";
   inherits: true;
   initial-value: oklch(0 0 0 / 0.08);
 }
 
-@property --ds-color-overlay-hover {
+@property --fdic-color-overlay-hover {
   syntax: "<color>";
   inherits: true;
   initial-value: oklch(0 0 0 / 0.04);
 }
 
-@property --ds-color-overlay-pressed {
+@property --fdic-color-overlay-pressed {
   syntax: "<color>";
   inherits: true;
   initial-value: oklch(0 0 0 / 0.08);
@@ -45,384 +45,535 @@
 
 :root {
   color-scheme: light;
-  accent-color: var(--ds-color-primary-500, oklch(0.4716 0.1061 241.57));
+  accent-color: var(--fdic-color-primary-500, oklch(0.4716 0.1061 241.57));
 
   /* ===== Primitives ===== */
 
   /* Neutral */
-  --ds-color-neutral-000: oklch(1 0 0);
-  --ds-color-neutral-050: oklch(0.9857 0.0026 286.35);
-  --ds-color-neutral-100: oklch(0.9707 0.0027 286.35);
-  --ds-color-neutral-150: oklch(0.9324 0.0067 286.27);
-  --ds-color-neutral-200: oklch(0.9073 0.0027 286.35);
-  --ds-color-neutral-300: oklch(0.8767 0.0027 286.34);
-  --ds-color-neutral-400: oklch(0.799 0.0028 286.34);
-  --ds-color-neutral-500: oklch(0.6999 0.0029 286.33);
-  --ds-color-neutral-700: oklch(0.4668 0.0128 285.89);
-  --ds-color-neutral-800: oklch(0.3798 0.0034 286.24);
-  --ds-color-neutral-850: oklch(0.3218 0.0035 286.2);
-  --ds-color-neutral-900: oklch(0.2486 0.0037 286.12);
-  --ds-color-neutral-1000: oklch(0 0 0);
+  --fdic-color-neutral-000: oklch(1 0 0);
+  --fdic-color-neutral-050: oklch(0.9857 0.0026 286.35);
+  --fdic-color-neutral-100: oklch(0.9707 0.0027 286.35);
+  --fdic-color-neutral-150: oklch(0.9324 0.0067 286.27);
+  --fdic-color-neutral-200: oklch(0.9073 0.0027 286.35);
+  --fdic-color-neutral-300: oklch(0.8767 0.0027 286.34);
+  --fdic-color-neutral-400: oklch(0.799 0.0028 286.34);
+  --fdic-color-neutral-500: oklch(0.6999 0.0029 286.33);
+  --fdic-color-neutral-700: oklch(0.4668 0.0128 285.89);
+  --fdic-color-neutral-800: oklch(0.3798 0.0034 286.24);
+  --fdic-color-neutral-850: oklch(0.3218 0.0035 286.2);
+  --fdic-color-neutral-900: oklch(0.2486 0.0037 286.12);
+  --fdic-color-neutral-1000: oklch(0 0 0);
 
   /* Primary */
-  --ds-color-primary-050: oklch(0.9585 0.0169 225.19);
-  --ds-color-primary-200: oklch(0.8495 0.0978 226.58);
-  --ds-color-primary-400: oklch(0.741 0.1499 239.59);
-  --ds-color-primary-500: oklch(0.4716 0.1061 241.57);
-  --ds-color-primary-700: oklch(0.3874 0.0849 240.69);
-  --ds-color-primary-800: oklch(0.3408 0.0748 241.24);
-  --ds-color-primary-900: oklch(0.3084 0.0809 246.91);
+  --fdic-color-primary-050: oklch(0.9585 0.0169 225.19);
+  --fdic-color-primary-200: oklch(0.8495 0.0978 226.58);
+  --fdic-color-primary-400: oklch(0.741 0.1499 239.59);
+  --fdic-color-primary-500: oklch(0.4716 0.1061 241.57);
+  --fdic-color-primary-700: oklch(0.3874 0.0849 240.69);
+  --fdic-color-primary-800: oklch(0.3408 0.0748 241.24);
+  --fdic-color-primary-900: oklch(0.3084 0.0809 246.91);
 
   /* Secondary */
-  --ds-color-secondary-050: oklch(0.9536 0.0293 87.55);
-  --ds-color-secondary-300: oklch(0.8756 0.0778 88.57);
-  --ds-color-secondary-400: oklch(0.8212 0.1089 88.87);
-  --ds-color-secondary-500: oklch(0.7727 0.1309 86.96);
-  --ds-color-secondary-600: oklch(0.6849 0.1281 85.85);
-  --ds-color-secondary-800: oklch(0.538 0.099 85.44);
-  --ds-color-secondary-900: oklch(0.4387 0.0744 93.45);
+  --fdic-color-secondary-050: oklch(0.9536 0.0293 87.55);
+  --fdic-color-secondary-300: oklch(0.8756 0.0778 88.57);
+  --fdic-color-secondary-400: oklch(0.8212 0.1089 88.87);
+  --fdic-color-secondary-500: oklch(0.7727 0.1309 86.96);
+  --fdic-color-secondary-600: oklch(0.6849 0.1281 85.85);
+  --fdic-color-secondary-800: oklch(0.538 0.099 85.44);
+  --fdic-color-secondary-900: oklch(0.4387 0.0744 93.45);
 
   /* Success */
-  --ds-color-success-050: oklch(0.9571 0.021 147.64);
-  --ds-color-success-200: oklch(0.8292 0.0827 145.82);
-  --ds-color-success-300: oklch(0.7852 0.1737 146.79);
-  --ds-color-success-500: oklch(0.5234 0.1347 144.17);
-  --ds-color-success-600: oklch(0.4254 0.1159 144.31);
-  --ds-color-success-800: oklch(0.3524 0.0751 143.78);
-  --ds-color-success-900: oklch(0.3154 0.0651 143.84);
+  --fdic-color-success-050: oklch(0.9571 0.021 147.64);
+  --fdic-color-success-200: oklch(0.8292 0.0827 145.82);
+  --fdic-color-success-300: oklch(0.7852 0.1737 146.79);
+  --fdic-color-success-500: oklch(0.5234 0.1347 144.17);
+  --fdic-color-success-600: oklch(0.4254 0.1159 144.31);
+  --fdic-color-success-800: oklch(0.3524 0.0751 143.78);
+  --fdic-color-success-900: oklch(0.3154 0.0651 143.84);
 
   /* Warning */
-  --ds-color-warning-050: oklch(0.9775 0.013 82.4);
-  --ds-color-warning-200: oklch(0.8741 0.1102 76.47);
-  --ds-color-warning-300: oklch(0.843 0.15 79.47);
-  --ds-color-warning-500: oklch(0.5172 0.1085 76.33);
-  --ds-color-warning-600: oklch(0.4369 0.0912 77.67);
-  --ds-color-warning-800: oklch(0.4 0.0877 68.06);
-  --ds-color-warning-900: oklch(0.3319 0.072 69.83);
+  --fdic-color-warning-050: oklch(0.9775 0.013 82.4);
+  --fdic-color-warning-200: oklch(0.8741 0.1102 76.47);
+  --fdic-color-warning-300: oklch(0.843 0.15 79.47);
+  --fdic-color-warning-500: oklch(0.5172 0.1085 76.33);
+  --fdic-color-warning-600: oklch(0.4369 0.0912 77.67);
+  --fdic-color-warning-800: oklch(0.4 0.0877 68.06);
+  --fdic-color-warning-900: oklch(0.3319 0.072 69.83);
 
   /* Error */
-  --ds-color-error-050: oklch(0.9579 0.0179 30.27);
-  --ds-color-error-150: oklch(0.8897 0.058 18.3);
-  --ds-color-error-200: oklch(0.7959 0.0978 19.46);
-  --ds-color-error-300: oklch(0.711 0.1668 9.43);
-  --ds-color-error-500: oklch(0.4844 0.1897 20.37);
-  --ds-color-error-600: oklch(0.5616 0.2207 19.98);
-  --ds-color-error-800: oklch(0.2959 0.0538 20.82);
-  --ds-color-error-900: oklch(0.2499 0.0417 20.45);
+  --fdic-color-error-050: oklch(0.9579 0.0179 30.27);
+  --fdic-color-error-150: oklch(0.8897 0.058 18.3);
+  --fdic-color-error-200: oklch(0.7959 0.0978 19.46);
+  --fdic-color-error-300: oklch(0.711 0.1668 9.43);
+  --fdic-color-error-500: oklch(0.4844 0.1897 20.37);
+  --fdic-color-error-600: oklch(0.5616 0.2207 19.98);
+  --fdic-color-error-800: oklch(0.2959 0.0538 20.82);
+  --fdic-color-error-900: oklch(0.2499 0.0417 20.45);
 
   /* Info */
-  --ds-color-info-050: oklch(0.9756 0.011 243.65);
-  --ds-color-info-200: oklch(0.8163 0.0896 243.62);
-  --ds-color-info-300: oklch(0.7282 0.1409 244.66);
-  --ds-color-info-500: oklch(0.4167 0.1054 247.79);
-  --ds-color-info-600: oklch(0.4016 0.0987 247.42);
-  --ds-color-info-800: oklch(0.3462 0.0736 256.04);
-  --ds-color-info-900: oklch(0.2943 0.0607 255.12);
+  --fdic-color-info-050: oklch(0.9756 0.011 243.65);
+  --fdic-color-info-200: oklch(0.8163 0.0896 243.62);
+  --fdic-color-info-300: oklch(0.7282 0.1409 244.66);
+  --fdic-color-info-500: oklch(0.4167 0.1054 247.79);
+  --fdic-color-info-600: oklch(0.4016 0.0987 247.42);
+  --fdic-color-info-800: oklch(0.3462 0.0736 256.04);
+  --fdic-color-info-900: oklch(0.2943 0.0607 255.12);
 
   /* Link */
-  --ds-color-link-300: oklch(0.8562 0.0489 219.65);
-  --ds-color-link-default: oklch(0.5471 0.1213 240.63);
-  --ds-color-link-visited: oklch(0.5447 0.1216 309.32);
-  --ds-color-link-visited-300: oklch(0.7329 0.0895 299.99);
+  --fdic-color-link-300: oklch(0.8562 0.0489 219.65);
+  --fdic-color-link-default: oklch(0.5471 0.1213 240.63);
+  --fdic-color-link-visited: oklch(0.5447 0.1216 309.32);
+  --fdic-color-link-visited-300: oklch(0.7329 0.0895 299.99);
 
   /* ===== Semantic tokens ===== */
 
   /* Background */
-  --ds-color-bg-base: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
-  --ds-color-bg-surface: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-900));
-  --ds-color-bg-container: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-900));
-  --ds-color-bg-overlay: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-900));
-  --ds-color-bg-modal: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-800));
-  --ds-color-bg-input: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-900));
-  --ds-color-bg-interactive: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-900));
-  --ds-color-bg-inverted: light-dark(var(--ds-color-neutral-900), var(--ds-color-neutral-100));
-  --ds-color-bg-brand: light-dark(var(--ds-color-primary-900), var(--ds-color-primary-050));
-  --ds-color-bg-highlight: var(--ds-color-primary-400);
-  --ds-color-bg-selected: light-dark(var(--ds-color-primary-050), var(--ds-color-primary-900));
-  --ds-color-bg-active: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
-  --ds-color-bg-hovered: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.04), oklch(from var(--ds-color-neutral-000) l c h / 0.08));
-  --ds-color-bg-pressed: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
-  --ds-color-bg-destructive: light-dark(var(--ds-color-error-600), var(--ds-color-error-800));
-  --ds-color-bg-readonly: light-dark(var(--ds-color-neutral-100), var(--ds-color-neutral-800));
+  --fdic-color-bg-base: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-1000));
+  --fdic-color-bg-surface: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-900));
+  --fdic-color-bg-container: light-dark(var(--fdic-color-neutral-100), var(--fdic-color-neutral-900));
+  --fdic-color-bg-overlay: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-900));
+  --fdic-color-bg-modal: light-dark(var(--fdic-color-neutral-100), var(--fdic-color-neutral-800));
+  --fdic-color-bg-input: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-900));
+  --fdic-color-bg-interactive: light-dark(var(--fdic-color-neutral-100), var(--fdic-color-neutral-900));
+  --fdic-color-bg-inverted: light-dark(var(--fdic-color-neutral-900), var(--fdic-color-neutral-100));
+  --fdic-color-bg-brand: light-dark(var(--fdic-color-primary-900), var(--fdic-color-primary-050));
+  --fdic-color-bg-highlight: var(--fdic-color-primary-400);
+  --fdic-color-bg-selected: light-dark(var(--fdic-color-primary-050), var(--fdic-color-primary-900));
+  --fdic-color-bg-active: light-dark(var(--fdic-color-primary-500), var(--fdic-color-primary-200));
+  --fdic-color-bg-hovered: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.04), oklch(from var(--fdic-color-neutral-000) l c h / 0.08));
+  --fdic-color-bg-pressed: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.08), oklch(from var(--fdic-color-neutral-000) l c h / 0.14));
+  --fdic-color-bg-destructive: light-dark(var(--fdic-color-error-600), var(--fdic-color-error-800));
+  --fdic-color-bg-readonly: light-dark(var(--fdic-color-neutral-100), var(--fdic-color-neutral-800));
 
   /* Text */
-  --ds-color-text-primary: light-dark(var(--ds-color-neutral-900), var(--ds-color-neutral-000));
-  --ds-color-text-secondary: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-200));
-  --ds-color-text-placeholder: var(--ds-color-neutral-500);
-  --ds-color-text-disabled: light-dark(var(--ds-color-neutral-500), var(--ds-color-neutral-400));
-  --ds-color-text-inverted: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
-  --ds-color-text-brand: light-dark(var(--ds-color-primary-500), var(--ds-color-primary-200));
-  --ds-color-text-warm: light-dark(var(--ds-color-secondary-900), var(--ds-color-secondary-050));
-  --ds-color-text-link: light-dark(var(--ds-color-link-default), var(--ds-color-link-300));
-  --ds-color-text-link-visited: light-dark(var(--ds-color-link-visited), var(--ds-color-link-visited-300));
-  --ds-color-text-error: light-dark(var(--ds-color-error-600), var(--ds-color-error-150));
-  --ds-color-text-wordmark: light-dark(var(--ds-color-primary-900), var(--ds-color-neutral-000));
+  --fdic-color-text-primary: light-dark(var(--fdic-color-neutral-900), var(--fdic-color-neutral-000));
+  --fdic-color-text-secondary: light-dark(var(--fdic-color-neutral-700), var(--fdic-color-neutral-200));
+  --fdic-color-text-placeholder: var(--fdic-color-neutral-500);
+  --fdic-color-text-disabled: light-dark(var(--fdic-color-neutral-500), var(--fdic-color-neutral-400));
+  --fdic-color-text-inverted: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-1000));
+  --fdic-color-text-brand: light-dark(var(--fdic-color-primary-500), var(--fdic-color-primary-200));
+  --fdic-color-text-warm: light-dark(var(--fdic-color-secondary-900), var(--fdic-color-secondary-050));
+  --fdic-color-text-link: light-dark(var(--fdic-color-link-default), var(--fdic-color-link-300));
+  --fdic-color-text-link-visited: light-dark(var(--fdic-color-link-visited), var(--fdic-color-link-visited-300));
+  --fdic-color-text-error: light-dark(var(--fdic-color-error-600), var(--fdic-color-error-150));
+  --fdic-color-text-wordmark: light-dark(var(--fdic-color-primary-900), var(--fdic-color-neutral-000));
 
   /* Icon */
-  --ds-color-icon-primary: light-dark(var(--ds-color-neutral-800), var(--ds-color-neutral-200));
-  --ds-color-icon-secondary: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-400));
-  --ds-color-icon-placeholder: light-dark(var(--ds-color-neutral-700), var(--ds-color-neutral-500));
-  --ds-color-icon-disabled: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
-  --ds-color-icon-inverted: light-dark(var(--ds-color-neutral-000), var(--ds-color-neutral-1000));
-  --ds-color-icon-warm: light-dark(var(--ds-color-secondary-900), var(--ds-color-secondary-050));
-  --ds-color-icon-active: light-dark(var(--ds-color-link-default), var(--ds-color-link-300));
-  --ds-color-icon-link: light-dark(var(--ds-color-link-default), var(--ds-color-link-300));
+  --fdic-color-icon-primary: light-dark(var(--fdic-color-neutral-800), var(--fdic-color-neutral-200));
+  --fdic-color-icon-secondary: light-dark(var(--fdic-color-neutral-700), var(--fdic-color-neutral-400));
+  --fdic-color-icon-placeholder: light-dark(var(--fdic-color-neutral-700), var(--fdic-color-neutral-500));
+  --fdic-color-icon-disabled: light-dark(var(--fdic-color-neutral-400), var(--fdic-color-neutral-700));
+  --fdic-color-icon-inverted: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-1000));
+  --fdic-color-icon-warm: light-dark(var(--fdic-color-secondary-900), var(--fdic-color-secondary-050));
+  --fdic-color-icon-active: light-dark(var(--fdic-color-link-default), var(--fdic-color-link-300));
+  --fdic-color-icon-link: light-dark(var(--fdic-color-link-default), var(--fdic-color-link-300));
 
   /* Border */
-  --ds-color-border-divider: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
-  --ds-color-border-subtle: light-dark(var(--ds-color-neutral-200), var(--ds-color-neutral-700));
-  --ds-color-border-image: var(--ds-color-neutral-000);
-  --ds-color-border-input: light-dark(var(--ds-color-neutral-400), var(--ds-color-neutral-700));
-  --ds-color-border-input-hover: var(--ds-color-neutral-500);
-  --ds-color-border-input-focus: light-dark(var(--ds-color-primary-400), var(--ds-color-primary-500));
-  --ds-color-border-input-active: light-dark(var(--ds-color-neutral-800), var(--ds-color-neutral-200));
-  --ds-color-border-input-readonly: light-dark(var(--ds-color-neutral-200), var(--ds-color-neutral-400));
-  --ds-color-border-input-interactive: light-dark(var(--ds-color-neutral-150), var(--ds-color-neutral-850));
-  --ds-color-border-input-disabled: light-dark(var(--ds-color-neutral-300), var(--ds-color-neutral-500));
-  --ds-color-border-glass: light-dark(oklch(from var(--ds-color-neutral-000) l c h / 0.55), oklch(from var(--ds-color-neutral-000) l c h / 0.2));
-  --ds-color-border-glass-soft: light-dark(oklch(from var(--ds-color-primary-900) l c h / 0.14), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
-  --ds-color-border-focus-inner: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.35), oklch(from var(--ds-color-primary-200) l c h / 0.35));
+  --fdic-color-border-divider: light-dark(var(--fdic-color-neutral-400), var(--fdic-color-neutral-700));
+  --fdic-color-border-subtle: light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-700));
+  --fdic-color-border-image: var(--fdic-color-neutral-000);
+  --fdic-color-border-input: light-dark(var(--fdic-color-neutral-400), var(--fdic-color-neutral-700));
+  --fdic-color-border-input-hover: var(--fdic-color-neutral-500);
+  --fdic-color-border-input-focus: light-dark(var(--fdic-color-primary-400), var(--fdic-color-primary-500));
+  --fdic-color-border-input-active: light-dark(var(--fdic-color-neutral-800), var(--fdic-color-neutral-200));
+  --fdic-color-border-input-readonly: light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-400));
+  --fdic-color-border-input-interactive: light-dark(var(--fdic-color-neutral-150), var(--fdic-color-neutral-850));
+  --fdic-color-border-input-disabled: light-dark(var(--fdic-color-neutral-300), var(--fdic-color-neutral-500));
+  --fdic-color-border-glass: light-dark(oklch(from var(--fdic-color-neutral-000) l c h / 0.55), oklch(from var(--fdic-color-neutral-000) l c h / 0.2));
+  --fdic-color-border-glass-soft: light-dark(oklch(from var(--fdic-color-primary-900) l c h / 0.14), oklch(from var(--fdic-color-neutral-000) l c h / 0.14));
+  --fdic-color-border-focus-inner: light-dark(oklch(from var(--fdic-color-primary-500) l c h / 0.35), oklch(from var(--fdic-color-primary-200) l c h / 0.35));
 
   /* Semantic */
-  --ds-color-semantic-bg-success: light-dark(var(--ds-color-success-050), var(--ds-color-success-800));
-  --ds-color-semantic-bg-warning: light-dark(var(--ds-color-warning-050), var(--ds-color-warning-800));
-  --ds-color-semantic-bg-error: light-dark(var(--ds-color-error-050), var(--ds-color-error-800));
-  --ds-color-semantic-bg-info: light-dark(var(--ds-color-info-050), var(--ds-color-info-800));
-  --ds-color-semantic-bg-warm: light-dark(var(--ds-color-secondary-050), var(--ds-color-secondary-900));
-  --ds-color-semantic-fg-success: light-dark(var(--ds-color-success-500), var(--ds-color-success-300));
-  --ds-color-semantic-fg-warning: light-dark(var(--ds-color-warning-500), var(--ds-color-warning-300));
-  --ds-color-semantic-fg-error: light-dark(var(--ds-color-error-500), var(--ds-color-error-300));
-  --ds-color-semantic-fg-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
-  --ds-color-semantic-border-success: light-dark(var(--ds-color-success-500), var(--ds-color-success-300));
-  --ds-color-semantic-border-warning: light-dark(var(--ds-color-warning-500), var(--ds-color-warning-300));
-  --ds-color-semantic-border-error: light-dark(var(--ds-color-error-500), var(--ds-color-error-300));
-  --ds-color-semantic-border-info: light-dark(var(--ds-color-info-500), var(--ds-color-info-300));
+  --fdic-color-semantic-bg-success: light-dark(var(--fdic-color-success-050), var(--fdic-color-success-800));
+  --fdic-color-semantic-bg-warning: light-dark(var(--fdic-color-warning-050), var(--fdic-color-warning-800));
+  --fdic-color-semantic-bg-error: light-dark(var(--fdic-color-error-050), var(--fdic-color-error-800));
+  --fdic-color-semantic-bg-info: light-dark(var(--fdic-color-info-050), var(--fdic-color-info-800));
+  --fdic-color-semantic-bg-warm: light-dark(var(--fdic-color-secondary-050), var(--fdic-color-secondary-900));
+  --fdic-color-semantic-fg-success: light-dark(var(--fdic-color-success-500), var(--fdic-color-success-300));
+  --fdic-color-semantic-fg-warning: light-dark(var(--fdic-color-warning-500), var(--fdic-color-warning-300));
+  --fdic-color-semantic-fg-error: light-dark(var(--fdic-color-error-500), var(--fdic-color-error-300));
+  --fdic-color-semantic-fg-info: light-dark(var(--fdic-color-info-500), var(--fdic-color-info-300));
+  --fdic-color-semantic-border-success: light-dark(var(--fdic-color-success-500), var(--fdic-color-success-300));
+  --fdic-color-semantic-border-warning: light-dark(var(--fdic-color-warning-500), var(--fdic-color-warning-300));
+  --fdic-color-semantic-border-error: light-dark(var(--fdic-color-error-500), var(--fdic-color-error-300));
+  --fdic-color-semantic-border-info: light-dark(var(--fdic-color-info-500), var(--fdic-color-info-300));
 
   /* Overlay */
-  --ds-color-overlay-hover: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.04), oklch(from var(--ds-color-neutral-000) l c h / 0.08));
-  --ds-color-overlay-pressed: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-000) l c h / 0.14));
-  --ds-color-overlay-scrim: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.48), oklch(from var(--ds-color-neutral-1000) l c h / 0.72));
-  --ds-color-overlay-brand-hover: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.08), oklch(from var(--ds-color-primary-200) l c h / 0.14));
-  --ds-color-overlay-brand-selected: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.14), oklch(from var(--ds-color-primary-200) l c h / 0.18));
-  --ds-color-overlay-brand-pressed: light-dark(oklch(from var(--ds-color-primary-500) l c h / 0.16), oklch(from var(--ds-color-primary-200) l c h / 0.22));
-  --ds-color-overlay-scrim-soft: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-1000) l c h / 0.24));
-  --ds-color-overlay-scrim-strong: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.45), oklch(from var(--ds-color-neutral-1000) l c h / 0.64));
+  --fdic-color-overlay-hover: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.04), oklch(from var(--fdic-color-neutral-000) l c h / 0.08));
+  --fdic-color-overlay-pressed: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.08), oklch(from var(--fdic-color-neutral-000) l c h / 0.14));
+  --fdic-color-overlay-scrim: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.48), oklch(from var(--fdic-color-neutral-1000) l c h / 0.72));
+  --fdic-color-overlay-brand-hover: light-dark(oklch(from var(--fdic-color-primary-500) l c h / 0.08), oklch(from var(--fdic-color-primary-200) l c h / 0.14));
+  --fdic-color-overlay-brand-selected: light-dark(oklch(from var(--fdic-color-primary-500) l c h / 0.14), oklch(from var(--fdic-color-primary-200) l c h / 0.18));
+  --fdic-color-overlay-brand-pressed: light-dark(oklch(from var(--fdic-color-primary-500) l c h / 0.16), oklch(from var(--fdic-color-primary-200) l c h / 0.22));
+  --fdic-color-overlay-scrim-soft: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.08), oklch(from var(--fdic-color-neutral-1000) l c h / 0.24));
+  --fdic-color-overlay-scrim-strong: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.45), oklch(from var(--fdic-color-neutral-1000) l c h / 0.64));
 
   /* Effect */
-  --ds-color-effect-shadow: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.08), oklch(from var(--ds-color-neutral-1000) l c h / 0.36));
-  --ds-color-effect-shadow-panel: light-dark(oklch(from var(--ds-color-neutral-1000) l c h / 0.22), oklch(from var(--ds-color-neutral-1000) l c h / 0.48));
+  --fdic-color-effect-shadow: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.08), oklch(from var(--fdic-color-neutral-1000) l c h / 0.36));
+  --fdic-color-effect-shadow-panel: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.22), oklch(from var(--fdic-color-neutral-1000) l c h / 0.48));
 
   /* Surface */
-  --ds-color-surface-glass-1: oklch(from var(--ds-color-neutral-000) l c h / 0.84);
-  --ds-color-surface-glass-2: oklch(from var(--ds-color-primary-050) l c h / 0.5);
-  --ds-color-surface-glass-2-muted: oklch(from var(--ds-color-primary-050) l c h / 0.4);
-  --ds-color-surface-glass-3: oklch(from var(--ds-color-primary-050) l c h / 0.24);
-  --ds-color-surface-glass-3-muted-1: oklch(from var(--ds-color-primary-050) l c h / 0.14);
-  --ds-color-surface-glass-3-muted-2: oklch(from var(--ds-color-primary-050) l c h / 0.16);
+  --fdic-color-surface-glass-1: oklch(from var(--fdic-color-neutral-000) l c h / 0.84);
+  --fdic-color-surface-glass-2: oklch(from var(--fdic-color-primary-050) l c h / 0.5);
+  --fdic-color-surface-glass-2-muted: oklch(from var(--fdic-color-primary-050) l c h / 0.4);
+  --fdic-color-surface-glass-3: oklch(from var(--fdic-color-primary-050) l c h / 0.24);
+  --fdic-color-surface-glass-3-muted-1: oklch(from var(--fdic-color-primary-050) l c h / 0.14);
+  --fdic-color-surface-glass-3-muted-2: oklch(from var(--fdic-color-primary-050) l c h / 0.16);
 
   /* Effect */
-  --ds-shadow-raised: 
-    0 1px 1px var(--ds-color-effect-shadow),
-    0 2px 2px var(--ds-color-effect-shadow),
-    0 4px 4px var(--ds-color-effect-shadow),
-    0 6px 8px var(--ds-color-effect-shadow);
-  --ds-shadow-raised-hover: 
-    0 1px 1px var(--ds-color-effect-shadow),
-    0 2px 2px var(--ds-color-effect-shadow),
-    0 4px 4px var(--ds-color-effect-shadow),
-    0 8px 8px var(--ds-color-effect-shadow),
-    0 16px 16px var(--ds-color-effect-shadow);
-  --ds-shadow-dropdown: 
-    0 1px 2px var(--ds-color-effect-shadow),
-    0 2px 12px var(--ds-color-effect-shadow);
-  --ds-shadow-menu: 0 4px 12px var(--ds-color-effect-shadow);
-  --ds-shadow-panel: 0 18px 48px var(--ds-color-effect-shadow-panel);
+  --fdic-shadow-raised: 
+    0 1px 1px var(--fdic-color-effect-shadow),
+    0 2px 2px var(--fdic-color-effect-shadow),
+    0 4px 4px var(--fdic-color-effect-shadow),
+    0 6px 8px var(--fdic-color-effect-shadow);
+  --fdic-shadow-raised-hover: 
+    0 1px 1px var(--fdic-color-effect-shadow),
+    0 2px 2px var(--fdic-color-effect-shadow),
+    0 4px 4px var(--fdic-color-effect-shadow),
+    0 8px 8px var(--fdic-color-effect-shadow),
+    0 16px 16px var(--fdic-color-effect-shadow);
+  --fdic-shadow-dropdown: 
+    0 1px 2px var(--fdic-color-effect-shadow),
+    0 2px 12px var(--fdic-color-effect-shadow);
+  --fdic-shadow-menu: 0 4px 12px var(--fdic-color-effect-shadow);
+  --fdic-shadow-panel: 0 18px 48px var(--fdic-color-effect-shadow-panel);
 
   /* Gradient */
-  --ds-gradient-brand-core: linear-gradient(
+  --fdic-gradient-brand-core: linear-gradient(
     135deg in oklch,
-    var(--ds-color-primary-500),
-    var(--ds-color-primary-400)
+    var(--fdic-color-primary-500),
+    var(--fdic-color-primary-400)
   );
-  --ds-gradient-hero-overlay-cool: linear-gradient(
+  --fdic-gradient-hero-overlay-cool: linear-gradient(
     180deg in oklch,
-    oklch(from var(--ds-color-primary-500) l c h / 0.1) 0%,
-    oklch(from var(--ds-color-primary-800) l c h / 0.7) 100%
+    oklch(from var(--fdic-color-primary-500) l c h / 0.1) 0%,
+    oklch(from var(--fdic-color-primary-800) l c h / 0.7) 100%
   );
-  --ds-gradient-hero-overlay-warm: linear-gradient(
+  --fdic-gradient-hero-overlay-warm: linear-gradient(
     180deg in oklch,
-    oklch(from var(--ds-color-secondary-800) l c h / 0.1) 0%,
-    oklch(from var(--ds-color-secondary-800) l c h / 0.7) 100%
+    oklch(from var(--fdic-color-secondary-800) l c h / 0.1) 0%,
+    oklch(from var(--fdic-color-secondary-800) l c h / 0.7) 100%
   );
-  --ds-gradient-hero-overlay-neutral: linear-gradient(
+  --fdic-gradient-hero-overlay-neutral: linear-gradient(
     180deg in oklch,
-    oklch(from var(--ds-color-neutral-800) l c h / 0.1) 0%,
-    oklch(from var(--ds-color-neutral-800) l c h / 0.7) 100%
+    oklch(from var(--fdic-color-neutral-800) l c h / 0.1) 0%,
+    oklch(from var(--fdic-color-neutral-800) l c h / 0.7) 100%
   );
-  --ds-gradient-glass-button: linear-gradient(
+  --fdic-gradient-glass-button: linear-gradient(
     180deg in oklch,
-    oklch(from var(--ds-color-neutral-000) l c h / 0.12),
-    oklch(from var(--ds-color-neutral-000) l c h / 0.16)
+    oklch(from var(--fdic-color-neutral-000) l c h / 0.12),
+    oklch(from var(--fdic-color-neutral-000) l c h / 0.16)
   );
-  --ds-gradient-glass-sheen: linear-gradient(
+  --fdic-gradient-glass-sheen: linear-gradient(
     180deg in oklch,
-    oklch(from var(--ds-color-neutral-000) l c h / 0.24) 0%,
-    oklch(from var(--ds-color-neutral-000) l c h / 0.08) 15%,
-    oklch(from var(--ds-color-neutral-000) l c h / 0) 38%
+    oklch(from var(--fdic-color-neutral-000) l c h / 0.24) 0%,
+    oklch(from var(--fdic-color-neutral-000) l c h / 0.08) 15%,
+    oklch(from var(--fdic-color-neutral-000) l c h / 0) 38%
   );
 
   /* ===== Typography ===== */
 
   /* Font family */
-  --ds-font-family-sans-serif: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --ds-font-family-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --fdic-font-family-sans-serif: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fdic-font-family-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   /* Font size */
-  --ds-font-size-h1: 2.53125rem;
-  --ds-font-size-h2: 1.6875rem;
-  --ds-font-size-h3: 1.40625rem;
-  --ds-font-size-h4: 1.125rem;
-  --ds-font-size-h5: 0.984375rem;
-  --ds-font-size-h6: 0.84375rem;
-  --ds-font-size-body: 1.125rem;
-  --ds-font-size-body-big: 1.25rem;
-  --ds-font-size-body-small: 1rem;
-  --ds-font-size-body-smaller: 0.8125rem;
-  --ds-font-size-lg: 1.375rem;
+  --fdic-font-size-h1: 2.53125rem;
+  --fdic-font-size-h2: 1.6875rem;
+  --fdic-font-size-h3: 1.40625rem;
+  --fdic-font-size-h4: 1.125rem;
+  --fdic-font-size-h5: 0.984375rem;
+  --fdic-font-size-h6: 0.84375rem;
+  --fdic-font-size-body: 1.125rem;
+  --fdic-font-size-body-big: 1.25rem;
+  --fdic-font-size-body-small: 1rem;
+  --fdic-font-size-body-smaller: 0.8125rem;
+  --fdic-font-size-lg: 1.375rem;
 
   /* Font weight */
-  --ds-font-weight-regular: 400;
-  --ds-font-weight-medium: 450;
-  --ds-font-weight-semibold: 600;
-  --ds-font-weight-bold: 700;
+  --fdic-font-weight-regular: 400;
+  --fdic-font-weight-medium: 450;
+  --fdic-font-weight-semibold: 600;
+  --fdic-font-weight-bold: 700;
 
   /* Line height */
-  --ds-line-height-h1: 1.15;
-  --ds-line-height-h2: 1.2;
-  --ds-line-height-h3: 1.25;
-  --ds-line-height-h4: 1.25;
-  --ds-line-height-h5: 1.25;
-  --ds-line-height-h6: 1.25;
-  --ds-line-height-body: 1.375;
-  --ds-line-height-tight: 1.25;
+  --fdic-line-height-h1: 1.15;
+  --fdic-line-height-h2: 1.2;
+  --fdic-line-height-h3: 1.25;
+  --fdic-line-height-h4: 1.25;
+  --fdic-line-height-h5: 1.25;
+  --fdic-line-height-h6: 1.25;
+  --fdic-line-height-body: 1.375;
+  --fdic-line-height-tight: 1.25;
 
   /* Letter spacing */
-  --ds-letter-spacing-h1: -0.025em;
-  --ds-letter-spacing-h2: -0.019em;
-  --ds-letter-spacing-h6: 0.148em;
-  --ds-letter-spacing-none: 0;
+  --fdic-letter-spacing-h1: -0.025em;
+  --fdic-letter-spacing-h2: -0.019em;
+  --fdic-letter-spacing-h6: 0.148em;
+  --fdic-letter-spacing-none: 0;
 
   /* Heading padding */
-  --ds-heading-padding-h1-top: 3.796875rem;
-  --ds-heading-padding-h1-bottom: 1.265625rem;
-  --ds-heading-padding-h2-top: 3rem;
-  --ds-heading-padding-h2-bottom: 1rem;
-  --ds-heading-padding-h3-top: 2.109375rem;
-  --ds-heading-padding-h3-bottom: 0.703125rem;
-  --ds-heading-padding-h4-top: 1.6875rem;
-  --ds-heading-padding-h4-bottom: 0.5625rem;
-  --ds-heading-padding-h5-top: 1.4765625rem;
-  --ds-heading-padding-h5-bottom: 0.4921875rem;
-  --ds-heading-padding-h6-top: 1.265625rem;
-  --ds-heading-padding-h6-bottom: 0.421875rem;
-
-  /* --- Deprecated aliases (--fdic-* → --ds-*) ---
-     These preserve backward compatibility. Prefer --ds-* in new work.
-     Scheduled for removal in a future major version.
-  */
-  --fdic-font-family-sans-serif: var(--ds-font-family-sans-serif);
-  --fdic-font-family-mono: var(--ds-font-family-mono);
-  --fdic-font-size-h1: var(--ds-font-size-h1);
-  --fdic-font-size-h2: var(--ds-font-size-h2);
-  --fdic-font-size-h3: var(--ds-font-size-h3);
-  --fdic-font-size-h4: var(--ds-font-size-h4);
-  --fdic-font-size-h5: var(--ds-font-size-h5);
-  --fdic-font-size-h6: var(--ds-font-size-h6);
-  --fdic-font-size-body: var(--ds-font-size-body);
-  --fdic-font-size-body-big: var(--ds-font-size-body-big);
-  --fdic-font-size-body-small: var(--ds-font-size-body-small);
-  --fdic-font-size-body-smaller: var(--ds-font-size-body-smaller);
-  --fdic-font-size-lg: var(--ds-font-size-lg);
-  --fdic-font-weight-regular: var(--ds-font-weight-regular);
-  --fdic-font-weight-medium: var(--ds-font-weight-medium);
-  --fdic-font-weight-semibold: var(--ds-font-weight-semibold);
-  --fdic-font-weight-bold: var(--ds-font-weight-bold);
-  --fdic-line-height-h1: var(--ds-line-height-h1);
-  --fdic-line-height-h2: var(--ds-line-height-h2);
-  --fdic-line-height-h3: var(--ds-line-height-h3);
-  --fdic-line-height-h4: var(--ds-line-height-h4);
-  --fdic-line-height-h5: var(--ds-line-height-h5);
-  --fdic-line-height-h6: var(--ds-line-height-h6);
-  --fdic-line-height-body: var(--ds-line-height-body);
-  --fdic-line-height-tight: var(--ds-line-height-tight);
-  --fdic-letter-spacing-h1: var(--ds-letter-spacing-h1);
-  --fdic-letter-spacing-h2: var(--ds-letter-spacing-h2);
-  --fdic-letter-spacing-h6: var(--ds-letter-spacing-h6);
-  --fdic-letter-spacing-none: var(--ds-letter-spacing-none);
-  --fdic-heading-padding-h1-top: var(--ds-heading-padding-h1-top);
-  --fdic-heading-padding-h1-bottom: var(--ds-heading-padding-h1-bottom);
-  --fdic-heading-padding-h2-top: var(--ds-heading-padding-h2-top);
-  --fdic-heading-padding-h2-bottom: var(--ds-heading-padding-h2-bottom);
-  --fdic-heading-padding-h3-top: var(--ds-heading-padding-h3-top);
-  --fdic-heading-padding-h3-bottom: var(--ds-heading-padding-h3-bottom);
-  --fdic-heading-padding-h4-top: var(--ds-heading-padding-h4-top);
-  --fdic-heading-padding-h4-bottom: var(--ds-heading-padding-h4-bottom);
-  --fdic-heading-padding-h5-top: var(--ds-heading-padding-h5-top);
-  --fdic-heading-padding-h5-bottom: var(--ds-heading-padding-h5-bottom);
-  --fdic-heading-padding-h6-top: var(--ds-heading-padding-h6-top);
-  --fdic-heading-padding-h6-bottom: var(--ds-heading-padding-h6-bottom);
+  --fdic-heading-padding-h1-top: 3.796875rem;
+  --fdic-heading-padding-h1-bottom: 1.265625rem;
+  --fdic-heading-padding-h2-top: 3rem;
+  --fdic-heading-padding-h2-bottom: 1rem;
+  --fdic-heading-padding-h3-top: 2.109375rem;
+  --fdic-heading-padding-h3-bottom: 0.703125rem;
+  --fdic-heading-padding-h4-top: 1.6875rem;
+  --fdic-heading-padding-h4-bottom: 0.5625rem;
+  --fdic-heading-padding-h5-top: 1.4765625rem;
+  --fdic-heading-padding-h5-bottom: 0.4921875rem;
+  --fdic-heading-padding-h6-top: 1.265625rem;
+  --fdic-heading-padding-h6-bottom: 0.421875rem;
 
   /* ===== Spacing ===== */
 
-  --ds-spacing-3xs: 0.125rem;
-  --ds-spacing-2xs: 0.25rem;
-  --ds-spacing-xs: 0.5rem;
-  --ds-spacing-sm: 0.75rem;
-  --ds-spacing-md: 1rem;
-  --ds-spacing-lg: 1.25rem;
-  --ds-spacing-xl: 1.5rem;
-  --ds-spacing-2xl: 2rem;
-  --ds-spacing-3xl: 3rem;
-  --ds-spacing-5xl: 5rem;
-  --ds-spacing-none: 0;
+  --fdic-spacing-3xs: 0.125rem;
+  --fdic-spacing-2xs: 0.25rem;
+  --fdic-spacing-xs: 0.5rem;
+  --fdic-spacing-sm: 0.75rem;
+  --fdic-spacing-md: 1rem;
+  --fdic-spacing-lg: 1.25rem;
+  --fdic-spacing-xl: 1.5rem;
+  --fdic-spacing-2xl: 2rem;
+  --fdic-spacing-3xl: 3rem;
+  --fdic-spacing-5xl: 5rem;
+  --fdic-spacing-none: 0;
 
   /* ===== Corner radius ===== */
 
-  --ds-corner-radius-sm: 3px;
-  --ds-corner-radius-md: 5px;
-  --ds-corner-radius-lg: 7px;
-  --ds-corner-radius-xl: 9px;
-  --ds-corner-radius-full: 9999px;
+  --fdic-corner-radius-sm: 3px;
+  --fdic-corner-radius-md: 5px;
+  --fdic-corner-radius-lg: 7px;
+  --fdic-corner-radius-xl: 9px;
+  --fdic-corner-radius-full: 9999px;
 
   /* ===== Layout ===== */
 
-  --ds-layout-max-width: 1440px;
-  --ds-layout-shell-max-width: 1312px;
-  --ds-layout-gutter: 64px;
-  --ds-layout-gutter-tablet: 32px;
-  --ds-layout-gutter-mobile: 16px;
-  --ds-layout-content-max-width: calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter));
-  --ds-layout-paragraph-max-width: 720px;
-  --ds-layout-section-block-padding: 3rem;
-  --ds-layout-section-block-padding-compact: 1.5rem;
-  --ds-layout-content-gap: 1.5rem;
-  --ds-layout-split-gap: 2rem;
-  --ds-layout-stack-gap: 1rem;
-  --ds-layout-sidebar-width: 18rem;
-  --ds-layout-col-2-min: 384px;
-  --ds-layout-col-2-max: 688px;
-  --ds-layout-col-2-gap: 48px;
-  --ds-layout-col-3-min: 360px;
-  --ds-layout-col-3-max: 440px;
-  --ds-layout-col-3-gap: 48px;
-  --ds-layout-col-4-min: 256px;
-  --ds-layout-col-4-max: 320px;
-  --ds-layout-col-4-gap: 48px;
-  --ds-layout-col-2-min-narrow: 320px;
-  --ds-layout-col-2-gap-narrow: 16px;
-  --ds-layout-col-3-min-narrow: 200px;
-  --ds-layout-col-3-gap-narrow: 16px;
-  --ds-layout-col-4-min-narrow: 160px;
-  --ds-layout-col-4-max-narrow: 180px;
-  --ds-layout-col-4-gap-narrow: 16px;
+  --fdic-layout-max-width: 1440px;
+  --fdic-layout-shell-max-width: 1312px;
+  --fdic-layout-gutter: 64px;
+  --fdic-layout-gutter-tablet: 32px;
+  --fdic-layout-gutter-mobile: 16px;
+  --fdic-layout-content-max-width: calc(var(--fdic-layout-max-width) - 2 * var(--fdic-layout-gutter));
+  --fdic-layout-paragraph-max-width: 720px;
+  --fdic-layout-section-block-padding: 3rem;
+  --fdic-layout-section-block-padding-compact: 1.5rem;
+  --fdic-layout-content-gap: 1.5rem;
+  --fdic-layout-split-gap: 2rem;
+  --fdic-layout-stack-gap: 1rem;
+  --fdic-layout-sidebar-width: 18rem;
+  --fdic-layout-col-2-min: 384px;
+  --fdic-layout-col-2-max: 688px;
+  --fdic-layout-col-2-gap: 48px;
+  --fdic-layout-col-3-min: 360px;
+  --fdic-layout-col-3-max: 440px;
+  --fdic-layout-col-3-gap: 48px;
+  --fdic-layout-col-4-min: 256px;
+  --fdic-layout-col-4-max: 320px;
+  --fdic-layout-col-4-gap: 48px;
+  --fdic-layout-col-2-min-narrow: 320px;
+  --fdic-layout-col-2-gap-narrow: 16px;
+  --fdic-layout-col-3-min-narrow: 200px;
+  --fdic-layout-col-3-gap-narrow: 16px;
+  --fdic-layout-col-4-min-narrow: 160px;
+  --fdic-layout-col-4-max-narrow: 180px;
+  --fdic-layout-col-4-gap-narrow: 16px;
+
+  /* --- Deprecated aliases (--ds-* → --fdic-*) ---
+     Scheduled for removal in a future major version.
+  */
+  --ds-color-neutral-000: var(--fdic-color-neutral-000);
+  --ds-color-neutral-050: var(--fdic-color-neutral-050);
+  --ds-color-neutral-100: var(--fdic-color-neutral-100);
+  --ds-color-neutral-150: var(--fdic-color-neutral-150);
+  --ds-color-neutral-200: var(--fdic-color-neutral-200);
+  --ds-color-neutral-300: var(--fdic-color-neutral-300);
+  --ds-color-neutral-400: var(--fdic-color-neutral-400);
+  --ds-color-neutral-500: var(--fdic-color-neutral-500);
+  --ds-color-neutral-700: var(--fdic-color-neutral-700);
+  --ds-color-neutral-800: var(--fdic-color-neutral-800);
+  --ds-color-neutral-850: var(--fdic-color-neutral-850);
+  --ds-color-neutral-900: var(--fdic-color-neutral-900);
+  --ds-color-neutral-1000: var(--fdic-color-neutral-1000);
+  --ds-color-primary-050: var(--fdic-color-primary-050);
+  --ds-color-primary-200: var(--fdic-color-primary-200);
+  --ds-color-primary-400: var(--fdic-color-primary-400);
+  --ds-color-primary-500: var(--fdic-color-primary-500);
+  --ds-color-primary-700: var(--fdic-color-primary-700);
+  --ds-color-primary-800: var(--fdic-color-primary-800);
+  --ds-color-primary-900: var(--fdic-color-primary-900);
+  --ds-color-secondary-050: var(--fdic-color-secondary-050);
+  --ds-color-secondary-300: var(--fdic-color-secondary-300);
+  --ds-color-secondary-400: var(--fdic-color-secondary-400);
+  --ds-color-secondary-500: var(--fdic-color-secondary-500);
+  --ds-color-secondary-600: var(--fdic-color-secondary-600);
+  --ds-color-secondary-800: var(--fdic-color-secondary-800);
+  --ds-color-secondary-900: var(--fdic-color-secondary-900);
+  --ds-color-success-050: var(--fdic-color-success-050);
+  --ds-color-success-200: var(--fdic-color-success-200);
+  --ds-color-success-300: var(--fdic-color-success-300);
+  --ds-color-success-500: var(--fdic-color-success-500);
+  --ds-color-success-600: var(--fdic-color-success-600);
+  --ds-color-success-800: var(--fdic-color-success-800);
+  --ds-color-success-900: var(--fdic-color-success-900);
+  --ds-color-warning-050: var(--fdic-color-warning-050);
+  --ds-color-warning-200: var(--fdic-color-warning-200);
+  --ds-color-warning-300: var(--fdic-color-warning-300);
+  --ds-color-warning-500: var(--fdic-color-warning-500);
+  --ds-color-warning-600: var(--fdic-color-warning-600);
+  --ds-color-warning-800: var(--fdic-color-warning-800);
+  --ds-color-warning-900: var(--fdic-color-warning-900);
+  --ds-color-error-050: var(--fdic-color-error-050);
+  --ds-color-error-150: var(--fdic-color-error-150);
+  --ds-color-error-200: var(--fdic-color-error-200);
+  --ds-color-error-300: var(--fdic-color-error-300);
+  --ds-color-error-500: var(--fdic-color-error-500);
+  --ds-color-error-600: var(--fdic-color-error-600);
+  --ds-color-error-800: var(--fdic-color-error-800);
+  --ds-color-error-900: var(--fdic-color-error-900);
+  --ds-color-info-050: var(--fdic-color-info-050);
+  --ds-color-info-200: var(--fdic-color-info-200);
+  --ds-color-info-300: var(--fdic-color-info-300);
+  --ds-color-info-500: var(--fdic-color-info-500);
+  --ds-color-info-600: var(--fdic-color-info-600);
+  --ds-color-info-800: var(--fdic-color-info-800);
+  --ds-color-info-900: var(--fdic-color-info-900);
+  --ds-color-link-300: var(--fdic-color-link-300);
+  --ds-color-link-default: var(--fdic-color-link-default);
+  --ds-color-link-visited: var(--fdic-color-link-visited);
+  --ds-color-link-visited-300: var(--fdic-color-link-visited-300);
+  --ds-color-bg-base: var(--fdic-color-bg-base);
+  --ds-color-bg-surface: var(--fdic-color-bg-surface);
+  --ds-color-bg-container: var(--fdic-color-bg-container);
+  --ds-color-bg-overlay: var(--fdic-color-bg-overlay);
+  --ds-color-bg-modal: var(--fdic-color-bg-modal);
+  --ds-color-bg-input: var(--fdic-color-bg-input);
+  --ds-color-bg-interactive: var(--fdic-color-bg-interactive);
+  --ds-color-bg-inverted: var(--fdic-color-bg-inverted);
+  --ds-color-bg-brand: var(--fdic-color-bg-brand);
+  --ds-color-bg-highlight: var(--fdic-color-bg-highlight);
+  --ds-color-bg-selected: var(--fdic-color-bg-selected);
+  --ds-color-bg-active: var(--fdic-color-bg-active);
+  --ds-color-bg-hovered: var(--fdic-color-bg-hovered);
+  --ds-color-bg-pressed: var(--fdic-color-bg-pressed);
+  --ds-color-bg-destructive: var(--fdic-color-bg-destructive);
+  --ds-color-bg-readonly: var(--fdic-color-bg-readonly);
+  --ds-color-text-primary: var(--fdic-color-text-primary);
+  --ds-color-text-secondary: var(--fdic-color-text-secondary);
+  --ds-color-text-placeholder: var(--fdic-color-text-placeholder);
+  --ds-color-text-disabled: var(--fdic-color-text-disabled);
+  --ds-color-text-inverted: var(--fdic-color-text-inverted);
+  --ds-color-text-brand: var(--fdic-color-text-brand);
+  --ds-color-text-warm: var(--fdic-color-text-warm);
+  --ds-color-text-link: var(--fdic-color-text-link);
+  --ds-color-text-link-visited: var(--fdic-color-text-link-visited);
+  --ds-color-text-error: var(--fdic-color-text-error);
+  --ds-color-text-wordmark: var(--fdic-color-text-wordmark);
+  --ds-color-icon-primary: var(--fdic-color-icon-primary);
+  --ds-color-icon-secondary: var(--fdic-color-icon-secondary);
+  --ds-color-icon-placeholder: var(--fdic-color-icon-placeholder);
+  --ds-color-icon-disabled: var(--fdic-color-icon-disabled);
+  --ds-color-icon-inverted: var(--fdic-color-icon-inverted);
+  --ds-color-icon-warm: var(--fdic-color-icon-warm);
+  --ds-color-icon-active: var(--fdic-color-icon-active);
+  --ds-color-icon-link: var(--fdic-color-icon-link);
+  --ds-color-border-divider: var(--fdic-color-border-divider);
+  --ds-color-border-subtle: var(--fdic-color-border-subtle);
+  --ds-color-border-image: var(--fdic-color-border-image);
+  --ds-color-border-input: var(--fdic-color-border-input);
+  --ds-color-border-input-hover: var(--fdic-color-border-input-hover);
+  --ds-color-border-input-focus: var(--fdic-color-border-input-focus);
+  --ds-color-border-input-active: var(--fdic-color-border-input-active);
+  --ds-color-border-input-readonly: var(--fdic-color-border-input-readonly);
+  --ds-color-border-input-interactive: var(--fdic-color-border-input-interactive);
+  --ds-color-border-input-disabled: var(--fdic-color-border-input-disabled);
+  --ds-color-border-glass: var(--fdic-color-border-glass);
+  --ds-color-border-glass-soft: var(--fdic-color-border-glass-soft);
+  --ds-color-border-focus-inner: var(--fdic-color-border-focus-inner);
+  --ds-color-semantic-bg-success: var(--fdic-color-semantic-bg-success);
+  --ds-color-semantic-bg-warning: var(--fdic-color-semantic-bg-warning);
+  --ds-color-semantic-bg-error: var(--fdic-color-semantic-bg-error);
+  --ds-color-semantic-bg-info: var(--fdic-color-semantic-bg-info);
+  --ds-color-semantic-bg-warm: var(--fdic-color-semantic-bg-warm);
+  --ds-color-semantic-fg-success: var(--fdic-color-semantic-fg-success);
+  --ds-color-semantic-fg-warning: var(--fdic-color-semantic-fg-warning);
+  --ds-color-semantic-fg-error: var(--fdic-color-semantic-fg-error);
+  --ds-color-semantic-fg-info: var(--fdic-color-semantic-fg-info);
+  --ds-color-semantic-border-success: var(--fdic-color-semantic-border-success);
+  --ds-color-semantic-border-warning: var(--fdic-color-semantic-border-warning);
+  --ds-color-semantic-border-error: var(--fdic-color-semantic-border-error);
+  --ds-color-semantic-border-info: var(--fdic-color-semantic-border-info);
+  --ds-color-overlay-hover: var(--fdic-color-overlay-hover);
+  --ds-color-overlay-pressed: var(--fdic-color-overlay-pressed);
+  --ds-color-overlay-scrim: var(--fdic-color-overlay-scrim);
+  --ds-color-overlay-brand-hover: var(--fdic-color-overlay-brand-hover);
+  --ds-color-overlay-brand-selected: var(--fdic-color-overlay-brand-selected);
+  --ds-color-overlay-brand-pressed: var(--fdic-color-overlay-brand-pressed);
+  --ds-color-overlay-scrim-soft: var(--fdic-color-overlay-scrim-soft);
+  --ds-color-overlay-scrim-strong: var(--fdic-color-overlay-scrim-strong);
+  --ds-color-effect-shadow: var(--fdic-color-effect-shadow);
+  --ds-color-effect-shadow-panel: var(--fdic-color-effect-shadow-panel);
+  --ds-color-surface-glass-1: var(--fdic-color-surface-glass-1);
+  --ds-color-surface-glass-2: var(--fdic-color-surface-glass-2);
+  --ds-color-surface-glass-2-muted: var(--fdic-color-surface-glass-2-muted);
+  --ds-color-surface-glass-3: var(--fdic-color-surface-glass-3);
+  --ds-color-surface-glass-3-muted-1: var(--fdic-color-surface-glass-3-muted-1);
+  --ds-color-surface-glass-3-muted-2: var(--fdic-color-surface-glass-3-muted-2);
+  --ds-shadow-raised: var(--fdic-shadow-raised);
+  --ds-shadow-raised-hover: var(--fdic-shadow-raised-hover);
+  --ds-shadow-dropdown: var(--fdic-shadow-dropdown);
+  --ds-shadow-menu: var(--fdic-shadow-menu);
+  --ds-shadow-panel: var(--fdic-shadow-panel);
+  --ds-gradient-brand-core: var(--fdic-gradient-brand-core);
+  --ds-gradient-hero-overlay-cool: var(--fdic-gradient-hero-overlay-cool);
+  --ds-gradient-hero-overlay-warm: var(--fdic-gradient-hero-overlay-warm);
+  --ds-gradient-hero-overlay-neutral: var(--fdic-gradient-hero-overlay-neutral);
+  --ds-gradient-glass-button: var(--fdic-gradient-glass-button);
+  --ds-gradient-glass-sheen: var(--fdic-gradient-glass-sheen);
+  --ds-spacing-3xs: var(--fdic-spacing-3xs);
+  --ds-spacing-2xs: var(--fdic-spacing-2xs);
+  --ds-spacing-xs: var(--fdic-spacing-xs);
+  --ds-spacing-sm: var(--fdic-spacing-sm);
+  --ds-spacing-md: var(--fdic-spacing-md);
+  --ds-spacing-lg: var(--fdic-spacing-lg);
+  --ds-spacing-xl: var(--fdic-spacing-xl);
+  --ds-spacing-2xl: var(--fdic-spacing-2xl);
+  --ds-spacing-3xl: var(--fdic-spacing-3xl);
+  --ds-spacing-5xl: var(--fdic-spacing-5xl);
+  --ds-spacing-none: var(--fdic-spacing-none);
+  --ds-corner-radius-sm: var(--fdic-corner-radius-sm);
+  --ds-corner-radius-md: var(--fdic-corner-radius-md);
+  --ds-corner-radius-lg: var(--fdic-corner-radius-lg);
+  --ds-corner-radius-xl: var(--fdic-corner-radius-xl);
+  --ds-corner-radius-full: var(--fdic-corner-radius-full);
+  --ds-layout-max-width: var(--fdic-layout-max-width);
+  --ds-layout-shell-max-width: var(--fdic-layout-shell-max-width);
+  --ds-layout-gutter: var(--fdic-layout-gutter);
+  --ds-layout-gutter-tablet: var(--fdic-layout-gutter-tablet);
+  --ds-layout-gutter-mobile: var(--fdic-layout-gutter-mobile);
+  --ds-layout-content-max-width: var(--fdic-layout-content-max-width);
+  --ds-layout-paragraph-max-width: var(--fdic-layout-paragraph-max-width);
+  --ds-layout-section-block-padding: var(--fdic-layout-section-block-padding);
+  --ds-layout-section-block-padding-compact: var(--fdic-layout-section-block-padding-compact);
+  --ds-layout-content-gap: var(--fdic-layout-content-gap);
+  --ds-layout-split-gap: var(--fdic-layout-split-gap);
+  --ds-layout-stack-gap: var(--fdic-layout-stack-gap);
+  --ds-layout-sidebar-width: var(--fdic-layout-sidebar-width);
+  --ds-layout-col-2-min: var(--fdic-layout-col-2-min);
+  --ds-layout-col-2-max: var(--fdic-layout-col-2-max);
+  --ds-layout-col-2-gap: var(--fdic-layout-col-2-gap);
+  --ds-layout-col-3-min: var(--fdic-layout-col-3-min);
+  --ds-layout-col-3-max: var(--fdic-layout-col-3-max);
+  --ds-layout-col-3-gap: var(--fdic-layout-col-3-gap);
+  --ds-layout-col-4-min: var(--fdic-layout-col-4-min);
+  --ds-layout-col-4-max: var(--fdic-layout-col-4-max);
+  --ds-layout-col-4-gap: var(--fdic-layout-col-4-gap);
+  --ds-layout-col-2-min-narrow: var(--fdic-layout-col-2-min-narrow);
+  --ds-layout-col-2-gap-narrow: var(--fdic-layout-col-2-gap-narrow);
+  --ds-layout-col-3-min-narrow: var(--fdic-layout-col-3-min-narrow);
+  --ds-layout-col-3-gap-narrow: var(--fdic-layout-col-3-gap-narrow);
+  --ds-layout-col-4-min-narrow: var(--fdic-layout-col-4-min-narrow);
+  --ds-layout-col-4-max-narrow: var(--fdic-layout-col-4-max-narrow);
+  --ds-layout-col-4-gap-narrow: var(--fdic-layout-col-4-gap-narrow);
 }
