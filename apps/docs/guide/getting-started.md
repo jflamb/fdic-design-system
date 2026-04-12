@@ -96,5 +96,6 @@ The shipped package contract follows the browser floor documented in [Browser Su
 2. **Learn the public layout contract** — read [Spacing and Layout](/guide/foundations/spacing-layout) for the canonical shell, readable-width, and collection-layout guidance.
 3. **Pick the right component** — read [Choosing a Component](/guide/choosing-a-component) to find the correct element for your use case.
 4. **Build a form** — read [Form Workflows](/guide/form-workflows) for step-by-step guidance on building accessible, high-stakes forms.
-5. **Check accessibility requirements** — read [Accessibility](/guide/accessibility) to understand the non-negotiable WCAG 2.2 AA rules.
-6. **Browse components** — the [Components](/components/) section documents every available element with usage examples, API tables, and Do/Don't guidance.
+5. **Copy a downstream reference** — read [Canonical CMS Filing Reference](/guide/cms-filing-reference) for a server-rendered integration that stays on the public package contract.
+6. **Check accessibility requirements** — read [Accessibility](/guide/accessibility) to understand the non-negotiable WCAG 2.2 AA rules.
+7. **Browse components** — the [Components](/components/) section documents every available element with usage examples, API tables, and Do/Don't guidance.

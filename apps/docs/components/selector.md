@@ -12,6 +12,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **The option list is too long for visible radio buttons or checkboxes** — Selectors save space by hiding options behind a trigger.
 - **Users need to select from a predefined, stable set of options** — Account types, report categories, filing classifications.
 - **Screen space is constrained** — Selectors use a single row plus a popup, compared to one row per option for radios or checkboxes.
+- **The workflow still owns native submit behavior** — Use `fd-selector` for the choice itself, but keep native `<form>` and `<button type="submit">` elements around it when the selection is part of a submitted workflow.
 
 ## When not to use
 
@@ -21,6 +22,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **Navigation menus or action lists** — Use `fd-menu` / `fd-menu-item`. Selectors are for form values; menus are for commands.
 - **Multi-select in high-stakes government workflows** — Multi-select dropdowns hide selected state behind a trigger, creating comprehension risk. Prefer `fd-checkbox-group` for consequential multi-selection scenarios (filing types, regulatory classifications) even when the option count exceeds 5.
 - **Highly consequential single-choice selections** — If a selection triggers an irreversible action, prefer radio buttons with a separate submit button for explicit confirmation.
+- **`fd-field` composition** — Do not wrap `fd-selector` in `fd-field`. `fd-selector` already owns its own label, description, and error surface.
 
 ## Examples
 

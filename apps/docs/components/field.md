@@ -15,7 +15,7 @@ A convenience wrapper that auto-wires `fd-label`, one supported text-entry contr
 ## When not to use
 
 - **Non-text-entry form controls** — `fd-field` only discovers `fd-input` and `fd-textarea`. For `fd-selector`, `fd-checkbox`, or `fd-radio-group`, use manual `for`/`id` wiring.
-- **Custom layouts** — if you need non-standard spacing or ordering between label/input/message, compose them manually.
+- **Custom layouts** — if you need wrapper elements, grouped controls, or non-standard ordering between label/input/message, compose the structure manually instead of asking `fd-field` to discover through wrappers.
 
 ## Examples
 
@@ -42,6 +42,8 @@ A convenience wrapper that auto-wires `fd-label`, one supported text-entry contr
 ```
 
 `fd-field` auto-generates an ID on the supported text-entry control and sets matching `for` attributes on `fd-label` and `fd-message`. You do not need to set `id` or `for` manually.
+
+This direct-child pattern is the supported public form contract for `fd-field` in v1. Keep grouped controls such as `fd-radio-group`, `fd-checkbox-group`, and `fd-selector` outside `fd-field`.
 
 ### With explicit IDs
 
@@ -71,6 +73,7 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 - **Supported children:** one direct `fd-label`, one direct `fd-input` or `fd-textarea`, and one direct `fd-message`
 - **What it owns:** ID generation, `for`/`id` wiring, and layout spacing
 - **What it does not own:** form submission, validation timing, grouped-control semantics, message content, labeling semantics, or child prop proxying
+- **What stays out of scope in v1:** slot-based composition, wrapper elements around the auto-wired children, and submit/reset behavior
 
 ## Behavior
 

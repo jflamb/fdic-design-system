@@ -8,7 +8,7 @@ A multiline text field for collecting descriptions, notes, comments, and other e
 </div>
 
 ::: tip Wrap in fd-field
-This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the correct composition pattern.
+This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association when you are using the supported direct-child text-entry pattern. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the correct composition.
 :::
 
 ## When to use

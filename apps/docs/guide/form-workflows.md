@@ -73,6 +73,49 @@ The following patterns are currently out of scope for the supported public path:
 
 If a workflow needs submit, reset, or grouped-field behavior beyond that contract, keep the native HTML structure and let the design-system primitives handle labeling, helper text, and validation surfaces around it.
 
+## Workflow examples
+
+The stories below show the supported workflow boundary in fuller consequential flows. They stay docs-first, use existing primitives only, and keep native submit behavior on plain HTML buttons.
+
+### Blocked submit with summary and inline recovery
+
+<StoryEmbed
+  storyId="patterns-form-workflows--blocked-submit-validation"
+  linkStoryId="patterns-form-workflows--blocked-submit-validation"
+  height="620"
+  caption="Blocked submit keeps entered values intact, reveals inline field and group errors, shows a top-of-page summary, and moves focus to that summary once."
+/>
+
+Use this pattern when a failed submit must:
+
+- preserve the person's entered values
+- reveal inline field or group errors at the correction point
+- provide a top-of-page summary with real correction targets
+- move focus to the summary heading or container after the blocked submit
+
+### Review and confirmation for consequential submissions
+
+<StoryEmbed
+  storyId="patterns-form-workflows--review-before-submit"
+  linkStoryId="patterns-form-workflows--review-before-submit"
+  height="520"
+  caption="Review-before-submit keeps the workflow semantic and explicit without introducing a specialized review component."
+/>
+
+<StoryEmbed
+  storyId="patterns-form-workflows--confirmation-keep-record"
+  linkStoryId="patterns-form-workflows--confirmation-keep-record"
+  height="480"
+  caption="Confirmation tells the person the task is complete, explains what happens next, and shows the record to keep."
+/>
+
+Use review and confirmation states when the workflow:
+
+- creates an official record, attestation, or deadline-sensitive request
+- needs a final review step before irreversible or consequential submission
+- must explain what happens next and what confirmation number or receipt to keep
+- must keep trust, privacy, or record-keeping language visible through the end of the journey
+
 ## Core rules
 
 - Prefer **web forms over PDFs** when the workflow should produce structured, routable, or reviewable data.

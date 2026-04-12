@@ -28,6 +28,8 @@ const targetedDocs = [
   "apps/docs/components/selector.md",
   "apps/docs/components/slider.md",
   "apps/docs/components/textarea.md",
+  "apps/docs/components/field.md",
+  "apps/docs/guide/cms-filing-reference.md",
 ];
 
 const storybookFiles = [

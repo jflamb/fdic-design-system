@@ -225,7 +225,7 @@ Use the `loading` attribute when an action is in progress and you need to preven
 
 ## Known limitations
 
-- **Form submission is out of scope in v1** — `fd-button` always renders an internal `<button type="button">` when it is not in link mode. Because the component is not form-associated, use a native `<button type="submit">` or `<button type="reset">` inside light-DOM forms until a future version explicitly adds form association.
+- **Form submission is out of scope in v1** — `fd-button` always renders an internal `<button type="button">` when it is not in link mode. Because the component is not form-associated, use a native `<button type="submit">` or `<button type="reset">` inside light-DOM forms until a future version explicitly expands the supported form contract.
 - **`aria-busy` AT coverage varies** — `aria-busy` on `<button>` is not consistently announced across all screen reader / browser combinations. The primary inert signal is the native `disabled` attribute (or `aria-disabled` for links), with `aria-busy` as supplemental. Verify with your target AT combinations.
 
 ## Related components
