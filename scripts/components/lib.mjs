@@ -41,6 +41,8 @@ export const componentsIndexPath = path.join(
   repoRoot,
   "packages/components/src/index.ts",
 );
+export const reactIndexPath = path.join(repoRoot, "packages/react/src/index.ts");
+export const reactGeneratedRoot = path.join(repoRoot, "packages/react/src/generated");
 export const tsupConfigPath = path.join(
   repoRoot,
   "packages/components/tsup.config.ts",

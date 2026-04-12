@@ -3,36 +3,36 @@ import "../register/fd-textarea.js";
 import "../register/fd-label.js";
 import "../register/fd-message.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import {
+  clearTestDom,
+  createTestElement,
+  nextFrame,
+  queryShadow,
+} from "./test-utils.js";
 
 async function createTextarea(attrs: Record<string, string> = {}) {
-  const el = document.createElement("fd-textarea") as any;
-  for (const [key, value] of Object.entries(attrs)) {
-    el.setAttribute(key, value);
-  }
-  document.body.appendChild(el);
-  await el.updateComplete;
-  return el;
+  return createTestElement<any>("fd-textarea", { attrs });
 }
 
 function getInternal(el: any): HTMLTextAreaElement | null {
-  return el.shadowRoot?.querySelector("[part=native]") ?? null;
+  return queryShadow<HTMLTextAreaElement>(el, "[part=native]");
 }
 
 function getBase(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector("[part=base]") ?? null;
+  return queryShadow<HTMLElement>(el, "[part=base]");
 }
 
 function getCharCount(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector("[part=char-count]") ?? null;
+  return queryShadow<HTMLElement>(el, "[part=char-count]");
 }
 
 function getSrLiveRegion(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector("[aria-live=polite]") ?? null;
+  return queryShadow<HTMLElement>(el, "[aria-live=polite]");
 }
 
 describe("fd-textarea", () => {
   beforeEach(() => {
-    document.body.innerHTML = "";
+    clearTestDom();
   });
 
   it("is defined as a custom element", () => {
@@ -157,7 +157,7 @@ describe("fd-textarea", () => {
     await label.updateComplete;
 
     const el = await createTextarea({ id: "textarea-desc" });
-    await new Promise((r) => requestAnimationFrame(r));
+    await nextFrame();
     await el.updateComplete;
 
     const textarea = getInternal(el);

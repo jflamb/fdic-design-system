@@ -1,28 +1,26 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import "../register/fd-radio.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import {
+  clearTestDom,
+  createTestElement,
+  queryShadow,
+} from "./test-utils.js";
 
 async function createRadio(
   attrs: Record<string, string> = {},
   innerHTML = "Option",
 ) {
-  const el = document.createElement("fd-radio") as any;
-  for (const [key, value] of Object.entries(attrs)) {
-    el.setAttribute(key, value);
-  }
-  el.innerHTML = innerHTML;
-  document.body.appendChild(el);
-  await el.updateComplete;
-  return el;
+  return createTestElement<any>("fd-radio", { attrs, innerHTML });
 }
 
 function getInternal(el: any): HTMLInputElement {
-  return el.shadowRoot!.querySelector('input[type="radio"]') as HTMLInputElement;
+  return queryShadow<HTMLInputElement>(el, 'input[type="radio"]') as HTMLInputElement;
 }
 
 describe("fd-radio", () => {
   beforeEach(() => {
-    document.body.innerHTML = "";
+    clearTestDom();
   });
 
   it("is defined as a custom element", () => {

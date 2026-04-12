@@ -3,36 +3,36 @@ import "../register/fd-input.js";
 import "../register/fd-label.js";
 import "../register/fd-message.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
+import {
+  clearTestDom,
+  createTestElement,
+  nextFrame,
+  queryShadow,
+} from "./test-utils.js";
 
 async function createInput(attrs: Record<string, string> = {}) {
-  const el = document.createElement("fd-input") as any;
-  for (const [key, value] of Object.entries(attrs)) {
-    el.setAttribute(key, value);
-  }
-  document.body.appendChild(el);
-  await el.updateComplete;
-  return el;
+  return createTestElement<any>("fd-input", { attrs });
 }
 
 function getInternal(el: any): HTMLInputElement | null {
-  return el.shadowRoot?.querySelector("[part=native]") ?? null;
+  return queryShadow<HTMLInputElement>(el, "[part=native]");
 }
 
 function getBase(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector("[part=base]") ?? null;
+  return queryShadow<HTMLElement>(el, "[part=base]");
 }
 
 function getCharCount(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector("[part=char-count]") ?? null;
+  return queryShadow<HTMLElement>(el, "[part=char-count]");
 }
 
 function getSrLiveRegion(el: any): HTMLElement | null {
-  return el.shadowRoot?.querySelector("[aria-live=polite]") ?? null;
+  return queryShadow<HTMLElement>(el, "[aria-live=polite]");
 }
 
 describe("fd-input", () => {
   beforeEach(() => {
-    document.body.innerHTML = "";
+    clearTestDom();
   });
 
   // --- Registration ---
@@ -183,7 +183,7 @@ describe("fd-input", () => {
 
     const el = await createInput({ id: "test-desc" });
     // Wait for discovery
-    await new Promise((r) => requestAnimationFrame(r));
+    await nextFrame();
     await el.updateComplete;
 
     const input = getInternal(el);
