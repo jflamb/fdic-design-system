@@ -83,7 +83,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A responsive collection wrapper for related cards. It uses the public `--ds-layout-col-*` collection recipes and adapts fluidly as container space tightens.",
+          "A responsive collection wrapper for related cards. It uses the public `--fdic-layout-col-*` collection recipes and adapts fluidly as container space tightens.",
       },
     },
   },

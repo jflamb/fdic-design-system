@@ -73,7 +73,7 @@ function createSocialLinks(): FooterStorySocialLink[] {
 }
 
 const FRAME_STYLE =
-  "display:block;background:var(--ds-color-bg-base, #ffffff);";
+  "display:block;background:var(--fdic-color-bg-base, #ffffff);";
 
 const renderFooter = (args: GlobalFooterArgs) => html`
   <div

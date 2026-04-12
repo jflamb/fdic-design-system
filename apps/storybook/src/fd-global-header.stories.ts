@@ -112,8 +112,8 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
   <main
     style=${[
       `min-height: calc(${longScroll ? "220vh" : "100vh"} - 131px)`,
-      "background: var(--ds-color-bg-container, #f5f8fb)",
-      "color: var(--ds-color-text-primary, #212123)",
+      "background: var(--fdic-color-bg-container, #f5f8fb)",
+      "color: var(--fdic-color-text-primary, #212123)",
       "position: relative",
       "z-index: -1",
       "overflow: hidden",
@@ -148,9 +148,9 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
       >
         <article
           style=${[
-            "background:var(--ds-color-bg-surface, #ffffff)",
-            "border:1px solid var(--ds-color-border-divider, rgba(9,53,84,0.08))",
-            "box-shadow:0 12px 28px var(--ds-color-effect-shadow, rgba(9,53,84,0.08))",
+            "background:var(--fdic-color-bg-surface, #ffffff)",
+            "border:1px solid var(--fdic-color-border-divider, rgba(9,53,84,0.08))",
+            "box-shadow:0 12px 28px var(--fdic-color-effect-shadow, rgba(9,53,84,0.08))",
             "padding:" + (mobile ? "1rem" : "1.5rem"),
             "display:grid",
             "gap:0.875rem",
@@ -187,7 +187,7 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
             "padding:" + (mobile ? "1rem" : "1.5rem"),
             "display:grid",
             "gap:0.875rem",
-            "box-shadow:0 12px 28px var(--ds-color-effect-shadow, rgba(9,53,84,0.14))",
+            "box-shadow:0 12px 28px var(--fdic-color-effect-shadow, rgba(9,53,84,0.14))",
           ].join("; ")}
         >
           <div style="width:6rem; height:0.6875rem; background:rgba(255,255,255,0.28);"></div>
@@ -210,8 +210,8 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
           (_, index) => html`
             <article
               style=${[
-                "background:var(--ds-color-bg-surface, rgba(255,255,255,0.68))",
-                "border:1px solid var(--ds-color-border-divider, rgba(9,53,84,0.06))",
+                "background:var(--fdic-color-bg-surface, rgba(255,255,255,0.68))",
+                "border:1px solid var(--fdic-color-border-divider, rgba(9,53,84,0.06))",
                 "padding:" + (mobile ? "0.875rem" : "1rem"),
                 "display:grid",
                 "gap:0.75rem",
@@ -243,7 +243,7 @@ const renderHeader = (
   <div
     style=${[
       "min-height: 100vh",
-      "background: var(--ds-color-bg-base, #ffffff)",
+      "background: var(--fdic-color-bg-base, #ffffff)",
       "position: relative",
       options.mobile
         ? [
@@ -430,7 +430,7 @@ export const ShyHeader: Story = {
     </style>
     <div
       class="shy-header-wrapper"
-      style="min-height: 100vh; background: var(--ds-color-bg-base, #ffffff); width: 100%; isolation: isolate;"
+      style="min-height: 100vh; background: var(--fdic-color-bg-base, #ffffff); width: 100%; isolation: isolate;"
     >
       <fd-global-header
         style="display:block;"

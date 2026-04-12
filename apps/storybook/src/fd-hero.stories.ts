@@ -36,7 +36,7 @@ const HERO_IMAGES = {
 } as const;
 
 const HERO_FRAME_STYLE =
-  "display: block; inline-size: 100%; background: var(--ds-color-bg-container, #f5f5f7);";
+  "display: block; inline-size: 100%; background: var(--fdic-color-bg-container, #f5f5f7);";
 
 const renderHero = (args: HeroArgs) => {
   const headingTemplate =

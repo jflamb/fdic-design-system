@@ -12,7 +12,7 @@ const PAGE_STYLE = [
   "display: grid",
   "gap: 0",
   "width: 100%",
-  "background: var(--ds-color-bg-base, #ffffff)",
+  "background: var(--fdic-color-bg-base, #ffffff)",
 ].join("; ");
 
 const SECTION_SHELL_STYLE = [
@@ -22,33 +22,33 @@ const SECTION_SHELL_STYLE = [
 
 const SECTION_CONTENT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, var(--ds-layout-shell-max-width, 1312px))",
+  "width: min(100%, var(--fdic-layout-shell-max-width, 1312px))",
   "margin-inline: auto",
-  "padding-inline: var(--ds-layout-gutter, 64px)",
-  "padding-block: var(--ds-layout-section-block-padding, 48px)",
+  "padding-inline: var(--fdic-layout-gutter, 64px)",
+  "padding-block: var(--fdic-layout-section-block-padding, 48px)",
 ].join("; ");
 
 const SECTION_CONTENT_TIGHT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, var(--ds-layout-shell-max-width, 1312px))",
+  "width: min(100%, var(--fdic-layout-shell-max-width, 1312px))",
   "margin-inline: auto",
-  "padding-inline: var(--ds-layout-gutter, 64px)",
-  "padding-block: var(--ds-layout-section-block-padding-compact, 24px)",
+  "padding-inline: var(--fdic-layout-gutter, 64px)",
+  "padding-block: var(--fdic-layout-section-block-padding-compact, 24px)",
 ].join("; ");
 
 const SECTION_RULE_STYLE =
-  "border-block: 1px solid var(--ds-color-border-subtle, #dfe1e2);";
+  "border-block: 1px solid var(--fdic-color-border-subtle, #dfe1e2);";
 
 const COOL_SECTION_STYLE = [
   SECTION_SHELL_STYLE,
-  "background: var(--ds-color-primary-050, #e7f6fd)",
-  "border-block: 1px solid var(--ds-color-primary-200, #9bd8f2)",
+  "background: var(--fdic-color-primary-050, #e7f6fd)",
+  "border-block: 1px solid var(--fdic-color-primary-200, #9bd8f2)",
 ].join("; ");
 
 const WARM_SECTION_STYLE = [
   SECTION_SHELL_STYLE,
-  "background: var(--ds-color-secondary-050, #fbf4df)",
-  "border-block: 1px solid var(--ds-color-secondary-300, #e0c875)",
+  "background: var(--fdic-color-secondary-050, #fbf4df)",
+  "border-block: 1px solid var(--fdic-color-secondary-300, #e0c875)",
 ].join("; ");
 
 const NEUTRAL_SECTION_STYLE = [
@@ -149,7 +149,7 @@ const renderQuickLinks = () => html`
       "--fd-tile-list-col-3-min: 320px",
       "--fd-tile-title-font-weight: 600",
       "--fd-tile-description-font-size: 18px",
-      "--fd-tile-link-color: var(--ds-color-text-primary, #212123)",
+      "--fd-tile-link-color: var(--fdic-color-text-primary, #212123)",
     ].join("; ")}
   >
     ${QUICK_LINKS.map(
@@ -174,8 +174,8 @@ const renderEvents = () => html`
       "--fd-event-list-col-3-max: 405.333px",
       "--fd-event-list-col-3-gap: 48px",
       "--fd-event-list-col-3-min: 320px",
-      "--fd-event-link-color: var(--ds-color-text-primary, #212123)",
-      "--fd-event-title-color: var(--ds-color-text-primary, #212123)",
+      "--fd-event-link-color: var(--fdic-color-text-primary, #212123)",
+      "--fd-event-title-color: var(--fdic-color-text-primary, #212123)",
     ].join("; ")}
   >
     ${EVENTS.map(
@@ -196,7 +196,7 @@ const renderRecipe = () => html`
   <style>
     @media (max-width: 640px) {
       .fdic-layout-recipe-content {
-        padding-inline: var(--ds-layout-gutter-mobile, 16px) !important;
+        padding-inline: var(--fdic-layout-gutter-mobile, 16px) !important;
       }
     }
   </style>
@@ -205,9 +205,9 @@ const renderRecipe = () => html`
       .navigation=${GLOBAL_HEADER_SOURCE.items}
       .search=${GLOBAL_HEADER_SOURCE.search}
       style=${[
-        "--fd-global-header-shell-max-width: var(--ds-layout-content-max-width, 1312px)",
-        "--fd-global-header-shell-inline-gutter: calc(2 * var(--ds-layout-gutter, 64px))",
-        "--fd-global-header-shell-inline-gutter-tablet: calc(2 * var(--ds-layout-gutter-tablet, 32px))",
+        "--fd-global-header-shell-max-width: var(--fdic-layout-content-max-width, 1312px)",
+        "--fd-global-header-shell-inline-gutter: calc(2 * var(--fdic-layout-gutter, 64px))",
+        "--fd-global-header-shell-inline-gutter-tablet: calc(2 * var(--fdic-layout-gutter-tablet, 32px))",
         "--fd-global-header-panel-inline-gutter: 5rem",
       ].join("; ")}
     >
@@ -226,10 +226,10 @@ const renderRecipe = () => html`
       breadcrumb-label="Breadcrumbs"
       .breadcrumbs=${[{ label: "Home", href: "#" }]}
       style=${[
-        "--fd-page-header-max-width: var(--ds-layout-content-max-width, 1312px)",
-        "--fd-page-header-padding-inline: var(--ds-layout-gutter, 64px)",
-        "--fd-page-header-padding-inline-mobile: var(--ds-layout-gutter-mobile, 16px)",
-        "--fd-page-header-padding-block: var(--ds-layout-section-block-padding, 48px)",
+        "--fd-page-header-max-width: var(--fdic-layout-content-max-width, 1312px)",
+        "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
+        "--fd-page-header-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
+        "--fd-page-header-padding-block: var(--fdic-layout-section-block-padding, 48px)",
       ].join("; ")}
     ></fd-page-header>
 
@@ -240,9 +240,9 @@ const renderRecipe = () => html`
           <p class=${DOCS_OVERVIEW_META_CLASS}>
             Use a full-width background on the outer section, then keep interactive content inside the
             shared page shell. The section wrapper uses the documented
-            <code>--ds-layout-shell-max-width</code>, <code>--ds-layout-gutter</code>, and
-            <code>--ds-layout-section-block-padding</code> tokens, while DS components that own their
-            own padding align to <code>--ds-layout-content-max-width</code>.
+            <code>--fdic-layout-shell-max-width</code>, <code>--fdic-layout-gutter</code>, and
+            <code>--fdic-layout-section-block-padding</code> tokens, while DS components that own their
+            own padding align to <code>--fdic-layout-content-max-width</code>.
           </p>
           ${renderQuickLinks()}
         </div>
@@ -256,7 +256,7 @@ const renderRecipe = () => html`
           <p class=${DOCS_OVERVIEW_META_CLASS}>
             Keep borders and fills on the full-bleed wrapper. Let <code>fd-event-list</code> handle the
             internal column math while the shared container controls page rhythm through the canonical
-            <code>--ds-layout-*</code> contract.
+            <code>--fdic-layout-*</code> contract.
           </p>
           ${renderEvents()}
         </div>
@@ -289,9 +289,9 @@ const renderRecipe = () => html`
         { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
       ]}
       style=${[
-        "--fd-global-footer-max-width: var(--ds-layout-content-max-width, 1312px)",
-        "--fd-global-footer-padding-inline: var(--ds-layout-gutter, 64px)",
-        "--fd-global-footer-padding-inline-mobile: var(--ds-layout-gutter-mobile, 16px)",
+        "--fd-global-footer-max-width: var(--fdic-layout-content-max-width, 1312px)",
+        "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
+        "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
       ].join("; ")}
     ></fd-global-footer>
   </div>

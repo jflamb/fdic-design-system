@@ -21,7 +21,7 @@ type PageFeedbackArgs = {
 };
 
 const FRAME_STYLE =
-  "display: block; max-width: 1440px; background: var(--ds-color-bg-base, #ffffff);";
+  "display: block; max-width: 1440px; background: var(--fdic-color-bg-base, #ffffff);";
 
 const renderFeedback = (args: PageFeedbackArgs) => html`
   <div style=${FRAME_STYLE}>
