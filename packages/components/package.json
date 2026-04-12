@@ -211,6 +211,10 @@
     "dist",
     "styles.css"
   ],
+  "sideEffects": [
+    "./dist/register/*.js",
+    "./dist/styles.css"
+  ],
   "scripts": {
     "build": "tsup",
     "validate": "node ../../scripts/validate-package-surfaces.mjs",

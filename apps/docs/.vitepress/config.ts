@@ -5,7 +5,7 @@ import {
 
 export default defineConfig({
   title: "FDIC Design System",
-  description: "Placeholder documentation site for the FDIC design system.",
+  description: "FDIC Design System documentation",
   base: process.env.VITEPRESS_BASE || "/fdic-design-system/",
   head: [
     [
