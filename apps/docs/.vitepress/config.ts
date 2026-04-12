@@ -43,7 +43,15 @@ export default defineConfig({
           { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
-          { text: "Form Workflows", link: "/guide/form-workflows" }
+          { text: "Form Workflows", link: "/guide/form-workflows" },
+          {
+            text: "Downstream References",
+            collapsed: true,
+            items: [
+              { text: "CMS Filing", link: "/guide/cms-filing-reference" },
+              { text: "Navigation Shell", link: "/guide/navigation-shell-reference" },
+            ]
+          }
         ]
       },
       {

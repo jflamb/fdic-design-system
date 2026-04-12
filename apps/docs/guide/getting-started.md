@@ -86,6 +86,13 @@ The stylesheet import is required. FDIC components consume shared `--fdic-*` sys
 
 Compatibility note: <code>@jflamb/fdic-ds-tokens/semantic.css</code> remains available as an alias, but new integrations should use <code>styles.css</code>.
 
+## Downstream references
+
+These copyable integration examples show how real adopter pages use the published packages:
+
+- [CMS Filing Reference](/guide/cms-filing-reference) — server-rendered form with trust language, token overrides, and the v1 form contract
+- [Navigation Shell Reference](/guide/navigation-shell-reference) — application shell with global header, page header, alerts, and navigation
+
 ## Browser support
 
 The shipped package contract follows the browser floor documented in [Browser Support](/guide/browser-support). That browser floor is not an optional enhancement target; it is the baseline for the CSS and platform features the runtime uses directly.

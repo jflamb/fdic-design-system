@@ -176,6 +176,7 @@ Keep overrides:
 ## Related guidance
 
 - [Canonical CMS Filing Reference](/guide/cms-filing-reference)
+- [Navigation Shell Reference](/guide/navigation-shell-reference)
 - [Using Tokens In Your Project](/guide/using-tokens)
 - [Getting Started](/guide/getting-started)
 - [Global Header](/components/global-header)
