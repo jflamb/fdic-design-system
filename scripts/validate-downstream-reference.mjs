@@ -6,7 +6,16 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
-const referencePath = "apps/docs/guide/cms-filing-reference.md";
+const references = [
+  {
+    path: "apps/docs/guide/cms-filing-reference.md",
+    validateFormContract: true,
+  },
+  {
+    path: "apps/docs/guide/navigation-shell-reference.md",
+    validateFormContract: false,
+  },
+];
 
 function read(relativePath) {
   return fs.readFileSync(path.join(repoRoot, relativePath), "utf8");
@@ -36,7 +45,7 @@ function assert(condition, message, errors) {
   }
 }
 
-function validateImports(markdown, errors) {
+function validateImports(referencePath, markdown, errors) {
   for (const block of extractFencedCodeBlocks(markdown)) {
     const importMatches = [
       ...block.matchAll(/import\s+[^"'`\n]*?from\s+["']([^"']+)["']/g),
@@ -58,7 +67,7 @@ function validateImports(markdown, errors) {
   }
 }
 
-function validateTokens(markdown, publishedTokenNames, errors) {
+function validateTokens(referencePath, markdown, publishedTokenNames, errors) {
   for (const match of markdown.matchAll(/--fdic-[a-z0-9-]+/g)) {
     const token = match[0];
     if (token.endsWith("-")) continue;
@@ -79,7 +88,7 @@ function validateTokens(markdown, publishedTokenNames, errors) {
   }
 }
 
-function validateFormContract(markdown, errors) {
+function validateFormContract(referencePath, markdown, errors) {
   assert(
     !/<fd-button[^>]+type="submit"/.test(markdown),
     `${referencePath}: must not use fd-button as a submit control`,
@@ -124,13 +133,18 @@ function validateFormContract(markdown, errors) {
 }
 
 function main() {
-  const markdown = read(referencePath);
   const publishedTokenNames = collectPublishedTokenNames();
   const errors = [];
 
-  validateImports(markdown, errors);
-  validateTokens(markdown, publishedTokenNames, errors);
-  validateFormContract(markdown, errors);
+  for (const ref of references) {
+    const markdown = read(ref.path);
+    validateImports(ref.path, markdown, errors);
+    validateTokens(ref.path, markdown, publishedTokenNames, errors);
+
+    if (ref.validateFormContract) {
+      validateFormContract(ref.path, markdown, errors);
+    }
+  }
 
   if (errors.length > 0) {
     console.error("\nDownstream reference validation failed:\n");
@@ -140,7 +154,7 @@ function main() {
     process.exit(1);
   }
 
-  console.log("Downstream reference validation passed.");
+  console.log(`Downstream reference validation passed (${references.length} references).`);
 }
 
 main();
