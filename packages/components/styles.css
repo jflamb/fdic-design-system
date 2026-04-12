@@ -1,0 +1,8 @@
+/*
+ * Stable component consumption stylesheet.
+ *
+ * Import this before registering FDIC components so the required token
+ * runtime is available to every Web Component.
+ */
+
+@import "@jflamb/fdic-ds-tokens/styles.css";

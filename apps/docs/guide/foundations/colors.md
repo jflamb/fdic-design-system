@@ -1,6 +1,6 @@
 # Colors
 
-This page documents the color foundations for the FDIC design system.
+This page documents the color foundations for the FDIC design system and the stable public color token contract.
 
 Color tokens use a three-layer model — palette, role, and semantic — so that consumers can choose the right level of abstraction for their context.
 
@@ -8,6 +8,14 @@ Color tokens use a three-layer model — palette, role, and semantic — so that
   <span class="fdic-eyebrow">Color foundations</span>
   <p>The color system is organized in three layers: palette, role, and meaning. Most consumers should reach for role or semantic tokens rather than raw palette values.</p>
 </div>
+
+## Stable public contract
+
+- Stable stylesheet entrypoint: <code>@jflamb/fdic-ds-tokens/styles.css</code>
+- Stable color prefixes: palette <code>--ds-color-[family]-[step]</code>, role <code>--ds-color-[role]-[variant]</code>, and semantic status <code>--ds-color-semantic-*</code>
+- Dark mode behavior: semantic role tokens adapt through <code>light-dark()</code> and the active <code>color-scheme</code>
+
+New integrations should treat those names as the supported public API.
 
 ## Color anatomy
 
@@ -418,9 +426,9 @@ When semantic colors are used in content:
 
 ## Modes
 
-The current exports include `Default` and `Dark` color modes.
+The public runtime includes light and dark appearance behavior today.
 
-Documentation should explain mode behavior at the role-token level:
+Use role tokens instead of hard-coded palette values so that:
 
 - the same role token may map to different values by mode
 - contrast must hold in every supported mode
@@ -451,16 +459,14 @@ Documentation should explain mode behavior at the role-token level:
 
 ## What not to rely on yet
 
-Do not treat current token paths or names as a stable public API.
-
 Do not assume:
 
-- final dark-mode activation strategy
-- final semantic naming for all states
+- component-level color tokens exist unless a component page documents them
+- palette tokens are safe substitutes for semantic status roles
+- an app-specific alias layer is part of the supported contract
 
 ## Known gaps
 
 - Semantic hue ramp intermediate steps (200/600/900) are placeholder values pending <dfn><abbr title="Oklab Lightness, Chroma, Hue">OKLCH</abbr></dfn> refinement. OKLCH is a perceptually uniform color space that produces evenly spaced lightness ramps without the hue shifts common in sRGB or HSL interpolation.
 - Component-level color tokens are deferred.
-- Dark mode activation strategy (media query vs. class toggle) not finalized.
-- Contrast validation at the component/pattern level not yet documented.
+- Contrast validation for every individual component pairing is still being expanded in component docs and tests.

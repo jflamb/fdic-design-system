@@ -1,6 +1,6 @@
 # Getting Started
 
-This page explains what the FDIC Design System provides, how to run it locally, and how to use your first component.
+This page explains what the FDIC Design System provides, how to run it locally, and the supported setup path for consumers.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Start here</span>
@@ -10,14 +10,14 @@ This page explains what the FDIC Design System provides, how to run it locally, 
 ## What you get
 
 - **Web Components** (`fd-button`, `fd-input`, `fd-alert`, etc.) — drop-in HTML elements with built-in accessibility, keyboard support, and FDIC visual styling.
-- **Design tokens** — a shared vocabulary of colors, typography, and spacing values that keep pages visually consistent.
+- **Design tokens** — a shared vocabulary of colors, typography, spacing, layout, and interaction values that keep pages visually consistent.
 - **Documentation and usage guidance** — every component page explains when to use it, when not to use it, and how to avoid common mistakes.
 
 ## What this is not
 
 - **Not a page builder.** You still write your own HTML structure, layout, and page logic.
 - **Not a CSS framework.** The components ship their own encapsulated styles. You do not add utility classes to make them work.
-- **Not a JavaScript framework.** The components are framework-agnostic Web Components. They work in plain HTML, React, Vue, Angular, or any other environment that supports custom elements.
+- **Not a JavaScript framework.** The components are framework-agnostic Web Components. They work anywhere custom elements are supported. A public React wrapper package is not part of the supported release surface yet.
 
 ## Install and run locally
 
@@ -31,30 +31,51 @@ Start the documentation site:
 npm run dev:docs
 ```
 
-## Your first component
+## Supported consumer path
 
-Here is a minimal working page that uses an FDIC button:
+Install the components package. It brings the tokens package with it.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FDIC Design System — Hello World</title>
-  <script type="module">
-    import "@fdic-ds/tokens/semantic.css";
-    import "@fdic-ds/components/register-all";
-  </script>
-</head>
-<body>
-  <h1>Hello, FDIC Design System</h1>
-  <fd-button variant="primary">Submit filing</fd-button>
-</body>
-</html>
+```bash
+npm install @jflamb/fdic-ds-components
 ```
 
-The token stylesheet is required. Components consume the shared `--ds-*` semantic tokens for color, motion, and effects, so using the component package without `@fdic-ds/tokens/semantic.css` is unsupported.
+Import the component stylesheet before you register any components:
+
+```ts
+import "@jflamb/fdic-ds-components/styles.css";
+import "@jflamb/fdic-ds-components/register-all";
+```
+
+Use the tokens package directly only if you need foundation tokens without the component library:
+
+```ts
+import "@jflamb/fdic-ds-tokens/styles.css";
+```
+
+## Your first component
+
+Here is a minimal working app entry that uses an FDIC button:
+
+```ts
+import "@jflamb/fdic-ds-components/styles.css";
+import "@jflamb/fdic-ds-components/register-all";
+```
+
+```html
+<h1>Hello, FDIC Design System</h1>
+<fd-button variant="primary">Submit filing</fd-button>
+```
+
+The stylesheet import is required. FDIC components consume shared `--ds-*` and `--fdic-*` runtime tokens, so using the component package without `@jflamb/fdic-ds-components/styles.css` is unsupported. The registration modules also warn at runtime when those tokens are missing.
+
+## Stable public API
+
+- Stable component registration entrypoint: <code>@jflamb/fdic-ds-components/register-all</code>
+- Stable component stylesheet: <code>@jflamb/fdic-ds-components/styles.css</code>
+- Stable token stylesheet: <code>@jflamb/fdic-ds-tokens/styles.css</code>
+- Stable token data export: <code>@jflamb/fdic-ds-tokens/fdic.tokens.json</code>
+
+Compatibility note: <code>@jflamb/fdic-ds-tokens/semantic.css</code> remains available as an alias, but new integrations should use <code>styles.css</code>.
 
 ## Where to go next
 

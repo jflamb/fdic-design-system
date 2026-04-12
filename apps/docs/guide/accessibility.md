@@ -1,11 +1,22 @@
 # Accessibility
 
-This page is the canonical reference for cross-cutting WCAG 2.1 AA accessibility requirements in the FDIC design system. Every pattern documented here is non-negotiable.
+This page is the canonical reference for cross-cutting WCAG 2.2 AA accessibility requirements in the FDIC design system. Every pattern documented here is non-negotiable.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Accessibility requirements</span>
-  <p>The FDIC design system targets WCAG 2.1 Level AA conformance. These requirements apply across all components and content authored within the <code>.prose</code> container. They are not optional refinements — they are compliance baselines.</p>
+  <p>The FDIC design system targets WCAG 2.2 Level AA conformance. These requirements apply across all components, token usage, and content authored within the <code>.prose</code> container. They are not optional refinements — they are compliance baselines.</p>
 </div>
+
+## Token and theme guarantees
+
+If you use the supported token entrypoints as documented, the design system guarantees this baseline:
+
+- semantic foreground and background tokens are authored to preserve contrast across supported light and dark appearance modes
+- focus ring tokens remain visible across supported themes when consumers do not override them
+- status colors are published as semantic token families so meaning does not depend on brand colors
+- component registration warns when the required token runtime stylesheet is missing
+
+Those guarantees hold only when consumers stay on the documented token and component customization paths.
 
 ## What the components handle for you
 

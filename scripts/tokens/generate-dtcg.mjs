@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
 
 const outputs = {
+  stylesCss: path.join(repoRoot, "packages/tokens/styles.css"),
   semanticCss: path.join(repoRoot, "packages/tokens/semantic.css"),
   interactionCss: path.join(repoRoot, "packages/tokens/interaction.css"),
   dtcgJson: path.join(repoRoot, "packages/tokens/fdic.tokens.json"),
@@ -16,8 +17,9 @@ const mode = process.argv.includes("--check") ? "check" : "write";
 
 async function main() {
   const rendered = {
+    [outputs.stylesCss]: renderStylesCss(tokenSource),
     [outputs.interactionCss]: renderInteractionCss(tokenSource),
-    [outputs.semanticCss]: renderSemanticCss(tokenSource),
+    [outputs.semanticCss]: renderSemanticCssAlias(),
     [outputs.dtcgJson]: renderDtcgJson(tokenSource),
   };
 
@@ -52,6 +54,7 @@ async function main() {
 
   console.log(
     [
+      outputs.stylesCss,
       outputs.interactionCss,
       outputs.semanticCss,
       outputs.dtcgJson,
@@ -85,18 +88,23 @@ function renderInteractionCss(source) {
   return lines.join("\n");
 }
 
-function renderSemanticCss(source) {
+function renderStylesCss(source) {
   const lines = [
     '@import "./interaction.css";',
     "",
     "/*",
-    " * FDIC Design System — Semantic color tokens",
+    " * FDIC Design System — Stable runtime token contract (v1)",
     " *",
-    " * Primitives (--ds-color-[family]-[step]) are internal reference values.",
-    " * Consumers should use semantic tokens (--ds-color-[role]-[variant]).",
+    " * Stable entry point: @jflamb/fdic-ds-tokens/styles.css",
     " *",
-    " * Dark mode: semantic tokens use light-dark() so they respond automatically",
-    " * to color-scheme.",
+    " * This stylesheet publishes the supported runtime custom properties for",
+    " * colors, interaction, effects, typography, spacing, radius, and layout.",
+    " *",
+    " * Consumers should prefer semantic role tokens (--ds-color-[role]-[variant])",
+    " * and foundation tokens (--ds-spacing-*, --ds-layout-*, --fdic-font-*).",
+    " *",
+    " * Dark mode is activated by the active color-scheme and semantic tokens",
+    " * use light-dark() so they adapt automatically.",
     " *",
     " * Source: scripts/tokens/source.mjs",
     " */",
@@ -215,6 +223,18 @@ function renderSemanticCss(source) {
   return lines.join("\n");
 }
 
+function renderSemanticCssAlias() {
+  return [
+    "/*",
+    " * Backward-compatible alias for the stable runtime token bundle.",
+    " * Prefer @jflamb/fdic-ds-tokens/styles.css for new integrations.",
+    " */",
+    "",
+    '@import "./styles.css";',
+    "",
+  ].join("\n");
+}
+
 function renderDtcgJson(source) {
   const dtcg = {
     $schema: source.metadata.schema,
@@ -224,6 +244,7 @@ function renderDtcgJson(source) {
         sources: ["scripts/tokens/source.mjs"],
         notes:
           "Generated from the repo-local token source module; CSS and DTCG artifacts share the same source of truth.",
+        stableRuntimeCss: "@jflamb/fdic-ds-tokens/styles.css",
       },
     },
     core: {

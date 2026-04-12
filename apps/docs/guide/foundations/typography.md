@@ -1,6 +1,6 @@
 # Typography
 
-This page documents the FDIC design system's foundational type rules: font families, the size scale, line heights, letter spacing, text rendering, heading and body styles, inline semantics, and link behavior.
+This page documents the FDIC design system's foundational type rules and the stable typography tokens published in the runtime stylesheet.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Typography foundations</span>
@@ -9,7 +9,7 @@ This page documents the FDIC design system's foundational type rules: font famil
 
 ## Font families
 
-The system uses two font stacks: a sans-serif family for all body and heading content, and a monospace stack for code.
+The public runtime contract includes two font-family tokens: a sans-serif family for body and heading content, and a monospace stack for code.
 
 <div class="fdic-card-grid">
   <div class="fdic-card fdic-doc-card-copy">
@@ -136,8 +136,8 @@ The size ramp is locked — do not change without leadership approval.
   </div>
   <div class="fdic-roles-row">
     <span><code>--fdic-line-height-body</code></span>
-    <span>1.5</span>
-    <span>Body text — WCAG minimum for comfortable reading</span>
+    <span>1.375</span>
+    <span>Body text — the shipped default reading rhythm</span>
   </div>
 </div>
 
@@ -145,21 +145,16 @@ The size ramp is locked — do not change without leadership approval.
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--fdic-letter-spacing-0` | 0 | Body text, default |
-| `--fdic-letter-spacing-1` | -0.01em | h1 headings — tighter at large sizes |
-| `--fdic-letter-spacing-2` | -0.005em | h2–h3 headings |
+| `--fdic-letter-spacing-none` | 0 | Body text, default |
+| `--fdic-letter-spacing-h1` | -0.025em | h1 headings |
+| `--fdic-letter-spacing-h2` | -0.019em | h2 headings |
+| `--fdic-letter-spacing-h6` | 0.148em | small uppercase-style headings |
 
 ### Responsive scaling
 
-At `max-width: 640px`, heading sizes reduce to maintain readability on small screens:
+Responsive type behavior exists in the source of truth and in some docs implementations, but separate public mobile typography token bundles are not part of the v1 runtime contract.
 
-| Level | Desktop | Mobile |
-|-------|---------|--------|
-| h1 | 2.5313rem | 2rem |
-| h2 | 1.6875rem | 1.5rem |
-| h3 | 1.4063rem | 1.25rem |
-| h4 | 1.125rem | 1.0625rem |
-| Lead paragraph | 1.25rem | 1.125rem |
+Use the stable typography tokens as the baseline and add app-level media queries only for your page layout or prose treatment. Do not assume a second published token scale exists for mobile.
 
 ## Heading styles
 

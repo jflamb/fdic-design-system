@@ -7,17 +7,19 @@
   "type": "module",
   "scripts": {
     "build": "node ../../scripts/tokens/generate-dtcg.mjs",
-    "validate": "node ../../scripts/tokens/generate-dtcg.mjs --check"
+    "validate": "node ../../scripts/tokens/generate-dtcg.mjs --check && node ../../scripts/validate-package-surfaces.mjs"
   },
   "sideEffects": [
     "*.css"
   ],
   "exports": {
+    "./styles.css": "./styles.css",
     "./fdic.tokens.json": "./fdic.tokens.json",
     "./interaction.css": "./interaction.css",
     "./semantic.css": "./semantic.css"
   },
   "files": [
+    "styles.css",
     "fdic.tokens.json",
     "interaction.css",
     "semantic.css"

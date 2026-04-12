@@ -2,6 +2,7 @@
   "name": "@fdic-ds/react",
   "version": "0.1.0",
   "private": true,
+  "description": "Private placeholder workspace for future React adapters. Not a supported public package.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

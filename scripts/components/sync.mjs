@@ -272,7 +272,10 @@ function generateRegisterFile(component) {
 
   return `// ${GENERATED_HEADER}
 import { ${component.className} } from "../components/${component.sourceFile.replace(/\.ts$/, ".js")}";
+import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 ${dependencyLines ? `${dependencyLines}\n` : ""}
+warnIfDesignSystemRuntimeMissing();
+
 ${dependencyDefinitions ? `${dependencyDefinitions}\n\n` : ""}if (!customElements.get("${component.tagName}")) {
   customElements.define("${component.tagName}", ${component.className});
 }
@@ -291,14 +294,19 @@ function generateRegisterAllFile() {
  * ${GENERATED_HEADER}
  *
  * Convenience entry point — registers all public components and icons.
+ * Requires the shared token runtime stylesheet.
  *
  * Usage:
  * \`\`\`ts
- * import "@fdic-ds/components/register-all";
+ * import "@jflamb/fdic-ds-components/styles.css";
+ * import "@jflamb/fdic-ds-components/register-all";
  * \`\`\`
  */
+import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 ${importLines}
 import "../icons/phosphor-regular.js";
+
+warnIfDesignSystemRuntimeMissing();
 `;
 }
 
@@ -367,6 +375,7 @@ function generatePackageExports(packageJson) {
       types: "./dist/register/*.d.ts",
       import: "./dist/register/*.js",
     },
+    "./styles.css": "./styles.css",
   };
 
   for (const module of additionalPublicModules) {

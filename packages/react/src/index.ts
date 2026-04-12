@@ -1,9 +1,8 @@
 /**
- * Placeholder entry point for future React adapters.
+ * Private placeholder entry point for future React adapters.
  *
- * This package exists to reserve workspace structure and release boundaries.
- * FDIC design decisions should continue to originate from tokens, specs,
- * and first-party Web Components rather than from framework wrappers.
+ * This package is not part of the public FDIC design system release surface.
+ * FDIC design decisions continue to originate from tokens, specs, and
+ * first-party Web Components rather than from framework wrappers.
  */
-export const reactAdaptersPlanned = true;
-
+export const reactPackageStatus = "private-placeholder";

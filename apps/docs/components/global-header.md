@@ -41,11 +41,11 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 - Treat `FdGlobalHeaderNavigationItem[]` as the canonical runtime contract.
 - Normalize CMS or API payloads before assigning `navigation` and `search`.
 - Keep fetching and source-specific payload handling outside the component.
-- Use `@fdic-ds/components` for generic content helpers and `@fdic-ds/components/fd-global-header-drupal` for Drupal-oriented structural mapping.
+- Use `@jflamb/fdic-ds-components` for generic content helpers and `@jflamb/fdic-ds-components/fd-global-header-drupal` for Drupal-oriented structural mapping.
 
 ```ts
-import { createFdGlobalHeaderContent } from "@fdic-ds/components";
-import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+import { createFdGlobalHeaderContent } from "@jflamb/fdic-ds-components";
+import { createFdGlobalHeaderContentFromDrupal } from "@jflamb/fdic-ds-components/fd-global-header-drupal";
 
 const content = createFdGlobalHeaderContentFromDrupal({
   items: drupalMenuItems,
@@ -118,6 +118,7 @@ import {
   createFdGlobalHeaderSearchConfig,
   createHeaderSearchItemsFromNavigation,
 } from "@fdic-ds/components";
+} from "@jflamb/fdic-ds-components";
 
 const navigation = [
   {
@@ -168,7 +169,7 @@ The Drupal helper is designed for the common case where Drupal already exposes a
 #### Minimal Drupal-shaped input
 
 ```ts
-import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+import { createFdGlobalHeaderContentFromDrupal } from "@jflamb/fdic-ds-components/fd-global-header-drupal";
 
 const content = createFdGlobalHeaderContentFromDrupal({
   items: [
@@ -235,7 +236,7 @@ const content = createFdGlobalHeaderContentFromDrupal({
 If your Drupal response uses different field names, map it into the structural helper input before calling the adapter:
 
 ```ts
-import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+import { createFdGlobalHeaderContentFromDrupal } from "@jflamb/fdic-ds-components/fd-global-header-drupal";
 
 function normalizeDrupalMenuItem(item) {
   return {

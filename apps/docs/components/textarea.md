@@ -60,12 +60,12 @@ This component should almost always be wrapped in [`fd-field`](/components/field
 | Name | Default | Description |
 |---|---|---|
 | `--fd-textarea-min-height` | `140px` | Minimum textarea height. |
-| `--fd-textarea-border-color` | `var(--ds-color-border-input, #bdbdbf)` | Border color at rest. |
-| `--fd-textarea-border-color-hover` | `var(--ds-color-border-input-active, #424244)` | Border color on hover. |
-| `--fd-textarea-border-color-focus` | `var(--ds-color-border-input-focus, #38b6ff)` | Focus glow color. |
+| `--fd-textarea-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color at rest. |
+| `--fd-textarea-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Border color on hover. |
+| `--fd-textarea-border-color-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus glow color. |
 | `--fd-textarea-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius. |
-| `--fd-textarea-bg` | `var(--ds-color-bg-base, #ffffff)` | Background color. |
-| `--fd-textarea-placeholder-color` | `var(--ds-color-text-secondary, #595961)` | Placeholder text color. |
+| `--fd-textarea-bg` | `var(--fdic-background-base, #ffffff)` | Background color. |
+| `--fd-textarea-placeholder-color` | `var(--fdic-text-secondary, #595961)` | Placeholder text color. |
 
 ## Shadow parts
 

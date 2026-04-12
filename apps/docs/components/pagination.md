@@ -104,7 +104,7 @@ Cancel `fd-page-request` to intercept link-mode navigation, including the mobile
 | `--fd-pagination-current-bg` | `var(--ds-color-bg-active, #0d6191)` | Background for the current page control. |
 | `--fd-pagination-current-color` | `var(--ds-color-text-inverted, #ffffff)` | Text color for the current page control. |
 | `--fd-pagination-select-bg` | `var(--ds-color-bg-input, #ffffff)` | Background for the mobile page select. |
-| `--fd-pagination-select-border` | `var(--ds-color-border-input, #bdbdbf)` | Border color for the mobile page select. |
+| `--fd-pagination-select-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color for the mobile page select. |
 | `--fd-pagination-focus-gap` | `var(--ds-color-bg-input, #ffffff)` | Inner gap color in the focus ring. |
 | `--fd-pagination-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus ring color. |
 | `--fd-pagination-collapse-at` | `480px` | Width threshold below which the component switches to the mobile layout. |

@@ -10,7 +10,7 @@
  *
  * Usage:
  * ```ts
- * import "@fdic-ds/components/icons/phosphor-regular";
+ * import "@jflamb/fdic-ds-components/icons/phosphor-regular";
  * // All icons are now available via iconRegistry.get("star"), etc.
  * ```
  */

@@ -1,27 +1,27 @@
 # Modes and Responsiveness
 
-This page documents the current mode structure observed in the FDIC Figma exports.
-
-The current exports already indicate that the system will need to support both theme variation and responsive variation, even though runtime delivery is not defined yet.
+This page documents the supported v1 strategy for theming and responsive delivery.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Modes</span>
-  <p>The documentation should make the current mode splits visible at a glance: color has appearance modes, and metrics and typography have responsive modes.</p>
+  <p>Color appearance is part of the public runtime contract today. Responsive token bundles are not. Components and consumer layout CSS carry the responsive behavior until a dedicated token delivery model is ready.</p>
 </div>
 
-## What exists today
+## Supported v1 behavior
 
-The current token sets expose these modes:
+- Color tokens support light and dark appearance through <code>light-dark()</code> in <code>@jflamb/fdic-ds-tokens/styles.css</code>.
+- The active appearance is driven by the current <code>color-scheme</code>.
+- The stable runtime token contract does not publish separate public desktop and mobile token bundles.
+- FDIC components own their internal responsive rules. Consumers use the stable foundation tokens for page-level layout and spacing.
 
-- `_primitives`: `Default`
-- `colors`: `Default`, `Dark`
-- `metrics`: `Desktop`, `Mobile`
-- `typography`: `Desktop`, `Mobile`
+## What exists in the source of truth
 
-This means the current foundations already vary in at least two ways:
+The Figma-derived source still distinguishes:
 
-- theme or appearance mode for color
-- responsive mode for layout and typography
+- color appearance modes (`Default`, `Dark`)
+- metrics and typography modes (`Desktop`, `Mobile`)
+
+That source structure informs future work, but it is broader than the public runtime surface.
 
 ## Visual anatomy
 
@@ -140,7 +140,13 @@ Windows High Contrast and other forced-colors environments are supported via `@m
 
 ## Responsive behavior
 
-At the `640px` breakpoint (`@media (max-width: 640px)`), heading sizes and certain layout elements scale down for narrower viewports.
+Responsive behavior is supported, but the delivery mechanism is intentionally narrow in v1:
+
+- FDIC components can ship their own internal responsive rules.
+- Consumer pages can use the stable spacing and layout tokens inside their own media queries.
+- There is no separate public mobile stylesheet or token collection to swap at runtime.
+
+The docs site currently uses a `640px` breakpoint for some prose-scale adjustments, but that implementation detail is not itself a public token API.
 
 <div class="fdic-mode-grid">
   <div class="fdic-mode-card">
@@ -180,13 +186,11 @@ This ensures the prose component respects user preferences for motion sensitivit
 
 ## Intended use
 
-Document modes as part of the source of truth without prematurely deciding implementation details.
+Use this page to understand the contract boundary:
 
-At this stage, the docs should explain:
-
-- which token sets have multiple modes
-- what each mode appears to represent
-- where mode handling is still undecided
+- appearance mode is public and supported
+- responsive token bundles are deferred
+- component-level responsive behavior is supported when documented on component pages
 
 ## Accessibility expectations
 
@@ -199,22 +203,14 @@ Documentation should account for:
 - stable focus treatment across modes
 - layouts that reflow without loss of information
 
-## Open implementation questions
+## Deferred from v1
 
-These decisions still need to be made before publishing a formal token package:
+Do not rely on:
 
-- whether color modes map to theme classes, media queries, or separate bundles
-- whether desktop and mobile modes map to media queries or explicit token collections
-- whether scope metadata should be preserved in generated artifacts
-- how aliases should be resolved across token sets
-
-## What not to rely on yet
-
-Do not assume:
-
-- final mode names in public APIs
-- final runtime switching behavior
-- final SSR or hydration strategy for any theming behavior
+- a public mobile token bundle
+- token names for separate desktop and mobile typography scales
+- undocumented SSR or hydration hooks for theming
+- app-local theme alias layers that bypass the published semantic tokens
 
 ## Internal reference
 

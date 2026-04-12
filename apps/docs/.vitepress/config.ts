@@ -48,6 +48,7 @@ export default defineConfig({
         items: [
           { text: "Overview", link: "/guide/foundations/" },
           { text: "Colors", link: "/guide/foundations/colors" },
+          { text: "Customization", link: "/guide/foundations/customization" },
           { text: "Typography", link: "/guide/foundations/typography" },
           { text: "Spacing and Layout", link: "/guide/foundations/spacing-layout" },
           { text: "Surfaces and Effects", link: "/guide/foundations/surfaces-effects" },

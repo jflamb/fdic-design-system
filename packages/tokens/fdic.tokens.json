@@ -6,7 +6,8 @@
       "sources": [
         "scripts/tokens/source.mjs"
       ],
-      "notes": "Generated from the repo-local token source module; CSS and DTCG artifacts share the same source of truth."
+      "notes": "Generated from the repo-local token source module; CSS and DTCG artifacts share the same source of truth.",
+      "stableRuntimeCss": "@jflamb/fdic-ds-tokens/styles.css"
     }
   },
   "core": {

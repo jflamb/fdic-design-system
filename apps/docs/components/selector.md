@@ -74,15 +74,15 @@ Compatibility note:
 |---|---|---|
 | `--fd-selector-required-color` | `#d80e3a` | Required marker color |
 | `--fd-selector-trigger-height` | `44px` | Minimum trigger height |
-| `--fd-selector-trigger-border` | `var(--ds-color-border-input, #bdbdbf)` | Trigger border color at rest |
+| `--fd-selector-trigger-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Trigger border color at rest |
 | `--fd-selector-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Shared corner radius for trigger and popup |
-| `--fd-selector-trigger-bg` | `var(--ds-color-bg-base, #ffffff)` | Trigger background color |
-| `--fd-selector-trigger-border-focus` | `var(--ds-color-border-input-focus, #38b6ff)` | Focus ring color |
+| `--fd-selector-trigger-bg` | `var(--fdic-background-base, #ffffff)` | Trigger background color |
+| `--fd-selector-trigger-border-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
 | `--fd-selector-error-border` | `#d80e3a` | Trigger border color while visible invalid state is active |
-| `--fd-selector-trigger-placeholder` | `var(--ds-color-text-secondary, #595961)` | Placeholder text color |
+| `--fd-selector-trigger-placeholder` | `var(--fdic-text-secondary, #595961)` | Placeholder text color |
 | `--fd-selector-dropdown-max-height` | `280px` | Maximum popup height before internal scrolling |
-| `--fd-selector-dropdown-bg` | `var(--ds-color-bg-base, #ffffff)` | Popup background color |
-| `--fd-selector-dropdown-border` | `var(--ds-color-border-input, #bdbdbf)` | Popup border color |
+| `--fd-selector-dropdown-bg` | `var(--fdic-background-base, #ffffff)` | Popup background color |
+| `--fd-selector-dropdown-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Popup border color |
 | `--fd-selector-dropdown-shadow` | `0px 1px 2px rgba(0, 0, 0, 0.1), 0px 2px 12px rgba(0, 0, 0, 0.1)` | Popup shadow |
 | `--fd-selector-error-color` | `#d80e3a` | Error text color |
 

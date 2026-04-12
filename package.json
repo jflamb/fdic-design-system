@@ -12,6 +12,7 @@
     "sync:components": "node scripts/components/sync.mjs",
     "validate:components": "node scripts/components/validate.mjs",
     "validate:tokens": "npm run validate --workspace @jflamb/fdic-ds-tokens",
+    "validate:packages": "node scripts/validate-package-surfaces.mjs",
     "new:component": "node scripts/components/scaffold.mjs",
     "build:tokens": "npm run build --workspace @jflamb/fdic-ds-tokens",
     "generate:icon-masks": "node scripts/icons/generate-icon-masks.mjs",

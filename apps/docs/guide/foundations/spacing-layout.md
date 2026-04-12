@@ -1,6 +1,6 @@
 # Spacing and Layout
 
-This page documents the current spacing and layout foundations exported from the FDIC Figma file.
+This page documents the stable spacing and layout tokens published in the FDIC runtime stylesheet.
 
 These tokens should be documented as usability constraints, not just visual measurements.
 
@@ -9,27 +9,13 @@ These tokens should be documented as usability constraints, not just visual meas
   <p>Spacing values matter because they shape readability, grouping, and task completion. The documentation should show those relationships directly.</p>
 </div>
 
-## What exists today
+## Stable v1 tokens
 
-The `metrics` export currently includes layout and measurement groups such as:
+The public runtime contract includes these spacing and layout foundations:
 
-- `Spacing`
-- `Corner-radius`
-- `Width`
-- `Padding`
-- `Height`
-- `Visual`
-- `Target`
-
-Examples observed in the exports include:
-
-- `Spacing.md = 16`
-- `Spacing.2xl = 32`
-- `Width.content-max = 1440`
-- `Width.paragraph-max = 720`
-- `Padding.section-horizontal = 64`
-- `Height`
-- `Visual.lg = 48`
+- spacing: <code>--ds-spacing-3xs</code> through <code>--ds-spacing-5xl</code> plus <code>--ds-spacing-none</code>
+- radius: <code>--ds-corner-radius-sm</code> through <code>--ds-corner-radius-full</code>
+- layout widths and gutters: <code>--ds-layout-max-width</code>, <code>--ds-layout-gutter</code>, <code>--ds-layout-gutter-tablet</code>, <code>--ds-layout-gutter-mobile</code>, <code>--ds-layout-content-max-width</code>, and <code>--ds-layout-paragraph-max-width</code>
 
 ## Visual anatomy
 
@@ -47,17 +33,17 @@ Examples observed in the exports include:
   <div class="fdic-scale-row">
     <span class="fdic-token-label">Spacing.lg</span>
     <div class="fdic-scale-bar" data-size="lg"></div>
-    <span class="fdic-token-meta">24</span>
+    <span class="fdic-token-meta">20</span>
   </div>
   <div class="fdic-scale-row">
     <span class="fdic-token-label">Spacing.xl</span>
     <div class="fdic-scale-bar" data-size="xl"></div>
-    <span class="fdic-token-meta">32</span>
+    <span class="fdic-token-meta">24</span>
   </div>
   <div class="fdic-scale-row">
     <span class="fdic-token-label">Spacing.2xl</span>
     <div class="fdic-scale-bar" data-size="2xl"></div>
-    <span class="fdic-token-meta">40+</span>
+    <span class="fdic-token-meta">32</span>
   </div>
 </div>
 
@@ -111,17 +97,12 @@ Documentation should preserve expectations for:
 - zoom and reflow without hidden or overlapping content
 - layout constraints that keep long-form content readable
 
-## What not to rely on yet
+## Deferred from v1
 
 Do not assume:
 
-- final breakpoint model
-- final CSS spacing scale names
-- final utility classes
-- final mapping of desktop and mobile metrics into runtime bundles
+- utility classes will be part of the token package
+- separate public mobile spacing or layout bundles exist
+- undocumented component sizing variables are stable
 
-## Known gaps
-
-- The current `metrics` set mixes several concerns that may need to be separated later.
-- Responsive delivery for desktop and mobile modes is not finalized.
-- Component-specific layout tokens should wait until component APIs and anatomy are clearer.
+The source of truth still contains broader metrics and mode data. The public runtime surface intentionally narrows that to one stable baseline scale plus documented component responsiveness.

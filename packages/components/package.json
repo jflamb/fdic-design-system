@@ -25,6 +25,7 @@
       "types": "./dist/register/*.d.ts",
       "import": "./dist/register/*.js"
     },
+    "./styles.css": "./styles.css",
     "./fd-global-header-content": {
       "types": "./dist/fd-global-header-content.d.ts",
       "import": "./dist/fd-global-header-content.js"
@@ -207,14 +208,17 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "styles.css"
   ],
   "scripts": {
     "build": "tsup",
+    "validate": "node ../../scripts/validate-package-surfaces.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@jflamb/fdic-ds-tokens": "0.1.0",
     "@xmldom/xmldom": "^0.9.9",
     "lit": "^3.2.1"
   },
