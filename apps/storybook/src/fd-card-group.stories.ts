@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -105,6 +106,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
+
+Playground.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-card-group") as HTMLElement | null;
+  const base = host?.shadowRoot?.querySelector('[part="base"]');
+  const cards = host?.querySelectorAll("fd-card") ?? [];
+  const firstCard = cards[0] as HTMLElement | undefined;
+
+  expect(base?.getAttribute("role")).toBe("list");
+  expect(base?.getAttribute("aria-label")).toBe("Latest updates");
+  expect(cards.length).toBe(5);
+  expect(firstCard?.getAttribute("role")).toBe("listitem");
+};
 
 export const TwoColumns: Story = {
   args: {

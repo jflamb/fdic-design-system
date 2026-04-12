@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import type { FdTileLinkItem } from "@fdic-ds/components";
 import {
@@ -114,6 +115,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
+
+Playground.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-tile-list") as HTMLElement | null;
+  const base = host?.shadowRoot?.querySelector('[part="base"]');
+  const tiles = host?.querySelectorAll("fd-tile") ?? [];
+  const firstTile = tiles[0] as HTMLElement | undefined;
+
+  expect(base?.getAttribute("role")).toBe("list");
+  expect(base?.getAttribute("aria-label")).toBe("Benefits links");
+  expect(tiles.length).toBe(4);
+  expect(firstTile?.getAttribute("role")).toBe("listitem");
+  expect(firstTile?.getAttribute("tone")).toBe("neutral");
+};
 
 export const TightSpacing: Story = {
   args: {

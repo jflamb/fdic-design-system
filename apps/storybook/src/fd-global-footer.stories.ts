@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -130,6 +131,21 @@ export const Desktop: Story = {
   args: {
     mobile: false,
   },
+};
+
+Desktop.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-global-footer") as HTMLElement | null;
+  const footer = host?.shadowRoot?.querySelector("footer");
+  const utilityLinks = host?.shadowRoot?.querySelectorAll('[part="utility-links"] a') ?? [];
+  const socialLinks = host?.shadowRoot?.querySelectorAll(".social-link") ?? [];
+  const firstSocial = socialLinks[0] as HTMLAnchorElement | undefined;
+
+  expect(footer).toBeDefined();
+  expect(footer?.getAttribute("part")).toBe("base");
+  expect(utilityLinks.length).toBeGreaterThan(0);
+  expect(socialLinks.length).toBe(5);
+  expect(firstSocial?.getAttribute("aria-label")).toContain("FDIC");
+  expect(firstSocial?.getAttribute("rel")).toContain("noopener");
 };
 
 export const Mobile: Story = {

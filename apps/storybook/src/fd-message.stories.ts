@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
@@ -79,6 +80,17 @@ export const ErrorState: Story = {
     message: "Enter a valid 9-digit routing number.",
     forId: "message-error-input",
   },
+};
+
+ErrorState.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-message") as HTMLElement | null;
+  const input = canvasElement.querySelector("fd-input") as HTMLElement | null;
+  const message = host?.querySelector('[part="message"]') as HTMLElement | null;
+
+  expect(input?.getAttribute("id")).toBe("message-error-input");
+  expect(host?.getAttribute("for")).toBe("message-error-input");
+  expect(message?.getAttribute("role")).toBe("alert");
+  expect(message?.textContent).toContain("Enter a valid 9-digit routing number.");
 };
 
 export const WarningState: Story = {

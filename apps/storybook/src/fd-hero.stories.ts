@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html, nothing } from "lit";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -130,6 +131,18 @@ export const Cool: Story = {
     tone: "cool",
     imageSrc: HERO_IMAGES.cool,
   },
+};
+
+Cool.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-hero") as HTMLElement | null;
+  const base = host?.shadowRoot?.querySelector('[part="base"]') as HTMLElement | null;
+  const action = host?.shadowRoot?.querySelector('[part="action"]') as HTMLAnchorElement | null;
+  const heading = host?.querySelector('[slot="heading"]') as HTMLElement | null;
+
+  expect(base?.className).toContain("tone-cool");
+  expect(action?.getAttribute("href")).toBe("/benefits");
+  expect(action?.textContent).toContain("Explore benefits");
+  expect(base?.getAttribute("aria-labelledby")).toBe(heading?.id);
 };
 
 export const Warm: Story = {

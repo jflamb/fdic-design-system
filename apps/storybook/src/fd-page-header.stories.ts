@@ -1,6 +1,7 @@
 import type { FdPageHeaderBreadcrumb } from "@fdic-ds/components";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -103,6 +104,19 @@ export const WithActions: Story = {
     ],
     showActions: true,
   },
+};
+
+WithActions.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-page-header") as HTMLElement | null;
+  const breadcrumbs = host?.shadowRoot?.querySelector('[part="breadcrumbs"]');
+  const breadcrumbLinks = host?.shadowRoot?.querySelectorAll(".breadcrumb-link") ?? [];
+  const actions = host?.shadowRoot?.querySelector('[part="actions"]');
+  const actionGroup = host?.querySelector('[slot="actions"]');
+
+  expect(breadcrumbs).toBeDefined();
+  expect(breadcrumbLinks.length).toBeGreaterThan(0);
+  expect(actions?.classList.contains("actions-hidden")).toBe(false);
+  expect(actionGroup?.tagName.toLowerCase()).toBe("fd-button-group");
 };
 
 export const MinimalTitle: Story = {
