@@ -44,22 +44,22 @@ export class FdTileList extends LitElement {
     css`
     :host {
       display: block;
-      --fd-tile-list-col-2-min: 384px;
-      --fd-tile-list-col-2-max: 688px;
-      --fd-tile-list-col-2-gap: var(--ds-spacing-3xl, 48px);
-      --fd-tile-list-col-3-min: 360px;
-      --fd-tile-list-col-3-max: 440px;
-      --fd-tile-list-col-3-gap: var(--ds-spacing-3xl, 48px);
-      --fd-tile-list-col-4-min: 256px;
-      --fd-tile-list-col-4-max: 320px;
-      --fd-tile-list-col-4-gap: var(--ds-spacing-3xl, 48px);
-      --fd-tile-list-col-2-min-mobile: 320px;
-      --fd-tile-list-col-2-gap-mobile: var(--ds-spacing-md, 16px);
-      --fd-tile-list-col-3-min-mobile: 200px;
-      --fd-tile-list-col-3-gap-mobile: var(--ds-spacing-md, 16px);
-      --fd-tile-list-col-4-min-mobile: 160px;
-      --fd-tile-list-col-4-max-mobile: 180px;
-      --fd-tile-list-col-4-gap-mobile: var(--ds-spacing-md, 16px);
+      --fd-tile-list-col-2-min: var(--ds-layout-col-2-min);
+      --fd-tile-list-col-2-max: var(--ds-layout-col-2-max);
+      --fd-tile-list-col-2-gap: var(--ds-layout-col-2-gap);
+      --fd-tile-list-col-3-min: var(--ds-layout-col-3-min);
+      --fd-tile-list-col-3-max: var(--ds-layout-col-3-max);
+      --fd-tile-list-col-3-gap: var(--ds-layout-col-3-gap);
+      --fd-tile-list-col-4-min: var(--ds-layout-col-4-min);
+      --fd-tile-list-col-4-max: var(--ds-layout-col-4-max);
+      --fd-tile-list-col-4-gap: var(--ds-layout-col-4-gap);
+      --fd-tile-list-col-2-min-mobile: var(--ds-layout-col-2-min-narrow);
+      --fd-tile-list-col-2-gap-mobile: var(--ds-layout-col-2-gap-narrow);
+      --fd-tile-list-col-3-min-mobile: var(--ds-layout-col-3-min-narrow);
+      --fd-tile-list-col-3-gap-mobile: var(--ds-layout-col-3-gap-narrow);
+      --fd-tile-list-col-4-min-mobile: var(--ds-layout-col-4-min-narrow);
+      --fd-tile-list-col-4-max-mobile: var(--ds-layout-col-4-max-narrow);
+      --fd-tile-list-col-4-gap-mobile: var(--ds-layout-col-4-gap-narrow);
     }
 
     :host([hidden]) {

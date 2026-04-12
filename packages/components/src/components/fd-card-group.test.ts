@@ -91,12 +91,12 @@ describe("FdCardGroup", () => {
       .map((value) => value.cssText)
       .join("\n");
 
-    expect(styles).toContain("--fd-card-group-col-4-min: 256px;");
-    expect(styles).toContain("--fd-card-group-col-4-max: 320px;");
-    expect(styles).toContain("--fd-card-group-col-4-gap: var(--ds-spacing-3xl, 48px);");
-    expect(styles).toContain("--fd-card-group-col-4-min-mobile: 160px;");
-    expect(styles).toContain("--fd-card-group-col-4-max-mobile: 180px;");
-    expect(styles).toContain("--fd-card-group-col-4-gap-mobile: var(--ds-spacing-md, 16px);");
+    expect(styles).toContain("var(--fd-card-group-col-4-min, var(--ds-layout-col-4-min))");
+    expect(styles).toContain("var(--fd-card-group-col-4-max, var(--ds-layout-col-4-max))");
+    expect(styles).toContain("var(--fd-card-group-col-4-gap, var(--ds-layout-col-4-gap))");
+    expect(styles).toContain("var(--fd-card-group-col-4-min-mobile, var(--ds-layout-col-4-min-narrow))");
+    expect(styles).toContain("var(--fd-card-group-col-4-max-mobile, var(--ds-layout-col-4-max-narrow))");
+    expect(styles).toContain("var(--fd-card-group-col-4-gap-mobile, var(--ds-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
 

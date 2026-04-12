@@ -326,7 +326,7 @@ describe("fd-global-header", () => {
   it("uses DS layout tokens for shell width and gutter alignment", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 
-    expect(styles).toContain("var(--ds-layout-content-max-width, 1312px)");
+    expect(styles).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
     expect(styles).toContain("var(--ds-layout-gutter, 64px)");
     expect(styles).toContain("var(--ds-layout-gutter-tablet, 32px)");
   });

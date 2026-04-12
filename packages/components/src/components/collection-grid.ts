@@ -16,13 +16,15 @@ const FIGMA_NARROW_THRESHOLD_PX: Record<CollectionColumns, number> = {
 };
 
 function trackMinToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
-  const suffix = narrow ? `col-${columns}-min-mobile` : `col-${columns}-min`;
-  return unsafeCSS(`--${prefix}-${suffix}`);
+  const componentSuffix = narrow ? `col-${columns}-min-mobile` : `col-${columns}-min`;
+  const sharedSuffix = narrow ? `col-${columns}-min-narrow` : `col-${columns}-min`;
+  return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--ds-layout-${sharedSuffix}))`);
 }
 
 function trackGapToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
-  const suffix = narrow ? `col-${columns}-gap-mobile` : `col-${columns}-gap`;
-  return unsafeCSS(`--${prefix}-${suffix}`);
+  const componentSuffix = narrow ? `col-${columns}-gap-mobile` : `col-${columns}-gap`;
+  const sharedSuffix = narrow ? `col-${columns}-gap-narrow` : `col-${columns}-gap`;
+  return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--ds-layout-${sharedSuffix}))`);
 }
 
 function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boolean) {
@@ -30,8 +32,9 @@ function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boole
     return unsafeCSS("1fr");
   }
 
-  const suffix = narrow ? `col-${columns}-max-mobile` : `col-${columns}-max`;
-  return unsafeCSS(`min(100%, var(--${prefix}-${suffix}))`);
+  const componentSuffix = narrow ? `col-${columns}-max-mobile` : `col-${columns}-max`;
+  const sharedSuffix = narrow ? `col-${columns}-max-narrow` : `col-${columns}-max`;
+  return unsafeCSS(`min(100%, var(--${prefix}-${componentSuffix}, var(--ds-layout-${sharedSuffix})))`);
 }
 
 function selector(columns: CollectionColumns, narrow: boolean) {
@@ -56,21 +59,21 @@ export function collectionGridStyles(prefix: string) {
     }
 
     ${unsafeCSS(defaultSelector(false))} {
-      ${internalMin}: min(100%, var(${trackMinToken(prefix, "3", false)}));
+      ${internalMin}: min(100%, ${trackMinToken(prefix, "3", false)});
       ${internalMax}: ${trackMaxValue(prefix, "3", false)};
-      ${internalGap}: var(${trackGapToken(prefix, "3", false)});
+      ${internalGap}: ${trackGapToken(prefix, "3", false)};
     }
 
     ${unsafeCSS(selector("2", false))} {
-      ${internalMin}: min(100%, var(${trackMinToken(prefix, "2", false)}));
+      ${internalMin}: min(100%, ${trackMinToken(prefix, "2", false)});
       ${internalMax}: ${trackMaxValue(prefix, "2", false)};
-      ${internalGap}: var(${trackGapToken(prefix, "2", false)});
+      ${internalGap}: ${trackGapToken(prefix, "2", false)};
     }
 
     ${unsafeCSS(selector("4", false))} {
-      ${internalMin}: min(100%, var(${trackMinToken(prefix, "4", false)}));
+      ${internalMin}: min(100%, ${trackMinToken(prefix, "4", false)});
       ${internalMax}: ${trackMaxValue(prefix, "4", false)};
-      ${internalGap}: var(${trackGapToken(prefix, "4", false)});
+      ${internalGap}: ${trackGapToken(prefix, "4", false)};
     }
 
     [part="base"] {
@@ -89,25 +92,25 @@ export function collectionGridStyles(prefix: string) {
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["3"] - 1}px`)}) {
       ${unsafeCSS(defaultSelector(true))} {
-        ${internalMin}: min(100%, var(${trackMinToken(prefix, "3", true)}));
+        ${internalMin}: min(100%, ${trackMinToken(prefix, "3", true)});
         ${internalMax}: ${trackMaxValue(prefix, "3", true)};
-        ${internalGap}: var(${trackGapToken(prefix, "3", true)});
+        ${internalGap}: ${trackGapToken(prefix, "3", true)};
       }
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["2"] - 1}px`)}) {
       ${unsafeCSS(selector("2", true))} {
-        ${internalMin}: min(100%, var(${trackMinToken(prefix, "2", true)}));
+        ${internalMin}: min(100%, ${trackMinToken(prefix, "2", true)});
         ${internalMax}: ${trackMaxValue(prefix, "2", true)};
-        ${internalGap}: var(${trackGapToken(prefix, "2", true)});
+        ${internalGap}: ${trackGapToken(prefix, "2", true)};
       }
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["4"] - 1}px`)}) {
       ${unsafeCSS(selector("4", true))} {
-        ${internalMin}: min(100%, var(${trackMinToken(prefix, "4", true)}));
+        ${internalMin}: min(100%, ${trackMinToken(prefix, "4", true)});
         ${internalMax}: ${trackMaxValue(prefix, "4", true)};
-        ${internalGap}: var(${trackGapToken(prefix, "4", true)});
+        ${internalGap}: ${trackGapToken(prefix, "4", true)};
       }
     }
   `;

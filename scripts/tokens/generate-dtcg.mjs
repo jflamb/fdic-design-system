@@ -287,11 +287,11 @@ function renderDtcgJson(source) {
     },
     layout: {
       $type: "dimension",
-      "max-width": { $value: parseDimension(source.layout["max-width"]) },
-      gutter: { $value: parseDimension(source.layout.gutter) },
-      "gutter-tablet": { $value: parseDimension(source.layout["gutter-tablet"]) },
-      "gutter-mobile": { $value: parseDimension(source.layout["gutter-mobile"]) },
-      "paragraph-max-width": { $value: parseDimension(source.layout["paragraph-max-width"]) },
+      ...Object.fromEntries(
+        Object.entries(source.layout)
+          .filter(([, value]) => /^-?\d+(?:\.\d+)?(?:px|rem)$/.test(value))
+          .map(([key, value]) => [key, { $value: parseDimension(value) }]),
+      ),
     },
     interaction: {
       focus: {

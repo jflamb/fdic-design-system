@@ -169,9 +169,9 @@ describe("FdTileList", () => {
       .map((value) => value.cssText)
       .join("\n");
 
-    expect(styles).toContain("--fd-tile-list-col-2-min: 384px;");
-    expect(styles).toContain("--fd-tile-list-col-3-max: 440px;");
-    expect(styles).toContain("--fd-tile-list-col-4-gap-mobile: var(--ds-spacing-md, 16px);");
+    expect(styles).toContain("var(--fd-tile-list-col-2-min, var(--ds-layout-col-2-min))");
+    expect(styles).toContain("var(--fd-tile-list-col-3-max, var(--ds-layout-col-3-max))");
+    expect(styles).toContain("var(--fd-tile-list-col-4-gap-mobile, var(--ds-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
   });
