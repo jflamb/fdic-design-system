@@ -17,7 +17,7 @@ export class FdBadgeGroup extends LitElement {
     .container {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--fd-badge-group-gap, var(--ds-spacing-2xs, 4px));
+      gap: var(--fd-badge-group-gap, var(--fdic-spacing-2xs, 4px));
       align-items: flex-start;
       inline-size: 100%;
       box-sizing: border-box;

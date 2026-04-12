@@ -21,16 +21,16 @@ export class FdMenuItem extends LitElement {
     .base {
       display: flex;
       align-items: center;
-      gap: var(--fd-menu-item-gap, var(--ds-spacing-xs, 8px));
+      gap: var(--fd-menu-item-gap, var(--fdic-spacing-xs, 8px));
       inline-size: 100%;
-      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
+      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
       min-height: var(--fd-menu-item-min-height, 44px);
       border: none;
       background: none;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fd-menu-item-font-size, var(--ds-font-size-body, 18px));
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fd-menu-item-font-size, var(--fdic-font-size-body, 18px));
       line-height: 1.375;
-      color: var(--ds-color-text-primary);
+      color: var(--fdic-color-text-primary);
       text-align: start;
       cursor: pointer;
       box-sizing: border-box;
@@ -38,7 +38,7 @@ export class FdMenuItem extends LitElement {
 
     .base:hover {
       background-color: var(
-        --ds-color-overlay-hover
+        --fdic-color-overlay-hover
       );
     }
 
@@ -48,19 +48,19 @@ export class FdMenuItem extends LitElement {
 
     .base:focus-visible {
       background-color: var(
-        --ds-color-overlay-pressed
+        --fdic-color-overlay-pressed
       );
-      outline: 2px solid var(--ds-focus-ring-color);
+      outline: 2px solid var(--fdic-focus-ring-color);
       outline-offset: -2px;
       border-radius: 2px;
     }
 
     .destructive {
-      color: var(--fd-menu-item-destructive-color, var(--ds-color-bg-destructive));
+      color: var(--fd-menu-item-destructive-color, var(--fdic-color-bg-destructive));
     }
 
     .disabled {
-      color: var(--ds-color-text-disabled);
+      color: var(--fdic-color-text-disabled);
       cursor: default;
     }
 

@@ -68,8 +68,8 @@ export class FdPageFeedback extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      color: var(--ds-color-text-primary);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      color: var(--fdic-color-text-primary);
     }
 
     :host([hidden]) {
@@ -82,12 +82,12 @@ export class FdPageFeedback extends LitElement {
       box-sizing: border-box;
       padding-block: var(
         --fd-page-feedback-block-padding,
-        var(--ds-layout-section-block-padding-compact, var(--ds-spacing-xl, 24px))
+        var(--fdic-layout-section-block-padding-compact, var(--fdic-spacing-xl, 24px))
       );
-      padding-inline: var(--fd-page-feedback-inline-padding, var(--ds-layout-gutter, 64px));
+      padding-inline: var(--fd-page-feedback-inline-padding, var(--fdic-layout-gutter, 64px));
       background: var(
         --fd-page-feedback-background,
-        var(--ds-color-bg-base)
+        var(--fdic-color-bg-base)
       );
     }
 
@@ -95,16 +95,16 @@ export class FdPageFeedback extends LitElement {
       content: "";
       position: absolute;
       inset-block-start: 0;
-      inset-inline: var(--fd-page-feedback-inline-padding, var(--ds-layout-gutter, 64px));
+      inset-inline: var(--fd-page-feedback-inline-padding, var(--fdic-layout-gutter, 64px));
       block-size: 4px;
       background: var(
         --fd-page-feedback-border-image,
         var(
-          --ds-gradient-brand-core,
+          --fdic-gradient-brand-core,
           linear-gradient(
             135deg in oklch,
-            var(--ds-color-primary-500),
-            var(--ds-color-primary-400)
+            var(--fdic-color-primary-500),
+            var(--fdic-color-primary-400)
           )
         )
       );
@@ -114,11 +114,11 @@ export class FdPageFeedback extends LitElement {
     .panel {
       display: flex;
       flex-direction: column;
-      gap: var(--fd-page-feedback-gap, var(--ds-layout-stack-gap, var(--ds-spacing-md, 16px)));
+      gap: var(--fd-page-feedback-gap, var(--fdic-layout-stack-gap, var(--fdic-spacing-md, 16px)));
       min-inline-size: 0;
       max-inline-size: var(
         --fd-page-feedback-max-width,
-        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))
+        var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))
       );
       margin-inline: auto;
     }
@@ -127,14 +127,14 @@ export class FdPageFeedback extends LitElement {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      gap: var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px));
+      gap: var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px));
       flex-wrap: wrap;
     }
 
     .prompt-shell {
       display: flex;
       align-items: center;
-      gap: var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px));
+      gap: var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px));
       flex: 1 1 auto;
       min-inline-size: 0;
     }
@@ -146,7 +146,7 @@ export class FdPageFeedback extends LitElement {
     }
 
     .prompt-copy {
-      font-size: var(--ds-font-size-body, 1.125rem);
+      font-size: var(--fdic-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
       overflow-wrap: anywhere;
@@ -156,7 +156,7 @@ export class FdPageFeedback extends LitElement {
     .prompt-copy--heading {
       font-size: var(
         --fd-page-feedback-heading-size,
-        var(--ds-font-size-h3, 22.5px)
+        var(--fdic-font-size-h3, 22.5px)
       );
       font-weight: 600;
       line-height: 1.25;
@@ -165,10 +165,10 @@ export class FdPageFeedback extends LitElement {
 
     .survey-body {
       margin: 0;
-      font-size: var(--ds-font-size-body, 1.125rem);
+      font-size: var(--fdic-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
-      max-inline-size: var(--ds-layout-paragraph-max-width, 720px);
+      max-inline-size: var(--fdic-layout-paragraph-max-width, 720px);
       overflow-wrap: anywhere;
     }
 
@@ -178,7 +178,7 @@ export class FdPageFeedback extends LitElement {
       flex: 1 1 auto;
       --fd-button-group-gap: var(
         --fd-page-feedback-action-gap,
-        var(--ds-spacing-sm, 0.75rem)
+        var(--fdic-spacing-sm, 0.75rem)
       );
     }
 
@@ -200,9 +200,9 @@ export class FdPageFeedback extends LitElement {
     .survey-link-row {
       display: inline-flex;
       align-items: center;
-      gap: var(--ds-spacing-2xs, 4px);
+      gap: var(--fdic-spacing-2xs, 4px);
       min-inline-size: 0;
-      color: var(--ds-color-text-link, #1278b0);
+      color: var(--fdic-color-text-link, #1278b0);
     }
 
     .survey-link-icon {
@@ -216,8 +216,8 @@ export class FdPageFeedback extends LitElement {
 
     .report-fields {
       display: grid;
-      gap: var(--ds-layout-stack-gap, var(--ds-spacing-md, 16px));
-      inline-size: min(100%, var(--ds-layout-paragraph-max-width, 720px));
+      gap: var(--fdic-layout-stack-gap, var(--fdic-spacing-md, 16px));
+      inline-size: min(100%, var(--fdic-layout-paragraph-max-width, 720px));
     }
 
     .report-field {
@@ -235,7 +235,7 @@ export class FdPageFeedback extends LitElement {
       align-items: center;
       gap: var(
         --fd-page-feedback-action-gap,
-        var(--fd-button-group-gap, var(--ds-spacing-sm, 0.75rem))
+        var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem))
       );
       flex-wrap: wrap;
       min-inline-size: 0;
@@ -251,7 +251,7 @@ export class FdPageFeedback extends LitElement {
       flex: 1 1 auto;
       --fd-button-group-gap: var(
         --fd-page-feedback-action-gap,
-        var(--ds-spacing-sm, 0.75rem)
+        var(--fdic-spacing-sm, 0.75rem)
       );
     }
 
@@ -259,7 +259,7 @@ export class FdPageFeedback extends LitElement {
       margin: 0;
       display: inline-block;
       color: var(--fd-page-feedback-thank-you-color, inherit);
-      font-size: var(--ds-font-size-body-big, 1.25rem);
+      font-size: var(--fdic-font-size-body-big, 1.25rem);
       font-weight: 450;
       overflow-wrap: anywhere;
       line-height: 1.25;
@@ -268,19 +268,19 @@ export class FdPageFeedback extends LitElement {
 
     @media (max-width: 640px) {
       .base {
-        padding-block: var(--fd-page-feedback-block-padding-mobile, var(--ds-spacing-lg, 20px));
-        padding-inline: var(--fd-page-feedback-inline-padding-mobile, var(--ds-layout-gutter-mobile, 16px));
+        padding-block: var(--fd-page-feedback-block-padding-mobile, var(--fdic-spacing-lg, 20px));
+        padding-inline: var(--fd-page-feedback-inline-padding-mobile, var(--fdic-layout-gutter-mobile, 16px));
       }
 
       .base::before {
-        inset-inline: var(--fd-page-feedback-inline-padding-mobile, var(--ds-layout-gutter-mobile, 16px));
+        inset-inline: var(--fd-page-feedback-inline-padding-mobile, var(--fdic-layout-gutter-mobile, 16px));
       }
 
       .panel--prompt,
       .prompt-shell {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--ds-spacing-md, 16px);
+        gap: var(--fdic-spacing-md, 16px);
       }
 
       .prompt-shell {
@@ -288,28 +288,28 @@ export class FdPageFeedback extends LitElement {
       }
 
       .prompt-copy {
-        font-size: var(--ds-font-size-body-small, 1rem);
+        font-size: var(--fdic-font-size-body-small, 1rem);
       }
 
       .prompt-copy--heading {
-        font-size: var(--ds-font-size-h4, 18px);
+        font-size: var(--fdic-font-size-h4, 18px);
       }
 
       .survey-body {
-        font-size: var(--ds-font-size-body-small, 1rem);
+        font-size: var(--fdic-font-size-body-small, 1rem);
       }
 
       fd-button.choice-button {
         inline-size: 64px;
         min-inline-size: 64px;
-        --fd-button-font-size: var(--ds-font-size-body-small, 1rem);
+        --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
       }
 
       fd-button.report-trigger,
       fd-button.send-button {
         inline-size: 100%;
         min-inline-size: 64px;
-        --fd-button-font-size: var(--ds-font-size-body-small, 1rem);
+        --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
       }
 
       .survey-link-icon {
@@ -318,7 +318,7 @@ export class FdPageFeedback extends LitElement {
       }
 
       [part="thank-you"] {
-        font-size: var(--ds-font-size-body, 1.125rem);
+        font-size: var(--fdic-font-size-body, 1.125rem);
       }
     }
 

@@ -24,12 +24,12 @@ export class FdMenu extends LitElement {
     .surface {
       margin: 0;
       padding: 0;
-      border: 1px solid var(--ds-color-border-divider, #bdbdbf);
-      border-radius: var(--fd-menu-border-radius, var(--ds-corner-radius-lg, 7px));
-      background: var(--ds-color-bg-surface, #ffffff);
+      border: 1px solid var(--fdic-color-border-divider, #bdbdbf);
+      border-radius: var(--fd-menu-border-radius, var(--fdic-corner-radius-lg, 7px));
+      background: var(--fdic-color-bg-surface, #ffffff);
       box-shadow: var(
         --fd-menu-shadow,
-        var(--ds-shadow-menu, 0 4px 12px var(--ds-color-effect-shadow, rgba(0, 0, 0, 0.08)))
+        var(--fdic-shadow-menu, 0 4px 12px var(--fdic-color-effect-shadow, rgba(0, 0, 0, 0.08)))
       );
       min-width: var(--fd-menu-min-width, 180px);
       max-width: var(--fd-menu-max-width, 320px);
@@ -51,7 +51,7 @@ export class FdMenu extends LitElement {
     .menu {
       list-style: none;
       margin: 0;
-      padding: var(--ds-spacing-2xs, 4px) 0;
+      padding: var(--fdic-spacing-2xs, 4px) 0;
     }
 
     @media (max-width: 768px) {

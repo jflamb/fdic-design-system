@@ -25,24 +25,24 @@ export class FdBadge extends LitElement {
       min-block-size: var(--fd-badge-height, 28px);
       max-inline-size: 100%;
       box-sizing: border-box;
-      padding-block: var(--ds-spacing-2xs, 4px);
+      padding-block: var(--fdic-spacing-2xs, 4px);
       padding-inline: var(
         --fd-badge-padding-inline,
-        var(--ds-spacing-sm, 12px)
+        var(--fdic-spacing-sm, 12px)
       );
-      border-radius: var(--fd-badge-radius, var(--ds-corner-radius-full, 9999px));
+      border-radius: var(--fd-badge-radius, var(--fdic-corner-radius-full, 9999px));
       background: var(
         --fd-badge-bg-neutral,
-        var(--ds-color-bg-interactive, #f5f5f7)
+        var(--fdic-color-bg-interactive, #f5f5f7)
       );
       color: var(
         --fd-badge-text-color,
-        var(--ds-color-text-primary, #212123)
+        var(--fdic-color-text-primary, #212123)
       );
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(
         --fd-badge-font-size,
-        var(--ds-font-size-body-small, 1rem)
+        var(--fdic-font-size-body-small, 1rem)
       );
       line-height: 1.375;
     }
@@ -50,28 +50,28 @@ export class FdBadge extends LitElement {
     .cool {
       background: var(
         --fd-badge-bg-cool,
-        var(--ds-color-semantic-bg-info, #f1f8fe)
+        var(--fdic-color-semantic-bg-info, #f1f8fe)
       );
     }
 
     .warm {
       background: var(
         --fd-badge-bg-warm,
-        var(--ds-color-semantic-bg-warm, #f8efda)
+        var(--fdic-color-semantic-bg-warm, #f8efda)
       );
     }
 
     .positive {
       background: var(
         --fd-badge-bg-positive,
-        var(--ds-color-semantic-bg-success, #e8f5e9)
+        var(--fdic-color-semantic-bg-success, #e8f5e9)
       );
     }
 
     .alert {
       background: var(
         --fd-badge-bg-alert,
-        var(--ds-color-semantic-bg-error, #fdedea)
+        var(--fdic-color-semantic-bg-error, #fdedea)
       );
     }
 

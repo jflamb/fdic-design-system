@@ -34,10 +34,10 @@ export class FdSlider extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--ds-color-text-primary);
+      color: var(--fdic-color-text-primary);
     }
 
     :host([hidden]) {
@@ -45,13 +45,13 @@ export class FdSlider extends LitElement {
     }
 
     :host([disabled]) {
-      color: var(--ds-color-text-secondary);
+      color: var(--fdic-color-text-secondary);
     }
 
     .fd-slider {
       display: flex;
       flex-direction: column;
-      gap: var(--ds-spacing-xs, 8px);
+      gap: var(--fdic-spacing-xs, 8px);
       width: 100%;
     }
 
@@ -63,8 +63,8 @@ export class FdSlider extends LitElement {
 
     [part="hint"] {
       margin: 0;
-      font-size: var(--ds-font-size-body-small, 1rem);
-      color: var(--ds-color-text-secondary);
+      font-size: var(--fdic-font-size-body-small, 1rem);
+      color: var(--fdic-color-text-secondary);
     }
 
     [part="hint"][hidden] {
@@ -74,7 +74,7 @@ export class FdSlider extends LitElement {
     [part="control"] {
       display: flex;
       align-items: center;
-      gap: var(--ds-spacing-md, 16px);
+      gap: var(--fdic-spacing-md, 16px);
       width: 100%;
     }
 
@@ -96,7 +96,7 @@ export class FdSlider extends LitElement {
       transform: translateY(-50%);
       border-radius: var(
         --fd-slider-track-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
       pointer-events: none;
     }
@@ -104,7 +104,7 @@ export class FdSlider extends LitElement {
     [part="track"] {
       background: var(
         --fd-slider-track-background,
-        var(--ds-color-border-input-interactive)
+        var(--fdic-color-border-input-interactive)
       );
     }
 
@@ -113,12 +113,12 @@ export class FdSlider extends LitElement {
       width: calc(var(--fd-slider-percent, 0) * 1%);
       background: var(
         --fd-slider-track-fill,
-        var(--ds-color-primary-500)
+        var(--fdic-color-primary-500)
       );
     }
 
     :host([disabled]) [part="fill"] {
-      background: var(--ds-color-border-divider);
+      background: var(--fdic-color-border-divider);
     }
 
     [part="range"] {
@@ -132,7 +132,7 @@ export class FdSlider extends LitElement {
       appearance: none;
       -webkit-appearance: none;
       cursor: pointer;
-      accent-color: var(--ds-color-primary-500);
+      accent-color: var(--fdic-color-primary-500);
     }
 
     [part="range"]:focus {
@@ -149,7 +149,7 @@ export class FdSlider extends LitElement {
       border: none;
       border-radius: var(
         --fd-slider-track-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
     }
 
@@ -159,7 +159,7 @@ export class FdSlider extends LitElement {
       border: none;
       border-radius: var(
         --fd-slider-track-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
     }
 
@@ -170,20 +170,20 @@ export class FdSlider extends LitElement {
       border: 4px solid
         var(
           --fd-slider-thumb-border,
-          var(--ds-color-icon-active)
+          var(--fdic-color-icon-active)
         );
-      border-radius: var(--ds-corner-radius-full, 9999px);
+      border-radius: var(--fdic-corner-radius-full, 9999px);
       background: var(
         --fd-slider-thumb-background,
-        var(--ds-color-bg-base)
+        var(--fdic-color-bg-base)
       );
       box-sizing: border-box;
       appearance: none;
       -webkit-appearance: none;
       transition:
-        background-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        border-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        box-shadow var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
+        background-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        border-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        box-shadow var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease);
     }
 
     [part="range"]::-moz-range-thumb {
@@ -192,68 +192,68 @@ export class FdSlider extends LitElement {
       border: 4px solid
         var(
           --fd-slider-thumb-border,
-          var(--ds-color-icon-active)
+          var(--fdic-color-icon-active)
         );
-      border-radius: var(--ds-corner-radius-full, 9999px);
+      border-radius: var(--fdic-corner-radius-full, 9999px);
       background: var(
         --fd-slider-thumb-background,
-        var(--ds-color-bg-base)
+        var(--fdic-color-bg-base)
       );
       box-sizing: border-box;
       transition:
-        background-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        border-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        box-shadow var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
+        background-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        border-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        box-shadow var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease);
     }
 
     :host([data-range-hover]) [part="range"]::-webkit-slider-thumb {
       background: var(
         --fd-slider-thumb-hover-background,
-        var(--ds-color-bg-container)
+        var(--fdic-color-bg-container)
       );
     }
 
     :host([data-range-hover]) [part="range"]::-moz-range-thumb {
       background: var(
         --fd-slider-thumb-hover-background,
-        var(--ds-color-bg-container)
+        var(--fdic-color-bg-container)
       );
     }
 
     :host([data-range-dragging]) [part="range"]::-webkit-slider-thumb {
       background: var(
         --fd-slider-thumb-pressed-background,
-        var(--ds-color-bg-selected)
+        var(--fdic-color-bg-selected)
       );
     }
 
     :host([data-range-dragging]) [part="range"]::-moz-range-thumb {
       background: var(
         --fd-slider-thumb-pressed-background,
-        var(--ds-color-bg-selected)
+        var(--fdic-color-bg-selected)
       );
     }
 
     [part="range"]:focus-visible::-webkit-slider-thumb {
       box-shadow:
-        0 0 0 var(--ds-focus-gap-width, 2px) var(--ds-focus-gap-color),
-        0 0 0 var(--ds-focus-ring-width, 4px) var(--ds-focus-ring-color);
+        0 0 0 var(--fdic-focus-gap-width, 2px) var(--fdic-focus-gap-color),
+        0 0 0 var(--fdic-focus-ring-width, 4px) var(--fdic-focus-ring-color);
     }
 
     [part="range"]:focus-visible::-moz-range-thumb {
       box-shadow:
-        0 0 0 var(--ds-focus-gap-width, 2px) var(--ds-focus-gap-color),
-        0 0 0 var(--ds-focus-ring-width, 4px) var(--ds-focus-ring-color);
+        0 0 0 var(--fdic-focus-gap-width, 2px) var(--fdic-focus-gap-color),
+        0 0 0 var(--fdic-focus-ring-width, 4px) var(--fdic-focus-ring-color);
     }
 
     :host([disabled]) [part="range"]::-webkit-slider-thumb {
-      border-color: var(--ds-color-border-divider);
-      background: var(--ds-color-bg-container);
+      border-color: var(--fdic-color-border-divider);
+      background: var(--fdic-color-bg-container);
     }
 
     :host([disabled]) [part="range"]::-moz-range-thumb {
-      border-color: var(--ds-color-border-divider);
-      background: var(--ds-color-bg-container);
+      border-color: var(--fdic-color-border-divider);
+      background: var(--fdic-color-bg-container);
     }
 
     [part="value-bubble"] {
@@ -265,14 +265,14 @@ export class FdSlider extends LitElement {
       bottom: calc(50% + (var(--fd-slider-thumb-size, 20px) / 2) + 8px);
       z-index: 3;
       min-width: 24px;
-      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
+      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
       border-radius: var(
         --fd-slider-bubble-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-slider-bubble-background, var(--ds-color-bg-inverted));
-      color: var(--fd-slider-bubble-color, var(--ds-color-text-inverted));
-      font-size: var(--ds-font-size-body-small, 1rem);
+      background: var(--fd-slider-bubble-background, var(--fdic-color-bg-inverted));
+      color: var(--fd-slider-bubble-color, var(--fdic-color-text-inverted));
+      font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
       text-align: center;
       transform: translateX(-50%);
@@ -309,15 +309,15 @@ export class FdSlider extends LitElement {
       border: 1px solid
         var(
           --fd-slider-input-border-color,
-          var(--ds-color-border-input)
+          var(--fdic-color-border-input)
         );
       border-radius: var(
         --fd-slider-input-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
       background: var(
         --fd-slider-input-background,
-        var(--ds-color-bg-base)
+        var(--fdic-color-bg-base)
       );
       box-sizing: border-box;
       font: inherit;
@@ -328,10 +328,10 @@ export class FdSlider extends LitElement {
     }
 
     [part="input"]:focus-visible {
-      outline: 2px solid var(--ds-color-border-input-active);
+      outline: 2px solid var(--fdic-color-border-input-active);
       outline-offset: 0;
       border-width: 2px;
-      box-shadow: 0 0 2.5px 2px var(--ds-focus-ring-color);
+      box-shadow: 0 0 2.5px 2px var(--fdic-focus-ring-color);
     }
 
     [part="input"]::-webkit-outer-spin-button,
@@ -341,9 +341,9 @@ export class FdSlider extends LitElement {
     }
 
     :host([disabled]) [part="input"] {
-      border-color: var(--ds-color-border-divider);
-      background: var(--ds-color-bg-container);
-      color: var(--ds-color-text-disabled, #9e9ea0);
+      border-color: var(--fdic-color-border-divider);
+      background: var(--fdic-color-bg-container);
+      color: var(--fdic-color-text-disabled, #9e9ea0);
       cursor: not-allowed;
     }
 

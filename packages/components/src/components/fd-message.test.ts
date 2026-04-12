@@ -119,7 +119,7 @@ describe("fd-message", () => {
       state: "warning",
     });
 
-    expect(el.innerHTML).toContain("var(--ds-color-semantic-fg-warning, #8a6100)");
+    expect(el.innerHTML).toContain("var(--fdic-color-semantic-fg-warning, #8a6100)");
   });
 
   // --- ARIA ---

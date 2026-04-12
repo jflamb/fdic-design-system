@@ -22,7 +22,7 @@ export class FdPageHeaderButton extends LitElement {
     fd-button {
       --fd-button-text-subtle: var(
         --fd-page-header-button-text-color,
-        var(--ds-color-text-inverted)
+        var(--fdic-color-text-inverted)
       );
       --fd-button-overlay-hover: var(
         --fd-page-header-button-overlay-hover,
@@ -34,22 +34,22 @@ export class FdPageHeaderButton extends LitElement {
       );
       --fd-button-focus-gap: var(
         --fd-page-header-button-focus-gap,
-        var(--ds-color-primary-500)
+        var(--fdic-color-primary-500)
       );
       --fd-button-focus-ring: var(
         --fd-page-header-button-focus-ring,
-        var(--ds-focus-ring-color)
+        var(--fdic-focus-ring-color)
       );
-      --fd-button-gap: var(--fd-page-header-button-gap, var(--ds-spacing-xs, 8px));
+      --fd-button-gap: var(--fd-page-header-button-gap, var(--fdic-spacing-xs, 8px));
       --fd-button-height: var(--fd-page-header-button-height, 32px);
       --fd-button-font-size: var(
         --fd-page-header-button-font-size,
-        var(--ds-font-size-body-small, 16px)
+        var(--fdic-font-size-body-small, 16px)
       );
-      --fd-button-radius: var(--fd-page-header-button-radius, var(--ds-corner-radius-full, 9999px));
+      --fd-button-radius: var(--fd-page-header-button-radius, var(--fdic-corner-radius-full, 9999px));
       --fd-button-icon-edge-padding: var(
         --fd-page-header-button-padding-end,
-        var(--ds-spacing-xs, 8px)
+        var(--fdic-spacing-xs, 8px)
       );
     }
 

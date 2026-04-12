@@ -31,18 +31,18 @@ export class FdStripe extends LitElement {
       border-radius: var(--fd-stripe-radius, 0);
       background: var(
         --fd-stripe-bg-neutral,
-        var(--ds-color-border-divider)
+        var(--fdic-color-border-divider)
       );
     }
 
     .type-cool {
-      background: var(--fd-stripe-bg-cool, var(--ds-color-info-100));
+      background: var(--fd-stripe-bg-cool, var(--fdic-color-info-100));
     }
 
     .type-warm {
       background: var(
         --fd-stripe-bg-warm,
-        var(--ds-color-secondary-500)
+        var(--fdic-color-secondary-500)
       );
     }
 

@@ -92,12 +92,12 @@ describe("FdCardGroup", () => {
       .map((value) => value.cssText)
       .join("\n");
 
-    expect(styles).toContain("var(--fd-card-group-col-4-min, var(--ds-layout-col-4-min))");
-    expect(styles).toContain("var(--fd-card-group-col-4-max, var(--ds-layout-col-4-max))");
-    expect(styles).toContain("var(--fd-card-group-col-4-gap, var(--ds-layout-col-4-gap))");
-    expect(styles).toContain("var(--fd-card-group-col-4-min-mobile, var(--ds-layout-col-4-min-narrow))");
-    expect(styles).toContain("var(--fd-card-group-col-4-max-mobile, var(--ds-layout-col-4-max-narrow))");
-    expect(styles).toContain("var(--fd-card-group-col-4-gap-mobile, var(--ds-layout-col-4-gap-narrow))");
+    expect(styles).toContain("var(--fd-card-group-col-4-min, var(--fdic-layout-col-4-min))");
+    expect(styles).toContain("var(--fd-card-group-col-4-max, var(--fdic-layout-col-4-max))");
+    expect(styles).toContain("var(--fd-card-group-col-4-gap, var(--fdic-layout-col-4-gap))");
+    expect(styles).toContain("var(--fd-card-group-col-4-min-mobile, var(--fdic-layout-col-4-min-narrow))");
+    expect(styles).toContain("var(--fd-card-group-col-4-max-mobile, var(--fdic-layout-col-4-max-narrow))");
+    expect(styles).toContain("var(--fd-card-group-col-4-gap-mobile, var(--fdic-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
   });
@@ -169,9 +169,9 @@ describe("FdCardGroup", () => {
   });
 
   it.each([
-    ["--fd-card-group-col-2-min", "--ds-layout-col-2-min"],
-    ["--fd-card-group-col-3-max", "--ds-layout-col-3-max"],
-    ["--fd-card-group-col-4-gap-mobile", "--ds-layout-col-4-gap-narrow"],
+    ["--fd-card-group-col-2-min", "--fdic-layout-col-2-min"],
+    ["--fd-card-group-col-3-max", "--fdic-layout-col-3-max"],
+    ["--fd-card-group-col-4-gap-mobile", "--fdic-layout-col-4-gap-narrow"],
   ])("defines %s using %s", (token, sourceToken) => {
     const styles = FdCardGroup.styles.map((value) => value.cssText).join("\n");
     expect(styles).toContain(`${token}: var(${sourceToken})`);

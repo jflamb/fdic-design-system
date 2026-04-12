@@ -62,10 +62,10 @@ export class FdLink extends LitElement {
     .base {
       color: var(
         --fd-link-color-normal,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       color-scheme: light dark;
@@ -85,7 +85,7 @@ export class FdLink extends LitElement {
     .base:focus-visible {
       background: var(
         --fd-link-hover-overlay,
-        var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
+        var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))
       );
       text-decoration-thickness: var(
         --fd-link-underline-thickness-emphasis,
@@ -94,33 +94,33 @@ export class FdLink extends LitElement {
     }
 
     .base:focus-visible {
-      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px)
-          var(--fd-link-focus-gap, var(--ds-focus-gap-color)),
-        0 0 0 var(--ds-focus-ring-width, 4px)
+      box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fd-link-focus-gap, var(--fdic-focus-gap-color)),
+        0 0 0 var(--fdic-focus-ring-width, 4px)
           var(
             --fd-link-focus-ring,
-            var(--ds-focus-ring-color)
+            var(--fdic-focus-ring-color)
           );
     }
 
     .variant-normal {
       color: var(
         --fd-link-color-normal,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
     }
 
     .variant-visited {
       color: var(
         --fd-link-color-visited,
-        var(--ds-color-text-link-visited)
+        var(--fdic-color-text-link-visited)
       );
     }
 
     .variant-subtle {
       color: var(
         --fd-link-color-subtle,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
       text-decoration-line: none;
     }
@@ -129,7 +129,7 @@ export class FdLink extends LitElement {
     .variant-subtle:focus-visible {
       color: var(
         --fd-link-color-normal,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
       text-decoration-line: underline;
     }
@@ -137,24 +137,24 @@ export class FdLink extends LitElement {
     .variant-inverted {
       color: var(
         --fd-link-color-inverted,
-        var(--ds-color-neutral-000)
+        var(--fdic-color-neutral-000)
       );
     }
 
     .size-sm {
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.375;
     }
 
     .size-md {
-      font-size: var(--ds-font-size-body, 1.125rem);
+      font-size: var(--fdic-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
     }
 
     .size-lg {
-      font-size: var(--ds-font-size-body-big, 1.25rem);
+      font-size: var(--fdic-font-size-body-big, 1.25rem);
       font-weight: 450;
       line-height: 1.25;
     }

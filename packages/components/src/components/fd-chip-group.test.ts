@@ -130,7 +130,7 @@ describe("FdChipGroup", () => {
       }
     ).styles?.cssText ?? "";
 
-    expect(styles).toContain("var(--fd-chip-group-gap, var(--ds-spacing-2xs, 4px))");
+    expect(styles).toContain("var(--fd-chip-group-gap, var(--fdic-spacing-2xs, 4px))");
   });
 
   it("keeps assigned chip count in sync when a chip is removed", async () => {

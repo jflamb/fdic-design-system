@@ -56,12 +56,12 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
 | Name | Default | Description |
 |---|---|---|
 | `--fd-page-feedback-border-image` | `var(--fdic-gradient-brand-core, var(--fdic-brand-core-light, #38b6ff))` | Decorative top rule fill applied to the feedback surface. |
-| `--fd-page-feedback-max-width` | `var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))` | Maximum inline size of the feedback panel. Defaults to the shared page-shell width contract. |
+| `--fd-page-feedback-max-width` | `var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))` | Maximum inline size of the feedback panel. Defaults to the shared page-shell width contract. |
 | `--fd-page-feedback-inline-padding` | `64px` | Desktop inline padding. |
 | `--fd-page-feedback-inline-padding-mobile` | `16px` | Mobile inline padding at `640px` and below. |
-| `--fd-page-feedback-block-padding` | `var(--ds-layout-section-block-padding-compact, 24px)` | Desktop block padding. Defaults to the shared compact-section spacing token. |
+| `--fd-page-feedback-block-padding` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Desktop block padding. Defaults to the shared compact-section spacing token. |
 | `--fd-page-feedback-block-padding-mobile` | `20px` | Mobile block padding at `640px` and below. |
-| `--fd-page-feedback-gap` | `var(--ds-layout-stack-gap, 16px)` | Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token. |
+| `--fd-page-feedback-gap` | `var(--fdic-layout-stack-gap, 16px)` | Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token. |
 | `--fd-page-feedback-prompt-max-width` | `344px` | Maximum inline size for the desktop prompt cluster. |
 | `--fd-page-feedback-heading-size` | `22.5px` | Heading-size override for the survey and report titles. |
 | `--fd-page-feedback-thank-you-color` | `inherit` | Thank-you message color. |

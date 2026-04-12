@@ -97,16 +97,16 @@ Cancel `fd-page-request` to intercept link-mode navigation, including the mobile
 | `--fd-pagination-mobile-gap` | `var(--fdic-spacing-sm, 12px)` | Gap between controls in the mobile layout. |
 | `--fd-pagination-control-min-size` | `44px` | Minimum touch target size for pagination controls. |
 | `--fd-pagination-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius for controls and the mobile page select. |
-| `--fd-pagination-control-bg` | `var(--ds-color-bg-interactive, #f5f5f7)` | Background for non-current page controls. |
-| `--fd-pagination-control-color` | `var(--ds-color-text-primary, #212123)` | Text color for non-current page controls and the mobile summary. |
-| `--fd-pagination-control-bg-disabled` | `var(--ds-color-bg-container, #f5f5f7)` | Background for disabled previous/next controls. |
-| `--fd-pagination-control-color-disabled` | `var(--ds-color-text-disabled, #9e9ea0)` | Text color for disabled controls and ellipsis items. |
-| `--fd-pagination-current-bg` | `var(--ds-color-bg-active, #0d6191)` | Background for the current page control. |
-| `--fd-pagination-current-color` | `var(--ds-color-text-inverted, #ffffff)` | Text color for the current page control. |
-| `--fd-pagination-select-bg` | `var(--ds-color-bg-input, #ffffff)` | Background for the mobile page select. |
+| `--fd-pagination-control-bg` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Background for non-current page controls. |
+| `--fd-pagination-control-color` | `var(--fdic-color-text-primary, #212123)` | Text color for non-current page controls and the mobile summary. |
+| `--fd-pagination-control-bg-disabled` | `var(--fdic-color-bg-container, #f5f5f7)` | Background for disabled previous/next controls. |
+| `--fd-pagination-control-color-disabled` | `var(--fdic-color-text-disabled, #9e9ea0)` | Text color for disabled controls and ellipsis items. |
+| `--fd-pagination-current-bg` | `var(--fdic-color-bg-active, #0d6191)` | Background for the current page control. |
+| `--fd-pagination-current-color` | `var(--fdic-color-text-inverted, #ffffff)` | Text color for the current page control. |
+| `--fd-pagination-select-bg` | `var(--fdic-color-bg-input, #ffffff)` | Background for the mobile page select. |
 | `--fd-pagination-select-border` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color for the mobile page select. |
-| `--fd-pagination-focus-gap` | `var(--ds-color-bg-input, #ffffff)` | Inner gap color in the focus ring. |
-| `--fd-pagination-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus ring color. |
+| `--fd-pagination-focus-gap` | `var(--fdic-color-bg-input, #ffffff)` | Inner gap color in the focus ring. |
+| `--fd-pagination-focus-ring` | `var(--fdic-color-border-input-focus, #38b6ff)` | Outer focus ring color. |
 | `--fd-pagination-collapse-at` | `480px` | Width threshold below which the component switches to the mobile layout. |
 
 ## Shadow parts

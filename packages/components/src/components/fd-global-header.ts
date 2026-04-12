@@ -281,32 +281,32 @@ export class FdGlobalHeader extends LitElement {
   static styles = css`
     :host {
       --fd-global-header-color-host: var(--fd-global-header-text-host, light-dark(#10243e, #ffffff));
-      --fd-global-header-color-text-primary: var(--ds-color-text-primary);
-      --fd-global-header-color-text-secondary: var(--ds-color-text-secondary);
-      --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--ds-color-neutral-000));
-      --fd-global-header-color-surface-base: var(--ds-color-bg-surface);
+      --fd-global-header-color-text-primary: var(--fdic-color-text-primary);
+      --fd-global-header-color-text-secondary: var(--fdic-color-text-secondary);
+      --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--fdic-color-neutral-000));
+      --fd-global-header-color-surface-base: var(--fdic-color-bg-surface);
       --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, light-dark(#003256, #84dbff));
       --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, light-dark(#0b466f, #38b6ff));
-      --fd-global-header-color-accent: var(--ds-focus-ring-color);
+      --fd-global-header-color-accent: var(--fdic-focus-ring-color);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, light-dark(#84dbff, #e6f4fa));
-      --fd-global-header-color-border-subtle: var(--ds-color-border-divider);
+      --fd-global-header-color-border-subtle: var(--fdic-color-border-divider);
       --fd-global-header-color-surface-l2: var(--fd-global-header-surface-l2, light-dark(#f5f5f7, #333335));
       --fd-global-header-color-surface-l3: var(--fd-global-header-surface-l3, light-dark(#edf3f7, #424244));
-      --fd-global-header-shadow-floating: var(--ds-color-effect-shadow);
-      --fd-global-header-shadow-panel: var(--ds-color-effect-shadow-panel);
-      --fd-global-header-glass-sheen: var(--fd-global-header-glass-sheen, var(--ds-gradient-glass-sheen));
-      --fd-global-header-glass-border: var(--fd-global-header-glass-border, var(--ds-color-border-glass-soft));
-      --fd-global-header-glass-border-strong: var(--fd-global-header-glass-border-strong, var(--ds-color-border-glass));
-      --fd-global-header-overlay-hover: var(--ds-color-overlay-brand-hover);
-      --fd-global-header-overlay-selected: var(--ds-color-overlay-brand-selected);
-      --fd-global-header-overlay-pressed: var(--ds-color-overlay-brand-pressed);
-      --fd-global-header-focus-inner: var(--ds-color-border-focus-inner);
-      --fd-global-header-glass-surface-1: var(--fd-global-header-mega-col-1, var(--ds-color-surface-glass-1));
-      --fd-global-header-glass-surface-2: var(--fd-global-header-mega-col-2, var(--ds-color-surface-glass-2));
-      --fd-global-header-glass-surface-2-muted: var(--fd-global-header-mega-col-2-muted, var(--ds-color-surface-glass-2-muted));
-      --fd-global-header-glass-surface-3: var(--fd-global-header-mega-col-3, var(--ds-color-surface-glass-3));
-      --fd-global-header-glass-surface-3-muted-1: var(--fd-global-header-mega-col-3-muted, var(--ds-color-surface-glass-3-muted-1));
-      --fd-global-header-glass-surface-3-muted-2: var(--fd-global-header-mega-col-3-muted, var(--ds-color-surface-glass-3-muted-2));
+      --fd-global-header-shadow-floating: var(--fdic-color-effect-shadow);
+      --fd-global-header-shadow-panel: var(--fdic-color-effect-shadow-panel);
+      --fd-global-header-glass-sheen: var(--fd-global-header-glass-sheen, var(--fdic-gradient-glass-sheen));
+      --fd-global-header-glass-border: var(--fd-global-header-glass-border, var(--fdic-color-border-glass-soft));
+      --fd-global-header-glass-border-strong: var(--fd-global-header-glass-border-strong, var(--fdic-color-border-glass));
+      --fd-global-header-overlay-hover: var(--fdic-color-overlay-brand-hover);
+      --fd-global-header-overlay-selected: var(--fdic-color-overlay-brand-selected);
+      --fd-global-header-overlay-pressed: var(--fdic-color-overlay-brand-pressed);
+      --fd-global-header-focus-inner: var(--fdic-color-border-focus-inner);
+      --fd-global-header-glass-surface-1: var(--fd-global-header-mega-col-1, var(--fdic-color-surface-glass-1));
+      --fd-global-header-glass-surface-2: var(--fd-global-header-mega-col-2, var(--fdic-color-surface-glass-2));
+      --fd-global-header-glass-surface-2-muted: var(--fd-global-header-mega-col-2-muted, var(--fdic-color-surface-glass-2-muted));
+      --fd-global-header-glass-surface-3: var(--fd-global-header-mega-col-3, var(--fdic-color-surface-glass-3));
+      --fd-global-header-glass-surface-3-muted-1: var(--fd-global-header-mega-col-3-muted, var(--fdic-color-surface-glass-3-muted-1));
+      --fd-global-header-glass-surface-3-muted-2: var(--fd-global-header-mega-col-3-muted, var(--fdic-color-surface-glass-3-muted-2));
       display: block;
       color: var(--fd-global-header-color-host);
       font-family: var(
@@ -388,8 +388,8 @@ export class FdGlobalHeader extends LitElement {
 
     .shell {
       width: min(
-        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px)),
-        calc(100% - 2 * var(--ds-layout-gutter, 64px))
+        var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px)),
+        calc(100% - 2 * var(--fdic-layout-gutter, 64px))
       );
       margin-inline: auto;
     }
@@ -664,7 +664,7 @@ export class FdGlobalHeader extends LitElement {
       height: 4px;
       background: var(--fd-global-header-color-accent);
       opacity: 0;
-      transition: opacity var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: opacity var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .top-nav-link:hover,
@@ -734,7 +734,7 @@ export class FdGlobalHeader extends LitElement {
       top: 8.1875rem;
       inset-inline: 0;
       bottom: 0;
-      background: var(--ds-color-overlay-scrim-soft);
+      background: var(--fdic-color-overlay-scrim-soft);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -880,8 +880,8 @@ export class FdGlobalHeader extends LitElement {
       --mega-col-3-surface: var(--fd-global-header-glass-surface-3);
       position: relative;
       width: min(
-        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px)),
-        calc(100% - 2 * var(--ds-layout-gutter, 64px))
+        var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px)),
+        calc(100% - 2 * var(--fdic-layout-gutter, 64px))
       );
     }
 
@@ -1028,7 +1028,7 @@ export class FdGlobalHeader extends LitElement {
       text-align: start;
       border-radius: 0;
       cursor: pointer;
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.4;
       text-decoration: none;
@@ -1066,7 +1066,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .menu-item-label {
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.4;
       color: var(--fd-global-header-color-text-primary);
@@ -1176,7 +1176,7 @@ export class FdGlobalHeader extends LitElement {
       display: none;
       position: fixed;
       inset: 0;
-      background: var(--ds-color-overlay-scrim-strong);
+      background: var(--fdic-color-overlay-scrim-strong);
         -webkit-backdrop-filter: blur(4px) saturate(135%);
         backdrop-filter: blur(4px) saturate(135%);
       opacity: 0;
@@ -1240,14 +1240,14 @@ export class FdGlobalHeader extends LitElement {
       border: 0;
       background: var(--fd-global-header-color-surface-base);
       color: var(--fd-global-header-color-text-primary);
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.375;
       cursor: pointer;
       text-align: start;
       transition:
-        box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
-        background-color var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        box-shadow var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
         transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
@@ -1272,7 +1272,7 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-back fd-icon {
       --fd-icon-size: 1rem;
-      transition: transform var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: transform var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-back:hover fd-icon,
@@ -1318,8 +1318,8 @@ export class FdGlobalHeader extends LitElement {
       text-align: start;
       text-decoration: none;
       transition:
-        box-shadow var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
-        background-color var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        box-shadow var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1),
         transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
@@ -1339,7 +1339,7 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-overview-link {
       min-height: 2.5rem;
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 600;
       line-height: 1.375;
       text-underline-offset: 2px;
@@ -1358,7 +1358,7 @@ export class FdGlobalHeader extends LitElement {
       background: var(--fd-global-header-color-accent);
       opacity: 0;
       pointer-events: none;
-      transition: opacity var(--ds-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition: opacity var(--fdic-motion-duration-fast, 120ms) cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-link::after {
@@ -1423,7 +1423,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     .mobile-item-label {
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: inherit;
       line-height: inherit;
       color: var(--fd-global-header-color-text-primary);
@@ -1455,8 +1455,8 @@ export class FdGlobalHeader extends LitElement {
     @media (min-width: 769px) and (max-width: 1049px) {
       .shell {
         width: min(
-          var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px)),
-          calc(100% - 2 * var(--ds-layout-gutter-tablet, 32px))
+          var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px)),
+          calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px))
         );
       }
     }

@@ -466,10 +466,10 @@ export class FdLabel extends LitElement {
       fd-label {
         display: block;
         margin-bottom: 6px;
-        font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-        font-size: var(--ds-font-size-body, 18px);
+        font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+        font-size: var(--fdic-font-size-body, 18px);
         line-height: 1.375;
-        color: var(--ds-color-text-primary, #212123);
+        color: var(--fdic-color-text-primary, #212123);
         position: relative;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -484,13 +484,13 @@ export class FdLabel extends LitElement {
       fd-label [part="label-row"] {
         display: flex;
         align-items: flex-start;
-        gap: var(--ds-spacing-xs, 8px);
+        gap: var(--fdic-spacing-xs, 8px);
         position: relative;
       }
 
       fd-label [part="label"] {
         display: inline-flex;
-        gap: var(--ds-spacing-3xs, 2px);
+        gap: var(--fdic-spacing-3xs, 2px);
         align-items: baseline;
         margin: 0;
         padding: 0;
@@ -501,7 +501,7 @@ export class FdLabel extends LitElement {
 
       fd-label [part="required-indicator"] {
         font-weight: 600;
-        color: var(--ds-color-text-error, #d80e3a);
+        color: var(--fdic-color-text-error, #d80e3a);
       }
 
       fd-label .fd-label__sr-only {
@@ -519,8 +519,8 @@ export class FdLabel extends LitElement {
       /* --- Description --- */
 
       fd-label [part="description"] {
-        color: var(--ds-color-text-secondary, #595961);
-        font-size: var(--ds-font-size-body-small, 1rem);
+        color: var(--fdic-color-text-secondary, #595961);
+        font-size: var(--fdic-font-size-body-small, 1rem);
         padding-right: 32px;
       }
 
@@ -538,9 +538,9 @@ export class FdLabel extends LitElement {
         height: 36px;
         padding: 6px;
         border: none;
-        border-radius: var(--ds-corner-radius-full, 9999px);
+        border-radius: var(--fdic-corner-radius-full, 9999px);
         background: transparent;
-        color: var(--ds-color-icon-primary, #424244);
+        color: var(--fdic-color-icon-primary, #424244);
         cursor: pointer;
         position: absolute;
         /* Align icon visually with label text cap height */
@@ -552,23 +552,23 @@ export class FdLabel extends LitElement {
 
       fd-label [part="infotip-trigger"]:hover {
         box-shadow: inset 0 0 0 999px
-          var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
+          var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04));
       }
 
       fd-label [part="infotip-trigger"]:active {
         box-shadow: inset 0 0 0 999px
-          var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
+          var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08));
       }
 
       fd-label [part="infotip-trigger"]:focus-visible {
         outline-color: transparent;
-        border: 2px solid var(--ds-color-border-input-active, #424244);
+        border: 2px solid var(--fdic-color-border-input-active, #424244);
         box-shadow: 0 0 2.5px 2px
-          var(--ds-color-border-input-focus, #38b6ff);
+          var(--fdic-color-border-input-focus, #38b6ff);
       }
 
       fd-label [part="infotip-trigger"][aria-expanded="true"] {
-        color: var(--ds-color-text-link, #1278b0);
+        color: var(--fdic-color-text-link, #1278b0);
       }
 
       fd-label [part="infotip-trigger"] .fd-label__infotip-icon {
@@ -582,12 +582,12 @@ export class FdLabel extends LitElement {
       fd-label .fd-label__infotip-panel {
         position: relative;
         margin: 0;
-        padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
+        padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
         border: none;
-        border-radius: var(--ds-corner-radius-lg, 7px);
-        background: var(--ds-color-bg-inverted, #212123);
-        color: var(--ds-color-neutral-000, #ffffff);
-        font-size: var(--ds-font-size-body-small, 1rem);
+        border-radius: var(--fdic-corner-radius-lg, 7px);
+        background: var(--fdic-color-bg-inverted, #212123);
+        color: var(--fdic-color-neutral-000, #ffffff);
+        font-size: var(--fdic-font-size-body-small, 1rem);
         line-height: 1.375;
         max-width: 224px;
         box-shadow:
@@ -637,7 +637,7 @@ export class FdLabel extends LitElement {
         left: 0;
         width: 12px;
         height: 12px;
-        background: var(--ds-color-bg-inverted, #212123);
+        background: var(--fdic-color-bg-inverted, #212123);
         transform: rotate(45deg);
         transform-origin: center center;
       }

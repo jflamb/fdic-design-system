@@ -74,7 +74,7 @@ The Card component presents a compact editorial preview with decorative media, a
 | `--fd-card-border-hover` | `#bdbdbf` | Border color used during linked hover and focus-visible state. |
 | `--fd-card-medium-media-size` | `160px` | Square media size in the `medium` layout. |
 | `--fd-card-large-media-aspect-ratio` | `67 / 44` | Image aspect ratio in the `large` layout. |
-| `--fd-card-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus-ring color for the title link. |
+| `--fd-card-focus-ring` | `var(--fdic-color-border-input-focus, #38b6ff)` | Outer focus-ring color for the title link. |
 
 ## Shadow parts
 

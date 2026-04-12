@@ -93,22 +93,22 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 
 | Name | Default | Description |
 |---|---|---|
-| `--fd-tile-list-col-2-min` | `var(--ds-layout-col-2-min, 384px)` | Desktop minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-2-max` | `var(--ds-layout-col-2-max, 688px)` | Desktop maximum tile-track width for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-2-gap` | `var(--ds-layout-col-2-gap, 48px)` | Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-3-min` | `var(--ds-layout-col-3-min, 360px)` | Desktop minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-3-max` | `var(--ds-layout-col-3-max, 440px)` | Desktop maximum tile-track width for the three-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-3-gap` | `var(--ds-layout-col-3-gap, 48px)` | Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-4-min` | `var(--ds-layout-col-4-min, 256px)` | Desktop minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-4-max` | `var(--ds-layout-col-4-max, 320px)` | Desktop maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-4-gap` | `var(--ds-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-2-min-mobile` | `var(--ds-layout-col-2-min-narrow, 320px)` | Narrow-screen minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-2-gap-mobile` | `var(--ds-layout-col-2-gap-narrow, 16px)` | Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-3-min-mobile` | `var(--ds-layout-col-3-min-narrow, 200px)` | Narrow-screen minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-3-gap-mobile` | `var(--ds-layout-col-3-gap-narrow, 16px)` | Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-4-min-mobile` | `var(--ds-layout-col-4-min-narrow, 160px)` | Narrow-screen minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-4-max-mobile` | `var(--ds-layout-col-4-max-narrow, 180px)` | Narrow-screen maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
-| `--fd-tile-list-col-4-gap-mobile` | `var(--ds-layout-col-4-gap-narrow, 16px)` | Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-2-min` | `var(--fdic-layout-col-2-min, 384px)` | Desktop minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-2-max` | `var(--fdic-layout-col-2-max, 688px)` | Desktop maximum tile-track width for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-2-gap` | `var(--fdic-layout-col-2-gap, 48px)` | Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-3-min` | `var(--fdic-layout-col-3-min, 360px)` | Desktop minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-3-max` | `var(--fdic-layout-col-3-max, 440px)` | Desktop maximum tile-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-3-gap` | `var(--fdic-layout-col-3-gap, 48px)` | Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-4-min` | `var(--fdic-layout-col-4-min, 256px)` | Desktop minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-4-max` | `var(--fdic-layout-col-4-max, 320px)` | Desktop maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-4-gap` | `var(--fdic-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-2-min-mobile` | `var(--fdic-layout-col-2-min-narrow, 320px)` | Narrow-screen minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-2-gap-mobile` | `var(--fdic-layout-col-2-gap-narrow, 16px)` | Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-3-min-mobile` | `var(--fdic-layout-col-3-min-narrow, 200px)` | Narrow-screen minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-3-gap-mobile` | `var(--fdic-layout-col-3-gap-narrow, 16px)` | Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-4-min-mobile` | `var(--fdic-layout-col-4-min-narrow, 160px)` | Narrow-screen minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-4-max-mobile` | `var(--fdic-layout-col-4-max-narrow, 180px)` | Narrow-screen maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-tile-list-col-4-gap-mobile` | `var(--fdic-layout-col-4-gap-narrow, 16px)` | Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
 
 ## Shadow parts
 

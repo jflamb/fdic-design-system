@@ -103,72 +103,72 @@
         },
         {
           "name": "--fd-button-focus-gap",
-          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "default": "`var(--fdic-color-bg-input, #ffffff)`",
           "description": "Inner gap color in the focus ring"
         },
         {
           "name": "--fd-button-focus-ring",
-          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Outer focus-ring color"
         },
         {
           "name": "--fd-button-bg-primary",
-          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "default": "`var(--fdic-color-bg-active, #0d6191)`",
           "description": "Primary background color"
         },
         {
           "name": "--fd-button-text-primary",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Primary text color"
         },
         {
           "name": "--fd-button-bg-destructive",
-          "default": "`var(--ds-color-bg-destructive, #d80e3a)`",
+          "default": "`var(--fdic-color-bg-destructive, #d80e3a)`",
           "description": "Destructive background color"
         },
         {
           "name": "--fd-button-text-destructive",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Destructive text color"
         },
         {
           "name": "--fd-button-bg-neutral",
-          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
           "description": "Neutral background color"
         },
         {
           "name": "--fd-button-text-neutral",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Neutral text color"
         },
         {
           "name": "--fd-button-text-subtle",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Subtle text color"
         },
         {
           "name": "--fd-button-text-subtle-inverted",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Subtle inverted text and icon color"
         },
         {
           "name": "--fd-button-text-outline",
-          "default": "`var(--ds-color-text-link, #1278b0)`",
+          "default": "`var(--fdic-color-text-link, #1278b0)`",
           "description": "Outline text color"
         },
         {
           "name": "--fd-button-border-outline",
-          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "default": "`var(--fdic-color-bg-active, #0d6191)`",
           "description": "Outline border color"
         },
         {
           "name": "--fd-button-overlay-hover",
-          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
           "description": "Hover overlay color"
         },
         {
           "name": "--fd-button-overlay-active",
-          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "default": "`var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
           "description": "Active overlay color"
         },
         {
@@ -183,17 +183,17 @@
         },
         {
           "name": "--fd-button-bg-disabled",
-          "default": "`var(--ds-color-bg-container, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-container, #f5f5f7)`",
           "description": "Disabled background color"
         },
         {
           "name": "--fd-button-text-disabled",
-          "default": "`var(--ds-color-text-disabled, #9e9ea0)`",
+          "default": "`var(--fdic-color-text-disabled, #9e9ea0)`",
           "description": "Disabled text color"
         },
         {
           "name": "--fd-button-border-outline-disabled",
-          "default": "`var(--ds-color-border-input-disabled, #d6d6d8)`",
+          "default": "`var(--fdic-color-border-input-disabled, #d6d6d8)`",
           "description": "Disabled outline border color"
         },
         {
@@ -379,12 +379,12 @@
         },
         {
           "name": "--fd-checkbox-overlay-hover",
-          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
           "description": "Hover overlay color"
         },
         {
           "name": "--fd-checkbox-overlay-active",
-          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "default": "`var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
           "description": "Active overlay color"
         },
         {
@@ -1011,12 +1011,12 @@
         },
         {
           "name": "--fd-radio-overlay-hover",
-          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
           "description": "Hover overlay color"
         },
         {
           "name": "--fd-radio-overlay-active",
-          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "default": "`var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
           "description": "Active overlay color"
         },
         {
@@ -2005,32 +2005,32 @@
         },
         {
           "name": "--fd-badge-text-color",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Shared text color across tones."
         },
         {
           "name": "--fd-badge-bg-neutral",
-          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
           "description": "Neutral badge background."
         },
         {
           "name": "--fd-badge-bg-cool",
-          "default": "`var(--ds-color-info-050, #f1f8fe)`",
+          "default": "`var(--fdic-color-info-050, #f1f8fe)`",
           "description": "Cool badge background."
         },
         {
           "name": "--fd-badge-bg-warm",
-          "default": "`var(--ds-color-secondary-050, #f8efda)`",
+          "default": "`var(--fdic-color-secondary-050, #f8efda)`",
           "description": "Warm badge background."
         },
         {
           "name": "--fd-badge-bg-positive",
-          "default": "`var(--ds-color-success-050, #e8f5e9)`",
+          "default": "`var(--fdic-color-success-050, #e8f5e9)`",
           "description": "Positive badge background."
         },
         {
           "name": "--fd-badge-bg-alert",
-          "default": "`var(--ds-color-error-050, #fdedea)`",
+          "default": "`var(--fdic-color-error-050, #fdedea)`",
           "description": "Alert badge background."
         }
       ],
@@ -2121,42 +2121,42 @@
         },
         {
           "name": "--fd-chip-text-color",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Shared text color across tones."
         },
         {
           "name": "--fd-chip-bg-neutral",
-          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
           "description": "Neutral chip background."
         },
         {
           "name": "--fd-chip-bg-cool",
-          "default": "`var(--ds-color-info-050, #f1f8fe)`",
+          "default": "`var(--fdic-color-info-050, #f1f8fe)`",
           "description": "Cool chip background."
         },
         {
           "name": "--fd-chip-bg-warm",
-          "default": "`var(--ds-color-secondary-050, #f8efda)`",
+          "default": "`var(--fdic-color-secondary-050, #f8efda)`",
           "description": "Warm chip background."
         },
         {
           "name": "--fd-chip-bg-positive",
-          "default": "`var(--ds-color-success-050, #e8f5e9)`",
+          "default": "`var(--fdic-color-success-050, #e8f5e9)`",
           "description": "Positive chip background."
         },
         {
           "name": "--fd-chip-bg-alert",
-          "default": "`var(--ds-color-error-050, #fdedea)`",
+          "default": "`var(--fdic-color-error-050, #fdedea)`",
           "description": "Alert chip background."
         },
         {
           "name": "--fd-chip-remove-overlay-hover",
-          "default": "`var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
+          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
           "description": "Hover overlay for the internal remove button."
         },
         {
           "name": "--fd-chip-remove-overlay-active",
-          "default": "`var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
+          "default": "`var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))`",
           "description": "Pressed overlay for the internal remove button."
         },
         {
@@ -2432,32 +2432,32 @@
         },
         {
           "name": "--fd-visual-bg-neutral",
-          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
           "description": "Neutral surface background."
         },
         {
           "name": "--fd-visual-fg-neutral",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Neutral foreground color used by the fallback glyph and slotted icon content."
         },
         {
           "name": "--fd-visual-bg-cool",
-          "default": "`var(--ds-color-info-100, #38b6ff)`",
+          "default": "`var(--fdic-color-info-100, #38b6ff)`",
           "description": "Cool surface background."
         },
         {
           "name": "--fd-visual-fg-cool",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Cool foreground color used by the fallback glyph and slotted icon content."
         },
         {
           "name": "--fd-visual-bg-warm",
-          "default": "`var(--ds-color-secondary-200, #ebd49b)`",
+          "default": "`var(--fdic-color-secondary-200, #ebd49b)`",
           "description": "Warm surface background."
         },
         {
           "name": "--fd-visual-fg-warm",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Warm foreground color used by the fallback glyph and slotted icon content."
         },
         {
@@ -2727,17 +2727,17 @@
         },
         {
           "name": "--fd-stripe-bg-neutral",
-          "default": "`var(--ds-color-border-divider, var(--fdic-border-divider, #bdbdbf))`",
+          "default": "`var(--fdic-color-border-divider, var(--fdic-border-divider, #bdbdbf))`",
           "description": "Neutral stripe color."
         },
         {
           "name": "--fd-stripe-bg-cool",
-          "default": "`var(--ds-color-info-100, #38b6ff)`",
+          "default": "`var(--fdic-color-info-100, #38b6ff)`",
           "description": "Cool stripe color."
         },
         {
           "name": "--fd-stripe-bg-warm",
-          "default": "`var(--ds-color-secondary-500, #d9af45)`",
+          "default": "`var(--fdic-color-secondary-500, #d9af45)`",
           "description": "Warm stripe color."
         }
       ],
@@ -2806,22 +2806,22 @@
       "rows": [
         {
           "name": "--fd-link-color-normal",
-          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "default": "`var(--fdic-color-bg-active, #0d6191)`",
           "description": "Default text color for the normal variant."
         },
         {
           "name": "--fd-link-color-visited",
-          "default": "`var(--ds-color-text-link-visited, #855aa5)`",
+          "default": "`var(--fdic-color-text-link-visited, #855aa5)`",
           "description": "Text color for the visited variant."
         },
         {
           "name": "--fd-link-color-subtle",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Default text color for the subtle variant before hover or focus."
         },
         {
           "name": "--fd-link-color-inverted",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Text color for links on dark surfaces."
         },
         {
@@ -2831,12 +2831,12 @@
         },
         {
           "name": "--fd-link-focus-gap",
-          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "default": "`var(--fdic-color-bg-input, #ffffff)`",
           "description": "Inner gap color in the focus ring."
         },
         {
           "name": "--fd-link-focus-ring",
-          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Outer focus-ring color."
         },
         {
@@ -2934,37 +2934,37 @@
         },
         {
           "name": "--fd-pagination-control-bg",
-          "default": "`var(--ds-color-bg-interactive, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
           "description": "Background for non-current page controls."
         },
         {
           "name": "--fd-pagination-control-color",
-          "default": "`var(--ds-color-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Text color for non-current page controls and the mobile summary."
         },
         {
           "name": "--fd-pagination-control-bg-disabled",
-          "default": "`var(--ds-color-bg-container, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-container, #f5f5f7)`",
           "description": "Background for disabled previous/next controls."
         },
         {
           "name": "--fd-pagination-control-color-disabled",
-          "default": "`var(--ds-color-text-disabled, #9e9ea0)`",
+          "default": "`var(--fdic-color-text-disabled, #9e9ea0)`",
           "description": "Text color for disabled controls and ellipsis items."
         },
         {
           "name": "--fd-pagination-current-bg",
-          "default": "`var(--ds-color-bg-active, #0d6191)`",
+          "default": "`var(--fdic-color-bg-active, #0d6191)`",
           "description": "Background for the current page control."
         },
         {
           "name": "--fd-pagination-current-color",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Text color for the current page control."
         },
         {
           "name": "--fd-pagination-select-bg",
-          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "default": "`var(--fdic-color-bg-input, #ffffff)`",
           "description": "Background for the mobile page select."
         },
         {
@@ -2974,12 +2974,12 @@
         },
         {
           "name": "--fd-pagination-focus-gap",
-          "default": "`var(--ds-color-bg-input, #ffffff)`",
+          "default": "`var(--fdic-color-bg-input, #ffffff)`",
           "description": "Inner gap color in the focus ring."
         },
         {
           "name": "--fd-pagination-focus-ring",
-          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Outer focus ring color."
         },
         {
@@ -3394,12 +3394,12 @@
         },
         {
           "name": "--fd-page-header-max-width",
-          "defaultValue": "`var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))`",
+          "defaultValue": "`var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))`",
           "description": "Maximum inline size of the page header content area. Defaults to the shared page-shell width contract."
         },
         {
           "name": "--fd-page-header-padding-block",
-          "defaultValue": "`var(--ds-layout-section-block-padding, 48px)`",
+          "defaultValue": "`var(--fdic-layout-section-block-padding, 48px)`",
           "description": "Block (vertical) padding on desktop. Defaults to the shared major-section spacing token."
         },
         {
@@ -3696,7 +3696,7 @@
         },
         {
           "name": "--fd-page-feedback-max-width",
-          "default": "`var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))`",
+          "default": "`var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))`",
           "description": "Maximum inline size of the feedback panel. Defaults to the shared page-shell width contract."
         },
         {
@@ -3711,7 +3711,7 @@
         },
         {
           "name": "--fd-page-feedback-block-padding",
-          "default": "`var(--ds-layout-section-block-padding-compact, 24px)`",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
           "description": "Desktop block padding. Defaults to the shared compact-section spacing token."
         },
         {
@@ -3721,7 +3721,7 @@
         },
         {
           "name": "--fd-page-feedback-gap",
-          "default": "`var(--ds-layout-stack-gap, 16px)`",
+          "default": "`var(--fdic-layout-stack-gap, 16px)`",
           "description": "Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token."
         },
         {
@@ -3847,12 +3847,12 @@
         },
         {
           "name": "--fd-tile-link-color",
-          "default": "`var(--ds-color-text-link, #1278b0)`",
+          "default": "`var(--fdic-color-text-link, #1278b0)`",
           "description": "Primary and supporting link color."
         },
         {
           "name": "--fd-tile-description-color",
-          "default": "`var(--ds-color-text-secondary, #595961)`",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
           "description": "Supporting description color."
         },
         {
@@ -3938,82 +3938,82 @@
       "rows": [
         {
           "name": "--fd-tile-list-col-2-min",
-          "default": "`var(--ds-layout-col-2-min, 384px)`",
+          "default": "`var(--fdic-layout-col-2-min, 384px)`",
           "description": "Desktop minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-max",
-          "default": "`var(--ds-layout-col-2-max, 688px)`",
+          "default": "`var(--fdic-layout-col-2-max, 688px)`",
           "description": "Desktop maximum tile-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-gap",
-          "default": "`var(--ds-layout-col-2-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-2-gap, 48px)`",
           "description": "Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-min",
-          "default": "`var(--ds-layout-col-3-min, 360px)`",
+          "default": "`var(--fdic-layout-col-3-min, 360px)`",
           "description": "Desktop minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-max",
-          "default": "`var(--ds-layout-col-3-max, 440px)`",
+          "default": "`var(--fdic-layout-col-3-max, 440px)`",
           "description": "Desktop maximum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-gap",
-          "default": "`var(--ds-layout-col-3-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
           "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-min",
-          "default": "`var(--ds-layout-col-4-min, 256px)`",
+          "default": "`var(--fdic-layout-col-4-min, 256px)`",
           "description": "Desktop minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-max",
-          "default": "`var(--ds-layout-col-4-max, 320px)`",
+          "default": "`var(--fdic-layout-col-4-max, 320px)`",
           "description": "Desktop maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-gap",
-          "default": "`var(--ds-layout-col-4-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-4-gap, 48px)`",
           "description": "Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-min-mobile",
-          "default": "`var(--ds-layout-col-2-min-narrow, 320px)`",
+          "default": "`var(--fdic-layout-col-2-min-narrow, 320px)`",
           "description": "Narrow-screen minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-gap-mobile",
-          "default": "`var(--ds-layout-col-2-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-2-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-min-mobile",
-          "default": "`var(--ds-layout-col-3-min-narrow, 200px)`",
+          "default": "`var(--fdic-layout-col-3-min-narrow, 200px)`",
           "description": "Narrow-screen minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-gap-mobile",
-          "default": "`var(--ds-layout-col-3-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-3-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-min-mobile",
-          "default": "`var(--ds-layout-col-4-min-narrow, 160px)`",
+          "default": "`var(--fdic-layout-col-4-min-narrow, 160px)`",
           "description": "Narrow-screen minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-max-mobile",
-          "default": "`var(--ds-layout-col-4-max-narrow, 180px)`",
+          "default": "`var(--fdic-layout-col-4-max-narrow, 180px)`",
           "description": "Narrow-screen maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-gap-mobile",
-          "default": "`var(--ds-layout-col-4-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-4-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         }
       ],
@@ -4100,12 +4100,12 @@
         },
         {
           "name": "--fd-event-link-color",
-          "default": "`var(--ds-color-text-link, #1278b0)`",
+          "default": "`var(--fdic-color-text-link, #1278b0)`",
           "description": "Linked title color."
         },
         {
           "name": "--fd-event-metadata-color",
-          "default": "`var(--ds-color-text-secondary, #595961)`",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
           "description": "Metadata text color."
         },
         {
@@ -4195,82 +4195,82 @@
       "rows": [
         {
           "name": "--fd-event-list-col-2-min",
-          "default": "`var(--ds-layout-col-2-min, 384px)`",
+          "default": "`var(--fdic-layout-col-2-min, 384px)`",
           "description": "Desktop minimum event-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-max",
-          "default": "`var(--ds-layout-col-2-max, 688px)`",
+          "default": "`var(--fdic-layout-col-2-max, 688px)`",
           "description": "Desktop maximum event-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-gap",
-          "default": "`var(--ds-layout-col-2-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-2-gap, 48px)`",
           "description": "Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-min",
-          "default": "`var(--ds-layout-col-3-min, 360px)`",
+          "default": "`var(--fdic-layout-col-3-min, 360px)`",
           "description": "Desktop minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-max",
-          "default": "`var(--ds-layout-col-3-max, 440px)`",
+          "default": "`var(--fdic-layout-col-3-max, 440px)`",
           "description": "Desktop maximum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-gap",
-          "default": "`var(--ds-layout-col-3-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
           "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-min",
-          "default": "`var(--ds-layout-col-4-min, 256px)`",
+          "default": "`var(--fdic-layout-col-4-min, 256px)`",
           "description": "Desktop minimum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-max",
-          "default": "`var(--ds-layout-col-4-max, 320px)`",
+          "default": "`var(--fdic-layout-col-4-max, 320px)`",
           "description": "Desktop maximum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-gap",
-          "default": "`var(--ds-layout-col-4-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-4-gap, 48px)`",
           "description": "Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-min-mobile",
-          "default": "`var(--ds-layout-col-2-min-narrow, 320px)`",
+          "default": "`var(--fdic-layout-col-2-min-narrow, 320px)`",
           "description": "Narrow-screen minimum event-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-gap-mobile",
-          "default": "`var(--ds-layout-col-2-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-2-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-min-mobile",
-          "default": "`var(--ds-layout-col-3-min-narrow, 200px)`",
+          "default": "`var(--fdic-layout-col-3-min-narrow, 200px)`",
           "description": "Narrow-screen minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-gap-mobile",
-          "default": "`var(--ds-layout-col-3-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-3-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-min-mobile",
-          "default": "`var(--ds-layout-col-4-min-narrow, 160px)`",
+          "default": "`var(--fdic-layout-col-4-min-narrow, 160px)`",
           "description": "Narrow-screen minimum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-max-mobile",
-          "default": "`var(--ds-layout-col-4-max-narrow, 180px)`",
+          "default": "`var(--fdic-layout-col-4-max-narrow, 180px)`",
           "description": "Narrow-screen maximum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-gap-mobile",
-          "default": "`var(--ds-layout-col-4-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-4-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         }
       ],
@@ -4382,7 +4382,7 @@
         },
         {
           "name": "--fd-card-focus-ring",
-          "default": "`var(--ds-color-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Outer focus-ring color for the title link."
         }
       ],
@@ -4479,7 +4479,7 @@
         },
         {
           "name": "--fd-global-footer-text-color",
-          "default": "`var(--ds-color-text-inverted, #ffffff)`",
+          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Inverted text color used inside the footer shell."
         },
         {
@@ -4494,12 +4494,12 @@
         },
         {
           "name": "--fd-global-footer-max-width",
-          "default": "`var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))`",
+          "default": "`var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))`",
           "description": "Maximum inline size of the footer content row. Defaults to the shared page-shell width contract."
         },
         {
           "name": "--fd-global-footer-padding-block",
-          "default": "`var(--ds-layout-section-block-padding, 48px)`",
+          "default": "`var(--fdic-layout-section-block-padding, 48px)`",
           "description": "Desktop block padding. Defaults to the shared major-section spacing token."
         },
         {
@@ -4603,82 +4603,82 @@
       "rows": [
         {
           "name": "--fd-card-group-col-2-min",
-          "default": "`var(--ds-layout-col-2-min, 384px)`",
+          "default": "`var(--fdic-layout-col-2-min, 384px)`",
           "description": "Desktop minimum card-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-max",
-          "default": "`var(--ds-layout-col-2-max, 688px)`",
+          "default": "`var(--fdic-layout-col-2-max, 688px)`",
           "description": "Desktop maximum card-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-gap",
-          "default": "`var(--ds-layout-col-2-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-2-gap, 48px)`",
           "description": "Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-min",
-          "default": "`var(--ds-layout-col-3-min, 360px)`",
+          "default": "`var(--fdic-layout-col-3-min, 360px)`",
           "description": "Desktop minimum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-max",
-          "default": "`var(--ds-layout-col-3-max, 440px)`",
+          "default": "`var(--fdic-layout-col-3-max, 440px)`",
           "description": "Desktop maximum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-gap",
-          "default": "`var(--ds-layout-col-3-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
           "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-min",
-          "default": "`var(--ds-layout-col-4-min, 256px)`",
+          "default": "`var(--fdic-layout-col-4-min, 256px)`",
           "description": "Desktop minimum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-max",
-          "default": "`var(--ds-layout-col-4-max, 320px)`",
+          "default": "`var(--fdic-layout-col-4-max, 320px)`",
           "description": "Desktop maximum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-gap",
-          "default": "`var(--ds-layout-col-4-gap, 48px)`",
+          "default": "`var(--fdic-layout-col-4-gap, 48px)`",
           "description": "Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-min-mobile",
-          "default": "`var(--ds-layout-col-2-min-narrow, 320px)`",
+          "default": "`var(--fdic-layout-col-2-min-narrow, 320px)`",
           "description": "Narrow-screen minimum card-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-gap-mobile",
-          "default": "`var(--ds-layout-col-2-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-2-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-min-mobile",
-          "default": "`var(--ds-layout-col-3-min-narrow, 200px)`",
+          "default": "`var(--fdic-layout-col-3-min-narrow, 200px)`",
           "description": "Narrow-screen minimum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-gap-mobile",
-          "default": "`var(--ds-layout-col-3-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-3-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-min-mobile",
-          "default": "`var(--ds-layout-col-4-min-narrow, 160px)`",
+          "default": "`var(--fdic-layout-col-4-min-narrow, 160px)`",
           "description": "Narrow-screen minimum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-max-mobile",
-          "default": "`var(--ds-layout-col-4-max-narrow, 180px)`",
+          "default": "`var(--fdic-layout-col-4-max-narrow, 180px)`",
           "description": "Narrow-screen maximum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-gap-mobile",
-          "default": "`var(--ds-layout-col-4-gap-narrow, 16px)`",
+          "default": "`var(--fdic-layout-col-4-gap-narrow, 16px)`",
           "description": "Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         }
       ],

@@ -12,10 +12,10 @@ export class FdPlaceholder extends LitElement {
       place-content: center;
       min-width: 12rem;
       padding: 0.75rem 1rem;
-      border: 1px dashed var(--ds-color-border-divider, #7a7a7a);
+      border: 1px dashed var(--fdic-color-border-divider, #7a7a7a);
       border-radius: 0.5rem;
-      background: var(--ds-color-bg-container, #f5f5f5);
-      color: var(--ds-color-text-primary, #1f1f1f);
+      background: var(--fdic-color-bg-container, #f5f5f5);
+      color: var(--fdic-color-text-primary, #1f1f1f);
       font: 600 0.95rem/1.2 sans-serif;
       letter-spacing: 0.02em;
     }

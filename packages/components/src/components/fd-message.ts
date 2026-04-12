@@ -97,10 +97,10 @@ export class FdMessage extends LitElement {
     return html`<style>
       fd-message {
         display: block;
-        font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-        font-size: var(--ds-font-size-body-small, 1rem);
+        font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+        font-size: var(--fdic-font-size-body-small, 1rem);
         line-height: 1.375;
-        color: var(--ds-color-text-secondary, #595961);
+        color: var(--fdic-color-text-secondary, #595961);
       }
 
       fd-message[hidden] {
@@ -110,7 +110,7 @@ export class FdMessage extends LitElement {
       fd-message [part="message"] {
         display: inline-flex;
         align-items: flex-start;
-        gap: var(--ds-spacing-2xs, 0.25rem);
+        gap: var(--fdic-spacing-2xs, 0.25rem);
         margin-top: 6px;
       }
 
@@ -126,15 +126,15 @@ export class FdMessage extends LitElement {
       /* --- State colors --- */
 
       fd-message[state="error"] [part="message"] {
-        color: var(--ds-color-semantic-fg-error, #d80e3a);
+        color: var(--fdic-color-semantic-fg-error, #d80e3a);
       }
 
       fd-message[state="warning"] [part="message"] {
-        color: var(--ds-color-semantic-fg-warning, #8a6100);
+        color: var(--fdic-color-semantic-fg-warning, #8a6100);
       }
 
       fd-message[state="success"] [part="message"] {
-        color: var(--ds-color-semantic-fg-success, #1e8232);
+        color: var(--fdic-color-semantic-fg-success, #1e8232);
       }
 
       /* --- Forced colors --- */

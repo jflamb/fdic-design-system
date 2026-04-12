@@ -76,8 +76,8 @@ The Event component presents a dated event summary with a visible month and day 
 | Name | Default | Description |
 |---|---|---|
 | `--fd-event-gap` | `12px` | Gap between the date block and the text column. |
-| `--fd-event-link-color` | `var(--ds-color-text-link, #1278b0)` | Linked title color. |
-| `--fd-event-metadata-color` | `var(--ds-color-text-secondary, #595961)` | Metadata text color. |
+| `--fd-event-link-color` | `var(--fdic-color-text-link, #1278b0)` | Linked title color. |
+| `--fd-event-metadata-color` | `var(--fdic-color-text-secondary, #595961)` | Metadata text color. |
 | `--fd-event-date-size` | `48px` | Visible month/day block size. |
 
 - The component exposes tone-specific date-block hooks such as `--fd-event-date-bg-warm` and `--fd-event-date-bg-cool` when a product needs to align the event family to a different token mapping without changing the public API.

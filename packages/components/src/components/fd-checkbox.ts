@@ -19,11 +19,11 @@ export class FdCheckbox extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--ds-color-text-primary);
+      color: var(--fdic-color-text-primary);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
     }
 
@@ -34,7 +34,7 @@ export class FdCheckbox extends LitElement {
     label {
       display: flex;
       align-items: flex-start;
-      gap: var(--fd-checkbox-gap, var(--ds-spacing-xs, 8px));
+      gap: var(--fd-checkbox-gap, var(--fdic-spacing-xs, 8px));
       max-inline-size: 100%;
       cursor: pointer;
       position: relative;
@@ -49,7 +49,7 @@ export class FdCheckbox extends LitElement {
       place-content: center;
       inline-size: var(--fd-checkbox-size, 1.5em);
       block-size: var(--fd-checkbox-size, 1.5em);
-      color: var(--fd-checkbox-border-color, var(--ds-color-text-primary));
+      color: var(--fd-checkbox-border-color, var(--fdic-color-text-primary));
       flex-shrink: 0;
     }
 
@@ -59,22 +59,22 @@ export class FdCheckbox extends LitElement {
       margin: 0;
       border-radius: var(
         --fd-checkbox-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
       accent-color: currentColor;
       box-sizing: border-box;
       outline-color: transparent;
       transition:
-        outline-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        box-shadow var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
+        outline-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        box-shadow var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease);
     }
 
     [part="control"] input:focus-visible {
       outline: 2.5px solid
         var(
           --fd-checkbox-focus-color,
-          var(--ds-focus-ring-color)
+          var(--fdic-focus-ring-color)
         );
       outline-offset: 2px;
     }
@@ -83,7 +83,7 @@ export class FdCheckbox extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-checkbox-overlay-hover,
-          var(--ds-color-overlay-hover)
+          var(--fdic-color-overlay-hover)
         );
     }
 
@@ -91,21 +91,21 @@ export class FdCheckbox extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-checkbox-overlay-active,
-          var(--ds-color-overlay-pressed)
+          var(--fdic-color-overlay-pressed)
         );
     }
 
     :host([disabled]) [part="control"] {
-      color: var(--ds-color-text-disabled, #9e9ea0);
+      color: var(--fdic-color-text-disabled, #9e9ea0);
     }
 
     :host([data-user-invalid]) [part="control"] {
-      color: var(--fd-checkbox-invalid-color, var(--ds-color-semantic-fg-error));
+      color: var(--fd-checkbox-invalid-color, var(--fdic-color-semantic-fg-error));
     }
 
     [part="label"] {
       display: grid;
-      gap: var(--ds-spacing-3xs, 2px);
+      gap: var(--fdic-spacing-3xs, 2px);
       min-inline-size: 0;
       flex: 1;
       color: inherit;
@@ -117,8 +117,8 @@ export class FdCheckbox extends LitElement {
 
     [part="description"] {
       display: block;
-      color: var(--ds-color-text-secondary);
-      font-size: var(--ds-font-size-body-small, 1rem);
+      color: var(--fdic-color-text-secondary);
+      font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
     [part="description"][hidden] {
@@ -126,7 +126,7 @@ export class FdCheckbox extends LitElement {
     }
 
     :host([disabled]) [part="label"] {
-      color: var(--ds-color-text-disabled, #9e9ea0);
+      color: var(--fdic-color-text-disabled, #9e9ea0);
     }
 
     @media (forced-colors: active) {

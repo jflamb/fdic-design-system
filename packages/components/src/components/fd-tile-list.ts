@@ -44,22 +44,22 @@ export class FdTileList extends LitElement {
     css`
     :host {
       display: block;
-      --fd-tile-list-col-2-min: var(--ds-layout-col-2-min);
-      --fd-tile-list-col-2-max: var(--ds-layout-col-2-max);
-      --fd-tile-list-col-2-gap: var(--ds-layout-col-2-gap);
-      --fd-tile-list-col-3-min: var(--ds-layout-col-3-min);
-      --fd-tile-list-col-3-max: var(--ds-layout-col-3-max);
-      --fd-tile-list-col-3-gap: var(--ds-layout-col-3-gap);
-      --fd-tile-list-col-4-min: var(--ds-layout-col-4-min);
-      --fd-tile-list-col-4-max: var(--ds-layout-col-4-max);
-      --fd-tile-list-col-4-gap: var(--ds-layout-col-4-gap);
-      --fd-tile-list-col-2-min-mobile: var(--ds-layout-col-2-min-narrow);
-      --fd-tile-list-col-2-gap-mobile: var(--ds-layout-col-2-gap-narrow);
-      --fd-tile-list-col-3-min-mobile: var(--ds-layout-col-3-min-narrow);
-      --fd-tile-list-col-3-gap-mobile: var(--ds-layout-col-3-gap-narrow);
-      --fd-tile-list-col-4-min-mobile: var(--ds-layout-col-4-min-narrow);
-      --fd-tile-list-col-4-max-mobile: var(--ds-layout-col-4-max-narrow);
-      --fd-tile-list-col-4-gap-mobile: var(--ds-layout-col-4-gap-narrow);
+      --fd-tile-list-col-2-min: var(--fdic-layout-col-2-min);
+      --fd-tile-list-col-2-max: var(--fdic-layout-col-2-max);
+      --fd-tile-list-col-2-gap: var(--fdic-layout-col-2-gap);
+      --fd-tile-list-col-3-min: var(--fdic-layout-col-3-min);
+      --fd-tile-list-col-3-max: var(--fdic-layout-col-3-max);
+      --fd-tile-list-col-3-gap: var(--fdic-layout-col-3-gap);
+      --fd-tile-list-col-4-min: var(--fdic-layout-col-4-min);
+      --fd-tile-list-col-4-max: var(--fdic-layout-col-4-max);
+      --fd-tile-list-col-4-gap: var(--fdic-layout-col-4-gap);
+      --fd-tile-list-col-2-min-mobile: var(--fdic-layout-col-2-min-narrow);
+      --fd-tile-list-col-2-gap-mobile: var(--fdic-layout-col-2-gap-narrow);
+      --fd-tile-list-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow);
+      --fd-tile-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap-narrow);
+      --fd-tile-list-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
+      --fd-tile-list-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
+      --fd-tile-list-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);
     }
 
     :host([hidden]) {

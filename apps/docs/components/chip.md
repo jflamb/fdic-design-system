@@ -58,14 +58,14 @@ A dismissible pill for active filters, selected tokens, or removable lightweight
 | `--fd-chip-remove-gap` | `var(--fdic-spacing-3xs, 2px)` | Space between the label and the remove affordance. |
 | `--fd-chip-radius` | `9999px` | Pill corner radius. |
 | `--fd-chip-font-size` | `var(--fdic-font-size-body-small, 1rem)` | Label font size. |
-| `--fd-chip-text-color` | `var(--ds-color-text-primary, #212123)` | Shared text color across tones. |
-| `--fd-chip-bg-neutral` | `var(--ds-color-bg-interactive, #f5f5f7)` | Neutral chip background. |
-| `--fd-chip-bg-cool` | `var(--ds-color-info-050, #f1f8fe)` | Cool chip background. |
-| `--fd-chip-bg-warm` | `var(--ds-color-secondary-050, #f8efda)` | Warm chip background. |
-| `--fd-chip-bg-positive` | `var(--ds-color-success-050, #e8f5e9)` | Positive chip background. |
-| `--fd-chip-bg-alert` | `var(--ds-color-error-050, #fdedea)` | Alert chip background. |
-| `--fd-chip-remove-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay for the internal remove button. |
-| `--fd-chip-remove-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Pressed overlay for the internal remove button. |
+| `--fd-chip-text-color` | `var(--fdic-color-text-primary, #212123)` | Shared text color across tones. |
+| `--fd-chip-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral chip background. |
+| `--fd-chip-bg-cool` | `var(--fdic-color-info-050, #f1f8fe)` | Cool chip background. |
+| `--fd-chip-bg-warm` | `var(--fdic-color-secondary-050, #f8efda)` | Warm chip background. |
+| `--fd-chip-bg-positive` | `var(--fdic-color-success-050, #e8f5e9)` | Positive chip background. |
+| `--fd-chip-bg-alert` | `var(--fdic-color-error-050, #fdedea)` | Alert chip background. |
+| `--fd-chip-remove-overlay-hover` | `var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay for the internal remove button. |
+| `--fd-chip-remove-overlay-active` | `var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Pressed overlay for the internal remove button. |
 | `--fd-chip-remove-focus-ring` | `var(--fdic-border-input-focus, #38b6ff)` | Focus-ring color for the internal remove button. |
 
 ## Shadow parts

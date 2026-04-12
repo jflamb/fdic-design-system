@@ -21,8 +21,8 @@ describe("component runtime warning", () => {
   });
 
   it("stays silent when the required runtime tokens are present", () => {
-    document.documentElement.style.setProperty("--ds-color-text-primary", "black");
-    document.documentElement.style.setProperty("--ds-spacing-md", "1rem");
+    document.documentElement.style.setProperty("--fdic-color-text-primary", "black");
+    document.documentElement.style.setProperty("--fdic-spacing-md", "1rem");
     document.documentElement.style.setProperty("--fdic-font-size-body", "1rem");
 
     const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});

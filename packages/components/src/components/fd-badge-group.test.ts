@@ -130,7 +130,7 @@ describe("FdBadgeGroup", () => {
       }
     ).styles?.cssText ?? "";
 
-    expect(styles).toContain("var(--fd-badge-group-gap, var(--ds-spacing-2xs, 4px))");
+    expect(styles).toContain("var(--fd-badge-group-gap, var(--fdic-spacing-2xs, 4px))");
   });
 
   it("keeps assigned badge count in sync when a badge is removed", async () => {

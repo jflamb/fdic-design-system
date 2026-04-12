@@ -80,8 +80,8 @@ The Tile component presents one primary destination with a decorative circular i
 | Name | Default | Description |
 |---|---|---|
 | `--fd-tile-gap` | `12px` | Gap between the decorative visual and the text column before larger responsive breakpoints. |
-| `--fd-tile-link-color` | `var(--ds-color-text-link, #1278b0)` | Primary and supporting link color. |
-| `--fd-tile-description-color` | `var(--ds-color-text-secondary, #595961)` | Supporting description color. |
+| `--fd-tile-link-color` | `var(--fdic-color-text-link, #1278b0)` | Primary and supporting link color. |
+| `--fd-tile-description-color` | `var(--fdic-color-text-secondary, #595961)` | Supporting description color. |
 | `--fd-tile-links-gap` | `4px` | Gap between supporting links in the optional link stack. |
 
 - The component also forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively. Prefer the documented tile-level hooks before overriding the nested visual directly.

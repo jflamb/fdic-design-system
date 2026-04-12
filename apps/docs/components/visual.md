@@ -52,12 +52,12 @@ Slot content is decorative in v1. Do not slot interactive controls or content th
 | `--fd-visual-padding` | Preset from `size` | Overrides the inner padding for non-avatar variants. |
 | `--fd-visual-content-size` | Preset from `size` | Overrides the inner content box size for non-avatar variants. |
 | `--fd-visual-radius` | `9999px` | Corner radius for the circular surface. |
-| `--fd-visual-bg-neutral` | `var(--ds-color-bg-interactive, #f5f5f7)` | Neutral surface background. |
-| `--fd-visual-fg-neutral` | `var(--ds-color-text-primary, #212123)` | Neutral foreground color used by the fallback glyph and slotted icon content. |
-| `--fd-visual-bg-cool` | `var(--ds-color-info-100, #38b6ff)` | Cool surface background. |
-| `--fd-visual-fg-cool` | `var(--ds-color-text-inverted, #ffffff)` | Cool foreground color used by the fallback glyph and slotted icon content. |
-| `--fd-visual-bg-warm` | `var(--ds-color-secondary-200, #ebd49b)` | Warm surface background. |
-| `--fd-visual-fg-warm` | `var(--ds-color-text-primary, #212123)` | Warm foreground color used by the fallback glyph and slotted icon content. |
+| `--fd-visual-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral surface background. |
+| `--fd-visual-fg-neutral` | `var(--fdic-color-text-primary, #212123)` | Neutral foreground color used by the fallback glyph and slotted icon content. |
+| `--fd-visual-bg-cool` | `var(--fdic-color-info-100, #38b6ff)` | Cool surface background. |
+| `--fd-visual-fg-cool` | `var(--fdic-color-text-inverted, #ffffff)` | Cool foreground color used by the fallback glyph and slotted icon content. |
+| `--fd-visual-bg-warm` | `var(--fdic-color-secondary-200, #ebd49b)` | Warm surface background. |
+| `--fd-visual-fg-warm` | `var(--fdic-color-text-primary, #212123)` | Warm foreground color used by the fallback glyph and slotted icon content. |
 | `--fd-visual-bg-avatar` | `transparent` | Avatar background surface. |
 | `--fd-visual-avatar-placeholder-color` | `#b0b0b3` | Placeholder avatar silhouette color. |
 

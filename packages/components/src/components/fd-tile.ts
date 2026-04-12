@@ -39,8 +39,8 @@ export class FdTile extends LitElement {
     :host {
       display: block;
       container-type: inline-size;
-      color: var(--ds-color-text-primary);
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      color: var(--fdic-color-text-primary);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -50,7 +50,7 @@ export class FdTile extends LitElement {
     [part="base"] {
       display: flex;
       align-items: flex-start;
-      gap: var(--fd-tile-gap, var(--ds-spacing-sm, 12px));
+      gap: var(--fd-tile-gap, var(--fdic-spacing-sm, 12px));
       min-inline-size: 0;
       box-sizing: border-box;
     }
@@ -70,7 +70,7 @@ export class FdTile extends LitElement {
 
     [part="visual"] fd-visual {
       --fd-visual-size: var(--fd-tile-visual-size, 40px);
-      --fd-visual-padding: var(--fd-tile-visual-padding, var(--ds-spacing-xs, 8px));
+      --fd-visual-padding: var(--fd-tile-visual-padding, var(--fdic-spacing-xs, 8px));
       --fd-visual-content-size: var(--fd-tile-visual-content-size, 18px);
       flex: none;
     }
@@ -98,7 +98,7 @@ export class FdTile extends LitElement {
     .title-link,
     .title-text,
     .support-link {
-      color: var(--fd-tile-link-color, var(--ds-color-text-link));
+      color: var(--fd-tile-link-color, var(--fdic-color-text-link));
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
@@ -114,13 +114,13 @@ export class FdTile extends LitElement {
     .title-link,
     .title-text {
       display: inline;
-      font-size: var(--fd-tile-title-font-size, var(--ds-font-size-body, 18px));
+      font-size: var(--fd-tile-title-font-size, var(--fdic-font-size-body, 18px));
       font-weight: var(--fd-tile-title-font-weight, 400);
       line-height: var(--fd-tile-title-line-height, 1.375);
     }
 
     .title-text {
-      color: var(--ds-color-text-primary);
+      color: var(--fdic-color-text-primary);
       text-decoration-line: none;
     }
 
@@ -130,7 +130,7 @@ export class FdTile extends LitElement {
     .support-link:focus-visible {
       background: var(
         --fd-tile-link-hover-overlay,
-        var(--ds-color-overlay-hover)
+        var(--fdic-color-overlay-hover)
       );
       text-decoration-thickness: var(
         --fd-tile-link-underline-thickness-emphasis,
@@ -140,12 +140,12 @@ export class FdTile extends LitElement {
 
     .title-link:focus-visible,
     .support-link:focus-visible {
-      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px)
-          var(--fd-tile-focus-gap, var(--ds-focus-gap-color)),
-        0 0 0 var(--ds-focus-ring-width, 4px)
+      box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fd-tile-focus-gap, var(--fdic-focus-gap-color)),
+        0 0 0 var(--fdic-focus-ring-width, 4px)
           var(
             --fd-tile-focus-ring,
-            var(--ds-focus-ring-color)
+            var(--fdic-focus-ring-color)
           );
     }
 
@@ -153,11 +153,11 @@ export class FdTile extends LitElement {
       margin: 0;
       color: var(
         --fd-tile-description-color,
-        var(--ds-color-text-secondary)
+        var(--fdic-color-text-secondary)
       );
       font-size: var(
         --fd-tile-description-font-size,
-        var(--ds-font-size-body-small, 16px)
+        var(--fdic-font-size-body-small, 16px)
       );
       font-weight: 400;
       line-height: 1.375;
@@ -166,9 +166,9 @@ export class FdTile extends LitElement {
 
     [part="links"] {
       display: grid;
-      gap: var(--fd-tile-links-gap, var(--ds-spacing-2xs, 4px));
+      gap: var(--fd-tile-links-gap, var(--fdic-spacing-2xs, 4px));
       margin: 0;
-      margin-block-start: var(--fd-tile-links-margin-block-start, var(--ds-spacing-xs, 8px));
+      margin-block-start: var(--fd-tile-links-margin-block-start, var(--fdic-spacing-xs, 8px));
       padding: 0;
       list-style: none;
     }
@@ -181,7 +181,7 @@ export class FdTile extends LitElement {
       display: inline;
       font-size: var(
         --fd-tile-support-link-font-size,
-        var(--ds-font-size-body, 18px)
+        var(--fdic-font-size-body, 18px)
       );
       font-weight: 400;
       line-height: 1.375;
@@ -199,12 +199,12 @@ export class FdTile extends LitElement {
       }
 
       [part="text"] {
-        gap: var(--ds-spacing-3xs, 2px);
+        gap: var(--fdic-spacing-3xs, 2px);
       }
 
       .title-link,
       .title-text {
-        font-size: var(--ds-font-size-body-big, 20px);
+        font-size: var(--fdic-font-size-body-big, 20px);
         font-weight: 450;
         line-height: 1.25;
       }
@@ -212,7 +212,7 @@ export class FdTile extends LitElement {
 
     @container (min-width: 440px) {
       [part="base"] {
-        gap: var(--ds-spacing-md, 16px);
+        gap: var(--fdic-spacing-md, 16px);
       }
 
       [part="visual"] {
@@ -231,7 +231,7 @@ export class FdTile extends LitElement {
       }
 
       [part="description"] {
-        font-size: var(--ds-font-size-body, 18px);
+        font-size: var(--fdic-font-size-body, 18px);
       }
     }
 

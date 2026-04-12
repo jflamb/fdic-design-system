@@ -103,8 +103,8 @@ describe("FdPageHeader", () => {
       }
     ).styles?.cssText ?? "";
 
-    expect(styles).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
-    expect(styles).toContain("var(--ds-layout-section-block-padding, var(--ds-spacing-3xl, 48px))");
+    expect(styles).toContain("var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))");
+    expect(styles).toContain("var(--fdic-layout-section-block-padding, var(--fdic-spacing-3xl, 48px))");
   });
 
   // --- Rendering ---

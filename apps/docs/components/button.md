@@ -68,25 +68,25 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 | `--fd-button-font-size` | `var(--fdic-font-size-body, 18px)` | Button font size |
 | `--fd-button-icon-only-size` | `var(--fd-button-height, 44px)` | Square size for icon-only buttons |
 | `--fd-button-icon-edge-padding` | `11px` | Extra inline padding when a leading or trailing icon is present |
-| `--fd-button-focus-gap` | `var(--ds-color-bg-input, #ffffff)` | Inner gap color in the focus ring |
-| `--fd-button-focus-ring` | `var(--ds-color-border-input-focus, #38b6ff)` | Outer focus-ring color |
-| `--fd-button-bg-primary` | `var(--ds-color-bg-active, #0d6191)` | Primary background color |
-| `--fd-button-text-primary` | `var(--ds-color-text-inverted, #ffffff)` | Primary text color |
-| `--fd-button-bg-destructive` | `var(--ds-color-bg-destructive, #d80e3a)` | Destructive background color |
-| `--fd-button-text-destructive` | `var(--ds-color-text-inverted, #ffffff)` | Destructive text color |
-| `--fd-button-bg-neutral` | `var(--ds-color-bg-interactive, #f5f5f7)` | Neutral background color |
-| `--fd-button-text-neutral` | `var(--ds-color-text-primary, #212123)` | Neutral text color |
-| `--fd-button-text-subtle` | `var(--ds-color-text-primary, #212123)` | Subtle text color |
-| `--fd-button-text-subtle-inverted` | `var(--ds-color-text-inverted, #ffffff)` | Subtle inverted text and icon color |
-| `--fd-button-text-outline` | `var(--ds-color-text-link, #1278b0)` | Outline text color |
-| `--fd-button-border-outline` | `var(--ds-color-bg-active, #0d6191)` | Outline border color |
-| `--fd-button-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
-| `--fd-button-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
+| `--fd-button-focus-gap` | `var(--fdic-color-bg-input, #ffffff)` | Inner gap color in the focus ring |
+| `--fd-button-focus-ring` | `var(--fdic-color-border-input-focus, #38b6ff)` | Outer focus-ring color |
+| `--fd-button-bg-primary` | `var(--fdic-color-bg-active, #0d6191)` | Primary background color |
+| `--fd-button-text-primary` | `var(--fdic-color-text-inverted, #ffffff)` | Primary text color |
+| `--fd-button-bg-destructive` | `var(--fdic-color-bg-destructive, #d80e3a)` | Destructive background color |
+| `--fd-button-text-destructive` | `var(--fdic-color-text-inverted, #ffffff)` | Destructive text color |
+| `--fd-button-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral background color |
+| `--fd-button-text-neutral` | `var(--fdic-color-text-primary, #212123)` | Neutral text color |
+| `--fd-button-text-subtle` | `var(--fdic-color-text-primary, #212123)` | Subtle text color |
+| `--fd-button-text-subtle-inverted` | `var(--fdic-color-text-inverted, #ffffff)` | Subtle inverted text and icon color |
+| `--fd-button-text-outline` | `var(--fdic-color-text-link, #1278b0)` | Outline text color |
+| `--fd-button-border-outline` | `var(--fdic-color-bg-active, #0d6191)` | Outline border color |
+| `--fd-button-overlay-hover` | `var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
+| `--fd-button-overlay-active` | `var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
 | `--fd-button-overlay-hover-inverted` | `rgba(255, 255, 255, 0.12)` | Hover overlay color for `subtle-inverted` |
 | `--fd-button-overlay-active-inverted` | `rgba(255, 255, 255, 0.18)` | Active overlay color for `subtle-inverted` |
-| `--fd-button-bg-disabled` | `var(--ds-color-bg-container, #f5f5f7)` | Disabled background color |
-| `--fd-button-text-disabled` | `var(--ds-color-text-disabled, #9e9ea0)` | Disabled text color |
-| `--fd-button-border-outline-disabled` | `var(--ds-color-border-input-disabled, #d6d6d8)` | Disabled outline border color |
+| `--fd-button-bg-disabled` | `var(--fdic-color-bg-container, #f5f5f7)` | Disabled background color |
+| `--fd-button-text-disabled` | `var(--fdic-color-text-disabled, #9e9ea0)` | Disabled text color |
+| `--fd-button-border-outline-disabled` | `var(--fdic-color-border-input-disabled, #d6d6d8)` | Disabled outline border color |
 | `--fd-button-spinner-size` | `1em` | Spinner size in loading state |
 | `--fd-button-spinner-speed` | `0.8s` | Spinner rotation duration |
 

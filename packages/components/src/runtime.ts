@@ -1,6 +1,6 @@
 const REQUIRED_RUNTIME_TOKENS = [
-  "--ds-color-text-primary",
-  "--ds-spacing-md",
+  "--fdic-color-text-primary",
+  "--fdic-spacing-md",
   "--fdic-font-size-body",
 ];
 

@@ -18,13 +18,13 @@ const FIGMA_NARROW_THRESHOLD_PX: Record<CollectionColumns, number> = {
 function trackMinToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
   const componentSuffix = narrow ? `col-${columns}-min-mobile` : `col-${columns}-min`;
   const sharedSuffix = narrow ? `col-${columns}-min-narrow` : `col-${columns}-min`;
-  return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--ds-layout-${sharedSuffix}))`);
+  return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--fdic-layout-${sharedSuffix}))`);
 }
 
 function trackGapToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
   const componentSuffix = narrow ? `col-${columns}-gap-mobile` : `col-${columns}-gap`;
   const sharedSuffix = narrow ? `col-${columns}-gap-narrow` : `col-${columns}-gap`;
-  return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--ds-layout-${sharedSuffix}))`);
+  return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--fdic-layout-${sharedSuffix}))`);
 }
 
 function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boolean) {
@@ -34,7 +34,7 @@ function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boole
 
   const componentSuffix = narrow ? `col-${columns}-max-mobile` : `col-${columns}-max`;
   const sharedSuffix = narrow ? `col-${columns}-max-narrow` : `col-${columns}-max`;
-  return unsafeCSS(`min(100%, var(--${prefix}-${componentSuffix}, var(--ds-layout-${sharedSuffix})))`);
+  return unsafeCSS(`min(100%, var(--${prefix}-${componentSuffix}, var(--fdic-layout-${sharedSuffix})))`);
 }
 
 function selector(columns: CollectionColumns, narrow: boolean) {

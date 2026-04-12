@@ -37,22 +37,22 @@ export class FdCardGroup extends LitElement {
     css`
     :host {
       display: block;
-      --fd-card-group-col-2-min: var(--ds-layout-col-2-min);
-      --fd-card-group-col-2-max: var(--ds-layout-col-2-max);
-      --fd-card-group-col-2-gap: var(--ds-layout-col-2-gap);
-      --fd-card-group-col-3-min: var(--ds-layout-col-3-min);
-      --fd-card-group-col-3-max: var(--ds-layout-col-3-max);
-      --fd-card-group-col-3-gap: var(--ds-layout-col-3-gap);
-      --fd-card-group-col-4-min: var(--ds-layout-col-4-min);
-      --fd-card-group-col-4-max: var(--ds-layout-col-4-max);
-      --fd-card-group-col-4-gap: var(--ds-layout-col-4-gap);
-      --fd-card-group-col-2-min-mobile: var(--ds-layout-col-2-min-narrow);
-      --fd-card-group-col-2-gap-mobile: var(--ds-layout-col-2-gap-narrow);
-      --fd-card-group-col-3-min-mobile: var(--ds-layout-col-3-min-narrow);
-      --fd-card-group-col-3-gap-mobile: var(--ds-layout-col-3-gap-narrow);
-      --fd-card-group-col-4-min-mobile: var(--ds-layout-col-4-min-narrow);
-      --fd-card-group-col-4-max-mobile: var(--ds-layout-col-4-max-narrow);
-      --fd-card-group-col-4-gap-mobile: var(--ds-layout-col-4-gap-narrow);
+      --fd-card-group-col-2-min: var(--fdic-layout-col-2-min);
+      --fd-card-group-col-2-max: var(--fdic-layout-col-2-max);
+      --fd-card-group-col-2-gap: var(--fdic-layout-col-2-gap);
+      --fd-card-group-col-3-min: var(--fdic-layout-col-3-min);
+      --fd-card-group-col-3-max: var(--fdic-layout-col-3-max);
+      --fd-card-group-col-3-gap: var(--fdic-layout-col-3-gap);
+      --fd-card-group-col-4-min: var(--fdic-layout-col-4-min);
+      --fd-card-group-col-4-max: var(--fdic-layout-col-4-max);
+      --fd-card-group-col-4-gap: var(--fdic-layout-col-4-gap);
+      --fd-card-group-col-2-min-mobile: var(--fdic-layout-col-2-min-narrow);
+      --fd-card-group-col-2-gap-mobile: var(--fdic-layout-col-2-gap-narrow);
+      --fd-card-group-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow);
+      --fd-card-group-col-3-gap-mobile: var(--fdic-layout-col-3-gap-narrow);
+      --fd-card-group-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
+      --fd-card-group-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
+      --fd-card-group-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);
     }
 
     :host([hidden]) {

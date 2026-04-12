@@ -49,17 +49,17 @@ export class FdHero extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      color: var(--ds-color-text-inverted);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      color: var(--fdic-color-text-inverted);
 
       /* Cool tone overlay tokens (default) */
-      --fd-hero-overlay-cool-panel: oklch(from var(--ds-color-primary-800) l c h / 0.7);
+      --fd-hero-overlay-cool-panel: oklch(from var(--fdic-color-primary-800) l c h / 0.7);
 
       /* Warm tone overlay tokens */
-      --fd-hero-overlay-warm-panel: oklch(from var(--ds-color-secondary-900) l c h / 0.7);
+      --fd-hero-overlay-warm-panel: oklch(from var(--fdic-color-secondary-900) l c h / 0.7);
 
       /* Neutral tone overlay tokens */
-      --fd-hero-overlay-neutral-panel: oklch(from var(--ds-color-neutral-800) l c h / 0.7);
+      --fd-hero-overlay-neutral-panel: oklch(from var(--fdic-color-neutral-800) l c h / 0.7);
     }
 
     :host([hidden]) {
@@ -67,13 +67,13 @@ export class FdHero extends LitElement {
     }
 
     .base {
-      --_fd-hero-overlay-gradient: var(--fd-hero-overlay-cool, var(--ds-gradient-hero-overlay-cool));
-      --_fd-hero-panel-bg: var(--fd-hero-overlay-cool-panel, oklch(from var(--ds-color-primary-800) l c h / 0.7));
-      --_fd-hero-stripe-bg: var(--ds-color-primary-400, #38b6ff);
+      --_fd-hero-overlay-gradient: var(--fd-hero-overlay-cool, var(--fdic-gradient-hero-overlay-cool));
+      --_fd-hero-panel-bg: var(--fd-hero-overlay-cool-panel, oklch(from var(--fdic-color-primary-800) l c h / 0.7));
+      --_fd-hero-stripe-bg: var(--fdic-color-primary-400, #38b6ff);
       display: block;
       box-sizing: border-box;
-      padding-block: var(--fd-hero-padding-block, var(--ds-layout-gutter, 64px));
-      padding-inline: var(--fd-hero-padding-inline, var(--ds-layout-gutter, 64px));
+      padding-block: var(--fd-hero-padding-block, var(--fdic-layout-gutter, 64px));
+      padding-inline: var(--fd-hero-padding-inline, var(--fdic-layout-gutter, 64px));
       background-color: var(--_fd-hero-panel-bg);
       background-image:
         var(--_fd-hero-overlay-gradient),
@@ -89,22 +89,22 @@ export class FdHero extends LitElement {
     }
 
     .tone-warm {
-      --_fd-hero-overlay-gradient: var(--fd-hero-overlay-warm, var(--ds-gradient-hero-overlay-warm));
-      --_fd-hero-panel-bg: var(--fd-hero-overlay-warm-panel, oklch(from var(--ds-color-secondary-900) l c h / 0.7));
-      --_fd-hero-stripe-bg: var(--ds-color-secondary-500, #d9af45);
+      --_fd-hero-overlay-gradient: var(--fd-hero-overlay-warm, var(--fdic-gradient-hero-overlay-warm));
+      --_fd-hero-panel-bg: var(--fd-hero-overlay-warm-panel, oklch(from var(--fdic-color-secondary-900) l c h / 0.7));
+      --_fd-hero-stripe-bg: var(--fdic-color-secondary-500, #d9af45);
     }
 
     .tone-neutral {
-      --_fd-hero-overlay-gradient: var(--fd-hero-overlay-neutral, var(--ds-gradient-hero-overlay-neutral));
-      --_fd-hero-panel-bg: var(--fd-hero-overlay-neutral-panel, oklch(from var(--ds-color-neutral-800) l c h / 0.7));
-      --_fd-hero-stripe-bg: var(--ds-color-text-inverted);
+      --_fd-hero-overlay-gradient: var(--fd-hero-overlay-neutral, var(--fdic-gradient-hero-overlay-neutral));
+      --_fd-hero-panel-bg: var(--fd-hero-overlay-neutral-panel, oklch(from var(--fdic-color-neutral-800) l c h / 0.7));
+      --_fd-hero-stripe-bg: var(--fdic-color-text-inverted);
     }
 
     .content {
       display: flex;
       align-items: center;
       min-block-size: var(--fd-hero-min-height, 332px);
-      max-inline-size: var(--fd-hero-max-width, var(--ds-layout-max-width, 1440px));
+      max-inline-size: var(--fd-hero-max-width, var(--fdic-layout-max-width, 1440px));
       margin-inline: auto;
       width: 100%;
     }
@@ -137,17 +137,17 @@ export class FdHero extends LitElement {
     .copy {
       display: flex;
       flex-direction: column;
-      gap: var(--fd-hero-copy-gap, var(--ds-spacing-lg, 20px));
+      gap: var(--fd-hero-copy-gap, var(--fdic-spacing-lg, 20px));
     }
 
     .lede-shell {
-      margin-block-start: var(--fd-hero-heading-gap, var(--ds-spacing-md, 16px));
+      margin-block-start: var(--fd-hero-heading-gap, var(--fdic-spacing-md, 16px));
     }
 
     .stripe-shell {
       display: flex;
       align-items: center;
-      padding-block: var(--ds-spacing-sm, 12px);
+      padding-block: var(--fdic-spacing-sm, 12px);
     }
 
     .stripe-shell.is-hidden {
@@ -165,11 +165,11 @@ export class FdHero extends LitElement {
     .action {
       display: inline-flex;
       align-items: center;
-      gap: var(--ds-spacing-2xs, 4px);
+      gap: var(--fdic-spacing-2xs, 4px);
       align-self: flex-start;
-      margin-block-start: var(--fd-hero-action-gap, var(--ds-spacing-xl, 24px));
+      margin-block-start: var(--fd-hero-action-gap, var(--fdic-spacing-xl, 24px));
       color: inherit;
-      font-size: var(--ds-font-size-body-big, 20px);
+      font-size: var(--fdic-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
       text-decoration: none;
@@ -192,7 +192,7 @@ export class FdHero extends LitElement {
         0 0 0 4px
           var(
             --fd-hero-focus-ring,
-            var(--ds-focus-ring-color, #38b6ff)
+            var(--fdic-focus-ring-color, #38b6ff)
           );
       text-decoration: underline;
       text-decoration-thickness: 1px;
@@ -222,8 +222,8 @@ export class FdHero extends LitElement {
     ::slotted([slot="heading"]) {
       display: block;
       margin: 0;
-      color: var(--ds-color-text-inverted) !important;
-      font-size: var(--ds-font-size-h2, 27px);
+      color: var(--fdic-color-text-inverted) !important;
+      font-size: var(--fdic-font-size-h2, 27px);
       font-weight: 600;
       line-height: 1.2;
       letter-spacing: -0.005em;
@@ -233,8 +233,8 @@ export class FdHero extends LitElement {
     ::slotted([slot="lede"]) {
       display: block;
       margin: 0;
-      color: var(--ds-color-text-inverted) !important;
-      font-size: var(--ds-font-size-body-big, 20px);
+      color: var(--fdic-color-text-inverted) !important;
+      font-size: var(--fdic-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
       overflow-wrap: anywhere;
@@ -243,8 +243,8 @@ export class FdHero extends LitElement {
     ::slotted([slot="body"]) {
       display: block;
       margin: 0;
-      color: var(--ds-color-text-inverted) !important;
-      font-size: var(--ds-font-size-body, 18px);
+      color: var(--fdic-color-text-inverted) !important;
+      font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       overflow-wrap: anywhere;
@@ -252,7 +252,7 @@ export class FdHero extends LitElement {
 
     @media (max-width: 640px) {
       .base {
-        padding-inline: var(--fd-hero-padding-inline-mobile, var(--ds-layout-gutter-mobile, 16px));
+        padding-inline: var(--fd-hero-padding-inline-mobile, var(--fdic-layout-gutter-mobile, 16px));
       }
 
       .content {
@@ -265,7 +265,7 @@ export class FdHero extends LitElement {
       }
 
       .action {
-        font-size: var(--ds-font-size-body, 18px);
+        font-size: var(--fdic-font-size-body, 18px);
       }
 
       .action-icon {

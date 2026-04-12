@@ -73,11 +73,11 @@ describe("FdPageFeedback", () => {
     ).styles?.cssText ?? "";
 
     expect(styles).toContain("--fd-page-feedback-max-width");
-    expect(styles).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
-    expect(styles).toContain("var(--ds-layout-section-block-padding-compact, var(--ds-spacing-xl, 24px))");
-    expect(styles).toContain("var(--ds-layout-stack-gap, var(--ds-spacing-md, 16px))");
-    expect(styles).toContain("var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px))");
-    expect(styles).toContain("var(--ds-layout-paragraph-max-width, 720px)");
+    expect(styles).toContain("var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))");
+    expect(styles).toContain("var(--fdic-layout-section-block-padding-compact, var(--fdic-spacing-xl, 24px))");
+    expect(styles).toContain("var(--fdic-layout-stack-gap, var(--fdic-spacing-md, 16px))");
+    expect(styles).toContain("var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px))");
+    expect(styles).toContain("var(--fdic-layout-paragraph-max-width, 720px)");
   });
 
   it("renders the default prompt view with light group semantics", async () => {
@@ -274,7 +274,7 @@ describe("FdPageFeedback", () => {
     expect(responses?.tagName).toBe("FD-BUTTON-GROUP");
     expect(actions?.tagName).toBe("FD-BUTTON-GROUP");
     expect(groupStyles).toContain(
-      "gap: var(--fd-button-group-gap, var(--ds-spacing-sm, 0.75rem));",
+      "gap: var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem));",
     );
   });
 

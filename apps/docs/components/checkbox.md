@@ -67,8 +67,8 @@ Standalone checkboxes (such as consent or acknowledgement patterns) should be wr
 | `--fd-checkbox-border-color` | `var(--fdic-text-primary, #212123)` | Resting control color |
 | `--fd-checkbox-radius` | `var(--fdic-corner-radius-sm, 3px)` | Checkbox corner radius |
 | `--fd-checkbox-focus-color` | `var(--fdic-border-input-focus, #38b6ff)` | Focus ring color |
-| `--fd-checkbox-overlay-hover` | `var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
-| `--fd-checkbox-overlay-active` | `var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
+| `--fd-checkbox-overlay-hover` | `var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Hover overlay color |
+| `--fd-checkbox-overlay-active` | `var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))` | Active overlay color |
 | `--fd-checkbox-invalid-color` | `rgb(190, 40, 40)` | Control color while visible invalid state is active |
 
 ## Shadow parts

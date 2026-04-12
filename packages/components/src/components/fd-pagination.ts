@@ -42,9 +42,9 @@ export class FdPagination extends LitElement {
   static styles = css`
     :host {
       display: block;
-      color: var(--ds-color-text-primary);
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      color: var(--fdic-color-text-primary);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -66,13 +66,13 @@ export class FdPagination extends LitElement {
 
     .desktop {
       display: flex;
-      gap: var(--fd-pagination-gap, var(--ds-spacing-xl, 24px));
+      gap: var(--fd-pagination-gap, var(--fdic-spacing-xl, 24px));
       justify-content: flex-start;
     }
 
     .mobile {
       display: flex;
-      gap: var(--fd-pagination-mobile-gap, var(--ds-spacing-sm, 12px));
+      gap: var(--fd-pagination-mobile-gap, var(--fdic-spacing-sm, 12px));
       justify-content: flex-start;
     }
 
@@ -84,7 +84,7 @@ export class FdPagination extends LitElement {
     [part="list"] {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--fd-pagination-page-gap, var(--ds-spacing-xs, 8px));
+      gap: var(--fd-pagination-page-gap, var(--fdic-spacing-xs, 8px));
       align-items: center;
       list-style: none;
       padding: 0;
@@ -101,22 +101,22 @@ export class FdPagination extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: var(--ds-spacing-xs, 8px);
+      gap: var(--fdic-spacing-xs, 8px);
       min-block-size: var(--fd-pagination-control-min-size, 44px);
       min-inline-size: var(--fd-pagination-control-min-size, 44px);
       padding-inline: 7px;
       border: none;
       border-radius: var(
         --fd-pagination-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
       background: var(
         --fd-pagination-control-bg,
-        var(--ds-color-bg-interactive)
+        var(--fdic-color-bg-interactive)
       );
       color: var(
         --fd-pagination-control-color,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
       cursor: pointer;
       font: inherit;
@@ -127,7 +127,7 @@ export class FdPagination extends LitElement {
 
     .control:hover:not(.disabled),
     .control:active:not(.disabled) {
-      box-shadow: inset 0 0 0 999px var(--ds-color-overlay-hover);
+      box-shadow: inset 0 0 0 999px var(--fdic-color-overlay-hover);
     }
 
     .control:focus {
@@ -137,23 +137,23 @@ export class FdPagination extends LitElement {
     .control:focus-visible,
     .mobile-select:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px)
-          var(--fd-pagination-focus-gap, var(--ds-focus-gap-color)),
-        0 0 0 var(--ds-focus-ring-width, 4px)
+      box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fd-pagination-focus-gap, var(--fdic-focus-gap-color)),
+        0 0 0 var(--fdic-focus-ring-width, 4px)
           var(
             --fd-pagination-focus-ring,
-            var(--ds-focus-ring-color)
+            var(--fdic-focus-ring-color)
           );
     }
 
     .current {
       background: var(
         --fd-pagination-current-bg,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
       color: var(
         --fd-pagination-current-color,
-        var(--ds-color-text-inverted)
+        var(--fdic-color-text-inverted)
       );
       font-weight: 600;
     }
@@ -161,11 +161,11 @@ export class FdPagination extends LitElement {
     .disabled {
       background: var(
         --fd-pagination-control-bg-disabled,
-        var(--ds-color-bg-container)
+        var(--fdic-color-bg-container)
       );
       color: var(
         --fd-pagination-control-color-disabled,
-        var(--ds-color-text-disabled, #9e9ea0)
+        var(--fdic-color-text-disabled, #9e9ea0)
       );
       cursor: default;
       box-shadow: none;
@@ -203,7 +203,7 @@ export class FdPagination extends LitElement {
       min-inline-size: var(--fd-pagination-control-min-size, 44px);
       color: var(
         --fd-pagination-control-color-disabled,
-        var(--ds-color-text-disabled, #9e9ea0)
+        var(--fdic-color-text-disabled, #9e9ea0)
       );
       padding-inline: 7px;
       box-sizing: border-box;
@@ -225,19 +225,19 @@ export class FdPagination extends LitElement {
       border: 1px solid
         var(
           --fd-pagination-select-border,
-          var(--ds-color-border-input)
+          var(--fdic-color-border-input)
         );
       border-radius: var(
         --fd-pagination-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
       background: var(
         --fd-pagination-select-bg,
-        var(--ds-color-bg-input)
+        var(--fdic-color-bg-input)
       );
       color: var(
         --fd-pagination-control-color,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
       font: inherit;
       line-height: 1.375;
@@ -248,14 +248,14 @@ export class FdPagination extends LitElement {
       position: absolute;
       inset-inline-end: 9px;
       pointer-events: none;
-      color: var(--ds-color-icon-primary);
+      color: var(--fdic-color-icon-primary);
     }
 
     [part="mobile-summary"] {
       white-space: nowrap;
       color: var(
         --fd-pagination-control-color,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
     }
 

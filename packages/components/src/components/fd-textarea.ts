@@ -346,10 +346,10 @@ export class FdTextarea extends LitElement {
   static styles = [forcedColorsTextInput, css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--fdic-color-text-primary, #212123);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -369,15 +369,15 @@ export class FdTextarea extends LitElement {
       border: 1px solid
         var(
           --fd-textarea-border-color,
-          var(--ds-color-border-input)
+          var(--fdic-color-border-input)
         );
       border-radius: var(
         --fd-textarea-border-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
       background: var(
         --fd-textarea-bg,
-        var(--ds-color-bg-base)
+        var(--fdic-color-bg-base)
       );
       box-sizing: border-box;
     }
@@ -386,7 +386,7 @@ export class FdTextarea extends LitElement {
       display: block;
       width: 100%;
       min-height: var(--fd-textarea-min-height, 140px);
-      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
+      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
       border: none;
       background: transparent;
       font-family: inherit;
@@ -404,7 +404,7 @@ export class FdTextarea extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-textarea-placeholder-color,
-        var(--ds-color-text-secondary)
+        var(--fdic-color-text-secondary)
       );
       opacity: 1;
     }
@@ -412,24 +412,24 @@ export class FdTextarea extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-textarea-border-color-hover,
-        var(--ds-color-border-input-active)
+        var(--fdic-color-border-input-active)
       );
     }
 
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border: 2px solid var(--ds-color-border-input-active);
+      border: 2px solid var(--fdic-color-border-input-active);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-textarea-border-color-focus,
-          var(--ds-focus-ring-color)
+          var(--fdic-focus-ring-color)
         );
     }
 
     :host([disabled]) [part="base"] {
-      color: var(--ds-color-text-disabled);
-      border-color: var(--ds-color-border-divider);
-      background: var(--ds-color-bg-container);
+      color: var(--fdic-color-text-disabled);
+      border-color: var(--fdic-color-border-divider);
+      background: var(--fdic-color-bg-container);
       cursor: not-allowed;
     }
 
@@ -439,40 +439,40 @@ export class FdTextarea extends LitElement {
     }
 
     :host([readonly]) [part="base"] {
-      background: var(--ds-color-bg-container);
-      border-color: var(--ds-color-border-divider);
+      background: var(--fdic-color-bg-container);
+      border-color: var(--fdic-color-border-divider);
       border-style: dashed;
     }
 
     :host([data-state="error"]) [part="base"] {
       border-width: 2px;
-      border-color: var(--ds-color-semantic-fg-error, #d80e3a);
+      border-color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     :host([data-state="warning"]) [part="base"] {
       border-width: 2px;
-      border-color: var(--ds-color-semantic-fg-warning, #b48c14);
+      border-color: var(--fdic-color-semantic-fg-warning, #b48c14);
     }
 
     :host([data-state="success"]) [part="base"] {
       border-width: 2px;
-      border-color: var(--ds-color-semantic-fg-success, #1e8232);
+      border-color: var(--fdic-color-semantic-fg-success, #1e8232);
     }
 
     [part="char-count"] {
       display: flex;
       justify-content: flex-end;
-      margin-top: var(--ds-spacing-2xs, 4px);
-      font-size: var(--ds-font-size-body-small, 1rem);
-      color: var(--ds-color-text-secondary, #595961);
+      margin-top: var(--fdic-spacing-2xs, 4px);
+      font-size: var(--fdic-font-size-body-small, 1rem);
+      color: var(--fdic-color-text-secondary, #595961);
     }
 
     :host([data-char-warn]) [part="char-count"] {
-      color: var(--ds-color-semantic-fg-warning, #8a6100);
+      color: var(--fdic-color-semantic-fg-warning, #8a6100);
     }
 
     :host([data-char-limit]) [part="char-count"] {
-      color: var(--ds-color-semantic-fg-error, #d80e3a);
+      color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     .fd-textarea__sr-only {

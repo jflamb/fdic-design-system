@@ -189,9 +189,9 @@ export class FdHeaderSearch extends LitElement {
       display: flex;
       align-items: center;
       min-height: 2.75rem;
-      border: 1px solid var(--ds-color-border-input, #bdbdbf);
-      border-radius: var(--ds-corner-radius-sm, 3px);
-      background: var(--ds-color-bg-input, #ffffff);
+      border: 1px solid var(--fdic-color-border-input, #bdbdbf);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
+      background: var(--fdic-color-bg-input, #ffffff);
       gap: 0.5rem;
       padding-inline-start: 0.75rem;
       padding-inline-end: 0;
@@ -207,7 +207,7 @@ export class FdHeaderSearch extends LitElement {
 
     .label fd-icon {
       flex: none;
-      color: var(--ds-color-icon-primary, #424244);
+      color: var(--fdic-color-icon-primary, #424244);
       --fd-icon-size: 1.375rem;
     }
 
@@ -216,7 +216,7 @@ export class FdHeaderSearch extends LitElement {
       min-width: 0;
       border: none;
       background: transparent;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--fdic-color-text-primary, #212123);
       min-height: 2.75rem;
       padding: 0;
       padding-inline-end: 0.75rem;
@@ -239,7 +239,7 @@ export class FdHeaderSearch extends LitElement {
     }
 
     .native::placeholder {
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--fdic-color-text-secondary, #595961);
       opacity: 1;
     }
 
@@ -267,11 +267,11 @@ export class FdHeaderSearch extends LitElement {
       --fd-button-icon-only-size: var(--fd-header-search-action-size);
       --fd-button-radius: 0;
       --fd-button-gap: 0;
-      --fd-button-text-subtle: var(--ds-color-text-primary, #365063);
+      --fd-button-text-subtle: var(--fdic-color-text-primary, #365063);
       --fd-button-overlay-hover: rgba(0, 110, 190, 0.12);
       --fd-button-overlay-active: rgba(0, 110, 190, 0.18);
-      --fd-button-focus-gap: var(--ds-color-bg-input, #ffffff);
-      --fd-button-focus-ring: var(--ds-color-border-input-focus, #38b6ff);
+      --fd-button-focus-gap: var(--fdic-color-bg-input, #ffffff);
+      --fd-button-focus-ring: var(--fdic-color-border-input-focus, #38b6ff);
       display: inline-flex;
       flex: none;
     }
@@ -301,7 +301,7 @@ export class FdHeaderSearch extends LitElement {
 
     .shortcut::part(base) {
       --fd-button-bg-disabled: transparent;
-      --fd-button-text-disabled: var(--ds-color-text-secondary, #4b5b69);
+      --fd-button-text-disabled: var(--fdic-color-text-secondary, #4b5b69);
       border-start-end-radius: 2px;
       border-end-end-radius: 2px;
     }
@@ -311,7 +311,7 @@ export class FdHeaderSearch extends LitElement {
       align-items: center;
       justify-content: center;
       width: 100%;
-      color: var(--ds-color-text-secondary, #4b5b69);
+      color: var(--fdic-color-text-secondary, #4b5b69);
       font-size: 0.8125rem;
       font-weight: 700;
       line-height: 1;
@@ -326,8 +326,8 @@ export class FdHeaderSearch extends LitElement {
       outline: 2px solid transparent;
       outline-offset: 2px;
       box-shadow:
-        0 0 0 var(--ds-focus-gap-width, 2px) var(--ds-focus-gap-color, #ffffff),
-        0 0 0 var(--ds-focus-ring-width, 4px) var(--ds-focus-ring-color, #38b6ff);
+        0 0 0 var(--fdic-focus-gap-width, 2px) var(--fdic-focus-gap-color, #ffffff),
+        0 0 0 var(--fdic-focus-ring-width, 4px) var(--fdic-focus-ring-color, #38b6ff);
     }
 
     .panel {
@@ -336,10 +336,10 @@ export class FdHeaderSearch extends LitElement {
       top: calc(100% + 0.625rem);
       width: min(42.5rem, 100vw - 2.5rem);
       overflow: hidden;
-      border: 1px solid var(--ds-color-border-divider, rgba(9, 53, 84, 0.14));
-      border-radius: var(--ds-corner-radius-sm, 3px);
-      background: var(--ds-color-bg-surface, #ffffff);
-      box-shadow: var(--ds-shadow-panel);
+      border: 1px solid var(--fdic-color-border-divider, rgba(9, 53, 84, 0.14));
+      border-radius: var(--fdic-corner-radius-sm, 3px);
+      background: var(--fdic-color-bg-surface, #ffffff);
+      box-shadow: var(--fdic-shadow-panel);
       z-index: 20;
     }
 
@@ -358,7 +358,7 @@ export class FdHeaderSearch extends LitElement {
     }
 
     .result-item + .result-item {
-      border-top: 1px solid var(--ds-color-border-divider, rgba(9, 53, 84, 0.08));
+      border-top: 1px solid var(--fdic-color-border-divider, rgba(9, 53, 84, 0.08));
     }
 
     .result-link {
@@ -367,7 +367,7 @@ export class FdHeaderSearch extends LitElement {
       width: 100%;
       padding: 0.875rem 1rem;
       background: transparent;
-      color: var(--ds-color-text-primary, #0c2336);
+      color: var(--fdic-color-text-primary, #0c2336);
       text-decoration: none;
       text-align: start;
     }
@@ -375,21 +375,21 @@ export class FdHeaderSearch extends LitElement {
     .result-link:hover,
     .result-link:focus-visible,
     .result-link[data-active="true"] {
-      background: var(--ds-color-bg-hovered, rgba(0, 110, 190, 0.08));
+      background: var(--fdic-color-bg-hovered, rgba(0, 110, 190, 0.08));
       outline-color: transparent;
     }
 
     .result-title {
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 700;
-      color: var(--ds-color-text-primary, #0c2336);
+      color: var(--fdic-color-text-primary, #0c2336);
       line-height: 1.25;
     }
 
     .result-meta,
     .status,
     .shortcut-hint {
-      color: var(--ds-color-text-secondary, #4b5b69);
+      color: var(--fdic-color-text-secondary, #4b5b69);
       font-size: 0.9375rem;
       line-height: 1.35;
     }
@@ -397,7 +397,7 @@ export class FdHeaderSearch extends LitElement {
     .status {
       margin: 0;
       padding: 0.625rem 1rem 0.875rem;
-      border-top: 1px solid var(--ds-color-border-divider, rgba(9, 53, 84, 0.08));
+      border-top: 1px solid var(--fdic-color-border-divider, rgba(9, 53, 84, 0.08));
     }
 
     .mobile-header {
@@ -426,10 +426,10 @@ export class FdHeaderSearch extends LitElement {
       width: 100%;
       min-height: 0;
       max-height: none;
-      border: 1px solid var(--ds-color-border-divider, rgba(188, 202, 214, 0.7));
+      border: 1px solid var(--fdic-color-border-divider, rgba(188, 202, 214, 0.7));
       border-radius: 12px;
-      background: var(--ds-color-bg-surface, #ffffff);
-      box-shadow: 0 10px 24px var(--ds-color-effect-shadow, rgba(0, 18, 32, 0.16));
+      background: var(--fdic-color-bg-surface, #ffffff);
+      box-shadow: 0 10px 24px var(--fdic-color-effect-shadow, rgba(0, 18, 32, 0.16));
     }
 
     :host([surface="mobile"]) .result-link {
@@ -444,7 +444,7 @@ export class FdHeaderSearch extends LitElement {
     :host([surface="mobile"]) .status {
       padding: 0;
       border-top: 0;
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--fdic-color-text-secondary, #595961);
     }
 
     :host([surface="mobile"]) .results:empty,

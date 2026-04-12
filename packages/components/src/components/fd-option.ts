@@ -13,10 +13,10 @@ export class FdOption extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--fd-selector-option-text, var(--ds-color-text-primary));
+      color: var(--fd-selector-option-text, var(--fdic-color-text-primary));
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -28,16 +28,16 @@ export class FdOption extends LitElement {
 
     :host([disabled]) {
       cursor: default;
-      color: var(--ds-color-text-disabled);
+      color: var(--fdic-color-text-disabled);
     }
 
     [part="option"] {
       display: flex;
       align-items: center;
-      gap: var(--ds-spacing-xs, 8px);
-      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
+      gap: var(--fdic-spacing-xs, 8px);
+      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
       position: relative;
-      background: var(--fd-selector-option-bg, var(--ds-color-bg-base));
+      background: var(--fd-selector-option-bg, var(--fdic-color-bg-base));
       overflow: clip;
       min-height: 36px;
       box-sizing: border-box;
@@ -46,7 +46,7 @@ export class FdOption extends LitElement {
     :host([selected]) [part="option"] {
       background: var(
         --fd-selector-option-bg-selected,
-        var(--ds-color-bg-selected)
+        var(--fdic-color-bg-selected)
       );
     }
 
@@ -57,14 +57,14 @@ export class FdOption extends LitElement {
       pointer-events: none;
       border-radius: inherit;
       box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0);
-      transition: box-shadow var(--ds-motion-duration-normal, 150ms) var(--ds-motion-easing-default, ease);
+      transition: box-shadow var(--fdic-motion-duration-normal, 150ms) var(--fdic-motion-easing-default, ease);
     }
 
     :host(:not([disabled]):hover) [part="option"]::after {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-selector-option-bg-hover,
-          var(--ds-color-overlay-hover)
+          var(--fdic-color-overlay-hover)
         );
     }
 
@@ -72,13 +72,13 @@ export class FdOption extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-selector-option-bg-press,
-          var(--ds-color-overlay-pressed)
+          var(--fdic-color-overlay-pressed)
         );
     }
 
     :host([data-focused]) [part="option"] {
       outline: 2px solid
-        var(--fd-selector-focus-color, var(--ds-focus-ring-color));
+        var(--fd-selector-focus-color, var(--fdic-focus-ring-color));
       outline-offset: -2px;
     }
 
@@ -91,18 +91,18 @@ export class FdOption extends LitElement {
       flex-shrink: 0;
       width: 22px;
       height: 22px;
-      color: var(--fd-selector-indicator-color, var(--ds-color-text-primary));
+      color: var(--fd-selector-indicator-color, var(--fdic-color-text-primary));
     }
 
     :host([disabled]) [part="indicator"] {
-      color: var(--ds-color-text-disabled);
+      color: var(--fdic-color-text-disabled);
     }
 
     /* Radio indicator */
     .radio-outer {
       width: 20px;
       height: 20px;
-      border-radius: var(--ds-corner-radius-full, 9999px);
+      border-radius: var(--fdic-corner-radius-full, 9999px);
       border: 2px solid currentColor;
       box-sizing: border-box;
       display: flex;
@@ -113,14 +113,14 @@ export class FdOption extends LitElement {
     .radio-dot {
       width: 8px;
       height: 8px;
-      border-radius: var(--ds-corner-radius-full, 9999px);
+      border-radius: var(--fdic-corner-radius-full, 9999px);
       background: transparent;
     }
 
     :host([selected]) .radio-outer {
       color: var(
         --fd-selector-indicator-selected,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
     }
 
@@ -132,7 +132,7 @@ export class FdOption extends LitElement {
     .checkbox-outer {
       width: 20px;
       height: 20px;
-      border-radius: var(--ds-corner-radius-sm, 3px);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
       border: 2px solid currentColor;
       box-sizing: border-box;
       display: flex;
@@ -143,7 +143,7 @@ export class FdOption extends LitElement {
     :host([selected]) .checkbox-outer {
       color: var(
         --fd-selector-indicator-selected,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
       background: currentColor;
     }
@@ -156,7 +156,7 @@ export class FdOption extends LitElement {
 
     :host([selected]) .checkbox-check {
       display: block;
-      color: var(--ds-color-text-inverted);
+      color: var(--fdic-color-text-inverted);
     }
 
     /* --- Text content --- */
@@ -172,8 +172,8 @@ export class FdOption extends LitElement {
 
     [part="option-description"] {
       display: block;
-      color: var(--ds-color-text-secondary);
-      font-size: var(--ds-font-size-body-small, 1rem);
+      color: var(--fdic-color-text-secondary);
+      font-size: var(--fdic-font-size-body-small, 1rem);
     }
 
     /* --- Forced colors --- */

@@ -20,7 +20,7 @@ export class FdButtonGroup extends LitElement {
 
     .container {
       display: flex;
-      gap: var(--fd-button-group-gap, var(--ds-spacing-sm, 0.75rem));
+      gap: var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem));
       align-items: flex-start;
       inline-size: 100%;
       box-sizing: border-box;

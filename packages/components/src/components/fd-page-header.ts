@@ -17,15 +17,15 @@ const SEPARATOR_SVG =
 export class FdPageHeader extends LitElement {
   private static readonly ACTION_STYLE_MAP = {
     "--fd-button-text-subtle":
-      "var(--fd-page-header-action-text-color, var(--ds-color-text-inverted))",
+      "var(--fd-page-header-action-text-color, var(--fdic-color-text-inverted))",
     "--fd-button-overlay-hover":
       "var(--fd-page-header-action-overlay-hover, rgba(255, 255, 255, 0.12))",
     "--fd-button-overlay-active":
       "var(--fd-page-header-action-overlay-active, rgba(255, 255, 255, 0.18))",
     "--fd-button-focus-gap":
-      "var(--fd-page-header-action-focus-gap, var(--ds-color-primary-500))",
+      "var(--fd-page-header-action-focus-gap, var(--fdic-color-primary-500))",
     "--fd-button-focus-ring":
-      "var(--fd-page-header-action-focus-ring, var(--ds-focus-ring-color))",
+      "var(--fd-page-header-action-focus-ring, var(--fdic-focus-ring-color))",
   } as const;
 
   static properties = {
@@ -39,8 +39,8 @@ export class FdPageHeader extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      color: var(--fd-page-header-text-color, var(--ds-color-text-inverted));
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      color: var(--fd-page-header-text-color, var(--fdic-color-text-inverted));
     }
 
     :host([hidden]) {
@@ -54,13 +54,13 @@ export class FdPageHeader extends LitElement {
       box-sizing: border-box;
       background: var(
         --fd-page-header-bg,
-        var(--ds-color-primary-500)
+        var(--fdic-color-primary-500)
       );
       padding-block: var(
         --fd-page-header-padding-block,
-        var(--ds-layout-section-block-padding, var(--ds-spacing-3xl, 48px))
+        var(--fdic-layout-section-block-padding, var(--fdic-spacing-3xl, 48px))
       );
-      padding-inline: var(--fd-page-header-padding-inline, var(--ds-layout-gutter, 64px));
+      padding-inline: var(--fd-page-header-padding-inline, var(--fdic-layout-gutter, 64px));
     }
 
     /* --- Content (constrained width) --- */
@@ -68,12 +68,12 @@ export class FdPageHeader extends LitElement {
     .content {
       max-inline-size: var(
         --fd-page-header-max-width,
-        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))
+        var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))
       );
       margin-inline: auto;
       display: flex;
       flex-direction: column;
-      gap: var(--ds-spacing-2xs, 4px);
+      gap: var(--fdic-spacing-2xs, 4px);
     }
 
     /* --- Breadcrumbs --- */
@@ -87,13 +87,13 @@ export class FdPageHeader extends LitElement {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: var(--ds-spacing-2xs, 4px) var(--ds-spacing-xs, 8px);
+      gap: var(--fdic-spacing-2xs, 4px) var(--fdic-spacing-xs, 8px);
       list-style: none;
       margin: 0;
       padding: 0;
       font-size: var(
         --fd-page-header-breadcrumb-font-size,
-        var(--ds-font-size-body-small, 16px)
+        var(--fdic-font-size-body-small, 16px)
       );
       line-height: 1.375;
     }
@@ -101,13 +101,13 @@ export class FdPageHeader extends LitElement {
     .breadcrumb-item {
       display: flex;
       align-items: center;
-      gap: var(--ds-spacing-xs, 8px);
+      gap: var(--fdic-spacing-xs, 8px);
     }
 
     .breadcrumb-link {
       color: var(
         --fd-page-header-breadcrumb-color,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--fdic-color-text-inverted, #ffffff)
       );
       text-decoration: underline;
       text-decoration-thickness: 1px;
@@ -119,7 +119,7 @@ export class FdPageHeader extends LitElement {
     }
 
     .breadcrumb-link:focus-visible {
-      outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
+      outline: 2px solid var(--fdic-color-border-input-focus, #38b6ff);
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -127,7 +127,7 @@ export class FdPageHeader extends LitElement {
     .breadcrumb-current {
       color: var(
         --fd-page-header-breadcrumb-current-color,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--fdic-color-text-inverted, #ffffff)
       );
     }
 
@@ -139,7 +139,7 @@ export class FdPageHeader extends LitElement {
       block-size: 16px;
       color: var(
         --fd-page-header-separator-color,
-        var(--ds-color-text-inverted, #ffffff)
+        var(--fdic-color-text-inverted, #ffffff)
       );
       flex-shrink: 0;
     }
@@ -155,7 +155,7 @@ export class FdPageHeader extends LitElement {
       display: flex;
       flex-wrap: wrap;
       align-items: flex-end;
-      gap: var(--ds-spacing-sm, 12px);
+      gap: var(--fdic-spacing-sm, 12px);
     }
 
     /* --- Nameplate (title + kicker) --- */
@@ -163,7 +163,7 @@ export class FdPageHeader extends LitElement {
     .nameplate {
       display: flex;
       flex-direction: column;
-      gap: var(--ds-spacing-2xs, 4px);
+      gap: var(--fdic-spacing-2xs, 4px);
       flex: 1 0 0;
       min-inline-size: 344px;
     }
@@ -182,7 +182,7 @@ export class FdPageHeader extends LitElement {
       display: block;
       font-size: var(
         --fd-page-header-kicker-size,
-        var(--ds-font-size-body-big, 20px)
+        var(--fdic-font-size-body-big, 20px)
       );
       font-weight: 450;
       line-height: 1.25;
@@ -197,10 +197,10 @@ export class FdPageHeader extends LitElement {
       align-items: flex-end;
       gap: var(
         --fd-page-header-actions-gap,
-        var(--fd-button-group-gap, var(--ds-spacing-sm, 0.75rem))
+        var(--fd-button-group-gap, var(--fdic-spacing-sm, 0.75rem))
       );
       flex-shrink: 0;
-      padding-block-end: var(--fd-page-header-actions-offset, var(--ds-spacing-xs, 8px));
+      padding-block-end: var(--fd-page-header-actions-offset, var(--fdic-spacing-xs, 8px));
     }
 
     ::slotted(fd-button-group) {
@@ -218,13 +218,13 @@ export class FdPageHeader extends LitElement {
       .base {
         padding-block-start: var(
           --fd-page-header-padding-block-start-mobile,
-          var(--ds-spacing-md, 16px)
+          var(--fdic-spacing-md, 16px)
         );
         padding-block-end: var(
           --fd-page-header-padding-block-end-mobile,
-          var(--ds-spacing-lg, 20px)
+          var(--fdic-spacing-lg, 20px)
         );
-        padding-inline: var(--fd-page-header-padding-inline-mobile, var(--ds-layout-gutter-mobile, 16px));
+        padding-inline: var(--fd-page-header-padding-inline-mobile, var(--fdic-layout-gutter-mobile, 16px));
       }
 
       .title {
@@ -234,7 +234,7 @@ export class FdPageHeader extends LitElement {
       .kicker {
         font-size: var(
           --fd-page-header-kicker-size-mobile,
-          var(--ds-font-size-body, 18px)
+          var(--fdic-font-size-body, 18px)
         );
       }
 

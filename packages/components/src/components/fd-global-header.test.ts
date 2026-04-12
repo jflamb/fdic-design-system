@@ -317,18 +317,18 @@ describe("fd-global-header", () => {
   it("uses shared semantic glass tokens for mega-menu treatments", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 
-    expect(styles).toContain("var(--ds-gradient-glass-sheen)");
-    expect(styles).toContain("var(--ds-color-overlay-scrim-soft)");
-    expect(styles).toContain("var(--ds-color-surface-glass-1)");
-    expect(styles).toContain("var(--ds-color-border-glass-soft)");
+    expect(styles).toContain("var(--fdic-gradient-glass-sheen)");
+    expect(styles).toContain("var(--fdic-color-overlay-scrim-soft)");
+    expect(styles).toContain("var(--fdic-color-surface-glass-1)");
+    expect(styles).toContain("var(--fdic-color-border-glass-soft)");
   });
 
   it("uses DS layout tokens for shell width and gutter alignment", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 
-    expect(styles).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
-    expect(styles).toContain("var(--ds-layout-gutter, 64px)");
-    expect(styles).toContain("var(--ds-layout-gutter-tablet, 32px)");
+    expect(styles).toContain("var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))");
+    expect(styles).toContain("var(--fdic-layout-gutter, 64px)");
+    expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
   });
 
   it("suppresses transitions and animations across the component for reduced motion", () => {

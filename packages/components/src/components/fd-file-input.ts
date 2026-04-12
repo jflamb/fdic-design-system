@@ -67,8 +67,8 @@ export class FdFileInput extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      color: var(--ds-color-text-primary, #212123);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      color: var(--fdic-color-text-primary, #212123);
     }
 
     :host([hidden]) {
@@ -79,20 +79,20 @@ export class FdFileInput extends LitElement {
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: var(--fd-file-input-gap, var(--ds-spacing-md, 16px));
-      padding: var(--ds-spacing-lg, 20px) var(--ds-spacing-xl, 24px);
+      gap: var(--fd-file-input-gap, var(--fdic-spacing-md, 16px));
+      padding: var(--fdic-spacing-lg, 20px) var(--fdic-spacing-xl, 24px);
       border: 1px solid
         var(
           --fd-file-input-border-color,
-          var(--ds-color-border-input, #bdbdbf)
+          var(--fdic-color-border-input, #bdbdbf)
         );
       border-radius: var(
         --fd-file-input-radius,
-        var(--ds-corner-radius-md, 5px)
+        var(--fdic-corner-radius-md, 5px)
       );
       background: var(
         --fd-file-input-background,
-        var(--ds-color-bg-base, #ffffff)
+        var(--fdic-color-bg-base, #ffffff)
       );
       box-sizing: border-box;
       overflow: clip;
@@ -104,30 +104,30 @@ export class FdFileInput extends LitElement {
       inset: 0;
       pointer-events: none;
       border-radius: inherit;
-      box-shadow: inset 0 0 0 0 var(--ds-color-overlay-hover, rgba(0, 0, 0, 0));
+      box-shadow: inset 0 0 0 0 var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0));
       transition:
-        box-shadow var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        background-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease),
-        border-color var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
+        box-shadow var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        background-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease),
+        border-color var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease);
     }
 
     [part="container"]:hover {
       border-color: var(
         --fd-file-input-border-color-hover,
-        var(--ds-color-border-input-active, #424244)
+        var(--fdic-color-border-input-active, #424244)
       );
     }
 
     :host([data-user-invalid]) [part="container"] {
       border-width: 2px;
-      border-color: var(--ds-color-semantic-fg-error, #d80e3a);
+      border-color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     :host([data-drag-active]) [part="container"] {
       border-width: 2px;
       border-color: var(
         --fd-file-input-border-color-hover,
-        var(--ds-color-border-input-active, #424244)
+        var(--fdic-color-border-input-active, #424244)
       );
     }
 
@@ -135,41 +135,41 @@ export class FdFileInput extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-file-input-drop-overlay,
-          var(--ds-color-overlay-hover)
+          var(--fdic-color-overlay-hover)
         );
     }
 
     [part="container"]:focus-within {
       border-width: 2px;
-      border-color: var(--ds-color-border-input-active, #424244);
+      border-color: var(--fdic-color-border-input-active, #424244);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-file-input-focus-ring,
-          var(--ds-focus-ring-color, #38b6ff)
+          var(--fdic-focus-ring-color, #38b6ff)
         );
     }
 
     :host([disabled]) [part="container"] {
-      border-color: var(--ds-color-border-divider, #d6d6d8);
-      background: var(--ds-color-bg-container, #f5f5f7);
-      color: var(--ds-color-text-secondary, #595961);
+      border-color: var(--fdic-color-border-divider, #d6d6d8);
+      background: var(--fdic-color-bg-container, #f5f5f7);
+      color: var(--fdic-color-text-secondary, #595961);
     }
 
     [part="label"] {
       margin: 0;
-      font-size: var(--ds-font-size-body, 18px);
+      font-size: var(--fdic-font-size-body, 18px);
       font-weight: 600;
       line-height: 1.375;
     }
 
     .fd-file-input__required {
-      color: var(--ds-color-semantic-fg-error, #d80e3a);
+      color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     .fd-file-input__controls {
       display: flex;
       align-items: center;
-      gap: var(--ds-spacing-xl, 24px);
+      gap: var(--fdic-spacing-xl, 24px);
       flex-wrap: wrap;
     }
 
@@ -181,9 +181,9 @@ export class FdFileInput extends LitElement {
       min-height: var(--fd-file-input-height, 44px);
       min-width: var(--fd-file-input-min-width, 44px);
       padding-inline: 11px;
-      gap: var(--ds-spacing-2xs, 4px);
-      border-radius: var(--ds-corner-radius-sm, 3px);
-      background: var(--ds-color-bg-interactive, #f5f5f7);
+      gap: var(--fdic-spacing-2xs, 4px);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
+      background: var(--fdic-color-bg-interactive, #f5f5f7);
       color: inherit;
       box-sizing: border-box;
       overflow: hidden;
@@ -202,7 +202,7 @@ export class FdFileInput extends LitElement {
       justify-content: center;
       min-height: var(--fd-file-input-height, 44px);
       padding-inline: 6px;
-      font-size: var(--ds-font-size-body, 18px);
+      font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       white-space: nowrap;
@@ -224,12 +224,12 @@ export class FdFileInput extends LitElement {
     }
 
     .fd-file-input__browse:has([part="native"]:focus-visible) {
-      outline: 2px solid var(--ds-color-border-input-active, #424244);
+      outline: 2px solid var(--fdic-color-border-input-active, #424244);
       outline-offset: 2px;
     }
 
     .fd-file-input__drop-text {
-      font-size: var(--ds-font-size-body, 18px);
+      font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       color: inherit;
@@ -241,29 +241,29 @@ export class FdFileInput extends LitElement {
     [part="limit"],
     [part="summary"] {
       margin: 0;
-      font-size: var(--ds-font-size-body-small, 1rem);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
     }
 
     [part="hint"],
     [part="summary"] {
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--fdic-color-text-secondary, #595961);
     }
 
     [part="error"] {
-      color: var(--ds-color-semantic-fg-error, #d80e3a);
+      color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     [part="limit"] {
-      color: var(--ds-color-text-primary, #212123);
-      font-size: var(--ds-font-size-body, 18px);
+      color: var(--fdic-color-text-primary, #212123);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
     }
 
     [part="list"] {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--ds-spacing-md, 16px);
+      gap: var(--fdic-spacing-md, 16px);
       list-style: none;
       padding: 0;
       margin: 0;
@@ -274,16 +274,16 @@ export class FdFileInput extends LitElement {
       flex: 1 1 344px;
       min-width: 280px;
       flex-direction: column;
-      gap: var(--ds-spacing-xs, 8px);
-      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px)
-        var(--ds-spacing-sm, 12px);
+      gap: var(--fdic-spacing-xs, 8px);
+      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px)
+        var(--fdic-spacing-sm, 12px);
       border: 1px solid
         var(
           --fd-file-input-item-border-color,
-          var(--ds-color-border-input-interactive, #e8e8ed)
+          var(--fdic-color-border-input-interactive, #e8e8ed)
         );
-      border-radius: var(--ds-corner-radius-sm, 3px);
-      background: var(--ds-color-bg-base, #ffffff);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
+      background: var(--fdic-color-bg-base, #ffffff);
       box-sizing: border-box;
     }
 
@@ -291,20 +291,20 @@ export class FdFileInput extends LitElement {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: var(--ds-spacing-sm, 12px);
+      gap: var(--fdic-spacing-sm, 12px);
     }
 
     .fd-file-input__item-copy {
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
-      gap: var(--ds-spacing-2xs, 4px);
+      gap: var(--fdic-spacing-2xs, 4px);
       min-width: 0;
     }
 
     .fd-file-input__file-name {
       margin: 0;
-      font-size: var(--ds-font-size-body, 18px);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
       white-space: nowrap;
       overflow: hidden;
@@ -314,10 +314,10 @@ export class FdFileInput extends LitElement {
     [part="item-status"] {
       display: inline-flex;
       align-items: flex-start;
-      gap: var(--ds-spacing-2xs, 4px);
-      font-size: var(--ds-font-size-body-small, 1rem);
+      gap: var(--fdic-spacing-2xs, 4px);
+      font-size: var(--fdic-font-size-body-small, 1rem);
       line-height: 1.375;
-      color: var(--ds-color-text-secondary, #595961);
+      color: var(--fdic-color-text-secondary, #595961);
     }
 
     .fd-file-input__status-icon {
@@ -333,15 +333,15 @@ export class FdFileInput extends LitElement {
     }
 
     [data-state="error"] [part="item-status"] {
-      color: var(--ds-color-semantic-fg-error, #d80e3a);
+      color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     [data-state="success"] [part="item-status"] {
-      color: var(--ds-color-semantic-fg-success, #1e8232);
+      color: var(--fdic-color-semantic-fg-success, #1e8232);
     }
 
     [data-state="invalid"] [part="item-status"] {
-      color: var(--ds-color-semantic-fg-warning, #8a6100);
+      color: var(--fdic-color-semantic-fg-warning, #8a6100);
     }
 
     [part="item-action"] {
@@ -352,7 +352,7 @@ export class FdFileInput extends LitElement {
       block-size: 44px;
       padding: 0;
       border: none;
-      border-radius: var(--ds-corner-radius-sm, 3px);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
       background: transparent;
       color: inherit;
       cursor: pointer;
@@ -361,18 +361,18 @@ export class FdFileInput extends LitElement {
 
     [part="item-action"]:hover {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-hover);
+        var(--fdic-color-overlay-hover);
     }
 
     [part="item-action"]:active {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-pressed);
+        var(--fdic-color-overlay-pressed);
     }
 
     [part="item-action"]:focus-visible {
-      outline: 2px solid var(--ds-color-border-input-active, #424244);
+      outline: 2px solid var(--fdic-color-border-input-active, #424244);
       outline-offset: -2px;
-      box-shadow: 0 0 2.5px 2px var(--ds-focus-ring-color, #38b6ff);
+      box-shadow: 0 0 2.5px 2px var(--fdic-focus-ring-color, #38b6ff);
     }
 
     :host([disabled]) [part="item-action"] {
@@ -387,32 +387,32 @@ export class FdFileInput extends LitElement {
       block-size: 2px;
       overflow: hidden;
       border-radius: 1px;
-      background: var(--ds-color-bg-interactive, #f5f5f7);
+      background: var(--fdic-color-bg-interactive, #f5f5f7);
     }
 
     .fd-file-input__indicator-progress {
       block-size: 100%;
       background: var(
         --fd-file-input-progress-color,
-        var(--ds-color-border-input-focus, #38b6ff)
+        var(--fdic-color-border-input-focus, #38b6ff)
       );
       min-inline-size: 0;
-      transition: inline-size var(--ds-motion-duration-fast, 120ms) var(--ds-motion-easing-default, ease);
+      transition: inline-size var(--fdic-motion-duration-fast, 120ms) var(--fdic-motion-easing-default, ease);
     }
 
     [data-state="success"] .fd-file-input__indicator-progress {
       inline-size: 100%;
-      background: var(--ds-color-semantic-fg-success, #1e8232);
+      background: var(--fdic-color-semantic-fg-success, #1e8232);
     }
 
     [data-state="error"] .fd-file-input__indicator-progress {
       inline-size: 100%;
-      background: var(--ds-color-semantic-fg-error, #d80e3a);
+      background: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     [data-state="invalid"] .fd-file-input__indicator-progress {
       inline-size: 100%;
-      background: var(--ds-color-semantic-fg-warning, #8a6100);
+      background: var(--fdic-color-semantic-fg-warning, #8a6100);
     }
 
     .fd-file-input__sr-only {

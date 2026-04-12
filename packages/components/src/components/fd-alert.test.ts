@@ -232,7 +232,7 @@ describe("FdAlert", () => {
       "var(--fd-link-underline-thickness-emphasis, 2px)",
     );
     expect(link.style.boxShadow).toBe(
-      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04)))",
+      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04)))",
     );
 
     link.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true }));
@@ -255,7 +255,7 @@ describe("FdAlert", () => {
     link.dispatchEvent(new FocusEvent("focus"));
 
     expect(link.style.boxShadow).toBe(
-      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))), 0 0 0 var(--ds-focus-gap-width, 2px) var(--fd-link-focus-gap, var(--ds-focus-gap-color)), 0 0 0 var(--ds-focus-ring-width, 4px) var(--fd-link-focus-ring, var(--ds-focus-ring-color))",
+      "inset 0 0 0 999px var(--fd-link-hover-overlay, var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))), 0 0 0 var(--fdic-focus-gap-width, 2px) var(--fd-link-focus-gap, var(--fdic-focus-gap-color)), 0 0 0 var(--fdic-focus-ring-width, 4px) var(--fd-link-focus-ring, var(--fdic-focus-ring-color))",
     );
 
     link.dispatchEvent(new FocusEvent("blur"));

@@ -42,9 +42,9 @@ A decorative accent stripe for lightweight grouping and section framing.
 | `--fd-stripe-width` | `80px` | Rendered stripe width. The component clamps to the available container width. |
 | `--fd-stripe-height` | `4px` | Rendered stripe thickness. |
 | `--fd-stripe-radius` | `0` | Corner radius for the stripe. |
-| `--fd-stripe-bg-neutral` | `var(--ds-color-border-divider, var(--fdic-border-divider, #bdbdbf))` | Neutral stripe color. |
-| `--fd-stripe-bg-cool` | `var(--ds-color-info-100, #38b6ff)` | Cool stripe color. |
-| `--fd-stripe-bg-warm` | `var(--ds-color-secondary-500, #d9af45)` | Warm stripe color. |
+| `--fd-stripe-bg-neutral` | `var(--fdic-color-border-divider, var(--fdic-border-divider, #bdbdbf))` | Neutral stripe color. |
+| `--fd-stripe-bg-cool` | `var(--fdic-color-info-100, #38b6ff)` | Cool stripe color. |
+| `--fd-stripe-bg-warm` | `var(--fdic-color-secondary-500, #d9af45)` | Warm stripe color. |
 
 ## Shadow parts
 

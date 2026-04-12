@@ -73,7 +73,7 @@ export class FdVisual extends LitElement {
 
     .surface {
       --_fd-visual-size: 40px;
-      --_fd-visual-padding: var(--ds-spacing-xs, 8px);
+      --_fd-visual-padding: var(--fdic-spacing-xs, 8px);
       --_fd-visual-content-size: 18px;
       display: inline-flex;
       align-items: center;
@@ -83,14 +83,14 @@ export class FdVisual extends LitElement {
       box-sizing: border-box;
       overflow: hidden;
       position: relative;
-      border-radius: var(--fd-visual-radius, var(--ds-corner-radius-full, 9999px));
+      border-radius: var(--fd-visual-radius, var(--fdic-corner-radius-full, 9999px));
       background: var(
         --fd-visual-bg-neutral,
-        var(--ds-color-bg-interactive)
+        var(--fdic-color-bg-interactive)
       );
       color: var(
         --fd-visual-fg-neutral,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
     }
 
@@ -101,31 +101,31 @@ export class FdVisual extends LitElement {
     .avatar-surface {
       padding: 0;
       background: var(--fd-visual-bg-avatar, transparent);
-      color: var(--fd-visual-avatar-placeholder-color, var(--ds-color-icon-disabled));
+      color: var(--fd-visual-avatar-placeholder-color, var(--fdic-color-icon-disabled));
     }
 
     .type-cool {
-      background: var(--fd-visual-bg-cool, var(--ds-color-info-100));
+      background: var(--fd-visual-bg-cool, var(--fdic-color-info-100));
       color: var(
         --fd-visual-fg-cool,
-        var(--ds-color-text-inverted)
+        var(--fdic-color-text-inverted)
       );
     }
 
     .type-warm {
       background: var(
         --fd-visual-bg-warm,
-        var(--ds-color-secondary-200)
+        var(--fdic-color-secondary-200)
       );
       color: var(
         --fd-visual-fg-warm,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
     }
 
     .size-xs {
       --_fd-visual-size: 24px;
-      --_fd-visual-padding: var(--ds-spacing-2xs, 4px);
+      --_fd-visual-padding: var(--fdic-spacing-2xs, 4px);
       --_fd-visual-content-size: 13px;
     }
 
@@ -137,13 +137,13 @@ export class FdVisual extends LitElement {
 
     .size-md {
       --_fd-visual-size: 40px;
-      --_fd-visual-padding: var(--ds-spacing-xs, 8px);
+      --_fd-visual-padding: var(--fdic-spacing-xs, 8px);
       --_fd-visual-content-size: 18px;
     }
 
     .size-lg {
       --_fd-visual-size: 48px;
-      --_fd-visual-padding: var(--ds-spacing-xs, 8px);
+      --_fd-visual-padding: var(--fdic-spacing-xs, 8px);
       --_fd-visual-content-size: 22px;
     }
 
@@ -155,7 +155,7 @@ export class FdVisual extends LitElement {
 
     .size-2xl {
       --_fd-visual-size: 72px;
-      --_fd-visual-padding: var(--ds-spacing-sm, 12px);
+      --_fd-visual-padding: var(--fdic-spacing-sm, 12px);
       --_fd-visual-content-size: 36px;
     }
 

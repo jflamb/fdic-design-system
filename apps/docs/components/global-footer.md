@@ -47,11 +47,11 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 | Name | Default | Description |
 |---|---|---|
 | `--fd-global-footer-background` | `#003256` | Footer background color. |
-| `--fd-global-footer-text-color` | `var(--ds-color-text-inverted, #ffffff)` | Inverted text color used inside the footer shell. |
+| `--fd-global-footer-text-color` | `var(--fdic-color-text-inverted, #ffffff)` | Inverted text color used inside the footer shell. |
 | `--fd-global-footer-stripe` | `linear-gradient(90deg, #d4a62a 0%, #f0cf74 30%, #c59316 60%, #e9c45d 100%)` | Decorative top stripe fill. |
 | `--fd-global-footer-padding-inline` | `64px` | Desktop inline padding. |
-| `--fd-global-footer-max-width` | `var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))` | Maximum inline size of the footer content row. Defaults to the shared page-shell width contract. |
-| `--fd-global-footer-padding-block` | `var(--ds-layout-section-block-padding, 48px)` | Desktop block padding. Defaults to the shared major-section spacing token. |
+| `--fd-global-footer-max-width` | `var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))` | Maximum inline size of the footer content row. Defaults to the shared page-shell width contract. |
+| `--fd-global-footer-padding-block` | `var(--fdic-layout-section-block-padding, 48px)` | Desktop block padding. Defaults to the shared major-section spacing token. |
 | `--fd-global-footer-padding-inline-mobile` | `16px` | Mobile inline padding at `640px` and below. |
 | `--fd-global-footer-padding-block-mobile` | `16px` | Mobile block padding at `640px` and below. |
 | `--fd-global-footer-seal-size` | `80px` | Decorative seal badge size. |

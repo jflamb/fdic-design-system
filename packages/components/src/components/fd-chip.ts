@@ -31,21 +31,21 @@ export class FdChip extends LitElement {
       box-sizing: border-box;
       padding-inline-start: var(
         --fd-chip-padding-inline-start,
-        var(--ds-spacing-sm, 12px)
+        var(--fdic-spacing-sm, 12px)
       );
-      border-radius: var(--fd-chip-radius, var(--ds-corner-radius-full, 9999px));
+      border-radius: var(--fd-chip-radius, var(--fdic-corner-radius-full, 9999px));
       background: var(
         --fd-chip-bg-neutral,
-        var(--ds-color-bg-interactive, #f5f5f7)
+        var(--fdic-color-bg-interactive, #f5f5f7)
       );
       color: var(
         --fd-chip-text-color,
-        var(--ds-color-text-primary, #212123)
+        var(--fdic-color-text-primary, #212123)
       );
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(
         --fd-chip-font-size,
-        var(--ds-font-size-body-small, 1rem)
+        var(--fdic-font-size-body-small, 1rem)
       );
       line-height: 1.375;
     }
@@ -53,28 +53,28 @@ export class FdChip extends LitElement {
     .cool {
       background: var(
         --fd-chip-bg-cool,
-        var(--ds-color-semantic-bg-info, #f1f8fe)
+        var(--fdic-color-semantic-bg-info, #f1f8fe)
       );
     }
 
     .warm {
       background: var(
         --fd-chip-bg-warm,
-        var(--ds-color-semantic-bg-warm, #f8efda)
+        var(--fdic-color-semantic-bg-warm, #f8efda)
       );
     }
 
     .positive {
       background: var(
         --fd-chip-bg-positive,
-        var(--ds-color-semantic-bg-success, #e8f5e9)
+        var(--fdic-color-semantic-bg-success, #e8f5e9)
       );
     }
 
     .alert {
       background: var(
         --fd-chip-bg-alert,
-        var(--ds-color-semantic-bg-error, #fdedea)
+        var(--fdic-color-semantic-bg-error, #fdedea)
       );
     }
 
@@ -84,7 +84,7 @@ export class FdChip extends LitElement {
       min-inline-size: 0;
       overflow-wrap: anywhere;
       word-break: break-word;
-      padding-block: var(--ds-spacing-2xs, 4px);
+      padding-block: var(--fdic-spacing-2xs, 4px);
     }
 
     .remove-wrap {
@@ -92,7 +92,7 @@ export class FdChip extends LitElement {
       align-items: center;
       padding-inline-start: var(
         --fd-chip-remove-gap,
-        var(--ds-spacing-3xs, 2px)
+        var(--fdic-spacing-3xs, 2px)
       );
     }
 
@@ -103,7 +103,7 @@ export class FdChip extends LitElement {
       inline-size: var(--fd-chip-remove-size, 28px);
       block-size: var(--fd-chip-remove-size, 28px);
       border: none;
-      border-radius: var(--ds-corner-radius-full, 9999px);
+      border-radius: var(--fdic-corner-radius-full, 9999px);
       background: transparent;
       color: inherit;
       padding: 0;
@@ -126,7 +126,7 @@ export class FdChip extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-chip-remove-overlay-hover,
-          var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04))
+          var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))
         );
     }
 
@@ -134,7 +134,7 @@ export class FdChip extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-chip-remove-overlay-active,
-          var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08))
+          var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08))
         );
     }
 
@@ -147,7 +147,7 @@ export class FdChip extends LitElement {
       box-shadow: inset 0 0 0 2.5px
         var(
           --fd-chip-remove-focus-ring,
-          var(--ds-color-border-input-focus, #38b6ff)
+          var(--fdic-color-border-input-focus, #38b6ff)
         );
     }
 

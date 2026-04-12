@@ -465,10 +465,10 @@ export class FdInput extends LitElement {
   static styles = [forcedColorsTextInput, css`
     :host {
       display: block;
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--ds-font-size-body, 18px);
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fdic-font-size-body, 18px);
       line-height: 1.375;
-      color: var(--ds-color-text-primary, #212123);
+      color: var(--fdic-color-text-primary, #212123);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -490,16 +490,16 @@ export class FdInput extends LitElement {
       border: 2px solid transparent;
       border-color: var(
         --fd-input-border-color,
-        var(--ds-color-border-input)
+        var(--fdic-color-border-input)
       );
       /* Reserve 2px border at rest so focus (which also uses 2px) causes no
          layout shift.  The visual difference vs. the old 1px border is
          negligible at this scale and the trade-off is worth the stability. */
       border-radius: var(
         --fd-input-border-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
-      background: var(--fd-input-bg, var(--ds-color-bg-base));
+      background: var(--fd-input-bg, var(--fdic-color-bg-base));
       box-sizing: border-box;
     }
 
@@ -508,7 +508,7 @@ export class FdInput extends LitElement {
       flex: 1 1 auto;
       min-width: 0;
       min-height: var(--fd-input-height, 44px);
-      padding: var(--ds-spacing-xs, 8px) var(--ds-spacing-sm, 12px);
+      padding: var(--fdic-spacing-xs, 8px) var(--fdic-spacing-sm, 12px);
       border: none;
       background: transparent;
       font-family: inherit;
@@ -524,7 +524,7 @@ export class FdInput extends LitElement {
     [part="native"]::placeholder {
       color: var(
         --fd-input-placeholder-color,
-        var(--ds-color-text-secondary)
+        var(--fdic-color-text-secondary)
       );
       opacity: 1;
     }
@@ -539,26 +539,26 @@ export class FdInput extends LitElement {
     [part="base"]:hover:not(:has(:disabled)):not(:has(:read-only)) {
       border-color: var(
         --fd-input-border-color-hover,
-        var(--ds-color-border-input-active)
+        var(--fdic-color-border-input-active)
       );
     }
 
     /* --- Focus (on native input) --- */
     [part="base"]:has([part="native"]:focus-visible) {
       outline-color: transparent;
-      border-color: var(--ds-color-border-input-active);
+      border-color: var(--fdic-color-border-input-active);
       box-shadow: 0 0 2.5px 2px
         var(
           --fd-input-border-color-focus,
-          var(--ds-focus-ring-color)
+          var(--fdic-focus-ring-color)
         );
     }
 
     /* --- Disabled --- */
     :host([disabled]) [part="base"] {
-      color: var(--ds-color-text-disabled);
-      border-color: var(--ds-color-border-divider);
-      background: var(--ds-color-bg-container);
+      color: var(--fdic-color-text-disabled);
+      border-color: var(--fdic-color-border-divider);
+      background: var(--fdic-color-bg-container);
       cursor: not-allowed;
     }
 
@@ -568,22 +568,22 @@ export class FdInput extends LitElement {
 
     /* --- Read-only --- */
     :host([readonly]) [part="base"] {
-      background: var(--ds-color-bg-container);
-      border-color: var(--ds-color-border-divider);
+      background: var(--fdic-color-bg-container);
+      border-color: var(--fdic-color-border-divider);
       border-style: dashed;
     }
 
     /* --- Validation state borders --- */
     :host([data-state="error"]) [part="base"] {
-      border-color: var(--ds-color-semantic-fg-error, #d80e3a);
+      border-color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     :host([data-state="warning"]) [part="base"] {
-      border-color: var(--ds-color-semantic-fg-warning, #b48c14);
+      border-color: var(--fdic-color-semantic-fg-warning, #b48c14);
     }
 
     :host([data-state="success"]) [part="base"] {
-      border-color: var(--ds-color-semantic-fg-success, #1e8232);
+      border-color: var(--fdic-color-semantic-fg-success, #1e8232);
     }
 
     /* --- Prefix/suffix: decorative icons ---
@@ -601,7 +601,7 @@ export class FdInput extends LitElement {
 
     /* Decorative state icons should inherit the field state color. */
     :host([data-state="error"]) ::slotted(fd-icon[slot="suffix"]) {
-      color: var(--ds-color-semantic-fg-error, #d80e3a);
+      color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     /* --- Prefix/suffix: action buttons ---
@@ -621,7 +621,7 @@ export class FdInput extends LitElement {
       border: none;
       background: transparent;
       cursor: pointer;
-      border-radius: var(--ds-corner-radius-sm, 3px);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
       padding: 0;
       color: inherit;
       box-sizing: border-box;
@@ -629,20 +629,20 @@ export class FdInput extends LitElement {
 
     ::slotted(button[slot="suffix"]:hover) {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-hover);
+        var(--fdic-color-overlay-hover);
     }
 
     ::slotted(button[slot="suffix"]:active) {
       box-shadow: inset 0 0 0 999px
-        var(--ds-color-overlay-pressed);
+        var(--fdic-color-overlay-pressed);
     }
 
     /* Suffix button focus — inset ring, independent of container */
     ::slotted(button[slot="suffix"]:focus-visible) {
-      outline: 2px solid var(--ds-color-border-input-active, #424244);
+      outline: 2px solid var(--fdic-color-border-input-active, #424244);
       outline-offset: -2px;
-      box-shadow: 0 0 2.5px 2px var(--ds-focus-ring-color, #38b6ff);
-      border-radius: var(--ds-corner-radius-sm, 3px);
+      box-shadow: 0 0 2.5px 2px var(--fdic-focus-ring-color, #38b6ff);
+      border-radius: var(--fdic-corner-radius-sm, 3px);
     }
 
     /* Reduce padding on native input when slots are present */
@@ -665,17 +665,17 @@ export class FdInput extends LitElement {
     [part="char-count"] {
       display: flex;
       justify-content: flex-end;
-      margin-top: var(--ds-spacing-2xs, 4px);
-      font-size: var(--ds-font-size-body-small, 1rem);
-      color: var(--ds-color-text-secondary, #595961);
+      margin-top: var(--fdic-spacing-2xs, 4px);
+      font-size: var(--fdic-font-size-body-small, 1rem);
+      color: var(--fdic-color-text-secondary, #595961);
     }
 
     :host([data-char-warn]) [part="char-count"] {
-      color: var(--ds-color-semantic-fg-warning, #8a6100);
+      color: var(--fdic-color-semantic-fg-warning, #8a6100);
     }
 
     :host([data-char-limit]) [part="char-count"] {
-      color: var(--ds-color-semantic-fg-error, #d80e3a);
+      color: var(--fdic-color-semantic-fg-error, #d80e3a);
     }
 
     /* --- SR-only --- */

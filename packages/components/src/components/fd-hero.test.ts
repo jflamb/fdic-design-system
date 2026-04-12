@@ -67,7 +67,7 @@ describe("FdHero", () => {
       : FdHero.styles.cssText;
 
     expect(stylesheet).toContain("::slotted([slot=\"heading\"])");
-    expect(stylesheet).toContain("color: var(--ds-color-text-inverted) !important;");
+    expect(stylesheet).toContain("color: var(--fdic-color-text-inverted) !important;");
   });
 
   it("uses semantic gradient tokens for hero overlays", () => {
@@ -75,9 +75,9 @@ describe("FdHero", () => {
       ? FdHero.styles.map((style) => style.cssText).join("\n")
       : FdHero.styles.cssText;
 
-    expect(stylesheet).toContain("var(--ds-gradient-hero-overlay-cool)");
-    expect(stylesheet).toContain("var(--ds-gradient-hero-overlay-warm)");
-    expect(stylesheet).toContain("var(--ds-gradient-hero-overlay-neutral)");
+    expect(stylesheet).toContain("var(--fdic-gradient-hero-overlay-cool)");
+    expect(stylesheet).toContain("var(--fdic-gradient-hero-overlay-warm)");
+    expect(stylesheet).toContain("var(--fdic-gradient-hero-overlay-neutral)");
   });
 
   it("preserves an authored heading id", async () => {

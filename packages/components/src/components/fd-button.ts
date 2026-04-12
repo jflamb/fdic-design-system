@@ -33,7 +33,7 @@ export class FdButton extends LitElement {
       align-items: center;
       justify-content: center;
       inline-size: 100%;
-      gap: var(--fd-button-gap, var(--ds-spacing-2xs, 4px));
+      gap: var(--fd-button-gap, var(--fdic-spacing-2xs, 4px));
       min-height: var(--fd-button-height, 44px);
       min-width: var(--fd-button-min-width, 44px);
       min-inline-size: 0;
@@ -41,10 +41,10 @@ export class FdButton extends LitElement {
       border: none;
       border-radius: var(
         --fd-button-radius,
-        var(--ds-corner-radius-sm, 3px)
+        var(--fdic-corner-radius-sm, 3px)
       );
-      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fd-button-font-size, var(--ds-font-size-body, 18px));
+      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fd-button-font-size, var(--fdic-font-size-body, 18px));
       line-height: 1.375;
       text-decoration: none;
       cursor: pointer;
@@ -76,12 +76,12 @@ export class FdButton extends LitElement {
     }
     .base:focus-visible {
       outline-color: transparent;
-      box-shadow: 0 0 0 var(--ds-focus-gap-width, 2px)
-          var(--fd-button-focus-gap, var(--ds-focus-gap-color)),
-        0 0 0 var(--ds-focus-ring-width, 4px)
+      box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fd-button-focus-gap, var(--fdic-focus-gap-color)),
+        0 0 0 var(--fdic-focus-ring-width, 4px)
           var(
             --fd-button-focus-ring,
-            var(--ds-focus-ring-color)
+            var(--fdic-focus-ring-color)
           );
     }
 
@@ -89,11 +89,11 @@ export class FdButton extends LitElement {
     .primary {
       background-color: var(
         --fd-button-bg-primary,
-        var(--ds-color-bg-active)
+        var(--fdic-color-bg-active)
       );
       color: var(
         --fd-button-text-primary,
-        var(--ds-color-text-inverted)
+        var(--fdic-color-text-inverted)
       );
       font-weight: 600;
     }
@@ -102,11 +102,11 @@ export class FdButton extends LitElement {
     .destructive {
       background-color: var(
         --fd-button-bg-destructive,
-        var(--ds-color-bg-destructive)
+        var(--fdic-color-bg-destructive)
       );
       color: var(
         --fd-button-text-destructive,
-        var(--ds-color-neutral-000)
+        var(--fdic-color-neutral-000)
       );
       font-weight: 600;
     }
@@ -115,11 +115,11 @@ export class FdButton extends LitElement {
     .neutral {
       background-color: var(
         --fd-button-bg-neutral,
-        var(--ds-color-bg-interactive)
+        var(--fdic-color-bg-interactive)
       );
       color: var(
         --fd-button-text-neutral,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
       font-weight: 400;
     }
@@ -129,7 +129,7 @@ export class FdButton extends LitElement {
       background-color: transparent;
       color: var(
         --fd-button-text-subtle,
-        var(--ds-color-text-primary)
+        var(--fdic-color-text-primary)
       );
       font-weight: 400;
     }
@@ -139,7 +139,7 @@ export class FdButton extends LitElement {
       background-color: transparent;
       color: var(
         --fd-button-text-subtle-inverted,
-        var(--ds-color-neutral-000)
+        var(--fdic-color-neutral-000)
       );
       font-weight: 400;
       --fd-button-overlay-hover: var(
@@ -154,14 +154,14 @@ export class FdButton extends LitElement {
 
     /* --- Variant: Outline --- */
     .outline {
-      background-color: var(--ds-color-bg-input);
+      background-color: var(--fdic-color-bg-input);
       color: var(
         --fd-button-text-outline,
-        var(--ds-color-text-link)
+        var(--fdic-color-text-link)
       );
       font-weight: 400;
       border: 2px solid
-        var(--fd-button-border-outline, var(--ds-color-bg-active));
+        var(--fd-button-border-outline, var(--fdic-color-bg-active));
     }
 
     /* --- Hover (all non-disabled) --- */
@@ -174,7 +174,7 @@ export class FdButton extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-button-overlay-hover,
-          var(--ds-color-overlay-hover)
+          var(--fdic-color-overlay-hover)
         );
     }
 
@@ -188,7 +188,7 @@ export class FdButton extends LitElement {
       box-shadow: inset 0 0 0 999px
         var(
           --fd-button-overlay-active,
-          var(--ds-color-overlay-pressed)
+          var(--fdic-color-overlay-pressed)
         );
     }
 
@@ -196,11 +196,11 @@ export class FdButton extends LitElement {
     .disabled {
       background-color: var(
         --fd-button-bg-disabled,
-        var(--ds-color-bg-container, #f5f5f7)
+        var(--fdic-color-bg-container, #f5f5f7)
       );
       color: var(
         --fd-button-text-disabled,
-        var(--ds-color-text-disabled, #9e9ea0)
+        var(--fdic-color-text-disabled, #9e9ea0)
       );
       cursor: default;
     }
@@ -211,7 +211,7 @@ export class FdButton extends LitElement {
     .disabled.outline {
       border-color: var(
         --fd-button-border-outline-disabled,
-        var(--ds-color-border-input-disabled, #d6d6d8)
+        var(--fdic-color-border-input-disabled, #d6d6d8)
       );
     }
 
