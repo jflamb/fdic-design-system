@@ -372,6 +372,10 @@ Protect the repo like a public-sector dependency.
 - Support dependency review, security scanning, and provenance improvements when asked.
 - Do not add telemetry, external calls, or third-party hosted assets without a clear reason and documentation.
 
+### Release readiness
+
+For full release-confidence verification, run `npm run validate:release`. See [Release Readiness](../docs/architecture/release-readiness.md) for tier definitions and when each validation level applies.
+
 ## Implementation Bias
 
 While the project is young:
