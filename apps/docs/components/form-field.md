@@ -1,23 +1,23 @@
 # Form Field
 
-`fd-form-field` is the preferred long-term field-shell primitive for the form system. It gives text-entry and grouped controls one wrapper contract for label, description, error, required or optional affordance, and field spacing without turning the design system into a form framework.
+`fd-form-field` is the default wrapper-based field-shell primitive for new form work. It gives text-entry and grouped controls one wrapper contract for label, description, error, required or optional affordance, and field spacing without turning the design system into a form framework.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Supporting primitive</span>
-  <p><code>fd-form-field</code> keeps the shell contract consistent across <code>fd-input</code>, <code>fd-textarea</code>, <code>fd-selector</code>, <code>fd-radio-group</code>, <code>fd-checkbox-group</code>, and <code>fd-file-input</code>. It does not own submit behavior, validation timing, or transport.</p>
+  <p><code>fd-form-field</code> keeps the shell contract consistent across <code>fd-input</code>, <code>fd-textarea</code>, <code>fd-selector</code>, <code>fd-radio-group</code>, <code>fd-checkbox-group</code>, and <code>fd-file-input</code>. It does not own submit behavior, validation timing, or transport, and it is not a promise that every control family should be wrapped the same way.</p>
 </div>
 
 ## When to use
 
 - **You want one field-shell API across control families** — Use it when the workflow mixes text-entry and grouped controls.
 - **The page needs explicit label, description, and error authorship** — Keep those surfaces on the wrapper rather than scattering shell markup across each control family.
-- **You are building toward the long-term form contract** — Prefer `fd-form-field` for new wrapper-based composition work.
+- **You are building a new wrapper-based form shell** — Prefer `fd-form-field` for new composition work that mixes supported control families.
 
 ## When not to use
 
 - **Do not use it to change submit behavior** — Native `<form>` and native `<button type="submit">` still own submission.
 - **Do not use it as a validation engine** — The page decides when `invalid` and `error` become visible.
-- **Do not replace simple existing `fd-field` use just for text-entry sugar** — `fd-field` remains supported for the narrow direct-child text recipe.
+- **Do not replace simple existing `fd-field` use just for text-entry sugar** — `fd-field` remains supported for the narrow direct-child text recipe, especially when the authored label and message markup needs to stay visible before upgrade.
 
 ## Examples
 
@@ -85,12 +85,13 @@
 - For `fd-input` and `fd-textarea`, `fd-form-field` creates real `fd-label` and `fd-message` siblings with explicit `for` and `id` wiring.
 - For grouped controls and `fd-selector`, `fd-form-field` projects the authored label, description, and error through each child control family's existing public API.
 - The wrapper does not move focus, decide when a field is invalid, or replace inline control semantics.
+- Because those managed label and message nodes are injected by the component, use [`fd-field`](/components/field) instead when you need authored text-entry markup to remain visible in server-rendered HTML before upgrade.
 
 ## Known limitations
 
 - `fd-form-field` currently uses properties for label, description, and error content. It does not yet support fully custom slotted shell markup for those regions.
 - `invalid` is a visibility affordance, not a validator. Provide matching error text when the field blocks progress.
-- `fd-field` remains the simpler choice for text-entry-only direct-child sugar. `fd-form-field` is the broader preferred wrapper, not a forced migration requirement.
+- `fd-field` remains the simpler choice for text-entry-only direct-child sugar. `fd-form-field` is the broader default wrapper for new mixed-control shells, not a forced migration requirement for every existing field.
 
 ## Related components
 

@@ -94,8 +94,10 @@ const headerContent = createFdGlobalHeaderContentFromDrupal({
   items: drupalMenuItems,
   search: {
     action: "/search",
-    inputLabel: "Search FDIC.gov",
-    submitLabel: "Search",
+    label: "Search FDIC.gov",
+    placeholder: "Search FDIC.gov",
+    submitLabel: "Open first matching result",
+    searchAllLabel: "Search all FDIC.gov",
   },
 });
 ```

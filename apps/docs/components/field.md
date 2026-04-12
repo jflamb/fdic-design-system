@@ -4,18 +4,19 @@ A convenience wrapper that auto-wires `fd-label`, one supported text-entry contr
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Supporting primitive</span>
-  <p>Use <code>fd-field</code> to reduce boilerplate when composing simple text-entry fields. It auto-generates a unique ID and sets matching <code>for</code>/<code>id</code> attributes on its direct children. It remains supported, but it is not the long-term generalized field shell.</p>
+  <p>Use <code>fd-field</code> to reduce boilerplate when composing simple text-entry fields with authored label and message markup. It auto-generates a unique ID and sets matching <code>for</code>/<code>id</code> attributes on its direct children. It remains supported, but it is the narrow text-entry helper, not the default wrapper for every form control.</p>
 </div>
 
 ## When to use
 
 - **Any text-entry field using the label + control + message pattern** — `fd-field` eliminates manual `for`/`id` wiring for `fd-input` and `fd-textarea`.
 - **Forms with many fields** — the auto-wiring saves significant boilerplate and prevents mismatched IDs.
+- **Server-rendered or CMS-rendered text-entry markup** — the label, control, and message stay authored in the document before JavaScript upgrades complete.
 - **You want the narrow v1 text-entry helper** — keep using `fd-field` when the direct-child `fd-input` or `fd-textarea` recipe is already sufficient.
 
 ## When not to use
 
-- **Non-text-entry form controls** — `fd-field` only discovers `fd-input` and `fd-textarea`. For `fd-selector`, `fd-checkbox`, or `fd-radio-group`, use manual `for`/`id` wiring.
+- **Non-text-entry form controls** — `fd-field` only discovers `fd-input` and `fd-textarea`. For `fd-selector`, `fd-checkbox`, `fd-slider`, or grouped controls, use the component directly or use [`fd-form-field`](/components/form-field) when that component's docs route you there.
 - **Custom layouts** — if you need wrapper elements, grouped controls, or non-standard ordering between label/input/message, use [`fd-form-field`](/components/form-field) or compose the structure manually instead of asking `fd-field` to discover through wrappers.
 
 ## Examples

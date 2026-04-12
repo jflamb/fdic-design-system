@@ -8,7 +8,7 @@ A text input field for user-entered text, with support for labels, hints, error 
 </div>
 
 ::: tip Wrap in fd-form-field or fd-field
-For new wrapper-based work, prefer [`fd-form-field`](/components/form-field) so text-entry and grouped controls share one shell contract. Keep [`fd-field`](/components/field) when you want the narrow direct-child text-entry helper from the v1 contract. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the current supported composition guidance.
+For new wrapper-based work, prefer [`fd-form-field`](/components/form-field) so text-entry and grouped controls share one shell contract. Keep [`fd-field`](/components/field) when you want the narrow direct-child text-entry helper with authored label/message markup in the document. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the current supported composition guidance.
 :::
 
 ## When to use

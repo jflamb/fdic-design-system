@@ -132,6 +132,53 @@ function validateFormContract(referencePath, markdown, errors) {
   );
 }
 
+function validateGlobalHeaderContract(referencePath, markdown, errors) {
+  const codeBlocks = extractFencedCodeBlocks(markdown);
+  const relevantBlocks = codeBlocks.filter(
+    (block) =>
+      block.includes("fd-global-header") ||
+      block.includes("createFdGlobalHeaderContentFromDrupal") ||
+      block.includes("createFdGlobalHeaderContent("),
+  );
+
+  for (const block of relevantBlocks) {
+    assert(
+      !/header\.content\s*=/.test(block),
+      `${referencePath}: downstream global-header examples must assign navigation/search, not header.content`,
+      errors,
+    );
+
+    for (const forbiddenSearchField of ["inputLabel"]) {
+      assert(
+        !new RegExp(`\\b${forbiddenSearchField}\\b`).test(block),
+        `${referencePath}: downstream global-header examples must not use unsupported search config field: ${forbiddenSearchField}`,
+        errors,
+      );
+    }
+  }
+
+  const assignmentBlock = relevantBlocks.find((block) =>
+    block.includes('document.querySelector("fd-global-header")') ||
+    block.includes("document.querySelector('fd-global-header')"),
+  );
+
+  if (!assignmentBlock) {
+    return;
+  }
+
+  assert(
+    /header\.navigation\s*=/.test(assignmentBlock),
+    `${referencePath}: downstream global-header example must show header.navigation assignment`,
+    errors,
+  );
+
+  assert(
+    /header\.search\s*=/.test(assignmentBlock),
+    `${referencePath}: downstream global-header example must show header.search assignment`,
+    errors,
+  );
+}
+
 function main() {
   const publishedTokenNames = collectPublishedTokenNames();
   const errors = [];
@@ -140,6 +187,7 @@ function main() {
     const markdown = read(ref.path);
     validateImports(ref.path, markdown, errors);
     validateTokens(ref.path, markdown, publishedTokenNames, errors);
+    validateGlobalHeaderContract(ref.path, markdown, errors);
 
     if (ref.validateFormContract) {
       validateFormContract(ref.path, markdown, errors);

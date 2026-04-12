@@ -10,6 +10,14 @@ import {
 const meta = {
   title: "Supporting Primitives/Form Field",
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "`fd-form-field` is the default wrapper-based field shell for new mixed-control forms. Use it when one page needs a consistent wrapper contract across supported control families; keep `fd-field` for narrow authored text-entry markup.",
+      },
+    },
+  },
   render: () => html`
     <fd-form-field
       label="Routing number"

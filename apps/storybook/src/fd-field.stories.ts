@@ -15,7 +15,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "`fd-field` is a supporting composition primitive. It has no public attributes or events of its own; its contract is direct-child auto-wiring for one `fd-label`, one `fd-input`, and one `fd-message`.",
+          "`fd-field` is a supporting composition primitive for authored text-entry markup. It has no public attributes or events of its own; its contract is direct-child auto-wiring for one `fd-label`, one `fd-input` or `fd-textarea`, and one `fd-message`.",
       },
     },
   },
@@ -133,8 +133,10 @@ export const DocsOverview: Story = {
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Supporting primitive role</p>
         <p>
           Use <code>fd-field</code> when you want the label, input, and message
-          relationship wired for you. Use direct child components when you need
-          a different layout or different child types.
+          relationship wired for you in authored text-entry markup. Use
+          <code>fd-form-field</code> for new wrapper-based mixed-control shells,
+          or use direct child components when you need a different layout or
+          different child types.
         </p>
       </div>
     </div>

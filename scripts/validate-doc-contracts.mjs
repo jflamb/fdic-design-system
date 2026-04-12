@@ -172,6 +172,51 @@ function validateStorybookFormStories(errors) {
   }
 }
 
+function validateFieldContractGuidance(errors) {
+  const choosing = read("apps/docs/guide/choosing-a-component.md");
+  const checkbox = read("apps/docs/components/checkbox.md");
+  const slider = read("apps/docs/components/slider.md");
+  const field = read("apps/docs/components/field.md");
+  const formField = read("apps/docs/components/form-field.md");
+  const accessibility = read("apps/docs/guide/accessibility.md");
+
+  assert(
+    !choosing.includes("Almost every form field should be wrapped in `fd-field`"),
+    "apps/docs/guide/choosing-a-component.md: must not present fd-field as the default wrapper for almost every form field",
+    errors,
+  );
+
+  assert(
+    !checkbox.includes("Wrap in fd-field"),
+    "apps/docs/components/checkbox.md: standalone checkbox guidance must not route consumers through fd-field",
+    errors,
+  );
+
+  assert(
+    !slider.includes("Wrap in fd-field"),
+    "apps/docs/components/slider.md: slider guidance must not route consumers through fd-field",
+    errors,
+  );
+
+  assert(
+    field.includes("Server-rendered or CMS-rendered text-entry markup"),
+    "apps/docs/components/field.md: fd-field guidance must explain the authored-markup/server-rendered text-entry use case",
+    errors,
+  );
+
+  assert(
+    formField.includes("default wrapper-based field-shell primitive"),
+    "apps/docs/components/form-field.md: fd-form-field guidance must identify the default wrapper-based contract for new work",
+    errors,
+  );
+
+  assert(
+    accessibility.includes("component-level automated tests disable axe-core's `color-contrast` rule"),
+    "apps/docs/guide/accessibility.md: accessibility guidance must disclose the current automated contrast-validation boundary",
+    errors,
+  );
+}
+
 function main() {
   const errors = [];
   const publishedTokenNames = collectPublishedTokenNames();
@@ -185,6 +230,7 @@ function main() {
 
   validateFormRecipe(errors);
   validateStorybookFormStories(errors);
+  validateFieldContractGuidance(errors);
 
   if (errors.length > 0) {
     console.error("\nDocs contract validation failed:\n");

@@ -129,13 +129,19 @@ const headerContent = createFdGlobalHeaderContentFromDrupal({
   items: appMenuItems,
   search: {
     action: "/search",
-    inputLabel: "Search FDIC.gov",
-    submitLabel: "Search",
+    label: "Search FDIC.gov",
+    placeholder: "Search FDIC.gov",
+    submitLabel: "Open first matching result",
+    searchAllLabel: "Search all FDIC.gov",
   },
 });
 
 const header = document.querySelector("fd-global-header");
-header.content = headerContent;
+
+if (header) {
+  header.navigation = headerContent.navigation;
+  header.search = headerContent.search ?? null;
+}
 ```
 
 ## Operational notes
