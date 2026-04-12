@@ -20,18 +20,18 @@ If you are also using the component package, import `@jflamb/fdic-ds-components/
 
 ## Token namespaces
 
-Use `--ds-*` as the canonical token namespace for new system-level adoption. That is the stable surface for colors, spacing, layout, radius, shadows, and gradients.
+Use `--fdic-*` as the canonical token namespace for new system-level adoption. That is the stable surface for colors, spacing, layout, radius, shadows, and gradients.
 
-Typography tokens now also have canonical `--ds-*` declarations:
+All token families — including typography — use the `--fdic-*` prefix:
 
-- `--ds-font-family-*`, `--ds-font-size-*`, `--ds-font-weight-*`
-- `--ds-line-height-*`
-- `--ds-letter-spacing-*`
-- `--ds-heading-padding-*`
+- `--fdic-font-family-*`, `--fdic-font-size-*`, `--fdic-font-weight-*`
+- `--fdic-line-height-*`
+- `--fdic-letter-spacing-*`
+- `--fdic-heading-padding-*`
 
-The older `--fdic-*` names (`--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, `--fdic-heading-padding-*`) are preserved as **deprecated aliases** that resolve to their `--ds-*` equivalents. Existing code using `var(--fdic-font-size-body)` continues to work, but new code should use `var(--ds-font-size-body)`.
+The older `--ds-*` names are preserved as **deprecated aliases** that resolve to their `--fdic-*` equivalents. Existing code using `var(--ds-color-text-primary)` continues to work, but new code should use `var(--fdic-color-text-primary)`.
 
-When both namespaces can express the same system concern, always prefer the `--ds-*` token. The `--fdic-*` aliases are scheduled for removal in a future major version.
+The `--ds-*` aliases are scheduled for removal in a future major version.
 
 ## CSS adoption
 
@@ -45,18 +45,18 @@ Use a normal stylesheet import when your build system resolves npm CSS entrypoin
 
 That gives your authored layout and content access to the stable public token families:
 
-- `--ds-color-*`
-- `--ds-spacing-*`
-- `--ds-corner-radius-*`
-- `--ds-layout-*`
-- `--ds-shadow-*`
-- `--ds-gradient-*`
+- `--fdic-color-*`
+- `--fdic-spacing-*`
+- `--fdic-corner-radius-*`
+- `--fdic-layout-*`
+- `--fdic-shadow-*`
+- `--fdic-gradient-*`
 - `--fdic-font-*`
 - `--fdic-line-height-*`
 - `--fdic-letter-spacing-*`
 - `--fdic-heading-padding-*`
 
-For new adoption, start with the `--ds-*` families above and add the public `--fdic-*` typography families only when you need explicit type controls.
+For new adoption, start with the `--fdic-*` families above.
 
 ### Component runtime import
 
@@ -97,10 +97,10 @@ Scope overrides to the smallest boundary that owns the visual change.
 
 ```css
 .fdic-regional-theme {
-  --ds-color-bg-base: #f7fbff;
-  --ds-color-bg-surface: #ffffff;
-  --ds-color-text-default: #102a43;
-  --ds-color-border-strong: #40637a;
+  --fdic-color-bg-base: #f7fbff;
+  --fdic-color-bg-surface: #ffffff;
+  --fdic-color-text-default: #102a43;
+  --fdic-color-border-strong: #40637a;
 }
 ```
 
@@ -112,8 +112,8 @@ Good:
 
 ```css
 .campaign-shell {
-  --ds-color-status-info-bg: #e9f5ff;
-  --ds-color-status-info-text: #0f3657;
+  --fdic-color-status-info-bg: #e9f5ff;
+  --fdic-color-status-info-text: #0f3657;
 }
 ```
 
@@ -132,9 +132,9 @@ Undocumented `--fd-*` overrides are not part of the supported contract unless a 
 
 ```css
 .fdic-review-panel {
-  --ds-layout-readable-max: 68ch;
-  --ds-spacing-3: 0.75rem;
-  --ds-spacing-5: 1.5rem;
+  --fdic-layout-readable-max: 68ch;
+  --fdic-spacing-3: 0.75rem;
+  --fdic-spacing-5: 1.5rem;
 }
 ```
 
@@ -154,7 +154,7 @@ This pattern is appropriate for page shells, content panels, and CMS regions tha
 - Do not remap status semantics to unrelated brand colors.
 - Do not depend on undocumented token names.
 - Do not create a parallel alias layer unless you are intentionally managing a migration.
-- Do not start new app themes on compatibility-era `--fdic-*` tokens when a `--ds-*` token already covers the same system role.
+- Do not start new app themes on compatibility-era `--ds-*` tokens when a `--fdic-*` token already covers the same system role.
 - Keep token overrides outside component shadow DOM internals.
 
 ## Related guidance

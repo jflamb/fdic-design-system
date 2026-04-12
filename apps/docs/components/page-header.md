@@ -29,7 +29,7 @@ The page header provides consistent page-level context and navigation on a brand
   caption="Full page header with breadcrumbs, kicker, title, and actions. The Playground story in Storybook provides interactive controls for all properties."
 />
 
-`fd-page-header` is one of the components that consumes the shared page-shell contract directly. Its inner wrapper aligns to `--ds-layout-shell-max-width`, and its default vertical spacing comes from `--ds-layout-section-block-padding`.
+`fd-page-header` is one of the components that consumes the shared page-shell contract directly. Its inner wrapper aligns to `--fdic-layout-shell-max-width`, and its default vertical spacing comes from `--fdic-layout-section-block-padding`.
 
 ### Basic usage
 

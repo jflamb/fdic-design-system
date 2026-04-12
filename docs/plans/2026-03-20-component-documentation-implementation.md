@@ -316,7 +316,7 @@ Append the following CSS to the end of `custom.css`:
 .fdic-dont-card {
   padding: 1rem;
   border-radius: 12px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   color: var(--fdic-docs-ink);
 }
 

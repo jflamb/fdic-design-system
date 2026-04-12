@@ -2,54 +2,45 @@
 
 ## Summary
 
-The current consumer surface uses two overlapping token families:
+The design system originally shipped tokens under two overlapping prefixes:
 
-- `--ds-*` for system semantic and foundation tokens
-- `--fdic-*` for older public families, especially typography and some color, spacing, and compatibility aliases
+- `--fdic-*` for system semantic and foundation tokens
+- `--ds-*` for older public families, especially typography and some color, spacing, and compatibility aliases
 
-This split is workable today but it fragments documentation, increases migration ambiguity for downstream adopters, and makes it harder to explain which layer is the stable entrypoint for new work.
+This split fragmented documentation, increased migration ambiguity for downstream adopters, and made it harder to explain which layer is the stable entrypoint for new work.
 
-## Current State
+**Resolution:** `--fdic-*` is now the canonical system token namespace. All `--ds-*` tokens are preserved as deprecated aliases that resolve to their `--fdic-*` equivalents.
 
-Repository evidence on 2026-04-11 shows:
+## Current State (completed)
 
-- `packages/tokens/styles.css` treats `--ds-*` as the primary system layer for colors, spacing, layout, interaction, and radius.
-- `packages/tokens/styles.css` also still ships `--fdic-*` families for typography and compatibility-oriented values.
-- component docs frequently show component custom properties resolving through `var(--fdic-*, fallback)` chains.
-- architecture docs already describe `--ds-*` as the preferred system token layer.
+All phases of the migration are complete as of 2026-04-12:
 
-## Recommendation
-
-Adopt `--ds-*` as the long-term canonical system token namespace and treat `--fdic-*` as a compatibility layer that is reduced over time.
-
-This does not mean immediate renaming. It means:
-
-1. New system-level tokens should ship under `--ds-*`.
-2. Existing `--fdic-*` families should be documented as compatibility or legacy-facing where applicable.
-3. Removals should happen only through a versioned migration plan with aliases and deprecation guidance.
+- `packages/tokens/styles.css` treats `--fdic-*` as the sole primary system layer for all token categories (colors, spacing, layout, interaction, radius, typography).
+- `--ds-*` families are retained as compatibility aliases that resolve to `var(--fdic-*)`.
+- Component docs show component custom properties resolving through `var(--fdic-*, fallback)` chains.
+- Architecture docs and all documentation markdown describe `--fdic-*` as the canonical system token layer.
 
 ## Migration Path
 
 ### Phase A: Clarify the contract ✅ (completed 2026-04-12)
 
-- Updated `using-tokens.md` and `customization.md` to state `--ds-*` is canonical.
-- Identified all `--fdic-*` families as typography-only compatibility aliases.
+- Updated `using-tokens.md` and `customization.md` to state `--fdic-*` is canonical.
+- Identified all `--ds-*` families as typography-only compatibility aliases.
 
 ### Phase B: Alias before removing ✅ (completed 2026-04-12)
 
-- All 41 `--fdic-*` typography tokens are now aliases of `--ds-*` equivalents in the token generator (`scripts/tokens/generate-dtcg.mjs`).
-- `packages/tokens/styles.css` declares canonical `--ds-font-*`, `--ds-line-height-*`, `--ds-letter-spacing-*`, `--ds-font-weight-*`, `--ds-heading-padding-*` tokens.
-- `--fdic-*` aliases resolve to `var(--ds-*)` — existing consumer code continues to work.
+- All 41 `--ds-*` typography tokens are now aliases of `--fdic-*` equivalents in the token generator (`scripts/tokens/generate-dtcg.mjs`).
+- `packages/tokens/styles.css` declares canonical `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, `--fdic-font-weight-*`, `--fdic-heading-padding-*` tokens.
+- `--ds-*` aliases resolve to `var(--fdic-*)` — existing consumer code continues to work.
 - Component-level `--fd-*` overrides are unchanged.
 
-### Phase C: Deprecate selectively
+### Phase C: Deprecate selectively (next)
 
-- Deprecate only the `--fdic-*` families that have a clear `--ds-*` equivalent and a consumer migration path.
-- Preserve typography families longer if no equivalent `--ds-*` naming scheme exists yet.
+- Deprecate only the `--ds-*` families that have a clear `--fdic-*` equivalent and a consumer migration path.
+- Preserve typography families longer if downstream consumers have not yet migrated off `--ds-*` naming.
 
 ## Scope Notes
 
-- This recommendation does not propose a mass migration in the current remediation cycle.
 - `--fd-*` component override properties are not part of this unification discussion and should remain component-scoped.
 
 ## Discussion Recommendation
@@ -58,6 +49,6 @@ This recommendation is posted for downstream feedback in GitHub Discussion [#184
 
 Please use that thread to comment on:
 
-- which `--fdic-*` families they use directly
+- which `--ds-*` families they use directly
 - whether aliases are sufficient for migration
-- whether typography should remain under `--fdic-*` longer than other token categories
+- whether typography should remain under `--ds-*` longer than other token categories

@@ -13,16 +13,16 @@ These tokens should be documented as usability constraints, not just visual meas
 
 The public runtime contract includes these spacing and layout foundations:
 
-- spacing: `--ds-spacing-3xs` through `--ds-spacing-5xl` plus `--ds-spacing-none`
-- radius: `--ds-corner-radius-sm` through `--ds-corner-radius-full`
-- layout widths and gutters: `--ds-layout-max-width`, `--ds-layout-shell-max-width`, `--ds-layout-gutter`, `--ds-layout-gutter-tablet`, `--ds-layout-gutter-mobile`, `--ds-layout-content-max-width`, and `--ds-layout-paragraph-max-width`
-- section and flow spacing: `--ds-layout-section-block-padding`, `--ds-layout-section-block-padding-compact`, `--ds-layout-content-gap`, `--ds-layout-split-gap`, and `--ds-layout-stack-gap`
-- common split rail: `--ds-layout-sidebar-width`
-- shared collection layouts: `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` for documented min, max, and gap values, plus the `*-narrow` variants used on narrow screens
+- spacing: `--fdic-spacing-3xs` through `--fdic-spacing-5xl` plus `--fdic-spacing-none`
+- radius: `--fdic-corner-radius-sm` through `--fdic-corner-radius-full`
+- layout widths and gutters: `--fdic-layout-max-width`, `--fdic-layout-shell-max-width`, `--fdic-layout-gutter`, `--fdic-layout-gutter-tablet`, `--fdic-layout-gutter-mobile`, `--fdic-layout-content-max-width`, and `--fdic-layout-paragraph-max-width`
+- section and flow spacing: `--fdic-layout-section-block-padding`, `--fdic-layout-section-block-padding-compact`, `--fdic-layout-content-gap`, `--fdic-layout-split-gap`, and `--fdic-layout-stack-gap`
+- common split rail: `--fdic-layout-sidebar-width`
+- shared collection layouts: `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` for documented min, max, and gap values, plus the `*-narrow` variants used on narrow screens
 
 The broader public naming convention is intentionally narrow:
 
-- public system tokens use `--ds-*`
+- public system tokens use `--fdic-*`
 - public typography tokens currently use the shipped `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` families
 - public component override hooks use `--fd-*` only when a component page documents them explicitly
 - public docs do not treat `--fdic-*` names as supported consumer API
@@ -31,7 +31,7 @@ This v1 contract stays intentionally small. If a layout need can be taught clear
 
 ## Shared page shell
 
-Use `--ds-layout-shell-max-width` for the common inner width that aligns the global header, page header, page feedback, footer, and page-content wrappers.
+Use `--fdic-layout-shell-max-width` for the common inner width that aligns the global header, page header, page feedback, footer, and page-content wrappers.
 
 This token is intended for aligned page chrome and full-page sections. Section backgrounds, separators, and border treatments can still span full bleed while the section's inner wrapper stays pinned to the shared shell width.
 
@@ -40,41 +40,41 @@ This token is intended for aligned page chrome and full-page sections. Section b
 This is a documented pattern built from stable tokens, not a separate utility API.
 
 - Let the section surface run full bleed when the background, border, or divider needs to span the viewport.
-- Constrain the section's inner wrapper to `--ds-layout-shell-max-width`.
-- Use `--ds-layout-section-block-padding` for major page sections such as page headers and footers.
-- Use `--ds-layout-section-block-padding-compact` for supporting sections such as inline feedback or small follow-on content bands.
+- Constrain the section's inner wrapper to `--fdic-layout-shell-max-width`.
+- Use `--fdic-layout-section-block-padding` for major page sections such as page headers and footers.
+- Use `--fdic-layout-section-block-padding-compact` for supporting sections such as inline feedback or small follow-on content bands.
 - Keep horizontal padding on the shared gutter tokens so aligned sections continue to line up at zoom and across breakpoints.
 
 Example:
 
 ```css
 .section {
-  padding-block: var(--ds-layout-section-block-padding);
-  padding-inline: var(--ds-layout-gutter);
+  padding-block: var(--fdic-layout-section-block-padding);
+  padding-inline: var(--fdic-layout-gutter);
 }
 
 .section__inner {
-  max-inline-size: var(--ds-layout-shell-max-width);
+  max-inline-size: var(--fdic-layout-shell-max-width);
   margin-inline: auto;
 }
 ```
 
 ## Readable text width
 
-Use `--ds-layout-paragraph-max-width` for long-form reading rails, prose blocks, and support copy that should stay within a readable line length.
+Use `--fdic-layout-paragraph-max-width` for long-form reading rails, prose blocks, and support copy that should stay within a readable line length.
 
 This token is stable. The exact layout around that readable rail is still a documented pattern:
 
 - Keep headings, metadata, and actions free to use the shared shell width when they need to.
-- Constrain sustained paragraph content, survey copy, and form explanation text to `--ds-layout-paragraph-max-width`.
+- Constrain sustained paragraph content, survey copy, and form explanation text to `--fdic-layout-paragraph-max-width`.
 - Do not force all page content to the readable rail width. Use it where reading comfort matters most.
 
 ## Sidebar and content split
 
 The split layout is a stable documented pattern with one stable rail token.
 
-- `--ds-layout-sidebar-width` defines the preferred sidebar rail width.
-- `--ds-layout-split-gap` defines the space between the sidebar and the main content rail.
+- `--fdic-layout-sidebar-width` defines the preferred sidebar rail width.
+- `--fdic-layout-split-gap` defines the space between the sidebar and the main content rail.
 - The responsive collapse behavior stays a pattern, not a frozen utility or separate mobile token set.
 
 Recommended v1 pattern:
@@ -82,8 +82,8 @@ Recommended v1 pattern:
 ```css
 .split {
   display: grid;
-  grid-template-columns: minmax(0, var(--ds-layout-sidebar-width)) minmax(0, 1fr);
-  gap: var(--ds-layout-split-gap);
+  grid-template-columns: minmax(0, var(--fdic-layout-sidebar-width)) minmax(0, 1fr);
+  gap: var(--fdic-layout-split-gap);
 }
 
 @container (max-width: 60rem) {
@@ -99,18 +99,18 @@ Use this when the sidebar contains local navigation, metadata, filters, or suppo
 
 Use the shared layout gaps for general page composition outside the specialized collection-grid recipes:
 
-- `--ds-layout-content-gap` for peer regions in a section, such as prompt/action groupings or two-column content bands
-- `--ds-layout-stack-gap` for vertical stacks of related elements inside one region
-- `--ds-layout-split-gap` for sidebar/main arrangements specifically
+- `--fdic-layout-content-gap` for peer regions in a section, such as prompt/action groupings or two-column content bands
+- `--fdic-layout-stack-gap` for vertical stacks of related elements inside one region
+- `--fdic-layout-split-gap` for sidebar/main arrangements specifically
 
-These tokens do not replace the collection `--ds-layout-col-*` gap recipes. Collection layouts remain their own stable contract because they encode approved FDIC track widths and gaps together.
+These tokens do not replace the collection `--fdic-layout-col-*` gap recipes. Collection layouts remain their own stable contract because they encode approved FDIC track widths and gaps together.
 
 ## Shared collection columns
 
 The design system now publishes the documented 2-column, 3-column, and 4-column layout recipes as shared layout tokens instead of keeping those values duplicated inside each collection component.
 
-- desktop recipes: `--ds-layout-col-2-min`, `--ds-layout-col-2-max`, `--ds-layout-col-2-gap`, and the equivalent `col-3` and `col-4` tokens
-- narrow-screen recipes: `--ds-layout-col-2-min-narrow`, `--ds-layout-col-2-gap-narrow`, and the equivalent `col-3` and `col-4` narrow tokens
+- desktop recipes: `--fdic-layout-col-2-min`, `--fdic-layout-col-2-max`, `--fdic-layout-col-2-gap`, and the equivalent `col-3` and `col-4` tokens
+- narrow-screen recipes: `--fdic-layout-col-2-min-narrow`, `--fdic-layout-col-2-gap-narrow`, and the equivalent `col-3` and `col-4` narrow tokens
 
 `fd-card-group`, `fd-tile-list`, and `fd-event-list` default to these shared tokens. Override the component-level `--fd-*` variables only when a specific collection needs to diverge from the system recipe.
 
@@ -151,7 +151,7 @@ The exact collapse thresholds are intentionally private implementation details. 
 <div class="fdic-anatomy">
   <div class="fdic-anatomy-panel fdic-doc-card-copy">
     <span class="fdic-eyebrow">Readable width</span>
-    <p>Document `--ds-layout-content-max-width` and `--ds-layout-paragraph-max-width` as controls on comprehension, not just container dimensions.</p>
+    <p>Document `--fdic-layout-content-max-width` and `--fdic-layout-paragraph-max-width` as controls on comprehension, not just container dimensions.</p>
     <div class="fdic-anatomy-demo">
       <div style="height:0.75rem; width:100%; background:#0D6191; border-radius:999px;"></div>
       <div style="height:0.75rem; width:58%; margin-top:0.75rem; background:#D9AF45; border-radius:999px;"></div>

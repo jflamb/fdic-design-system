@@ -63,8 +63,8 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 - **Author direct `fd-tile` children.** `fd-tile-list` assigns list-item semantics to direct tile children so assistive technology announces the set as a list.
 - **Set the tone on the list, not on individual grouped tiles.** `fd-tile-list` applies one shared `tone` to every direct `fd-tile` child, so a single list cannot mix cool, neutral, and warm visuals.
 - **Use `label` only when needed.** If nearby visible copy already names the set, leave `label` unset to avoid redundant announcements.
-- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` recipe families.
-- **Treat the list as a collection contract, not a page-layout utility.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; general section and split spacing belong to the foundations layout contract.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` recipe families.
+- **Treat the list as a collection contract, not a page-layout utility.** The shared `--fdic-layout-col-*` tokens are stable for collection wrappers; general section and split spacing belong to the foundations layout contract.
 - **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Tile List does not add composite keyboarding or item state. If the interaction starts behaving like a menu, selector, or card-action grid, use a different pattern instead.

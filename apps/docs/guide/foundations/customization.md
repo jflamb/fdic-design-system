@@ -11,14 +11,14 @@ This page defines the supported customization contract for the FDIC design syste
 
 These token families are the supported customization surface for v1:
 
-- `--ds-color-*` for semantic color roles and palette references
-- `--ds-spacing-*` for spacing rhythm
-- `--ds-corner-radius-*` for corner treatments
-- `--ds-layout-*` for width and gutter constraints
+- `--fdic-color-*` for semantic color roles and palette references
+- `--fdic-spacing-*` for spacing rhythm
+- `--fdic-corner-radius-*` for corner treatments
+- `--fdic-layout-*` for width and gutter constraints
 - `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` for typography
-- `--ds-shadow-*` and `--ds-gradient-*` for elevation and surface effects
+- `--fdic-shadow-*` and `--fdic-gradient-*` for elevation and surface effects
 
-`--ds-*` is the canonical namespace for new system-token adoption. The `--fdic-*` families listed above remain intentionally public for typography, but other legacy-era `--fdic-*` tokens should be treated as compatibility surface rather than the preferred starting point for new themes.
+`--fdic-*` is the canonical namespace for new system-token adoption. The `--fdic-*` families listed above remain intentionally public for typography, but other legacy-era `--fdic-*` tokens should be treated as compatibility surface rather than the preferred starting point for new themes.
 
 Use those tokens when you are styling page chrome, authored content, or wrapper layout around FDIC components.
 

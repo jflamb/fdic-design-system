@@ -20,7 +20,7 @@ The current public foundations guidance covers:
 ## Stable runtime contract
 
 - Stable stylesheet: `@jflamb/fdic-ds-tokens/styles.css`
-- Stable token prefixes: `--ds-color-*`, `--ds-spacing-*`, `--ds-corner-radius-*`, `--ds-layout-*`, `--ds-shadow-*`, `--ds-gradient-*`, `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*`
+- Stable token prefixes: `--fdic-color-*`, `--fdic-spacing-*`, `--fdic-corner-radius-*`, `--fdic-layout-*`, `--fdic-shadow-*`, `--fdic-gradient-*`, `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*`
 - Stable component override prefix: `--fd-*` only when a component page documents the token explicitly
 - Stable data export: `@jflamb/fdic-ds-tokens/fdic.tokens.json`
 - Supported component stylesheet: `@jflamb/fdic-ds-components/styles.css`

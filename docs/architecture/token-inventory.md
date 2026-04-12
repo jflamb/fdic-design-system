@@ -6,9 +6,9 @@ It is an internal inventory and translation aid, not a final implementation spec
 
 Consumer-facing docs should not treat the Figma export labels in this file as supported API names. The public docs intentionally translate those source labels into the narrower runtime contract:
 
-- public system tokens use `--ds-*`
+- public system tokens use `--fdic-*`
 - public typography tokens currently ship as `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*`
-- public radius tokens currently ship as `--ds-corner-radius-*`
+- public radius tokens currently ship as `--fdic-corner-radius-*`
 - public component override hooks use documented `--fd-*` tokens only
 - raw Figma export labels such as `Width.content-max` and `Padding.section-horizontal` are internal source vocabulary
 

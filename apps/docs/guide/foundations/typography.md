@@ -192,7 +192,7 @@ The `.lead` (or `.prose-lead`) class is used for article introductions and secti
 - Line-height: 1.6 (slightly airier than body)
 - Color: secondary (`#595961`)
 - Left border: 4px solid brand-blue (`#0d6191`)
-- Nested blockquotes use `--ds-color-border-divider` for the border to show hierarchy
+- Nested blockquotes use `--fdic-color-border-divider` for the border to show hierarchy
 
 ::: tip Attribution
 Wrap attributions in `<footer><cite>` — do not use blockquotes for visual indentation of non-quoted content (WCAG 1.3.1).
@@ -314,7 +314,7 @@ Links use a four-state color model with underline thickness transitions:
   </div>
 </div>
 
-- **Focus**: `outline: 2px solid var(--ds-color-border-input-focus)`, `outline-offset: 2px`, `border-radius: 2px`
+- **Focus**: `outline: 2px solid var(--fdic-color-border-input-focus)`, `outline-offset: 2px`, `border-radius: 2px`
 - **External links** (`a[href^="http"]:not([href*="fdic.gov"])`): Phosphor ArrowSquareOut icon appended via `background-image` with `padding-right`; visited variant swaps icon fill to visited purple
 - **Content guidance**: Use descriptive link text that makes sense out of context — avoid "click here" or "read more"
 
@@ -329,32 +329,32 @@ All spacing tokens use `rem` — never `px`.
     <span>Usage</span>
   </div>
   <div class="fdic-roles-row">
-    <span><code>--ds-spacing-2xs</code></span>
+    <span><code>--fdic-spacing-2xs</code></span>
     <span>0.25rem</span>
     <span>Simple list item spacing, tight gaps</span>
   </div>
   <div class="fdic-roles-row">
-    <span><code>--ds-spacing-xs</code></span>
+    <span><code>--fdic-spacing-xs</code></span>
     <span>0.5rem</span>
     <span>Below-heading spacing</span>
   </div>
   <div class="fdic-roles-row">
-    <span><code>--ds-spacing-sm</code></span>
+    <span><code>--fdic-spacing-sm</code></span>
     <span>0.75rem</span>
     <span>Internal component padding</span>
   </div>
   <div class="fdic-roles-row">
-    <span><code>--ds-spacing-md</code></span>
+    <span><code>--fdic-spacing-md</code></span>
     <span>1rem</span>
     <span>Complex list item spacing</span>
   </div>
   <div class="fdic-roles-row">
-    <span><code>--ds-spacing-xl</code></span>
+    <span><code>--fdic-spacing-xl</code></span>
     <span>1.25rem</span>
     <span>Default block element margin-bottom</span>
   </div>
   <div class="fdic-roles-row">
-    <span><code>--ds-spacing-3xl</code></span>
+    <span><code>--fdic-spacing-3xl</code></span>
     <span>3rem</span>
     <span>Thematic breaks (<code>&lt;hr&gt;</code>)</span>
   </div>
@@ -362,15 +362,15 @@ All spacing tokens use `rem` — never `px`.
 
 ### Vertical rhythm rules
 
-- **Block elements** (p, ul, ol, dl, blockquote, pre, figure, table, hr): `margin-top: 0; margin-bottom: var(--ds-spacing-xl, 1.25rem)`
+- **Block elements** (p, ul, ol, dl, blockquote, pre, figure, table, hr): `margin-top: 0; margin-bottom: var(--fdic-spacing-xl, 1.25rem)`
 - **Headings**: `1.5em` above, `0.5em` below
-- **HR**: `--ds-spacing-3xl` (3rem) above and below — larger gap for thematic breaks
+- **HR**: `--fdic-spacing-3xl` (3rem) above and below — larger gap for thematic breaks
 - **Boundary resets**: First child of `.prose` gets `margin-top: 0`; last child gets `margin-bottom: 0`
 
 ### List spacing
 
-- **Simple items**: `--ds-spacing-2xs` (0.25rem) between siblings
-- **Complex items** (containing `<p>`): `--ds-spacing-md` (1rem) between siblings
+- **Simple items**: `--fdic-spacing-2xs` (0.25rem) between siblings
+- **Complex items** (containing `<p>`): `--fdic-spacing-md` (1rem) between siblings
 - **Nested lists**: tight to parent (0.25rem above, 0 below)
 - **Sibling items with nested lists**: `1rem` between them
 

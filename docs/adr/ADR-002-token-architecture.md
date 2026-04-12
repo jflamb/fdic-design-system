@@ -12,7 +12,7 @@ The design system needs tokens that support:
 - machine-readable exports for tooling and documentation
 - clear separation between raw values, semantic roles, and component overrides
 
-The repository already ships token outputs in CSS and DTCG-compatible JSON, with consumer usage split between `--ds-*` semantic/foundation tokens and some legacy/public `--fdic-*` families.
+The repository already ships token outputs in CSS and DTCG-compatible JSON, with consumer usage split between `--fdic-*` semantic/foundation tokens and some legacy/public `--fdic-*` families.
 
 ## Decision
 
@@ -27,7 +27,7 @@ The canonical distribution formats remain CSS custom properties and DTCG-oriente
 ## Consequences
 
 - Consumers can adopt tokens from CSS alone or from structured JSON pipelines.
-- Semantic `--ds-*` tokens remain the preferred public system layer for new consumption.
+- Semantic `--fdic-*` tokens remain the preferred public system layer for new consumption.
 - Component-level `--fd-*` custom properties continue to expose focused override points without turning component CSS into a second token system.
 - Any future cleanup of legacy `--fdic-*` token families should be handled as an explicit migration with compatibility aliases, not an ad hoc rename.
 

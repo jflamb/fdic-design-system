@@ -52,8 +52,8 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 
 ### Implementation guide
 
-- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` recipe families.
-- **Treat the list as a collection contract, not a general page grid.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; broader page-layout gaps and shells live in the foundations layout contract instead.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` recipe families.
+- **Treat the list as a collection contract, not a general page grid.** The shared `--fdic-layout-col-*` tokens are stable for collection wrappers; broader page-layout gaps and shells live in the foundations layout contract instead.
 - **Let the component own reflow.** `fd-card-group` adapts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Use a nearby heading first, then `label` only when needed.** If visible copy already names the set, the accessible label may be omitted.

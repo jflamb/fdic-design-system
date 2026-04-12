@@ -112,32 +112,32 @@ Replace `background-image` data URIs with `mask-image` + `background-color`:
   mask-position: center;
   -webkit-mask-image: var(--fd-icon-mask-lightbulb);
   mask-image: var(--fd-icon-mask-lightbulb);
-  background-color: var(--ds-color-text-secondary, #595961);
+  background-color: var(--fdic-color-text-secondary, #595961);
 }
 
 /* Each variant sets only mask + color */
 .prose-callout-info .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-info);
   mask-image: var(--fd-icon-mask-info);
-  background-color: var(--ds-color-semantic-fg-info, #1278b0);
+  background-color: var(--fdic-color-semantic-fg-info, #1278b0);
 }
 
 .prose-callout-warning .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-warning);
   mask-image: var(--fd-icon-mask-warning);
-  background-color: var(--ds-color-semantic-fg-warning, #b48c14);
+  background-color: var(--fdic-color-semantic-fg-warning, #b48c14);
 }
 
 .prose-callout-success .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-check-circle);
   mask-image: var(--fd-icon-mask-check-circle);
-  background-color: var(--ds-color-semantic-fg-success, #1e8232);
+  background-color: var(--fdic-color-semantic-fg-success, #1e8232);
 }
 
 .prose-callout-danger .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-warning-octagon);
   mask-image: var(--fd-icon-mask-warning-octagon);
-  background-color: var(--ds-color-semantic-fg-error, #be2828);
+  background-color: var(--fdic-color-semantic-fg-error, #be2828);
 }
 ```
 
@@ -154,7 +154,7 @@ Replace `background-image` data URIs with `mask-image` + `background-color`:
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
-  background-color: var(--ds-color-text-primary, #212123);
+  background-color: var(--fdic-color-text-primary, #212123);
   background-image: none;
 }
 ```
@@ -174,12 +174,12 @@ Replace `background-image` data URIs with `mask-image` + `background-color`:
   mask-size: var(--_ext-size) var(--_ext-size);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  background-color: var(--ds-color-text-link, #1278b0);
+  background-color: var(--fdic-color-text-link, #1278b0);
   background-image: none;
 }
 
 .prose a[href^="http"]:not([href*="fdic.gov"]):visited {
-  background-color: var(--ds-color-text-link-visited, #855AA5);
+  background-color: var(--fdic-color-text-link-visited, #855AA5);
 }
 ```
 
@@ -187,14 +187,14 @@ Replace `background-image` data URIs with `mask-image` + `background-color`:
 
 | Element | Mask variable | background-color token |
 |---------|--------------|----------------------|
-| `summary::after` | `--fd-icon-mask-caret-down` | `--ds-color-text-primary` |
-| `.prose-callout-icon` (default) | `--fd-icon-mask-lightbulb` | `--ds-color-text-secondary` |
-| `.prose-callout-info` icon | `--fd-icon-mask-info` | `--ds-color-semantic-fg-info` |
-| `.prose-callout-warning` icon | `--fd-icon-mask-warning` | `--ds-color-semantic-fg-warning` |
-| `.prose-callout-success` icon | `--fd-icon-mask-check-circle` | `--ds-color-semantic-fg-success` |
-| `.prose-callout-danger` icon | `--fd-icon-mask-warning-octagon` | `--ds-color-semantic-fg-error` |
-| External link | `--fd-icon-mask-arrow-square-out` | `--ds-color-text-link` |
-| External link (visited) | `--fd-icon-mask-arrow-square-out` | `--ds-color-text-link-visited` |
+| `summary::after` | `--fd-icon-mask-caret-down` | `--fdic-color-text-primary` |
+| `.prose-callout-icon` (default) | `--fd-icon-mask-lightbulb` | `--fdic-color-text-secondary` |
+| `.prose-callout-info` icon | `--fd-icon-mask-info` | `--fdic-color-semantic-fg-info` |
+| `.prose-callout-warning` icon | `--fd-icon-mask-warning` | `--fdic-color-semantic-fg-warning` |
+| `.prose-callout-success` icon | `--fd-icon-mask-check-circle` | `--fdic-color-semantic-fg-success` |
+| `.prose-callout-danger` icon | `--fd-icon-mask-warning-octagon` | `--fdic-color-semantic-fg-error` |
+| External link | `--fd-icon-mask-arrow-square-out` | `--fdic-color-text-link` |
+| External link (visited) | `--fd-icon-mask-arrow-square-out` | `--fdic-color-text-link-visited` |
 
 ## What gets deleted from prose.css
 

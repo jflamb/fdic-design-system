@@ -65,8 +65,8 @@ The Event List component arranges direct event children in a responsive wrapping
 - **Author direct `fd-event` children.** `fd-event-list` assigns list-item semantics and shared tone to direct children only.
 - **Set tone on the list, not on individual grouped events.** The list enforces one shared tone so a set reads as one coherent group.
 - **Use `label` only when needed.** If visible heading text already names the set, leave `label` unset to avoid redundant announcements.
-- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` recipe families.
-- **Treat the list as a collection contract, not a page-layout utility.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; section shells and split layouts use the separate foundations layout contract.
+- **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` recipe families.
+- **Treat the list as a collection contract, not a page-layout utility.** The shared `--fdic-layout-col-*` tokens are stable for collection wrappers; section shells and split layouts use the separate foundations layout contract.
 - **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Event List does not add active state, filtering, sorting, or focus management. Those remain application concerns.

@@ -337,7 +337,7 @@ Find the `summary::after` rule (~line 592-603). Replace the `background` propert
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
-  background-color: var(--ds-color-text-primary, #212123);
+  background-color: var(--fdic-color-text-primary, #212123);
 ```
 
 Keep the existing `content`, `flex-shrink`, `margin-left`, `width`, `height`, `padding`, `box-sizing`, and `transition` properties unchanged.
@@ -372,7 +372,7 @@ Find `.prose-callout-icon` (~line 1002-1009). Replace:
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
-  background-color: var(--ds-color-text-secondary, #595961);
+  background-color: var(--fdic-color-text-secondary, #595961);
 }
 ```
 
@@ -385,28 +385,28 @@ Find the four callout variant icon rules (~lines 1043-1061). Replace each:
 .prose-callout-info .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-info);
   mask-image: var(--fd-icon-mask-info);
-  background-color: var(--ds-color-semantic-fg-info, #1278b0);
+  background-color: var(--fdic-color-semantic-fg-info, #1278b0);
 }
 
 /* Warning */
 .prose-callout-warning .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-warning);
   mask-image: var(--fd-icon-mask-warning);
-  background-color: var(--ds-color-semantic-fg-warning, #b48c14);
+  background-color: var(--fdic-color-semantic-fg-warning, #b48c14);
 }
 
 /* Success */
 .prose-callout-success .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-check-circle);
   mask-image: var(--fd-icon-mask-check-circle);
-  background-color: var(--ds-color-semantic-fg-success, #1e8232);
+  background-color: var(--fdic-color-semantic-fg-success, #1e8232);
 }
 
 /* Danger */
 .prose-callout-danger .prose-callout-icon {
   -webkit-mask-image: var(--fd-icon-mask-warning-octagon);
   mask-image: var(--fd-icon-mask-warning-octagon);
-  background-color: var(--ds-color-semantic-fg-error, #be2828);
+  background-color: var(--fdic-color-semantic-fg-error, #be2828);
 }
 ```
 
@@ -445,11 +445,11 @@ Find the external link icon rules (~lines 1333-1347). Replace:
   mask-size: var(--_ext-size) var(--_ext-size);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  background-color: var(--ds-color-text-link, #1278b0);
+  background-color: var(--fdic-color-text-link, #1278b0);
 }
 
 .prose a[href^="http"]:not([href*="fdic.gov"]):visited {
-  background-color: var(--ds-color-text-link-visited, #855AA5);
+  background-color: var(--fdic-color-text-link-visited, #855AA5);
 }
 ```
 
@@ -457,7 +457,7 @@ Find the external link icon rules (~lines 1333-1347). Replace:
 
 Find and delete the entire block from `/* --- SVG data URI icons — swap fills to light colors ---- */` through the end of the `.dark` external link icon rule (~lines 1651-1687). This is approximately 36 lines.
 
-All dark mode now works automatically via `background-color` following `--ds-color-*` tokens.
+All dark mode now works automatically via `background-color` following `--fdic-color-*` tokens.
 
 **Step 7: Delete the dark-mode external link icon override**
 

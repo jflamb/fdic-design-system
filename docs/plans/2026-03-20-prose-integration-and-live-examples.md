@@ -41,7 +41,7 @@ VitePress wraps rendered markdown in `<div class="vp-doc">`. Raw HTML in markdow
 
 ### Key constraint
 
-The prose CSS uses `--fdic-*` tokens. The existing `tokens.css` uses `--ds-color-*` tokens. These are parallel systems — both define the same colors under different names. The prose CSS includes its own token definitions with hardcoded fallbacks, so it is self-contained and does not need the `--ds-*` tokens to function.
+The prose CSS uses `--fdic-*` tokens. The existing `tokens.css` uses `--fdic-color-*` tokens. These are parallel systems — both define the same colors under different names. The prose CSS includes its own token definitions with hardcoded fallbacks, so it is self-contained and does not need the `--fdic-*` tokens to function.
 
 ---
 

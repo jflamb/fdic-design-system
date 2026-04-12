@@ -128,8 +128,8 @@ Both segments use the same design tokens as fd-button:
 
 | Token | Primary | Neutral | Subtle | Outline | Destructive |
 |-------|---------|---------|--------|---------|-------------|
-| Background | `--ds-color-bg-active` | `--ds-color-bg-interactive` | `transparent` | `--ds-color-bg-input` | `--ds-color-bg-destructive` |
-| Text | `--ds-color-text-inverted` | `--ds-color-text-primary` | `--ds-color-text-primary` | `--ds-color-text-link` | `--ds-color-text-inverted` |
+| Background | `--fdic-color-bg-active` | `--fdic-color-bg-interactive` | `transparent` | `--fdic-color-bg-input` | `--fdic-color-bg-destructive` |
+| Text | `--fdic-color-text-inverted` | `--fdic-color-text-primary` | `--fdic-color-text-primary` | `--fdic-color-text-link` | `--fdic-color-text-inverted` |
 | Font weight | 600 | 400 | 400 | 400 | 600 |
 
 Hover/active use the same inset `box-shadow` overlay pattern (4% / 8% black).

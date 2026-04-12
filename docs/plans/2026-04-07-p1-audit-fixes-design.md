@@ -16,7 +16,7 @@ A technical audit of the FDIC Design System identified three P1 (major, fix befo
 
 Fix each P1 independently with the smallest possible change. No token consolidation, no architectural refactoring. Each fix is independently revertible.
 
-Token consolidation (merging `--fdic-*` into `--ds-color-*`) is a valid P2 follow-up but out of scope here.
+Token consolidation (merging `--fdic-*` into `--fdic-color-*`) is a valid P2 follow-up but out of scope here.
 
 ---
 
@@ -88,46 +88,46 @@ The progress bar `transition: width 0.3s ease` on `::-webkit-progress-value` (li
 
 ---
 
-## P1-2: Prose dark mode — wire `--fdic-*` to `--ds-color-*`
+## P1-2: Prose dark mode — wire `--fdic-*` to `--fdic-color-*`
 
 **Files:** `apps/docs/.vitepress/theme/prose.css`
 
 ### Problem
 
-The `--fdic-*` color tokens in the `:root` block (lines 65-98) are hardcoded light-mode hex values. The `--ds-color-*` semantic tokens in `tokens.css` already use `light-dark()` for dark-mode support, but the prose tokens don't reference them. In dark mode, prose content renders dark-on-dark.
+The `--fdic-*` color tokens in the `:root` block (lines 65-98) are hardcoded light-mode hex values. The `--fdic-color-*` semantic tokens in `tokens.css` already use `light-dark()` for dark-mode support, but the prose tokens don't reference them. In dark mode, prose content renders dark-on-dark.
 
 ### Decision
 
-Prose does not need to be standalone. Wire each `--fdic-*` color token to its `--ds-color-*` equivalent, keeping the hex as fallback for safety.
+Prose does not need to be standalone. Wire each `--fdic-*` color token to its `--fdic-color-*` equivalent, keeping the hex as fallback for safety.
 
 ### Token mapping
 
 | `--fdic-*` token | New value |
 |---|---|
-| `--fdic-text-primary` | `var(--ds-color-text-primary, #212123)` |
-| `--fdic-text-secondary` | `var(--ds-color-text-secondary, #595961)` |
-| `--fdic-text-inverted` | `var(--ds-color-text-inverted, #ffffff)` |
-| `--fdic-text-link` | `var(--ds-color-text-link, #1278b0)` |
-| `--fdic-text-link-visited` | `var(--ds-color-text-link-visited, #855aa5)` |
-| `--fdic-brand-core-default` | `var(--ds-color-primary-500, #0d6191)` |
-| `--fdic-color-brand-primary-500` | `var(--ds-color-primary-500, #0d6191)` |
-| `--fdic-background-base` | `var(--ds-color-bg-base, #ffffff)` |
-| `--fdic-background-container` | `var(--ds-color-bg-container, #f5f5f7)` |
-| `--fdic-border-divider` | `var(--ds-color-border-divider, #bdbdbf)` |
-| `--fdic-overlay-emphasize-100` | `var(--ds-color-overlay-hover, rgba(0,0,0,0.04))` |
-| `--fdic-overlay-emphasize-200` | `var(--ds-color-overlay-pressed, rgba(0,0,0,0.08))` |
-| `--fdic-border-input-active` | `var(--ds-color-border-input-active, #424244)` |
-| `--fdic-border-input-focus` | `var(--ds-color-border-input-focus, #38b6ff)` |
-| `--fdic-body-text` | `var(--ds-color-text-primary, #1b1b1b)` |
-| `--link-unvisited` | `var(--ds-color-text-link, #1278B0)` |
-| `--link-unvisited-hover` | `var(--ds-color-primary-500, #0D6191)` |
-| `--link-visited` | `var(--ds-color-text-link-visited, #855AA5)` |
+| `--fdic-text-primary` | `var(--fdic-color-text-primary, #212123)` |
+| `--fdic-text-secondary` | `var(--fdic-color-text-secondary, #595961)` |
+| `--fdic-text-inverted` | `var(--fdic-color-text-inverted, #ffffff)` |
+| `--fdic-text-link` | `var(--fdic-color-text-link, #1278b0)` |
+| `--fdic-text-link-visited` | `var(--fdic-color-text-link-visited, #855aa5)` |
+| `--fdic-brand-core-default` | `var(--fdic-color-primary-500, #0d6191)` |
+| `--fdic-color-brand-primary-500` | `var(--fdic-color-primary-500, #0d6191)` |
+| `--fdic-background-base` | `var(--fdic-color-bg-base, #ffffff)` |
+| `--fdic-background-container` | `var(--fdic-color-bg-container, #f5f5f7)` |
+| `--fdic-border-divider` | `var(--fdic-color-border-divider, #bdbdbf)` |
+| `--fdic-overlay-emphasize-100` | `var(--fdic-color-overlay-hover, rgba(0,0,0,0.04))` |
+| `--fdic-overlay-emphasize-200` | `var(--fdic-color-overlay-pressed, rgba(0,0,0,0.08))` |
+| `--fdic-border-input-active` | `var(--fdic-color-border-input-active, #424244)` |
+| `--fdic-border-input-focus` | `var(--fdic-color-border-input-focus, #38b6ff)` |
+| `--fdic-body-text` | `var(--fdic-color-text-primary, #1b1b1b)` |
+| `--link-unvisited` | `var(--fdic-color-text-link, #1278B0)` |
+| `--link-unvisited-hover` | `var(--fdic-color-primary-500, #0D6191)` |
+| `--link-visited` | `var(--fdic-color-text-link-visited, #855AA5)` |
 
 ### What's NOT changing
 
-- `--fdic-text-link-visited-hover` / `--link-visited-hover` — no `--ds-color-*` equivalent exists; stays as hardcoded hex
+- `--fdic-text-link-visited-hover` / `--link-visited-hover` — no `--fdic-color-*` equivalent exists; stays as hardcoded hex
 - Font tokens, spacing tokens, corner radii — not color, no dark-mode concern
-- Callout color tokens — these use `rgba()` transparency and already have an `@supports (color: oklch(...))` progressive enhancement block (line 116) that references `--ds-color-*`
+- Callout color tokens — these use `rgba()` transparency and already have an `@supports (color: oklch(...))` progressive enhancement block (line 116) that references `--fdic-color-*`
 
 ---
 

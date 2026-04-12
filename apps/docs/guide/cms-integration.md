@@ -145,17 +145,17 @@ CMSs often need regional or site-specific theming. Apply those overrides at the 
 
 ```css
 .site-shell {
-  --ds-color-bg-base: #f4f8fb;
-  --ds-color-bg-surface: #ffffff;
-  --ds-color-text-default: #17324d;
-  --ds-layout-shell-max: 90rem;
+  --fdic-color-bg-base: #f4f8fb;
+  --fdic-color-bg-surface: #ffffff;
+  --fdic-color-text-default: #17324d;
+  --fdic-layout-shell-max: 90rem;
 }
 ```
 
 Keep overrides:
 
 - scoped to a real CMS container
-- based on public `--ds-*` and documented `--fd-*` names
+- based on public `--fdic-*` and documented `--fd-*` names
 - separate from content markup so editors do not have to manage token details manually
 
 ## Operational guidance

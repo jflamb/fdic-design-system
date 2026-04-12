@@ -68,7 +68,7 @@ import "@jflamb/fdic-ds-components/register-all";
 <fd-button variant="primary">Submit filing</fd-button>
 ```
 
-The stylesheet import is required. FDIC components consume shared `--ds-*` system tokens and documented `--fd-*` component override hooks, so using the component package without `@jflamb/fdic-ds-components/styles.css` is unsupported. The registration modules also warn at runtime when those tokens are missing.
+The stylesheet import is required. FDIC components consume shared `--fdic-*` system tokens and documented `--fd-*` component override hooks, so using the component package without `@jflamb/fdic-ds-components/styles.css` is unsupported. The registration modules also warn at runtime when those tokens are missing.
 
 ## Stable public API
 

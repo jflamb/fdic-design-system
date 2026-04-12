@@ -109,12 +109,12 @@ Also updates the print forced-expand rule for consistency."
 
 ---
 
-### Task 2: Prose dark mode — wire `--fdic-*` tokens to `--ds-color-*`
+### Task 2: Prose dark mode — wire `--fdic-*` tokens to `--fdic-color-*`
 
 **Files:**
 - Modify: `apps/docs/.vitepress/theme/prose.css:65-99` (`:root` color tokens block)
 
-**Reference:** `apps/docs/.vitepress/theme/tokens.css` defines all `--ds-color-*` semantic tokens with `light-dark()`.
+**Reference:** `apps/docs/.vitepress/theme/tokens.css` defines all `--fdic-color-*` semantic tokens with `light-dark()`.
 
 **Step 1: Repoint text color tokens**
 
@@ -136,15 +136,15 @@ With:
 ```css
 /* After */
 /* Colors — text */
---fdic-text-primary: var(--ds-color-text-primary, #212123);
---fdic-text-secondary: var(--ds-color-text-secondary, #595961);
---fdic-text-inverted: var(--ds-color-text-inverted, #ffffff);
---fdic-text-link: var(--ds-color-text-link, #1278b0);
---fdic-text-link-visited: var(--ds-color-text-link-visited, #855aa5);
+--fdic-text-primary: var(--fdic-color-text-primary, #212123);
+--fdic-text-secondary: var(--fdic-color-text-secondary, #595961);
+--fdic-text-inverted: var(--fdic-color-text-inverted, #ffffff);
+--fdic-text-link: var(--fdic-color-text-link, #1278b0);
+--fdic-text-link-visited: var(--fdic-color-text-link-visited, #855aa5);
 --fdic-text-link-visited-hover: #79579f;
 ```
 
-Note: `--fdic-text-link-visited-hover` has no `--ds-color-*` equivalent — stays hardcoded.
+Note: `--fdic-text-link-visited-hover` has no `--fdic-color-*` equivalent — stays hardcoded.
 
 **Step 2: Repoint brand color tokens**
 
@@ -162,8 +162,8 @@ With:
 ```css
 /* After */
 /* Colors — brand */
---fdic-brand-core-default: var(--ds-color-primary-500, #0d6191);
---fdic-color-brand-primary-500: var(--ds-color-primary-500, #0d6191);
+--fdic-brand-core-default: var(--fdic-color-primary-500, #0d6191);
+--fdic-color-brand-primary-500: var(--fdic-color-primary-500, #0d6191);
 ```
 
 **Step 3: Repoint background tokens**
@@ -182,8 +182,8 @@ With:
 ```css
 /* After */
 /* Colors — backgrounds */
---fdic-background-base: var(--ds-color-bg-base, #ffffff);
---fdic-background-container: var(--ds-color-bg-container, #f5f5f7);
+--fdic-background-base: var(--fdic-color-bg-base, #ffffff);
+--fdic-background-container: var(--fdic-color-bg-container, #f5f5f7);
 ```
 
 **Step 4: Repoint border token**
@@ -199,7 +199,7 @@ With:
 
 ```css
 /* After */
---fdic-border-divider: var(--ds-color-border-divider, #bdbdbf);
+--fdic-border-divider: var(--fdic-color-border-divider, #bdbdbf);
 ```
 
 **Step 5: Repoint interactive state tokens**
@@ -220,10 +220,10 @@ With:
 ```css
 /* After */
 /* Interactive states */
---fdic-overlay-emphasize-100: var(--ds-color-overlay-hover, rgba(0, 0, 0, 0.04));
---fdic-overlay-emphasize-200: var(--ds-color-overlay-pressed, rgba(0, 0, 0, 0.08));
---fdic-border-input-active: var(--ds-color-border-input-active, #424244);
---fdic-border-input-focus: var(--ds-color-border-input-focus, #38b6ff);
+--fdic-overlay-emphasize-100: var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04));
+--fdic-overlay-emphasize-200: var(--fdic-color-overlay-pressed, rgba(0, 0, 0, 0.08));
+--fdic-border-input-active: var(--fdic-color-border-input-active, #424244);
+--fdic-border-input-focus: var(--fdic-color-border-input-focus, #38b6ff);
 ```
 
 **Step 6: Repoint link state and body text tokens**
@@ -245,14 +245,14 @@ With:
 ```css
 /* After */
 /* Link state colors */
---fdic-body-text: var(--ds-color-text-primary, #1b1b1b);
---link-unvisited: var(--ds-color-text-link, #1278B0);
---link-unvisited-hover: var(--ds-color-primary-500, #0D6191);
---link-visited: var(--ds-color-text-link-visited, #855AA5);
+--fdic-body-text: var(--fdic-color-text-primary, #1b1b1b);
+--link-unvisited: var(--fdic-color-text-link, #1278B0);
+--link-unvisited-hover: var(--fdic-color-primary-500, #0D6191);
+--link-visited: var(--fdic-color-text-link-visited, #855AA5);
 --link-visited-hover: #79579F;
 ```
 
-Note: `--link-visited-hover` has no `--ds-color-*` equivalent — stays hardcoded.
+Note: `--link-visited-hover` has no `--fdic-color-*` equivalent — stays hardcoded.
 
 **Step 7: Commit**
 
@@ -260,7 +260,7 @@ Note: `--link-visited-hover` has no `--ds-color-*` equivalent — stays hardcode
 git add apps/docs/.vitepress/theme/prose.css
 git commit -m "fix: wire prose color tokens to design system semantic tokens
 
-Repoints --fdic-* color tokens to --ds-color-* equivalents so prose
+Repoints --fdic-* color tokens to --fdic-color-* equivalents so prose
 content responds to dark mode via the existing light-dark() system
 in tokens.css. Hardcoded hex values retained as fallbacks."
 ```

@@ -25,7 +25,7 @@ The root <code>browserslist</code> entry matches this floor so tooling and docs 
 These features are part of the shipped runtime with no separate legacy path:
 
 - <code>light-dark()</code> for semantic color tokens in <code>@jflamb/fdic-ds-tokens/styles.css</code>
-- Relative color syntax such as <code>oklch(from var(--ds-color-primary-500) l c h / 0.08)</code>
+- Relative color syntax such as <code>oklch(from var(--fdic-color-primary-500) l c h / 0.08)</code>
 - <code>@property</code> registration for interactive overlay color tokens
 - Native <code>&lt;dialog&gt;</code> behavior for modal drawer mode via <code>showModal()</code>
 

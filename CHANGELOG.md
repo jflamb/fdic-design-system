@@ -19,13 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Reversed token prefix direction: `--fdic-*` is now the canonical system token namespace. `--ds-*` tokens are preserved as deprecated aliases for backward compatibility. This aligns with government design system naming conventions and avoids namespace collisions with other `--ds-*` systems.
 - Expanded component package side-effect coverage so published entry points align with the actual runtime registration surface.
 - Raised the component test coverage floor across the audited suite, including the second-tier collection, content, and supporting components.
 - Added Storybook interaction coverage for priority component stories and validation lifecycle examples for form flows.
-- Clarified the token namespace contract so new adoption prefers `--ds-*` while public `--fdic-*` typography families remain supported.
-- Converted all `--fdic-*` typography tokens into deprecated aliases of canonical `--ds-*` equivalents.
-- Migrated component and docs CSS token-family call sites from `var(--fdic-*)` to `var(--ds-*)`.
-- Migrated `apps/docs/.vitepress/theme/prose.css` spacing and radius usage from `--fdic-*` tokens to canonical `--ds-*` tokens and removed the redundant local token declarations.
+- Clarified the token namespace contract so new adoption prefers `--fdic-*` while public `--ds-*` typography families remain supported.
+- Converted all `--ds-*` typography tokens into deprecated aliases of canonical `--fdic-*` equivalents.
+- Migrated component and docs CSS token-family call sites from `var(--ds-*)` to `var(--fdic-*)`.
+- Migrated `apps/docs/.vitepress/theme/prose.css` spacing and radius usage from `--ds-*` tokens to canonical `--fdic-*` tokens and removed the redundant local token declarations.
 - Renamed prose-local callout variables from `--fdic-callout-*` to `--fdic-docs-callout-*` for docs-theme namespace consistency.
 
 ### Fixed

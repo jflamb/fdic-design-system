@@ -143,7 +143,7 @@ Wrap the entire contents of `tokens.css` (after the `@import` statements) in `@l
 
   .dark {
     color-scheme: dark;
-    --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
+    --fd-visual-bg-warm: var(--fdic-color-secondary-800, #88691c);
     --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
     --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
     --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
@@ -154,7 +154,7 @@ Wrap the entire contents of `tokens.css` (after the `@import` statements) in `@l
   @media (prefers-color-scheme: dark) {
     :root:not(.light) {
       color-scheme: dark;
-      --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
+      --fd-visual-bg-warm: var(--fdic-color-secondary-800, #88691c);
       --fd-global-header-mega-col-1: rgba(33, 33, 35, 0.84);
       --fd-global-header-mega-col-2: rgba(28, 38, 48, 0.5);
       --fd-global-header-mega-col-3: rgba(20, 32, 44, 0.24);
@@ -546,7 +546,7 @@ Insert after the `:root` block (after line 12):
 .fdic-surface {
   border: 1px solid var(--fdic-docs-border);
   border-radius: 14px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   color: var(--fdic-docs-ink);
 }
 ```
@@ -598,7 +598,7 @@ Insert after the `:root` block (after line 12):
 .fdic-status-surface {
   padding: 1rem;
   border-radius: 12px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   color: var(--fdic-docs-ink);
   border: 1px solid color-mix(in srgb, var(--_status-color, gray) 25%, transparent);
   border-top: 3px solid var(--_status-color, gray);
@@ -648,7 +648,7 @@ Replace the existing `.fdic-card` block (lines ~35-58) with:
   padding: 1rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 12px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   color: var(--fdic-docs-ink);
   transition:
     border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -692,7 +692,7 @@ Replace the current do/don't styling (lines ~824-853) with:
 .fdic-dont-card {
   padding: 1rem;
   border-radius: 12px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   color: var(--fdic-docs-ink);
   border: 1px solid color-mix(in srgb, var(--_status-color) 30%, transparent);
   border-top: 3px solid var(--_status-color);
