@@ -9,7 +9,9 @@
  * colors, interaction, effects, typography, spacing, radius, and layout.
  *
  * Consumers should prefer semantic role tokens (--ds-color-[role]-[variant])
- * and foundation tokens (--ds-spacing-*, --ds-layout-*, --fdic-font-*).
+ * and foundation tokens (--ds-spacing-*, --ds-layout-*, --ds-font-*).
+ * Legacy --fdic-* typography aliases are preserved for backward compatibility
+ * but --ds-* is the canonical namespace for all new work.
  *
  * Dark mode is activated by the active color-scheme and semantic tokens
  * use light-dark() so they adapt automatically.
@@ -272,57 +274,103 @@
   /* ===== Typography ===== */
 
   /* Font family */
-  --fdic-font-family-sans-serif: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --fdic-font-family-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --ds-font-family-sans-serif: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ds-font-family-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   /* Font size */
-  --fdic-font-size-h1: 2.53125rem;
-  --fdic-font-size-h2: 1.6875rem;
-  --fdic-font-size-h3: 1.40625rem;
-  --fdic-font-size-h4: 1.125rem;
-  --fdic-font-size-h5: 0.984375rem;
-  --fdic-font-size-h6: 0.84375rem;
-  --fdic-font-size-body: 1.125rem;
-  --fdic-font-size-body-big: 1.25rem;
-  --fdic-font-size-body-small: 1rem;
-  --fdic-font-size-body-smaller: 0.8125rem;
-  --fdic-font-size-lg: 1.375rem;
+  --ds-font-size-h1: 2.53125rem;
+  --ds-font-size-h2: 1.6875rem;
+  --ds-font-size-h3: 1.40625rem;
+  --ds-font-size-h4: 1.125rem;
+  --ds-font-size-h5: 0.984375rem;
+  --ds-font-size-h6: 0.84375rem;
+  --ds-font-size-body: 1.125rem;
+  --ds-font-size-body-big: 1.25rem;
+  --ds-font-size-body-small: 1rem;
+  --ds-font-size-body-smaller: 0.8125rem;
+  --ds-font-size-lg: 1.375rem;
 
   /* Font weight */
-  --fdic-font-weight-regular: 400;
-  --fdic-font-weight-medium: 450;
-  --fdic-font-weight-semibold: 600;
-  --fdic-font-weight-bold: 700;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 450;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
 
   /* Line height */
-  --fdic-line-height-h1: 1.15;
-  --fdic-line-height-h2: 1.2;
-  --fdic-line-height-h3: 1.25;
-  --fdic-line-height-h4: 1.25;
-  --fdic-line-height-h5: 1.25;
-  --fdic-line-height-h6: 1.25;
-  --fdic-line-height-body: 1.375;
-  --fdic-line-height-tight: 1.25;
+  --ds-line-height-h1: 1.15;
+  --ds-line-height-h2: 1.2;
+  --ds-line-height-h3: 1.25;
+  --ds-line-height-h4: 1.25;
+  --ds-line-height-h5: 1.25;
+  --ds-line-height-h6: 1.25;
+  --ds-line-height-body: 1.375;
+  --ds-line-height-tight: 1.25;
 
   /* Letter spacing */
-  --fdic-letter-spacing-h1: -0.025em;
-  --fdic-letter-spacing-h2: -0.019em;
-  --fdic-letter-spacing-h6: 0.148em;
-  --fdic-letter-spacing-none: 0;
+  --ds-letter-spacing-h1: -0.025em;
+  --ds-letter-spacing-h2: -0.019em;
+  --ds-letter-spacing-h6: 0.148em;
+  --ds-letter-spacing-none: 0;
 
   /* Heading padding */
-  --fdic-heading-padding-h1-top: 3.796875rem;
-  --fdic-heading-padding-h1-bottom: 1.265625rem;
-  --fdic-heading-padding-h2-top: 3rem;
-  --fdic-heading-padding-h2-bottom: 1rem;
-  --fdic-heading-padding-h3-top: 2.109375rem;
-  --fdic-heading-padding-h3-bottom: 0.703125rem;
-  --fdic-heading-padding-h4-top: 1.6875rem;
-  --fdic-heading-padding-h4-bottom: 0.5625rem;
-  --fdic-heading-padding-h5-top: 1.4765625rem;
-  --fdic-heading-padding-h5-bottom: 0.4921875rem;
-  --fdic-heading-padding-h6-top: 1.265625rem;
-  --fdic-heading-padding-h6-bottom: 0.421875rem;
+  --ds-heading-padding-h1-top: 3.796875rem;
+  --ds-heading-padding-h1-bottom: 1.265625rem;
+  --ds-heading-padding-h2-top: 3rem;
+  --ds-heading-padding-h2-bottom: 1rem;
+  --ds-heading-padding-h3-top: 2.109375rem;
+  --ds-heading-padding-h3-bottom: 0.703125rem;
+  --ds-heading-padding-h4-top: 1.6875rem;
+  --ds-heading-padding-h4-bottom: 0.5625rem;
+  --ds-heading-padding-h5-top: 1.4765625rem;
+  --ds-heading-padding-h5-bottom: 0.4921875rem;
+  --ds-heading-padding-h6-top: 1.265625rem;
+  --ds-heading-padding-h6-bottom: 0.421875rem;
+
+  /* --- Deprecated aliases (--fdic-* → --ds-*) ---
+     These preserve backward compatibility. Prefer --ds-* in new work.
+     Scheduled for removal in a future major version.
+  */
+  --fdic-font-family-sans-serif: var(--ds-font-family-sans-serif);
+  --fdic-font-family-mono: var(--ds-font-family-mono);
+  --fdic-font-size-h1: var(--ds-font-size-h1);
+  --fdic-font-size-h2: var(--ds-font-size-h2);
+  --fdic-font-size-h3: var(--ds-font-size-h3);
+  --fdic-font-size-h4: var(--ds-font-size-h4);
+  --fdic-font-size-h5: var(--ds-font-size-h5);
+  --fdic-font-size-h6: var(--ds-font-size-h6);
+  --fdic-font-size-body: var(--ds-font-size-body);
+  --fdic-font-size-body-big: var(--ds-font-size-body-big);
+  --fdic-font-size-body-small: var(--ds-font-size-body-small);
+  --fdic-font-size-body-smaller: var(--ds-font-size-body-smaller);
+  --fdic-font-size-lg: var(--ds-font-size-lg);
+  --fdic-font-weight-regular: var(--ds-font-weight-regular);
+  --fdic-font-weight-medium: var(--ds-font-weight-medium);
+  --fdic-font-weight-semibold: var(--ds-font-weight-semibold);
+  --fdic-font-weight-bold: var(--ds-font-weight-bold);
+  --fdic-line-height-h1: var(--ds-line-height-h1);
+  --fdic-line-height-h2: var(--ds-line-height-h2);
+  --fdic-line-height-h3: var(--ds-line-height-h3);
+  --fdic-line-height-h4: var(--ds-line-height-h4);
+  --fdic-line-height-h5: var(--ds-line-height-h5);
+  --fdic-line-height-h6: var(--ds-line-height-h6);
+  --fdic-line-height-body: var(--ds-line-height-body);
+  --fdic-line-height-tight: var(--ds-line-height-tight);
+  --fdic-letter-spacing-h1: var(--ds-letter-spacing-h1);
+  --fdic-letter-spacing-h2: var(--ds-letter-spacing-h2);
+  --fdic-letter-spacing-h6: var(--ds-letter-spacing-h6);
+  --fdic-letter-spacing-none: var(--ds-letter-spacing-none);
+  --fdic-heading-padding-h1-top: var(--ds-heading-padding-h1-top);
+  --fdic-heading-padding-h1-bottom: var(--ds-heading-padding-h1-bottom);
+  --fdic-heading-padding-h2-top: var(--ds-heading-padding-h2-top);
+  --fdic-heading-padding-h2-bottom: var(--ds-heading-padding-h2-bottom);
+  --fdic-heading-padding-h3-top: var(--ds-heading-padding-h3-top);
+  --fdic-heading-padding-h3-bottom: var(--ds-heading-padding-h3-bottom);
+  --fdic-heading-padding-h4-top: var(--ds-heading-padding-h4-top);
+  --fdic-heading-padding-h4-bottom: var(--ds-heading-padding-h4-bottom);
+  --fdic-heading-padding-h5-top: var(--ds-heading-padding-h5-top);
+  --fdic-heading-padding-h5-bottom: var(--ds-heading-padding-h5-bottom);
+  --fdic-heading-padding-h6-top: var(--ds-heading-padding-h6-top);
+  --fdic-heading-padding-h6-bottom: var(--ds-heading-padding-h6-bottom);
 
   /* ===== Spacing ===== */
 

@@ -30,15 +30,17 @@ This does not mean immediate renaming. It means:
 
 ## Migration Path
 
-### Phase A: Clarify the contract
+### Phase A: Clarify the contract ✅ (completed 2026-04-12)
 
-- Update docs to state that new system-token adoption should prefer `--ds-*`.
-- Identify which `--fdic-*` families remain intentionally public versus compatibility-only.
+- Updated `using-tokens.md` and `customization.md` to state `--ds-*` is canonical.
+- Identified all `--fdic-*` families as typography-only compatibility aliases.
 
-### Phase B: Alias before removing
+### Phase B: Alias before removing ✅ (completed 2026-04-12)
 
-- Where practical, define `--fdic-*` aliases in terms of `--ds-*` values.
-- Keep component-level `--fd-*` overrides unchanged; they solve a different problem.
+- All 41 `--fdic-*` typography tokens are now aliases of `--ds-*` equivalents in the token generator (`scripts/tokens/generate-dtcg.mjs`).
+- `packages/tokens/styles.css` declares canonical `--ds-font-*`, `--ds-line-height-*`, `--ds-letter-spacing-*`, `--ds-font-weight-*`, `--ds-heading-padding-*` tokens.
+- `--fdic-*` aliases resolve to `var(--ds-*)` — existing consumer code continues to work.
+- Component-level `--fd-*` overrides are unchanged.
 
 ### Phase C: Deprecate selectively
 

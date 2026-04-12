@@ -43,7 +43,8 @@ describe("semantic tokens", () => {
   });
 
   it("publishes non-color foundations in the stable runtime bundle", () => {
-    expect(stylesCss).toContain("--fdic-font-size-body: 1.125rem;");
+    expect(stylesCss).toContain("--ds-font-size-body: 1.125rem;");
+    expect(stylesCss).toContain("--fdic-font-size-body: var(--ds-font-size-body);");
     expect(stylesCss).toContain("--ds-spacing-md: 1rem;");
     expect(stylesCss).toContain("--ds-corner-radius-md: 5px;");
     expect(stylesCss).toContain("--ds-layout-max-width: 1440px;");

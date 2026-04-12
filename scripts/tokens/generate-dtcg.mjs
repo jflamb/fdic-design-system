@@ -101,7 +101,9 @@ function renderStylesCss(source) {
     " * colors, interaction, effects, typography, spacing, radius, and layout.",
     " *",
     " * Consumers should prefer semantic role tokens (--ds-color-[role]-[variant])",
-    " * and foundation tokens (--ds-spacing-*, --ds-layout-*, --fdic-font-*).",
+    " * and foundation tokens (--ds-spacing-*, --ds-layout-*, --ds-font-*).",
+    " * Legacy --fdic-* typography aliases are preserved for backward compatibility",
+    " * but --ds-* is the canonical namespace for all new work.",
     " *",
     " * Dark mode is activated by the active color-scheme and semantic tokens",
     " * use light-dark() so they adapt automatically.",
@@ -164,37 +166,62 @@ function renderStylesCss(source) {
 
   lines.push("  /* Font family */");
   for (const [name, value] of Object.entries(source.typography.fontFamily)) {
-    lines.push(`  --fdic-font-family-${name}: ${value};`);
+    lines.push(`  --ds-font-family-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Font size */");
   for (const [name, value] of Object.entries(source.typography.fontSize)) {
-    lines.push(`  --fdic-font-size-${name}: ${value};`);
+    lines.push(`  --ds-font-size-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Font weight */");
   for (const [name, value] of Object.entries(source.typography.fontWeight)) {
-    lines.push(`  --fdic-font-weight-${name}: ${value};`);
+    lines.push(`  --ds-font-weight-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Line height */");
   for (const [name, value] of Object.entries(source.typography.lineHeight)) {
-    lines.push(`  --fdic-line-height-${name}: ${value};`);
+    lines.push(`  --ds-line-height-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Letter spacing */");
   for (const [name, value] of Object.entries(source.typography.letterSpacing)) {
-    lines.push(`  --fdic-letter-spacing-${name}: ${value};`);
+    lines.push(`  --ds-letter-spacing-${name}: ${value};`);
   }
   lines.push("");
 
   lines.push("  /* Heading padding */");
   for (const [name, value] of Object.entries(source.typography.headingPadding)) {
-    lines.push(`  --fdic-heading-padding-${name}: ${value};`);
+    lines.push(`  --ds-heading-padding-${name}: ${value};`);
+  }
+  lines.push("");
+
+  // Deprecated --fdic-* aliases for backward compatibility
+  lines.push("  /* --- Deprecated aliases (--fdic-* \u2192 --ds-*) ---");
+  lines.push("     These preserve backward compatibility. Prefer --ds-* in new work.");
+  lines.push("     Scheduled for removal in a future major version.");
+  lines.push("  */");
+  for (const [name] of Object.entries(source.typography.fontFamily)) {
+    lines.push(`  --fdic-font-family-${name}: var(--ds-font-family-${name});`);
+  }
+  for (const [name] of Object.entries(source.typography.fontSize)) {
+    lines.push(`  --fdic-font-size-${name}: var(--ds-font-size-${name});`);
+  }
+  for (const [name] of Object.entries(source.typography.fontWeight)) {
+    lines.push(`  --fdic-font-weight-${name}: var(--ds-font-weight-${name});`);
+  }
+  for (const [name] of Object.entries(source.typography.lineHeight)) {
+    lines.push(`  --fdic-line-height-${name}: var(--ds-line-height-${name});`);
+  }
+  for (const [name] of Object.entries(source.typography.letterSpacing)) {
+    lines.push(`  --fdic-letter-spacing-${name}: var(--ds-letter-spacing-${name});`);
+  }
+  for (const [name] of Object.entries(source.typography.headingPadding)) {
+    lines.push(`  --fdic-heading-padding-${name}: var(--ds-heading-padding-${name});`);
   }
   lines.push("");
 

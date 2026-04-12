@@ -22,14 +22,16 @@ If you are also using the component package, import `@jflamb/fdic-ds-components/
 
 Use `--ds-*` as the canonical token namespace for new system-level adoption. That is the stable surface for colors, spacing, layout, radius, shadows, and gradients.
 
-The remaining public `--fdic-*` families in the published token runtime are typography-oriented and intentionally stay public in v1:
+Typography tokens now also have canonical `--ds-*` declarations:
 
-- `--fdic-font-*`
-- `--fdic-line-height-*`
-- `--fdic-letter-spacing-*`
-- `--fdic-heading-padding-*`
+- `--ds-font-family-*`, `--ds-font-size-*`, `--ds-font-weight-*`
+- `--ds-line-height-*`
+- `--ds-letter-spacing-*`
+- `--ds-heading-padding-*`
 
-When both namespaces can express the same system concern, prefer the `--ds-*` token. Treat any non-typography `--fdic-*` references you encounter in older examples or downstream code as compatibility-era usage, not the recommended entrypoint for new work.
+The older `--fdic-*` names (`--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, `--fdic-heading-padding-*`) are preserved as **deprecated aliases** that resolve to their `--ds-*` equivalents. Existing code using `var(--fdic-font-size-body)` continues to work, but new code should use `var(--ds-font-size-body)`.
+
+When both namespaces can express the same system concern, always prefer the `--ds-*` token. The `--fdic-*` aliases are scheduled for removal in a future major version.
 
 ## CSS adoption
 
