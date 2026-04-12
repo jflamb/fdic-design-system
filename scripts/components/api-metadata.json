@@ -4693,5 +4693,389 @@
       ],
       "after": ""
     }
+  },
+  "fd-form-field": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible field label or grouped-control legend text."
+        },
+        {
+          "name": "description",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Supporting help text for the field."
+        },
+        {
+          "name": "error",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Inline error text to show when the field is invalid."
+        },
+        {
+          "name": "required",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Marks the field as required."
+        },
+        {
+          "name": "optional",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Adds an optional affordance when `required` is false."
+        },
+        {
+          "name": "invalid",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Turns on the managed invalid affordance. Pair this with authored `error` text."
+        },
+        {
+          "name": "for",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Preferred control ID to wire for text-entry controls."
+        },
+        {
+          "name": "field-id",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Alias for the managed control ID when `for` is not supplied."
+        },
+        {
+          "name": "layout",
+          "type": "`\"stacked\"` | `\"inline-compact\"`",
+          "defaultValue": "`\"stacked\"`",
+          "description": "Field shell spacing density."
+        },
+        {
+          "name": "control-type",
+          "type": "`\"text\"` | `\"textarea\"` | `\"select\"` | `\"choice\"` | `\"file\"` | `\"custom\"` | `undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Reserved narrowing hook for future control-family overrides."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": "This component currently uses properties for the label, description, and error regions. `slot=\"secondary\"` is treated as a light-DOM marker on authored child content rather than a shadow-DOM slot."
+    },
+    "events": {
+      "rows": [],
+      "after": "This component does not emit events. Validation timing and submit behavior remain page concerns."
+    },
+    "cssProperties": {
+      "rows": [],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [],
+      "after": "`fd-form-field` renders in light DOM to preserve explicit control wiring across supported control families."
+    }
+  },
+  "fd-error-summary": {
+    "properties": {
+      "rows": [
+        {
+          "name": "heading",
+          "type": "`string`",
+          "defaultValue": "`\"Fix the following before you continue\"`",
+          "description": "Visible summary heading."
+        },
+        {
+          "name": "intro",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional supporting text displayed between the heading and the error links."
+        },
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Shows the summary when true. Closed summaries render nothing."
+        },
+        {
+          "name": "autofocus",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Moves focus to the summary when it opens."
+        },
+        {
+          "name": "focus-target",
+          "type": "`\"container\"` | `\"heading\"`",
+          "defaultValue": "`\"container\"`",
+          "description": "Selects whether focus lands on the summary container or heading when `autofocus` is true."
+        },
+        {
+          "name": "items",
+          "type": "`Array<{ href: string; text: string }>`",
+          "defaultValue": "`[]`",
+          "description": "Authored correction targets. Set this as a JavaScript property, not a string attribute.",
+          "storybook": false
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": "This component does not use slots. Author the heading, intro, and link list through properties so blocked-submit behavior stays explicit."
+    },
+    "events": {
+      "rows": [],
+      "after": "This component does not emit events. Consumers decide when the summary opens and what each link should target."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-error-summary-background",
+          "default": "`var(--fdic-color-bg-container, #f5f5f7)`",
+          "description": "Summary background surface."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Focusable summary section."
+        },
+        {
+          "name": "heading",
+          "description": "Summary heading."
+        },
+        {
+          "name": "intro",
+          "description": "Optional supporting text."
+        },
+        {
+          "name": "list",
+          "description": "List wrapper for error links."
+        },
+        {
+          "name": "item",
+          "description": "Individual list item."
+        },
+        {
+          "name": "link",
+          "description": "Authored correction link."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-confirmation-record": {
+    "properties": {
+      "rows": [
+        {
+          "name": "heading",
+          "type": "`string`",
+          "defaultValue": "`\"Submission complete\"`",
+          "description": "Primary completion heading."
+        },
+        {
+          "name": "summary",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional completion summary."
+        },
+        {
+          "name": "reference-label",
+          "type": "`string`",
+          "defaultValue": "`\"Confirmation number\"`",
+          "description": "Label shown above the reference value."
+        },
+        {
+          "name": "reference-value",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Reference or receipt value to keep."
+        },
+        {
+          "name": "next-steps",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "What happens after submission."
+        },
+        {
+          "name": "record-note",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Record-keeping note shown after the actions."
+        },
+        {
+          "name": "variant",
+          "type": "`\"confirmation\"` | `\"receipt\"`",
+          "defaultValue": "`\"confirmation\"`",
+          "description": "Presentation variant."
+        },
+        {
+          "name": "status",
+          "type": "`\"success\"` | `\"pending\"`",
+          "defaultValue": "`\"success\"`",
+          "description": "Visual completion status."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "actions",
+          "description": "Authored follow-up actions such as print, download, or return links."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Outer confirmation shell."
+        },
+        {
+          "name": "heading",
+          "description": "Completion heading."
+        },
+        {
+          "name": "summary",
+          "description": "Completion summary."
+        },
+        {
+          "name": "reference",
+          "description": "Reference block wrapper."
+        },
+        {
+          "name": "reference-label",
+          "description": "Reference label."
+        },
+        {
+          "name": "reference-value",
+          "description": "Reference value."
+        },
+        {
+          "name": "next-steps",
+          "description": "Next-steps copy."
+        },
+        {
+          "name": "actions",
+          "description": "Wrapper around the actions slot."
+        },
+        {
+          "name": "record-note",
+          "description": "Record-keeping note."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-review-list": {
+    "properties": {
+      "rows": [
+        {
+          "name": "heading",
+          "type": "`string | undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional review heading."
+        },
+        {
+          "name": "heading-level",
+          "type": "`2` | `3` | `4`",
+          "defaultValue": "`2`",
+          "description": "Heading level used when `heading` is present."
+        },
+        {
+          "name": "density",
+          "type": "`\"default\"` | `\"compact\"`",
+          "defaultValue": "`\"default\"`",
+          "description": "Vertical density for the review rows."
+        },
+        {
+          "name": "dividers",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Adds row dividers."
+        },
+        {
+          "name": "items",
+          "type": "`Array<{ label: string; value?: string; href?: string; changeLabel?: string; emptyText?: string }>`",
+          "defaultValue": "`[]`",
+          "description": "Review rows to render.",
+          "storybook": false
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": "This component uses an authored `items` property rather than row slots so review content stays explicit and serializable."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-review-list-gap",
+          "default": "`var(--fdic-spacing-md, 16px)`",
+          "description": "Gap between the optional heading and the list."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Outer review section."
+        },
+        {
+          "name": "heading",
+          "description": "Optional review heading."
+        },
+        {
+          "name": "list",
+          "description": "Description list wrapper."
+        },
+        {
+          "name": "term",
+          "description": "Review row label."
+        },
+        {
+          "name": "detail",
+          "description": "Review row value cell."
+        },
+        {
+          "name": "detail-layout",
+          "description": "Layout wrapper inside each detail cell."
+        },
+        {
+          "name": "value",
+          "description": "Review value text."
+        },
+        {
+          "name": "value-empty",
+          "description": "Empty-value treatment."
+        },
+        {
+          "name": "change-link",
+          "description": "Optional change action."
+        }
+      ],
+      "after": ""
+    }
   }
 }

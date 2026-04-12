@@ -973,6 +973,94 @@ export const componentInventory = [
     },
     typeExports: []
   },
+    {
+    tagName: "fd-confirmation-record",
+    className: "FdConfirmationRecord",
+    sourceFile: "fd-confirmation-record.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Confirmation Record",
+      slug: "confirmation-record",
+      category: "feedback-status",
+      order: 90
+    },
+    storybook: {
+      title: "Supporting Primitives/Confirmation Record",
+      file: "fd-confirmation-record.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["ConfirmationRecordVariant", "ConfirmationRecordStatus"]
+  },
+    {
+    tagName: "fd-form-field",
+    className: "FdFormField",
+    sourceFile: "fd-form-field.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Form Field",
+      slug: "form-field",
+      category: "forms-input",
+      order: 25
+    },
+    storybook: {
+      title: "Supporting Primitives/Form Field",
+      file: "fd-form-field.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["FormFieldLayout", "FormFieldControlType"]
+  },
+    {
+    tagName: "fd-error-summary",
+    className: "FdErrorSummary",
+    sourceFile: "fd-error-summary.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Error Summary",
+      slug: "error-summary",
+      category: "feedback-status",
+      order: 70
+    },
+    storybook: {
+      title: "Supporting Primitives/Error Summary",
+      file: "fd-error-summary.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["ErrorSummaryFocusTarget", "ErrorSummaryItem"]
+  },
+    {
+    tagName: "fd-review-list",
+    className: "FdReviewList",
+    sourceFile: "fd-review-list.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Review List",
+      slug: "review-list",
+      category: "feedback-status",
+      order: 80
+    },
+    storybook: {
+      title: "Supporting Primitives/Review List",
+      file: "fd-review-list.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["ReviewListHeadingLevel", "ReviewListDensity", "ReviewListItem"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

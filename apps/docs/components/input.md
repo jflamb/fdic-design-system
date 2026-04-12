@@ -7,8 +7,8 @@ A text input field for user-entered text, with support for labels, hints, error 
   <p>Use <code>fd-input</code> with <code>fd-label</code> and <code>fd-message</code> to build accessible form fields with labeling, description text, validation messages, and character counting.</p>
 </div>
 
-::: tip Wrap in fd-field
-This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association when you are using the supported direct-child text-entry pattern. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the correct composition.
+::: tip Wrap in fd-form-field or fd-field
+For new wrapper-based work, prefer [`fd-form-field`](/components/form-field) so text-entry and grouped controls share one shell contract. Keep [`fd-field`](/components/field) when you want the narrow direct-child text-entry helper from the v1 contract. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the current supported composition guidance.
 :::
 
 ## When to use
@@ -382,3 +382,4 @@ To override for a specific input, set `--fd-input-icon-size`:
 - [Radio Group](/components/radio-group) — grouped radio inputs with built-in legend
 - [Checkbox Group](/components/checkbox-group) — grouped checkboxes with built-in legend
 - [Form Workflows](/guide/form-workflows) — page-level guidance for validation timing, blocked-submit recovery, and high-stakes workflow protections
+- [Form Field](/components/form-field) — preferred long-term field shell for new wrapper-based composition

@@ -73,6 +73,8 @@ The following patterns are currently out of scope for the supported public path:
 
 If a workflow needs submit, reset, or grouped-field behavior beyond that contract, keep the native HTML structure and let the design-system primitives handle labeling, helper text, and validation surfaces around it.
 
+For new wrapper-based work, prefer [Form Field](/components/form-field) when the page benefits from one shared field-shell contract across text-entry and grouped controls. `fd-field` remains supported as the narrow v1 direct-child helper.
+
 ## Workflow examples
 
 The stories below show the supported workflow boundary in fuller consequential flows. They stay docs-first, use existing primitives only, and keep native submit behavior on plain HTML buttons.
@@ -83,14 +85,14 @@ The stories below show the supported workflow boundary in fuller consequential f
   storyId="patterns-form-workflows--blocked-submit-validation"
   linkStoryId="patterns-form-workflows--blocked-submit-validation"
   height="620"
-  caption="Blocked submit keeps entered values intact, reveals inline field and group errors, shows a top-of-page summary, and moves focus to that summary once."
+  caption="Blocked submit keeps entered values intact, reveals inline field and group errors, uses fd-error-summary for the top-of-page recovery surface, and moves focus to that summary once."
 />
 
 Use this pattern when a failed submit must:
 
 - preserve the person's entered values
 - reveal inline field or group errors at the correction point
-- provide a top-of-page summary with real correction targets
+- provide a top-of-page [Error Summary](/components/error-summary) with real correction targets
 - move focus to the summary heading or container after the blocked submit
 
 ### Review and confirmation for consequential submissions
@@ -99,14 +101,14 @@ Use this pattern when a failed submit must:
   storyId="patterns-form-workflows--review-before-submit"
   linkStoryId="patterns-form-workflows--review-before-submit"
   height="520"
-  caption="Review-before-submit keeps the workflow semantic and explicit without introducing a specialized review component."
+  caption="Review-before-submit uses fd-review-list for the repeated review shell while keeping attestation and submit behavior explicit."
 />
 
 <StoryEmbed
   storyId="patterns-form-workflows--confirmation-keep-record"
   linkStoryId="patterns-form-workflows--confirmation-keep-record"
   height="480"
-  caption="Confirmation tells the person the task is complete, explains what happens next, and shows the record to keep."
+  caption="Confirmation uses fd-confirmation-record to tell the person the task is complete, explain what happens next, and show the record to keep."
 />
 
 Use review and confirmation states when the workflow:
@@ -204,6 +206,7 @@ This system separates native validity from visible invalid state. The workflow p
 
 - **Inline errors are the primary correction surface.** They tell the person what to fix where the fix happens.
 - **The error summary is a submit-scoped navigation surface.** It helps people find blocking errors after a failed submit.
+- Use [Error Summary](/components/error-summary) when you want the repeated heading, intro, link list, and focus contract standardized.
 - The summary must never be the only place an error appears.
 - Summary wording should match the inline error wording closely enough that the same correction is communicated in both places.
 - Summary links must target the real correction point: the control itself for single fields, the first invalid sub-field for compound clusters, or the fieldset or legend wrapper for grouped controls.

@@ -161,6 +161,7 @@ A file-upload control for selecting supporting documents by browsing or dragging
 
 ## Related components
 
+- [Form Field](/components/form-field) — wrapper-based shell for shared label, description, and error authorship across control families
 - [Input](/components/input) — single-line text entry and field-level validation patterns
 - [Field](/components/field) — supporting composition helper for `fd-label`, `fd-input`, and `fd-message`
 - [Message](/components/message) — standalone supporting primitive for validation and helper messaging

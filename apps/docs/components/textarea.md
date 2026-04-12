@@ -7,8 +7,8 @@ A multiline text field for collecting descriptions, notes, comments, and other e
   <p>Use <code>fd-textarea</code> with <code>fd-label</code> and <code>fd-message</code> to build accessible multiline form fields with labeling, helper text, validation messages, and optional character counting.</p>
 </div>
 
-::: tip Wrap in fd-field
-This component should almost always be wrapped in [`fd-field`](/components/field) for proper label and error message association when you are using the supported direct-child text-entry pattern. See the [minimum viable form](/guide/form-workflows#minimum-viable-form) recipe for the correct composition.
+::: tip Wrap in fd-form-field or fd-field
+For new wrapper-based work, prefer [`fd-form-field`](/components/form-field) so text-entry and grouped controls share one shell contract. Keep [`fd-field`](/components/field) when you want the narrow direct-child text-entry helper from the v1 contract.
 :::
 
 ## When to use
@@ -120,7 +120,7 @@ When `maxlength` is present, the visible count is always shown and the screen-re
 
 - `fd-textarea` renders a native `<textarea>` in shadow DOM and participates in form submission via `ElementInternals`.
 - Use a native `<button type="submit">` when the textarea participates in a submitted form. `fd-textarea` is form-associated, but `fd-button` is not submit-capable in v1.
-- Pair it with `fd-label` using matching `for` / `id` attributes, or use `fd-field` for auto-wiring.
+- Pair it with `fd-label` using matching `for` / `id` attributes, use `fd-field` for the narrow direct-child helper, or use [`fd-form-field`](/components/form-field) for the broader long-term field shell.
 - `fd-textarea` is the single owner of `aria-describedby` on the inner textarea. It assembles description IDs from sibling `fd-label`, sibling `fd-message`, and the built-in character count when present.
 - Visible invalid state follows the same contract as `fd-input`: `checkValidity()` updates validity without showing an error, while `reportValidity()`, submit-time invalid events, or blur after interaction can reveal invalid styling.
 - The inner textarea gets `aria-invalid="true"` only while visible invalid state is active.
@@ -137,6 +137,7 @@ When `maxlength` is present, the visible count is always shown and the screen-re
 
 ## Related components
 
+- [Form Field](/components/form-field) — preferred long-term field shell for new wrapper-based composition
 - [Input](/components/input) — single-line text entry for shorter responses
 - [Field](/components/field) — convenience wrapper for `fd-label` + `fd-input` or `fd-textarea` + `fd-message`
 - [Label](/components/label) — visible label and description text for form controls

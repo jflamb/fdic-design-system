@@ -132,5 +132,6 @@ Compatibility note:
 
 <ul class="fdic-related-list">
   <li><a href="./checkbox">Checkbox</a> — Use <code>fd-checkbox</code> for standalone consent, acknowledgement, or parent “select all” controls.</li>
+  <li><a href="/components/form-field">Form Field</a> — Use the shared field shell when the workflow wants one wrapper contract across text-entry and grouped controls.</li>
   <li><a href="/guide/form-workflows">Form Workflows</a> — Use the workflow guidance for page-level validation timing, blocked-submit summaries, and high-stakes review and confirmation rules.</li>
 </ul>

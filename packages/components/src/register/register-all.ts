@@ -50,6 +50,10 @@ import "./fd-tile-list.js";
 import "./fd-card.js";
 import "./fd-global-footer.js";
 import "./fd-card-group.js";
+import "./fd-confirmation-record.js";
+import "./fd-form-field.js";
+import "./fd-error-summary.js";
+import "./fd-review-list.js";
 import "../icons/phosphor-regular.js";
 
 warnIfDesignSystemRuntimeMissing();
