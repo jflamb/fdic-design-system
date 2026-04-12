@@ -64,7 +64,7 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred collection recipe. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 
 - `fd-card-group` is a static grouping container. It does not own selection, active-item, or carousel behavior.

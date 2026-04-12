@@ -74,7 +74,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 
 | Name | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred collection recipe. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
+| `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Shared decorative visual tone applied to each direct `fd-tile` child in the list. |
 
