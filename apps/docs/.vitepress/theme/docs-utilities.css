@@ -2,7 +2,7 @@
   .fdic-docs-overview-heading {
     display: block;
     margin: 0;
-    color: var(--ds-color-text-primary, #212123);
+    color: var(--fdic-color-text-primary, #212123);
     font-family: var(
       --fdic-font-family-sans-serif,
       "Source Sans 3",
@@ -15,15 +15,15 @@
       Arial,
       sans-serif
     );
-    font-size: var(--ds-font-size-body-small, 1rem);
+    font-size: var(--fdic-font-size-body-small, 1rem);
     font-weight: 600;
-    line-height: var(--ds-line-height-h4, 1.25);
+    line-height: var(--fdic-line-height-h4, 1.25);
   }
 
   .fdic-docs-overview-meta {
     display: block;
     margin: 0;
-    color: var(--ds-color-text-secondary, #595961);
+    color: var(--fdic-color-text-secondary, #595961);
     font-family: var(
       --fdic-font-family-sans-serif,
       "Source Sans 3",
@@ -36,8 +36,8 @@
       Arial,
       sans-serif
     );
-    font-size: var(--ds-font-size-body-small, 1rem);
+    font-size: var(--fdic-font-size-body-small, 1rem);
     font-weight: 400;
-    line-height: var(--ds-line-height-body, 1.5);
+    line-height: var(--fdic-line-height-body, 1.5);
   }
 }

@@ -1,6 +1,6 @@
 @layer a11y {
   :root {
-    --fdic-docs-focus-ring-color: var(--ds-color-border-input-focus, #38b6ff);
+    --fdic-docs-focus-ring-color: var(--fdic-color-border-input-focus, #38b6ff);
     --fdic-docs-focus-ring-width: 2px;
     --fdic-docs-focus-ring-offset: 2px;
     --fdic-docs-print-border: #999;

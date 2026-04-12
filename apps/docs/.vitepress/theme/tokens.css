@@ -30,26 +30,26 @@
     color-scheme: dark;
 
     /* Visual component — warm variant needs a dark gold bg for icon contrast */
-    --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
+    --fd-visual-bg-warm: var(--fdic-color-secondary-800, #88691c);
 
     /* Mega-menu column surfaces — darker translucent tints for glass effect */
-    --fd-global-header-mega-col-1: var(--ds-color-surface-glass-1);
-    --fd-global-header-mega-col-2: var(--ds-color-surface-glass-2);
-    --fd-global-header-mega-col-3: var(--ds-color-surface-glass-3);
-    --fd-global-header-mega-col-2-muted: var(--ds-color-surface-glass-2-muted);
-    --fd-global-header-mega-col-3-muted: var(--ds-color-surface-glass-3-muted-1);
+    --fd-global-header-mega-col-1: var(--fdic-color-surface-glass-1);
+    --fd-global-header-mega-col-2: var(--fdic-color-surface-glass-2);
+    --fd-global-header-mega-col-3: var(--fdic-color-surface-glass-3);
+    --fd-global-header-mega-col-2-muted: var(--fdic-color-surface-glass-2-muted);
+    --fd-global-header-mega-col-3-muted: var(--fdic-color-surface-glass-3-muted-1);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) {
       color-scheme: dark;
 
-      --fd-visual-bg-warm: var(--ds-color-secondary-800, #88691c);
-      --fd-global-header-mega-col-1: var(--ds-color-surface-glass-1);
-      --fd-global-header-mega-col-2: var(--ds-color-surface-glass-2);
-      --fd-global-header-mega-col-3: var(--ds-color-surface-glass-3);
-      --fd-global-header-mega-col-2-muted: var(--ds-color-surface-glass-2-muted);
-      --fd-global-header-mega-col-3-muted: var(--ds-color-surface-glass-3-muted-1);
+      --fd-visual-bg-warm: var(--fdic-color-secondary-800, #88691c);
+      --fd-global-header-mega-col-1: var(--fdic-color-surface-glass-1);
+      --fd-global-header-mega-col-2: var(--fdic-color-surface-glass-2);
+      --fd-global-header-mega-col-3: var(--fdic-color-surface-glass-3);
+      --fd-global-header-mega-col-2-muted: var(--fdic-color-surface-glass-2-muted);
+      --fd-global-header-mega-col-3-muted: var(--fdic-color-surface-glass-3-muted-1);
     }
   }
 }

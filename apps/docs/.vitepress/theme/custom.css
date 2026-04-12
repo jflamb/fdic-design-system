@@ -1,15 +1,15 @@
 @layer docs-components {
   :root {
-    --fdic-docs-ink: var(--ds-color-text-primary, #212123);
-    --fdic-docs-muted: var(--ds-color-text-secondary, #595961);
-    --fdic-docs-border: var(--ds-color-border-divider, #BDBDBF);
-    --fdic-docs-surface: var(--ds-color-bg-container, #F5F5F7);
-    --fdic-docs-surface-strong: var(--ds-color-bg-surface, #FFFFFF);
-    --fdic-docs-brand: var(--ds-color-text-brand, #0D6191);
-    --fdic-docs-accent: var(--ds-color-text-warm, #60511B);
-    --fdic-docs-success: var(--ds-color-semantic-fg-success, #2E7D32);
-    --fdic-docs-warning: var(--ds-color-semantic-fg-warning, #8B5E00);
-    --fdic-docs-danger: var(--ds-color-semantic-fg-error, #B10B2D);
+    --fdic-docs-ink: var(--fdic-color-text-primary, #212123);
+    --fdic-docs-muted: var(--fdic-color-text-secondary, #595961);
+    --fdic-docs-border: var(--fdic-color-border-divider, #BDBDBF);
+    --fdic-docs-surface: var(--fdic-color-bg-container, #F5F5F7);
+    --fdic-docs-surface-strong: var(--fdic-color-bg-surface, #FFFFFF);
+    --fdic-docs-brand: var(--fdic-color-text-brand, #0D6191);
+    --fdic-docs-accent: var(--fdic-color-text-warm, #60511B);
+    --fdic-docs-success: var(--fdic-color-semantic-fg-success, #2E7D32);
+    --fdic-docs-warning: var(--fdic-color-semantic-fg-warning, #8B5E00);
+    --fdic-docs-danger: var(--fdic-color-semantic-fg-error, #B10B2D);
     --fdic-docs-raised-border: rgba(13, 97, 145, 0.12);
     --fdic-docs-card-hover-border: rgba(13, 97, 145, 0.3);
     --fdic-docs-card-hover-border-subtle: rgba(13, 97, 145, 0.2);
@@ -42,12 +42,12 @@
     --fdic-docs-gradient-scale: linear-gradient(
       90deg in oklch,
       var(--fdic-docs-brand),
-      var(--ds-color-primary-200, #84DBFF)
+      var(--fdic-color-primary-200, #84DBFF)
     );
     --fdic-docs-gradient-overlay: linear-gradient(
       180deg in oklch,
-      oklch(from var(--ds-color-primary-900, #003256) l c h / 0.92),
-      oklch(from var(--ds-color-primary-900, #003256) l c h / 0.82)
+      oklch(from var(--fdic-color-primary-900, #003256) l c h / 0.92),
+      oklch(from var(--fdic-color-primary-900, #003256) l c h / 0.82)
     );
     --fdic-docs-gradient-mode-light: linear-gradient(
       180deg in oklch,
@@ -56,15 +56,15 @@
     );
     --fdic-docs-gradient-mode-dark: linear-gradient(
       180deg in oklch,
-      oklch(from var(--ds-color-primary-900, #003256) l c h / 0.94),
-      oklch(from var(--ds-color-info-900, #162D4A) l c h / 0.88)
+      oklch(from var(--fdic-color-primary-900, #003256) l c h / 0.94),
+      oklch(from var(--fdic-color-info-900, #162D4A) l c h / 0.88)
     );
     --fdic-docs-mode-panel-light-bg: var(--fdic-docs-surface-strong);
     --fdic-docs-mode-panel-light-border: var(--fdic-docs-border);
-    --fdic-docs-mode-panel-dark-bg: oklch(from var(--ds-color-neutral-000, #FFFFFF) l c h / 0.08);
-    --fdic-docs-mode-panel-dark-border: oklch(from var(--ds-color-neutral-000, #FFFFFF) l c h / 0.12);
-    --fdic-docs-mode-code-dark: var(--ds-color-primary-050, #E6F4FA);
-    --fdic-docs-mode-code-dark-bg: oklch(from var(--ds-color-neutral-000, #FFFFFF) l c h / 0.1);
+    --fdic-docs-mode-panel-dark-bg: oklch(from var(--fdic-color-neutral-000, #FFFFFF) l c h / 0.08);
+    --fdic-docs-mode-panel-dark-border: oklch(from var(--fdic-color-neutral-000, #FFFFFF) l c h / 0.12);
+    --fdic-docs-mode-code-dark: var(--fdic-color-primary-050, #E6F4FA);
+    --fdic-docs-mode-code-dark-bg: oklch(from var(--fdic-color-neutral-000, #FFFFFF) l c h / 0.1);
   }
 
   .dark {
@@ -187,7 +187,7 @@
     padding: var(--_fdic-surface-padding, 1rem);
     border: 1px solid var(--_fdic-surface-border, var(--fdic-docs-border));
     border-radius: var(--_fdic-surface-radius, 14px);
-    background: var(--_fdic-surface-background, var(--ds-color-bg-surface, #FFFFFF));
+    background: var(--_fdic-surface-background, var(--fdic-color-bg-surface, #FFFFFF));
     color: var(--_fdic-surface-color, var(--fdic-docs-ink));
     box-shadow: var(--_fdic-surface-shadow, none);
   }
@@ -248,7 +248,7 @@
 }
 
 .fdic-card:has(:focus-visible) {
-  outline: 2px solid var(--ds-color-border-input-focus, #38b6ff);
+  outline: 2px solid var(--fdic-color-border-input-focus, #38b6ff);
   outline-offset: 2px;
   border-radius: 12px;
   border-color: var(--fdic-docs-card-hover-border);
@@ -403,8 +403,8 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background: var(--ds-gradient-brand-core, linear-gradient(135deg in oklch, var(--fdic-docs-brand), var(--ds-color-primary-200, #84DBFF)));
-  color: var(--ds-color-text-inverted, light-dark(#FFFFFF, #000000));
+  background: var(--fdic-gradient-brand-core, linear-gradient(135deg in oklch, var(--fdic-docs-brand), var(--fdic-color-primary-200, #84DBFF)));
+  color: var(--fdic-color-text-inverted, light-dark(#FFFFFF, #000000));
   font-size: 0.875rem;
   font-weight: 600;
   display: flex;
@@ -532,7 +532,7 @@
 .fdic-border-demo {
   padding: 0.75rem 0.5rem;
   border-radius: 8px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--fdic-docs-ink);
@@ -586,7 +586,7 @@
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--fdic-docs-border);
   border-radius: 999px;
-  background: var(--ds-color-bg-surface, #FFFFFF);
+  background: var(--fdic-color-bg-surface, #FFFFFF);
   color: var(--fdic-docs-ink);
   font-size: 0.875rem;
 }
@@ -705,16 +705,16 @@
 .fdic-surface-card[data-surface="raised"] {
   --_fdic-surface-border: var(--fdic-docs-raised-border);
   --_fdic-surface-background: var(--fdic-docs-gradient-surface);
-  --_fdic-surface-shadow: 0 10px 30px var(--ds-color-effect-shadow-panel, rgba(31, 41, 51, 0.06));
+  --_fdic-surface-shadow: 0 10px 30px var(--fdic-color-effect-shadow-panel, rgba(31, 41, 51, 0.06));
 }
 
 .fdic-surface-card[data-surface="overlay"] {
-  --_fdic-surface-color: var(--ds-color-text-inverted, light-dark(#FFFFFF, #000000));
+  --_fdic-surface-color: var(--fdic-color-text-inverted, light-dark(#FFFFFF, #000000));
   --_fdic-surface-background: var(--fdic-docs-gradient-overlay);
 }
 
 .fdic-surface-card[data-surface="overlay"] > p {
-  color: oklch(from var(--ds-color-neutral-000, #FFFFFF) l c h / 0.88);
+  color: oklch(from var(--fdic-color-neutral-000, #FFFFFF) l c h / 0.88);
 }
 
 .fdic-mode-grid {
@@ -737,12 +737,12 @@
 
 .fdic-mode-frame[data-mode="light"] {
   background: var(--fdic-docs-gradient-mode-light);
-  color: var(--ds-color-text-primary, #212123);
+  color: var(--fdic-color-text-primary, #212123);
 }
 
 .fdic-mode-frame[data-mode="dark"] {
   background: var(--fdic-docs-gradient-mode-dark);
-  color: var(--ds-color-text-inverted, light-dark(#FFFFFF, #000000));
+  color: var(--fdic-color-text-inverted, light-dark(#FFFFFF, #000000));
 }
 
 .fdic-mode-frame[data-mode="mobile"] {
@@ -788,7 +788,7 @@
 
 .dark .fdic-surface-card[data-surface="raised"] {
   --_fdic-surface-border: var(--fdic-docs-raised-border);
-  --_fdic-surface-shadow: 0 10px 30px var(--ds-color-effect-shadow-panel, rgba(0, 0, 0, 0.2));
+  --_fdic-surface-shadow: 0 10px 30px var(--fdic-color-effect-shadow-panel, rgba(0, 0, 0, 0.2));
 }
 
 .dark .fdic-content-do {
