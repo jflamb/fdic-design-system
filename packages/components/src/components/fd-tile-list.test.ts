@@ -2,6 +2,26 @@ import { describe, expect, it } from "vitest";
 import { FdTileList } from "./fd-tile-list.js";
 import "../register/fd-tile.js";
 import "../register/fd-tile-list.js";
+import { expectNoAxeViolations } from "./test-a11y.js";
+
+async function createList(
+  props: Partial<HTMLElement & {
+    columns?: "2" | "3" | "4";
+    label?: string;
+    tone?: "neutral" | "cool" | "warm";
+  }> = {},
+) {
+  const el = document.createElement("fd-tile-list") as HTMLElement & {
+    columns?: "2" | "3" | "4";
+    label?: string;
+    tone?: "neutral" | "cool" | "warm";
+    updateComplete: Promise<void>;
+  };
+  Object.assign(el, props);
+  document.body.appendChild(el);
+  await el.updateComplete;
+  return el;
+}
 
 describe("FdTileList", () => {
   it("registers fd-tile-list", () => {
@@ -9,23 +29,13 @@ describe("FdTileList", () => {
   });
 
   it("renders a labelled list container", async () => {
-    const el = document.createElement("fd-tile-list") as HTMLElement & {
-      columns?: "2" | "3" | "4";
-      updateComplete: Promise<void>;
-      label?: string;
-    };
-    el.label = "Benefits links";
-
-    document.body.appendChild(el);
-    await el.updateComplete;
+    const el = await createList({ label: "Benefits links" });
 
     const list = el.shadowRoot?.querySelector("[part=base]");
 
     expect(list?.getAttribute("role")).toBe("list");
     expect(list?.getAttribute("aria-label")).toBe("Benefits links");
     expect(el.getAttribute("columns")).toBe("3");
-
-    el.remove();
   });
 
   it("assigns listitem semantics to slotted fd-tile children", async () => {
@@ -47,7 +57,6 @@ describe("FdTileList", () => {
     expect(tile.getAttribute("role")).toBe("listitem");
     expect(tile.getAttribute("tone")).toBe("neutral");
 
-    list.remove();
   });
 
   it("applies the shared list tone to direct tile children", async () => {
@@ -82,7 +91,6 @@ describe("FdTileList", () => {
     expect(firstTile.getAttribute("tone")).toBe("warm");
     expect(secondTile.getAttribute("tone")).toBe("warm");
 
-    list.remove();
   });
 
   it("updates child tile tones when the list tone changes", async () => {
@@ -109,7 +117,6 @@ describe("FdTileList", () => {
 
     expect(tile.getAttribute("tone")).toBe("warm");
 
-    list.remove();
   });
 
   it("restores the shared list tone if a child tile tries to override it", async () => {
@@ -136,7 +143,6 @@ describe("FdTileList", () => {
 
     expect(tile.getAttribute("tone")).toBe("cool");
 
-    list.remove();
   });
 
   it("restores list semantics if a child tile tries to override its role", async () => {
@@ -174,5 +180,88 @@ describe("FdTileList", () => {
     expect(styles).toContain("var(--fd-tile-list-col-4-gap-mobile, var(--ds-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
+  });
+
+  it("normalizes invalid columns back to the default recipe", async () => {
+    const el = await createList();
+    el.setAttribute("columns", "5");
+
+    await el.updateComplete;
+    await el.updateComplete;
+
+    expect(el.columns).toBe("3");
+  });
+
+  it("normalizes invalid tones back to neutral", async () => {
+    const list = await createList();
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+
+    list.setAttribute("tone", "unsupported");
+    tile.title = "Health benefits";
+    list.append(tile);
+    await list.updateComplete;
+    await tile.updateComplete;
+
+    expect(tile.getAttribute("tone")).toBe("neutral");
+  });
+
+  it("updates the accessible name when the label changes", async () => {
+    const el = await createList({ label: "Benefits links" });
+
+    el.label = "Updated benefits links";
+    await el.updateComplete;
+
+    expect(el.shadowRoot?.querySelector("[part=base]")?.getAttribute("aria-label")).toBe(
+      "Updated benefits links",
+    );
+  });
+
+  it("omits aria-label when the label is blank", async () => {
+    const el = await createList({ label: "   " });
+    expect(el.shadowRoot?.querySelector("[part=base]")?.hasAttribute("aria-label")).toBe(false);
+  });
+
+  it("applies semantics and tone to tiles added after initial render", async () => {
+    const list = await createList({ tone: "warm" });
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+    tile.title = "Late addition";
+
+    list.append(tile);
+    await list.updateComplete;
+    await tile.updateComplete;
+
+    expect(tile.getAttribute("role")).toBe("listitem");
+    expect(tile.getAttribute("tone")).toBe("warm");
+  });
+
+  it("passes an axe audit when labelled", async () => {
+    const el = await createList({ label: "Benefits links" });
+    await expectNoAxeViolations(el.shadowRoot!);
+  });
+
+  it.each([
+    ["2"],
+    ["4"],
+  ])("preserves the supported %s-column recipe", async (columns) => {
+    const el = await createList({ columns: columns as "2" | "4" });
+    expect(el.getAttribute("columns")).toBe(columns);
+  });
+
+  it("does not mutate non-tile children", async () => {
+    const list = await createList({ tone: "warm" });
+    const helper = document.createElement("div");
+    helper.textContent = "Helper text";
+
+    list.append(helper);
+    await list.updateComplete;
+
+    expect(helper.hasAttribute("role")).toBe(false);
+    expect(helper.hasAttribute("tone")).toBe(false);
   });
 });

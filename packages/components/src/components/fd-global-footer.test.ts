@@ -4,6 +4,7 @@ import type {
   FdGlobalFooterLink,
   FdGlobalFooterSocialLink,
 } from "./fd-global-footer.js";
+import { expectNoAxeViolations } from "./test-a11y.js";
 
 describe("FdGlobalFooter", () => {
   beforeEach(() => {
@@ -85,6 +86,13 @@ describe("FdGlobalFooter", () => {
     );
   });
 
+  it("renders the seal variants for normal and forced-color contexts", async () => {
+    const el = await createFooter();
+
+    expect(el.shadowRoot?.querySelector(".seal-light svg")).not.toBeNull();
+    expect(el.shadowRoot?.querySelector(".seal-dark svg")).not.toBeNull();
+  });
+
   it("normalizes rel tokens for external links that open in a new tab", async () => {
     const el = await createFooter({
       utilityLinks: [
@@ -102,6 +110,73 @@ describe("FdGlobalFooter", () => {
 
     expect(link?.getAttribute("rel")).toContain("noopener");
     expect(link?.getAttribute("rel")).toContain("noreferrer");
+  });
+
+  it("preserves rel values for same-tab utility links", async () => {
+    const el = await createFooter({
+      utilityLinks: [{ label: "Accessibility", href: "/accessibility", rel: "author" }],
+    });
+
+    expect(
+      el.shadowRoot?.querySelector("[part=utility-links] a")?.getAttribute("rel"),
+    ).toBe("author");
+  });
+
+  it("filters invalid utility and social links", async () => {
+    const el = await createFooter({
+      utilityLinks: [
+        { label: "Accessibility", href: "/accessibility" },
+        { label: "", href: "/missing-label" },
+      ],
+      socialLinks: [
+        {
+          icon: "linkedin",
+          label: "LinkedIn",
+          href: "https://linkedin.com/company/fdic",
+        },
+        {
+          icon: "invalid" as any,
+          label: "Broken icon",
+          href: "https://example.com",
+        },
+      ],
+    });
+
+    expect(el.shadowRoot?.querySelectorAll("[part=utility-links] a")).toHaveLength(1);
+    expect(el.shadowRoot?.querySelectorAll(".social-link")).toHaveLength(1);
+  });
+
+  it("renders social link rel tokens for external new-tab links", async () => {
+    const el = await createFooter({
+      socialLinks: [
+        {
+          icon: "linkedin",
+          label: "LinkedIn",
+          href: "https://linkedin.com/company/fdic",
+          target: "_blank",
+        },
+      ],
+    });
+
+    const link = el.shadowRoot?.querySelector(".social-link");
+    expect(link?.getAttribute("rel")).toContain("noopener");
+    expect(link?.getAttribute("rel")).toContain("noreferrer");
+  });
+
+  it("omits the agency block when no agency name is provided", async () => {
+    const el = await createFooter({ agencyName: "" });
+    expect(el.shadowRoot?.querySelector("[part=agency]")).toBeNull();
+  });
+
+  it("uses plain text instead of a link when agencyHref is blank", async () => {
+    const el = await createFooter({ agencyHref: "   " });
+    expect(el.shadowRoot?.querySelector("[part=agency] .agency-text")).not.toBeNull();
+    expect(el.shadowRoot?.querySelector("[part=agency] .agency-link")).toBeNull();
+  });
+
+  it("renders social icons as decorative SVG content", async () => {
+    const el = await createFooter();
+    expect(el.shadowRoot?.querySelector(".social-icon svg")).not.toBeNull();
   });
 
   it("uses container queries for the narrow layout so constrained embeds render correctly", () => {
@@ -133,5 +208,15 @@ describe("FdGlobalFooter", () => {
 
     expect(cssText).toContain(".brand-block,\n      .bottom-row {\n        text-align: center;");
     expect(cssText).not.toContain(".brand-block,\n      .bottom-row {\n        justify-items: center;");
+  });
+
+  it("passes an axe audit with the default footer content", async () => {
+    const el = await createFooter();
+    await expectNoAxeViolations(el.shadowRoot!);
+  });
+
+  it("always renders the footer landmark wrapper", async () => {
+    const el = await createFooter();
+    expect(el.shadowRoot?.querySelector("footer")).not.toBeNull();
   });
 });
