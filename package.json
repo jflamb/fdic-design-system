@@ -8,6 +8,13 @@
     "apps/*",
     "packages/*"
   ],
+  "browserslist": [
+    "Chrome >= 123",
+    "Edge >= 123",
+    "Firefox >= 128",
+    "Safari >= 17.5",
+    "iOS >= 17.5"
+  ],
   "scripts": {
     "sync:components": "node scripts/components/sync.mjs",
     "validate:components": "node scripts/components/validate.mjs",
