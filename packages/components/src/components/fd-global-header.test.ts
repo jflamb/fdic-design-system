@@ -738,6 +738,7 @@ describe("fd-global-header", () => {
     // Simulate a resize while the header is in full (non-compact) state.
     mockHeight = 112;
     triggerResize(el, 1200);
+    await nextFrame();
     await el.updateComplete;
 
     expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
@@ -750,6 +751,7 @@ describe("fd-global-header", () => {
 
     mockHeight = 48;
     triggerResize(el, 1100);
+    await nextFrame();
     await el.updateComplete;
 
     expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
@@ -1111,10 +1113,11 @@ describe("fd-global-header", () => {
     const indicator = el.shadowRoot?.querySelector(
       ".top-nav-active-indicator",
     ) as HTMLElement | null;
+    const topNavStyle = topNavTrack?.getAttribute("style") ?? "";
 
     expect(indicator?.getAttribute("data-visible")).toBe("true");
-    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-offset:40px");
-    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-width:206px");
+    expect(topNavStyle).toContain("--top-nav-indicator-offset: 40px");
+    expect(topNavStyle).toContain("--top-nav-indicator-width: 206px");
 
     careerTrigger?.dispatchEvent(
       new PointerEvent("pointerenter", { bubbles: true, composed: true }),
@@ -1123,8 +1126,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-offset:246px");
-    expect(topNavTrack?.getAttribute("style")).toContain("--top-nav-indicator-width:338px");
+    const updatedTopNavStyle = topNavTrack?.getAttribute("style") ?? "";
+    expect(updatedTopNavStyle).toContain("--top-nav-indicator-offset: 246px");
+    expect(updatedTopNavStyle).toContain("--top-nav-indicator-width: 338px");
   });
 
   it("waits for hover intent before switching desktop panels", async () => {

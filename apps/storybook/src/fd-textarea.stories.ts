@@ -205,7 +205,7 @@ export const ValidationLifecycle: Story = {
         name="explanation"
         required
       ></fd-textarea>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
   parameters: {

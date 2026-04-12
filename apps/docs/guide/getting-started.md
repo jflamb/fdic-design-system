@@ -19,7 +19,7 @@ This page explains what the FDIC Design System provides, how to run it locally, 
 - **Not a page builder.** You still write your own HTML structure, page composition, and application logic.
 - **Not a CSS framework.** The components ship their own encapsulated styles. You do not add utility classes to make them work.
 - **Not a utility layout API.** The system publishes a few foundational layout tokens and documented patterns, not a large library of composable layout helpers.
-- **Not a JavaScript framework.** The components are framework-agnostic Web Components. They work anywhere custom elements are supported. A public React wrapper package is not part of the supported release surface yet.
+- **Not a JavaScript framework.** The components are framework-agnostic Web Components. They work anywhere custom elements are supported. The supported consumer path today is the published Web Component and token packages.
 
 ## Install and run locally
 
@@ -54,6 +54,13 @@ Use the tokens package directly only if you need foundation tokens without the c
 import "@jflamb/fdic-ds-tokens/styles.css";
 ```
 
+The supported release surface for consumers is:
+
+- `@jflamb/fdic-ds-components`
+- `@jflamb/fdic-ds-tokens`
+
+If you need framework adoption guidance today, treat the Web Component packages as the source of truth and integrate them directly in your application shell.
+
 ## Your first component
 
 Here is a minimal working app entry that uses an FDIC button:
@@ -79,11 +86,15 @@ The stylesheet import is required. FDIC components consume shared `--fdic-*` sys
 
 Compatibility note: <code>@jflamb/fdic-ds-tokens/semantic.css</code> remains available as an alias, but new integrations should use <code>styles.css</code>.
 
+## Browser support
+
+The shipped package contract follows the browser floor documented in [Browser Support](/guide/browser-support). That browser floor is not an optional enhancement target; it is the baseline for the CSS and platform features the runtime uses directly.
+
 ## Where to go next
 
 1. **Understand the building blocks** — read the [Foundations](/guide/foundations/) section to learn about colors, typography, and spacing.
 2. **Learn the public layout contract** — read [Spacing and Layout](/guide/foundations/spacing-layout) for the canonical shell, readable-width, and collection-layout guidance.
 3. **Pick the right component** — read [Choosing a Component](/guide/choosing-a-component) to find the correct element for your use case.
 4. **Build a form** — read [Form Workflows](/guide/form-workflows) for step-by-step guidance on building accessible, high-stakes forms.
-5. **Check accessibility requirements** — read [Accessibility](/guide/accessibility) to understand the non-negotiable WCAG 2.1 AA rules.
+5. **Check accessibility requirements** — read [Accessibility](/guide/accessibility) to understand the non-negotiable WCAG 2.2 AA rules.
 6. **Browse components** — the [Components](/components/) section documents every available element with usage examples, API tables, and Do/Don't guidance.

@@ -126,7 +126,7 @@ export const FormIntegration: Story = {
       <fd-checkbox name="updates" checked>
         Email me account updates
       </fd-checkbox>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
 };
@@ -137,7 +137,7 @@ export const ValidationLifecycle: Story = {
       <fd-checkbox name="terms" required>
         I agree to the terms and conditions
       </fd-checkbox>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
   parameters: {

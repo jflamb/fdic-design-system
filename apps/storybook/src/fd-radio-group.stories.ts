@@ -122,7 +122,7 @@ export const FormValidation: Story = {
         <fd-radio name="contact" value="mail">Physical mail</fd-radio>
         <span slot="error">Please select a contact method.</span>
       </fd-radio-group>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
   parameters: {

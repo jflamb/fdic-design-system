@@ -34,6 +34,13 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
   caption="Common patterns — icons, icon-only actions, link mode, and loading state in one compact preview. Open Storybook for the full set of dedicated examples."
 />
 
+<StoryEmbed
+  storyId="components-button--form-action-row"
+  linkStoryId="components-button--playground"
+  height="140"
+  caption="Form action rows keep submit semantics on a native HTML button. Use `fd-button` for cancel, save draft, and other non-submitting actions."
+/>
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 

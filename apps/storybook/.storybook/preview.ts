@@ -12,6 +12,14 @@ const STORYBOOK_THEME_GLOBAL = "theme";
 const STORYBOOK_THEME_MESSAGE_TYPE = "fdic-theme-change";
 const RESIZE_OBSERVER_LOOP_MESSAGE =
   "ResizeObserver loop completed with undelivered notifications.";
+const KNOWN_BROWSER_TEST_WARNING_ALLOWLIST = [
+  // TODO(phase-3): remove once Storybook runs against a production-mode Lit bundle.
+  /Lit is in dev mode\. Not recommended for production!/,
+];
+const KNOWN_BROWSER_TEST_ERROR_ALLOWLIST = [
+  // TODO(phase-3): remove after the remaining ResizeObserver churn in reference components is fixed.
+  RESIZE_OBSERVER_LOOP_MESSAGE,
+];
 
 const isStorybookTheme = (value: unknown): value is StorybookTheme =>
   value === "dark" || value === "light";
@@ -71,30 +79,45 @@ const applyEmbedTheme = (theme: StorybookTheme = "light"): void => {
 };
 
 if (typeof window !== "undefined") {
-  // Suppress known non-actionable console noise during Vitest browser runs
-  // so CI output stays focused on real regressions.
+  const isVitestBrowserRun = Boolean(
+    (globalThis as { __vitest_worker__?: { ctx?: { pool?: unknown } } }).__vitest_worker__?.ctx
+      ?.pool,
+  );
   const _originalWarn = console.warn;
   console.warn = (...args: unknown[]) => {
-    const msg = typeof args[0] === "string" ? args[0] : "";
-    // Lit dev mode warning — fires because Storybook dev server resolves the
-    // "development" export condition. Not actionable without a prod build.
-    if (msg.includes("Lit is in dev mode")) return;
+    const msg = typeof args[0] === "string" ? args[0] : String(args[0] ?? "");
+    if (KNOWN_BROWSER_TEST_WARNING_ALLOWLIST.some((allowed) => allowed.test(msg))) {
+      return;
+    }
+
     _originalWarn.apply(console, args);
+
+    if (isVitestBrowserRun) {
+      throw new Error(`Unexpected console.warn during Storybook browser test: ${msg}`);
+    }
   };
+
   const _originalError = console.error;
   console.error = (...args: unknown[]) => {
     const msg = typeof args[0] === "string" ? args[0] : String(args[0] ?? "");
-    if (msg.includes(RESIZE_OBSERVER_LOOP_MESSAGE)) return;
+    if (KNOWN_BROWSER_TEST_ERROR_ALLOWLIST.some((allowed) => msg.includes(allowed))) {
+      return;
+    }
+
     _originalError.apply(console, args);
+
+    if (isVitestBrowserRun) {
+      throw new Error(`Unexpected console.error during Storybook browser test: ${msg}`);
+    }
   };
 
   // Chromium can surface benign ResizeObserver loop warnings during complex
-  // Storybook interactions such as the global-header stories. Ignore only this
-  // known browser noise so Vitest browser runs stay focused on real regressions.
+  // Storybook interactions. Keep the allowlist narrow and temporary so browser
+  // tests fail on new runtime noise by default.
   window.addEventListener(
     "error",
     (event) => {
-      if (event.message === RESIZE_OBSERVER_LOOP_MESSAGE) {
+      if (KNOWN_BROWSER_TEST_ERROR_ALLOWLIST.some((allowed) => event.message === allowed)) {
         event.preventDefault();
         event.stopImmediatePropagation();
       }

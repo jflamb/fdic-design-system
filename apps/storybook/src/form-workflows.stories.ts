@@ -80,6 +80,96 @@ function setRoutingMessage(
   message.live = live;
 }
 
+export const MinimumViableRecipe: Story = {
+  render: () => html`
+    <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="minimum-viable-form-title">
+      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Minimum viable recipe</strong>
+        <h2 id="minimum-viable-form-title" style="margin: 0;">
+          Canonical form composition
+        </h2>
+        <p style="margin: 0;">
+          This is the narrow supported path: native form semantics, <code>fd-field</code> for
+          direct-child text-entry composition, and a native submit button.
+        </p>
+      </div>
+
+      <form
+        novalidate
+        style=${WORKFLOW_FORM_STYLE}
+        @submit=${(event: SubmitEvent) => event.preventDefault()}
+      >
+        <fd-field>
+          <fd-label label="Institution name" required></fd-label>
+          <fd-input name="institution-name" required></fd-input>
+          <fd-message message="Enter the full legal name as it appears on the charter."></fd-message>
+        </fd-field>
+
+        <fd-field>
+          <fd-label label="Certificate number" required></fd-label>
+          <fd-input
+            name="certificate-number"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]{5}"
+            required
+          ></fd-input>
+          <fd-message message="Enter the 5-digit FDIC certificate number."></fd-message>
+        </fd-field>
+
+        <fd-field>
+          <fd-label label="Additional notes"></fd-label>
+          <fd-textarea name="additional-notes"></fd-textarea>
+        </fd-field>
+
+        <div style=${ACTION_ROW_STYLE}>
+          <button type="submit" style=${NATIVE_BUTTON_STYLE}>Submit filing</button>
+          <fd-button variant="subtle" type="button">Cancel</fd-button>
+        </div>
+      </form>
+    </section>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The canonical form recipe uses `fd-field` only for direct-child text-entry composition and keeps native submit behavior on a plain HTML button.",
+      },
+    },
+  },
+};
+
+MinimumViableRecipe.play = async ({ canvasElement }) => {
+  const fields = Array.from(canvasElement.querySelectorAll("fd-field"));
+  const submit = canvasElement.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+  const cancel = canvasElement.querySelector("fd-button") as HTMLElement | null;
+
+  expect(fields).toHaveLength(3);
+  expect(submit).toBeTruthy();
+  expect(cancel?.getAttribute("type")).toBe("button");
+
+  for (const field of fields.slice(0, 2)) {
+    const label = field.querySelector("fd-label");
+    const control = field.querySelector("fd-input");
+    const message = field.querySelector("fd-message");
+
+    await waitFor(() => {
+      expect(control?.id.startsWith("fd-field-")).toBe(true);
+      expect(label?.getAttribute("for")).toBe(control?.id);
+      expect(message?.getAttribute("for")).toBe(control?.id);
+    });
+  }
+
+  const textareaField = fields[2];
+  const textareaLabel = textareaField.querySelector("fd-label");
+  const textarea = textareaField.querySelector("fd-textarea");
+
+  await waitFor(() => {
+    expect(textarea?.id.startsWith("fd-field-")).toBe(true);
+    expect(textareaLabel?.getAttribute("for")).toBe(textarea?.id);
+  });
+};
+
 export const SingleQuestion: Story = {
   render: () => html`
     <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="single-question-title">

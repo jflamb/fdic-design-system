@@ -60,12 +60,12 @@ This component should almost always be wrapped in [`fd-field`](/components/field
 | Name | Default | Description |
 |---|---|---|
 | `--fd-textarea-min-height` | `140px` | Minimum textarea height. |
-| `--fd-textarea-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color at rest. |
-| `--fd-textarea-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Border color on hover. |
-| `--fd-textarea-border-color-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus glow color. |
+| `--fd-textarea-border-color` | `var(--fdic-color-border-input, #bdbdbf)` | Border color at rest. |
+| `--fd-textarea-border-color-hover` | `var(--fdic-color-border-input-active, #424244)` | Border color on hover. |
+| `--fd-textarea-border-color-focus` | `var(--fdic-color-border-input-focus, #38b6ff)` | Focus glow color. |
 | `--fd-textarea-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius. |
-| `--fd-textarea-bg` | `var(--fdic-background-base, #ffffff)` | Background color. |
-| `--fd-textarea-placeholder-color` | `var(--fdic-text-secondary, #595961)` | Placeholder text color. |
+| `--fd-textarea-bg` | `var(--fdic-color-bg-base, #ffffff)` | Background color. |
+| `--fd-textarea-placeholder-color` | `var(--fdic-color-text-secondary, #595961)` | Placeholder text color. |
 
 ## Shadow parts
 
@@ -119,6 +119,7 @@ When `maxlength` is present, the visible count is always shown and the screen-re
 ## Accessibility
 
 - `fd-textarea` renders a native `<textarea>` in shadow DOM and participates in form submission via `ElementInternals`.
+- Use a native `<button type="submit">` when the textarea participates in a submitted form. `fd-textarea` is form-associated, but `fd-button` is not submit-capable in v1.
 - Pair it with `fd-label` using matching `for` / `id` attributes, or use `fd-field` for auto-wiring.
 - `fd-textarea` is the single owner of `aria-describedby` on the inner textarea. It assembles description IDs from sibling `fd-label`, sibling `fd-message`, and the built-in character count when present.
 - Visible invalid state follows the same contract as `fd-input`: `checkValidity()` updates validity without showing an error, while `reportValidity()`, submit-time invalid events, or blur after interaction can reveal invalid styling.

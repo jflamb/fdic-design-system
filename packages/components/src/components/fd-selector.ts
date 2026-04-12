@@ -21,7 +21,6 @@ export class FdSelector extends LitElement {
     required: { type: Boolean, reflect: true },
     open: { type: Boolean, reflect: true },
     placeholder: { reflect: true },
-    _activeDescendantId: { state: true },
     _descHasContent: { state: true },
     _errorHasContent: { state: true },
   };
@@ -261,7 +260,6 @@ export class FdSelector extends LitElement {
   declare required: boolean;
   declare open: boolean;
   declare placeholder: string;
-  declare _activeDescendantId: string;
   declare _descHasContent: boolean;
   declare _errorHasContent: boolean;
 
@@ -272,6 +270,7 @@ export class FdSelector extends LitElement {
   private _typeAheadTimer: ReturnType<typeof setTimeout> | null = null;
   private _optionIdCounter = 0;
   private _clickOutsideHandler: ((e: MouseEvent) => void) | null = null;
+  private _activeDescendantId = "";
 
   constructor() {
     super();
@@ -283,7 +282,6 @@ export class FdSelector extends LitElement {
     this.required = false;
     this.open = false;
     this.placeholder = "Select\u2026";
-    this._activeDescendantId = "";
     this._descHasContent = false;
     this._errorHasContent = false;
     this._defaultValue = "";
@@ -386,6 +384,14 @@ export class FdSelector extends LitElement {
     this._formController.sync();
   }
 
+  protected override willUpdate(changed: PropertyValues<this>) {
+    if (changed.has("value") && this.variant !== "multiple") {
+      // Sync option selected state before rendering so programmatic value
+      // updates do not need a second update cycle just to refresh the label.
+      this._selectByValue(this.value, false);
+    }
+  }
+
   override updated(changed: PropertyValues<this>) {
     if (changed.has("variant")) {
       this._syncOptionsVariant();
@@ -396,12 +402,6 @@ export class FdSelector extends LitElement {
       } else {
         this._onCloseChange();
       }
-    }
-    if (changed.has("value") && this.variant !== "multiple") {
-      // Sync option selected state when value is set programmatically
-      this._selectByValue(this.value, false);
-      // Re-render to update display text from child state
-      this.requestUpdate();
     }
     if (
       changed.has("value") ||
@@ -446,13 +446,16 @@ export class FdSelector extends LitElement {
     for (const o of this._getOptions()) {
       o.removeAttribute("data-focused");
     }
+    const listbox = this._getListbox();
     if (opt) {
       opt.setAttribute("data-focused", "");
       this._activeDescendantId = opt.id;
+      listbox?.setAttribute("aria-activedescendant", opt.id);
       // Scroll into view
       opt.scrollIntoView?.({ block: "nearest" });
     } else {
       this._activeDescendantId = "";
+      listbox?.removeAttribute("aria-activedescendant");
     }
   }
 

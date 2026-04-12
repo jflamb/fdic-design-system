@@ -40,10 +40,6 @@ export class FdHero extends LitElement {
     actionHref: { attribute: "action-href", reflect: true },
     actionTarget: { attribute: "action-target", reflect: true },
     actionRel: { attribute: "action-rel", reflect: true },
-    _hasHeading: { state: true },
-    _hasLede: { state: true },
-    _hasBody: { state: true },
-    _headingId: { state: true },
   };
 
   static styles = css`
@@ -335,11 +331,6 @@ export class FdHero extends LitElement {
   declare actionHref: string | undefined;
   declare actionTarget: string | undefined;
   declare actionRel: string | undefined;
-  declare _hasHeading: boolean;
-  declare _hasLede: boolean;
-  declare _hasBody: boolean;
-  declare _headingId: string;
-
   private static _instanceCounter = 0;
   private readonly _instanceId = FdHero._instanceCounter++;
 
@@ -351,69 +342,37 @@ export class FdHero extends LitElement {
     this.actionHref = undefined;
     this.actionTarget = undefined;
     this.actionRel = undefined;
-    this._hasHeading = false;
-    this._hasLede = false;
-    this._hasBody = false;
-    this._headingId = "";
   }
 
-  override firstUpdated() {
-    this._syncSlot("heading");
-    this._syncSlot("lede");
-    this._syncSlot("body");
-  }
-
-  private _syncSlot(name: "heading" | "lede" | "body") {
-    const slot = this.renderRoot.querySelector<HTMLSlotElement>(
-      `slot[name="${name}"]`,
-    );
-
-    if (!slot) {
-      return;
-    }
-
-    const assignedNodes = slot.assignedNodes({ flatten: true });
-    const hasContent = hasRenderableNodes(assignedNodes);
-
-    if (name === "heading") {
-      this._hasHeading = hasContent;
-      const headingElement = assignedNodes.find(
-        (node): node is HTMLElement =>
-          node.nodeType === Node.ELEMENT_NODE && node instanceof HTMLElement,
-      );
-
-      if (headingElement) {
-        if (!headingElement.id) {
-          headingElement.id = `fd-hero-heading-${this._instanceId}`;
-        }
-
-        this._headingId = headingElement.id;
-      } else {
-        this._headingId = "";
+  private _getSlottedNodes(name: "heading" | "lede" | "body") {
+    return Array.from(this.childNodes).filter((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        return (node as Element).getAttribute("slot") === name;
       }
 
-      return;
-    }
-
-    if (name === "lede") {
-      this._hasLede = hasContent;
-      return;
-    }
-
-    this._hasBody = hasContent;
+      return false;
+    });
   }
 
-  private _handleSlotChange(event: Event) {
-    const slot = event.currentTarget as HTMLSlotElement | null;
-    const name = slot?.name;
-
-    if (
-      name === "heading" ||
-      name === "lede" ||
-      name === "body"
-    ) {
-      this._syncSlot(name);
+  private _getHeadingId() {
+    const headingElement = this.querySelector<HTMLElement>('[slot="heading"]');
+    if (!headingElement || !headingElement.textContent?.trim()) {
+      return "";
     }
+
+    if (!headingElement.id) {
+      headingElement.id = `fd-hero-heading-${this._instanceId}`;
+    }
+
+    return headingElement.id;
+  }
+
+  private _hasSlottedContent(name: "heading" | "lede" | "body") {
+    return hasRenderableNodes(this._getSlottedNodes(name));
+  }
+
+  private _handleSlotChange() {
+    this.requestUpdate();
   }
 
   private _getNormalizedRel() {
@@ -440,6 +399,10 @@ export class FdHero extends LitElement {
 
   render() {
     const tone = normalizeHeroTone(this.tone);
+    const hasHeading = this._hasSlottedContent("heading");
+    const hasLede = this._hasSlottedContent("lede");
+    const hasBody = this._hasSlottedContent("body");
+    const headingId = hasHeading ? this._getHeadingId() : "";
     const imageStyle =
       this.imageSrc && this.imageSrc.trim()
         ? styleMap({ "--_fd-hero-image": `url("${this.imageSrc}")` })
@@ -450,28 +413,28 @@ export class FdHero extends LitElement {
         part="base"
         class=${`base tone-${tone}`}
         style=${imageStyle}
-        aria-labelledby=${ifDefined(this._headingId || undefined)}
+        aria-labelledby=${ifDefined(headingId || undefined)}
       >
         <div part="content" class="content">
           <div part="panel" class="panel">
             <div
               part="heading"
-              class=${`heading-shell${this._hasHeading ? "" : " is-empty"}`}
+              class=${`heading-shell${hasHeading ? "" : " is-empty"}`}
             >
               <slot name="heading" @slotchange=${this._handleSlotChange}></slot>
             </div>
             <div
               class=${`copy${
-                this._hasLede || this._hasBody ? "" : " is-empty"
+                hasLede || hasBody ? "" : " is-empty"
               }`}
             >
               <div
                 part="lede"
-                class=${`lede-shell${this._hasLede ? "" : " is-empty"}`}
+                class=${`lede-shell${hasLede ? "" : " is-empty"}`}
               >
                 <slot name="lede" @slotchange=${this._handleSlotChange}></slot>
               </div>
-              ${this._hasLede && this._hasBody
+              ${hasLede && hasBody
                 ? html`
                     <div class="stripe-shell" aria-hidden="true">
                       <span part="stripe" class="stripe"></span>
@@ -480,7 +443,7 @@ export class FdHero extends LitElement {
                 : nothing}
               <div
                 part="body"
-                class=${`body-shell${this._hasBody ? "" : " is-empty"}`}
+                class=${`body-shell${hasBody ? "" : " is-empty"}`}
               >
                 <slot name="body" @slotchange=${this._handleSlotChange}></slot>
               </div>

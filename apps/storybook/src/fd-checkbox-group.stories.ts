@@ -122,7 +122,7 @@ export const FormValidation: Story = {
         <fd-checkbox name="contact" value="mail">Physical mail</fd-checkbox>
         <span slot="error">Please select at least one contact method.</span>
       </fd-checkbox-group>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
   parameters: {

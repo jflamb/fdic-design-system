@@ -64,7 +64,7 @@ Links navigate people to another location without changing the control into a bu
 | `--fd-link-color-visited` | `var(--fdic-color-text-link-visited, #855aa5)` | Text color for the visited variant. |
 | `--fd-link-color-subtle` | `var(--fdic-color-text-primary, #212123)` | Default text color for the subtle variant before hover or focus. |
 | `--fd-link-color-inverted` | `var(--fdic-color-text-inverted, #ffffff)` | Text color for links on dark surfaces. |
-| `--fd-link-hover-overlay` | `var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))` | Background overlay used for hover and focus emphasis. |
+| `--fd-link-hover-overlay` | `var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))` | Background overlay used for hover and focus emphasis. |
 | `--fd-link-focus-gap` | `var(--fdic-color-bg-input, #ffffff)` | Inner gap color in the focus ring. |
 | `--fd-link-focus-ring` | `var(--fdic-color-border-input-focus, #38b6ff)` | Outer focus-ring color. |
 | `--fd-link-underline-thickness` | `1px` | Default underline thickness. |

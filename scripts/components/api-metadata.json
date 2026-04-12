@@ -364,7 +364,7 @@
         },
         {
           "name": "--fd-checkbox-border-color",
-          "default": "`var(--fdic-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Resting control color"
         },
         {
@@ -374,7 +374,7 @@
         },
         {
           "name": "--fd-checkbox-focus-color",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Focus ring color"
         },
         {
@@ -679,17 +679,17 @@
         },
         {
           "name": "--fd-input-border-color",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Border color at rest"
         },
         {
           "name": "--fd-input-border-color-hover",
-          "default": "`var(--fdic-border-input-active, #424244)`",
+          "default": "`var(--fdic-color-border-input-active, #424244)`",
           "description": "Border color on hover"
         },
         {
           "name": "--fd-input-border-color-focus",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Focus glow color"
         },
         {
@@ -699,12 +699,12 @@
         },
         {
           "name": "--fd-input-bg",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Background color"
         },
         {
           "name": "--fd-input-placeholder-color",
-          "default": "`var(--fdic-text-secondary, #595961)`",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
           "description": "Placeholder text color"
         },
         {
@@ -1001,12 +1001,12 @@
         },
         {
           "name": "--fd-radio-icon-color",
-          "default": "`var(--fdic-text-primary, #212123)`",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
           "description": "Resting control color"
         },
         {
           "name": "--fd-radio-focus-color",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Focus ring color"
         },
         {
@@ -1021,7 +1021,7 @@
         },
         {
           "name": "--fd-radio-icon-disabled",
-          "default": "`var(--fdic-text-disabled, #9e9ea0)`",
+          "default": "`var(--fdic-color-text-disabled, #9e9ea0)`",
           "description": "Control color while disabled"
         },
         {
@@ -1278,7 +1278,7 @@
         },
         {
           "name": "--fd-selector-trigger-border",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Trigger border color at rest"
         },
         {
@@ -1288,12 +1288,12 @@
         },
         {
           "name": "--fd-selector-trigger-bg",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Trigger background color"
         },
         {
           "name": "--fd-selector-trigger-border-focus",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Focus ring color"
         },
         {
@@ -1303,7 +1303,7 @@
         },
         {
           "name": "--fd-selector-trigger-placeholder",
-          "default": "`var(--fdic-text-secondary, #595961)`",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
           "description": "Placeholder text color"
         },
         {
@@ -1313,12 +1313,12 @@
         },
         {
           "name": "--fd-selector-dropdown-bg",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Popup background color"
         },
         {
           "name": "--fd-selector-dropdown-border",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Popup border color"
         },
         {
@@ -1619,37 +1619,37 @@
         },
         {
           "name": "--fd-file-input-border-color",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Container border color at rest."
         },
         {
           "name": "--fd-file-input-border-color-hover",
-          "default": "`var(--fdic-border-input-active, #424244)`",
+          "default": "`var(--fdic-color-border-input-active, #424244)`",
           "description": "Container border color for hover and drag-target emphasis."
         },
         {
           "name": "--fd-file-input-background",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Container background color."
         },
         {
           "name": "--fd-file-input-focus-ring",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Outer focus glow color when the internal input is focused."
         },
         {
           "name": "--fd-file-input-drop-overlay",
-          "default": "`var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))`",
+          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
           "description": "Overlay color used for the active drop-target state."
         },
         {
           "name": "--fd-file-input-item-border-color",
-          "default": "`var(--fdic-border-input-interactive, #e8e8ed)`",
+          "default": "`var(--fdic-color-border-input-interactive, #e8e8ed)`",
           "description": "Border color for file rows."
         },
         {
           "name": "--fd-file-input-progress-color",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Indicator color for `uploading` rows."
         }
       ],
@@ -1810,12 +1810,12 @@
         },
         {
           "name": "--fd-slider-track-background",
-          "default": "`var(--fdic-border-input-interactive, #e0e0e2)`",
+          "default": "`var(--fdic-color-border-input-interactive, #e0e0e2)`",
           "description": "Unfilled rail color."
         },
         {
           "name": "--fd-slider-track-fill",
-          "default": "`var(--fdic-brand-core-default, #0d6191)`",
+          "default": "`var(--fdic-color-primary-500, #0d6191)`",
           "description": "Filled rail color up to the committed value."
         },
         {
@@ -1830,17 +1830,17 @@
         },
         {
           "name": "--fd-slider-thumb-background",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Thumb background color at rest."
         },
         {
           "name": "--fd-slider-thumb-hover-background",
-          "default": "`var(--fdic-background-container, #f5f5f7)`",
+          "default": "`var(--fdic-color-bg-container, #f5f5f7)`",
           "description": "Thumb background while hovered."
         },
         {
           "name": "--fd-slider-thumb-pressed-background",
-          "default": "`var(--fdic-background-selected, #b4e4f8)`",
+          "default": "`var(--fdic-color-bg-selected, #b4e4f8)`",
           "description": "Thumb background while dragged or pressed."
         },
         {
@@ -1865,7 +1865,7 @@
         },
         {
           "name": "--fd-slider-input-border-color",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Inline helper input border color."
         },
         {
@@ -1875,7 +1875,7 @@
         },
         {
           "name": "--fd-slider-input-background",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Inline helper input background color."
         }
       ],
@@ -2161,7 +2161,7 @@
         },
         {
           "name": "--fd-chip-remove-focus-ring",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Focus-ring color for the internal remove button."
         }
       ],
@@ -2324,17 +2324,17 @@
         },
         {
           "name": "--fd-textarea-border-color",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Border color at rest."
         },
         {
           "name": "--fd-textarea-border-color-hover",
-          "default": "`var(--fdic-border-input-active, #424244)`",
+          "default": "`var(--fdic-color-border-input-active, #424244)`",
           "description": "Border color on hover."
         },
         {
           "name": "--fd-textarea-border-color-focus",
-          "default": "`var(--fdic-border-input-focus, #38b6ff)`",
+          "default": "`var(--fdic-color-border-input-focus, #38b6ff)`",
           "description": "Focus glow color."
         },
         {
@@ -2344,12 +2344,12 @@
         },
         {
           "name": "--fd-textarea-bg",
-          "default": "`var(--fdic-background-base, #ffffff)`",
+          "default": "`var(--fdic-color-bg-base, #ffffff)`",
           "description": "Background color."
         },
         {
           "name": "--fd-textarea-placeholder-color",
-          "default": "`var(--fdic-text-secondary, #595961)`",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
           "description": "Placeholder text color."
         }
       ],
@@ -2826,7 +2826,7 @@
         },
         {
           "name": "--fd-link-hover-overlay",
-          "default": "`var(--fdic-overlay-emphasize-100, rgba(0, 0, 0, 0.04))`",
+          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
           "description": "Background overlay used for hover and focus emphasis."
         },
         {
@@ -2969,7 +2969,7 @@
         },
         {
           "name": "--fd-pagination-select-border",
-          "default": "`var(--fdic-border-input-rest, #bdbdbf)`",
+          "default": "`var(--fdic-color-border-input, #bdbdbf)`",
           "description": "Border color for the mobile page select."
         },
         {
@@ -3384,12 +3384,12 @@
       "rows": [
         {
           "name": "--fd-page-header-bg",
-          "defaultValue": "`var(--fdic-brand-core-default, #0d6191)`",
+          "defaultValue": "`var(--fdic-color-primary-500, #0d6191)`",
           "description": "Section background color."
         },
         {
           "name": "--fd-page-header-text-color",
-          "defaultValue": "`var(--fdic-text-inverted, #ffffff)`",
+          "defaultValue": "`var(--fdic-color-text-inverted, #ffffff)`",
           "description": "Text color for all content inside the header."
         },
         {

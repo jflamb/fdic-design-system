@@ -71,12 +71,12 @@ This component should almost always be wrapped in [`fd-field`](/components/field
 | Name | Default | Description |
 |---|---|---|
 | `--fd-input-height` | `44px` | Minimum input height |
-| `--fd-input-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Border color at rest |
-| `--fd-input-border-color-hover` | `var(--fdic-border-input-active, #424244)` | Border color on hover |
-| `--fd-input-border-color-focus` | `var(--fdic-border-input-focus, #38b6ff)` | Focus glow color |
+| `--fd-input-border-color` | `var(--fdic-color-border-input, #bdbdbf)` | Border color at rest |
+| `--fd-input-border-color-hover` | `var(--fdic-color-border-input-active, #424244)` | Border color on hover |
+| `--fd-input-border-color-focus` | `var(--fdic-color-border-input-focus, #38b6ff)` | Focus glow color |
 | `--fd-input-border-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius |
-| `--fd-input-bg` | `var(--fdic-background-base, #ffffff)` | Background color |
-| `--fd-input-placeholder-color` | `var(--fdic-text-secondary, #595961)` | Placeholder text color |
+| `--fd-input-bg` | `var(--fdic-color-bg-base, #ffffff)` | Background color |
+| `--fd-input-placeholder-color` | `var(--fdic-color-text-secondary, #595961)` | Placeholder text color |
 | `--fd-input-slot-size` | `44px` | Width of prefix and suffix slot containers |
 | `--fd-input-icon-size` | `22px` | Icon size inside prefix and suffix slots |
 
@@ -162,6 +162,7 @@ To override for a specific input, set `--fd-input-icon-size`:
 ## Accessibility
 
 - `fd-input` renders a native `<input>` in **shadow DOM** and participates in form submission via `ElementInternals` (form-associated custom element).
+- Use a native `<button type="submit">` when the field participates in a submitted form. `fd-input` is form-associated, but `fd-button` is not submit-capable in v1.
 - **Labeling:** Pair with `fd-label` using matching `for`/`id` attributes. `fd-label` renders a native `<label>` in light DOM for real click-to-focus and screen reader name computation.
 - **Description wiring:** `fd-input` is the **single owner** of `aria-describedby` on the inner `<input>`. It discovers associated `fd-label` and `fd-message` siblings via their `for` attributes and reads their stable public getters (`descriptionId`, `messageId`) to assemble the description.
 - **Error state:** `fd-message` is the primary authored error surface and still controls the border/message styling through its own `state`. It does **not** control `aria-invalid`.
@@ -178,6 +179,7 @@ To override for a specific input, set `--fd-input-icon-size`:
 
 - `checkValidity()` updates and returns validity but does not reveal invalid state.
 - `reportValidity()` updates and returns validity. When the field is invalid, it applies `data-user-invalid` on the host. When the field is valid, it has no visible effect.
+- In normal forms, prefer `form.requestSubmit()` from a native submit button over calling `reportValidity()` ad hoc from unrelated controls.
 - Blur after user interaction is also a visibility boundary. A required field can be internally invalid before that boundary without showing invalid styling yet.
 - `aria-invalid` is applied to the internal native `<input>` only while `data-user-invalid` is present.
 - `data-user-invalid` clears when the field becomes valid or when the form reset path runs.

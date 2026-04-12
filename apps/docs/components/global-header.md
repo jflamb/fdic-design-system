@@ -117,7 +117,6 @@ import {
   createFdGlobalHeaderContent,
   createFdGlobalHeaderSearchConfig,
   createHeaderSearchItemsFromNavigation,
-} from "@fdic-ds/components";
 } from "@jflamb/fdic-ds-components";
 
 const navigation = [

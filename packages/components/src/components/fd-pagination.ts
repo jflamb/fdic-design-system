@@ -323,6 +323,9 @@ export class FdPagination extends LitElement {
   declare mobile: boolean;
 
   private _resizeObserver: ResizeObserver | null = null;
+  private _resizeObserverFrame: number | null = null;
+  private _initialResponsiveSyncFrame: number | null = null;
+  private _pendingObservedWidth: number | null = null;
   private _collapseThresholdPx: number | null = null;
   private _selectId: string;
 
@@ -338,17 +341,25 @@ export class FdPagination extends LitElement {
   override connectedCallback() {
     super.connectedCallback();
     this._startObserving();
+    this._initialResponsiveSyncFrame = requestAnimationFrame(() => {
+      this._initialResponsiveSyncFrame = null;
+      this._refreshThresholdPx();
+      this._updateMobileMode();
+    });
   }
 
   override disconnectedCallback() {
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
+    if (this._initialResponsiveSyncFrame !== null) {
+      cancelAnimationFrame(this._initialResponsiveSyncFrame);
+      this._initialResponsiveSyncFrame = null;
+    }
+    if (this._resizeObserverFrame !== null) {
+      cancelAnimationFrame(this._resizeObserverFrame);
+      this._resizeObserverFrame = null;
+    }
     super.disconnectedCallback();
-  }
-
-  override firstUpdated() {
-    this._refreshThresholdPx();
-    this._updateMobileMode();
   }
 
   override attributeChangedCallback(
@@ -401,8 +412,18 @@ export class FdPagination extends LitElement {
     }
 
     this._resizeObserver?.disconnect();
-    this._resizeObserver = new ResizeObserver(() => {
-      this._updateMobileMode();
+    this._resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries.find(({ target }) => target === this);
+      this._pendingObservedWidth = entry?.contentRect.width ?? this._getInlineSize();
+      if (this._resizeObserverFrame !== null) {
+        return;
+      }
+
+      this._resizeObserverFrame = requestAnimationFrame(() => {
+        this._resizeObserverFrame = null;
+        this._updateMobileMode(this._pendingObservedWidth ?? undefined);
+        this._pendingObservedWidth = null;
+      });
     });
     this._resizeObserver.observe(this);
   }
@@ -452,8 +473,7 @@ export class FdPagination extends LitElement {
     return this.clientWidth || this.getBoundingClientRect().width || 0;
   }
 
-  private _updateMobileMode() {
-    const inlineSize = this._getInlineSize();
+  private _updateMobileMode(inlineSize = this._getInlineSize()) {
     const shouldUseMobile =
       inlineSize > 0 && inlineSize <= this._getThresholdPx();
 

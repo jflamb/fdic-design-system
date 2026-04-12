@@ -33,7 +33,6 @@ The [Spacing and Layout](./spacing-layout.md) page is the canonical public layou
 
 - Responsive token bundles for separate desktop and mobile modes are not part of the public runtime contract yet.
 - Broad component token surfaces are not part of the public contract yet. Only component-level CSS custom properties explicitly documented on component pages are supported.
-- React wrappers are not part of the public release surface yet.
 - Any backward-compatible alias entrypoints are compatibility affordances, not the preferred path for new consumers.
 
 ## Foundation pages

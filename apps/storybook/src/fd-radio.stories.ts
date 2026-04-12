@@ -106,7 +106,7 @@ export const Required: Story = {
         <fd-radio name="contact" value="phone">Phone</fd-radio>
         <fd-radio name="contact" value="mail">Paper mail</fd-radio>
       </fieldset>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
   parameters: {
@@ -155,7 +155,7 @@ export const FormIntegration: Story = {
         <fd-radio name="contact" value="phone">Phone</fd-radio>
         <fd-radio name="contact" value="mail">Paper mail</fd-radio>
       </fieldset>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
 };

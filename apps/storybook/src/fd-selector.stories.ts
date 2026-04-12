@@ -220,8 +220,8 @@ export const FormValidation: Story = {
       </fd-selector>
 
       <fd-button-group>
-        <fd-button type="submit">Submit</fd-button>
-        <fd-button type="reset">Reset</fd-button>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
       </fd-button-group>
       <pre id="result" style="font-size: 0.875rem; margin: 0;"></pre>
     </form>
@@ -240,7 +240,7 @@ FormValidation.play = async ({ canvasElement, userEvent }) => {
   const form = canvasElement.querySelector("form");
   const selector = form?.querySelector("fd-selector");
   const trigger = getSelectorTrigger(selector);
-  const reset = form?.querySelector('fd-button[type="reset"]');
+  const reset = form?.querySelector('button[type="reset"]');
   const option = form?.querySelector('fd-option[value="checking"]') as HTMLElement | null;
 
   form?.requestSubmit();
@@ -261,9 +261,7 @@ FormValidation.play = async ({ canvasElement, userEvent }) => {
     expect(trigger?.getAttribute("aria-invalid")).toBeNull();
   });
 
-  await userEvent.click(
-    reset?.shadowRoot?.querySelector("[part=base]") as HTMLButtonElement,
-  );
+  await userEvent.click(reset as HTMLButtonElement);
 
   await waitFor(() => {
     expect(selector?.hasAttribute("data-user-invalid")).toBe(false);

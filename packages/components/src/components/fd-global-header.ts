@@ -269,9 +269,6 @@ export class FdGlobalHeader extends LitElement {
     _mobileSearchOpen: { state: true },
     _mobilePath: { state: true },
     _searchValue: { state: true },
-    _topNavIndicatorOffset: { state: true },
-    _topNavIndicatorWidth: { state: true },
-    _topNavIndicatorVisible: { state: true },
     _shyHidden: { state: true },
     _shyTransitionDurationMs: { state: true },
     _compactDesktopMenuVisible: { state: true },
@@ -1720,9 +1717,6 @@ export class FdGlobalHeader extends LitElement {
   declare _mobileSearchOpen: boolean;
   declare _mobilePath: MobileDrillPath;
   declare _searchValue: string;
-  declare _topNavIndicatorOffset: number;
-  declare _topNavIndicatorWidth: number;
-  declare _topNavIndicatorVisible: boolean;
   declare _shyHidden: boolean;
   declare _shyTransitionDurationMs: number;
   declare _compactDesktopMenuVisible: boolean;
@@ -1732,6 +1726,9 @@ export class FdGlobalHeader extends LitElement {
   private _mobileMediaQuery: MediaQueryList | null = null;
   private _reducedMotionMediaQuery: MediaQueryList | null = null;
   private _resizeObserver: ResizeObserver | null = null;
+  private _resizeObserverFrame: number | null = null;
+  private _pendingObservedWidth: number | null = null;
+  private _pendingObservedHeight: number | null = null;
   private _hoverTimer: number | null = null;
   private _closeTimer: number | null = null;
   private _lastDesktopTriggerId: string | null = null;
@@ -1739,6 +1736,9 @@ export class FdGlobalHeader extends LitElement {
   private _lastMobilePath: MobileDrillPath = [];
   private _lastMeasuredWidth = 0;
   private _lastObservedHeight = 0;
+  private _topNavIndicatorOffset = 0;
+  private _topNavIndicatorWidth = 0;
+  private _topNavIndicatorVisible = false;
   private _prefersReducedMotionEnabled = false;
   private _capturedMegaMenuHeight = 0;
   private _shouldAnimateMegaMenuHeight = false;
@@ -1808,9 +1808,6 @@ export class FdGlobalHeader extends LitElement {
     this._mobileSearchOpen = false;
     this._mobilePath = [];
     this._searchValue = "";
-    this._topNavIndicatorOffset = 0;
-    this._topNavIndicatorWidth = 0;
-    this._topNavIndicatorVisible = false;
     this._shyHidden = false;
     this._shyTransitionDurationMs = DEFAULT_SHY_HIDE_DURATION_MS;
     this._compactDesktopMenuVisible = false;
@@ -1849,12 +1846,15 @@ export class FdGlobalHeader extends LitElement {
   }
 
   override disconnectedCallback() {
-    super.disconnectedCallback();
     this._clearHoverTimer();
     this._clearCloseTimer();
     this._finishMegaMenuHeightAnimation();
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
+    if (this._resizeObserverFrame !== null) {
+      cancelAnimationFrame(this._resizeObserverFrame);
+      this._resizeObserverFrame = null;
+    }
     this._mobileMediaQuery?.removeEventListener(
       "change",
       this._onMobileMediaChangeBound,
@@ -1874,11 +1874,27 @@ export class FdGlobalHeader extends LitElement {
     this.removeEventListener("focusin", this._onFocusInBound);
     this._detachShyScrollListener();
     this._clearShyHeight();
+    super.disconnectedCallback();
   }
 
   protected override willUpdate(changed: PropertyValues<this>) {
     if (changed.has("navigation")) {
       this._normalizeNavigationState();
+    }
+
+    if (changed.has("shy")) {
+      this._setShyHiddenState(false, { immediate: true });
+      this._syncShyTrackingFromWindow();
+      if (!this.shy) {
+        this._compactDesktopMenuVisible = false;
+        this._compactDesktopSearchExpanded = false;
+      }
+    } else if (this.shy && changed.has("shyThreshold")) {
+      const currentScrollY = this._getWindowScrollY();
+      if (currentScrollY <= this._getResolvedShyThreshold()) {
+        this._setShyHiddenState(false);
+      }
+      this._syncShyTrackingFromWindow();
     }
 
     this._captureMegaMenuHeight(changed);
@@ -1917,24 +1933,12 @@ export class FdGlobalHeader extends LitElement {
 
     if (changed.has("shy")) {
       if (this.shy) {
-        this._setShyHiddenState(false, { immediate: true });
-        this._syncShyTrackingFromWindow();
         this._attachShyScrollListener();
         this._syncShyHeight();
       } else {
         this._detachShyScrollListener();
         this._clearShyHeight();
-        this._setShyHiddenState(false, { immediate: true });
-        this._compactDesktopMenuVisible = false;
-        this._compactDesktopSearchExpanded = false;
-        this._syncShyTrackingFromWindow();
       }
-    } else if (this.shy && changed.has("shyThreshold")) {
-      const currentScrollY = this._getWindowScrollY();
-      if (currentScrollY <= this._getResolvedShyThreshold()) {
-        this._setShyHiddenState(false);
-      }
-      this._syncShyTrackingFromWindow();
     }
 
     if (
@@ -1970,19 +1974,30 @@ export class FdGlobalHeader extends LitElement {
     this._resizeObserver?.disconnect();
     this._resizeObserver = new ResizeObserver((entries) => {
       const entry = entries.find(({ target }) => target === this);
-      if (entry?.contentRect.height) {
-        this._lastObservedHeight = entry.contentRect.height;
+      this._pendingObservedWidth = entry?.contentRect.width ?? this.getBoundingClientRect().width;
+      this._pendingObservedHeight = entry?.contentRect.height ?? this.getBoundingClientRect().height;
+      if (this._resizeObserverFrame !== null) {
+        return;
       }
-      this._syncResponsiveState(entry?.contentRect.width);
-      // Only update the shy height when showing the full (non-compact)
-      // header so it reflects the true full-size height.
-      if (this.shy && !this._shyHidden) {
-        this._syncShyHeight();
-      }
-      this.updateComplete.then(() => {
-        this._syncColumnRails();
-        this._syncTopNavIndicator();
+
+      this._resizeObserverFrame = requestAnimationFrame(() => {
+        this._resizeObserverFrame = null;
+        if (this._pendingObservedHeight) {
+          this._lastObservedHeight = this._pendingObservedHeight;
+        }
+        this._syncResponsiveState(this._pendingObservedWidth ?? undefined);
         this._checkNavOverflow();
+        // Only update the shy height when showing the full (non-compact)
+        // header so it reflects the true full-size height.
+        if (this.shy && !this._shyHidden) {
+          this._syncShyHeight();
+        }
+        this._pendingObservedWidth = null;
+        this._pendingObservedHeight = null;
+        this.updateComplete.then(() => {
+          this._syncColumnRails();
+          this._syncTopNavIndicator();
+        });
       });
     });
     this._resizeObserver.observe(this);
@@ -2459,9 +2474,7 @@ export class FdGlobalHeader extends LitElement {
 
   private _syncTopNavIndicator() {
     if (!this._menuOpen || !this._activePanelId || this._isMobile) {
-      this._topNavIndicatorVisible = false;
-      this._topNavIndicatorOffset = 0;
-      this._topNavIndicatorWidth = 0;
+      this._applyTopNavIndicatorStyles(0, 0, false);
       return;
     }
 
@@ -2471,16 +2484,37 @@ export class FdGlobalHeader extends LitElement {
     ) as HTMLElement | null;
 
     if (!list || !activeTrigger) {
-      this._topNavIndicatorVisible = false;
+      this._applyTopNavIndicatorStyles(0, 0, false);
       return;
     }
 
     const listRect = list.getBoundingClientRect();
     const triggerRect = activeTrigger.getBoundingClientRect();
 
-    this._topNavIndicatorOffset = triggerRect.left - listRect.left;
-    this._topNavIndicatorWidth = triggerRect.width;
-    this._topNavIndicatorVisible = true;
+    this._applyTopNavIndicatorStyles(
+      triggerRect.left - listRect.left,
+      triggerRect.width,
+      true,
+    );
+  }
+
+  private _applyTopNavIndicatorStyles(
+    offset: number,
+    width: number,
+    visible: boolean,
+  ) {
+    this._topNavIndicatorOffset = offset;
+    this._topNavIndicatorWidth = width;
+    this._topNavIndicatorVisible = visible;
+
+    const track = this.shadowRoot?.querySelector<HTMLElement>(".top-nav-track");
+    const indicator = this.shadowRoot?.querySelector<HTMLElement>(".top-nav-active-indicator");
+
+    track?.style.setProperty("--top-nav-indicator-offset", `${offset}px`);
+    track?.style.setProperty("--top-nav-indicator-width", `${width}px`);
+    if (indicator) {
+      indicator.dataset.visible = String(visible);
+    }
   }
 
   private _getMobileToggle(kind: "menu" | "search") {
@@ -4090,15 +4124,11 @@ export class FdGlobalHeader extends LitElement {
             <nav aria-label="Primary navigation">
               <div
                 class="top-nav-track"
-                style=${[
-                  `--top-nav-indicator-offset:${this._topNavIndicatorOffset}px`,
-                  `--top-nav-indicator-width:${this._topNavIndicatorWidth}px`,
-                ].join(";")}
               >
                 <div
                   class="top-nav-active-indicator"
                   aria-hidden="true"
-                  data-visible=${String(this._topNavIndicatorVisible)}
+                  data-visible="false"
                 ></div>
                 <ul class="top-nav-list">
                 ${this._getTopLevelItems().map((item, index) =>

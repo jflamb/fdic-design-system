@@ -70,7 +70,7 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 - **Public API shape:** `fd-field` has no public attributes, properties, slots, or events of its own. Its contract is the direct-child composition model.
 - **Supported children:** one direct `fd-label`, one direct `fd-input` or `fd-textarea`, and one direct `fd-message`
 - **What it owns:** ID generation, `for`/`id` wiring, and layout spacing
-- **What it does not own:** validation, message content, labeling semantics, or child prop proxying
+- **What it does not own:** form submission, validation timing, grouped-control semantics, message content, labeling semantics, or child prop proxying
 
 ## Behavior
 
@@ -90,6 +90,7 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 
 - **Only discovers `fd-input` and `fd-textarea`** — does not auto-wire `fd-selector`, `fd-checkbox`, or other form controls.
 - **Direct children only** — children nested inside wrapper elements are not discovered.
+- **Not a form shell** — `fd-field` does not make `fd-button` submit-capable and does not replace native `<form>` and `<button type="submit">` semantics.
 - **No prop proxying** — all attributes (`label`, `message`, `state`, `required`, etc.) go on the child components directly.
 
 ## Related components

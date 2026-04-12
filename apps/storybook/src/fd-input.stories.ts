@@ -339,7 +339,7 @@ export const ValidationLifecycle: Story = {
         inputmode="numeric"
         placeholder="e.g. 021000021"
       ></fd-input>
-      <fd-button type="submit">Submit</fd-button>
+      <button type="submit">Submit</button>
     </form>
   `,
   parameters: {

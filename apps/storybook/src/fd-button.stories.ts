@@ -267,6 +267,36 @@ export const DocsOverview: Story = {
   `,
 };
 
+export const FormActionRow: Story = {
+  render: () => html`
+    <form
+      style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;"
+      @submit=${(event: SubmitEvent) => event.preventDefault()}
+    >
+      <button type="submit">Submit filing</button>
+      <fd-button variant="subtle" type="button">Cancel</fd-button>
+      <fd-button variant="outline" type="button">Save draft</fd-button>
+    </form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "In forms, keep submit behavior on a native HTML button. Use `fd-button` for non-submitting secondary actions in the same action row.",
+      },
+    },
+  },
+};
+
+FormActionRow.play = async ({ canvasElement }) => {
+  const submit = canvasElement.querySelector('button[type="submit"]');
+  const dsButtons = Array.from(canvasElement.querySelectorAll("fd-button"));
+
+  expect(submit).toBeTruthy();
+  expect(dsButtons).toHaveLength(2);
+  expect(dsButtons.every((button) => button.getAttribute("type") === "button")).toBe(true);
+};
+
 export const AllVariantsDisabled: Story = {
   render: () => html`
     <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">

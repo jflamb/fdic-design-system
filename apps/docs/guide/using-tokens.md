@@ -99,8 +99,8 @@ Scope overrides to the smallest boundary that owns the visual change.
 .fdic-regional-theme {
   --fdic-color-bg-base: #f7fbff;
   --fdic-color-bg-surface: #ffffff;
-  --fdic-color-text-default: #102a43;
-  --fdic-color-border-strong: #40637a;
+  --fdic-color-text-primary: #102a43;
+  --fdic-color-border-divider: #40637a;
 }
 ```
 
@@ -112,8 +112,8 @@ Good:
 
 ```css
 .campaign-shell {
-  --fdic-color-status-info-bg: #e9f5ff;
-  --fdic-color-status-info-text: #0f3657;
+  --fdic-color-semantic-bg-info: #e9f5ff;
+  --fdic-color-semantic-fg-info: #0f3657;
 }
 ```
 
@@ -132,9 +132,9 @@ Undocumented `--fd-*` overrides are not part of the supported contract unless a 
 
 ```css
 .fdic-review-panel {
-  --fdic-layout-readable-max: 68ch;
-  --fdic-spacing-3: 0.75rem;
-  --fdic-spacing-5: 1.5rem;
+  --fdic-layout-content-max-width: 68ch;
+  --fdic-spacing-sm: 0.75rem;
+  --fdic-spacing-lg: 1.5rem;
 }
 ```
 

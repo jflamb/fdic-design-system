@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -110,12 +110,14 @@ export const MobileCollapsed: Story = {
 
 MobileCollapsed.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-pagination") as any;
-  const select = host?.shadowRoot?.querySelector(
-    "[part~=mobile-select]",
-  ) as HTMLSelectElement | null;
+  await waitFor(() => {
+    const select = host?.shadowRoot?.querySelector(
+      "[part~=mobile-select]",
+    ) as HTMLSelectElement | null;
 
-  expect(host?.mobile).toBe(true);
-  expect(select?.value).toBe("7");
+    expect(host?.mobile).toBe(true);
+    expect(select?.value).toBe("7");
+  });
 };
 
 export const SmallSet: Story = {

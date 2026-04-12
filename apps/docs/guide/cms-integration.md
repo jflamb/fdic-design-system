@@ -21,6 +21,8 @@ These map to the published package entrypoints:
 - `@jflamb/fdic-ds-components/styles.css`
 - `@jflamb/fdic-ds-components/register-all`
 
+That pair is the stable browser-delivered contract for CMS adopters. Avoid reaching into unpublished workspace paths or generated source files from theme code.
+
 If your CMS build prefers selective registration, you can ship only the components you use instead of `register-all`.
 
 ## Script-tag adoption
@@ -147,8 +149,8 @@ CMSs often need regional or site-specific theming. Apply those overrides at the 
 .site-shell {
   --fdic-color-bg-base: #f4f8fb;
   --fdic-color-bg-surface: #ffffff;
-  --fdic-color-text-default: #17324d;
-  --fdic-layout-shell-max: 90rem;
+  --fdic-color-text-primary: #17324d;
+  --fdic-layout-shell-max-width: 90rem;
 }
 ```
 
@@ -157,6 +159,12 @@ Keep overrides:
 - scoped to a real CMS container
 - based on public `--fdic-*` and documented `--fd-*` names
 - separate from content markup so editors do not have to manage token details manually
+
+## Downstream guardrails
+
+- Stay on the published component and token entrypoints documented here.
+- Keep browser support aligned to the [Browser Support](/guide/browser-support) contract before adopting newer CSS features in theme overrides.
+- Prefer application-owned data normalization for complex navigation, search, and form workflows instead of asking the Web Components to fetch or reshape source-specific payloads at runtime.
 
 ## Operational guidance
 

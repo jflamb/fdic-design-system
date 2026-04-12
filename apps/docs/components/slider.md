@@ -63,20 +63,20 @@ This component should almost always be wrapped in [`fd-field`](/components/field
 |---|---|---|
 | `--fd-slider-track-height` | `8px` | Visual rail height. |
 | `--fd-slider-track-radius` | `var(--fdic-corner-radius-sm, 3px)` | Corner radius for the visual rail and fill. |
-| `--fd-slider-track-background` | `var(--fdic-border-input-interactive, #e0e0e2)` | Unfilled rail color. |
-| `--fd-slider-track-fill` | `var(--fdic-brand-core-default, #0d6191)` | Filled rail color up to the committed value. |
+| `--fd-slider-track-background` | `var(--fdic-color-border-input-interactive, #e0e0e2)` | Unfilled rail color. |
+| `--fd-slider-track-fill` | `var(--fdic-color-primary-500, #0d6191)` | Filled rail color up to the committed value. |
 | `--fd-slider-thumb-size` | `20px` | Thumb diameter. |
 | `--fd-slider-thumb-border` | `var(--fdic-color-icon-active, #1278b0)` | Thumb border color. |
-| `--fd-slider-thumb-background` | `var(--fdic-background-base, #ffffff)` | Thumb background color at rest. |
-| `--fd-slider-thumb-hover-background` | `var(--fdic-background-container, #f5f5f7)` | Thumb background while hovered. |
-| `--fd-slider-thumb-pressed-background` | `var(--fdic-background-selected, #b4e4f8)` | Thumb background while dragged or pressed. |
+| `--fd-slider-thumb-background` | `var(--fdic-color-bg-base, #ffffff)` | Thumb background color at rest. |
+| `--fd-slider-thumb-hover-background` | `var(--fdic-color-bg-container, #f5f5f7)` | Thumb background while hovered. |
+| `--fd-slider-thumb-pressed-background` | `var(--fdic-color-bg-selected, #b4e4f8)` | Thumb background while dragged or pressed. |
 | `--fd-slider-bubble-background` | `#212123` | Current-value bubble background color. |
 | `--fd-slider-bubble-color` | `#ffffff` | Current-value bubble text color. |
 | `--fd-slider-bubble-radius` | `var(--fdic-corner-radius-sm, 3px)` | Current-value bubble corner radius. |
 | `--fd-slider-input-width` | `56px` | Width of the optional inline helper input. |
-| `--fd-slider-input-border-color` | `var(--fdic-border-input-rest, #bdbdbf)` | Inline helper input border color. |
+| `--fd-slider-input-border-color` | `var(--fdic-color-border-input, #bdbdbf)` | Inline helper input border color. |
 | `--fd-slider-input-radius` | `var(--fdic-corner-radius-sm, 3px)` | Inline helper input corner radius. |
-| `--fd-slider-input-background` | `var(--fdic-background-base, #ffffff)` | Inline helper input background color. |
+| `--fd-slider-input-background` | `var(--fdic-color-bg-base, #ffffff)` | Inline helper input background color. |
 
 ## Shadow parts
 

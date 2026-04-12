@@ -14,28 +14,30 @@ If you are building a form for the first time, start with this pattern. It demon
 ```html
 <form>
   <fd-field>
-    <fd-label slot="label" required>Institution name</fd-label>
-    <fd-input slot="input" required></fd-input>
-    <fd-message slot="message" type="helper">
-      Enter the full legal name as it appears on the charter.
-    </fd-message>
+    <fd-label label="Institution name" required></fd-label>
+    <fd-input name="institution-name" required></fd-input>
+    <fd-message message="Enter the full legal name as it appears on the charter."></fd-message>
   </fd-field>
 
   <fd-field>
-    <fd-label slot="label" required>Certificate number</fd-label>
-    <fd-input slot="input" type="text" inputmode="numeric" required></fd-input>
-    <fd-message slot="message" type="helper">
-      The 5-digit FDIC certificate number.
-    </fd-message>
+    <fd-label label="Certificate number" required></fd-label>
+    <fd-input
+      name="certificate-number"
+      type="text"
+      inputmode="numeric"
+      pattern="[0-9]{5}"
+      required
+    ></fd-input>
+    <fd-message message="Enter the 5-digit FDIC certificate number."></fd-message>
   </fd-field>
 
   <fd-field>
-    <fd-label slot="label">Additional notes</fd-label>
-    <fd-textarea slot="input"></fd-textarea>
+    <fd-label label="Additional notes"></fd-label>
+    <fd-textarea name="additional-notes"></fd-textarea>
   </fd-field>
 
   <fd-button-group>
-    <fd-button variant="primary" type="submit">Submit filing</fd-button>
+    <button type="submit">Submit filing</button>
     <fd-button variant="subtle" type="button">Cancel</fd-button>
   </fd-button-group>
 </form>
@@ -44,13 +46,32 @@ If you are building a form for the first time, start with this pattern. It demon
 **What this demonstrates:**
 
 - Every input is wrapped in `fd-field`, which connects the label, input, and message for accessibility.
-- `fd-label` with `required` shows the required indicator.
-- `fd-message` with `type="helper"` provides persistent instructions below the field.
+- `fd-label` with `label` and `required` shows the visible label and required indicator.
+- `fd-message` provides persistent instructions below the field.
 - Numeric identifiers use `type="text"` with `inputmode="numeric"` — never `type="number"`.
-- The submit button uses `variant="primary"` so it stands out as the main action. Secondary actions use `variant="subtle"`.
+- Use a native `<button type="submit">` for the primary submit action. `fd-button` is still appropriate for non-submitting secondary actions inside the same workflow.
 - There is no reset or clear button.
 
-**What happens on error:** When validation fails, change the `fd-message` type to `"error"` and update its text to explain what needs to be fixed. The field will show its error state automatically. See the validation timing rules below for when to show errors.
+**What happens on error:** When validation fails, update the `fd-message` content to explain what needs to be fixed and let the target control or group own its visible invalid state. See the validation timing rules below for when to show errors.
+
+## Canonical form contract
+
+This repository's minimum supported form contract is intentionally narrow:
+
+- Use native `<form>` semantics and a native `<button type="submit">` for the primary submit action.
+- Use `fd-field` only for direct-child `fd-label` + `fd-input` or `fd-textarea` + `fd-message` composition.
+- Keep `fd-label`, the target control, and `fd-message` in the same DOM root so `for`/`id` and sibling discovery continue to work.
+- Use `fd-radio-group`, `fd-checkbox-group`, `fd-selector`, and other grouped controls directly when the control already owns its own legend, description, or error surface.
+- Treat `fd-button` as an action primitive for button-mode and link-mode actions that do not rely on native form submission behavior.
+
+The following patterns are currently out of scope for the supported public path:
+
+- `fd-button type="submit"` or `fd-button type="reset"` as a substitute for native form controls
+- slot-based `fd-field` composition
+- wrapper elements inside `fd-field` around the auto-wired control, label, or message
+- cross-root label/message discovery between light DOM and another component's shadow root
+
+If a workflow needs submit, reset, or grouped-field behavior beyond that contract, keep the native HTML structure and let the design-system primitives handle labeling, helper text, and validation surfaces around it.
 
 ## Core rules
 
