@@ -212,6 +212,13 @@
     "styles.css"
   ],
   "sideEffects": [
+    "./src/components/fd-checkbox.ts",
+    "./src/components/fd-icon.ts",
+    "./src/components/fd-menu-item.ts",
+    "./src/components/fd-menu.ts",
+    "./src/components/fd-radio.ts",
+    "./src/icons/*.ts",
+    "./src/register/*.ts",
     "./dist/register/*.js",
     "./dist/styles.css"
   ],
