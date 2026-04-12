@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, userEvent, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
@@ -129,6 +129,49 @@ export const FormIntegration: Story = {
       <fd-button type="submit">Submit</fd-button>
     </form>
   `,
+};
+
+export const ValidationLifecycle: Story = {
+  render: () => html`
+    <form style="display: grid; gap: 12px; max-width: 28rem;">
+      <fd-checkbox name="terms" required>
+        I agree to the terms and conditions
+      </fd-checkbox>
+      <fd-button type="submit">Submit</fd-button>
+    </form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Submit reveals the visible invalid state for an unchecked required checkbox. Checking the box clears the invalid styling and `aria-invalid` immediately.",
+      },
+    },
+  },
+};
+
+ValidationLifecycle.play = async ({ canvasElement }) => {
+  const form = canvasElement.querySelector("form") as HTMLFormElement | null;
+  const checkboxHost = form?.querySelector("fd-checkbox") as HTMLElement | null;
+  const checkboxInput = checkboxHost?.shadowRoot?.querySelector('input[type="checkbox"]') as
+    | HTMLInputElement
+    | null;
+
+  expect(checkboxHost?.hasAttribute("data-user-invalid")).toBe(false);
+
+  form?.requestSubmit();
+
+  await waitFor(() => {
+    expect(checkboxHost?.hasAttribute("data-user-invalid")).toBe(true);
+    expect(checkboxInput?.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  await userEvent.click(checkboxInput!);
+
+  await waitFor(() => {
+    expect(checkboxHost?.hasAttribute("data-user-invalid")).toBe(false);
+    expect(checkboxInput?.getAttribute("aria-invalid")).toBeNull();
+  });
 };
 
 export const DocsOverview: Story = {

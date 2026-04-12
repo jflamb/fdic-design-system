@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, userEvent, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -324,7 +324,7 @@ export const PatternValidation: Story = {
 
 export const ValidationLifecycle: Story = {
   render: () => html`
-    <form novalidate style="display: grid; gap: 12px; max-width: 328px;">
+    <form style="display: grid; gap: 12px; max-width: 328px;">
       <fd-label
         for="lifecycle-routing"
         label="Routing number"
@@ -338,32 +338,40 @@ export const ValidationLifecycle: Story = {
         pattern="[0-9]{9}"
         inputmode="numeric"
         placeholder="e.g. 021000021"
-        @input=${(e: Event) =>
-          updateValidationMessage(e.currentTarget as FdInputHost, {
-            isValid: (value) => /^[0-9]{9}$/.test(value),
-            errorMessage: "Enter a valid 9-digit routing number.",
-          })}
       ></fd-input>
-      <fd-message
-        for="lifecycle-routing"
-        state="default"
-        message=""
-        live="polite"
-      ></fd-message>
-      <fd-button-group>
-        <fd-button type="submit">Submit</fd-button>
-        <fd-button type="reset">Reset</fd-button>
-      </fd-button-group>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          "Lifecycle example: the field starts internally invalid but not visibly invalid. Submit or blur after interaction reveals `data-user-invalid`; entering a valid routing number clears both the styling and `aria-invalid`; reset clears the visible invalid state as well.",
+          "Lifecycle example: the field starts internally invalid but not visibly invalid. Submit reveals `data-user-invalid`, and entering a valid routing number clears both the styling and `aria-invalid`.",
       },
     },
   },
+};
+
+ValidationLifecycle.play = async ({ canvasElement }) => {
+  const form = canvasElement.querySelector("form") as HTMLFormElement | null;
+  const inputHost = form?.querySelector("fd-input") as FdInputHost | null;
+  const input = inputHost?.shadowRoot?.querySelector("[part=native]") as HTMLInputElement | null;
+
+  expect(inputHost?.hasAttribute("data-user-invalid")).toBe(false);
+
+  form?.requestSubmit();
+
+  await waitFor(() => {
+    expect(inputHost?.hasAttribute("data-user-invalid")).toBe(true);
+    expect(input?.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  await userEvent.type(input!, "021000021");
+
+  await waitFor(() => {
+    expect(inputHost?.hasAttribute("data-user-invalid")).toBe(false);
+    expect(input?.getAttribute("aria-invalid")).toBeNull();
+  });
 };
 
 export const MinlengthWithHint: Story = {

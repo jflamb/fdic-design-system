@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, userEvent, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -30,6 +30,7 @@ type TextareaArgs = {
   messageText: string;
 };
 
+type FdTextareaHost = HTMLElement & { value?: string };
 const renderTextarea = (args: TextareaArgs) => html`
   <div style="max-width: 328px;">
     <fd-label
@@ -188,6 +189,55 @@ export const WithCharacterCountNearLimit: Story = {
     value:
       "We corrected the mailing address after the original notice was returned and need the customer record updated before the next billing cycle.",
   },
+};
+
+export const ValidationLifecycle: Story = {
+  render: () => html`
+    <form style="display: grid; gap: 12px; max-width: 328px;">
+      <fd-label
+        for="textarea-lifecycle"
+        label="Explanation"
+        required
+        description="Provide at least 10 characters."
+      ></fd-label>
+      <fd-textarea
+        id="textarea-lifecycle"
+        name="explanation"
+        required
+      ></fd-textarea>
+      <fd-button type="submit">Submit</fd-button>
+    </form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Lifecycle example: submit reveals the visible invalid state for an empty required textarea, and entering text clears the invalid styling and `aria-invalid` once the value becomes valid.",
+      },
+    },
+  },
+};
+
+ValidationLifecycle.play = async ({ canvasElement }) => {
+  const form = canvasElement.querySelector("form") as HTMLFormElement | null;
+  const textareaHost = form?.querySelector("fd-textarea") as FdTextareaHost | null;
+  const textarea = textareaHost?.shadowRoot?.querySelector("[part=native]") as HTMLTextAreaElement | null;
+
+  expect(textareaHost?.hasAttribute("data-user-invalid")).toBe(false);
+
+  form?.requestSubmit();
+
+  await waitFor(() => {
+    expect(textareaHost?.hasAttribute("data-user-invalid")).toBe(true);
+    expect(textarea?.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  await userEvent.type(textarea!, "This explanation is now long enough.");
+
+  await waitFor(() => {
+    expect(textareaHost?.hasAttribute("data-user-invalid")).toBe(false);
+    expect(textarea?.getAttribute("aria-invalid")).toBeNull();
+  });
 };
 
 export const DocsOverview: Story = {

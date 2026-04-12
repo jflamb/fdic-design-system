@@ -146,3 +146,124 @@ ReferenceMenuSurface.play = async ({ canvasElement, userEvent }) => {
     expect(trigger).toHaveFocus();
   });
 };
+
+export const InlineDrawer: Story = {
+  args: {
+    open: true,
+    modal: false,
+    label: "Inline details",
+  },
+  render: (args) => html`
+    <div style="padding: 1.5rem; background: #eef3f7;">
+      <fd-drawer
+        ?open=${args.open}
+        ?modal=${args.modal}
+        label=${args.label}
+      >
+        <div
+          slot="header"
+          style="display:flex; align-items:center; justify-content:space-between; padding:1rem; border-bottom:1px solid rgba(9, 53, 84, 0.08);"
+        >
+          <h2 style="margin:0; font-size:1.125rem;">Inline review panel</h2>
+        </div>
+        <div style="padding: 1rem; display:grid; gap:0.75rem;">
+          <p style="margin:0;">Use inline mode when the content belongs in the document flow and does not need modal focus containment.</p>
+          <fd-button variant="outline">Review next item</fd-button>
+        </div>
+      </fd-drawer>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Inline mode keeps the drawer in the normal page flow. It is appropriate for expandable supporting context that should remain visible to nearby content and does not need modal semantics.",
+      },
+    },
+  },
+};
+
+InlineDrawer.play = async ({ canvasElement }) => {
+  const drawer = canvasElement.querySelector("fd-drawer") as HTMLElement | null;
+  const surface = drawer?.shadowRoot?.querySelector(".surface") as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(drawer?.hasAttribute("open")).toBe(true);
+    expect(drawer?.shadowRoot?.querySelector("dialog")).toBeNull();
+    expect(surface?.getAttribute("role")).toBe("region");
+  });
+};
+
+export const EscapeDismissal: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Escape dismissal emits the component's close-request event and lets the parent decide when to close the modal drawer.",
+      },
+    },
+  },
+};
+
+EscapeDismissal.play = async ({ canvasElement, userEvent }) => {
+  const trigger = canvasElement.querySelector("#drawer-trigger") as HTMLButtonElement | null;
+  const drawer = canvasElement.querySelector("fd-drawer") as HTMLElement | null;
+  const status = canvasElement.querySelector("#drawer-status");
+
+  await waitFor(() => {
+    expect(trigger?.dataset.drawerReady).toBe("true");
+  });
+
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    expect(drawer?.hasAttribute("open")).toBe(true);
+    expect(status?.textContent).toContain("Drawer open");
+  });
+
+  const dialog = drawer?.shadowRoot?.querySelector("dialog");
+  const cancelEvent = new Event("cancel", { cancelable: true });
+  dialog?.dispatchEvent(cancelEvent);
+
+  await waitFor(() => {
+    expect(cancelEvent.defaultPrevented).toBe(true);
+    expect(drawer?.hasAttribute("open")).toBe(false);
+    expect(status?.textContent).toContain("escape");
+    expect(trigger).toHaveFocus();
+  });
+};
+
+export const PlacementOptions: Story = {
+  render: () => html`
+    <div style="padding: 1.5rem; background: #eef3f7;">
+      <fd-drawer open modal label="Top placement example">
+        <div
+          slot="header"
+          style="display:flex; align-items:center; justify-content:space-between; padding:1rem; border-bottom:1px solid rgba(9, 53, 84, 0.08);"
+        >
+          <h2 style="margin:0; font-size:1.125rem;">Placement contract</h2>
+        </div>
+        <div style="padding: 1rem; display:grid; gap:0.75rem;">
+          <p style="margin:0;">The current public API exposes only the top placement. Use modal or inline mode to change document behavior without introducing new placement values.</p>
+        </div>
+      </fd-drawer>
+    </div>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The current drawer API intentionally supports only top placement. This story documents the supported placement contract until additional positions are designed and approved.",
+      },
+    },
+  },
+};
+
+PlacementOptions.play = async ({ canvasElement }) => {
+  const drawer = canvasElement.querySelector("fd-drawer") as HTMLElement | null;
+  const surface = drawer?.shadowRoot?.querySelector(".surface") as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(surface?.getAttribute("data-placement")).toBe("top");
+  });
+};

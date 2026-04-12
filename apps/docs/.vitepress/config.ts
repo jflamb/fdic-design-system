@@ -38,6 +38,8 @@ export default defineConfig({
         items: [
           { text: "Overview", link: "/guide/" },
           { text: "Getting Started", link: "/guide/getting-started" },
+          { text: "Using Tokens", link: "/guide/using-tokens" },
+          { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
           { text: "Form Workflows", link: "/guide/form-workflows" }
@@ -52,7 +54,8 @@ export default defineConfig({
           { text: "Typography", link: "/guide/foundations/typography" },
           { text: "Spacing and Layout", link: "/guide/foundations/spacing-layout" },
           { text: "Surfaces and Effects", link: "/guide/foundations/surfaces-effects" },
-          { text: "Modes and Responsiveness", link: "/guide/foundations/modes" }
+          { text: "Modes and Responsiveness", link: "/guide/foundations/modes" },
+          { text: "Trust Patterns", link: "/guide/foundations/trust-patterns" }
         ]
       },
       {

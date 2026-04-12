@@ -122,12 +122,12 @@ const EVENTS = [
 
 const GLOBAL_HEADER_SOURCE = {
   items: [
-    { title: "News & Events", url: "#news", current: true },
-    { title: "Learning", url: "#learning" },
-    { title: "Knowledge Base", url: "#knowledge-base" },
-    { title: "Benefits", url: "#benefits" },
-    { title: "Support", url: "#support" },
-    { title: "About", url: "#about" },
+    { kind: "link", id: "news-events", label: "News & Events", href: "#news", current: true },
+    { kind: "link", id: "learning", label: "Learning", href: "#learning" },
+    { kind: "link", id: "knowledge-base", label: "Knowledge Base", href: "#knowledge-base" },
+    { kind: "link", id: "benefits", label: "Benefits", href: "#benefits" },
+    { kind: "link", id: "support", label: "Support", href: "#support" },
+    { kind: "link", id: "about", label: "About", href: "#about" },
   ],
   search: {
     action: "#search",

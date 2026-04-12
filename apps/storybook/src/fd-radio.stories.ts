@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { expect } from "storybook/test";
+import { expect, userEvent, waitFor } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
@@ -117,6 +117,30 @@ export const Required: Story = {
       },
     },
   },
+};
+
+Required.play = async ({ canvasElement }) => {
+  const form = canvasElement.querySelector("form") as HTMLFormElement | null;
+  const radioHost = form?.querySelector("fd-radio") as HTMLElement | null;
+  const radioInput = radioHost?.shadowRoot?.querySelector('input[type="radio"]') as
+    | HTMLInputElement
+    | null;
+
+  expect(radioHost?.hasAttribute("data-user-invalid")).toBe(false);
+
+  form?.requestSubmit();
+
+  await waitFor(() => {
+    expect(radioHost?.hasAttribute("data-user-invalid")).toBe(true);
+    expect(radioInput?.getAttribute("aria-invalid")).toBe("true");
+  });
+
+  await userEvent.click(radioInput!);
+
+  await waitFor(() => {
+    expect(radioHost?.hasAttribute("data-user-invalid")).toBe(false);
+    expect(radioInput?.getAttribute("aria-invalid")).toBeNull();
+  });
 };
 
 export const FormIntegration: Story = {
