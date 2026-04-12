@@ -99,7 +99,7 @@ export class FdAlert extends LitElement {
       --_fd-alert-text: var(--fd-alert-text-color, var(--ds-color-text-primary));
       --_fd-alert-link: var(--fd-alert-link-color, var(--ds-color-bg-active));
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-primary);
     }
 
@@ -243,7 +243,7 @@ export class FdAlert extends LitElement {
     }
 
     .title {
-      font-size: var(--fdic-font-size-h4, 18px);
+      font-size: var(--ds-font-size-h4, 18px);
       font-weight: 600;
       line-height: 1.25;
       min-inline-size: 0;
@@ -251,7 +251,7 @@ export class FdAlert extends LitElement {
     }
 
     .variant-site .title {
-      font-size: var(--fdic-font-size-h3, 22.5px);
+      font-size: var(--ds-font-size-h3, 22.5px);
     }
 
     .slim-title {
@@ -260,7 +260,7 @@ export class FdAlert extends LitElement {
 
     .body {
       min-inline-size: 0;
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       color: inherit;

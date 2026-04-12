@@ -64,8 +64,8 @@ export class FdLink extends LitElement {
         --fd-link-color-normal,
         var(--ds-color-bg-active)
       );
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fdic-font-size-body, 18px);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--ds-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       color-scheme: light dark;
@@ -142,19 +142,19 @@ export class FdLink extends LitElement {
     }
 
     .size-sm {
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
       font-weight: 400;
       line-height: 1.375;
     }
 
     .size-md {
-      font-size: var(--fdic-font-size-body, 1.125rem);
+      font-size: var(--ds-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
     }
 
     .size-lg {
-      font-size: var(--fdic-font-size-body-big, 1.25rem);
+      font-size: var(--ds-font-size-body-big, 1.25rem);
       font-weight: 450;
       line-height: 1.25;
     }

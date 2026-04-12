@@ -73,7 +73,7 @@ export class FdGlobalFooter extends LitElement {
       display: block;
       container-type: inline-size;
       color: var(--ds-color-text-primary);
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -176,7 +176,7 @@ export class FdGlobalFooter extends LitElement {
       margin: 0;
       font-size: var(
         --fd-global-footer-body-font-size,
-        var(--fdic-font-size-body, 18px)
+        var(--ds-font-size-body, 18px)
       );
       font-weight: 400;
       line-height: 1.375;
@@ -200,7 +200,7 @@ export class FdGlobalFooter extends LitElement {
       text-decoration-line: none;
       font-size: var(
         --fd-global-footer-agency-font-size,
-        var(--fdic-font-size-body, 18px)
+        var(--ds-font-size-body, 18px)
       );
       font-weight: 600;
       line-height: 1.25;
@@ -231,7 +231,7 @@ export class FdGlobalFooter extends LitElement {
     .agency-text {
       font-size: var(
         --fd-global-footer-agency-font-size,
-        var(--fdic-font-size-body, 18px)
+        var(--ds-font-size-body, 18px)
       );
       font-weight: 600;
       line-height: 1.25;
@@ -252,7 +252,7 @@ export class FdGlobalFooter extends LitElement {
     .updated {
       font-size: var(
         --fd-global-footer-body-font-size,
-        var(--fdic-font-size-body, 18px)
+        var(--ds-font-size-body, 18px)
       );
       line-height: 1.375;
     }
@@ -337,7 +337,7 @@ export class FdGlobalFooter extends LitElement {
       .utility-link {
         font-size: var(
           --fd-global-footer-body-font-size-mobile,
-          var(--fdic-font-size-body-small, 16px)
+          var(--ds-font-size-body-small, 16px)
         );
       }
 

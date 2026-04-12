@@ -32,7 +32,7 @@ export class FdCard extends LitElement {
     :host {
       display: block;
       color: var(--ds-color-text-primary);
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -128,7 +128,7 @@ export class FdCard extends LitElement {
       color: var(--fd-card-supporting-color, var(--ds-color-text-secondary));
       font-size: var(
         --fd-card-supporting-font-size,
-        var(--fdic-font-size-body-small, 16px)
+        var(--ds-font-size-body-small, 16px)
       );
       font-weight: 400;
       line-height: 1.375;
@@ -183,11 +183,11 @@ export class FdCard extends LitElement {
 
     .title-medium {
       min-block-size: calc(
-        var(--fd-card-medium-title-font-size, var(--fdic-font-size-body-big, 20px)) * 1.25 * 2
+        var(--fd-card-medium-title-font-size, var(--ds-font-size-body-big, 20px)) * 1.25 * 2
       );
       font-size: var(
         --fd-card-medium-title-font-size,
-        var(--fdic-font-size-body-big, 20px)
+        var(--ds-font-size-body-big, 20px)
       );
       font-weight: var(--fd-card-medium-title-font-weight, 450);
       line-height: var(--fd-card-medium-title-line-height, 1.25);
@@ -195,11 +195,11 @@ export class FdCard extends LitElement {
 
     .title-large {
       min-block-size: calc(
-        var(--fd-card-large-title-font-size, var(--fdic-font-size-body, 18px)) * 1.375 * 2
+        var(--fd-card-large-title-font-size, var(--ds-font-size-body, 18px)) * 1.375 * 2
       );
       font-size: var(
         --fd-card-large-title-font-size,
-        var(--fdic-font-size-body, 18px)
+        var(--ds-font-size-body, 18px)
       );
       font-weight: var(--fd-card-large-title-font-weight, 600);
       line-height: var(--fd-card-large-title-line-height, 1.375);

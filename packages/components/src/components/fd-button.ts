@@ -43,8 +43,8 @@ export class FdButton extends LitElement {
         --fd-button-radius,
         var(--ds-corner-radius-sm, 3px)
       );
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fd-button-font-size, var(--fdic-font-size-body, 18px));
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fd-button-font-size, var(--ds-font-size-body, 18px));
       line-height: 1.375;
       text-decoration: none;
       cursor: pointer;

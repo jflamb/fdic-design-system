@@ -40,7 +40,7 @@ export class FdTile extends LitElement {
       display: block;
       container-type: inline-size;
       color: var(--ds-color-text-primary);
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -114,7 +114,7 @@ export class FdTile extends LitElement {
     .title-link,
     .title-text {
       display: inline;
-      font-size: var(--fd-tile-title-font-size, var(--fdic-font-size-body, 18px));
+      font-size: var(--fd-tile-title-font-size, var(--ds-font-size-body, 18px));
       font-weight: var(--fd-tile-title-font-weight, 400);
       line-height: var(--fd-tile-title-line-height, 1.375);
     }
@@ -157,7 +157,7 @@ export class FdTile extends LitElement {
       );
       font-size: var(
         --fd-tile-description-font-size,
-        var(--fdic-font-size-body-small, 16px)
+        var(--ds-font-size-body-small, 16px)
       );
       font-weight: 400;
       line-height: 1.375;
@@ -181,7 +181,7 @@ export class FdTile extends LitElement {
       display: inline;
       font-size: var(
         --fd-tile-support-link-font-size,
-        var(--fdic-font-size-body, 18px)
+        var(--ds-font-size-body, 18px)
       );
       font-weight: 400;
       line-height: 1.375;
@@ -204,7 +204,7 @@ export class FdTile extends LitElement {
 
       .title-link,
       .title-text {
-        font-size: var(--fdic-font-size-body-big, 20px);
+        font-size: var(--ds-font-size-body-big, 20px);
         font-weight: 450;
         line-height: 1.25;
       }
@@ -231,7 +231,7 @@ export class FdTile extends LitElement {
       }
 
       [part="description"] {
-        font-size: var(--fdic-font-size-body, 18px);
+        font-size: var(--ds-font-size-body, 18px);
       }
     }
 

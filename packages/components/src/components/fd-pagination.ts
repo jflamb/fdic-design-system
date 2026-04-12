@@ -43,8 +43,8 @@ export class FdPagination extends LitElement {
     :host {
       display: block;
       color: var(--ds-color-text-primary);
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fdic-font-size-body, 18px);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--ds-font-size-body, 18px);
       line-height: 1.375;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;

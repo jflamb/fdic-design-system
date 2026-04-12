@@ -51,8 +51,8 @@ export class FdSplitButton extends LitElement {
       align-items: center;
       justify-content: center;
       border: none;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fd-button-font-size, var(--fdic-font-size-body, 18px));
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fd-button-font-size, var(--ds-font-size-body, 18px));
       line-height: 1.375;
       cursor: pointer;
       box-sizing: border-box;

@@ -67,7 +67,7 @@ export class FdFileInput extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-primary, #212123);
     }
 
@@ -157,7 +157,7 @@ export class FdFileInput extends LitElement {
 
     [part="label"] {
       margin: 0;
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       font-weight: 600;
       line-height: 1.375;
     }
@@ -202,7 +202,7 @@ export class FdFileInput extends LitElement {
       justify-content: center;
       min-height: var(--fd-file-input-height, 44px);
       padding-inline: 6px;
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       white-space: nowrap;
@@ -229,7 +229,7 @@ export class FdFileInput extends LitElement {
     }
 
     .fd-file-input__drop-text {
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       color: inherit;
@@ -241,7 +241,7 @@ export class FdFileInput extends LitElement {
     [part="limit"],
     [part="summary"] {
       margin: 0;
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
       line-height: 1.375;
     }
 
@@ -256,7 +256,7 @@ export class FdFileInput extends LitElement {
 
     [part="limit"] {
       color: var(--ds-color-text-primary, #212123);
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       line-height: 1.375;
     }
 
@@ -304,7 +304,7 @@ export class FdFileInput extends LitElement {
 
     .fd-file-input__file-name {
       margin: 0;
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       line-height: 1.375;
       white-space: nowrap;
       overflow: hidden;
@@ -315,7 +315,7 @@ export class FdFileInput extends LitElement {
       display: inline-flex;
       align-items: flex-start;
       gap: var(--ds-spacing-2xs, 4px);
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
       line-height: 1.375;
       color: var(--ds-color-text-secondary, #595961);
     }

@@ -380,7 +380,7 @@ export class FdHeaderSearch extends LitElement {
     }
 
     .result-title {
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
       font-weight: 700;
       color: var(--ds-color-text-primary, #0c2336);
       line-height: 1.25;

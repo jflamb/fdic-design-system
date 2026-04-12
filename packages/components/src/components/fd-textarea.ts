@@ -346,8 +346,8 @@ export class FdTextarea extends LitElement {
   static styles = [forcedColorsTextInput, css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fdic-font-size-body, 18px);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--ds-font-size-body, 18px);
       line-height: 1.375;
       color: var(--ds-color-text-primary, #212123);
       -webkit-font-smoothing: antialiased;
@@ -463,7 +463,7 @@ export class FdTextarea extends LitElement {
       display: flex;
       justify-content: flex-end;
       margin-top: var(--ds-spacing-2xs, 4px);
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
       color: var(--ds-color-text-secondary, #595961);
     }
 

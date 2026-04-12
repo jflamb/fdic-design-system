@@ -97,8 +97,8 @@ export class FdMessage extends LitElement {
     return html`<style>
       fd-message {
         display: block;
-        font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-        font-size: var(--fdic-font-size-body-small, 1rem);
+        font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+        font-size: var(--ds-font-size-body-small, 1rem);
         line-height: 1.375;
         color: var(--ds-color-text-secondary, #595961);
       }

@@ -68,7 +68,7 @@ export class FdPageFeedback extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-primary);
     }
 
@@ -146,7 +146,7 @@ export class FdPageFeedback extends LitElement {
     }
 
     .prompt-copy {
-      font-size: var(--fdic-font-size-body, 1.125rem);
+      font-size: var(--ds-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
       overflow-wrap: anywhere;
@@ -156,7 +156,7 @@ export class FdPageFeedback extends LitElement {
     .prompt-copy--heading {
       font-size: var(
         --fd-page-feedback-heading-size,
-        var(--fdic-font-size-h3, 22.5px)
+        var(--ds-font-size-h3, 22.5px)
       );
       font-weight: 600;
       line-height: 1.25;
@@ -165,7 +165,7 @@ export class FdPageFeedback extends LitElement {
 
     .survey-body {
       margin: 0;
-      font-size: var(--fdic-font-size-body, 1.125rem);
+      font-size: var(--ds-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
       max-inline-size: var(--ds-layout-paragraph-max-width, 720px);
@@ -259,7 +259,7 @@ export class FdPageFeedback extends LitElement {
       margin: 0;
       display: inline-block;
       color: var(--fd-page-feedback-thank-you-color, inherit);
-      font-size: var(--fdic-font-size-body-big, 1.25rem);
+      font-size: var(--ds-font-size-body-big, 1.25rem);
       font-weight: 450;
       overflow-wrap: anywhere;
       line-height: 1.25;
@@ -288,28 +288,28 @@ export class FdPageFeedback extends LitElement {
       }
 
       .prompt-copy {
-        font-size: var(--fdic-font-size-body-small, 1rem);
+        font-size: var(--ds-font-size-body-small, 1rem);
       }
 
       .prompt-copy--heading {
-        font-size: var(--fdic-font-size-h4, 18px);
+        font-size: var(--ds-font-size-h4, 18px);
       }
 
       .survey-body {
-        font-size: var(--fdic-font-size-body-small, 1rem);
+        font-size: var(--ds-font-size-body-small, 1rem);
       }
 
       fd-button.choice-button {
         inline-size: 64px;
         min-inline-size: 64px;
-        --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
+        --fd-button-font-size: var(--ds-font-size-body-small, 1rem);
       }
 
       fd-button.report-trigger,
       fd-button.send-button {
         inline-size: 100%;
         min-inline-size: 64px;
-        --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
+        --fd-button-font-size: var(--ds-font-size-body-small, 1rem);
       }
 
       .survey-link-icon {
@@ -318,7 +318,7 @@ export class FdPageFeedback extends LitElement {
       }
 
       [part="thank-you"] {
-        font-size: var(--fdic-font-size-body, 1.125rem);
+        font-size: var(--ds-font-size-body, 1.125rem);
       }
     }
 

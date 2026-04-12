@@ -39,7 +39,7 @@ export class FdPageHeader extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--fd-page-header-text-color, var(--ds-color-text-inverted));
     }
 
@@ -93,7 +93,7 @@ export class FdPageHeader extends LitElement {
       padding: 0;
       font-size: var(
         --fd-page-header-breadcrumb-font-size,
-        var(--fdic-font-size-body-small, 16px)
+        var(--ds-font-size-body-small, 16px)
       );
       line-height: 1.375;
     }
@@ -182,7 +182,7 @@ export class FdPageHeader extends LitElement {
       display: block;
       font-size: var(
         --fd-page-header-kicker-size,
-        var(--fdic-font-size-body-big, 20px)
+        var(--ds-font-size-body-big, 20px)
       );
       font-weight: 450;
       line-height: 1.25;
@@ -234,7 +234,7 @@ export class FdPageHeader extends LitElement {
       .kicker {
         font-size: var(
           --fd-page-header-kicker-size-mobile,
-          var(--fdic-font-size-body, 18px)
+          var(--ds-font-size-body, 18px)
         );
       }
 

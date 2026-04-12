@@ -49,7 +49,7 @@ export class FdHero extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--ds-color-text-inverted);
 
       /* Cool tone overlay tokens (default) */
@@ -169,7 +169,7 @@ export class FdHero extends LitElement {
       align-self: flex-start;
       margin-block-start: var(--fd-hero-action-gap, var(--ds-spacing-xl, 24px));
       color: inherit;
-      font-size: var(--fdic-font-size-body-big, 20px);
+      font-size: var(--ds-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
       text-decoration: none;
@@ -223,7 +223,7 @@ export class FdHero extends LitElement {
       display: block;
       margin: 0;
       color: var(--ds-color-text-inverted) !important;
-      font-size: var(--fdic-font-size-h2, 27px);
+      font-size: var(--ds-font-size-h2, 27px);
       font-weight: 600;
       line-height: 1.2;
       letter-spacing: -0.005em;
@@ -234,7 +234,7 @@ export class FdHero extends LitElement {
       display: block;
       margin: 0;
       color: var(--ds-color-text-inverted) !important;
-      font-size: var(--fdic-font-size-body-big, 20px);
+      font-size: var(--ds-font-size-body-big, 20px);
       font-weight: 450;
       line-height: 1.25;
       overflow-wrap: anywhere;
@@ -244,7 +244,7 @@ export class FdHero extends LitElement {
       display: block;
       margin: 0;
       color: var(--ds-color-text-inverted) !important;
-      font-size: var(--fdic-font-size-body, 18px);
+      font-size: var(--ds-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
       overflow-wrap: anywhere;
@@ -265,7 +265,7 @@ export class FdHero extends LitElement {
       }
 
       .action {
-        font-size: var(--fdic-font-size-body, 18px);
+        font-size: var(--ds-font-size-body, 18px);
       }
 
       .action-icon {

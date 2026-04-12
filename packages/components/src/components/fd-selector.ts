@@ -29,8 +29,8 @@ export class FdSelector extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fdic-font-size-body, 18px);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--ds-font-size-body, 18px);
       line-height: 1.375;
       color: var(--ds-color-text-primary);
       position: relative;
@@ -71,7 +71,7 @@ export class FdSelector extends LitElement {
 
     [part="description"] {
       color: var(--ds-color-text-secondary);
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
     }
 
     [part="description"][hidden] {
@@ -192,7 +192,7 @@ export class FdSelector extends LitElement {
 
     [part="error"] {
       color: var(--fd-selector-error-color, var(--ds-color-semantic-fg-error));
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
       margin-top: var(--ds-spacing-3xs, 2px);
     }
 

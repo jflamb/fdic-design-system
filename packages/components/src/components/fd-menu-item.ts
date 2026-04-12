@@ -27,8 +27,8 @@ export class FdMenuItem extends LitElement {
       min-height: var(--fd-menu-item-min-height, 44px);
       border: none;
       background: none;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fd-menu-item-font-size, var(--fdic-font-size-body, 18px));
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--fd-menu-item-font-size, var(--ds-font-size-body, 18px));
       line-height: 1.375;
       color: var(--ds-color-text-primary);
       text-align: start;

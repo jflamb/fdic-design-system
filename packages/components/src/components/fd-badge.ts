@@ -39,10 +39,10 @@ export class FdBadge extends LitElement {
         --fd-badge-text-color,
         var(--ds-color-text-primary, #212123)
       );
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(
         --fd-badge-font-size,
-        var(--fdic-font-size-body-small, 1rem)
+        var(--ds-font-size-body-small, 1rem)
       );
       line-height: 1.375;
     }

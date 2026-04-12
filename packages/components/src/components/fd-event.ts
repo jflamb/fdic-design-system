@@ -33,7 +33,7 @@ export class FdEvent extends LitElement {
       display: block;
       container-type: inline-size;
       color: var(--ds-color-text-primary, #212123);
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
     }
 
     :host([hidden]) {
@@ -164,7 +164,7 @@ export class FdEvent extends LitElement {
       line-clamp: 2;
       font-size: var(
         --fd-event-title-font-size,
-        var(--fdic-font-size-body-big, 20px)
+        var(--ds-font-size-body-big, 20px)
       );
       font-weight: var(--fd-event-title-font-weight, 450);
       line-height: var(--fd-event-title-line-height, 1.25);
@@ -218,7 +218,7 @@ export class FdEvent extends LitElement {
       );
       font-size: var(
         --fd-event-metadata-font-size,
-        var(--fdic-font-size-body-small, 16px)
+        var(--ds-font-size-body-small, 16px)
       );
       font-weight: 400;
       line-height: var(--fd-event-metadata-line-height, 1.375);

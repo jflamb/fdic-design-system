@@ -466,8 +466,8 @@ export class FdLabel extends LitElement {
       fd-label {
         display: block;
         margin-bottom: 6px;
-        font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-        font-size: var(--fdic-font-size-body, 18px);
+        font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+        font-size: var(--ds-font-size-body, 18px);
         line-height: 1.375;
         color: var(--ds-color-text-primary, #212123);
         position: relative;
@@ -520,7 +520,7 @@ export class FdLabel extends LitElement {
 
       fd-label [part="description"] {
         color: var(--ds-color-text-secondary, #595961);
-        font-size: var(--fdic-font-size-body-small, 1rem);
+        font-size: var(--ds-font-size-body-small, 1rem);
         padding-right: 32px;
       }
 
@@ -587,7 +587,7 @@ export class FdLabel extends LitElement {
         border-radius: var(--ds-corner-radius-lg, 7px);
         background: var(--ds-color-bg-inverted, #212123);
         color: var(--ds-color-neutral-000, #ffffff);
-        font-size: var(--fdic-font-size-body-small, 1rem);
+        font-size: var(--ds-font-size-body-small, 1rem);
         line-height: 1.375;
         max-width: 224px;
         box-shadow:

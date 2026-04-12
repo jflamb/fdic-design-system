@@ -44,7 +44,7 @@ export class FdPageHeaderButton extends LitElement {
       --fd-button-height: var(--fd-page-header-button-height, 32px);
       --fd-button-font-size: var(
         --fd-page-header-button-font-size,
-        var(--fdic-font-size-body-small, 16px)
+        var(--ds-font-size-body-small, 16px)
       );
       --fd-button-radius: var(--fd-page-header-button-radius, var(--ds-corner-radius-full, 9999px));
       --fd-button-icon-edge-padding: var(

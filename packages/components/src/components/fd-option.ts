@@ -13,8 +13,8 @@ export class FdOption extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
-      font-size: var(--fdic-font-size-body, 18px);
+      font-family: var(--ds-font-family-sans-serif, "Source Sans 3", sans-serif);
+      font-size: var(--ds-font-size-body, 18px);
       line-height: 1.375;
       color: var(--fd-selector-option-text, var(--ds-color-text-primary));
       cursor: pointer;
@@ -173,7 +173,7 @@ export class FdOption extends LitElement {
     [part="option-description"] {
       display: block;
       color: var(--ds-color-text-secondary);
-      font-size: var(--fdic-font-size-body-small, 1rem);
+      font-size: var(--ds-font-size-body-small, 1rem);
     }
 
     /* --- Forced colors --- */
