@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shared component test utilities plus broader accessibility assertions across the under-tested component suite.
 - Browser support documentation with a published support matrix and root Browserslist target.
 - Consumer guides for token usage, CMS integration, and trust-pattern adoption, plus a contributor quick-start in `CONTRIBUTING.md`.
+- Popover API migration for the `fd-selector` dropdown, replacing the legacy overlay layering path.
 
 ### Changed
 
@@ -21,11 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Raised the component test coverage floor across the audited suite, including the second-tier collection, content, and supporting components.
 - Added Storybook interaction coverage for priority component stories and validation lifecycle examples for form flows.
 - Clarified the token namespace contract so new adoption prefers `--ds-*` while public `--fdic-*` typography families remain supported.
+- Converted all `--fdic-*` typography tokens into deprecated aliases of canonical `--ds-*` equivalents.
+- Migrated component and docs CSS token-family call sites from `var(--fdic-*)` to `var(--ds-*)`.
 
 ### Fixed
 
 - Re-synced generated component metadata and package surfaces so validation catches drift on the main branch.
 - Removed the remaining tsup ignored-bare-import warnings by correcting component package side-effect declarations.
+- Reduced Storybook test noise by suppressing Lit dev mode warnings, eliminating duplicate ResizeObserver `console.error` output, and fixing the `fd-visual` update cycle warning.
 
 ## [0.1.0]
 
