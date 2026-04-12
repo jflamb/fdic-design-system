@@ -122,10 +122,10 @@
 /* --- Container ----------------------------------------------------------- */
 
 .prose {
-  font-family: var(--fdic-font-family-sans-serif);
-  font-size: var(--fdic-font-size-body, 1.125rem);
+  font-family: var(--ds-font-family-sans-serif);
+  font-size: var(--ds-font-size-body, 1.125rem);
   font-weight: 400;
-  line-height: var(--fdic-line-height-body, 1.5);
+  line-height: var(--ds-line-height-body, 1.5);
   color: var(--ds-color-text-primary, #212123);
   text-wrap: pretty;
   hanging-punctuation: first allow-end last;
@@ -150,8 +150,8 @@
 
 .prose .lead,
 .prose .prose-lead {
-  font-size: var(--fdic-font-size-body-big, 1.25rem);
-  line-height: var(--fdic-line-height-body, 1.5);
+  font-size: var(--ds-font-size-body-big, 1.25rem);
+  line-height: var(--ds-line-height-body, 1.5);
   color: var(--ds-color-text-secondary, #595961);
 }
 
@@ -207,7 +207,7 @@
 /* --- Keyboard input ------------------------------------------------------ */
 
 .prose kbd {
-  font-family: var(--fdic-font-family-mono);
+  font-family: var(--ds-font-family-mono);
   font-size: 0.8em;
   background: var(--ds-color-bg-container, #f5f5f7);
   border: 1px solid var(--ds-color-border-divider, #bdbdbf);
@@ -238,7 +238,7 @@
 /* --- Sample output ------------------------------------------------------- */
 
 .prose samp {
-  font-family: var(--fdic-font-family-mono);
+  font-family: var(--ds-font-family-mono);
   font-size: 0.8em;
   background: var(--ds-color-bg-container, #f5f5f7);
   border-left: 3px solid var(--ds-color-border-divider, #bdbdbf);
@@ -262,7 +262,7 @@
 /* --- Variables ----------------------------------------------------------- */
 
 .prose var {
-  font-family: var(--fdic-font-family-mono);
+  font-family: var(--ds-font-family-mono);
   font-style: italic;
   font-size: 0.875em;
 }
@@ -270,7 +270,7 @@
 /* --- Output -------------------------------------------------------------- */
 
 .prose output {
-  font-family: var(--fdic-font-family-mono);
+  font-family: var(--ds-font-family-mono);
   font-size: 0.8em;
   background: var(--ds-color-bg-container, #f5f5f7);
   border: 1px solid var(--ds-color-border-divider, #bdbdbf);
@@ -320,7 +320,7 @@
 /* --- Blockquotes --------------------------------------------------------- */
 
 .prose blockquote {
-  font-size: var(--fdic-font-size-body, 1.125rem);
+  font-size: var(--ds-font-size-body, 1.125rem);
   line-height: 1.6;
   color: var(--ds-color-text-primary, #212123);
   border-left: 4px solid var(--ds-color-primary-500, #0d6191);
@@ -372,7 +372,7 @@
 /* --- Inline code --------------------------------------------------------- */
 
 .prose code {
-  font-family: var(--fdic-font-family-mono);
+  font-family: var(--ds-font-family-mono);
   font-size: 0.8em;
   background: var(--ds-color-bg-container, #f5f5f7);
   border-radius: var(--fdic-corner-radius-sm, 3px);
@@ -393,7 +393,7 @@
 /* --- Code blocks --------------------------------------------------------- */
 
 .prose pre {
-  font-family: var(--fdic-font-family-mono);
+  font-family: var(--ds-font-family-mono);
   font-size: 0.875rem;
   line-height: 1.625;
   background: var(--ds-color-bg-container, #f5f5f7);
@@ -677,8 +677,8 @@
 }
 
 .prose figcaption {
-  font-size: var(--fdic-font-size-body-small, 1rem);
-  line-height: var(--fdic-line-height-body, 1.5);
+  font-size: var(--ds-font-size-body-small, 1rem);
+  line-height: var(--ds-line-height-body, 1.5);
   color: var(--ds-color-text-secondary, #595961);
   margin-top: var(--fdic-spacing-sm, 12px);
 }
@@ -759,7 +759,7 @@
 
 .prose caption {
   caption-side: top;
-  font-size: var(--fdic-font-size-body-small, 1rem);
+  font-size: var(--ds-font-size-body-small, 1rem);
   font-weight: 600;
   color: var(--ds-color-text-secondary, #595961);
   text-align: left;
@@ -770,7 +770,7 @@
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
-  font-size: var(--fdic-font-size-body-small, 1rem);
+  font-size: var(--ds-font-size-body-small, 1rem);
   line-height: normal;
 }
 
@@ -781,7 +781,7 @@
 }
 
 .prose thead th {
-  font-size: var(--fdic-font-size-body-small, 1rem);
+  font-size: var(--ds-font-size-body-small, 1rem);
   font-weight: 600;
   line-height: normal;
   background: var(--ds-color-primary-500, #0d6191);
@@ -1177,7 +1177,7 @@
 
 .prose-progress-value,
 .prose-meter-value {
-  font-size: var(--fdic-font-size-body-small, 1rem);
+  font-size: var(--ds-font-size-body-small, 1rem);
   font-variant-numeric: tabular-nums;
   text-align: right;
   white-space: nowrap;
@@ -1195,8 +1195,8 @@
 }
 
 .prose .prose-toc-title {
-  font-size: var(--fdic-font-size-h3, 1.4063rem);
-  line-height: var(--fdic-line-height-h3, 1.25);
+  font-size: var(--ds-font-size-h3, 1.4063rem);
+  line-height: var(--ds-line-height-h3, 1.25);
   font-weight: 600;
   color: var(--ds-color-text-primary, #212123);
   margin-top: 0;
@@ -1269,33 +1269,33 @@ html {
 .prose h4,
 .prose h5,
 .prose h6 {
-  font-family: var(--fdic-font-family-sans-serif);
+  font-family: var(--ds-font-family-sans-serif);
   font-weight: 600;
   color: var(--ds-color-text-primary, #212123);
 }
 
 .prose h1 {
-  font-size: var(--fdic-font-size-h1, 2.5313rem);
-  line-height: var(--fdic-line-height-h1, 1.15);
-  letter-spacing: var(--fdic-letter-spacing-1, -0.01em);
+  font-size: var(--ds-font-size-h1, 2.5313rem);
+  line-height: var(--ds-line-height-h1, 1.15);
+  letter-spacing: var(--ds-letter-spacing-1, -0.01em);
 }
 
 .prose h2 {
-  font-size: var(--fdic-font-size-h2, 1.6875rem);
-  line-height: var(--fdic-line-height-h2, 1.2);
-  letter-spacing: var(--fdic-letter-spacing-2, -0.005em);
+  font-size: var(--ds-font-size-h2, 1.6875rem);
+  line-height: var(--ds-line-height-h2, 1.2);
+  letter-spacing: var(--ds-letter-spacing-2, -0.005em);
 }
 
 .prose h3 {
-  font-size: var(--fdic-font-size-h3, 1.4063rem);
-  line-height: var(--fdic-line-height-h3, 1.25);
-  letter-spacing: var(--fdic-letter-spacing-0, 0);
+  font-size: var(--ds-font-size-h3, 1.4063rem);
+  line-height: var(--ds-line-height-h3, 1.25);
+  letter-spacing: var(--ds-letter-spacing-0, 0);
 }
 
 .prose h4 {
-  font-size: var(--fdic-font-size-h4, 1.125rem);
-  line-height: var(--fdic-line-height-h4, 1.25);
-  letter-spacing: var(--fdic-letter-spacing-2, -0.005em);
+  font-size: var(--ds-font-size-h4, 1.125rem);
+  line-height: var(--ds-line-height-h4, 1.25);
+  letter-spacing: var(--ds-letter-spacing-2, -0.005em);
 }
 
 /* --- Link styles (scoped from base reset) ------------------------------ */
@@ -1380,7 +1380,7 @@ html {
 }
 
 .prose .prose-back-to-top a {
-  font-size: var(--fdic-font-size-body-small, 1rem);
+  font-size: var(--ds-font-size-body-small, 1rem);
   color: var(--ds-color-text-secondary, #595961);
   text-decoration: none;
 }
@@ -1409,8 +1409,8 @@ html {
   top: var(--fdic-spacing-xs, 0.5rem);
   right: var(--fdic-spacing-xs, 0.5rem);
   padding: 0.25em 0.625em;
-  font-family: var(--fdic-font-family-sans-serif);
-  font-size: var(--fdic-font-size-body-small, 1rem);
+  font-family: var(--ds-font-family-sans-serif);
+  font-size: var(--ds-font-size-body-small, 1rem);
   font-weight: 600;
   color: var(--ds-color-text-secondary, #595961);
   background: var(--ds-color-bg-base, #ffffff);
@@ -1478,7 +1478,7 @@ html {
 
 /* VitePress styles inline code with higher specificity via :not(pre) > code */
 .prose :not(pre) > code {
-  font-family: var(--fdic-font-family-mono, ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace);
+  font-family: var(--ds-font-family-mono, ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace);
   font-size: 0.8em;
   background: var(--ds-color-bg-container, #f5f5f7);
   border-radius: var(--fdic-corner-radius-sm, 3px);
@@ -1498,12 +1498,12 @@ html {
 
 /* VitePress sets explicit line-height on p, overriding inherited value */
 .prose p {
-  line-height: var(--fdic-line-height-body, 1.5);
+  line-height: var(--ds-line-height-body, 1.5);
 }
 
 /* VitePress sets font-size:16px on blockquote>p and color on blockquote */
 .prose blockquote {
-  font-size: var(--fdic-font-size-body, 1.125rem);
+  font-size: var(--ds-font-size-body, 1.125rem);
   line-height: 1.6;
   color: var(--ds-color-text-primary, #212123);
   border-left: 4px solid var(--ds-color-primary-500, #0d6191);

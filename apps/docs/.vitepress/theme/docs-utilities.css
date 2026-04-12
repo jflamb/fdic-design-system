@@ -15,9 +15,9 @@
       Arial,
       sans-serif
     );
-    font-size: var(--fdic-font-size-body-small, 1rem);
+    font-size: var(--ds-font-size-body-small, 1rem);
     font-weight: 600;
-    line-height: var(--fdic-line-height-h4, 1.25);
+    line-height: var(--ds-line-height-h4, 1.25);
   }
 
   .fdic-docs-overview-meta {
@@ -36,8 +36,8 @@
       Arial,
       sans-serif
     );
-    font-size: var(--fdic-font-size-body-small, 1rem);
+    font-size: var(--ds-font-size-body-small, 1rem);
     font-weight: 400;
-    line-height: var(--fdic-line-height-body, 1.5);
+    line-height: var(--ds-line-height-body, 1.5);
   }
 }
