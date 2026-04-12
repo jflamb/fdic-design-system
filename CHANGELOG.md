@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Generated React wrappers for every first-class web component, wired into sync and validation workflows.
+- Architecture decision records covering component technology, token architecture, form association, and accessibility expectations.
+- Shared component test utilities plus broader accessibility assertions across the under-tested component suite.
+- Browser support documentation with a published support matrix and root Browserslist target.
+- Consumer guides for token usage, CMS integration, and trust-pattern adoption, plus a contributor quick-start in `CONTRIBUTING.md`.
+
+### Changed
+
+- Expanded component package side-effect coverage so published entry points align with the actual runtime registration surface.
+- Raised the component test coverage floor across the audited suite, including the second-tier collection, content, and supporting components.
+- Added Storybook interaction coverage for priority component stories and validation lifecycle examples for form flows.
+- Clarified the token namespace contract so new adoption prefers `--ds-*` while public `--fdic-*` typography families remain supported.
+
+### Fixed
+
+- Re-synced generated component metadata and package surfaces so validation catches drift on the main branch.
+- Removed the remaining tsup ignored-bare-import warnings by correcting component package side-effect declarations.
+
 ## [0.1.0]
 
 ### Added

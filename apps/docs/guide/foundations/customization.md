@@ -18,6 +18,8 @@ These token families are the supported customization surface for v1:
 - `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` for typography
 - `--ds-shadow-*` and `--ds-gradient-*` for elevation and surface effects
 
+`--ds-*` is the canonical namespace for new system-token adoption. The `--fdic-*` families listed above remain intentionally public for typography, but other legacy-era `--fdic-*` tokens should be treated as compatibility surface rather than the preferred starting point for new themes.
+
 Use those tokens when you are styling page chrome, authored content, or wrapper layout around FDIC components.
 
 ## When component tokens are allowed

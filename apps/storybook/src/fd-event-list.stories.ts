@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { expect } from "storybook/test";
 import "@fdic-ds/components/register-all";
 import {
   getComponentArgs,
@@ -109,6 +110,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
+
+Playground.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-event-list") as HTMLElement | null;
+  const base = host?.shadowRoot?.querySelector('[part="base"]');
+  const events = host?.querySelectorAll("fd-event") ?? [];
+  const firstEvent = events[0] as HTMLElement | undefined;
+
+  expect(base?.getAttribute("role")).toBe("list");
+  expect(base?.getAttribute("aria-label")).toBe("Upcoming events");
+  expect(events.length).toBe(4);
+  expect(firstEvent?.getAttribute("role")).toBe("listitem");
+};
 
 export const OfficialSet: Story = {
   args: {

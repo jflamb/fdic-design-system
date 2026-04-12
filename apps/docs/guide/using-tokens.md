@@ -18,6 +18,19 @@ The token package publishes four supported artifacts:
 
 If you are also using the component package, import `@jflamb/fdic-ds-components/styles.css` first. That stylesheet includes the token runtime the components expect.
 
+## Token namespaces
+
+Use `--ds-*` as the canonical token namespace for new system-level adoption. That is the stable surface for colors, spacing, layout, radius, shadows, and gradients.
+
+The remaining public `--fdic-*` families in the published token runtime are typography-oriented and intentionally stay public in v1:
+
+- `--fdic-font-*`
+- `--fdic-line-height-*`
+- `--fdic-letter-spacing-*`
+- `--fdic-heading-padding-*`
+
+When both namespaces can express the same system concern, prefer the `--ds-*` token. Treat any non-typography `--fdic-*` references you encounter in older examples or downstream code as compatibility-era usage, not the recommended entrypoint for new work.
+
 ## CSS adoption
 
 ### App-level import
@@ -40,6 +53,8 @@ That gives your authored layout and content access to the stable public token fa
 - `--fdic-line-height-*`
 - `--fdic-letter-spacing-*`
 - `--fdic-heading-padding-*`
+
+For new adoption, start with the `--ds-*` families above and add the public `--fdic-*` typography families only when you need explicit type controls.
 
 ### Component runtime import
 
@@ -128,7 +143,8 @@ This pattern is appropriate for page shells, content panels, and CMS regions tha
 1. Import `styles.css`.
 2. Use the published semantic token families in your app CSS.
 3. Reach for documented component-level `--fd-*` hooks only when a component page explicitly documents them.
-4. Use `fdic.tokens.json` only when you need structured token data for a build or CMS pipeline.
+4. Add the public `--fdic-*` typography families only if your theme needs explicit type overrides.
+5. Use `fdic.tokens.json` only when you need structured token data for a build or CMS pipeline.
 
 ## Guardrails for downstream teams
 
@@ -136,6 +152,7 @@ This pattern is appropriate for page shells, content panels, and CMS regions tha
 - Do not remap status semantics to unrelated brand colors.
 - Do not depend on undocumented token names.
 - Do not create a parallel alias layer unless you are intentionally managing a migration.
+- Do not start new app themes on compatibility-era `--fdic-*` tokens when a `--ds-*` token already covers the same system role.
 - Keep token overrides outside component shadow DOM internals.
 
 ## Related guidance
