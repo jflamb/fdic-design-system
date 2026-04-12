@@ -4,19 +4,21 @@ This page explains what the FDIC Design System provides, how to run it locally, 
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Start here</span>
-  <p>The FDIC Design System is a library of Web Components and design tokens built for government and financial-services interfaces. It provides accessible, tested UI controls that you drop into HTML pages. It is not a page builder, a CSS framework, or a layout system.</p>
+  <p>The FDIC Design System is a library of Web Components and design tokens built for government and financial-services interfaces. It provides accessible, tested UI controls plus a small layout contract for shell alignment, readable widths, and shared spacing rhythm. It is not a page builder, a CSS framework, or a utility-class layout toolkit.</p>
 </div>
 
 ## What you get
 
 - **Web Components** (`fd-button`, `fd-input`, `fd-alert`, etc.) — drop-in HTML elements with built-in accessibility, keyboard support, and FDIC visual styling.
 - **Design tokens** — a shared vocabulary of colors, typography, spacing, layout, and interaction values that keep pages visually consistent.
+- **A small layout contract** — stable shell, section, readable-width, and collection-layout tokens for the page structures the system documents directly.
 - **Documentation and usage guidance** — every component page explains when to use it, when not to use it, and how to avoid common mistakes.
 
 ## What this is not
 
-- **Not a page builder.** You still write your own HTML structure, layout, and page logic.
+- **Not a page builder.** You still write your own HTML structure, page composition, and application logic.
 - **Not a CSS framework.** The components ship their own encapsulated styles. You do not add utility classes to make them work.
+- **Not a utility layout API.** The system publishes a few foundational layout tokens and documented patterns, not a large library of composable layout helpers.
 - **Not a JavaScript framework.** The components are framework-agnostic Web Components. They work anywhere custom elements are supported. A public React wrapper package is not part of the supported release surface yet.
 
 ## Install and run locally

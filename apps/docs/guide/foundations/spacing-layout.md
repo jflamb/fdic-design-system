@@ -1,6 +1,6 @@
 # Spacing and Layout
 
-This page documents the stable spacing and layout tokens published in the FDIC runtime stylesheet.
+This page documents the stable spacing and layout tokens published in the FDIC runtime stylesheet, plus the documented layout patterns that rely on them.
 
 These tokens should be documented as usability constraints, not just visual measurements.
 
@@ -13,9 +13,99 @@ These tokens should be documented as usability constraints, not just visual meas
 
 The public runtime contract includes these spacing and layout foundations:
 
-- spacing: <code>--ds-spacing-3xs</code> through <code>--ds-spacing-5xl</code> plus <code>--ds-spacing-none</code>
-- radius: <code>--ds-corner-radius-sm</code> through <code>--ds-corner-radius-full</code>
-- layout widths and gutters: <code>--ds-layout-max-width</code>, <code>--ds-layout-gutter</code>, <code>--ds-layout-gutter-tablet</code>, <code>--ds-layout-gutter-mobile</code>, <code>--ds-layout-content-max-width</code>, and <code>--ds-layout-paragraph-max-width</code>
+- spacing: `--ds-spacing-3xs` through `--ds-spacing-5xl` plus `--ds-spacing-none`
+- radius: `--ds-corner-radius-sm` through `--ds-corner-radius-full`
+- layout widths and gutters: `--ds-layout-max-width`, `--ds-layout-shell-max-width`, `--ds-layout-gutter`, `--ds-layout-gutter-tablet`, `--ds-layout-gutter-mobile`, `--ds-layout-content-max-width`, and `--ds-layout-paragraph-max-width`
+- section and flow spacing: `--ds-layout-section-block-padding`, `--ds-layout-section-block-padding-compact`, `--ds-layout-content-gap`, `--ds-layout-split-gap`, and `--ds-layout-stack-gap`
+- common split rail: `--ds-layout-sidebar-width`
+- shared collection layouts: `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, and `--ds-layout-col-4-*` for documented min, max, and gap values, plus the `*-narrow` variants used on narrow screens
+
+This v1 contract stays intentionally small. If a layout need can be taught clearly as a pattern, it stays a pattern instead of becoming a public token.
+
+## Shared page shell
+
+Use `--ds-layout-shell-max-width` for the common inner width that aligns the global header, page header, page feedback, footer, and page-content wrappers.
+
+This token is intended for aligned page chrome and full-page sections. Section backgrounds, separators, and border treatments can still span full bleed while the section's inner wrapper stays pinned to the shared shell width.
+
+## Section wrapper pattern
+
+This is a documented pattern built from stable tokens, not a separate utility API.
+
+- Let the section surface run full bleed when the background, border, or divider needs to span the viewport.
+- Constrain the section's inner wrapper to `--ds-layout-shell-max-width`.
+- Use `--ds-layout-section-block-padding` for major page sections such as page headers and footers.
+- Use `--ds-layout-section-block-padding-compact` for supporting sections such as inline feedback or small follow-on content bands.
+- Keep horizontal padding on the shared gutter tokens so aligned sections continue to line up at zoom and across breakpoints.
+
+Example:
+
+```css
+.section {
+  padding-block: var(--ds-layout-section-block-padding);
+  padding-inline: var(--ds-layout-gutter);
+}
+
+.section__inner {
+  max-inline-size: var(--ds-layout-shell-max-width);
+  margin-inline: auto;
+}
+```
+
+## Readable text width
+
+Use `--ds-layout-paragraph-max-width` for long-form reading rails, prose blocks, and support copy that should stay within a readable line length.
+
+This token is stable. The exact layout around that readable rail is still a documented pattern:
+
+- Keep headings, metadata, and actions free to use the shared shell width when they need to.
+- Constrain sustained paragraph content, survey copy, and form explanation text to `--ds-layout-paragraph-max-width`.
+- Do not force all page content to the readable rail width. Use it where reading comfort matters most.
+
+## Sidebar and content split
+
+The split layout is a stable documented pattern with one stable rail token.
+
+- `--ds-layout-sidebar-width` defines the preferred sidebar rail width.
+- `--ds-layout-split-gap` defines the space between the sidebar and the main content rail.
+- The responsive collapse behavior stays a pattern, not a frozen utility or separate mobile token set.
+
+Recommended v1 pattern:
+
+```css
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, var(--ds-layout-sidebar-width)) minmax(0, 1fr);
+  gap: var(--ds-layout-split-gap);
+}
+
+@container (max-width: 60rem) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+```
+
+Use this when the sidebar contains local navigation, metadata, filters, or supporting context. Avoid it for dense forms or long legal copy that need a single uninterrupted reading column.
+
+## Shared content and stack rhythm
+
+Use the shared layout gaps for general page composition outside the specialized collection-grid recipes:
+
+- `--ds-layout-content-gap` for peer regions in a section, such as prompt/action groupings or two-column content bands
+- `--ds-layout-stack-gap` for vertical stacks of related elements inside one region
+- `--ds-layout-split-gap` for sidebar/main arrangements specifically
+
+These tokens do not replace the collection `--ds-layout-col-*` gap recipes. Collection layouts remain their own stable contract because they encode approved FDIC track widths and gaps together.
+
+## Shared collection columns
+
+The design system now publishes the documented 2-column, 3-column, and 4-column layout recipes as shared layout tokens instead of keeping those values duplicated inside each collection component.
+
+- desktop recipes: `--ds-layout-col-2-min`, `--ds-layout-col-2-max`, `--ds-layout-col-2-gap`, and the equivalent `col-3` and `col-4` tokens
+- narrow-screen recipes: `--ds-layout-col-2-min-narrow`, `--ds-layout-col-2-gap-narrow`, and the equivalent `col-3` and `col-4` narrow tokens
+
+`fd-card-group`, `fd-tile-list`, and `fd-event-list` default to these shared tokens. Override the component-level `--fd-*` variables only when a specific collection needs to diverge from the system recipe.
 
 ## Visual anatomy
 
@@ -76,6 +166,7 @@ Use these tokens to document:
 - spacing rhythm between elements and sections
 - readable content widths
 - container padding
+- sidebar and main-content spacing
 - visual sizing for icons and supporting graphics
 - touch and target sizing constraints where relevant
 
@@ -85,6 +176,9 @@ Spacing and layout choices should support:
 - clear grouping and separation
 - predictable responsive behavior
 - accessible target sizes
+- consistent shell alignment across page-level components
+- reusable multi-column recipes across collection and page layouts
+- clear distinction between stable tokens and pattern-only guidance
 
 ## Accessibility expectations
 
@@ -96,6 +190,9 @@ Documentation should preserve expectations for:
 - touch targets that are large enough to use reliably
 - zoom and reflow without hidden or overlapping content
 - layout constraints that keep long-form content readable
+- sidebars that stack cleanly before content overlap or horizontal scrolling begins
+- full-bleed sections whose inner readable content still stays constrained and easy to follow
+- focus indicators that remain visible even when content is constrained inside shells or rails
 
 ## Deferred from v1
 
@@ -104,5 +201,8 @@ Do not assume:
 - utility classes will be part of the token package
 - separate public mobile spacing or layout bundles exist
 - undocumented component sizing variables are stable
+- every future page layout pattern will become a standalone token set
+- every sidebar recipe or multi-column page template will become a tokenized API
+- page-specific hero, marketing, or campaign layouts are covered by this contract
 
 The source of truth still contains broader metrics and mode data. The public runtime surface intentionally narrows that to one stable baseline scale plus documented component responsiveness.

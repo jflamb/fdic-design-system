@@ -197,6 +197,7 @@ Token usage rule:
 - Reuse existing design-system tokens before introducing new ones.
 - Do not invent a new token name when an existing token already covers the need.
 - When refactoring component styles, prefer replacing raw values with existing semantic, spacing, typography, radius, or layout tokens rather than creating component-specific tokens without a clear gap in the system.
+- For layout work, keep the public contract small. Prefer the shared `--ds-layout-*` shell, readable-width, section-spacing, split-gap, stack-gap, and collection tokens, and document higher-level page patterns instead of freezing speculative layout APIs.
 
 Before introducing non-trivial components, clarify:
 

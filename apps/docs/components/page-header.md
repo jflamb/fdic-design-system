@@ -29,6 +29,8 @@ The page header provides consistent page-level context and navigation on a brand
   caption="Full page header with breadcrumbs, kicker, title, and actions. The Playground story in Storybook provides interactive controls for all properties."
 />
 
+`fd-page-header` is one of the components that consumes the shared page-shell contract directly. Its inner wrapper aligns to `--ds-layout-shell-max-width`, and its default vertical spacing comes from `--ds-layout-section-block-padding`.
+
 ### Basic usage
 
 ```html
@@ -103,8 +105,8 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 |---|---|---|
 | `--fd-page-header-bg` |  | Section background color. |
 | `--fd-page-header-text-color` |  | Text color for all content inside the header. |
-| `--fd-page-header-max-width` |  | Maximum inline size of the page header content area. |
-| `--fd-page-header-padding-block` |  | Block (vertical) padding on desktop. |
+| `--fd-page-header-max-width` |  | Maximum inline size of the page header content area. Defaults to the shared page-shell width contract. |
+| `--fd-page-header-padding-block` |  | Block (vertical) padding on desktop. Defaults to the shared major-section spacing token. |
 | `--fd-page-header-padding-inline` |  | Inline (horizontal) padding on desktop. |
 
 ## Shadow parts
@@ -126,6 +128,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 **Do**
 
 - Place `fd-page-header` as the first element inside `<main>`.
+- Keep it aligned with the rest of the page shell. If adjacent sections also use the shared shell contract, prefer leaving `--fd-page-header-max-width` at its default.
 - Use `heading` for the page's primary heading — the component renders it as `<h1>`.
 - Keep breadcrumb labels short and descriptive. Match them to the actual page titles they link to.
 - Mark the last breadcrumb item's `href` to match the current page URL, even though the component renders it as a non-interactive span.

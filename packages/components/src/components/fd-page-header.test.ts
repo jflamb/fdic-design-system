@@ -96,6 +96,17 @@ describe("FdPageHeader", () => {
     expect(customElements.get("fd-page-header")).toBeDefined();
   });
 
+  it("uses the shared shell width token for content alignment", () => {
+    const styles = (
+      customElements.get("fd-page-header") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
+    expect(styles).toContain("var(--ds-layout-section-block-padding, var(--ds-spacing-3xl, 48px))");
+  });
+
   // --- Rendering ---
 
   it("renders nothing when heading is empty", async () => {

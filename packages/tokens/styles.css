@@ -349,9 +349,32 @@
   /* ===== Layout ===== */
 
   --ds-layout-max-width: 1440px;
+  --ds-layout-shell-max-width: 1312px;
   --ds-layout-gutter: 64px;
   --ds-layout-gutter-tablet: 32px;
   --ds-layout-gutter-mobile: 16px;
   --ds-layout-content-max-width: calc(var(--ds-layout-max-width) - 2 * var(--ds-layout-gutter));
   --ds-layout-paragraph-max-width: 720px;
+  --ds-layout-section-block-padding: 3rem;
+  --ds-layout-section-block-padding-compact: 1.5rem;
+  --ds-layout-content-gap: 1.5rem;
+  --ds-layout-split-gap: 2rem;
+  --ds-layout-stack-gap: 1rem;
+  --ds-layout-sidebar-width: 18rem;
+  --ds-layout-col-2-min: 384px;
+  --ds-layout-col-2-max: 688px;
+  --ds-layout-col-2-gap: 48px;
+  --ds-layout-col-3-min: 360px;
+  --ds-layout-col-3-max: 440px;
+  --ds-layout-col-3-gap: 48px;
+  --ds-layout-col-4-min: 256px;
+  --ds-layout-col-4-max: 320px;
+  --ds-layout-col-4-gap: 48px;
+  --ds-layout-col-2-min-narrow: 320px;
+  --ds-layout-col-2-gap-narrow: 16px;
+  --ds-layout-col-3-min-narrow: 200px;
+  --ds-layout-col-3-gap-narrow: 16px;
+  --ds-layout-col-4-min-narrow: 160px;
+  --ds-layout-col-4-max-narrow: 180px;
+  --ds-layout-col-4-gap-narrow: 16px;
 }

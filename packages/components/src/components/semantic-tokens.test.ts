@@ -10,6 +10,10 @@ const semanticCssAlias = readFileSync(
   resolve(process.cwd(), "../tokens/semantic.css"),
   "utf8",
 );
+const tokensJson = readFileSync(
+  resolve(process.cwd(), "../tokens/fdic.tokens.json"),
+  "utf8",
+);
 
 describe("semantic tokens", () => {
   it("ships the stable runtime stylesheet and keeps the legacy semantic entrypoint as an alias", () => {
@@ -43,6 +47,21 @@ describe("semantic tokens", () => {
     expect(stylesCss).toContain("--ds-spacing-md: 1rem;");
     expect(stylesCss).toContain("--ds-corner-radius-md: 5px;");
     expect(stylesCss).toContain("--ds-layout-max-width: 1440px;");
+    expect(stylesCss).toContain("--ds-layout-shell-max-width: 1312px;");
+    expect(stylesCss).toContain("--ds-layout-section-block-padding: 3rem;");
+    expect(stylesCss).toContain("--ds-layout-content-gap: 1.5rem;");
+    expect(stylesCss).toContain("--ds-layout-stack-gap: 1rem;");
+    expect(stylesCss).toContain("--ds-layout-sidebar-width: 18rem;");
+    expect(stylesCss).toContain("--ds-layout-col-2-min: 384px;");
+    expect(stylesCss).toContain("--ds-layout-col-4-max-narrow: 180px;");
     expect(stylesCss).toContain("--ds-shadow-raised:");
+  });
+
+  it("keeps runtime CSS and DTCG output aligned for layout tokens", () => {
+    expect(tokensJson).toContain('"section-block-padding"');
+    expect(tokensJson).toContain('"content-gap"');
+    expect(tokensJson).toContain('"stack-gap"');
+    expect(tokensJson).toContain('"sidebar-width"');
+    expect(tokensJson).toContain('"paragraph-max-width"');
   });
 });

@@ -65,6 +65,21 @@ describe("FdPageFeedback", () => {
     expect(customElements.get("fd-page-feedback")).toBeDefined();
   });
 
+  it("uses the shared shell width token for panel alignment", () => {
+    const styles = (
+      customElements.get("fd-page-feedback") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("--fd-page-feedback-max-width");
+    expect(styles).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
+    expect(styles).toContain("var(--ds-layout-section-block-padding-compact, var(--ds-spacing-xl, 24px))");
+    expect(styles).toContain("var(--ds-layout-stack-gap, var(--ds-spacing-md, 16px))");
+    expect(styles).toContain("var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px))");
+    expect(styles).toContain("var(--ds-layout-paragraph-max-width, 720px)");
+  });
+
   it("renders the default prompt view with light group semantics", async () => {
     const el = await createFeedback();
     const base = getPart(el, "base");

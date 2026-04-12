@@ -29,6 +29,8 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
   caption="Global Footer overview — the desktop footer shell. Open Storybook for the interactive playground plus dedicated desktop and mobile stories."
 />
 
+`fd-global-footer` consumes the shared page-shell alignment token and the shared major-section block padding token. Its layout hooks stay intentionally narrow so the footer continues to line up with the rest of the page shell by default.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
@@ -48,7 +50,8 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 | `--fd-global-footer-text-color` | `var(--ds-color-text-inverted, #ffffff)` | Inverted text color used inside the footer shell. |
 | `--fd-global-footer-stripe` | `linear-gradient(90deg, #d4a62a 0%, #f0cf74 30%, #c59316 60%, #e9c45d 100%)` | Decorative top stripe fill. |
 | `--fd-global-footer-padding-inline` | `64px` | Desktop inline padding. |
-| `--fd-global-footer-padding-block` | `48px` | Desktop block padding. |
+| `--fd-global-footer-max-width` | `var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))` | Maximum inline size of the footer content row. Defaults to the shared page-shell width contract. |
+| `--fd-global-footer-padding-block` | `var(--ds-layout-section-block-padding, 48px)` | Desktop block padding. Defaults to the shared major-section spacing token. |
 | `--fd-global-footer-padding-inline-mobile` | `16px` | Mobile inline padding at `640px` and below. |
 | `--fd-global-footer-padding-block-mobile` | `16px` | Mobile block padding at `640px` and below. |
 | `--fd-global-footer-seal-size` | `80px` | Decorative seal badge size. |
@@ -139,6 +142,7 @@ Integration rules:
 
 - **Pass a fully formatted update string.** The footer does not format or parse dates in v1.
 - **Use structured data, not hand-authored child links, for the footer shell.** This keeps the component's rendering predictable across desktop and mobile layouts.
+- **Prefer the shared shell defaults unless the full page shell changes.** Override the footer width or padding only when adjacent shell sections are intentionally using the same alternate contract.
 - **Prefer native navigation behavior.** The component renders standard anchors. If your framework uses client-side routing, intercept clicks in the host layer rather than changing the component contract.
 - **Compose adjacent page feedback in the page shell, not inside the footer.** If the page also needs <code>fd-page-feedback</code>, render it as a separate sibling before the footer component.
 

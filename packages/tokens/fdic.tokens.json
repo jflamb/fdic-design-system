@@ -1732,6 +1732,12 @@
         "unit": "px"
       }
     },
+    "shell-max-width": {
+      "$value": {
+        "value": 1312,
+        "unit": "px"
+      }
+    },
     "gutter": {
       "$value": {
         "value": 64,
@@ -1753,6 +1759,138 @@
     "paragraph-max-width": {
       "$value": {
         "value": 720,
+        "unit": "px"
+      }
+    },
+    "section-block-padding": {
+      "$value": {
+        "value": 3,
+        "unit": "rem"
+      }
+    },
+    "section-block-padding-compact": {
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      }
+    },
+    "content-gap": {
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      }
+    },
+    "split-gap": {
+      "$value": {
+        "value": 2,
+        "unit": "rem"
+      }
+    },
+    "stack-gap": {
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      }
+    },
+    "sidebar-width": {
+      "$value": {
+        "value": 18,
+        "unit": "rem"
+      }
+    },
+    "col-2-min": {
+      "$value": {
+        "value": 384,
+        "unit": "px"
+      }
+    },
+    "col-2-max": {
+      "$value": {
+        "value": 688,
+        "unit": "px"
+      }
+    },
+    "col-2-gap": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "col-3-min": {
+      "$value": {
+        "value": 360,
+        "unit": "px"
+      }
+    },
+    "col-3-max": {
+      "$value": {
+        "value": 440,
+        "unit": "px"
+      }
+    },
+    "col-3-gap": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "col-4-min": {
+      "$value": {
+        "value": 256,
+        "unit": "px"
+      }
+    },
+    "col-4-max": {
+      "$value": {
+        "value": 320,
+        "unit": "px"
+      }
+    },
+    "col-4-gap": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "col-2-min-narrow": {
+      "$value": {
+        "value": 320,
+        "unit": "px"
+      }
+    },
+    "col-2-gap-narrow": {
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "col-3-min-narrow": {
+      "$value": {
+        "value": 200,
+        "unit": "px"
+      }
+    },
+    "col-3-gap-narrow": {
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "col-4-min-narrow": {
+      "$value": {
+        "value": 160,
+        "unit": "px"
+      }
+    },
+    "col-4-max-narrow": {
+      "$value": {
+        "value": 180,
+        "unit": "px"
+      }
+    },
+    "col-4-gap-narrow": {
+      "$value": {
+        "value": 16,
         "unit": "px"
       }
     }

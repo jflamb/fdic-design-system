@@ -28,6 +28,8 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
   caption="Page Feedback overview — prompt, survey follow-up, report problem, and thank-you states. Open Storybook for controls and interaction stories."
 />
 
+`fd-page-feedback` uses the shared page-shell alignment token, the compact section-padding token, the shared stack/content gap tokens, and the readable paragraph-width token for its longer survey and report copy.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
@@ -54,11 +56,12 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
 | Name | Default | Description |
 |---|---|---|
 | `--fd-page-feedback-border-image` | `var(--fdic-gradient-brand-core, var(--fdic-brand-core-light, #38b6ff))` | Decorative top rule fill applied to the feedback surface. |
+| `--fd-page-feedback-max-width` | `var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))` | Maximum inline size of the feedback panel. Defaults to the shared page-shell width contract. |
 | `--fd-page-feedback-inline-padding` | `64px` | Desktop inline padding. |
 | `--fd-page-feedback-inline-padding-mobile` | `16px` | Mobile inline padding at `640px` and below. |
-| `--fd-page-feedback-block-padding` | `24px` | Desktop block padding. |
+| `--fd-page-feedback-block-padding` | `var(--ds-layout-section-block-padding-compact, 24px)` | Desktop block padding. Defaults to the shared compact-section spacing token. |
 | `--fd-page-feedback-block-padding-mobile` | `20px` | Mobile block padding at `640px` and below. |
-| `--fd-page-feedback-gap` | `16px` | Gap between stacked elements inside survey and report states. |
+| `--fd-page-feedback-gap` | `var(--ds-layout-stack-gap, 16px)` | Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token. |
 | `--fd-page-feedback-prompt-max-width` | `344px` | Maximum inline size for the desktop prompt cluster. |
 | `--fd-page-feedback-heading-size` | `22.5px` | Heading-size override for the survey and report titles. |
 | `--fd-page-feedback-thank-you-color` | `inherit` | Thank-you message color. |
@@ -109,6 +112,7 @@ Buttons, links, icons, and textareas keep their own component-scoped tokens. `fd
 ## Content guidelines
 
 - **Keep the pattern near the page it evaluates.** The question should refer to the content people just reviewed, not to a broader site section.
+- **Keep the feedback rail aligned to the surrounding page shell.** Let the component keep its default shell width and readable text width unless the whole page intentionally diverges from the shared contract.
 - **Treat the survey path as the deeper dissatisfaction channel.** The inline component should stay small and fast; the survey can ask broader or more detailed questions.
 - **Use the report state for page-specific problems.** The two prompts work best for broken links, missing information, unexpected behavior, or other page-level issues.
 - **Avoid adding apology-heavy copy inside the component.** Keep the language direct and task-oriented so people can act quickly.

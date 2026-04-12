@@ -53,6 +53,7 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 ### Implementation guide
 
 - **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the FDIC Figma `col-2`, `col-3`, and `col-4` width and gap variables.
+- **Treat the list as a collection contract, not a general page grid.** The shared `--ds-layout-col-*` tokens are stable for collection wrappers; broader page-layout gaps and shells live in the foundations layout contract instead.
 - **Let the component own reflow.** `fd-card-group` adapts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Use a nearby heading first, then `label` only when needed.** If visible copy already names the set, the accessible label may be omitted.
 - **Slot direct `fd-card` children.** The component assigns `role="listitem"` only to direct `fd-card` children so the announced structure matches the visible collection.
@@ -79,22 +80,22 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 
 | Name | Default | Description |
 |---|---|---|
-| `--fd-card-group-col-2-min` | `384px` | Desktop minimum card-track width for the two-column constraint set. |
-| `--fd-card-group-col-2-max` | `688px` | Desktop maximum card-track width for the two-column constraint set. |
-| `--fd-card-group-col-2-gap` | `48px` | Desktop row and column gap for the two-column constraint set. |
-| `--fd-card-group-col-3-min` | `360px` | Desktop minimum card-track width for the three-column constraint set. |
-| `--fd-card-group-col-3-max` | `440px` | Desktop maximum card-track width for the three-column constraint set. |
-| `--fd-card-group-col-3-gap` | `48px` | Desktop row and column gap for the three-column constraint set. |
-| `--fd-card-group-col-4-min` | `256px` | Desktop minimum card-track width for the four-column constraint set. |
-| `--fd-card-group-col-4-max` | `320px` | Desktop maximum card-track width for the four-column constraint set. |
-| `--fd-card-group-col-4-gap` | `48px` | Desktop row and column gap for the four-column constraint set. |
-| `--fd-card-group-col-2-min-mobile` | `320px` | Narrow-screen minimum card-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum. |
-| `--fd-card-group-col-2-gap-mobile` | `16px` | Narrow-screen row and column gap for the two-column constraint set. |
-| `--fd-card-group-col-3-min-mobile` | `200px` | Narrow-screen minimum card-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum. |
-| `--fd-card-group-col-3-gap-mobile` | `16px` | Narrow-screen row and column gap for the three-column constraint set. |
-| `--fd-card-group-col-4-min-mobile` | `160px` | Narrow-screen minimum card-track width for the four-column constraint set. |
-| `--fd-card-group-col-4-max-mobile` | `180px` | Narrow-screen maximum card-track width for the four-column constraint set. |
-| `--fd-card-group-col-4-gap-mobile` | `16px` | Narrow-screen row and column gap for the four-column constraint set. |
+| `--fd-card-group-col-2-min` | `var(--ds-layout-col-2-min, 384px)` | Desktop minimum card-track width for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-2-max` | `var(--ds-layout-col-2-max, 688px)` | Desktop maximum card-track width for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-2-gap` | `var(--ds-layout-col-2-gap, 48px)` | Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-3-min` | `var(--ds-layout-col-3-min, 360px)` | Desktop minimum card-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-3-max` | `var(--ds-layout-col-3-max, 440px)` | Desktop maximum card-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-3-gap` | `var(--ds-layout-col-3-gap, 48px)` | Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-4-min` | `var(--ds-layout-col-4-min, 256px)` | Desktop minimum card-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-4-max` | `var(--ds-layout-col-4-max, 320px)` | Desktop maximum card-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-4-gap` | `var(--ds-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-2-min-mobile` | `var(--ds-layout-col-2-min-narrow, 320px)` | Narrow-screen minimum card-track width for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-2-gap-mobile` | `var(--ds-layout-col-2-gap-narrow, 16px)` | Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-3-min-mobile` | `var(--ds-layout-col-3-min-narrow, 200px)` | Narrow-screen minimum card-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-3-gap-mobile` | `var(--ds-layout-col-3-gap-narrow, 16px)` | Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-4-min-mobile` | `var(--ds-layout-col-4-min-narrow, 160px)` | Narrow-screen minimum card-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-4-max-mobile` | `var(--ds-layout-col-4-max-narrow, 180px)` | Narrow-screen maximum card-track width for the four-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-4-gap-mobile` | `var(--ds-layout-col-4-gap-narrow, 16px)` | Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
 
 ## Shadow parts
 

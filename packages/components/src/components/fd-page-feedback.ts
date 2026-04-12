@@ -80,7 +80,10 @@ export class FdPageFeedback extends LitElement {
       position: relative;
       display: block;
       box-sizing: border-box;
-      padding-block: var(--fd-page-feedback-block-padding, var(--ds-spacing-xl, 24px));
+      padding-block: var(
+        --fd-page-feedback-block-padding,
+        var(--ds-layout-section-block-padding-compact, var(--ds-spacing-xl, 24px))
+      );
       padding-inline: var(--fd-page-feedback-inline-padding, var(--ds-layout-gutter, 64px));
       background: var(
         --fd-page-feedback-background,
@@ -111,22 +114,27 @@ export class FdPageFeedback extends LitElement {
     .panel {
       display: flex;
       flex-direction: column;
-      gap: var(--fd-page-feedback-gap, var(--ds-spacing-md, 16px));
+      gap: var(--fd-page-feedback-gap, var(--ds-layout-stack-gap, var(--ds-spacing-md, 16px)));
       min-inline-size: 0;
+      max-inline-size: var(
+        --fd-page-feedback-max-width,
+        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))
+      );
+      margin-inline: auto;
     }
 
     .panel--prompt {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      gap: var(--ds-spacing-xl, 24px);
+      gap: var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px));
       flex-wrap: wrap;
     }
 
     .prompt-shell {
       display: flex;
       align-items: center;
-      gap: var(--ds-spacing-xl, 24px);
+      gap: var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px));
       flex: 1 1 auto;
       min-inline-size: 0;
     }
@@ -160,7 +168,7 @@ export class FdPageFeedback extends LitElement {
       font-size: var(--fdic-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
-      max-inline-size: 45rem;
+      max-inline-size: var(--ds-layout-paragraph-max-width, 720px);
       overflow-wrap: anywhere;
     }
 
@@ -208,8 +216,8 @@ export class FdPageFeedback extends LitElement {
 
     .report-fields {
       display: grid;
-      gap: var(--ds-spacing-md, 16px);
-      inline-size: min(100%, 45rem);
+      gap: var(--ds-layout-stack-gap, var(--ds-spacing-md, 16px));
+      inline-size: min(100%, var(--ds-layout-paragraph-max-width, 720px));
     }
 
     .report-field {

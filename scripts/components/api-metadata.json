@@ -3394,13 +3394,13 @@
         },
         {
           "name": "--fd-page-header-max-width",
-          "defaultValue": "`1440px`",
-          "description": "Maximum inline size of the page header content area."
+          "defaultValue": "`var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))`",
+          "description": "Maximum inline size of the page header content area. Defaults to the shared page-shell width contract."
         },
         {
           "name": "--fd-page-header-padding-block",
-          "defaultValue": "`48px`",
-          "description": "Block (vertical) padding on desktop."
+          "defaultValue": "`var(--ds-layout-section-block-padding, 48px)`",
+          "description": "Block (vertical) padding on desktop. Defaults to the shared major-section spacing token."
         },
         {
           "name": "--fd-page-header-padding-inline",
@@ -3695,6 +3695,11 @@
           "description": "Decorative top rule fill applied to the feedback surface."
         },
         {
+          "name": "--fd-page-feedback-max-width",
+          "default": "`var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))`",
+          "description": "Maximum inline size of the feedback panel. Defaults to the shared page-shell width contract."
+        },
+        {
           "name": "--fd-page-feedback-inline-padding",
           "default": "`64px`",
           "description": "Desktop inline padding."
@@ -3706,8 +3711,8 @@
         },
         {
           "name": "--fd-page-feedback-block-padding",
-          "default": "`24px`",
-          "description": "Desktop block padding."
+          "default": "`var(--ds-layout-section-block-padding-compact, 24px)`",
+          "description": "Desktop block padding. Defaults to the shared compact-section spacing token."
         },
         {
           "name": "--fd-page-feedback-block-padding-mobile",
@@ -3716,8 +3721,8 @@
         },
         {
           "name": "--fd-page-feedback-gap",
-          "default": "`16px`",
-          "description": "Gap between stacked elements inside survey and report states."
+          "default": "`var(--ds-layout-stack-gap, 16px)`",
+          "description": "Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token."
         },
         {
           "name": "--fd-page-feedback-prompt-max-width",
@@ -3933,83 +3938,83 @@
       "rows": [
         {
           "name": "--fd-tile-list-col-2-min",
-          "default": "`384px`",
-          "description": "Desktop minimum tile-track width for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-min, 384px)`",
+          "description": "Desktop minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-max",
-          "default": "`688px`",
-          "description": "Desktop maximum tile-track width for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-max, 688px)`",
+          "description": "Desktop maximum tile-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-gap, 48px)`",
+          "description": "Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-min",
-          "default": "`360px`",
-          "description": "Desktop minimum tile-track width for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-min, 360px)`",
+          "description": "Desktop minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-max",
-          "default": "`440px`",
-          "description": "Desktop maximum tile-track width for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-max, 440px)`",
+          "description": "Desktop maximum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-gap, 48px)`",
+          "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-min",
-          "default": "`256px`",
-          "description": "Desktop minimum tile-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-min, 256px)`",
+          "description": "Desktop minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-max",
-          "default": "`320px`",
-          "description": "Desktop maximum tile-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-max, 320px)`",
+          "description": "Desktop maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-gap, 48px)`",
+          "description": "Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-min-mobile",
-          "default": "`320px`",
-          "description": "Narrow-screen minimum tile-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+          "default": "`var(--ds-layout-col-2-min-narrow, 320px)`",
+          "description": "Narrow-screen minimum tile-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-2-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-min-mobile",
-          "default": "`200px`",
-          "description": "Narrow-screen minimum tile-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+          "default": "`var(--ds-layout-col-3-min-narrow, 200px)`",
+          "description": "Narrow-screen minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-min-mobile",
-          "default": "`160px`",
-          "description": "Narrow-screen minimum tile-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-min-narrow, 160px)`",
+          "description": "Narrow-screen minimum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-max-mobile",
-          "default": "`180px`",
-          "description": "Narrow-screen maximum tile-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-max-narrow, 180px)`",
+          "description": "Narrow-screen maximum tile-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-4-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         }
       ],
       "after": ""
@@ -4190,83 +4195,83 @@
       "rows": [
         {
           "name": "--fd-event-list-col-2-min",
-          "default": "`384px`",
-          "description": "Desktop minimum event-track width for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-min, 384px)`",
+          "description": "Desktop minimum event-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-max",
-          "default": "`688px`",
-          "description": "Desktop maximum event-track width for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-max, 688px)`",
+          "description": "Desktop maximum event-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-gap, 48px)`",
+          "description": "Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-min",
-          "default": "`360px`",
-          "description": "Desktop minimum event-track width for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-min, 360px)`",
+          "description": "Desktop minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-max",
-          "default": "`440px`",
-          "description": "Desktop maximum event-track width for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-max, 440px)`",
+          "description": "Desktop maximum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-gap, 48px)`",
+          "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-min",
-          "default": "`256px`",
-          "description": "Desktop minimum event-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-min, 256px)`",
+          "description": "Desktop minimum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-max",
-          "default": "`320px`",
-          "description": "Desktop maximum event-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-max, 320px)`",
+          "description": "Desktop maximum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-gap, 48px)`",
+          "description": "Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-min-mobile",
-          "default": "`320px`",
-          "description": "Narrow-screen minimum event-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+          "default": "`var(--ds-layout-col-2-min-narrow, 320px)`",
+          "description": "Narrow-screen minimum event-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-2-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-min-mobile",
-          "default": "`200px`",
-          "description": "Narrow-screen minimum event-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+          "default": "`var(--ds-layout-col-3-min-narrow, 200px)`",
+          "description": "Narrow-screen minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-min-mobile",
-          "default": "`160px`",
-          "description": "Narrow-screen minimum event-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-min-narrow, 160px)`",
+          "description": "Narrow-screen minimum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-max-mobile",
-          "default": "`180px`",
-          "description": "Narrow-screen maximum event-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-max-narrow, 180px)`",
+          "description": "Narrow-screen maximum event-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-4-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         }
       ],
       "after": ""
@@ -4488,9 +4493,14 @@
           "description": "Desktop inline padding."
         },
         {
+          "name": "--fd-global-footer-max-width",
+          "default": "`var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))`",
+          "description": "Maximum inline size of the footer content row. Defaults to the shared page-shell width contract."
+        },
+        {
           "name": "--fd-global-footer-padding-block",
-          "default": "`48px`",
-          "description": "Desktop block padding."
+          "default": "`var(--ds-layout-section-block-padding, 48px)`",
+          "description": "Desktop block padding. Defaults to the shared major-section spacing token."
         },
         {
           "name": "--fd-global-footer-padding-inline-mobile",
@@ -4593,83 +4603,83 @@
       "rows": [
         {
           "name": "--fd-card-group-col-2-min",
-          "default": "`384px`",
-          "description": "Desktop minimum card-track width for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-min, 384px)`",
+          "description": "Desktop minimum card-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-max",
-          "default": "`688px`",
-          "description": "Desktop maximum card-track width for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-max, 688px)`",
+          "description": "Desktop maximum card-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-gap, 48px)`",
+          "description": "Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-min",
-          "default": "`360px`",
-          "description": "Desktop minimum card-track width for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-min, 360px)`",
+          "description": "Desktop minimum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-max",
-          "default": "`440px`",
-          "description": "Desktop maximum card-track width for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-max, 440px)`",
+          "description": "Desktop maximum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-gap, 48px)`",
+          "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-min",
-          "default": "`256px`",
-          "description": "Desktop minimum card-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-min, 256px)`",
+          "description": "Desktop minimum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-max",
-          "default": "`320px`",
-          "description": "Desktop maximum card-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-max, 320px)`",
+          "description": "Desktop maximum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-gap",
-          "default": "`48px`",
-          "description": "Desktop row and column gap for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-gap, 48px)`",
+          "description": "Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-min-mobile",
-          "default": "`320px`",
-          "description": "Narrow-screen minimum card-track width for the two-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+          "default": "`var(--ds-layout-col-2-min-narrow, 320px)`",
+          "description": "Narrow-screen minimum card-track width for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-2-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the two-column constraint set."
+          "default": "`var(--ds-layout-col-2-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-min-mobile",
-          "default": "`200px`",
-          "description": "Narrow-screen minimum card-track width for the three-column constraint set. The mobile track expands to fill available space once it clears this minimum."
+          "default": "`var(--ds-layout-col-3-min-narrow, 200px)`",
+          "description": "Narrow-screen minimum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-3-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the three-column constraint set."
+          "default": "`var(--ds-layout-col-3-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-min-mobile",
-          "default": "`160px`",
-          "description": "Narrow-screen minimum card-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-min-narrow, 160px)`",
+          "description": "Narrow-screen minimum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-max-mobile",
-          "default": "`180px`",
-          "description": "Narrow-screen maximum card-track width for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-max-narrow, 180px)`",
+          "description": "Narrow-screen maximum card-track width for the four-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-card-group-col-4-gap-mobile",
-          "default": "`16px`",
-          "description": "Narrow-screen row and column gap for the four-column constraint set."
+          "default": "`var(--ds-layout-col-4-gap-narrow, 16px)`",
+          "description": "Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token."
         }
       ],
       "after": ""

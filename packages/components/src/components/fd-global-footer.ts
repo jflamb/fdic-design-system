@@ -108,15 +108,24 @@ export class FdGlobalFooter extends LitElement {
 
     .base {
       box-sizing: border-box;
-      padding-block: var(--fd-global-footer-padding-block, var(--ds-spacing-3xl, 48px));
+      padding-block: var(
+        --fd-global-footer-padding-block,
+        var(--ds-layout-section-block-padding, var(--ds-spacing-3xl, 48px))
+      );
       padding-inline: var(--fd-global-footer-padding-inline, var(--ds-layout-gutter, 64px));
     }
 
     .content {
       display: flex;
-      gap: var(--fd-global-footer-content-gap, var(--ds-spacing-lg, 20px));
+      gap: var(
+        --fd-global-footer-content-gap,
+        var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px))
+      );
       align-items: flex-start;
-      max-inline-size: var(--fd-global-footer-max-width, var(--ds-layout-max-width, 1440px));
+      max-inline-size: var(
+        --fd-global-footer-max-width,
+        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))
+      );
       margin-inline: auto;
       min-inline-size: 0;
     }

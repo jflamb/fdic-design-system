@@ -62,6 +62,20 @@ All interactive elements must use the standard focus ring approach:
 - `--ds-shadow-menu`: Elevation for menus.
 - `--ds-shadow-panel`: Deepest elevation for dialogs and modals.
 
+### 1.5 Layout
+**Shared Page Shell**
+- `--ds-layout-shell-max-width`: Common inner width for page-level chrome and content wrappers that should align horizontally.
+- `--ds-layout-content-max-width`: Content width baseline when a shell-specific width is not required.
+- `--ds-layout-gutter`, `--ds-layout-gutter-tablet`, `--ds-layout-gutter-mobile`: Standard horizontal gutters across breakpoints.
+- `--ds-layout-section-block-padding`, `--ds-layout-section-block-padding-compact`: Approved section block padding defaults for major and compact full-width sections.
+- `--ds-layout-content-gap`, `--ds-layout-stack-gap`, `--ds-layout-split-gap`: Shared page-composition gaps for peer regions, vertical stacks, and sidebar/main splits.
+- `--ds-layout-sidebar-width`: Preferred sidebar rail width for documented split layouts.
+- `--ds-layout-paragraph-max-width`: Readable long-form content width.
+
+**Shared Collection Columns**
+- `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, `--ds-layout-col-4-*`: Approved desktop min, max, and gap recipes for 2-column, 3-column, and 4-column collection layouts.
+- `--ds-layout-col-2-*-narrow`, `--ds-layout-col-3-*-narrow`, `--ds-layout-col-4-*-narrow`: Narrow-screen variants of the same recipes.
+
 ---
 
 ## 2. Component Specifications
@@ -69,11 +83,40 @@ All interactive elements must use the standard focus ring approach:
 ### 2.0 Collection Layouts (`fd-card-group`, `fd-tile-list`, `fd-event-list`)
 - Collection wrappers use CSS Grid to flow items left-to-right, then top-to-bottom.
 - Use the approved layout recipes only: `2`, `3`, and `4` columns.
-- Width constraints and gaps must come from the corresponding Figma `col-#-min`, `col-#-max`, and `col-#-gap` variables.
+- Width constraints and gaps must come from the shared `--ds-layout-col-*` tokens, which encode the approved Figma `col-#-min`, `col-#-max`, and `col-#-gap` recipes.
 - Collection layout behavior is container-aware. Components should react to their available inline size rather than only to the viewport.
 - When Figma uses very large mobile max values to indicate effectively unbounded tracks, treat that as a fill behavior in code rather than exposing a literal `9999px` contract.
 - Collection wrappers own the responsive grid rules. Child cards, tiles, and event items should stretch to fill the assigned track instead of defining competing layout widths.
+- Preserve the component-level `--fd-*` layout variables as explicit override hooks, but default them to the shared `--ds-layout-col-*` tokens instead of duplicating recipe values inside each component.
 - Preserve list semantics for content collections: the wrapper should expose `role="list"` and direct collection items should expose `role="listitem"` when native semantics do not already provide the correct structure.
+
+### 2.0.1 Page Shell Alignment
+- Use `--ds-layout-shell-max-width` to align the global header, page header, page feedback, footer, and page-content wrappers.
+- Section backgrounds, dividers, and border treatments may span full bleed, but the section's inner content wrapper should stay pinned to the shared shell width unless a documented pattern intentionally diverges.
+- Prefer shared shell and gutter tokens over page-specific max-width values. Introduce a component-level override only when a page-level pattern has a clear, documented reason to diverge.
+
+### 2.0.2 Section wrappers, readable rails, and split layouts
+
+Stable tokens:
+
+- Use `--ds-layout-section-block-padding` for major shell sections and `--ds-layout-section-block-padding-compact` for smaller supporting sections.
+- Use `--ds-layout-paragraph-max-width` for sustained long-form reading content.
+- Use `--ds-layout-content-gap`, `--ds-layout-stack-gap`, and `--ds-layout-split-gap` for shared page-composition rhythm.
+- Use `--ds-layout-sidebar-width` as the preferred sidebar rail width when a sidebar/main split is needed.
+
+Documented patterns, not separate token APIs:
+
+- Full-bleed sections with constrained inner wrappers.
+- Sidebar/content split collapse behavior on narrow containers.
+- Exact page templates, hero compositions, and campaign-specific layout recipes.
+- Section-specific inner wrappers that intentionally diverge from the common shell.
+
+Accessibility expectations:
+
+- Layouts must reflow cleanly at zoom without overlap or horizontal scrolling for primary content.
+- Readable rails should keep long-form copy within comfortable line lengths.
+- Full-bleed sections must still preserve a constrained inner reading area.
+- Focus indicators and touch targets must remain visible and usable within constrained shells and split layouts.
 
 ### 2.1 Buttons (`fd-button`)
 - **Focus State:** Employs the standard 2px gap and 4px focus ring.

@@ -116,6 +116,9 @@ describe("FdGlobalFooter", () => {
 
     expect(cssText).toContain("container-type: inline-size");
     expect(cssText).toContain("@container (max-width: 640px)");
+    expect(cssText).toContain("var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))");
+    expect(cssText).toContain("var(--ds-layout-section-block-padding, var(--ds-spacing-3xl, 48px))");
+    expect(cssText).toContain("var(--ds-layout-content-gap, var(--ds-spacing-xl, 24px))");
   });
 
   it("keeps the mobile agency block centered without collapsing it to min-content width", () => {

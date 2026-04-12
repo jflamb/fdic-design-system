@@ -56,14 +56,20 @@ export class FdPageHeader extends LitElement {
         --fd-page-header-bg,
         var(--ds-color-primary-500)
       );
-      padding-block: var(--fd-page-header-padding-block, var(--ds-spacing-3xl, 48px));
+      padding-block: var(
+        --fd-page-header-padding-block,
+        var(--ds-layout-section-block-padding, var(--ds-spacing-3xl, 48px))
+      );
       padding-inline: var(--fd-page-header-padding-inline, var(--ds-layout-gutter, 64px));
     }
 
     /* --- Content (constrained width) --- */
 
     .content {
-      max-inline-size: var(--fd-page-header-max-width, var(--ds-layout-max-width, 1440px));
+      max-inline-size: var(
+        --fd-page-header-max-width,
+        var(--ds-layout-shell-max-width, var(--ds-layout-content-max-width, 1312px))
+      );
       margin-inline: auto;
       display: flex;
       flex-direction: column;
