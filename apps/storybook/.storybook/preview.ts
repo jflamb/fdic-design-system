@@ -81,15 +81,26 @@ if (typeof window !== "undefined") {
     if (msg.includes("Lit is in dev mode")) return;
     _originalWarn.apply(console, args);
   };
+  const _originalError = console.error;
+  console.error = (...args: unknown[]) => {
+    const msg = typeof args[0] === "string" ? args[0] : String(args[0] ?? "");
+    if (msg.includes(RESIZE_OBSERVER_LOOP_MESSAGE)) return;
+    _originalError.apply(console, args);
+  };
 
   // Chromium can surface benign ResizeObserver loop warnings during complex
   // Storybook interactions such as the global-header stories. Ignore only this
   // known browser noise so Vitest browser runs stay focused on real regressions.
-  window.addEventListener("error", (event) => {
-    if (event.message === RESIZE_OBSERVER_LOOP_MESSAGE) {
-      event.preventDefault();
-    }
-  });
+  window.addEventListener(
+    "error",
+    (event) => {
+      if (event.message === RESIZE_OBSERVER_LOOP_MESSAGE) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    },
+    { capture: true },
+  );
 
   window.addEventListener("message", (event: MessageEvent<unknown>) => {
     const data = event.data;
