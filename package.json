@@ -19,7 +19,7 @@
     "sync:components": "node scripts/components/sync.mjs",
     "validate:components": "node scripts/components/validate.mjs",
     "validate:tokens": "npm run validate --workspace @jflamb/fdic-ds-tokens",
-    "validate:packages": "node scripts/validate-package-surfaces.mjs && node scripts/validate-doc-contracts.mjs && node scripts/validate-downstream-reference.mjs",
+    "validate:packages": "node scripts/validate-package-surfaces.mjs && node scripts/validate-doc-contracts.mjs && node scripts/validate-downstream-reference.mjs && node scripts/validate-storybook-a11y.mjs",
     "validate:react": "npm run build --workspace @fdic-ds/react && node scripts/validate-react-package.mjs",
     "validate:release": "npm run validate:packages && npm run validate:components && npm run test:components && npm run test:storybook && npm run validate:react && npm run build",
     "new:component": "node scripts/components/scaffold.mjs",

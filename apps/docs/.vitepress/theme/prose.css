@@ -894,7 +894,10 @@
 
 /* Back-link */
 .prose .prose-footnotes a[href^="#ref"] {
-  text-decoration: none;
+  color: var(--fdic-color-link-default, #0D6191);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
   margin-left: 0.25em;
 }
 
@@ -1206,6 +1209,7 @@
 }
 
 .prose-toc a {
+  color: var(--fdic-color-link-default, #0D6191);
   text-decoration: none;
 }
 
@@ -1382,6 +1386,7 @@ html {
 /* --- TOC active state ---------------------------------------------------- */
 
 .prose-toc a {
+  color: var(--fdic-color-link-default, #0D6191);
   transition: color 0.2s ease;
 }
 
@@ -1844,5 +1849,9 @@ html {
     outline: 3px solid LinkText;
     box-shadow: none;
   }
+}
+
+.prose .prose-toc a {
+  color: var(--fdic-color-link-default, #0D6191);
 }
 }

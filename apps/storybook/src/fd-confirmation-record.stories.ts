@@ -10,6 +10,11 @@ import {
 const meta = {
   title: "Supporting Primitives/Confirmation Record",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   render: () => html`
     <fd-confirmation-record
       heading="Filing update received"

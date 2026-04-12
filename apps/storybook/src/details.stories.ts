@@ -15,6 +15,11 @@ type DetailsArgs = {
 const meta = {
   title: "Prose/Details",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     summary: { control: "text" },
     content: { control: "text" },

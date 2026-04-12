@@ -6,3 +6,49 @@
  */
 
 @import "@jflamb/fdic-ds-tokens/styles.css";
+
+fd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+fd-field[hidden] {
+  display: none;
+}
+
+fd-field > fd-label {
+  margin-bottom: 0;
+}
+
+fd-field > fd-message > [part="message"] {
+  margin-top: 0;
+}
+
+fd-form-field {
+  display: grid;
+  gap: 6px;
+}
+
+fd-form-field[layout="inline-compact"] {
+  gap: 4px;
+}
+
+fd-form-field[hidden] {
+  display: none;
+}
+
+fd-form-field > [data-fd-form-field-owned="secondary"],
+fd-form-field > [slot="secondary"] {
+  color: var(--fdic-color-text-secondary, #595961);
+  font-size: var(--fdic-font-size-body-small, 1rem);
+  line-height: 1.375;
+}
+
+fd-form-field > fd-label[data-fd-form-field-owned="label"] {
+  margin-bottom: 0;
+}
+
+fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
+  margin-top: 0;
+}

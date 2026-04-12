@@ -1852,7 +1852,7 @@ export class FdGlobalHeader extends LitElement {
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
     if (this._resizeObserverFrame !== null) {
-      cancelAnimationFrame(this._resizeObserverFrame);
+      clearTimeout(this._resizeObserverFrame);
       this._resizeObserverFrame = null;
     }
     this._mobileMediaQuery?.removeEventListener(
@@ -1980,7 +1980,7 @@ export class FdGlobalHeader extends LitElement {
         return;
       }
 
-      this._resizeObserverFrame = requestAnimationFrame(() => {
+      this._resizeObserverFrame = window.setTimeout(() => {
         this._resizeObserverFrame = null;
         if (this._pendingObservedHeight) {
           this._lastObservedHeight = this._pendingObservedHeight;

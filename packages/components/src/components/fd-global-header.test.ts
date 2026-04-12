@@ -738,6 +738,7 @@ describe("fd-global-header", () => {
     // Simulate a resize while the header is in full (non-compact) state.
     mockHeight = 112;
     triggerResize(el, 1200);
+    await wait();
     await nextFrame();
     await el.updateComplete;
 
@@ -751,6 +752,7 @@ describe("fd-global-header", () => {
 
     mockHeight = 48;
     triggerResize(el, 1100);
+    await wait();
     await nextFrame();
     await el.updateComplete;
 
@@ -1410,6 +1412,7 @@ describe("fd-global-header", () => {
     const el = await createHeader();
 
     triggerResize(el, 384);
+    await wait();
     await el.updateComplete;
     await nextFrame();
 

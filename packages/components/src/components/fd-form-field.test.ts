@@ -139,6 +139,14 @@ describe("FdFormField", () => {
     warnSpy.mockRestore();
   });
 
+  it("does not inject wrapper styles into document.head", async () => {
+    const initialStyleCount = document.head.querySelectorAll("style").length;
+
+    await createField(`<fd-input name="routing-number"></fd-input>`);
+
+    expect(document.head.querySelectorAll("style")).toHaveLength(initialStyleCount);
+  });
+
   it("has no axe violations for managed text-entry composition", async () => {
     const region = document.createElement("main");
     document.body.appendChild(region);

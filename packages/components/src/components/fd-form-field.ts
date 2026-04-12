@@ -45,8 +45,6 @@ export class FdFormField extends LitElement {
   declare controlType: FormFieldControlType | undefined;
 
   private static _instanceCounter = 0;
-  private static _stylesInjected = false;
-  private static _styleEl: HTMLStyleElement | null = null;
 
   private readonly _instanceId: number;
   private _observer: MutationObserver | null = null;
@@ -120,48 +118,7 @@ export class FdFormField extends LitElement {
     this._observer = null;
   }
 
-  private _injectStyles() {
-    if (FdFormField._stylesInjected && FdFormField._styleEl?.isConnected) {
-      return;
-    }
-
-    const style = document.createElement("style");
-    style.textContent = `
-      fd-form-field {
-        display: grid;
-        gap: 6px;
-      }
-
-      fd-form-field[layout="inline-compact"] {
-        gap: 4px;
-      }
-
-      fd-form-field[hidden] {
-        display: none;
-      }
-
-      fd-form-field > [data-fd-form-field-owned="secondary"],
-      fd-form-field > [slot="secondary"] {
-        color: var(--fdic-color-text-secondary, #595961);
-        font-size: var(--fdic-font-size-body-small, 1rem);
-        line-height: 1.375;
-      }
-
-      fd-form-field > fd-label[data-fd-form-field-owned="label"] {
-        margin-bottom: 0;
-      }
-
-      fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
-        margin-top: 0;
-      }
-    `;
-    document.head.appendChild(style);
-    FdFormField._styleEl = style;
-    FdFormField._stylesInjected = true;
-  }
-
   private _syncField() {
-    this._injectStyles();
     this._syncing = true;
 
     try {
@@ -408,7 +365,6 @@ export class FdFormField extends LitElement {
   }
 
   render() {
-    this._injectStyles();
     return nothing;
   }
 }

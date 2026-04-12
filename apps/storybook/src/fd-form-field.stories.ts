@@ -11,6 +11,9 @@ const meta = {
   title: "Supporting Primitives/Form Field",
   tags: ["autodocs"],
   parameters: {
+    a11y: {
+      test: "error",
+    },
     docs: {
       description: {
         component:

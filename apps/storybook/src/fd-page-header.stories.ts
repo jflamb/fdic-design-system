@@ -25,6 +25,11 @@ const sampleBreadcrumbs: FdPageHeaderBreadcrumb[] = [
 const meta = {
   title: "Components/Page Header",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     ...getComponentArgTypes("fd-page-header"),
     showActions: {

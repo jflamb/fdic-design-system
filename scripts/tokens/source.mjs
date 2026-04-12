@@ -88,7 +88,7 @@ export const tokenSource = {
       "info-900": "oklch(0.2943 0.0607 255.12)",
     },
     link: {
-      default: "oklch(0.5471 0.1213 240.63)",
+      default: "oklch(0.4716 0.1061 241.57)",
       visited: "oklch(0.5447 0.1216 309.32)",
       "300": "oklch(0.8562 0.0489 219.65)",
       "visited-300": "oklch(0.7329 0.0895 299.99)",

@@ -19,7 +19,9 @@ If you use the supported token entrypoints as documented, the design system give
 Current validation boundary:
 
 - component-level automated tests disable axe-core's `color-contrast` rule in happy-dom because that environment does not compute rendered contrast reliably
-- contrast still needs browser-based verification and manual review in the contexts documented on the color foundations pages
+- Storybook browser accessibility audits run against every Storybook story in Chromium and fail the test suite on violations
+- browser-based audits now cover color-contrast and other rendered checks that happy-dom cannot verify
+- manual review is still required for page-level composition, downstream overrides, zoom/reflow, and forced-colors scenarios that fall outside the shipped story coverage
 
 Those baseline expectations hold only when consumers stay on the documented token and component customization paths.
 
@@ -65,7 +67,7 @@ These ten rules govern every element, component, and pattern in the system. Viol
   </li>
   <li>
     <strong>DPUB-ARIA on footnotes</strong>
-    <p>Inline references use <code>role="doc-noteref"</code>. The footnote section uses <code>role="doc-endnotes"</code>. Each footnote <code>&lt;li&gt;</code> uses <code>role="doc-footnote"</code>. Back-links use <code>role="doc-backlink"</code>. These roles enable assistive technology to navigate bidirectional footnote references.</p>
+    <p>Inline references use <code>role="doc-noteref"</code>. The footnote section uses <code>role="doc-endnotes"</code>. Apply <code>role="doc-footnote"</code> to the footnote content within each list item rather than to the <code>&lt;li&gt;</code> itself. Back-links use <code>role="doc-backlink"</code>. These roles enable assistive technology to navigate bidirectional footnote references without conflicting with list semantics.</p>
   </li>
   <li>
     <strong>Abbreviation expansion</strong>

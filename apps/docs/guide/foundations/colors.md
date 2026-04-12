@@ -416,7 +416,8 @@ When documenting or implementing color usage, preserve these expectations:
 Current validation note:
 
 - token values are authored with contrast targets in mind, but repository component tests do not currently enforce rendered contrast automatically because the shared happy-dom axe run disables `color-contrast`
-- confirm contrast in real browser contexts, especially after token overrides, dark-mode tuning, or page-level composition changes
+- Storybook browser accessibility audits now run against every shipped story in Chromium and fail on rendered contrast violations
+- confirm contrast again in real browser contexts after token overrides, dark-mode tuning, or downstream page-level composition changes
 
 ## Trust and content guidance
 

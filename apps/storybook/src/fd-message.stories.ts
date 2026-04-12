@@ -51,6 +51,9 @@ const meta = {
     forId: "message-story-input",
   },
   parameters: {
+    a11y: {
+      test: "error",
+    },
     docs: {
       description: {
         component:

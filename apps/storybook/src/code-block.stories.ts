@@ -11,6 +11,11 @@ type CodeBlockArgs = {
 const meta = {
   title: "Prose/Code Block",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     code: { control: "text" },
     language: { control: "text" },

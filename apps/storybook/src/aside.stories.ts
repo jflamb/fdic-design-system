@@ -9,6 +9,11 @@ type AsideArgs = {
 const meta = {
   title: "Prose/Aside",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     content: { control: "text" },
     label: { control: "text" }

@@ -30,6 +30,11 @@ const reviewItems: ReviewListItem[] = [
 const meta = {
   title: "Supporting Primitives/Review List",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   render: () => html`
     <fd-review-list
       heading="Review the information before you submit"

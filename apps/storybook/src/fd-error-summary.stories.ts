@@ -23,6 +23,11 @@ const defaultItems: ErrorSummaryItem[] = [
 const meta = {
   title: "Supporting Primitives/Error Summary",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   render: () => html`
     <fd-error-summary
       .items=${defaultItems}
