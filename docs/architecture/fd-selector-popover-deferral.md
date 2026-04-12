@@ -1,30 +1,46 @@
-# fd-selector popover deferral
+# fd-selector popover migration
 
-`fd-selector` still uses an absolutely positioned listbox with `z-index: 9999`.
+## Status: Completed (2026-04-12)
 
-We reviewed whether to replace that path with the Popover API during the cleanup and hardening phase on April 11, 2026. The result was a deferral, not because the browser platform is standing still, but because this repository still lacks an explicit browser support policy that says which browser versions are in scope for core form controls.
+`fd-selector` now uses the Popover API (`popover="manual"`) for its dropdown listbox,
+eliminating the `z-index: 9999` stacking hack.
 
-## Why this is deferred
+## Approach chosen
 
-- The Popover API is broadly available across current browsers.
-- CSS anchor positioning only reached MDN Baseline in January 2026, which is too recent to treat as an implicit requirement for all consumers without a documented support target.
-- `fd-selector` is a first-class input control with a large existing test surface and form behavior contracts. A migration would change dismissal, focus, keyboard, and placement behavior at the platform primitive level.
-- Replacing the current path before the project declares browser guarantees would turn a platform compatibility decision into an implementation detail.
+- **Popover API** (`popover="manual"`) promotes the listbox to the top layer.
+  This provides correct stacking without z-index in all supported browsers.
+- **Fixed positioning with JS coordinates**: On open, the listbox is positioned
+  using `getBoundingClientRect()` of the trigger button. This replaces the
+  `position: absolute; top: 100%` pattern which doesn't work for top-layer elements.
+- **CSS Anchor Positioning was NOT used**: It's only available in Chrome 125+
+  and has no Firefox or Safari support as of April 2026. The browser support
+  floor (Chrome/Edge 123+, Firefox 128+, Safari 17.5+) does not guarantee it.
+- **Graceful degradation**: If `showPopover()` is not available (e.g., in
+  happy-dom test environment), the component falls back to the `hidden` attribute
+  for visibility toggling. The popover is additive, not required.
 
-## Revisit trigger
+## What changed
 
-Revisit this migration when all of the following are true:
+- `z-index: 9999` removed from listbox styles.
+- `position: absolute` replaced with `position: fixed`.
+- `popover="manual"` added to the listbox element in the template.
+- `_openListbox()` calls `showPopover()` + `_positionListbox()`.
+- `_closeListbox()` calls `hidePopover()`.
+- `?hidden=${!this.open}` retained as a CSS fallback for environments without
+  Popover API support.
+- Two new tests verify the `popover` attribute and absence of z-index.
 
-1. The design system publishes a browser support matrix or browserslist-equivalent policy.
-2. That policy explicitly includes browsers with stable Popover API and CSS anchor positioning support.
-3. The migration plan includes regression coverage for open/close behavior, `Esc` dismissal, click-outside dismissal, keyboard navigation, form validity anchoring, and constrained container layouts.
+## Remaining limitation
 
-## Preferred future direction
+CSS Anchor Positioning would allow declarative placement without JS. When the
+browser support floor includes anchor positioning (Firefox and Safari ship it),
+the JS positioning logic in `_positionListbox()` can be replaced with:
 
-When the support matrix allows it, prefer:
+```css
+[part="listbox"] {
+  position-anchor: --fd-selector-trigger;
+  inset-area: block-end span-inline-end;
+}
+```
 
-- a popover-backed listbox in the top layer
-- browser-managed dismissal semantics where they match the component contract
-- anchor-positioned placement instead of a hard-coded stacking escape hatch
-
-That should allow the component to drop the `z-index: 9999` fallback and simplify dismissal plumbing.
+Until then, the JS positioning is minimal and correct.

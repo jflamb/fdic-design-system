@@ -159,11 +159,14 @@ export class FdSelector extends LitElement {
     /* --- Listbox / dropdown --- */
 
     [part="listbox"] {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-      margin-top: 2px;
+      /* Popover API promotes this element to the top layer, eliminating z-index.
+       * Position is computed via JS on open (see _positionListbox).
+       * The hidden attribute provides a CSS-independent hide mechanism for
+       * environments without Popover API support (e.g., test shims). */
+      position: fixed;
+      margin: 0;
+      padding: 0;
+      inset: unset;
       max-height: var(--fd-selector-dropdown-max-height, 280px);
       overflow-y: auto;
       background: var(--fd-selector-dropdown-bg, var(--ds-color-bg-base));
@@ -174,13 +177,6 @@ export class FdSelector extends LitElement {
         );
       border-radius: var(--fd-selector-border-radius, var(--ds-corner-radius-sm, 3px));
       box-shadow: var(--fd-selector-dropdown-shadow, var(--ds-shadow-dropdown));
-      /*
-       * Revisit this once the repo defines a browser support matrix that
-       * explicitly guarantees both the Popover API and CSS anchor positioning.
-       * Until then, this selector keeps the positioned listbox path to avoid
-       * regressing a core form control on browsers that lag those primitives.
-       */
-      z-index: 9999;
       box-sizing: border-box;
     }
 
@@ -465,11 +461,32 @@ export class FdSelector extends LitElement {
   private _openListbox() {
     if (this.disabled || this.open) return;
     this.open = true;
+    const listbox = this._getListbox();
+    if (listbox) {
+      if (typeof listbox.showPopover === "function") {
+        listbox.showPopover();
+        this._positionListbox(listbox);
+      }
+    }
   }
 
   private _closeListbox() {
     if (!this.open) return;
     this.open = false;
+    const listbox = this._getListbox();
+    if (listbox && typeof listbox.hidePopover === "function") {
+      try { listbox.hidePopover(); } catch { /* already hidden */ }
+    }
+  }
+
+  /** Position the popover listbox below the trigger using fixed coordinates. */
+  private _positionListbox(listbox: HTMLElement) {
+    const trigger = this.shadowRoot?.querySelector<HTMLElement>('[part="trigger"]');
+    if (!trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    listbox.style.top = `${rect.bottom + 2}px`;
+    listbox.style.left = `${rect.left}px`;
+    listbox.style.width = `${rect.width}px`;
   }
 
   private _onOpenChange() {
@@ -972,6 +989,7 @@ export class FdSelector extends LitElement {
           part="listbox"
           id=${listboxId}
           role="listbox"
+          popover="manual"
           aria-labelledby=${this.label ? labelId : ""}
           aria-multiselectable=${this.variant === "multiple" ? "true" : nothing}
           aria-activedescendant=${this._activeDescendantId || nothing}

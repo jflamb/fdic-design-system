@@ -1360,4 +1360,17 @@ describe("fd-selector", () => {
 
     expect(el.open).toBe(true);
   });
+
+  it("listbox has popover='manual' attribute", async () => {
+    const el = await createSelector({ label: "Account type" });
+    const listbox = getListbox(el);
+    expect(listbox.getAttribute("popover")).toBe("manual");
+  });
+
+  it("does not include z-index: 9999 in listbox styles", async () => {
+    const el = await createSelector({ label: "Account type" });
+    const listbox = getListbox(el);
+    const style = getComputedStyle(listbox);
+    expect(style.zIndex).not.toBe("9999");
+  });
 });
