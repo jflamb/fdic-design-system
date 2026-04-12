@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Browser support documentation with a published support matrix and root Browserslist target.
 - Consumer guides for token usage, CMS integration, and trust-pattern adoption, plus a contributor quick-start in `CONTRIBUTING.md`.
 - Popover API migration for the `fd-selector` dropdown, replacing the legacy overlay layering path.
+- GitHub Discussion [#184](https://github.com/jflamb/fdic-design-system/discussions/184) to collect downstream feedback on token namespace unification and alias-removal timing.
 
 ### Changed
 
@@ -24,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Clarified the token namespace contract so new adoption prefers `--ds-*` while public `--fdic-*` typography families remain supported.
 - Converted all `--fdic-*` typography tokens into deprecated aliases of canonical `--ds-*` equivalents.
 - Migrated component and docs CSS token-family call sites from `var(--fdic-*)` to `var(--ds-*)`.
+- Migrated `apps/docs/.vitepress/theme/prose.css` spacing and radius usage from `--fdic-*` tokens to canonical `--ds-*` tokens and removed the redundant local token declarations.
+- Renamed prose-local callout variables from `--fdic-callout-*` to `--fdic-docs-callout-*` for docs-theme namespace consistency.
 
 ### Fixed
 

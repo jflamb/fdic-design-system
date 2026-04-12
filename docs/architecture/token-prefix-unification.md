@@ -54,7 +54,9 @@ This does not mean immediate renaming. It means:
 
 ## Discussion Recommendation
 
-Post this recommendation as a GitHub Discussion so downstream consumers can comment on:
+This recommendation is posted for downstream feedback in GitHub Discussion [#184](https://github.com/jflamb/fdic-design-system/discussions/184).
+
+Please use that thread to comment on:
 
 - which `--fdic-*` families they use directly
 - whether aliases are sufficient for migration
