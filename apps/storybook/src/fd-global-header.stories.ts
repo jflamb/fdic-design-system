@@ -115,7 +115,6 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
       "background: var(--fdic-color-bg-container, #f5f8fb)",
       "color: var(--fdic-color-text-primary, #212123)",
       "position: relative",
-      "z-index: -1",
       "overflow: hidden",
     ].join("; ")}
   >
