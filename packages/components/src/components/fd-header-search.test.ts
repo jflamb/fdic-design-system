@@ -35,6 +35,22 @@ async function nextFrame() {
   await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
 
+async function waitForExpectation(expectation: () => void, attempts = 10) {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      expectation();
+      return;
+    } catch (error) {
+      lastError = error;
+      await nextFrame();
+    }
+  }
+
+  throw lastError;
+}
+
 async function createSearch({
   surface = "desktop",
   open = false,
@@ -268,9 +284,9 @@ describe("fd-header-search", () => {
       );
 
       await el.updateComplete;
-      await nextFrame();
-
-      expect(scrollIntoViewSpy).toHaveBeenCalled();
+      await waitForExpectation(() => {
+        expect(scrollIntoViewSpy).toHaveBeenCalled();
+      });
       expect(scrollIntoViewSpy).toHaveBeenLastCalledWith({
         block: "nearest",
         inline: "nearest",
