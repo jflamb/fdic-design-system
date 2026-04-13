@@ -19,7 +19,10 @@ export const componentsRoot = path.join(
   repoRoot,
   "packages/components/src/components",
 );
-export const registerRoot = path.join(repoRoot, "packages/components/src/register");
+export const registerRoot = path.join(
+  repoRoot,
+  "packages/components/src/register",
+);
 export const storybookGeneratedPath = path.join(
   repoRoot,
   "apps/storybook/src/generated/component-arg-types.ts",
@@ -32,7 +35,10 @@ export const componentIndexPath = path.join(
   repoRoot,
   "apps/docs/components/index.md",
 );
-export const docsConfigPath = path.join(repoRoot, "apps/docs/.vitepress/config.ts");
+export const docsConfigPath = path.join(
+  repoRoot,
+  "apps/docs/.vitepress/config.ts",
+);
 export const componentsPackagePath = path.join(
   repoRoot,
   "packages/components/package.json",
@@ -41,8 +47,14 @@ export const componentsIndexPath = path.join(
   repoRoot,
   "packages/components/src/index.ts",
 );
-export const reactIndexPath = path.join(repoRoot, "packages/react/src/index.ts");
-export const reactGeneratedRoot = path.join(repoRoot, "packages/react/src/generated");
+export const reactIndexPath = path.join(
+  repoRoot,
+  "packages/react/src/index.ts",
+);
+export const reactGeneratedRoot = path.join(
+  repoRoot,
+  "packages/react/src/generated",
+);
 export const tsupConfigPath = path.join(
   repoRoot,
   "packages/components/tsup.config.ts",
@@ -150,11 +162,7 @@ function normalizeLiteral(value) {
     (value.startsWith('"') && value.endsWith('"')) ||
     (value.startsWith("'") && value.endsWith("'"))
   ) {
-    return JSON.parse(
-      value
-        .replace(/^'/, '"')
-        .replace(/'$/, '"'),
-    );
+    return JSON.parse(value.replace(/^'/, '"').replace(/'$/, '"'));
   }
 
   return value;
@@ -200,7 +208,9 @@ export function extractSlotNames(sourceText) {
 export function extractEventNames(sourceText) {
   const events = new Set();
 
-  for (const match of sourceText.matchAll(/new\s+CustomEvent(?:<[^>]+>)?\("([^"]+)"/g)) {
+  for (const match of sourceText.matchAll(
+    /new\s+CustomEvent(?:<[^>]+>)?\s*\(\s*"([^"]+)"/g,
+  )) {
     events.add(match[1]);
   }
 
