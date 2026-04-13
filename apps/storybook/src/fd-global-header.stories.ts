@@ -248,8 +248,6 @@ const renderHeader = (
         ? [
             "max-width: 24rem",
             "margin-inline: auto",
-            "overflow: hidden",
-            "transform: translateZ(0)",
             "isolation: isolate",
           ].join("; ")
         : "width: 100%; isolation: isolate",
