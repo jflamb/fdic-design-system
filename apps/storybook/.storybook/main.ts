@@ -10,6 +10,22 @@ const config: StorybookConfig = {
   async viteFinal(existingConfig) {
     existingConfig.resolve ??= {};
     existingConfig.optimizeDeps ??= {};
+    existingConfig.build ??= {};
+    existingConfig.css ??= {};
+
+    // Storybook's Lightning CSS build path currently lowers light-dark()
+    // tokens into non-switching custom var pairs in the static preview build.
+    // Keep the production CSS pipeline on the standard PostCSS/esbuild path so
+    // the browser can evaluate the repo's modern color functions natively.
+    existingConfig.css.transformer = "postcss";
+    existingConfig.build.cssMinify = "esbuild";
+    existingConfig.build.target = "es2022";
+    existingConfig.build.cssTarget = [
+      "chrome123",
+      "edge123",
+      "firefox128",
+      "safari17.5",
+    ];
 
     const alias = existingConfig.resolve.alias;
     const componentIndexSource = resolve(
