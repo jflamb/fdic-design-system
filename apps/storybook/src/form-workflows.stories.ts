@@ -37,8 +37,23 @@ const WORKFLOW_FORM_STYLE =
 const ACTION_ROW_STYLE =
   "display: flex; gap: var(--fdic-spacing-sm, 0.75rem); align-items: center; flex-wrap: wrap;";
 
-const NATIVE_BUTTON_STYLE =
-  "font: inherit; padding: 0.625rem 1rem; border: 1px solid currentColor; background: transparent; cursor: pointer;";
+const NATIVE_BUTTON_STYLE = [
+  "display: inline-flex",
+  "align-items: center",
+  "justify-content: center",
+  "min-height: 44px",
+  "min-width: 44px",
+  "padding-inline: 1rem",
+  "border: none",
+  "border-radius: var(--fdic-corner-radius-sm, 3px)",
+  "background: var(--fdic-color-bg-active)",
+  "color: var(--fdic-color-text-inverted)",
+  "font: inherit",
+  "font-weight: 600",
+  "line-height: 1.375",
+  "text-decoration: none",
+  "cursor: pointer",
+].join("; ");
 
 const SECONDARY_LINK_STYLE = "font: inherit;";
 
