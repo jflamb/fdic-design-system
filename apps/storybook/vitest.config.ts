@@ -44,6 +44,28 @@ export default defineConfig({
           },
         },
       },
+      {
+        extends: true,
+        test: {
+          name: "browser",
+          include: ["src/**/*.test.ts"],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [{ browser: "chromium" }],
+            trace: shouldCollectTraces
+              ? {
+                  mode: "retain-on-failure",
+                  tracesDir: traceArtifactsDir,
+                  screenshots: true,
+                  snapshots: true,
+                  sources: true,
+                }
+              : { mode: "off" },
+          },
+        },
+      },
     ],
   },
 });

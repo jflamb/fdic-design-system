@@ -29,6 +29,8 @@ These pages explain how to use that contract safely and where the public API int
 
 The [Spacing and Layout](./spacing-layout.md) page is the canonical public layout contract. Other public docs should defer to that page rather than restating layout tokens or implementation details independently.
 
+The [Composition Patterns](./composition-patterns.md) page documents the small stable layout-class surface that CMS consumers can use when tokens alone are not enough.
+
 ## Deferred from v1
 
 - Responsive token bundles for separate desktop and mobile modes are not part of the public runtime contract yet.
@@ -59,6 +61,7 @@ The [Spacing and Layout](./spacing-layout.md) page is the canonical public layou
 - [Customization](./customization.md)
 - [Typography](./typography.md)
 - [Spacing and Layout](./spacing-layout.md)
+- [Composition Patterns](./composition-patterns.md)
 - [Surfaces and Effects](./surfaces-effects.md)
 - [Modes and Responsiveness](./modes.md)
 
