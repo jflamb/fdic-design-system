@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "VitePress Docs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "docs:dev", "--workspace", "@fdic-ds/docs", "--", "--host", "127.0.0.1"],
+      "port": 5173
+    },
+    {
+      "name": "Storybook",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "storybook", "--workspace", "@fdic-ds/storybook", "--", "--host", "127.0.0.1"],
+      "port": 6006
+    }
+  ]
+}
