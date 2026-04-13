@@ -263,9 +263,23 @@ export class FdInput extends LitElement {
     return (messages[0] as FdMessage | undefined) ?? null;
   }
 
+  private _resolveMessageState(message: FdMessage | null): MessageState {
+    const stateAttr = message?.getAttribute("state");
+    if (
+      stateAttr === "error" ||
+      stateAttr === "warning" ||
+      stateAttr === "success" ||
+      stateAttr === "default"
+    ) {
+      return stateAttr;
+    }
+
+    return (message?.state as MessageState) ?? "default";
+  }
+
   private _discoverSiblings() {
     const message = this._findMessage();
-    this._messageState = (message?.state as MessageState) ?? "default";
+    this._messageState = this._resolveMessageState(message);
     this.requestUpdate();
   }
 
