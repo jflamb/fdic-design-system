@@ -6,7 +6,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build": "storybook build",
-    "test": "vitest --project=storybook run"
+    "test": "vitest run"
   },
   "dependencies": {
     "@fdic-ds/components": "file:../../packages/components"
