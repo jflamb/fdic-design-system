@@ -217,6 +217,40 @@
     border-top-color: var(--_status-color, currentColor);
   }
 
+  /*
+   * VitePress code blocks inherit Shiki token colors via inline custom
+   * properties. Override the few values that fall below AA on the shipped
+   * docs surfaces so code examples stay readable in both modes.
+   */
+  html:not(.dark) .vp-doc div[class*="language-"] > span.lang {
+    color: var(--fdic-docs-muted) !important;
+  }
+
+  .dark .vp-doc div[class*="language-"] > span.lang {
+    color: var(--fdic-color-neutral-200, #E0E0E2) !important;
+  }
+
+  html:not(.dark) .vp-doc div[class*="language-"] .line span[style*="--shiki-light:#22863A"] {
+    color: #1f6f31 !important;
+  }
+
+  html:not(.dark) .vp-doc div[class*="language-"] .line span[style*="--shiki-light:#D73A49" i] {
+    color: #b42333 !important;
+  }
+
+  html:not(.dark) .vp-doc div[class*="language-"] .line span[style*="--shiki-light:#E36209" i] {
+    color: #8b4a00 !important;
+  }
+
+  html:not(.dark) .vp-doc div[class*="language-"] .line span[style*="--shiki-light:#6A737D" i] {
+    color: #4f5964 !important;
+  }
+
+  .dark .vp-doc div[class*="language-"] .line span[style*="--shiki-dark:#6A737D" i],
+  .dark .vp-doc div[class*="language-"] .line span[style*="--shiki-light:#6A737D" i] {
+    color: #a4acb6 !important;
+  }
+
 .fdic-foundation-intro {
   margin: 1.25rem 0 2rem;
   padding: 1.25rem;
@@ -1084,7 +1118,6 @@
 /* --- Card grid staggered entrance --- */
 @keyframes fdic-card-enter {
   from {
-    opacity: 0;
     transform: translateY(12px);
   }
 }
@@ -1115,7 +1148,6 @@
 /* --- Foundation intro entrance --- */
 @keyframes fdic-intro-enter {
   from {
-    opacity: 0;
     transform: translateY(8px);
   }
 }

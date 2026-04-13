@@ -323,6 +323,15 @@ describe("fd-global-header", () => {
     expect(styles).toContain("var(--fdic-color-border-glass-soft)");
   });
 
+  it("keeps dark-mode masthead defaults dark enough for inverted content", () => {
+    const styles = getStyleText(FdGlobalHeader.styles);
+
+    expect(styles).toContain("light-dark(#003256, #0d6191)");
+    expect(styles).toContain("light-dark(#0b466f, #1278b0)");
+    expect(styles).not.toContain("light-dark(#003256, #84dbff)");
+    expect(styles).not.toContain("light-dark(#0b466f, #38b6ff)");
+  });
+
   it("uses DS layout tokens for shell width and gutter alignment", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 
@@ -738,6 +747,7 @@ describe("fd-global-header", () => {
     // Simulate a resize while the header is in full (non-compact) state.
     mockHeight = 112;
     triggerResize(el, 1200);
+    await wait();
     await nextFrame();
     await el.updateComplete;
 
@@ -751,6 +761,7 @@ describe("fd-global-header", () => {
 
     mockHeight = 48;
     triggerResize(el, 1100);
+    await wait();
     await nextFrame();
     await el.updateComplete;
 
@@ -1410,6 +1421,7 @@ describe("fd-global-header", () => {
     const el = await createHeader();
 
     triggerResize(el, 384);
+    await wait();
     await el.updateComplete;
     await nextFrame();
 

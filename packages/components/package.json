@@ -202,6 +202,22 @@
       "types": "./dist/components/fd-card-group.d.ts",
       "import": "./dist/components/fd-card-group.js"
     },
+    "./fd-confirmation-record": {
+      "types": "./dist/components/fd-confirmation-record.d.ts",
+      "import": "./dist/components/fd-confirmation-record.js"
+    },
+    "./fd-form-field": {
+      "types": "./dist/components/fd-form-field.d.ts",
+      "import": "./dist/components/fd-form-field.js"
+    },
+    "./fd-error-summary": {
+      "types": "./dist/components/fd-error-summary.d.ts",
+      "import": "./dist/components/fd-error-summary.js"
+    },
+    "./fd-review-list": {
+      "types": "./dist/components/fd-review-list.d.ts",
+      "import": "./dist/components/fd-review-list.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

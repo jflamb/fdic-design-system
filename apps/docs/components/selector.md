@@ -22,7 +22,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **Navigation menus or action lists** — Use `fd-menu` / `fd-menu-item`. Selectors are for form values; menus are for commands.
 - **Multi-select in high-stakes government workflows** — Multi-select dropdowns hide selected state behind a trigger, creating comprehension risk. Prefer `fd-checkbox-group` for consequential multi-selection scenarios (filing types, regulatory classifications) even when the option count exceeds 5.
 - **Highly consequential single-choice selections** — If a selection triggers an irreversible action, prefer radio buttons with a separate submit button for explicit confirmation.
-- **`fd-field` composition** — Do not wrap `fd-selector` in `fd-field`. `fd-selector` already owns its own label, description, and error surface.
+- **`fd-field` composition** — Do not wrap `fd-selector` in `fd-field`. Use `fd-selector` directly or wrap it in [`fd-form-field`](/components/form-field) when you want the shared long-term field-shell contract.
 
 ## Examples
 
@@ -209,6 +209,8 @@ Compatibility note:
 - **No async option loading** — All options must be present in the DOM at render time.
 
 ## Related components
+
+- [Form Field](/components/form-field) — wrapper-based shell for shared label, description, and error authorship across control families
 
 <ul class="fdic-related-list">
   <li><a href="./radio">Radio</a> — For single-choice questions with 5 or fewer visible options.</li>

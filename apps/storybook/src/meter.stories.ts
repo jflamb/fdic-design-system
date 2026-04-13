@@ -15,6 +15,11 @@ type MeterArgs = {
 const meta = {
   title: "Prose/Meter",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     value: { control: { type: "range", min: 0, max: 20, step: 0.1 } },
     min: { control: "number" },

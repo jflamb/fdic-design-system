@@ -12,7 +12,7 @@ Use this page as the copyable downstream reference for a server-rendered CMS int
 - The integration uses only `@jflamb/fdic-ds-components` and `@jflamb/fdic-ds-tokens`.
 - Token overrides stay on documented `--fdic-*` names.
 - The form remains understandable as server-rendered HTML.
-- `fd-field` is limited to direct-child text-entry composition.
+- `fd-field` remains limited to direct-child text-entry composition, while `fd-form-field` provides the broader wrapper contract.
 - The primary submit action stays on a native `<button type="submit">`.
 
 ## Client bundle entry
@@ -64,32 +64,29 @@ This HTML is meaningful before upgrade and remains within the supported public c
   </section>
 
   <form method="post" action="/institution-profile/contact" novalidate>
-    <section
+    <fd-error-summary
       aria-labelledby="contact-errors-title"
-      tabindex="-1"
+      id="contact-errors-title"
       hidden
-    >
-      <h2 id="contact-errors-title">Fix the following before you continue</h2>
-      <ul>
-        <li><a href="#certificate-number">Enter the 5-digit FDIC certificate number.</a></li>
-        <li><a href="#contact-method-group">Select how we should contact you.</a></li>
-      </ul>
-    </section>
+    ></fd-error-summary>
 
-    <fd-field>
-      <fd-label label="Institution name" required></fd-label>
+    <fd-form-field
+      label="Institution name"
+      description="Enter the legal institution name exactly as it appears on the charter."
+      required
+    >
       <fd-input
         name="institution-name"
         value="First Community Bank"
         required
       ></fd-input>
-      <fd-message
-        message="Enter the legal institution name exactly as it appears on the charter."
-      ></fd-message>
-    </fd-field>
+    </fd-form-field>
 
-    <fd-field>
-      <fd-label label="Certificate number" required></fd-label>
+    <fd-form-field
+      label="Certificate number"
+      description="Enter the 5-digit FDIC certificate number."
+      required
+    >
       <fd-input
         id="certificate-number"
         name="certificate-number"
@@ -99,38 +96,35 @@ This HTML is meaningful before upgrade and remains within the supported public c
         value="12345"
         required
       ></fd-input>
-      <fd-message
-        message="Enter the 5-digit FDIC certificate number."
-      ></fd-message>
-    </fd-field>
+    </fd-form-field>
 
-    <fd-field>
-      <fd-label label="Reason for the update" required></fd-label>
+    <fd-form-field
+      label="Reason for the update"
+      description="Explain why the filing contact changed so the reviewer can confirm the request."
+      required
+    >
       <fd-textarea
         name="update-reason"
         value="The prior contact retired on March 31, 2026."
         required
       ></fd-textarea>
-      <fd-message
-        message="Explain why the filing contact changed so the reviewer can confirm the request."
-      ></fd-message>
-    </fd-field>
+    </fd-form-field>
 
-    <section id="contact-method-group" aria-labelledby="contact-method-title">
-      <h2 id="contact-method-title">Preferred follow-up method</h2>
+    <fd-form-field
+      label="How should we contact you if clarification is needed?"
+      description="Choose the method the filing contact will monitor during the review window."
+      error="Select how we should contact you."
+      required
+      field-id="contact-method-group"
+    >
       <fd-radio-group required>
-        <span slot="legend">How should we contact you if clarification is needed?</span>
-        <span slot="description">
-          Choose the method the filing contact will monitor during the review window.
-        </span>
         <fd-radio name="contact-method" value="email">Email</fd-radio>
         <fd-radio name="contact-method" value="phone">Phone</fd-radio>
         <fd-radio name="contact-method" value="secure-message">
           Secure message
         </fd-radio>
-        <span slot="error">Select how we should contact you.</span>
       </fd-radio-group>
-    </section>
+    </fd-form-field>
 
     <section aria-labelledby="recordkeeping-title">
       <h2 id="recordkeeping-title">Before you submit</h2>
@@ -152,9 +146,9 @@ This HTML is meaningful before upgrade and remains within the supported public c
 
 ## Operational notes
 
-- If the server blocks submission, return the same page with the error summary visible, preserve the values the person already entered, and update the relevant `fd-message` or group error copy.
+- If the server blocks submission, return the same page with `fd-error-summary` visible, preserve the values the person already entered, and update the relevant field or group error copy.
 - Keep the trust, privacy, and record-keeping language in the server-rendered HTML so it is present before the components upgrade.
-- Use the review step to confirm the exact values that will become part of the official record.
+- Use [Review List](/components/review-list) for the review step and [Confirmation Record](/components/confirmation-record) for the completion state when the workflow should standardize those shells.
 
 ## Related guidance
 

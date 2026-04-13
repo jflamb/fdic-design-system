@@ -356,7 +356,7 @@ export class FdPagination extends LitElement {
       this._initialResponsiveSyncFrame = null;
     }
     if (this._resizeObserverFrame !== null) {
-      cancelAnimationFrame(this._resizeObserverFrame);
+      clearTimeout(this._resizeObserverFrame);
       this._resizeObserverFrame = null;
     }
     super.disconnectedCallback();
@@ -419,7 +419,7 @@ export class FdPagination extends LitElement {
         return;
       }
 
-      this._resizeObserverFrame = requestAnimationFrame(() => {
+      this._resizeObserverFrame = window.setTimeout(() => {
         this._resizeObserverFrame = null;
         this._updateMobileMode(this._pendingObservedWidth ?? undefined);
         this._pendingObservedWidth = null;

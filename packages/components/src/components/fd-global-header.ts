@@ -282,8 +282,8 @@ export class FdGlobalHeader extends LitElement {
       --fd-global-header-color-text-secondary: var(--fdic-color-text-secondary);
       --fd-global-header-color-text-inverted: var(--fd-global-header-text-inverted, var(--fdic-color-neutral-000));
       --fd-global-header-color-surface-base: var(--fdic-color-bg-surface);
-      --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, light-dark(#003256, #84dbff));
-      --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, light-dark(#0b466f, #38b6ff));
+      --fd-global-header-color-surface-brand: var(--fd-global-header-surface-brand, light-dark(#003256, #0d6191));
+      --fd-global-header-color-surface-brand-hover: var(--fd-global-header-surface-brand-hover, light-dark(#0b466f, #1278b0));
       --fd-global-header-color-accent: var(--fdic-focus-ring-color);
       --fd-global-header-color-accent-soft: var(--fd-global-header-accent-soft, light-dark(#84dbff, #e6f4fa));
       --fd-global-header-color-border-subtle: var(--fdic-color-border-divider);
@@ -1852,7 +1852,7 @@ export class FdGlobalHeader extends LitElement {
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
     if (this._resizeObserverFrame !== null) {
-      cancelAnimationFrame(this._resizeObserverFrame);
+      clearTimeout(this._resizeObserverFrame);
       this._resizeObserverFrame = null;
     }
     this._mobileMediaQuery?.removeEventListener(
@@ -1980,7 +1980,7 @@ export class FdGlobalHeader extends LitElement {
         return;
       }
 
-      this._resizeObserverFrame = requestAnimationFrame(() => {
+      this._resizeObserverFrame = window.setTimeout(() => {
         this._resizeObserverFrame = null;
         if (this._pendingObservedHeight) {
           this._lastObservedHeight = this._pendingObservedHeight;

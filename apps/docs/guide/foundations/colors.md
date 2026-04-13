@@ -413,6 +413,12 @@ When documenting or implementing color usage, preserve these expectations:
 - disabled and muted states must remain understandable without reducing legibility too far
 - semantic colors must remain distinct in both default and dark modes
 
+Current validation note:
+
+- token values are authored with contrast targets in mind, but repository component tests do not currently enforce rendered contrast automatically because the shared happy-dom axe run disables `color-contrast`
+- Storybook browser accessibility audits now run against every shipped story in Chromium and fail on rendered contrast violations
+- confirm contrast again in real browser contexts after token overrides, dark-mode tuning, or downstream page-level composition changes
+
 ## Trust and content guidance
 
 This system serves government and financial-sector workflows, so color usage should support clarity and trust.

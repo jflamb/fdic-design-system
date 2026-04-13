@@ -84,11 +84,12 @@ If you are unsure, ask: "Can the user dismiss this item from a set?" If yes, use
 
 ## "I need the user to fill out a form"
 
-Almost every form field should be wrapped in `fd-field`, which connects the label, input, and error message together for accessibility.
+Pick the field shell based on the control family and how much authored markup you need to keep visible before upgrade.
 
 | Situation | Use this |
 |-----------|----------|
-| A complete form field with label, input, and validation | [Field (`fd-field`)](/components/field) wrapping the appropriate input component |
+| A new wrapper-based field shell for text, grouped, selector, or file controls | [Form Field (`fd-form-field`)](/components/form-field) |
+| A direct-child text-entry field where you want authored `fd-label` + `fd-input`/`fd-textarea` + `fd-message` markup in the document | [Field (`fd-field`)](/components/field) |
 | A visible label for any form control | [Label (`fd-label`)](/components/label) |
 | Validation or helper text for a field | [Message (`fd-message`)](/components/message) |
 

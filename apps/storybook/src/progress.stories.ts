@@ -12,6 +12,11 @@ type ProgressArgs = {
 const meta = {
   title: "Prose/Progress",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     value: { control: { type: "range", min: 0, max: 5, step: 1 } },
     max: { control: "number" },

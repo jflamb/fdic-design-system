@@ -4,6 +4,11 @@ import { html } from "lit";
 const meta = {
   title: "Prose/Footnotes",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   args: {},
   render: () => html`
     <p>
@@ -16,15 +21,19 @@ const meta = {
     <section class="prose-footnotes" role="doc-endnotes" aria-label="Footnotes">
       <hr />
       <ol>
-        <li id="fn1" role="doc-footnote">
-          Federal Deposit Insurance Corporation. "Deposit Insurance FAQs."
-          Coverage limits were last adjusted by the Dodd-Frank Act of 2010.
-          <a href="#ref1" role="doc-backlink" title="Back to reference">&#x21a9;</a>
+        <li id="fn1">
+          <p role="doc-footnote">
+            Federal Deposit Insurance Corporation. "Deposit Insurance FAQs."
+            Coverage limits were last adjusted by the Dodd-Frank Act of 2010.
+            <a href="#ref1" role="doc-backlink" title="Back to reference">&#x21a9;</a>
+          </p>
         </li>
-        <li id="fn2" role="doc-footnote">
-          12 C.F.R. Part 330 governs the general rules for deposit insurance
-          coverage.
-          <a href="#ref2" role="doc-backlink" title="Back to reference">&#x21a9;</a>
+        <li id="fn2">
+          <p role="doc-footnote">
+            12 C.F.R. Part 330 governs the general rules for deposit insurance
+            coverage.
+            <a href="#ref2" role="doc-backlink" title="Back to reference">&#x21a9;</a>
+          </p>
         </li>
       </ol>
     </section>

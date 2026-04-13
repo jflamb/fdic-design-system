@@ -33,8 +33,6 @@ export class FdField extends LitElement {
   private _wiredId: string | null = null;
 
   private static _counter = 0;
-  /** Ensures the shared stylesheet is injected at most once. */
-  private static _stylesInjected = false;
 
   constructor() {
     super();
@@ -170,45 +168,9 @@ export class FdField extends LitElement {
     }
   }
 
-  // --- Styles ---
-
-  private static _STYLES = `
-    fd-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    fd-field[hidden] {
-      display: none;
-    }
-
-    /* Neutralize child margins — fd-field owns the gap */
-    fd-field > fd-label {
-      margin-bottom: 0;
-    }
-
-    fd-field > fd-message > [part="message"] {
-      margin-top: 0;
-    }
-  `;
-
-  private static _styleEl: HTMLStyleElement | null = null;
-
-  private _injectStyles() {
-    // Re-inject if the style element was removed (e.g., DOM teardown in tests)
-    if (FdField._stylesInjected && FdField._styleEl?.isConnected) return;
-    const style = document.createElement("style");
-    style.textContent = FdField._STYLES;
-    document.head.appendChild(style);
-    FdField._styleEl = style;
-    FdField._stylesInjected = true;
-  }
-
   // --- Render ---
 
   render() {
-    this._injectStyles();
     return nothing;
   }
 }

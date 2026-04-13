@@ -6,7 +6,16 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
-const referencePath = "apps/docs/guide/cms-filing-reference.md";
+const references = [
+  {
+    path: "apps/docs/guide/cms-filing-reference.md",
+    validateFormContract: true,
+  },
+  {
+    path: "apps/docs/guide/navigation-shell-reference.md",
+    validateFormContract: false,
+  },
+];
 
 function read(relativePath) {
   return fs.readFileSync(path.join(repoRoot, relativePath), "utf8");
@@ -36,7 +45,7 @@ function assert(condition, message, errors) {
   }
 }
 
-function validateImports(markdown, errors) {
+function validateImports(referencePath, markdown, errors) {
   for (const block of extractFencedCodeBlocks(markdown)) {
     const importMatches = [
       ...block.matchAll(/import\s+[^"'`\n]*?from\s+["']([^"']+)["']/g),
@@ -58,7 +67,7 @@ function validateImports(markdown, errors) {
   }
 }
 
-function validateTokens(markdown, publishedTokenNames, errors) {
+function validateTokens(referencePath, markdown, publishedTokenNames, errors) {
   for (const match of markdown.matchAll(/--fdic-[a-z0-9-]+/g)) {
     const token = match[0];
     if (token.endsWith("-")) continue;
@@ -79,7 +88,7 @@ function validateTokens(markdown, publishedTokenNames, errors) {
   }
 }
 
-function validateFormContract(markdown, errors) {
+function validateFormContract(referencePath, markdown, errors) {
   assert(
     !/<fd-button[^>]+type="submit"/.test(markdown),
     `${referencePath}: must not use fd-button as a submit control`,
@@ -123,14 +132,67 @@ function validateFormContract(markdown, errors) {
   );
 }
 
+function validateGlobalHeaderContract(referencePath, markdown, errors) {
+  const codeBlocks = extractFencedCodeBlocks(markdown);
+  const relevantBlocks = codeBlocks.filter(
+    (block) =>
+      block.includes("fd-global-header") ||
+      block.includes("createFdGlobalHeaderContentFromDrupal") ||
+      block.includes("createFdGlobalHeaderContent("),
+  );
+
+  for (const block of relevantBlocks) {
+    assert(
+      !/header\.content\s*=/.test(block),
+      `${referencePath}: downstream global-header examples must assign navigation/search, not header.content`,
+      errors,
+    );
+
+    for (const forbiddenSearchField of ["inputLabel"]) {
+      assert(
+        !new RegExp(`\\b${forbiddenSearchField}\\b`).test(block),
+        `${referencePath}: downstream global-header examples must not use unsupported search config field: ${forbiddenSearchField}`,
+        errors,
+      );
+    }
+  }
+
+  const assignmentBlock = relevantBlocks.find((block) =>
+    block.includes('document.querySelector("fd-global-header")') ||
+    block.includes("document.querySelector('fd-global-header')"),
+  );
+
+  if (!assignmentBlock) {
+    return;
+  }
+
+  assert(
+    /header\.navigation\s*=/.test(assignmentBlock),
+    `${referencePath}: downstream global-header example must show header.navigation assignment`,
+    errors,
+  );
+
+  assert(
+    /header\.search\s*=/.test(assignmentBlock),
+    `${referencePath}: downstream global-header example must show header.search assignment`,
+    errors,
+  );
+}
+
 function main() {
-  const markdown = read(referencePath);
   const publishedTokenNames = collectPublishedTokenNames();
   const errors = [];
 
-  validateImports(markdown, errors);
-  validateTokens(markdown, publishedTokenNames, errors);
-  validateFormContract(markdown, errors);
+  for (const ref of references) {
+    const markdown = read(ref.path);
+    validateImports(ref.path, markdown, errors);
+    validateTokens(ref.path, markdown, publishedTokenNames, errors);
+    validateGlobalHeaderContract(ref.path, markdown, errors);
+
+    if (ref.validateFormContract) {
+      validateFormContract(ref.path, markdown, errors);
+    }
+  }
 
   if (errors.length > 0) {
     console.error("\nDownstream reference validation failed:\n");
@@ -140,7 +202,7 @@ function main() {
     process.exit(1);
   }
 
-  console.log("Downstream reference validation passed.");
+  console.log(`Downstream reference validation passed (${references.length} references).`);
 }
 
 main();

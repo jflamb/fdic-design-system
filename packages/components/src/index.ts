@@ -44,6 +44,10 @@ export { FdTileList } from "./components/fd-tile-list.js";
 export { FdCard } from "./components/fd-card.js";
 export { FdGlobalFooter } from "./components/fd-global-footer.js";
 export { FdCardGroup } from "./components/fd-card-group.js";
+export { FdConfirmationRecord } from "./components/fd-confirmation-record.js";
+export { FdFormField } from "./components/fd-form-field.js";
+export { FdErrorSummary } from "./components/fd-error-summary.js";
+export { FdReviewList } from "./components/fd-review-list.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -70,6 +74,10 @@ export type { PageFeedbackView, PageFeedbackViewChangeReason, PageFeedbackViewCh
 export type { EventTone } from "./components/fd-event.js";
 export type { TileTone, FdTileLinkItem } from "./components/fd-tile.js";
 export type { GlobalFooterSocialIcon, FdGlobalFooterLink, FdGlobalFooterSocialLink } from "./components/fd-global-footer.js";
+export type { ConfirmationRecordVariant, ConfirmationRecordStatus } from "./components/fd-confirmation-record.js";
+export type { FormFieldLayout, FormFieldControlType } from "./components/fd-form-field.js";
+export type { ErrorSummaryFocusTarget, ErrorSummaryItem } from "./components/fd-error-summary.js";
+export type { ReviewListHeadingLevel, ReviewListDensity, ReviewListItem } from "./components/fd-review-list.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

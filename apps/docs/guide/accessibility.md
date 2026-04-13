@@ -7,16 +7,23 @@ This page is the canonical reference for cross-cutting WCAG 2.2 AA accessibility
   <p>The FDIC design system targets WCAG 2.2 Level AA conformance. These requirements apply across all components, token usage, and content authored within the <code>.prose</code> container. They are not optional refinements — they are compliance baselines.</p>
 </div>
 
-## Token and theme guarantees
+## Token and theme baseline
 
-If you use the supported token entrypoints as documented, the design system guarantees this baseline:
+If you use the supported token entrypoints as documented, the design system gives you this baseline:
 
-- semantic foreground and background tokens are authored to preserve contrast across supported light and dark appearance modes
+- semantic foreground and background tokens are authored with contrast intent across supported light and dark appearance modes
 - focus ring tokens remain visible across supported themes when consumers do not override them
 - status colors are published as semantic token families so meaning does not depend on brand colors
 - component registration warns when the required token runtime stylesheet is missing
 
-Those guarantees hold only when consumers stay on the documented token and component customization paths.
+Current validation boundary:
+
+- component-level automated tests disable axe-core's `color-contrast` rule in happy-dom because that environment does not compute rendered contrast reliably
+- Storybook browser accessibility audits run against every Storybook story in Chromium and fail the test suite on violations
+- browser-based audits now cover color-contrast and other rendered checks that happy-dom cannot verify
+- manual review is still required for page-level composition, downstream overrides, zoom/reflow, and forced-colors scenarios that fall outside the shipped story coverage
+
+Those baseline expectations hold only when consumers stay on the documented token and component customization paths.
 
 ## What the components handle for you
 
@@ -60,7 +67,7 @@ These ten rules govern every element, component, and pattern in the system. Viol
   </li>
   <li>
     <strong>DPUB-ARIA on footnotes</strong>
-    <p>Inline references use <code>role="doc-noteref"</code>. The footnote section uses <code>role="doc-endnotes"</code>. Each footnote <code>&lt;li&gt;</code> uses <code>role="doc-footnote"</code>. Back-links use <code>role="doc-backlink"</code>. These roles enable assistive technology to navigate bidirectional footnote references.</p>
+    <p>Inline references use <code>role="doc-noteref"</code>. The footnote section uses <code>role="doc-endnotes"</code>. Apply <code>role="doc-footnote"</code> to the footnote content within each list item rather than to the <code>&lt;li&gt;</code> itself. Back-links use <code>role="doc-backlink"</code>. These roles enable assistive technology to navigate bidirectional footnote references without conflicting with list semantics.</p>
   </li>
   <li>
     <strong>Abbreviation expansion</strong>

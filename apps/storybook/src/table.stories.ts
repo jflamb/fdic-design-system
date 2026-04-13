@@ -10,6 +10,11 @@ type TableArgs = {
 const meta = {
   title: "Prose/Table",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     caption: { control: "text" },
     showNumeric: { control: "boolean" },

@@ -94,8 +94,10 @@ const headerContent = createFdGlobalHeaderContentFromDrupal({
   items: drupalMenuItems,
   search: {
     action: "/search",
-    inputLabel: "Search FDIC.gov",
-    submitLabel: "Search",
+    label: "Search FDIC.gov",
+    placeholder: "Search FDIC.gov",
+    submitLabel: "Open first matching result",
+    searchAllLabel: "Search all FDIC.gov",
   },
 });
 ```
@@ -176,6 +178,7 @@ Keep overrides:
 ## Related guidance
 
 - [Canonical CMS Filing Reference](/guide/cms-filing-reference)
+- [Navigation Shell Reference](/guide/navigation-shell-reference)
 - [Using Tokens In Your Project](/guide/using-tokens)
 - [Getting Started](/guide/getting-started)
 - [Global Header](/components/global-header)

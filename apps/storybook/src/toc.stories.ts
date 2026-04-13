@@ -27,6 +27,11 @@ const fullPageItems: TocItem[] = [
 const meta = {
   title: "Prose/TOC",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     activeIndex: {
       control: { type: "range", min: -1, max: 4, step: 1 },

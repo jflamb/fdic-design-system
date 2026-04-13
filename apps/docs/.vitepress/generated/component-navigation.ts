@@ -5,6 +5,7 @@ export const componentSidebarGroups = [
     items: [
       { text: "Label", link: "/components/label" },
       { text: "Field", link: "/components/field" },
+      { text: "Form Field", link: "/components/form-field" },
       { text: "Message", link: "/components/message" },
       { text: "Input", link: "/components/input" },
       { text: "Text Area", link: "/components/textarea" },
@@ -40,7 +41,10 @@ export const componentSidebarGroups = [
       { text: "Badge", link: "/components/badge" },
       { text: "Badge Group", link: "/components/badge-group" },
       { text: "Chip", link: "/components/chip" },
-      { text: "Chip Group", link: "/components/chip-group" }
+      { text: "Chip Group", link: "/components/chip-group" },
+      { text: "Error Summary", link: "/components/error-summary" },
+      { text: "Review List", link: "/components/review-list" },
+      { text: "Confirmation Record", link: "/components/confirmation-record" }
     ]
   },
   {

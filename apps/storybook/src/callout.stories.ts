@@ -17,6 +17,11 @@ const variantRole = (v: string) =>
 const meta = {
   title: "Prose/Callout",
   tags: ["autodocs"],
+  parameters: {
+    a11y: {
+      test: "error",
+    },
+  },
   argTypes: {
     variant: {
       control: "select",

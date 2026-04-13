@@ -3,15 +3,16 @@ import {
   componentSidebarGroups,
 } from "./generated/component-navigation";
 
+const base = process.env.VITEPRESS_BASE || "/fdic-design-system/";
+
 export default defineConfig({
   title: "FDIC Design System",
   description: "FDIC Design System documentation",
-  base: process.env.VITEPRESS_BASE || "/fdic-design-system/",
+  base,
   head: [
     [
       "script",
-      {},
-      `(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"auto",a=window.matchMedia("(prefers-color-scheme: dark)").matches,d=(!e||e==="auto")?a:e==="dark";!d&&document.documentElement.classList.add("light")})();`,
+      { src: `${base}theme-appearance.js` },
     ],
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     [
@@ -43,7 +44,15 @@ export default defineConfig({
           { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
-          { text: "Form Workflows", link: "/guide/form-workflows" }
+          { text: "Form Workflows", link: "/guide/form-workflows" },
+          {
+            text: "Downstream References",
+            collapsed: true,
+            items: [
+              { text: "CMS Filing", link: "/guide/cms-filing-reference" },
+              { text: "Navigation Shell", link: "/guide/navigation-shell-reference" },
+            ]
+          }
         ]
       },
       {

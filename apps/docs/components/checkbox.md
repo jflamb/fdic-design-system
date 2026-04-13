@@ -7,8 +7,8 @@ Checkboxes let users make one or more explicit selections. Use them when each op
   <p>Use <code>fd-checkbox</code> for standalone consent patterns, select-all controls, and individual options inside a <code>fd-checkbox-group</code>. The component keeps a real native checkbox input in Shadow DOM so keyboard behavior, label association, and screen reader announcements remain native.</p>
 </div>
 
-::: tip Wrap in fd-field
-Standalone checkboxes (such as consent or acknowledgement patterns) should be wrapped in [`fd-field`](/components/field) for proper label and error message association. Checkboxes inside `fd-checkbox-group` do not need individual `fd-field` wrappers.
+::: tip Keep standalone checkbox wiring explicit
+`fd-checkbox` already owns its visible label through its default slot. For standalone consent or acknowledgement patterns, author the checkbox directly and place any supporting or error text adjacent to it in the same form section. Do not wrap standalone checkboxes in [`fd-field`](/components/field).
 :::
 
 ## When to use

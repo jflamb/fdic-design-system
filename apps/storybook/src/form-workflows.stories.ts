@@ -21,6 +21,11 @@ type FdMessageHost = HTMLElement & {
   live?: string;
 };
 
+type FdErrorSummaryHost = HTMLElement & {
+  items: Array<{ href: string; text: string }>;
+  open: boolean;
+};
+
 type FdRadioGroupHost = HTMLElement & {
   checkValidity(): boolean;
   reportValidity(): boolean;
@@ -32,16 +37,25 @@ const WORKFLOW_FORM_STYLE =
 const ACTION_ROW_STYLE =
   "display: flex; gap: var(--fdic-spacing-sm, 0.75rem); align-items: center; flex-wrap: wrap;";
 
-const NATIVE_BUTTON_STYLE =
-  "font: inherit; padding: 0.625rem 1rem; border: 1px solid currentColor; background: transparent; cursor: pointer;";
+const NATIVE_BUTTON_STYLE = [
+  "display: inline-flex",
+  "align-items: center",
+  "justify-content: center",
+  "min-height: 44px",
+  "min-width: 44px",
+  "padding-inline: 1rem",
+  "border: none",
+  "border-radius: var(--fdic-corner-radius-sm, 3px)",
+  "background: var(--fdic-color-bg-active)",
+  "color: var(--fdic-color-text-inverted)",
+  "font: inherit",
+  "font-weight: 600",
+  "line-height: 1.375",
+  "text-decoration: none",
+  "cursor: pointer",
+].join("; ");
 
 const SECONDARY_LINK_STYLE = "font: inherit;";
-
-const SUMMARY_SECTION_STYLE =
-  "display: grid; gap: var(--fdic-spacing-sm, 0.75rem);";
-
-const REVIEW_ROW_STYLE =
-  "display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--fdic-spacing-xs, 0.5rem) var(--fdic-spacing-md, 1rem); align-items: start;";
 
 const meta = {
   title: "Patterns/Form Workflows",
@@ -341,42 +355,14 @@ export const BlockedSubmitValidation: Story = {
 
       if (!summary) return errors;
 
-      summary.hidden = errors.length === 0;
-      summary.innerHTML = errors.length
-        ? `
-          <h2 id="workflow-error-summary-title" style="margin: 0;">Fix the following before you continue</h2>
-          <ul style="margin: 0; padding-inline-start: 1.25rem;">
-            ${errors
-              .map((error) => {
-                const href =
-                  error.key === "routing"
-                    ? "#submission-routing"
-                    : "#submission-contact-method";
-                return `<li><a href="${href}">${error.text}</a></li>`;
-              })
-              .join("")}
-          </ul>
-        `
-        : "";
-
-      summary.onclick = (event) => {
-        const target = event.target as HTMLElement | null;
-        const link = target?.closest("a");
-
-        if (!link) return;
-
-        event.preventDefault();
-
-        if (link.getAttribute("href") === "#submission-routing") {
-          const control = getNativeInput(routingHost);
-          control?.focus();
-          control?.scrollIntoView({ block: "center" });
-          return;
-        }
-
-        contactWrapper?.focus();
-        contactWrapper?.scrollIntoView({ block: "center" });
-      };
+      summary.items = errors.map((error) => ({
+        href:
+          error.key === "routing"
+            ? "#submission-routing"
+            : "#submission-contact-method",
+        text: error.text,
+      }));
+      summary.open = errors.length > 0;
 
       return errors;
     };
@@ -436,7 +422,9 @@ export const BlockedSubmitValidation: Story = {
       const form = event.currentTarget as HTMLFormElement;
       const routingHost = form.querySelector("#submission-routing") as FdInputHost | null;
       const group = form.querySelector("fd-radio-group") as FdRadioGroupHost | null;
-      const summary = form.querySelector("#workflow-error-summary") as HTMLElement | null;
+      const summary = form.querySelector(
+        "#workflow-error-summary",
+      ) as FdErrorSummaryHost | null;
 
       syncRoutingValidation(form, { revealIfInvalid: true });
 
@@ -499,13 +487,12 @@ export const BlockedSubmitValidation: Story = {
         </div>
 
         <form novalidate style=${WORKFLOW_FORM_STYLE} @submit=${handleSubmit}>
-          <section
+          <fd-error-summary
             id="workflow-error-summary"
-            tabindex="-1"
-            aria-labelledby="workflow-error-summary-title"
-            style=${SUMMARY_SECTION_STYLE}
-            hidden
-          ></section>
+            heading="Fix the following before you continue"
+            intro="Review each item and return to the linked field or group."
+            autofocus
+          ></fd-error-summary>
 
           <div>
             <fd-label
@@ -583,7 +570,7 @@ BlockedSubmitValidation.play = async ({ canvasElement }) => {
   const group = canvasElement.querySelector("fd-radio-group") as FdRadioGroupHost | null;
   const summary = canvasElement.querySelector(
     "#workflow-error-summary",
-  ) as HTMLElement | null;
+  ) as FdErrorSummaryHost | null;
   const routingMessage = canvasElement.querySelector(
     'fd-message[for="submission-routing"]',
   ) as FdMessageHost | null;
@@ -591,12 +578,11 @@ BlockedSubmitValidation.play = async ({ canvasElement }) => {
   form?.requestSubmit();
 
   await waitFor(() => {
-    expect(summary?.hidden).toBe(false);
+    expect(summary?.open).toBe(true);
     expect(routingMessage?.state).toBe("error");
     expect(group?.hasAttribute("data-user-invalid")).toBe(true);
   });
 
-  expect(document.activeElement).toBe(summary);
   expect(routingHost?.value).toBe("12345");
 };
 
@@ -618,33 +604,27 @@ export const ReviewBeforeSubmit: Story = {
         style=${WORKFLOW_FORM_STYLE}
         @submit=${(event: SubmitEvent) => event.preventDefault()}
       >
-        <section aria-labelledby="review-summary-title" style=${DOCS_OVERVIEW_SECTION_STYLE}>
-          <h3 id="review-summary-title" style="margin: 0;">Submission summary</h3>
-
-          <div style=${REVIEW_ROW_STYLE}>
-            <div>
-              <strong>Certificate number</strong>
-              <div>12345</div>
-            </div>
-            <a href="#grouped-cert-number">Change</a>
-          </div>
-
-          <div style=${REVIEW_ROW_STYLE}>
-            <div>
-              <strong>Primary filing contact</strong>
-              <div>Jordan Avery</div>
-            </div>
-            <a href="#grouped-contact-name">Change</a>
-          </div>
-
-          <div style=${REVIEW_ROW_STYLE}>
-            <div>
-              <strong>Follow-up method</strong>
-              <div>Email</div>
-            </div>
-            <a href="#follow-up-title">Change</a>
-          </div>
-        </section>
+        <fd-review-list
+          heading="Submission summary"
+          dividers
+          .items=${[
+            {
+              label: "Certificate number",
+              value: "12345",
+              href: "#grouped-cert-number",
+            },
+            {
+              label: "Primary filing contact",
+              value: "Jordan Avery",
+              href: "#grouped-contact-name",
+            },
+            {
+              label: "Follow-up method",
+              value: "Email",
+              href: "#follow-up-title",
+            },
+          ]}
+        ></fd-review-list>
 
         <div>
           <fd-checkbox name="attestation" value="confirmed">
@@ -669,7 +649,7 @@ export const ReviewBeforeSubmit: Story = {
     docs: {
       description: {
         story:
-          "Review is shown as a workflow state, not as a specialized component. Use explicit change paths and attestation where the submission creates a consequential record.",
+          "Review uses `fd-review-list` for the repeated label, value, and change-action shell while keeping attestation and submit behavior outside the component.",
       },
     },
   },
@@ -685,37 +665,24 @@ export const ConfirmationKeepRecord: Story = {
         </h2>
       </div>
 
-      <fd-alert type="success" title="Your filing update was submitted">
-        We recorded your request and sent a confirmation email to the filing contact on file.
-      </fd-alert>
-
-      <section aria-labelledby="record-title" style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <h3 id="record-title" style="margin: 0;">Keep this record</h3>
-        <dl style="display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1rem; margin: 0;">
-          <dt><strong>Confirmation number</strong></dt>
-          <dd style="margin: 0;">FDIC-2026-004182</dd>
-          <dt><strong>Date submitted</strong></dt>
-          <dd style="margin: 0;">March 26, 2026</dd>
-          <dt><strong>Contact email</strong></dt>
-          <dd style="margin: 0;">jordan.avery@example.gov</dd>
-        </dl>
-      </section>
-
-      <section aria-labelledby="next-steps-title" style=${DOCS_OVERVIEW_SECTION_STYLE}>
-        <h3 id="next-steps-title" style="margin: 0;">What happens next</h3>
-        <ul style="margin: 0; padding-inline-start: 1.25rem;">
-          <li>A reviewer will examine the update within 2 business days.</li>
-          <li>If clarification is needed, we will use the contact method you selected.</li>
-          <li>Keep the confirmation number until the review is complete.</li>
-        </ul>
-      </section>
+      <fd-confirmation-record
+        heading="Your filing update was submitted"
+        summary="We recorded your request and sent a confirmation email to the filing contact on file."
+        reference-label="Confirmation number"
+        reference-value="FDIC-2026-004182"
+        next-steps="A reviewer will examine the update within 2 business days. If clarification is needed, we will use the contact method you selected."
+        record-note="Keep the confirmation number until the review is complete."
+      >
+        <a slot="actions" href="https://www.fdic.gov">Return to filing dashboard</a>
+        <a slot="actions" href="https://www.fdic.gov">Print confirmation</a>
+      </fd-confirmation-record>
     </section>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          "Confirmation should state completion clearly, explain what happens next, and tell the person what record to keep.",
+          "Confirmation uses `fd-confirmation-record` for completion, next steps, and record-keeping content while keeping routing and follow-up actions authored by the page.",
       },
     },
   },

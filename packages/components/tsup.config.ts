@@ -53,6 +53,10 @@ export default defineConfig({
     "components/fd-card": "src/components/fd-card.ts",
     "components/fd-global-footer": "src/components/fd-global-footer.ts",
     "components/fd-card-group": "src/components/fd-card-group.ts",
+    "components/fd-confirmation-record": "src/components/fd-confirmation-record.ts",
+    "components/fd-form-field": "src/components/fd-form-field.ts",
+    "components/fd-error-summary": "src/components/fd-error-summary.ts",
+    "components/fd-review-list": "src/components/fd-review-list.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -95,6 +99,10 @@ export default defineConfig({
     "register/fd-card": "src/register/fd-card.ts",
     "register/fd-global-footer": "src/register/fd-global-footer.ts",
     "register/fd-card-group": "src/register/fd-card-group.ts",
+    "register/fd-confirmation-record": "src/register/fd-confirmation-record.ts",
+    "register/fd-form-field": "src/register/fd-form-field.ts",
+    "register/fd-error-summary": "src/register/fd-error-summary.ts",
+    "register/fd-review-list": "src/register/fd-review-list.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

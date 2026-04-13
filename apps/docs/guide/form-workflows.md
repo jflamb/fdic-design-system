@@ -9,7 +9,7 @@ Use this guide for high-stakes public-service forms that collect, validate, rout
 
 ## Minimum viable form
 
-If you are building a form for the first time, start with this pattern. It demonstrates the correct component composition, label association, and error message wiring. Copy this, then customize.
+If you are building a form for the first time, start with this pattern. It demonstrates the lowest-risk authored-markup path: native form semantics, visible label and message markup in the document, and direct text-entry wiring without wrapper abstraction.
 
 ```html
 <form>
@@ -45,7 +45,7 @@ If you are building a form for the first time, start with this pattern. It demon
 
 **What this demonstrates:**
 
-- Every input is wrapped in `fd-field`, which connects the label, input, and message for accessibility.
+- Every text-entry control keeps its authored `fd-label` and `fd-message` in the same DOM tree, with `fd-field` wiring the relationship for accessibility.
 - `fd-label` with `label` and `required` shows the visible label and required indicator.
 - `fd-message` provides persistent instructions below the field.
 - Numeric identifiers use `type="text"` with `inputmode="numeric"` — never `type="number"`.
@@ -60,8 +60,9 @@ This repository's minimum supported form contract is intentionally narrow:
 
 - Use native `<form>` semantics and a native `<button type="submit">` for the primary submit action.
 - Use `fd-field` only for direct-child `fd-label` + `fd-input` or `fd-textarea` + `fd-message` composition.
+- Use `fd-form-field` for new wrapper-based form shells when the workflow mixes text-entry, grouped, or file controls and one shared wrapper contract reduces drift.
 - Keep `fd-label`, the target control, and `fd-message` in the same DOM root so `for`/`id` and sibling discovery continue to work.
-- Use `fd-radio-group`, `fd-checkbox-group`, `fd-selector`, and other grouped controls directly when the control already owns its own legend, description, or error surface.
+- Use `fd-checkbox`, `fd-slider`, `fd-radio-group`, `fd-checkbox-group`, `fd-selector`, and other self-labeling or grouped controls directly unless their own docs explicitly route you to `fd-form-field`.
 - Treat `fd-button` as an action primitive for button-mode and link-mode actions that do not rely on native form submission behavior.
 
 The following patterns are currently out of scope for the supported public path:
@@ -73,6 +74,11 @@ The following patterns are currently out of scope for the supported public path:
 
 If a workflow needs submit, reset, or grouped-field behavior beyond that contract, keep the native HTML structure and let the design-system primitives handle labeling, helper text, and validation surfaces around it.
 
+Choose the wrapper intentionally:
+
+- Use [Form Field](/components/form-field) for new wrapper-based work when one page mixes control families and the team wants one shared shell API.
+- Keep [`fd-field`](/components/field) for direct-child text-entry markup when preserving authored labels and messages in server-rendered HTML matters more than wrapper consistency.
+
 ## Workflow examples
 
 The stories below show the supported workflow boundary in fuller consequential flows. They stay docs-first, use existing primitives only, and keep native submit behavior on plain HTML buttons.
@@ -83,14 +89,14 @@ The stories below show the supported workflow boundary in fuller consequential f
   storyId="patterns-form-workflows--blocked-submit-validation"
   linkStoryId="patterns-form-workflows--blocked-submit-validation"
   height="620"
-  caption="Blocked submit keeps entered values intact, reveals inline field and group errors, shows a top-of-page summary, and moves focus to that summary once."
+  caption="Blocked submit keeps entered values intact, reveals inline field and group errors, uses fd-error-summary for the top-of-page recovery surface, and moves focus to that summary once."
 />
 
 Use this pattern when a failed submit must:
 
 - preserve the person's entered values
 - reveal inline field or group errors at the correction point
-- provide a top-of-page summary with real correction targets
+- provide a top-of-page [Error Summary](/components/error-summary) with real correction targets
 - move focus to the summary heading or container after the blocked submit
 
 ### Review and confirmation for consequential submissions
@@ -99,14 +105,14 @@ Use this pattern when a failed submit must:
   storyId="patterns-form-workflows--review-before-submit"
   linkStoryId="patterns-form-workflows--review-before-submit"
   height="520"
-  caption="Review-before-submit keeps the workflow semantic and explicit without introducing a specialized review component."
+  caption="Review-before-submit uses fd-review-list for the repeated review shell while keeping attestation and submit behavior explicit."
 />
 
 <StoryEmbed
   storyId="patterns-form-workflows--confirmation-keep-record"
   linkStoryId="patterns-form-workflows--confirmation-keep-record"
   height="480"
-  caption="Confirmation tells the person the task is complete, explains what happens next, and shows the record to keep."
+  caption="Confirmation uses fd-confirmation-record to tell the person the task is complete, explain what happens next, and show the record to keep."
 />
 
 Use review and confirmation states when the workflow:
@@ -204,6 +210,7 @@ This system separates native validity from visible invalid state. The workflow p
 
 - **Inline errors are the primary correction surface.** They tell the person what to fix where the fix happens.
 - **The error summary is a submit-scoped navigation surface.** It helps people find blocking errors after a failed submit.
+- Use [Error Summary](/components/error-summary) when you want the repeated heading, intro, link list, and focus contract standardized.
 - The summary must never be the only place an error appears.
 - Summary wording should match the inline error wording closely enough that the same correction is communicated in both places.
 - Summary links must target the real correction point: the control itself for single fields, the first invalid sub-field for compound clusters, or the fieldset or legend wrapper for grouped controls.

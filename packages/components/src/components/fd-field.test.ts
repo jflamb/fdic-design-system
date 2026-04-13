@@ -126,6 +126,17 @@ describe("fd-field", () => {
     expect(message.getAttribute("for")).toMatch(/^fd-field-\d+$/);
   });
 
+  it("does not inject wrapper styles into document.head", async () => {
+    const initialStyleCount = document.head.querySelectorAll("style").length;
+
+    await createField(`
+      <fd-label label="Name"></fd-label>
+      <fd-input name="name"></fd-input>
+    `);
+
+    expect(document.head.querySelectorAll("style")).toHaveLength(initialStyleCount);
+  });
+
   // --- Cardinality warnings ---
 
   it("warns on multiple supported text-entry children", async () => {

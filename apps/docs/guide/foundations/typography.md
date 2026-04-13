@@ -189,6 +189,8 @@ The `.lead` (or `.prose-lead`) class is used for article introductions and secti
 
 ### Blockquotes
 
+These rules define the baseline visual treatment for quoted content. For rendered examples alongside headings, lists, and supporting patterns, see [Prose](../../components/prose#semantic-html-specimens).
+
 - Line-height: 1.6 (slightly airier than body)
 - Color: secondary (`#595961`)
 - Left border: 4px solid brand-blue (`#0d6191`)
@@ -201,6 +203,8 @@ Wrap attributions in `<footer><cite>` — do not use blockquotes for visual inde
 ## Inline element styles
 
 These styles describe the baseline treatment for inline semantic HTML in authored content. The current implementation is most visible inside `.prose`, but the rules here are foundational rather than page-specific:
+
+For rendered examples that show these elements in running content, see [Prose](../../components/prose#semantic-html-specimens).
 
 <div class="fdic-roles-table">
   <div class="fdic-roles-row fdic-roles-header">
