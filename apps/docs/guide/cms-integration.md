@@ -23,6 +23,8 @@ These map to the published package entrypoints:
 
 That pair is the stable browser-delivered contract for CMS adopters. Avoid reaching into unpublished workspace paths or generated source files from theme code.
 
+The shared stylesheet also includes the documented `fdic-composition-*` page-pattern classes described in [Composition Patterns](/guide/foundations/composition-patterns). Use those when a CMS page needs reusable section and collection composition without introducing a new component.
+
 If your CMS build prefers selective registration, you can ship only the components you use instead of `register-all`.
 
 ## Script-tag adoption
@@ -162,6 +164,21 @@ Keep overrides:
 - based on public `--fdic-*` and documented `--fd-*` names
 - separate from content markup so editors do not have to manage token details manually
 
+## CMS composition patterns
+
+When a page needs more than tokenized spacing but less than a new component, use the documented composition classes already shipped in `@jflamb/fdic-ds-components/styles.css`.
+
+Recommended uses:
+
+- `.fdic-composition-section` and `__inner` for full-bleed section bands with aligned inner content
+- `.fdic-composition-feature-rail` for a primary story rail plus a supporting aside
+- `.fdic-composition-story` for media-plus-copy splits
+- `.fdic-composition-link-grid` and link-card classes for short featured-resource collections
+- `.fdic-composition-link-columns` for grouped utility-link sections
+- `.fdic-composition-dual` for two equal supporting panels
+
+Keep those classes at the authored page layer. They should not replace semantic landmarks, heading structure, or first-class components.
+
 ## Downstream guardrails
 
 - Stay on the published component and token entrypoints documented here.
@@ -180,5 +197,6 @@ Keep overrides:
 - [Canonical CMS Filing Reference](/guide/cms-filing-reference)
 - [Navigation Shell Reference](/guide/navigation-shell-reference)
 - [Using Tokens In Your Project](/guide/using-tokens)
+- [Composition Patterns](/guide/foundations/composition-patterns)
 - [Getting Started](/guide/getting-started)
 - [Global Header](/components/global-header)

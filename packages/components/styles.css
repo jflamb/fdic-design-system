@@ -52,3 +52,173 @@ fd-form-field > fd-label[data-fd-form-field-owned="label"] {
 fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
   margin-top: 0;
 }
+
+/*
+ * Documented CMS composition patterns.
+ *
+ * These classes provide a small stable layout surface for downstream CMS pages
+ * that need reusable section and collection composition without introducing a
+ * page-shell component.
+ */
+
+.fdic-composition-section {
+  width: 100%;
+  max-width: none;
+}
+
+.fdic-composition-section--highlight {
+  border-block: 1px solid var(--fdic-color-primary-200, #9bd8f2);
+  background: var(--fdic-color-primary-050, #e7f6fd);
+}
+
+.fdic-composition-section--warm {
+  background: var(--fdic-color-secondary-050, #f8efda);
+}
+
+.fdic-composition-section__inner {
+  box-sizing: border-box;
+  width: min(100%, var(--fdic-layout-max-width, 1440px));
+  margin-inline: auto;
+  padding-inline: var(--fdic-layout-gutter, 64px);
+  padding-block: var(--fdic-layout-section-block-padding, 3rem);
+}
+
+.fdic-composition-feature-rail {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  gap: var(--fdic-layout-col-2-gap, 48px);
+  align-items: start;
+}
+
+.fdic-composition-story {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.9fr) minmax(0, 1fr);
+  gap: var(--fdic-layout-content-gap, 1.5rem);
+  align-items: start;
+}
+
+.fdic-composition-story__media {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.fdic-composition-story__media > :where(img, picture, video, iframe) {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fdic-composition-story__body {
+  display: grid;
+  gap: var(--fdic-spacing-xs, 0.5rem);
+}
+
+.fdic-composition-story__body > * {
+  margin: 0;
+}
+
+.fdic-composition-link-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--fdic-layout-content-gap, 1.5rem) var(--fdic-layout-col-2-gap, 48px);
+}
+
+.fdic-composition-link-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: var(--fdic-layout-stack-gap, 1rem);
+  align-items: start;
+}
+
+.fdic-composition-link-card__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--fdic-corner-radius-full, 9999px);
+  color: var(--fdic-color-primary-500, #0d6191);
+  background: rgb(56 182 255 / 16%);
+}
+
+.fdic-composition-link-card__icon > :where(svg, img) {
+  display: block;
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+.fdic-composition-link-card__body {
+  display: grid;
+  gap: var(--fdic-spacing-2xs, 0.25rem);
+}
+
+.fdic-composition-link-card__body > * {
+  margin: 0;
+}
+
+.fdic-composition-link-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--fdic-layout-content-gap, 1.5rem) var(--fdic-layout-col-2-gap, 48px);
+}
+
+.fdic-composition-link-column {
+  min-width: 0;
+}
+
+.fdic-composition-link-column__title {
+  position: relative;
+  margin: 0 0 var(--fdic-spacing-lg, 1.25rem);
+  padding-block-end: calc(var(--fdic-spacing-lg, 1.25rem) + 4px);
+}
+
+.fdic-composition-link-column__title::after {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  width: 5rem;
+  height: 4px;
+  background: var(--fdic-color-primary-400, #38b6ff);
+  content: "";
+}
+
+.fdic-composition-link-column__list {
+  display: grid;
+  gap: var(--fdic-spacing-xs, 0.5rem);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.fdic-composition-dual {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--fdic-layout-col-2-gap, 48px) - var(--fdic-spacing-2xs, 4px));
+}
+
+.fdic-composition-dual__panel {
+  min-width: 0;
+}
+
+@media (max-width: 74rem) {
+  .fdic-composition-link-grid,
+  .fdic-composition-link-columns,
+  .fdic-composition-dual {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .fdic-composition-section__inner {
+    padding-inline: var(--fdic-layout-gutter-mobile, 16px);
+    padding-block: var(--fdic-layout-section-block-padding-compact, 1.5rem);
+  }
+
+  .fdic-composition-feature-rail,
+  .fdic-composition-story,
+  .fdic-composition-link-grid,
+  .fdic-composition-link-columns,
+  .fdic-composition-dual {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
