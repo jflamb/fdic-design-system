@@ -245,12 +245,6 @@ function getMobileSearch(el: HTMLElement) {
   ) as HTMLElement | null;
 }
 
-function getMobileSearchSubmitButton(el: HTMLElement) {
-  return getMobileSearch(el)?.shadowRoot?.querySelector(
-    "fd-button.submit",
-  )?.shadowRoot?.querySelector("button") as HTMLButtonElement | null;
-}
-
 function getStyleText(styles: unknown): string {
   if (!styles) {
     return "";
@@ -269,7 +263,9 @@ function getStyleText(styles: unknown): string {
 }
 
 function getSearchInput(searchHost: HTMLElement | null) {
-  return searchHost?.shadowRoot?.querySelector(".native") as HTMLInputElement | null;
+  return searchHost?.shadowRoot?.querySelector(
+    ".native",
+  ) as HTMLInputElement | null;
 }
 
 function stubElementRect(
@@ -335,7 +331,8 @@ describe("fd-global-header", () => {
   it("uses DS layout tokens for shell width and gutter alignment", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 
-    expect(styles).toContain("var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))");
+    expect(styles).toContain("--fdic-layout-shell-max-width");
+    expect(styles).toContain("--fdic-layout-content-max-width, 1312px");
     expect(styles).toContain("var(--fdic-layout-gutter, 64px)");
     expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
   });
@@ -353,10 +350,13 @@ describe("fd-global-header", () => {
     const stylesText = getStyleText(FdGlobalHeader.styles);
 
     expect(stylesText).toContain(".mega-menu-frame::before");
+    expect(stylesText).toContain("box-shadow: 0 8px 16px");
     expect(stylesText).toContain(
-      "box-shadow: 0 8px 16px oklch(from var(--fd-global-header-shadow-floating) l c h / 0.61)",
+      "oklch(from var(--fd-global-header-shadow-floating) l c h / 0.61)",
     );
-    expect(stylesText).toContain(".mega-menu-viewport[data-height-animating=\"true\"]");
+    expect(stylesText).toContain(
+      '.mega-menu-viewport[data-height-animating="true"]',
+    );
     expect(stylesText).toContain("overflow: hidden");
   });
 
@@ -617,9 +617,7 @@ describe("fd-global-header", () => {
     const removeSpy = vi.spyOn(window, "removeEventListener");
 
     const el = await createHeader();
-    expect(
-      addSpy.mock.calls.some(([type]) => type === "scroll"),
-    ).toBe(false);
+    expect(addSpy.mock.calls.some(([type]) => type === "scroll")).toBe(false);
 
     el.shy = true;
     await el.updateComplete;
@@ -638,9 +636,7 @@ describe("fd-global-header", () => {
     el.shy = false;
     await el.updateComplete;
 
-    expect(
-      removeSpy.mock.calls.some(([type]) => type === "scroll"),
-    ).toBe(true);
+    expect(removeSpy.mock.calls.some(([type]) => type === "scroll")).toBe(true);
 
     el.shy = true;
     await el.updateComplete;
@@ -665,7 +661,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
 
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
-    expect(base?.getAttribute("style")).toContain("--_fd-global-header-shy-duration:300ms");
+    expect(base?.getAttribute("style")).toContain(
+      "--_fd-global-header-shy-duration:300ms",
+    );
 
     await dispatchScroll(117);
     await el.updateComplete;
@@ -676,7 +674,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
 
     expect(base?.getAttribute("data-shy-hidden")).toBe("false");
-    expect(base?.getAttribute("style")).toContain("--_fd-global-header-shy-duration:200ms");
+    expect(base?.getAttribute("style")).toContain(
+      "--_fd-global-header-shy-duration:200ms",
+    );
   });
 
   it("uses the rendered header height as the default shy threshold", async () => {
@@ -742,7 +742,9 @@ describe("fd-global-header", () => {
 
     el.shy = true;
     await el.updateComplete;
-    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("96px");
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe(
+      "96px",
+    );
 
     // Simulate a resize while the header is in full (non-compact) state.
     mockHeight = 112;
@@ -751,7 +753,9 @@ describe("fd-global-header", () => {
     await nextFrame();
     await el.updateComplete;
 
-    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe(
+      "112px",
+    );
 
     // When the header is shy-hidden (compact), resize should NOT update the
     // height — it would capture the compact height instead of the full height.
@@ -765,13 +769,17 @@ describe("fd-global-header", () => {
     await nextFrame();
     await el.updateComplete;
 
-    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe("112px");
+    expect(el.style.getPropertyValue("--fd-global-header-shy-height")).toBe(
+      "112px",
+    );
   });
 
   it("switches to a compact sticky desktop state and keeps the desktop mega-menu visible while it is open", async () => {
     const el = await createHeader({ shy: true, shyThreshold: 64 });
     const base = getBase(el);
-    const topNav = el.shadowRoot?.querySelector(".top-nav-shell") as HTMLElement | null;
+    const topNav = el.shadowRoot?.querySelector(
+      ".top-nav-shell",
+    ) as HTMLElement | null;
     const trigger = getPanelTrigger(el, "news-events");
 
     await dispatchScroll(120);
@@ -868,7 +876,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
 
     expect(base?.getAttribute("data-shy-hidden")).toBe("true");
-    expect(base?.getAttribute("style")).toContain("--_fd-global-header-shy-duration:0ms");
+    expect(base?.getAttribute("style")).toContain(
+      "--_fd-global-header-shy-duration:0ms",
+    );
 
     menuToggle?.click();
     await el.updateComplete;
@@ -898,7 +908,9 @@ describe("fd-global-header", () => {
 
     expect(base?.getAttribute("data-shy-hidden")).toBe("false");
     expect(
-      el.shadowRoot?.querySelector(".mobile-search-shell")?.getAttribute("data-open"),
+      el.shadowRoot
+        ?.querySelector(".mobile-search-shell")
+        ?.getAttribute("data-open"),
     ).toBe("true");
   });
 
@@ -917,7 +929,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    const megaMenu = el.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+    const megaMenu = el.shadowRoot?.querySelector(
+      ".mega-menu",
+    ) as HTMLElement | null;
 
     expect(megaMenu?.hidden).toBe(true);
     expect(trigger?.getAttribute("aria-expanded")).toBe("false");
@@ -932,7 +946,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    const megaMenu = el.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+    const megaMenu = el.shadowRoot?.querySelector(
+      ".mega-menu",
+    ) as HTMLElement | null;
 
     megaMenu?.dispatchEvent(
       new PointerEvent("pointerdown", { bubbles: true, composed: true }),
@@ -1109,7 +1125,9 @@ describe("fd-global-header", () => {
 
   it("moves one shared top-nav active indicator between active tabs", async () => {
     const el = await createHeader();
-    const topNavTrack = el.shadowRoot?.querySelector(".top-nav-track") as HTMLElement | null;
+    const topNavTrack = el.shadowRoot?.querySelector(
+      ".top-nav-track",
+    ) as HTMLElement | null;
     const newsTrigger = getPanelTrigger(el, "news-events");
     const careerTrigger = getPanelTrigger(el, "career-development");
 
@@ -1181,9 +1199,7 @@ describe("fd-global-header", () => {
     careerTrigger?.dispatchEvent(
       new PointerEvent("pointerenter", { bubbles: true, composed: true }),
     );
-    careerTrigger?.dispatchEvent(
-      new PointerEvent("pointerleave"),
-    );
+    careerTrigger?.dispatchEvent(new PointerEvent("pointerleave"));
     await wait(180);
     await el.updateComplete;
     await nextFrame();
@@ -1200,7 +1216,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    const megaMenu = el.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+    const megaMenu = el.shadowRoot?.querySelector(
+      ".mega-menu",
+    ) as HTMLElement | null;
 
     document.body.tabIndex = -1;
     document.body.focus();
@@ -1231,7 +1249,7 @@ describe("fd-global-header", () => {
 
     const drawer = el.shadowRoot?.querySelector(
       ".mobile-drawer",
-    ) as HTMLElement | null;
+    ) as HTMLDialogElement | null;
     const backButton = el.shadowRoot?.querySelector(
       ".mobile-back",
     ) as HTMLButtonElement | null;
@@ -1246,6 +1264,8 @@ describe("fd-global-header", () => {
     ) as HTMLButtonElement | null;
 
     expect(drawer?.getAttribute("data-open")).toBe("true");
+    expect(drawer?.localName).toBe("dialog");
+    expect(drawer?.open).toBe(true);
     expect(backButton?.textContent?.trim()).toBe("Main menu");
     expect(overviewLink?.textContent?.trim()).toBe("News & Events");
     expect(introCopy?.textContent?.trim()).toBe(
@@ -1320,7 +1340,7 @@ describe("fd-global-header", () => {
     expect(sectionOverviewLink?.textContent?.trim()).toBe("News");
   });
 
-  it("only exposes mobile dialog semantics while the overlays are open", async () => {
+  it("uses native dialog elements for mobile menu and search surfaces", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
       "[data-mobile-toggle='menu']",
@@ -1330,40 +1350,38 @@ describe("fd-global-header", () => {
     ) as HTMLButtonElement | null;
     const drawer = el.shadowRoot?.querySelector(
       ".mobile-drawer",
-    ) as HTMLElement | null;
+    ) as HTMLDialogElement | null;
     const searchShell = el.shadowRoot?.querySelector(
       ".mobile-search-shell",
-    ) as HTMLElement | null;
+    ) as HTMLDialogElement | null;
 
-    expect(drawer?.getAttribute("role")).toBeNull();
-    expect(drawer?.getAttribute("aria-modal")).toBeNull();
-    expect(drawer?.getAttribute("aria-hidden")).toBe("true");
-    expect(searchShell?.getAttribute("role")).toBeNull();
-    expect(searchShell?.getAttribute("aria-modal")).toBeNull();
-    expect(searchShell?.getAttribute("aria-hidden")).toBe("true");
+    expect(drawer?.localName).toBe("dialog");
+    expect(searchShell?.localName).toBe("dialog");
+    expect(drawer?.open).toBe(false);
+    expect(searchShell?.open).toBe(false);
 
     menuToggle?.click();
     await el.updateComplete;
     await nextFrame();
 
-    expect(drawer?.getAttribute("role")).toBe("dialog");
-    expect(drawer?.getAttribute("aria-modal")).toBe("true");
-    expect(drawer?.getAttribute("aria-hidden")).toBe("false");
+    expect(drawer?.open).toBe(true);
+    expect(drawer?.getAttribute("aria-label")).toBe("Navigation menu");
 
     menuToggle?.click();
     await el.updateComplete;
     await nextFrame();
+
+    expect(drawer?.open).toBe(false);
 
     searchToggle?.click();
     await el.updateComplete;
     await nextFrame();
 
-    expect(searchShell?.getAttribute("role")).toBe("dialog");
-    expect(searchShell?.getAttribute("aria-modal")).toBe("true");
-    expect(searchShell?.getAttribute("aria-hidden")).toBe("false");
+    expect(searchShell?.open).toBe(true);
+    expect(searchShell?.getAttribute("aria-labelledby")).toBeTruthy();
   });
 
-  it("traps focus within the mobile drawer when tabbing", async () => {
+  it("syncs native mobile drawer dismissal back into component state and restores toggle focus", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
       "[data-mobile-toggle='menu']",
@@ -1373,26 +1391,12 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    const closeButton = el.shadowRoot?.querySelector(
-      ".mobile-drawer-close",
-    ) as HTMLButtonElement | null;
-    const drawerFocusable = Array.from(
-      el.shadowRoot?.querySelectorAll<HTMLElement>(
-        ".mobile-drawer button, .mobile-drawer a[href]",
-      ) || [],
-    );
-    const lastFocusable = drawerFocusable[drawerFocusable.length - 1] as
-      | HTMLElement
-      | undefined;
+    const drawer = el.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLDialogElement | null;
 
-    if (!closeButton || !lastFocusable) {
-      throw new Error("Expected mobile drawer focusable controls");
-    }
-
-    lastFocusable.focus();
-    lastFocusable.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Tab",
+    drawer?.dispatchEvent(
+      new MouseEvent("click", {
         bubbles: true,
         composed: true,
       }),
@@ -1400,21 +1404,9 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    expect(el.shadowRoot?.activeElement).toBe(closeButton);
-
-    closeButton.focus();
-    closeButton.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Tab",
-        shiftKey: true,
-        bubbles: true,
-        composed: true,
-      }),
-    );
-    await el.updateComplete;
-    await nextFrame();
-
-    expect(el.shadowRoot?.activeElement).toBe(lastFocusable);
+    expect(drawer?.open).toBe(false);
+    expect(drawer?.getAttribute("data-open")).toBe("false");
+    expect(menuToggle).toBe(el.shadowRoot?.activeElement);
   });
 
   it("switches to the compact mobile layout when the host is narrow even if the viewport stays desktop", async () => {
@@ -1438,9 +1430,10 @@ describe("fd-global-header", () => {
 
     const drawer = el.shadowRoot?.querySelector(
       ".mobile-drawer",
-    ) as HTMLElement | null;
+    ) as HTMLDialogElement | null;
 
     expect(drawer?.getAttribute("data-open")).toBe("true");
+    expect(drawer?.open).toBe(true);
   });
 
   it("coordinates one shared query value between desktop and mobile search surfaces", async () => {
@@ -1453,7 +1446,9 @@ describe("fd-global-header", () => {
     }
 
     desktopInput.value = "Global Messages";
-    desktopInput.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    desktopInput.dispatchEvent(
+      new Event("input", { bubbles: true, composed: true }),
+    );
     await wait(220);
     await el.updateComplete;
 
@@ -1468,7 +1463,7 @@ describe("fd-global-header", () => {
     expect(mobileInput?.value).toBe("Global Messages");
   });
 
-  it("traps focus within the mobile search panel when tabbing", async () => {
+  it("restores the search toggle when the native mobile search dialog closes", async () => {
     const el = await createHeader({ mobile: true });
     const searchToggle = el.shadowRoot?.querySelector(
       "[data-mobile-toggle='search']",
@@ -1478,17 +1473,12 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    const mobileInput = getSearchInput(getMobileSearch(el));
-    const submitButton = getMobileSearchSubmitButton(el);
+    const searchDialog = el.shadowRoot?.querySelector(
+      ".mobile-search-shell",
+    ) as HTMLDialogElement | null;
 
-    if (!mobileInput || !submitButton) {
-      throw new Error("Expected mobile search input and submit button");
-    }
-
-    submitButton.focus();
-    submitButton.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Tab",
+    searchDialog?.dispatchEvent(
+      new MouseEvent("click", {
         bubbles: true,
         composed: true,
       }),
@@ -1496,25 +1486,36 @@ describe("fd-global-header", () => {
     await el.updateComplete;
     await nextFrame();
 
-    expect(getMobileSearch(el)?.shadowRoot?.activeElement).toBe(mobileInput);
+    expect(searchDialog?.open).toBe(false);
+    expect(searchToggle).toBe(el.shadowRoot?.activeElement);
+  });
 
-    mobileInput.focus();
-    mobileInput.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Tab",
-        shiftKey: true,
-        bubbles: true,
-        composed: true,
-      }),
-    );
+  it("derives the desktop scrim offset from the rendered header geometry", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+    const topNavShell = el.shadowRoot?.querySelector(
+      ".top-nav-shell",
+    ) as HTMLElement | null;
+
+    stubElementRect(topNavShell, { left: 0, width: 1024, top: 0, height: 132 });
+
+    trigger?.click();
     await el.updateComplete;
     await nextFrame();
 
-    const activeSearchButton = getMobileSearch(el)?.shadowRoot
-      ?.querySelector("fd-button.submit")
-      ?.shadowRoot?.activeElement;
+    expect(el.style.getPropertyValue("--fd-global-header-overlay-offset")).toBe(
+      "132px",
+    );
 
-    expect(activeSearchButton).toBe(submitButton);
+    stubElementRect(topNavShell, { left: 0, width: 1024, top: 0, height: 96 });
+    triggerResize(el, 1200);
+    await wait();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(el.style.getPropertyValue("--fd-global-header-overlay-offset")).toBe(
+      "96px",
+    );
   });
 
   it("uses the slash shortcut to focus desktop search outside editable contexts", async () => {
@@ -1523,7 +1524,11 @@ describe("fd-global-header", () => {
     const desktopInput = getSearchInput(desktopSearch);
 
     document.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "/", bubbles: true, cancelable: true }),
+      new KeyboardEvent("keydown", {
+        key: "/",
+        bubbles: true,
+        cancelable: true,
+      }),
     );
     await el.updateComplete;
     await nextFrame();
@@ -1533,7 +1538,11 @@ describe("fd-global-header", () => {
 
     desktopInput?.focus();
     desktopInput?.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "/", bubbles: true, cancelable: true }),
+      new KeyboardEvent("keydown", {
+        key: "/",
+        bubbles: true,
+        cancelable: true,
+      }),
     );
     await el.updateComplete;
 
@@ -1546,9 +1555,7 @@ describe("fd-global-header", () => {
     const menuId = trigger?.getAttribute("aria-controls");
 
     expect(menuId).toBeTruthy();
-    expect(
-      el.shadowRoot?.querySelector(`#${menuId}`),
-    ).not.toBeNull();
+    expect(el.shadowRoot?.querySelector(`#${menuId}`)).not.toBeNull();
   });
 
   it("does not hijack the slash shortcut from contenteditable targets", async () => {
@@ -1562,7 +1569,11 @@ describe("fd-global-header", () => {
     editable.focus();
 
     editable.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "/", bubbles: true, cancelable: true }),
+      new KeyboardEvent("keydown", {
+        key: "/",
+        bubbles: true,
+        cancelable: true,
+      }),
     );
     await el.updateComplete;
     await nextFrame();
@@ -1633,7 +1644,8 @@ describe("fd-global-header", () => {
       },
     ];
 
-    el.navigation = updatedNavigation as typeof fdGlobalHeaderReferenceNavigation;
+    el.navigation =
+      updatedNavigation as typeof fdGlobalHeaderReferenceNavigation;
     await el.updateComplete;
     await nextFrame();
 

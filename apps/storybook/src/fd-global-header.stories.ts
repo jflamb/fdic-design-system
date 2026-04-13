@@ -142,7 +142,8 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
         style=${[
           "display:grid",
           "gap:" + (mobile ? "0.75rem" : "1rem"),
-          "grid-template-columns:" + (mobile ? "1fr" : "minmax(0, 1.35fr) minmax(15rem, 0.9fr)"),
+          "grid-template-columns:" +
+            (mobile ? "1fr" : "minmax(0, 1.35fr) minmax(15rem, 0.9fr)"),
           "align-items:stretch",
         ].join("; ")}
       >
@@ -163,9 +164,15 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
             style="width:60%; height:2rem; background:currentColor; opacity:0.1;"
           ></div>
           <div style="display:grid; gap:0.625rem;">
-            <div style="height:0.875rem; background:currentColor; opacity:0.1;"></div>
-            <div style="height:0.875rem; background:currentColor; opacity:0.08;"></div>
-            <div style="width:84%; height:0.875rem; background:currentColor; opacity:0.08;"></div>
+            <div
+              style="height:0.875rem; background:currentColor; opacity:0.1;"
+            ></div>
+            <div
+              style="height:0.875rem; background:currentColor; opacity:0.08;"
+            ></div>
+            <div
+              style="width:84%; height:0.875rem; background:currentColor; opacity:0.08;"
+            ></div>
           </div>
           <div
             style=${[
@@ -175,9 +182,15 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
               "padding-top:0.375rem",
             ].join("; ")}
           >
-            <div style="height:5.75rem; background:currentColor; opacity:0.06;"></div>
-            <div style="height:5.75rem; background:currentColor; opacity:0.04;"></div>
-            <div style="height:5.75rem; background:currentColor; opacity:0.05;"></div>
+            <div
+              style="height:5.75rem; background:currentColor; opacity:0.06;"
+            ></div>
+            <div
+              style="height:5.75rem; background:currentColor; opacity:0.04;"
+            ></div>
+            <div
+              style="height:5.75rem; background:currentColor; opacity:0.05;"
+            ></div>
           </div>
         </article>
         <div
@@ -190,19 +203,30 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
             "box-shadow:0 12px 28px var(--fdic-color-effect-shadow, rgba(9,53,84,0.14))",
           ].join("; ")}
         >
-          <div style="width:6rem; height:0.6875rem; background:rgba(255,255,255,0.28);"></div>
-          <div style="width:72%; height:1.5rem; background:rgba(255,255,255,0.2);"></div>
+          <div
+            style="width:6rem; height:0.6875rem; background:rgba(255,255,255,0.28);"
+          ></div>
+          <div
+            style="width:72%; height:1.5rem; background:rgba(255,255,255,0.2);"
+          ></div>
           <div style="display:grid; gap:0.625rem;">
-            <div style="height:0.75rem; background:rgba(255,255,255,0.16);"></div>
-            <div style="height:0.75rem; background:rgba(255,255,255,0.12);"></div>
-            <div style="width:82%; height:0.75rem; background:rgba(255,255,255,0.12);"></div>
+            <div
+              style="height:0.75rem; background:rgba(255,255,255,0.16);"
+            ></div>
+            <div
+              style="height:0.75rem; background:rgba(255,255,255,0.12);"
+            ></div>
+            <div
+              style="width:82%; height:0.75rem; background:rgba(255,255,255,0.12);"
+            ></div>
           </div>
         </div>
       </section>
       <section
         style=${[
           "display:grid",
-          "grid-template-columns:" + (mobile ? "1fr" : "repeat(4, minmax(0, 1fr))"),
+          "grid-template-columns:" +
+            (mobile ? "1fr" : "repeat(4, minmax(0, 1fr))"),
           "gap:" + (mobile ? "0.75rem" : "1rem"),
         ].join("; ")}
       >
@@ -225,9 +249,15 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
                     : "background:currentColor; opacity:0.04",
                 ].join("; ")}
               ></div>
-              <div style="width:68%; height:0.875rem; background:currentColor; opacity:0.14;"></div>
-              <div style="height:0.75rem; background:currentColor; opacity:0.08;"></div>
-              <div style="width:86%; height:0.75rem; background:currentColor; opacity:0.08;"></div>
+              <div
+                style="width:68%; height:0.875rem; background:currentColor; opacity:0.14;"
+              ></div>
+              <div
+                style="height:0.75rem; background:currentColor; opacity:0.08;"
+              ></div>
+              <div
+                style="width:86%; height:0.75rem; background:currentColor; opacity:0.08;"
+              ></div>
             </article>
           `,
         )}
@@ -275,11 +305,7 @@ const renderHeader = (
           style="display:block; width:8.75rem; height:auto; border-radius:0; overflow:visible;"
         />
       </a>
-      <fd-button
-        slot="utility"
-        variant="subtle-inverted"
-        aria-label="Apps"
-      >
+      <fd-button slot="utility" variant="subtle-inverted" aria-label="Apps">
         <fd-icon
           slot="icon-start"
           name="squares-four"
@@ -287,11 +313,7 @@ const renderHeader = (
           style="--fd-icon-size:1.75rem;"
         ></fd-icon>
       </fd-button>
-      <fd-button
-        slot="utility"
-        variant="subtle-inverted"
-        aria-label="Profile"
-      >
+      <fd-button slot="utility" variant="subtle-inverted" aria-label="Profile">
         <fd-icon
           slot="icon-start"
           name="user-circle"
@@ -350,7 +372,9 @@ export const Desktop: Story = {
 };
 
 Desktop.play = async ({ canvasElement }) => {
-  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
 
   await waitFor(() => {
     expect(host?.shadowRoot).toBeTruthy();
@@ -364,8 +388,27 @@ Desktop.play = async ({ canvasElement }) => {
   await userEvent.click(trigger!);
 
   await waitFor(() => {
-    const panel = host?.shadowRoot?.querySelector(".mega-menu") as HTMLElement | null;
+    const panel = host?.shadowRoot?.querySelector(
+      ".mega-menu",
+    ) as HTMLElement | null;
     expect(panel?.hidden).toBe(false);
+  });
+
+  await waitFor(() => {
+    const topNavShell = host?.shadowRoot?.querySelector(
+      ".top-nav-shell",
+    ) as HTMLElement | null;
+    const scrim = host?.shadowRoot?.querySelector(
+      ".mega-menu-scrim",
+    ) as HTMLElement | null;
+    expect(topNavShell).toBeTruthy();
+    expect(scrim).toBeTruthy();
+    expect(
+      Math.abs(
+        parseFloat(getComputedStyle(scrim!).top) -
+          (topNavShell?.getBoundingClientRect().bottom ?? 0),
+      ),
+    ).toBeLessThanOrEqual(1);
   });
 };
 
@@ -374,7 +417,9 @@ export const SearchOpen: Story = {
 };
 
 SearchOpen.play = async ({ canvasElement }) => {
-  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
 
   await waitFor(() => {
     expect(host?.shadowRoot).toBeTruthy();
@@ -383,7 +428,9 @@ SearchOpen.play = async ({ canvasElement }) => {
   const searchHost = host?.shadowRoot?.querySelector(
     '[data-search-surface="desktop"]',
   ) as HTMLElement | null;
-  const input = searchHost?.shadowRoot?.querySelector(".native") as HTMLInputElement | null;
+  const input = searchHost?.shadowRoot?.querySelector(
+    ".native",
+  ) as HTMLInputElement | null;
 
   expect(input).toBeTruthy();
   await userEvent.click(input!);
@@ -470,11 +517,7 @@ export const ShyHeader: Story = {
               style="display:block; width:8.75rem; height:auto; border-radius:0; overflow:visible;"
             />
           </a>
-          <fd-button
-            slot="utility"
-            variant="subtle-inverted"
-            aria-label="Apps"
-          >
+          <fd-button slot="utility" variant="subtle-inverted" aria-label="Apps">
             <fd-icon
               slot="icon-start"
               name="squares-four"
@@ -495,14 +538,18 @@ export const ShyHeader: Story = {
             ></fd-icon>
           </fd-button>
         </fd-global-header>
-        <div class="shy-header-content">${renderBackdropContent(false, true)}</div>
+        <div class="shy-header-content">
+          ${renderBackdropContent(false, true)}
+        </div>
       </div>
     </div>
   `,
 };
 
 ShyHeader.play = async ({ canvasElement }) => {
-  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
   const previewWindow = canvasElement.ownerDocument.defaultView;
 
   await waitFor(() => {
@@ -566,7 +613,9 @@ export const DrupalAdapter: Story = {
 };
 
 MobileDrawer.play = async ({ canvasElement }) => {
-  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
 
   await waitFor(() => {
     expect(host?.shadowRoot).toBeTruthy();
@@ -580,14 +629,21 @@ MobileDrawer.play = async ({ canvasElement }) => {
   await userEvent.click(menuToggle!);
 
   await waitFor(() => {
-    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    const drawer = host?.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLDialogElement | null;
     expect(drawer?.getAttribute("data-open")).toBe("true");
+    expect(drawer?.localName).toBe("dialog");
+    expect(drawer?.open).toBe(true);
+    expect(drawer?.matches(":modal")).toBe(true);
   });
 
   await waitFor(() => {
-    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    const drawer = host?.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLDialogElement | null;
     expect(drawer).toBeTruthy();
-    expect(getComputedStyle(drawer!).opacity).toBe("1");
+    expect(drawer?.getBoundingClientRect().width ?? 0).toBeGreaterThan(0);
   });
 
   await waitForSettledFrame(canvasElement);
@@ -604,7 +660,9 @@ export const MobileDrillDown: Story = {
 };
 
 MobileDrillDown.play = async ({ canvasElement }) => {
-  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
 
   await waitFor(() => {
     expect(host?.shadowRoot).toBeTruthy();
@@ -618,21 +676,30 @@ MobileDrillDown.play = async ({ canvasElement }) => {
   await userEvent.click(menuToggle!);
 
   await waitFor(() => {
-    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    const drawer = host?.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLDialogElement | null;
     expect(drawer?.getAttribute("data-open")).toBe("true");
     expect(drawer).toBeTruthy();
-    expect(getComputedStyle(drawer!).opacity).toBe("1");
+    expect(drawer?.open).toBe(true);
+    expect(drawer?.matches(":modal")).toBe(true);
   });
 
-  const firstButton = host?.shadowRoot?.querySelector(".mobile-button") as HTMLButtonElement | null;
+  const firstButton = host?.shadowRoot?.querySelector(
+    ".mobile-button",
+  ) as HTMLButtonElement | null;
   await userEvent.click(firstButton!);
 
   await waitFor(() => {
-    const drawer = host?.shadowRoot?.querySelector(".mobile-drawer") as HTMLElement | null;
+    const drawer = host?.shadowRoot?.querySelector(
+      ".mobile-drawer",
+    ) as HTMLDialogElement | null;
     const backButton = host?.shadowRoot?.querySelector(".mobile-back");
-    const overviewLink = host?.shadowRoot?.querySelector(".mobile-overview-link");
+    const overviewLink = host?.shadowRoot?.querySelector(
+      ".mobile-overview-link",
+    );
     expect(drawer).toBeTruthy();
-    expect(getComputedStyle(drawer!).opacity).toBe("1");
+    expect(drawer?.open).toBe(true);
     expect(backButton?.textContent).toContain("News & Events Overview");
     expect(overviewLink?.textContent).toContain("News");
   });
@@ -651,7 +718,9 @@ export const MobileSearchOpen: Story = {
 };
 
 MobileSearchOpen.play = async ({ canvasElement }) => {
-  const host = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
 
   await waitFor(() => {
     expect(host?.shadowRoot).toBeTruthy();
@@ -665,8 +734,13 @@ MobileSearchOpen.play = async ({ canvasElement }) => {
   await userEvent.click(searchToggle!);
 
   await waitFor(() => {
-    const shell = host?.shadowRoot?.querySelector(".mobile-search-shell") as HTMLElement | null;
+    const shell = host?.shadowRoot?.querySelector(
+      ".mobile-search-shell",
+    ) as HTMLDialogElement | null;
     expect(shell?.getAttribute("data-open")).toBe("true");
+    expect(shell?.localName).toBe("dialog");
+    expect(shell?.open).toBe(true);
+    expect(shell?.matches(":modal")).toBe(true);
   });
 
   await waitForSettledFrame(canvasElement);
