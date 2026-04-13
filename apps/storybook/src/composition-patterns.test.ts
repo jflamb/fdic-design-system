@@ -47,6 +47,12 @@ const renderAtViewport = async (width: number, height: number) => {
   verifySemanticStructure();
 };
 
+const getRect = (selector: string) => {
+  const element = document.querySelector<HTMLElement>(selector);
+  expect(element, `Missing element for selector: ${selector}`).toBeTruthy();
+  return element!.getBoundingClientRect();
+};
+
 test("composition patterns render and stay semantic at desktop width", async () => {
   await renderAtViewport(1440, 1800);
 
@@ -58,7 +64,20 @@ test("composition patterns render and stay semantic at desktop width", async () 
   await expect
     .element(page.getByRole("navigation", { name: "Grouped resources" }))
     .toBeVisible();
-  await expect.element(root).toMatchScreenshot("composition-patterns-desktop");
+
+  const featureArticleRect = getRect('article[aria-labelledby="featured-story-title"]');
+  const quickActionsRect = getRect('section[aria-labelledby="quick-actions-title"]');
+  const firstResourceRect = getRect("#services-title");
+  const secondResourceRect = getRect("#technology-title");
+  const firstPanelRect = getRect('article[aria-labelledby="policy-notice-title"]');
+  const secondPanelRect = getRect('article[aria-labelledby="service-notice-title"]');
+
+  expect(quickActionsRect.left).toBeGreaterThan(featureArticleRect.left + 200);
+  expect(Math.abs(quickActionsRect.top - featureArticleRect.top)).toBeLessThan(8);
+  expect(secondResourceRect.left).toBeGreaterThan(firstResourceRect.left + 80);
+  expect(Math.abs(secondResourceRect.top - firstResourceRect.top)).toBeLessThan(8);
+  expect(secondPanelRect.left).toBeGreaterThan(firstPanelRect.left + 80);
+  expect(Math.abs(secondPanelRect.top - firstPanelRect.top)).toBeLessThan(8);
 });
 
 test("composition patterns render and stay semantic at mobile width", async () => {
@@ -69,5 +88,15 @@ test("composition patterns render and stay semantic at mobile width", async () =
   await expect
     .element(page.getByRole("heading", { level: 2, name: "Grouped resources" }))
     .toBeVisible();
-  await expect.element(root).toMatchScreenshot("composition-patterns-mobile");
+
+  const featureArticleRect = getRect('article[aria-labelledby="featured-story-title"]');
+  const quickActionsRect = getRect('section[aria-labelledby="quick-actions-title"]');
+  const firstResourceRect = getRect("#services-title");
+  const secondResourceRect = getRect("#technology-title");
+  const firstPanelRect = getRect('article[aria-labelledby="policy-notice-title"]');
+  const secondPanelRect = getRect('article[aria-labelledby="service-notice-title"]');
+
+  expect(quickActionsRect.top).toBeGreaterThan(featureArticleRect.bottom);
+  expect(secondResourceRect.top).toBeGreaterThan(firstResourceRect.bottom);
+  expect(secondPanelRect.top).toBeGreaterThan(firstPanelRect.bottom);
 });
