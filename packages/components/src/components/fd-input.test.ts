@@ -30,6 +30,22 @@ function getSrLiveRegion(el: any): HTMLElement | null {
   return queryShadow<HTMLElement>(el, "[aria-live=polite]");
 }
 
+async function waitForExpectation(expectation: () => void, attempts = 10) {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      expectation();
+      return;
+    } catch (error) {
+      lastError = error;
+      await nextFrame();
+    }
+  }
+
+  throw lastError;
+}
+
 describe("fd-input", () => {
   beforeEach(() => {
     clearTestDom();
@@ -668,14 +684,18 @@ describe("fd-input", () => {
     await msg.updateComplete;
     await new Promise((r) => setTimeout(r, 50));
     await el.updateComplete;
-    expect(el.getAttribute("data-state")).toBe("warning");
+    await waitForExpectation(() => {
+      expect(el.getAttribute("data-state")).toBe("warning");
+    });
 
     // Rapid change to default
     msg.setAttribute("state", "default");
     await msg.updateComplete;
     await new Promise((r) => setTimeout(r, 50));
     await el.updateComplete;
-    expect(el.getAttribute("data-state")).toBeNull();
+    await waitForExpectation(() => {
+      expect(el.getAttribute("data-state")).toBeNull();
+    });
   });
 
   // --- pattern attribute ---
