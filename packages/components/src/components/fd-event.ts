@@ -40,12 +40,20 @@ export class FdEvent extends LitElement {
       display: none;
     }
 
-    article {
+    article,
+    .event-link {
       display: flex;
       align-items: flex-start;
       gap: var(--fd-event-gap, var(--fdic-spacing-sm, 12px));
       min-inline-size: 0;
       box-sizing: border-box;
+    }
+
+    .event-link {
+      color: inherit;
+      text-decoration: none;
+      border-radius: 2px;
+      outline-color: transparent;
     }
 
     [part="date"] {
@@ -60,7 +68,7 @@ export class FdEvent extends LitElement {
       min-block-size: var(--fd-event-date-size, 48px);
       padding: var(--fd-event-date-padding-block, var(--fdic-spacing-xs, 8px))
         var(--fd-event-date-padding-inline, var(--fdic-spacing-2xs, 4px));
-      gap: var(--fd-event-date-gap, 6px);
+      gap: var(--fd-event-date-gap, 3px);
       border-radius: var(--fd-event-date-radius, var(--fdic-corner-radius-sm, 3px));
       box-sizing: border-box;
       text-align: center;
@@ -75,7 +83,7 @@ export class FdEvent extends LitElement {
     :host([tone="warm"]) [part="date"] {
       background: var(
         --fd-event-date-bg-warm,
-        var(--fdic-color-secondary-200)
+        var(--fdic-color-secondary-300)
       );
       color: var(--fd-event-date-color-warm, var(--fdic-color-text-primary));
     }
@@ -83,11 +91,13 @@ export class FdEvent extends LitElement {
     :host([tone="cool"]) [part="date"] {
       background: var(
         --fd-event-date-bg-cool,
-        var(--fdic-color-semantic-bg-info)
+        var(--fdic-color-primary-200)
       );
       color: var(--fd-event-date-color-cool, var(--fdic-color-text-primary));
     }
 
+    .event-link:hover [part="date"],
+    .event-link:focus-visible [part="date"],
     article:has(.title-link:hover) [part="date"],
     article:has(.title-link:focus-visible) [part="date"] {
       background: var(
@@ -100,6 +110,8 @@ export class FdEvent extends LitElement {
       );
     }
 
+    :host([tone="warm"]) .event-link:hover [part="date"],
+    :host([tone="warm"]) .event-link:focus-visible [part="date"],
     :host([tone="warm"]) article:has(.title-link:hover) [part="date"],
     :host([tone="warm"]) article:has(.title-link:focus-visible) [part="date"] {
       background: var(
@@ -112,6 +124,8 @@ export class FdEvent extends LitElement {
       );
     }
 
+    :host([tone="cool"]) .event-link:hover [part="date"],
+    :host([tone="cool"]) .event-link:focus-visible [part="date"],
     :host([tone="cool"]) article:has(.title-link:hover) [part="date"],
     :host([tone="cool"]) article:has(.title-link:focus-visible) [part="date"] {
       background: var(
@@ -125,19 +139,23 @@ export class FdEvent extends LitElement {
     }
 
     [part="month"] {
+      display: block;
       margin: 0;
       font-size: var(--fd-event-month-font-size, 12px);
       font-weight: var(--fd-event-month-font-weight, 600);
       line-height: var(--fd-event-month-line-height, 1);
+      margin-block: var(--fd-event-month-leading-trim, -0.06em);
       letter-spacing: var(--fd-event-month-letter-spacing, 0.03em);
       text-transform: uppercase;
     }
 
     [part="day"] {
+      display: block;
       margin: 0;
       font-size: var(--fd-event-day-font-size, 22px);
       font-weight: var(--fd-event-day-font-weight, 500);
       line-height: var(--fd-event-day-line-height, 1);
+      margin-block: var(--fd-event-day-leading-trim, -0.15em);
     }
 
     [part="content"] {
@@ -196,6 +214,16 @@ export class FdEvent extends LitElement {
     }
 
     .title-link:focus-visible {
+      box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fd-event-focus-gap, var(--fdic-focus-gap-color)),
+        0 0 0 var(--fdic-focus-ring-width, 4px)
+          var(
+            --fd-event-focus-ring,
+            var(--fdic-focus-ring-color)
+          );
+    }
+
+    .event-link:focus-visible {
       box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
           var(--fd-event-focus-gap, var(--fdic-focus-gap-color)),
         0 0 0 var(--fdic-focus-ring-width, 4px)
@@ -286,40 +314,46 @@ export class FdEvent extends LitElement {
     const rel = normalizeLinkRel(target, this.rel?.trim() || undefined);
     const metadata = this.metadata.filter((item) => item.trim().length > 0);
     const titleTemplate = href
-      ? html`
-          <a
-            id=${this._titleId}
-            class="title-link"
-            href=${href}
-            target=${ifDefined(target)}
-            rel=${ifDefined(rel)}
-          >
-            ${title}
-          </a>
-        `
+      ? html`<p id=${this._titleId} class="title-link">${title}</p>`
       : html`<p id=${this._titleId} class="title-text">${title}</p>`;
+
+    const contentTemplate = html`
+      <div part="date">
+        <p part="month">${month}</p>
+        <p part="day">${day}</p>
+      </div>
+      <div part="content">
+        <div part="title">${title ? titleTemplate : nothing}</div>
+        ${metadata.length
+          ? html`
+              <ul part="metadata">
+                ${metadata.map(
+                  (item) => html`<li part="metadata-item">${item}</li>`,
+                )}
+              </ul>
+            `
+          : nothing}
+      </div>
+    `;
 
     return html`
       <article
         part="base"
         aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
       >
-        <div part="date">
-          <p part="month">${month}</p>
-          <p part="day">${day}</p>
-        </div>
-        <div part="content">
-          <div part="title">${title ? titleTemplate : nothing}</div>
-          ${metadata.length
-            ? html`
-                <ul part="metadata">
-                  ${metadata.map(
-                    (item) => html`<li part="metadata-item">${item}</li>`,
-                  )}
-                </ul>
-              `
-            : nothing}
-        </div>
+        ${href
+          ? html`
+              <a
+                class="event-link"
+                href=${href}
+                target=${ifDefined(target)}
+                rel=${ifDefined(rel)}
+                aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
+              >
+                ${contentTemplate}
+              </a>
+            `
+          : contentTemplate}
       </article>
     `;
   }

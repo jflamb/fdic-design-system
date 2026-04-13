@@ -13,7 +13,7 @@ type LinkArgs = {
   target: string;
   rel: string;
   variant: "normal" | "visited" | "subtle" | "inverted";
-  size: "sm" | "md" | "lg";
+  size: "sm" | "md" | "lg" | "h3";
   label: string;
 };
 
@@ -111,6 +111,17 @@ export const ExternalLink: Story = {
   },
 };
 
+export const WithTrailingIcon: Story = {
+  render: () => html`
+    <div style="display: inline-block; padding: 20px;">
+      <fd-link href="/latest" variant="normal" size="sm">
+        View all updates
+        <fd-icon slot="icon-end" name="caret-right" aria-hidden="true"></fd-icon>
+      </fd-link>
+    </div>
+  `,
+};
+
 ExternalLink.play = async ({ canvasElement }) => {
   const host = canvasElement.querySelector("fd-link") as HTMLElement | null;
   const anchor = host?.shadowRoot?.querySelector("[part=base]") as
@@ -129,16 +140,19 @@ export const AllVariants: Story = {
         <fd-link href="/coverage" variant="normal" size="sm">Small normal</fd-link>
         <fd-link href="/coverage" variant="normal" size="md">Medium normal</fd-link>
         <fd-link href="/coverage" variant="normal" size="lg">Large normal</fd-link>
+        <fd-link href="/coverage" variant="normal" size="h3">H3 normal</fd-link>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
         <fd-link href="/history" variant="visited" size="sm">Small visited</fd-link>
         <fd-link href="/history" variant="visited" size="md">Medium visited</fd-link>
         <fd-link href="/history" variant="visited" size="lg">Large visited</fd-link>
+        <fd-link href="/history" variant="visited" size="h3">H3 visited</fd-link>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
         <fd-link href="/policy" variant="subtle" size="sm">Small subtle</fd-link>
         <fd-link href="/policy" variant="subtle" size="md">Medium subtle</fd-link>
         <fd-link href="/policy" variant="subtle" size="lg">Large subtle</fd-link>
+        <fd-link href="/policy" variant="subtle" size="h3">H3 subtle</fd-link>
       </div>
       <div
         style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 16px; background: #0d6191; border-radius: 4px;"
@@ -146,6 +160,7 @@ export const AllVariants: Story = {
         <fd-link href="/emergency" variant="inverted" size="sm">Small inverted</fd-link>
         <fd-link href="/emergency" variant="inverted" size="md">Medium inverted</fd-link>
         <fd-link href="/emergency" variant="inverted" size="lg">Large inverted</fd-link>
+        <fd-link href="/emergency" variant="inverted" size="h3">H3 inverted</fd-link>
       </div>
     </div>
   `,
@@ -170,6 +185,14 @@ export const DocsOverview: Story = {
         >
           <fd-link href="/emergency-guidance" variant="inverted">inverted links</fd-link>
         </span>.
+      </p>
+      <p style="margin: 0; max-width: 48rem; line-height: 1.5;">
+        Standalone “more” links can add a trailing icon when the destination cue
+        helps the surrounding page pattern.
+        <fd-link href="/all-updates" variant="normal" size="sm">
+          View all updates
+          <fd-icon slot="icon-end" name="caret-right" aria-hidden="true"></fd-icon>
+        </fd-link>
       </p>
     </div>
   `,

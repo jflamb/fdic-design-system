@@ -105,10 +105,10 @@ export class FdVisual extends LitElement {
     }
 
     .type-cool {
-      background: var(--fd-visual-bg-cool, var(--fdic-color-info-100));
+      background: var(--fd-visual-bg-cool, var(--fdic-color-primary-400));
       color: var(
         --fd-visual-fg-cool,
-        var(--fdic-color-text-inverted)
+        var(--fdic-color-icon-inverted)
       );
     }
 
@@ -119,7 +119,7 @@ export class FdVisual extends LitElement {
       );
       color: var(
         --fd-visual-fg-warm,
-        var(--fdic-color-text-primary)
+        var(--fdic-color-icon-warm)
       );
     }
 

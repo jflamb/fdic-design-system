@@ -107,6 +107,8 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
 - **Agency name**: Use the formal organization name unless the product has an approved shorter form.
 - **Utility links**: Keep the set small and high-value. The Figma reference shows a single Accessibility link, but the component allows a short list when the shell needs more than one item.
 - **Social labels**: Use task-oriented labels such as “Follow the FDIC on Facebook” rather than platform names alone.
+- **Social icon chrome**: Treat the social destinations as compact icon links with the component-owned hover/focus surface. Keep the labels explicit and avoid adding shell-specific borders or pill styling.
+- **Social density**: Keep the icon buttons at the component default size and spacing unless the shell has a documented compact variant. The default footer treatment assumes the standard `36px` desktop targets.
 - **Updated text**: Treat the property as already-formatted visible copy. If the product needs locale-specific formatting, do that before assigning the string.
 
 ## Implementation guide

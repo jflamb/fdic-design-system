@@ -15,6 +15,7 @@ import {
 
 type TileArgs = {
   tone: "neutral" | "cool" | "warm";
+  visualType: "auto" | "neutral" | "cool" | "warm" | "avatar";
   iconName: string;
   title: string;
   href: string;
@@ -50,6 +51,7 @@ const renderTile = (args: TileArgs) => html`
   <div style=${`${TILE_FRAME_STYLE} --tile-frame-width:${WIDTH_PRESETS[args.width]};`}>
     <fd-tile
       tone=${args.tone}
+      visual-type=${args.visualType === "auto" ? "" : args.visualType}
       icon-name=${args.iconName}
       title=${args.title}
       href=${args.href}
@@ -75,6 +77,13 @@ const meta = {
   },
   argTypes: {
     ...getComponentArgTypes("fd-tile"),
+    visualType: {
+      control: "radio",
+      options: ["auto", "neutral", "cool", "warm", "avatar"],
+      description:
+        "Optional override for the internal fd-visual type. Use avatar for editorial identity snippets.",
+      table: { category: "Story controls" },
+    },
     linksMode: {
       control: "radio",
       options: ["none", "two", "four"],
@@ -93,6 +102,7 @@ const meta = {
   args: {
     ...getComponentArgs("fd-tile"),
     tone: "neutral",
+    visualType: "auto",
     iconName: "download",
     title: "Benefits",
     href: "/benefits",

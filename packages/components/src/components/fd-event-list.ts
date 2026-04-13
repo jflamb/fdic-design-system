@@ -67,6 +67,45 @@ export class FdEventList extends LitElement {
       display: contents;
     }
 
+    :host([columns="2"]) [part="base"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    :host([columns="3"]) [part="base"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    :host([columns="4"]) [part="base"] {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @container (max-width: 815px) {
+      :host([columns="2"]) [part="base"] {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(var(--_fd-event-list-track-min), var(--_fd-event-list-track-max))
+        );
+      }
+    }
+
+    @container (max-width: 1175px) {
+      :host([columns="3"]) [part="base"] {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(var(--_fd-event-list-track-min), var(--_fd-event-list-track-max))
+        );
+      }
+    }
+
+    @container (max-width: 1167px) {
+      :host([columns="4"]) [part="base"] {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(var(--_fd-event-list-track-min), var(--_fd-event-list-track-max))
+        );
+      }
+    }
+
     ::slotted(fd-event) {
       inline-size: 100%;
       min-inline-size: 0;

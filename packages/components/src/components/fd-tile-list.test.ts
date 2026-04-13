@@ -180,6 +180,9 @@ describe("FdTileList", () => {
     expect(styles).toContain("var(--fd-tile-list-col-4-gap-mobile, var(--fdic-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
+    expect(styles).toContain(':host([columns="3"]) [part="base"]');
+    expect(styles).toContain("repeat(3, minmax(0, 1fr))");
+    expect(styles).toContain("@container (max-width: 1175px)");
   });
 
   it("normalizes invalid columns back to the default recipe", async () => {

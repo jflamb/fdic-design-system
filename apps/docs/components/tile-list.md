@@ -1,6 +1,6 @@
 # Tile List
 
-The Tile List component arranges related tiles in a responsive wrapping layout, uses the shared public collection recipes for two-, three-, and four-column collections, adapts those recipes to the container's available inline space, and enforces one shared visual tone across every tile in the set.
+The Tile List component arranges related tiles in a responsive collection layout, uses the shared public collection recipes for two-, three-, and four-column collections, preserves the chosen desktop density when the container has room for it, and adapts those recipes to the container's available inline space on narrower shells.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -11,7 +11,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 
 - **Groups of related tiles** — use Tile List when the set itself needs a consistent responsive layout.
 - **Sets that should share one visual type** — choose a single `tone` on the list so every grouped tile uses the same cool, neutral, or warm treatment.
-- **Content collections that should reflow across screen sizes** — the component uses a responsive grid that collapses naturally without additional author CSS.
+- **Content collections that should preserve a clear desktop count** — the component keeps the requested `2`, `3`, or `4` column density on wide containers before collapsing responsively on narrower shells.
 - **Layouts that need a specific collection density** — choose `columns="2"`, `columns="3"`, or `columns="4"` to align with the documented design-system collection recipes.
 - **Sets that already have visible context nearby** — provide `label` only when the surrounding content does not already name the set clearly.
 
@@ -65,7 +65,7 @@ The Tile List component arranges related tiles in a responsive wrapping layout, 
 - **Use `label` only when needed.** If nearby visible copy already names the set, leave `label` unset to avoid redundant announcements.
 - **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` recipe families.
 - **Treat the list as a collection contract, not a page-layout utility.** The shared `--fdic-layout-col-*` tokens are stable for collection wrappers; general section and split spacing belong to the foundations layout contract.
-- **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
+- **Let the layout collapse naturally after the desktop recipe.** The component keeps the requested desktop count on wide containers, then shifts to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
 - **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Tile List does not add composite keyboarding or item state. If the interaction starts behaving like a menu, selector, or card-action grid, use a different pattern instead.
 

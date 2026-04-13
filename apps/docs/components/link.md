@@ -18,7 +18,7 @@ Links navigate people to another location without changing the control into a bu
 - **Don't use `fd-link` for primary actions**. If the interaction should feel like "take this action now," use `fd-button` instead.
 - **Don't use it as a generic text wrapper**. Supported usage requires a meaningful `href`. If the content does not navigate, it is not a link.
 - **Don't treat `visited` as browser-history truth**. In v1 it is an explicit visual treatment, not a history check.
-- **Don't stretch it into compound action patterns**. Icon-bearing action links and heading-scale links are intentionally out of scope for v1.
+- **Don't stretch it into compound action patterns**. Keep icons supportive and lightweight; if the interaction should feel like a promoted action, use `fd-button` instead.
 
 ## Examples
 
@@ -55,6 +55,8 @@ Links navigate people to another location without changing the control into a bu
 | Name | Description |
 |---|---|
 | (default) | Authored link text. |
+| `icon-start` | Optional leading icon for lightweight directional or status cues. |
+| `icon-end` | Optional trailing icon for lightweight destination cues such as a caret. |
 
 ## CSS custom properties
 
@@ -163,8 +165,8 @@ Links navigate people to another location without changing the control into a bu
 
 ## Known limitations
 
-- **Three sizes only in v1**. The supplied Figma family includes an `h3` treatment, but `fd-link` currently ships only `sm`, `md`, and `lg`.
-- **No icon support in v1**. The component is intentionally text-first. If you need a link-plus-icon pattern, use a documented composition recipe or open a design discussion first.
+- **Four sizes in v1**. Use `h3` only when the link is the actual interactive text inside a semantic `h3` heading. Keep `sm`, `md`, and `lg` for inline or standalone links outside heading markup.
+- **Icons stay secondary.** `fd-link` supports lightweight leading and trailing icons, but it is still a text-first hyperlink. If the interaction should read like a promoted action, use `fd-button` instead.
 - **`visited` is explicit, not browser-owned.** The `visited` variant is a deterministic visual treatment for the shipped component surface. It does not inspect browser history.
 
 ## Related components

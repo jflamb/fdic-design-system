@@ -103,6 +103,19 @@ describe("FdVisual", () => {
     );
   });
 
+  it("uses the Figma cool and warm token surfaces", () => {
+    const styles = (
+      customElements.get("fd-visual") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("var(--fdic-color-primary-400)");
+    expect(styles).toContain("var(--fdic-color-icon-inverted)");
+    expect(styles).toContain("var(--fdic-color-secondary-200)");
+    expect(styles).toContain("var(--fdic-color-icon-warm)");
+  });
+
   it("applies the xs size class", async () => {
     const el = await createVisual({ size: "xs" });
 

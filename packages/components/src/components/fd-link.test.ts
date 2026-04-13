@@ -57,6 +57,13 @@ describe("fd-link", () => {
     expect(inner.classList.contains("size-md")).toBe(true);
   });
 
+  it("supports the h3 size treatment", async () => {
+    const el = await createLink({ href: "/coverage", size: "h3" });
+    const inner = getInternal(el);
+
+    expect(inner.classList.contains("size-h3")).toBe(true);
+  });
+
   it("forwards aria-label to the rendered anchor", async () => {
     const el = await createLink(
       { href: "/coverage", "aria-label": "Coverage details" },
@@ -141,6 +148,21 @@ describe("fd-link", () => {
 
     expect(slot).not.toBeNull();
     expect(el.textContent?.trim()).toBe("Read more");
+  });
+
+  it("renders icon-start and icon-end slots for additive icon treatments", async () => {
+    const el = await createLink(
+      { href: "/coverage" },
+      '<fd-icon slot="icon-start" name="arrow-left"></fd-icon>Read more<fd-icon slot="icon-end" name="caret-right"></fd-icon>',
+    );
+    const inner = getInternal(el);
+    const slotNames = Array.from(inner.querySelectorAll("slot")).map((slot) =>
+      slot.getAttribute("name") ?? "default",
+    );
+
+    expect(slotNames).toContain("icon-start");
+    expect(slotNames).toContain("default");
+    expect(slotNames).toContain("icon-end");
   });
 
   it("updates forwarded aria attributes after host mutations", async () => {

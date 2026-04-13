@@ -36,7 +36,7 @@ export class FdStripe extends LitElement {
     }
 
     .type-cool {
-      background: var(--fd-stripe-bg-cool, var(--fdic-color-info-100));
+      background: var(--fd-stripe-bg-cool, var(--fdic-color-info-200));
     }
 
     .type-warm {

@@ -2794,6 +2794,14 @@
         {
           "name": "default",
           "description": "Authored link text."
+        },
+        {
+          "name": "icon-start",
+          "description": "Optional leading icon for lightweight directional or status cues."
+        },
+        {
+          "name": "icon-end",
+          "description": "Optional trailing icon for lightweight destination cues such as a caret."
         }
       ],
       "after": ""

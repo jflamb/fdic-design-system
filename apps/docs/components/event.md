@@ -1,21 +1,21 @@
 # Event
 
-The Event component presents a dated event summary with a visible month and day block, an optional native title link, and lightweight metadata.
+The Event component presents a dated event summary with a visible month and day block, an optional full-item native link, and lightweight metadata.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-event</code> when people need to scan upcoming, current, or past events quickly without turning the entire row into a custom interactive surface. The component keeps its shell static and lets the title remain a native link when navigation is needed.</p>
+  <p>Use <code>fd-event</code> when people need to scan upcoming, current, or past events quickly. When navigation is needed, the component promotes the whole event row to one native link target instead of layering custom click handlers around a static shell.</p>
 </div>
 
 ## When to use
 
-- **Short event summaries with a clear primary destination** — use Event when the title is the main thing people should notice and optionally open.
+- **Short event summaries with a clear primary destination** — use Event when the dated row should read as one primary destination people can open quickly.
 - **Time-based lists that benefit from lightweight tone guidance** — the visible date block helps people scan repeated event rows quickly.
 - **Metadata that can stay brief and inline** — use the metadata row for a few short descriptors such as audience, format, or event type.
 
 ## When not to use
 
-- **Do not use Event as a clickable card** — the shell is intentionally static in v1.
+- **Do not use Event for multi-action cards** — the component supports one primary destination, not stacked buttons or secondary inline actions.
 - **Do not use it for rich schedules or agenda content** — if the content needs times, speakers, descriptions, or actions, use a broader content pattern.
 - **Do not rely on tone alone to communicate timing or status** — the visible text still needs to explain the event.
 
@@ -24,7 +24,7 @@ The Event component presents a dated event summary with a visible month and day 
 <StoryEmbed
   storyId="components-event--docs-overview"
   linkStoryId="components-event--playground"
-  caption="Event keeps the shell non-interactive while the title can remain a native link. Open Storybook to inspect linked, unlinked, and tone variations."
+  caption="Event keeps one primary native destination for the full row when linked. Open Storybook to inspect linked, unlinked, and tone variations."
 />
 
 ### Basic usage
@@ -48,10 +48,12 @@ The Event component presents a dated event summary with a visible month and day 
 
 ### Implementation guide
 
-- **Keep the shell static.** `fd-event` does not own click handling on the host. Navigation belongs to the native title link when one is present.
+- **Use `href` when the whole row should open one destination.** When `href` is present, `fd-event` renders one native link target for the complete event row instead of exposing only the title text as the click target.
 - **Pass metadata as a JavaScript property.** Use `metadata` for short supporting details so the component can keep punctuation and wrapping consistent.
 - **Use visible month and day text.** The date block is part of the event content. Treat it as user-facing information, not as purely decorative ornament.
 - **Use tone as supporting context only.** Follow the Figma guidance: `warm` for official public-facing events, `neutral` for past events, and `cool` for future events. Do not rely on tone alone to convey timing.
+- **Let the date chip keep its shipped tone defaults.** The default warm/cool/neutral surfaces and hover states are part of the component contract and already match the Figma spec for event chips. Only override the tone hooks when a product has a documented token mapping change.
+- **Do not add extra spacing inside the date chip.** The month/day stack uses trimmed text-box approximations and a tighter internal gap so it keeps the compact Figma rhythm without requiring custom CMS overrides.
 - **Keep the title short enough to scan.** The component clamps the title to two lines, so use concise event names and move extra detail elsewhere.
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -99,7 +101,7 @@ The Event component presents a dated event summary with a visible month and day 
 ## Accessibility
 
 - `fd-event` is **not hidden from assistive technology**. The visible month/day text remains part of the exposed event content.
-- The shell is **not focusable**. Keyboard users move only to the native title link when `href` is provided.
+- The shell is **not independently focusable**. Keyboard users move only to the native row link when `href` is provided.
 - The host does **not** add custom keyboard shortcuts, roving focus, or composite navigation behavior.
 - Metadata renders as a semantic list so assistive technology does not depend on visual separator characters alone.
 - When the title has no `href`, it renders as plain text instead of a fake link.
@@ -114,4 +116,4 @@ The Event component presents a dated event summary with a visible month and day 
 
 - [Event List](/components/event-list) — use `fd-event-list` to arrange multiple events in a responsive set.
 - [Tile](/components/tile) — review Tile when the content is more destination-oriented than date-oriented.
-- [Link](/components/link) — use clear event titles and destination text when the title is clickable.
+- [Link](/components/link) — use clear event titles and destination text when the event row opens a destination.

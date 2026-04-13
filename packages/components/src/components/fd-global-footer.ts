@@ -270,21 +270,21 @@ export class FdGlobalFooter extends LitElement {
       align-items: center;
       justify-content: center;
       text-decoration-line: none;
-      position: relative;
+      transition:
+        background-color 150ms ease-out,
+        color 150ms ease-out;
+      border-radius: var(
+        --fd-global-footer-social-radius,
+        var(--fdic-corner-radius-sm, 4px)
+      );
     }
 
-    .social-link::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: var(--fdic-corner-radius-sm, 3px);
-      box-shadow: inset 0 0 0 0 transparent;
-    }
-
-    .social-link:hover::before,
-    .social-link:focus-visible::before {
-      box-shadow: inset 0 0 0 1px currentColor;
-      opacity: 0.92;
+    .social-link:hover,
+    .social-link:focus-visible {
+      background: var(
+        --fd-global-footer-social-background-hover,
+        rgb(255 255 255 / 8%)
+      );
     }
 
     .social-icon {

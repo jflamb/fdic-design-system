@@ -11,6 +11,7 @@ async function createTile(
     target?: string;
     rel?: string;
     tone: string;
+    visualType?: string;
     iconName?: string;
   }> = {},
 ) {
@@ -23,6 +24,7 @@ async function createTile(
     target?: string;
     rel?: string;
     tone: string;
+    visualType?: string;
     iconName?: string;
   };
   Object.assign(el, props);
@@ -149,6 +151,16 @@ describe("FdTile", () => {
   it("normalizes invalid tones back to neutral on the visual", async () => {
     const el = await createTile({ title: "Benefits", tone: "unsupported" });
     expect(el.shadowRoot?.querySelector("fd-visual")?.getAttribute("type")).toBe("neutral");
+  });
+
+  it("allows an explicit visual type that differs from the tile tone", async () => {
+    const el = await createTile({
+      title: "Spotlight",
+      tone: "neutral",
+      visualType: "avatar",
+    });
+
+    expect(el.shadowRoot?.querySelector("fd-visual")?.getAttribute("type")).toBe("avatar");
   });
 
   it("preserves rel values for same-tab links", async () => {

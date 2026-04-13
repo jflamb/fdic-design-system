@@ -173,8 +173,11 @@ Recommended uses:
 - `.fdic-composition-section` and `__inner` for full-bleed section bands with aligned inner content
 - `.fdic-composition-feature-rail` for a primary story rail plus a supporting aside
 - `.fdic-composition-story` for media-plus-copy splits
+- `.fdic-composition-title-stack` plus `.fdic-composition-meta` for heading-and-secondary-text pairings such as story dates and source labels
+- `.fdic-composition-meta` for supporting date, source, and tag lines paired with headings or teasers
 - `.fdic-composition-link-grid` and link-card classes for short featured-resource collections
 - `.fdic-composition-link-columns` for grouped utility-link sections
+- `.fdic-composition-person` for compact editorial identity snippets
 - `.fdic-composition-dual` for two equal supporting panels
 
 Keep those classes at the authored page layer. They should not replace semantic landmarks, heading structure, or first-class components.

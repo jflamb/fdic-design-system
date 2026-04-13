@@ -10,7 +10,7 @@ export const LINK_VARIANTS = [
 ] as const;
 export type LinkVariant = (typeof LINK_VARIANTS)[number];
 
-export const LINK_SIZES = ["sm", "md", "lg"] as const;
+export const LINK_SIZES = ["sm", "md", "lg", "h3"] as const;
 export type LinkSize = (typeof LINK_SIZES)[number];
 
 const LINK_VARIANT_SET = new Set<string>(LINK_VARIANTS);
@@ -60,6 +60,10 @@ export class FdLink extends LitElement {
     }
 
     .base {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--fd-link-gap, var(--fdic-spacing-2xs, 4px));
+      max-inline-size: 100%;
       color: var(
         --fd-link-color-normal,
         var(--fdic-color-bg-active)
@@ -79,6 +83,28 @@ export class FdLink extends LitElement {
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
       overflow-wrap: anywhere;
+    }
+
+    .label {
+      min-inline-size: 0;
+    }
+
+    slot[name="icon-start"],
+    slot[name="icon-end"] {
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    ::slotted([slot="icon-start"]),
+    ::slotted([slot="icon-end"]) {
+      color: currentColor;
+      flex: none;
+      inline-size: var(--fd-link-icon-size, 1rem);
+      block-size: var(--fd-link-icon-size, 1rem);
+      --fd-icon-size: var(--fd-link-icon-size, 1rem);
     }
 
     .base:hover,
@@ -157,6 +183,12 @@ export class FdLink extends LitElement {
       font-size: var(--fdic-font-size-body-big, 1.25rem);
       font-weight: 450;
       line-height: 1.25;
+    }
+
+    .size-h3 {
+      font-size: var(--fdic-font-size-h3, 1.40625rem);
+      font-weight: 600;
+      line-height: var(--fdic-line-height-h3, 1.25);
     }
 
     @media (forced-colors: active) {
@@ -265,7 +297,9 @@ export class FdLink extends LitElement {
         aria-label=${ariaLabel}
         aria-labelledby=${ariaLabelledby}
       >
-        <slot></slot>
+        <slot name="icon-start"></slot>
+        <span class="label"><slot></slot></span>
+        <slot name="icon-end"></slot>
       </a>
     `;
   }

@@ -4,6 +4,8 @@ import { normalizeLinkRel } from "./link-utils.js";
 
 export const TILE_TONES = ["neutral", "cool", "warm"] as const;
 export type TileTone = (typeof TILE_TONES)[number];
+export const TILE_VISUAL_TYPES = ["neutral", "cool", "warm", "avatar"] as const;
+export type TileVisualType = (typeof TILE_VISUAL_TYPES)[number];
 
 export interface FdTileLinkItem {
   label: string;
@@ -13,11 +15,21 @@ export interface FdTileLinkItem {
 }
 
 const TILE_TONE_SET = new Set<string>(TILE_TONES);
+const TILE_VISUAL_TYPE_SET = new Set<string>(TILE_VISUAL_TYPES);
 
 let tileTitleIds = 0;
 
 function normalizeTileTone(value: string | undefined): TileTone {
   return value && TILE_TONE_SET.has(value) ? (value as TileTone) : "neutral";
+}
+
+function normalizeTileVisualType(
+  value: string | undefined,
+  fallback: TileTone,
+): TileVisualType {
+  return value && TILE_VISUAL_TYPE_SET.has(value)
+    ? (value as TileVisualType)
+    : fallback;
 }
 
 /**
@@ -26,6 +38,7 @@ function normalizeTileTone(value: string | undefined): TileTone {
 export class FdTile extends LitElement {
   static properties = {
     tone: { reflect: true },
+    visualType: { attribute: "visual-type", reflect: true },
     iconName: { attribute: "icon-name", reflect: true },
     title: { reflect: true },
     href: { reflect: true },
@@ -261,6 +274,7 @@ export class FdTile extends LitElement {
   `;
 
   declare tone: TileTone;
+  declare visualType: TileVisualType | undefined;
   declare iconName: string | undefined;
   declare title: string;
   declare href: string | undefined;
@@ -274,6 +288,7 @@ export class FdTile extends LitElement {
   constructor() {
     super();
     this.tone = "neutral";
+    this.visualType = undefined;
     this.iconName = undefined;
     this.title = "";
     this.href = undefined;
@@ -361,6 +376,7 @@ export class FdTile extends LitElement {
     const links = this._getNormalizedLinks();
     const compact = !description && links.length === 0;
     const tone = normalizeTileTone(this.tone);
+    const visualType = normalizeTileVisualType(this.visualType, tone);
 
     return html`
       <article
@@ -369,7 +385,7 @@ export class FdTile extends LitElement {
         aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
       >
         <div part="visual">
-          <fd-visual type=${tone}>
+          <fd-visual type=${visualType}>
             ${this.iconName?.trim()
               ? html`<fd-icon name=${this.iconName} aria-hidden="true"></fd-icon>`
               : nothing}

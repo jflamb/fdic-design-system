@@ -43,6 +43,9 @@ The following classes are part of the supported stylesheet contract:
 - `.fdic-composition-story`
 - `.fdic-composition-story__media`
 - `.fdic-composition-story__body`
+- `.fdic-composition-title-stack`
+- `.fdic-composition-copy-stack`
+- `.fdic-composition-meta`
 - `.fdic-composition-link-grid`
 - `.fdic-composition-link-card`
 - `.fdic-composition-link-card__icon`
@@ -51,6 +54,8 @@ The following classes are part of the supported stylesheet contract:
 - `.fdic-composition-link-column`
 - `.fdic-composition-link-column__title`
 - `.fdic-composition-link-column__list`
+- `.fdic-composition-person`
+- `.fdic-composition-person__body`
 - `.fdic-composition-dual`
 - `.fdic-composition-dual__panel`
 
@@ -90,8 +95,8 @@ Use `.fdic-composition-feature-rail` when one primary content rail sits beside a
           <img src="/feature.png" alt="FDIC staff reviewing guidance on a laptop" />
         </figure>
         <div class="fdic-composition-story__body">
-          <p class="fdic-eyebrow">Featured update</p>
           <h3 id="feature-story-title"><a href="/story">Story title</a></h3>
+          <p class="fdic-composition-meta">January 29, 2026 | Division update</p>
           <p>Supporting copy.</p>
           <p><a href="/story">Read the full update</a></p>
         </div>
@@ -121,9 +126,21 @@ Recommended child structure:
 
 Keep the body short and purposeful. If the content becomes a long article, switch back to a normal prose flow.
 
+Use `.fdic-composition-meta` for secondary text that pairs with a story or resource title, such as dates, tags, source labels, or supporting bylines. Keep it adjacent to the title or teaser rather than separating it into its own visual block.
+
+Use `.fdic-composition-title-stack` when a heading and its supporting `.fdic-composition-meta` line should read as one typographic unit. This keeps the relationship between the destination title and its secondary text tighter and more consistent than free-floating heading and paragraph spacing, and it gives CMS consumers one governed pairing for headline-plus-metadata treatment.
+
+The story split pattern also owns the default spacing between the media column, the title/meta stack, and the teaser copy. The default media-to-copy gap is intentionally looser than the internal copy rhythm so the image and text read as related columns rather than one collapsed text block. Consumers should not add ad hoc margins between those elements unless a page has a documented exception.
+
+Use `.fdic-composition-copy-stack` when a short teaser paragraph or compact action row should stay in the same governed rhythm as the heading/meta pair. Use it for both primary and secondary story summaries when the page needs a consistent title/meta/teaser stack.
+
+When a story or message headline is interactive, prefer placing `fd-link` inside the heading instead of a raw anchor so the title inherits the shared DS link underline, hover, focus, and icon treatment.
+
 ## Link grid
 
 Use the link-grid pattern for a set of short linked resources with optional icons and one or two lines of supporting copy.
+
+When the resources should render as full tiles with DS-owned icon treatment, hover behavior, and responsive density, prefer [`fd-tile-list`](/components/tile-list) with [`fd-tile`](/components/tile). Use the lighter link-grid pattern only when the content should stay a plain CMS composition instead of a componentized tile set.
 
 ```html
 <div class="fdic-composition-link-grid" role="list" aria-label="Featured links">
@@ -133,6 +150,7 @@ Use the link-grid pattern for a set of short linked resources with optional icon
     </span>
     <div class="fdic-composition-link-card__body">
       <h3><a href="/resource">Performance management</a></h3>
+      <p class="fdic-composition-meta">Employee service</p>
       <p>Employee performance management program.</p>
     </div>
   </article>
@@ -145,10 +163,13 @@ Accessibility expectations:
 - keep the repeated resources in a real `ul` with `li` items
 - treat the icon as decorative unless it conveys unique meaning not present in text
 - do not use this pattern for dense navigation trees or long descriptions
+- rely on the pattern's hover and focus treatment instead of adding one-off card hovers in the CMS layer
 
 ## Link columns
 
 Use `.fdic-composition-link-columns` when several short related link groups share equal visual weight.
+
+The column title uses a tighter sub-section heading scale than the primary section heading so utility groups stay scannable without overpowering the section shell.
 
 ```html
 <nav class="fdic-composition-section" aria-labelledby="tools-title">
@@ -167,6 +188,22 @@ Use `.fdic-composition-link-columns` when several short related link groups shar
 ```
 
 This pattern is appropriate for employee resources, service directories, and grouped utility links. It is not a substitute for application navigation menus.
+
+## Person snippet
+
+Use `.fdic-composition-person` when a small identity block pairs an avatar or decorative visual with a name and secondary role line.
+
+```html
+<div class="fdic-composition-person">
+  <div aria-hidden="true">AH</div>
+  <div class="fdic-composition-person__body">
+    <h3>Alex Harrison</h3>
+    <p>Digital Media Specialist, Office of Communications</p>
+  </div>
+</div>
+```
+
+Use this for editorial spotlight snippets and small author or team callouts. The pattern keeps the avatar inline with the stacked name and role line, rather than letting the identity text drift into a separate block. If the content needs a primary destination and supporting links, switch to `fd-tile` instead.
 
 Do not collapse the links into bare `div` elements:
 

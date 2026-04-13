@@ -41,6 +41,8 @@ describe("phosphor-regular built-in icons", () => {
     "warning-circle",
     "warning-octagon",
     "x",
+    "x-logo",
+    "linkedin-logo",
   ];
 
   it("all expected icons are registered after import", () => {

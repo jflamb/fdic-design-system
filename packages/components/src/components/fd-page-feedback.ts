@@ -95,7 +95,7 @@ export class FdPageFeedback extends LitElement {
       content: "";
       position: absolute;
       inset-block-start: 0;
-      inset-inline: var(--fd-page-feedback-inline-padding, var(--fdic-layout-gutter, 64px));
+      inset-inline: 0;
       block-size: 4px;
       background: var(
         --fd-page-feedback-border-image,

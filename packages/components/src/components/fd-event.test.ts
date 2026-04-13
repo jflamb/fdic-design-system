@@ -28,7 +28,7 @@ describe("FdEvent", () => {
     expect(customElements.get("fd-event")).toBeDefined();
   });
 
-  it("renders a labelled article with a primary link and metadata list", async () => {
+  it("renders a labelled article with a full-item link and metadata list", async () => {
     const el = document.createElement("fd-event") as HTMLElement & {
       updateComplete: Promise<void>;
       month: string;
@@ -47,13 +47,14 @@ describe("FdEvent", () => {
     await el.updateComplete;
 
     const article = el.shadowRoot?.querySelector("article");
-    const title = el.shadowRoot?.querySelector<HTMLAnchorElement>(".title-link");
+    const link = el.shadowRoot?.querySelector<HTMLAnchorElement>(".event-link");
+    const title = el.shadowRoot?.querySelector<HTMLElement>(".title-link");
     const metadata = Array.from(
       el.shadowRoot?.querySelectorAll("[part=metadata-item]") ?? [],
     );
 
     expect(article?.getAttribute("aria-labelledby")).toBeTruthy();
-    expect(title?.getAttribute("href")).toBe("/events/ffiec");
+    expect(link?.getAttribute("href")).toBe("/events/ffiec");
     expect(title?.textContent).toContain("FFIEC");
     expect(metadata.map((item) => item.textContent?.trim())).toEqual([
       "FDIC-wide",
@@ -95,7 +96,7 @@ describe("FdEvent", () => {
     document.body.appendChild(el);
     await el.updateComplete;
 
-    const title = el.shadowRoot?.querySelector<HTMLAnchorElement>(".title-link");
+    const title = el.shadowRoot?.querySelector<HTMLAnchorElement>(".event-link");
 
     expect(title?.getAttribute("rel")).toBe("noopener noreferrer");
 
@@ -145,7 +146,7 @@ describe("FdEvent", () => {
     el.target = " _blank ";
     await el.updateComplete;
 
-    expect(queryShadow<HTMLAnchorElement>(el, ".title-link")?.target).toBe(
+    expect(queryShadow<HTMLAnchorElement>(el, ".event-link")?.target).toBe(
       "_blank",
     );
   });
@@ -158,7 +159,7 @@ describe("FdEvent", () => {
     el.rel = "external noopener";
     await el.updateComplete;
 
-    expect(queryShadow<HTMLAnchorElement>(el, ".title-link")?.rel).toBe(
+    expect(queryShadow<HTMLAnchorElement>(el, ".event-link")?.rel).toBe(
       "external noopener noreferrer",
     );
   });
@@ -181,13 +182,31 @@ describe("FdEvent", () => {
     expect(queryShadow(el, "[part=day]")?.textContent).toBe("18");
   });
 
+  it("uses the Figma date-chip token defaults", () => {
+    const styles = (
+      customElements.get("fd-event") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("var(--fdic-color-primary-200)");
+    expect(styles).toContain("var(--fdic-color-secondary-300)");
+    expect(styles).toContain("var(--fdic-color-primary-500)");
+    expect(styles).toContain("var(--fdic-color-secondary-800)");
+    expect(styles).toContain("gap: var(--fd-event-date-gap, 3px)");
+    expect(styles).toContain("line-height: var(--fd-event-month-line-height, 1)");
+    expect(styles).toContain("margin-block: var(--fd-event-month-leading-trim, -0.06em)");
+    expect(styles).toContain("line-height: var(--fd-event-day-line-height, 1)");
+    expect(styles).toContain("margin-block: var(--fd-event-day-leading-trim, -0.15em)");
+  });
+
   it("assigns a stable generated title id when rendering a link", async () => {
     const el = await createEvent();
     el.title = "Regional outreach event";
     el.href = "/events/outreach";
     await el.updateComplete;
 
-    const title = queryShadow<HTMLAnchorElement>(el, ".title-link");
+    const title = queryShadow<HTMLElement>(el, ".title-link");
 
     expect(title?.id).toMatch(/^fd-event-title-\d+$/);
     expect(queryShadow(el, "article")?.getAttribute("aria-labelledby")).toBe(
@@ -202,7 +221,7 @@ describe("FdEvent", () => {
     el.rel = "external";
     await el.updateComplete;
 
-    expect(queryShadow<HTMLAnchorElement>(el, ".title-link")?.rel).toBe(
+    expect(queryShadow<HTMLAnchorElement>(el, ".event-link")?.rel).toBe(
       "external",
     );
   });
@@ -217,8 +236,8 @@ describe("FdEvent", () => {
     await first.updateComplete;
     await second.updateComplete;
 
-    expect(queryShadow<HTMLAnchorElement>(first, ".title-link")?.id).not.toBe(
-      queryShadow<HTMLAnchorElement>(second, ".title-link")?.id,
+    expect(queryShadow<HTMLElement>(first, ".title-link")?.id).not.toBe(
+      queryShadow<HTMLElement>(second, ".title-link")?.id,
     );
   });
 
