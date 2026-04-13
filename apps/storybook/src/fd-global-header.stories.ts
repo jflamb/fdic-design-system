@@ -112,6 +112,7 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
   <main
     style=${[
       `min-height: calc(${longScroll ? "220vh" : "100vh"} - 131px)`,
+      mobile ? "max-height: calc(100vh - 131px)" : "",
       "background: var(--fdic-color-bg-container, #f5f8fb)",
       "color: var(--fdic-color-text-primary, #212123)",
       "position: relative",
@@ -205,7 +206,7 @@ const renderBackdropContent = (mobile = false, longScroll = false) => html`
           "gap:" + (mobile ? "0.75rem" : "1rem"),
         ].join("; ")}
       >
-        ${Array.from({ length: mobile ? 3 : 4 }).map(
+        ${Array.from({ length: mobile ? 1 : 4 }).map(
           (_, index) => html`
             <article
               style=${[
