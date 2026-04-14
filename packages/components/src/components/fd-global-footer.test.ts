@@ -190,10 +190,14 @@ describe("FdGlobalFooter", () => {
       : styles?.cssText ?? "";
 
     expect(cssText).toContain("container-type: inline-size");
+    expect(cssText).toContain("@container (max-width: 1023.999px)");
     expect(cssText).toContain("@container (max-width: 640px)");
     expect(cssText).toContain("var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))");
     expect(cssText).toContain("var(--fdic-layout-section-block-padding, var(--fdic-spacing-3xl, 48px))");
     expect(cssText).toContain("var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px))");
+    expect(cssText).toContain("var(--fdic-layout-gutter, 64px)");
+    expect(cssText).toContain("var(--fdic-layout-gutter-tablet, 32px)");
+    expect(cssText).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
 
   it("keeps the mobile agency block centered without collapsing it to min-content width", () => {

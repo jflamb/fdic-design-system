@@ -29,7 +29,7 @@ The page header provides consistent page-level context and navigation on a brand
   caption="Full page header with breadcrumbs, kicker, title, and actions. The Playground story in Storybook provides interactive controls for all properties."
 />
 
-`fd-page-header` is one of the components that consumes the shared page-shell contract directly. Its inner wrapper aligns to `--fdic-layout-shell-max-width`, and its default vertical spacing comes from `--fdic-layout-section-block-padding`.
+`fd-page-header` is one of the components that consumes the shared [Page Shell](/guide/foundations/page-shell) contract directly. Its inner wrapper aligns to `--fdic-layout-shell-max-width`, switches to the shared tablet and mobile gutters at the canonical shell ranges, and uses `--fdic-layout-section-block-padding` for its default vertical spacing.
 
 ### Basic usage
 
@@ -128,7 +128,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 **Do**
 
 - Place `fd-page-header` as the first element inside `<main>`.
-- Keep it aligned with the rest of the page shell. If adjacent sections also use the shared shell contract, prefer leaving `--fd-page-header-max-width` at its default.
+- Keep it aligned with the rest of the page shell. If adjacent top-level sections also use the shared shell contract, prefer leaving `--fd-page-header-max-width` and the inline padding tokens at their defaults.
 - `fd-page-header` switches to the shared tablet gutter before the mobile breakpoint so it stays aligned with shell-based content through intermediate viewport widths.
 - Use `heading` for the page's primary heading — the component renders it as `<h1>`.
 - Keep breadcrumb labels short and descriptive. Match them to the actual page titles they link to.
@@ -181,6 +181,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 - [`fd-button-group`](/components/button-group) — Use this in the `actions` slot to cluster related page-level utility actions.
 - [`fd-button`](/components/button) — Shared button component used inside the page-header action group.
 - [`fd-icon`](/components/icon) — Used inside page-header action buttons. Icons come from the Phosphor registry.
+- [Page Shell](/guide/foundations/page-shell) — Shared width and responsive gutter contract for shell-aligned components and top-level sections.
 
 <!-- GENERATED_COMPONENT_API:START fd-page-header -->
 <!-- GENERATED_COMPONENT_API:END -->

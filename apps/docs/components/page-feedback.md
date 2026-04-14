@@ -28,7 +28,7 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
   caption="Page Feedback overview — prompt, survey follow-up, report problem, and thank-you states. Open Storybook for controls and interaction stories."
 />
 
-`fd-page-feedback` uses the shared page-shell alignment token, the compact section-padding token, the shared stack/content gap tokens, and the readable paragraph-width token for its longer survey and report copy.
+`fd-page-feedback` uses the shared [Page Shell](/guide/foundations/page-shell) alignment contract, the compact section-padding token, the shared stack/content gap tokens, and the readable paragraph-width token for its longer survey and report copy.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -111,7 +111,7 @@ Buttons, links, icons, and textareas keep their own component-scoped tokens. `fd
 ## Content guidelines
 
 - **Keep the pattern near the page it evaluates.** The question should refer to the content people just reviewed, not to a broader site section.
-- **Keep the feedback rail aligned to the surrounding page shell.** Let the component keep its default shell width and readable text width unless the whole page intentionally diverges from the shared contract.
+- **Keep the feedback rail aligned to the surrounding page shell.** Let the component keep its default shell width and desktop/tablet/mobile gutter behavior unless the whole page intentionally diverges from the shared contract.
 - **Let the prompt row keep its natural one-line fit on larger widths.** The usefulness question and response buttons are designed to stay together as one compact cluster until the available width genuinely requires wrapping.
 - **Treat the survey path as the deeper dissatisfaction channel.** The inline component should stay small and fast; the survey can ask broader or more detailed questions.
 - **Use the report state for page-specific problems.** The two prompts work best for broken links, missing information, unexpected behavior, or other page-level issues.
@@ -150,6 +150,7 @@ Key integration rules:
 - **Listen for `fd-page-feedback-report-submit` to capture report content.** The event is cancelable, so the host can keep the report state open while it validates or transports the data.
 - **Treat external `view` writes as host-owned focus changes.** The component restores focus for its built-in button-driven transitions, but if the application changes `view` programmatically it should also decide whether additional focus movement is appropriate.
 - **Use `fd-page-feedback-view-change` for analytics or logging.** That event records whether the person answered Yes, answered No, opened the report flow, canceled, submitted, or whether the host changed the view directly.
+- **Prefer the shared shell defaults unless the surrounding page shell changes.** Override width or inline padding only when adjacent top-level sections intentionally use the same alternate contract.
 
 ## Accessibility
 

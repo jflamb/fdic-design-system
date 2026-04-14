@@ -97,7 +97,7 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
 
 .fdic-composition-section__inner {
   box-sizing: border-box;
-  width: min(100%, var(--fdic-layout-max-width, 1440px));
+  width: min(100%, var(--fdic-layout-shell-max-width, 1312px));
   margin-inline: auto;
   padding-inline: var(--fdic-layout-gutter, 64px);
   padding-block: clamp(3rem, 2.6rem + 0.8vw, 4rem);

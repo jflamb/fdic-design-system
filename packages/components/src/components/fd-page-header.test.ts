@@ -105,6 +105,11 @@ describe("FdPageHeader", () => {
 
     expect(styles).toContain("var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))");
     expect(styles).toContain("var(--fdic-layout-section-block-padding, var(--fdic-spacing-3xl, 48px))");
+    expect(styles).toContain("var(--fdic-layout-gutter, 64px)");
+    expect(styles).toContain("@media (max-width: 1023.999px)");
+    expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
+    expect(styles).toContain("@media (max-width: 640px)");
+    expect(styles).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
 
   // --- Rendering ---

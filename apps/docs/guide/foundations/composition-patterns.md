@@ -8,6 +8,9 @@ These patterns are intentionally lightweight:
 - they rely on the public `--fdic-*` layout, spacing, color, and typography tokens
 - they do not replace first-class components such as `fd-page-header`, `fd-event-list`, or `fd-global-footer`
 
+When they are used as top-level page sections, they also participate in the
+shared [Page Shell](./page-shell.md) contract by default.
+
 Use them when a page needs stable section and collection composition without introducing a new custom element.
 
 ## Required semantics
@@ -65,6 +68,15 @@ These classes are additive CSS patterns, not components. They assume you keep th
 ## Section shell
 
 Use `.fdic-composition-section` for a full-bleed page band and `.fdic-composition-section__inner` for the aligned content wrapper inside it.
+
+The inner wrapper is a top-level section participant in the shared page-shell
+contract:
+
+- it aligns to `--fdic-layout-shell-max-width`
+- it uses desktop/tablet/mobile shell gutters from the shared
+  `--fdic-layout-gutter*` tokens
+- it should not be combined with theme-local shell breakpoint math unless the
+  page documents an exception
 
 Section headings use a proportional `0.35em` bottom margin so the gap between the heading and the first block scales with the heading size instead of relying on a fixed spacing token, while still reading tighter than a default token-sized section stack.
 

@@ -1,6 +1,6 @@
 # Spacing and Layout
 
-This page is the canonical public layout contract for the FDIC Design System. It documents the stable spacing and layout tokens published in the runtime stylesheet, plus the documented layout patterns that rely on them.
+This page is the canonical public spacing and layout token contract for the FDIC Design System. It documents the stable spacing and layout tokens published in the runtime stylesheet, plus the documented layout patterns that rely on them.
 
 These tokens should be documented as usability constraints, not just visual measurements.
 
@@ -35,6 +35,10 @@ Use `--fdic-layout-shell-max-width` for the common inner width that aligns the g
 
 This token is intended for aligned page chrome and full-page sections. Section backgrounds, separators, and border treatments can still span full bleed while the section's inner wrapper stays pinned to the shared shell width.
 
+For the full responsive shell and top-level section-alignment contract, including
+desktop/tablet/mobile ranges and width-token responsibilities, see
+[Page Shell](./page-shell.md).
+
 ## Section wrapper pattern
 
 This is a documented pattern built from stable tokens, not a separate utility API.
@@ -44,6 +48,10 @@ This is a documented pattern built from stable tokens, not a separate utility AP
 - Use `--fdic-layout-section-block-padding` for major page sections such as page headers and footers.
 - Use `--fdic-layout-section-block-padding-compact` for supporting sections such as inline feedback or small follow-on content bands.
 - Keep horizontal padding on the shared gutter tokens so aligned sections continue to line up at zoom and across breakpoints.
+
+The canonical desktop/tablet/mobile gutter switches for this pattern are defined
+on [Page Shell](./page-shell.md). This page focuses on the stable tokens that
+power those patterns.
 
 Example:
 

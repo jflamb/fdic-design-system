@@ -267,6 +267,19 @@ export class FdPageFeedback extends LitElement {
       outline-color: transparent;
     }
 
+    @media (max-width: 1023.999px) {
+      .base {
+        padding-inline: var(
+          --fd-page-feedback-inline-padding-tablet,
+          var(--fdic-layout-gutter-tablet, 32px)
+        );
+      }
+
+      .base::before {
+        inset-inline: 0;
+      }
+    }
+
     @media (max-width: 640px) {
       .base {
         padding-block: var(--fd-page-feedback-block-padding-mobile, var(--fdic-spacing-lg, 20px));

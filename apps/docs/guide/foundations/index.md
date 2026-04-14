@@ -27,7 +27,9 @@ The current public foundations guidance covers:
 
 These pages explain how to use that contract safely and where the public API intentionally stops.
 
-The [Spacing and Layout](./spacing-layout.md) page is the canonical public layout contract. Other public docs should defer to that page rather than restating layout tokens or implementation details independently.
+The [Page Shell](./page-shell.md) page is the canonical responsive section-alignment contract for shell components and top-level page sections.
+
+The [Spacing and Layout](./spacing-layout.md) page is the canonical spacing and layout token contract. Other public docs should defer to these foundations pages rather than restating layout tokens or implementation details independently.
 
 The [Composition Patterns](./composition-patterns.md) page documents the small stable layout-class surface that CMS consumers can use when tokens alone are not enough.
 
@@ -59,6 +61,7 @@ The [Composition Patterns](./composition-patterns.md) page documents the small s
 
 - [Colors](./colors.md)
 - [Customization](./customization.md)
+- [Page Shell](./page-shell.md)
 - [Typography](./typography.md)
 - [Spacing and Layout](./spacing-layout.md)
 - [Composition Patterns](./composition-patterns.md)

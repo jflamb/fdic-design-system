@@ -29,7 +29,7 @@ The global footer provides the shared FDICnet footer shell for agency identity, 
   caption="Global Footer overview — the desktop footer shell. Open Storybook for the interactive playground plus dedicated desktop and mobile stories."
 />
 
-`fd-global-footer` consumes the shared page-shell alignment token and the shared major-section block padding token. Its layout hooks stay intentionally narrow so the footer continues to line up with the rest of the page shell by default.
+`fd-global-footer` consumes the shared [Page Shell](/guide/foundations/page-shell) alignment token and the shared major-section block padding token. Its layout hooks stay intentionally narrow so the footer continues to line up with the rest of the page shell by default.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -144,7 +144,7 @@ Integration rules:
 
 - **Pass a fully formatted update string.** The footer does not format or parse dates in v1.
 - **Use structured data, not hand-authored child links, for the footer shell.** This keeps the component's rendering predictable across desktop and mobile layouts.
-- **Prefer the shared shell defaults unless the full page shell changes.** Override the footer width or padding only when adjacent shell sections are intentionally using the same alternate contract.
+- **Prefer the shared shell defaults unless the full page shell changes.** Override the footer width or padding only when adjacent top-level sections are intentionally using the same alternate contract.
 - **Prefer native navigation behavior.** The component renders standard anchors. If your framework uses client-side routing, intercept clicks in the host layer rather than changing the component contract.
 - **Compose adjacent page feedback in the page shell, not inside the footer.** If the page also needs <code>fd-page-feedback</code>, render it as a separate sibling before the footer component.
 
@@ -168,3 +168,4 @@ Integration rules:
 - [Global Header](/components/global-header) — the matching site-shell header component for navigation and search.
 - [Page Feedback](/components/page-feedback) — a separate adjacent component when the page also needs a feedback surface.
 - [Link](/components/link) — use this as the text-link reference when deciding which destinations belong in utility links rather than social icons.
+- [Page Shell](/guide/foundations/page-shell) — shared width and responsive gutter contract for shell components and top-level sections.

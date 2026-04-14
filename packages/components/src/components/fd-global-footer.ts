@@ -300,6 +300,15 @@ export class FdGlobalFooter extends LitElement {
       block-size: 100%;
     }
 
+    @container (max-width: 1023.999px) {
+      .base {
+        padding-inline: var(
+          --fd-global-footer-padding-inline-tablet,
+          var(--fdic-layout-gutter-tablet, 32px)
+        );
+      }
+    }
+
     @container (max-width: 640px) {
       .base {
         padding-block: var(--fd-global-footer-padding-block-mobile, var(--fdic-spacing-md, 16px));
