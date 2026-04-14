@@ -75,6 +75,27 @@ describe("fd-link", () => {
     expect(styles).not.toContain("--fd-link-hover-overlay");
   });
 
+  it("uses the semantic text-link token for the normal treatment", () => {
+    const styles = (
+      customElements.get("fd-link") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("var(--fdic-color-text-link)");
+    expect(styles).not.toContain("var(--fdic-color-bg-active)");
+  });
+
+  it("inherits color-scheme from the page instead of forcing dark-mode link colors", () => {
+    const styles = (
+      customElements.get("fd-link") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).not.toContain("color-scheme: light dark");
+  });
+
   it("does not render empty icon slots when no icons are provided", async () => {
     const el = await createLink({ href: "/coverage" });
     const inner = getInternal(el);

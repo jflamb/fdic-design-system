@@ -67,13 +67,12 @@ export class FdLink extends LitElement {
       max-inline-size: 100%;
       color: var(
         --fd-link-color-normal,
-        var(--fdic-color-bg-active)
+        var(--fdic-color-text-link)
       );
       font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       font-size: var(--fdic-font-size-body, 18px);
       font-weight: 400;
       line-height: 1.375;
-      color-scheme: light dark;
       text-decoration-color: currentColor;
       text-decoration-line: underline;
       text-decoration-thickness: var(--fd-link-underline-thickness, 1px);
@@ -129,7 +128,7 @@ export class FdLink extends LitElement {
     .variant-normal {
       color: var(
         --fd-link-color-normal,
-        var(--fdic-color-bg-active)
+        var(--fdic-color-text-link)
       );
     }
 
@@ -152,7 +151,7 @@ export class FdLink extends LitElement {
     .variant-subtle:focus-visible {
       color: var(
         --fd-link-color-normal,
-        var(--fdic-color-bg-active)
+        var(--fdic-color-text-link)
       );
       text-decoration-line: underline;
     }
