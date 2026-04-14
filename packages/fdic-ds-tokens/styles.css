@@ -1,0 +1,10 @@
+/*
+ * Source-tree compatibility bridge for browser-safe component stylesheet imports.
+ *
+ * Published packages resolve "../fdic-ds-tokens/styles.css" to the sibling
+ * @jflamb/fdic-ds-tokens package in node_modules. Storybook and browser tests
+ * execute against the monorepo source tree, so this bridge keeps that relative
+ * path valid without changing the published package surface.
+ */
+
+@import "../tokens/styles.css";

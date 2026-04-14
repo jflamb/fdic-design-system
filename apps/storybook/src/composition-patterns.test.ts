@@ -2,7 +2,7 @@ import { render } from "lit";
 import { expect, test } from "vitest";
 import { page } from "vitest/browser";
 
-import "../../../packages/components/styles.css";
+import "@jflamb/fdic-ds-components/styles.css";
 
 import {
   COMPOSITION_PATTERNS_TEST_ID,

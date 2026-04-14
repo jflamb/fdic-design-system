@@ -1,7 +1,7 @@
 import "../src/storybook-test-runtime";
 import type { Preview } from "@storybook/web-components-vite";
 import { html } from "lit";
-import "../../../packages/components/styles.css";
+import "@jflamb/fdic-ds-components/styles.css";
 import "../../docs/.vitepress/theme/tokens.css";
 import "../../docs/.vitepress/theme/prose.css";
 import "../../docs/.vitepress/theme/docs-utilities.css";
