@@ -1,4 +1,4 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 
@@ -63,6 +63,7 @@ export class FdLink extends LitElement {
       display: inline-flex;
       align-items: center;
       gap: var(--fd-link-gap, var(--fdic-spacing-2xs, 4px));
+      padding: 0;
       max-inline-size: 100%;
       color: var(
         --fd-link-color-normal,
@@ -109,10 +110,6 @@ export class FdLink extends LitElement {
 
     .base:hover,
     .base:focus-visible {
-      background: var(
-        --fd-link-hover-overlay,
-        var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))
-      );
       text-decoration-thickness: var(
         --fd-link-underline-thickness-emphasis,
         2px
@@ -277,6 +274,10 @@ export class FdLink extends LitElement {
     return [...tokens].join(" ");
   }
 
+  private _hasNamedSlot(name: "icon-start" | "icon-end") {
+    return this.querySelector(`[slot="${name}"]`) !== null;
+  }
+
   render() {
     const classes = {
       base: true,
@@ -285,6 +286,9 @@ export class FdLink extends LitElement {
     };
     const { ariaCurrent, ariaLabel, ariaLabelledby } =
       this._getAccessibleAttributes();
+
+    const hasIconStart = this._hasNamedSlot("icon-start");
+    const hasIconEnd = this._hasNamedSlot("icon-end");
 
     return html`
       <a
@@ -297,9 +301,9 @@ export class FdLink extends LitElement {
         aria-label=${ariaLabel}
         aria-labelledby=${ariaLabelledby}
       >
-        <slot name="icon-start"></slot>
+        ${hasIconStart ? html`<slot name="icon-start"></slot>` : nothing}
         <span class="label"><slot></slot></span>
-        <slot name="icon-end"></slot>
+        ${hasIconEnd ? html`<slot name="icon-end"></slot>` : nothing}
       </a>
     `;
   }

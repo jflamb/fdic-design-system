@@ -4,7 +4,7 @@ The Tile component presents one primary destination with a decorative circular i
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-tile</code> when people need to scan a short summary and move to the right destination quickly. The tile keeps its shell static and lets the actual links stay native, so keyboarding and navigation remain predictable.</p>
+  <p>Use <code>fd-tile</code> when people need to scan a short summary and move to the right destination quickly. The tile keeps the overall shell static while the primary destination remains a native link that spans the decorative visual and main text summary.</p>
 </div>
 
 ## When to use
@@ -15,7 +15,7 @@ The Tile component presents one primary destination with a decorative circular i
 
 ## When not to use
 
-- **Do not use Tile as a giant clickable card** — the component is intentionally not a single action surface in v1.
+- **Do not use Tile as a giant clickable card** — the primary destination spans the visual and summary, but the full tile shell is not a blanket action surface in v1.
 - **Do not use it for selection, toggling, or dismissal** — Tile owns layout only, not interactive state.
 - **Do not use more than four supporting links** — if the content needs deeper navigation, move to a broader list or page-level navigation pattern.
 
@@ -51,10 +51,10 @@ The Tile component presents one primary destination with a decorative circular i
 
 ### Implementation guide
 
-- **Keep the tile shell non-interactive.** The component renders a static article wrapper. Navigation belongs to the rendered native links, not the surrounding shell.
-- **Treat the visual as decorative.** `icon-name` selects the decorative icon inside the internal `fd-visual`. The icon is excluded from assistive technology, so the title and description must carry the meaning.
+- **Keep the tile shell non-interactive.** The component renders a static article wrapper. Navigation belongs to the rendered native links, with the primary destination spanning the visual plus the title/description summary.
+- **Treat the visual as decorative.** `icon-name` selects the decorative icon inside the internal `fd-visual`. The icon is excluded from assistive technology, even when it sits inside the primary link hit area.
 - **Use `visual-type="avatar"` for editorial identity snippets.** This keeps the tile layout while switching the decorative visual to the avatar placeholder treatment.
-- **Use `fd-tile-list` to set a shared grouped tone.** A standalone tile can choose its own `tone`, but direct children of `fd-tile-list` inherit the list's tone so one set cannot mix visual types.
+- **Use `fd-tile-list` to set a shared grouped tone.** A standalone tile can choose its own `tone`, but direct children of `fd-tile-list` inherit the list's tone so one set cannot mix visual types. Tile visuals use the same rest and hover tone surfaces as `fd-event`.
 - **Set `links` as a JavaScript property.** Supporting links are structured data, not an HTML string or JSON attribute. This keeps the rendered link list predictable and avoids fragile parsing contracts.
 - **Limit supporting links to closely related destinations.** The component renders at most the first four valid link objects. If the content needs more destinations, use a broader content list or page navigation instead of overloading one tile.
 - **Let the component size itself responsively.** `fd-tile` uses container queries internally, so the same API can render the small, medium, and large Figma family without a public size variant.
@@ -113,7 +113,7 @@ The Tile component presents one primary destination with a decorative circular i
 **Don't**
 
 - Don’t rely on the icon alone to explain what the tile means.
-- Don’t hide the only destination behind supporting links while leaving the title non-clickable without a good reason.
+- Don’t hide the only destination behind supporting links while leaving the primary summary non-clickable without a good reason.
 - Don’t turn the shell into a custom focus target or add click handlers around the whole tile.
 
 </div>
@@ -121,7 +121,7 @@ The Tile component presents one primary destination with a decorative circular i
 ## Accessibility
 
 - `fd-tile` is **not hidden from assistive technology**. It renders a semantic article wrapper labelled by the visible title when a title is present.
-- The tile shell is **not focusable**. Keyboard users move directly to the native links in the plain tab order.
+- The tile shell is **not focusable**. Keyboard users move directly to the native links in the plain tab order, with the primary link wrapping the visual and summary as one target when `href` is present.
 - The decorative icon stays **`aria-hidden`** through the internal `fd-visual`.
 - When the primary title has no `href`, it renders as plain text instead of a fake link.
 - Supporting links render as a semantic list when provided through the `links` property.
@@ -130,7 +130,7 @@ The Tile component presents one primary destination with a decorative circular i
 
 - Supporting links are provided through a **JavaScript property**, not authored as arbitrary slotted markup.
 - The component intentionally caps its rendered supporting links at **four**.
-- Tile does not provide a clickable-card, selectable, or dismissible variant in v1.
+- Tile does not provide a blanket clickable-card, selectable, or dismissible variant in v1.
 
 ## Related components
 

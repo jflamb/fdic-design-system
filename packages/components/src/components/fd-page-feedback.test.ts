@@ -78,6 +78,11 @@ describe("FdPageFeedback", () => {
     expect(styles).toContain("var(--fdic-layout-stack-gap, var(--fdic-spacing-md, 16px))");
     expect(styles).toContain("var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px))");
     expect(styles).toContain("var(--fdic-layout-paragraph-max-width, 720px)");
+    expect(styles).toContain("grid-template-columns: minmax(0, 1fr) auto");
+    expect(styles).toContain("grid-template-columns: max-content auto");
+    expect(styles).toContain("overflow-wrap: normal");
+    expect(styles).toContain("justify-self: end");
+    expect(styles).toContain("font-size: var(--fdic-font-size-body, 1.125rem)");
   });
 
   it("renders the default prompt view with light group semantics", async () => {
@@ -103,6 +108,17 @@ describe("FdPageFeedback", () => {
     expect(el.view).toBe("survey");
     expect(getLinkHost(el)).toBeTruthy();
     expect(el.shadowRoot?.activeElement).toBe(getLinkHost(el));
+  });
+
+  it("renders the thank-you acknowledgement copy with punctuation", async () => {
+    const el = await createFeedback();
+
+    await clickInner(el.shadowRoot?.querySelector("fd-button.choice-button") ?? null);
+
+    expect(el.view).toBe("thanks");
+    expect(getPart(el, "thank-you")?.textContent?.trim()).toBe(
+      "Thank you for your feedback.",
+    );
   });
 
   it("falls back to the survey cancel button when no survey href is provided", async () => {

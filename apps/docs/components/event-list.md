@@ -68,6 +68,7 @@ The Event List component arranges direct event children in a responsive wrapping
 - **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` recipe families.
 - **Treat the list as a collection contract, not a page-layout utility.** The shared `--fdic-layout-col-*` tokens are stable for collection wrappers; section shells and split layouts use the separate foundations layout contract.
 - **Let the layout wrap naturally.** The component shifts from the intended desktop density to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
+- **Override row rhythm separately only when the pattern needs it.** `fd-event-list` accepts `--fd-event-list-col-*-row-gap` and `--fd-event-list-col-*-row-gap-mobile` overrides. Leave them unset to inherit the matching column gap, or set them when an event rail needs tighter vertical rhythm without narrowing the columns.
 - **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Event List does not add active state, filtering, sorting, or focus management. Those remain application concerns.
 

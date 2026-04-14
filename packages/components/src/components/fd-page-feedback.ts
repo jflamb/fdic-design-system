@@ -124,18 +124,17 @@ export class FdPageFeedback extends LitElement {
     }
 
     .panel--prompt {
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      justify-content: space-between;
       gap: var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px));
-      flex-wrap: wrap;
     }
 
     .prompt-shell {
-      display: flex;
+      display: grid;
+      grid-template-columns: max-content auto;
       align-items: center;
       gap: var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px));
-      flex: 1 1 auto;
       min-inline-size: 0;
     }
 
@@ -149,8 +148,8 @@ export class FdPageFeedback extends LitElement {
       font-size: var(--fdic-font-size-body, 1.125rem);
       font-weight: 400;
       line-height: 1.375;
-      overflow-wrap: anywhere;
-      max-inline-size: var(--fd-page-feedback-prompt-max-width, 344px);
+      overflow-wrap: normal;
+      max-inline-size: none;
     }
 
     .prompt-copy--heading {
@@ -173,9 +172,9 @@ export class FdPageFeedback extends LitElement {
     }
 
     fd-button-group.responses {
-      inline-size: 100%;
+      inline-size: auto;
       min-inline-size: 0;
-      flex: 1 1 auto;
+      flex: none;
       --fd-button-group-gap: var(
         --fd-page-feedback-action-gap,
         var(--fdic-spacing-sm, 0.75rem)
@@ -189,7 +188,8 @@ export class FdPageFeedback extends LitElement {
     }
 
     fd-button.report-trigger {
-      inline-size: min(100%, 292px);
+      inline-size: auto;
+      max-inline-size: 100%;
       flex: none;
     }
 
@@ -239,6 +239,7 @@ export class FdPageFeedback extends LitElement {
       );
       flex-wrap: wrap;
       min-inline-size: 0;
+      justify-self: end;
     }
 
     [part="actions"] {
@@ -259,10 +260,10 @@ export class FdPageFeedback extends LitElement {
       margin: 0;
       display: inline-block;
       color: var(--fd-page-feedback-thank-you-color, inherit);
-      font-size: var(--fdic-font-size-body-big, 1.25rem);
-      font-weight: 450;
+      font-size: var(--fdic-font-size-body, 1.125rem);
+      font-weight: 400;
       overflow-wrap: anywhere;
-      line-height: 1.25;
+      line-height: 1.375;
       outline-color: transparent;
     }
 
@@ -318,7 +319,7 @@ export class FdPageFeedback extends LitElement {
       }
 
       [part="thank-you"] {
-        font-size: var(--fdic-font-size-body, 1.125rem);
+        font-size: var(--fdic-font-size-body-small, 1rem);
       }
     }
 
@@ -675,7 +676,7 @@ export class FdPageFeedback extends LitElement {
         tabindex="-1"
         data-focus-target="thanks"
       >
-        Thank you for your feedback
+        Thank you for your feedback.
       </p>
     `;
   }

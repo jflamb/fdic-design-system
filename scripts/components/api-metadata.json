@@ -2833,11 +2833,6 @@
           "description": "Text color for links on dark surfaces."
         },
         {
-          "name": "--fd-link-hover-overlay",
-          "default": "`var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04))`",
-          "description": "Background overlay used for hover and focus emphasis."
-        },
-        {
           "name": "--fd-link-focus-gap",
           "default": "`var(--fdic-color-bg-input, #ffffff)`",
           "description": "Inner gap color in the focus ring."
@@ -3731,11 +3726,6 @@
           "name": "--fd-page-feedback-gap",
           "default": "`var(--fdic-layout-stack-gap, 16px)`",
           "description": "Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token."
-        },
-        {
-          "name": "--fd-page-feedback-prompt-max-width",
-          "default": "`344px`",
-          "description": "Maximum inline size for the desktop prompt cluster."
         },
         {
           "name": "--fd-page-feedback-heading-size",

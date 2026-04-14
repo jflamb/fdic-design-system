@@ -212,6 +212,17 @@ export class FdPageHeader extends LitElement {
       display: none;
     }
 
+    /* --- Responsive (tablet) --- */
+
+    @media (max-width: 1023.999px) {
+      .base {
+        padding-inline: var(
+          --fd-page-header-padding-inline-tablet,
+          var(--fdic-layout-gutter-tablet, 32px)
+        );
+      }
+    }
+
     /* --- Responsive (≤640px) --- */
 
     @media (max-width: 640px) {

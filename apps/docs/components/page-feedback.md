@@ -62,7 +62,6 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
 | `--fd-page-feedback-block-padding` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Desktop block padding. Defaults to the shared compact-section spacing token. |
 | `--fd-page-feedback-block-padding-mobile` | `20px` | Mobile block padding at `640px` and below. |
 | `--fd-page-feedback-gap` | `var(--fdic-layout-stack-gap, 16px)` | Gap between stacked elements inside survey and report states. Defaults to the shared vertical stack rhythm token. |
-| `--fd-page-feedback-prompt-max-width` | `344px` | Maximum inline size for the desktop prompt cluster. |
 | `--fd-page-feedback-heading-size` | `22.5px` | Heading-size override for the survey and report titles. |
 | `--fd-page-feedback-thank-you-color` | `inherit` | Thank-you message color. |
 
@@ -113,6 +112,7 @@ Buttons, links, icons, and textareas keep their own component-scoped tokens. `fd
 
 - **Keep the pattern near the page it evaluates.** The question should refer to the content people just reviewed, not to a broader site section.
 - **Keep the feedback rail aligned to the surrounding page shell.** Let the component keep its default shell width and readable text width unless the whole page intentionally diverges from the shared contract.
+- **Let the prompt row keep its natural one-line fit on larger widths.** The usefulness question and response buttons are designed to stay together as one compact cluster until the available width genuinely requires wrapping.
 - **Treat the survey path as the deeper dissatisfaction channel.** The inline component should stay small and fast; the survey can ask broader or more detailed questions.
 - **Use the report state for page-specific problems.** The two prompts work best for broken links, missing information, unexpected behavior, or other page-level issues.
 - **Avoid adding apology-heavy copy inside the component.** Keep the language direct and task-oriented so people can act quickly.

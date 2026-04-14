@@ -129,6 +129,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 
 - Place `fd-page-header` as the first element inside `<main>`.
 - Keep it aligned with the rest of the page shell. If adjacent sections also use the shared shell contract, prefer leaving `--fd-page-header-max-width` at its default.
+- `fd-page-header` switches to the shared tablet gutter before the mobile breakpoint so it stays aligned with shell-based content through intermediate viewport widths.
 - Use `heading` for the page's primary heading — the component renders it as `<h1>`.
 - Keep breadcrumb labels short and descriptive. Match them to the actual page titles they link to.
 - Mark the last breadcrumb item's `href` to match the current page URL, even though the component renders it as a non-interactive span.

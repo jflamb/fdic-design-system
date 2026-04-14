@@ -27,6 +27,11 @@ function trackGapToken(prefix: string, columns: CollectionColumns, narrow: boole
   return unsafeCSS(`var(--${prefix}-${componentSuffix}, var(--fdic-layout-${sharedSuffix}))`);
 }
 
+function trackRowGapToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
+  const componentSuffix = narrow ? `col-${columns}-row-gap-mobile` : `col-${columns}-row-gap`;
+  return unsafeCSS(`var(--${prefix}-${componentSuffix}, ${trackGapToken(prefix, columns, narrow)})`);
+}
+
 function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boolean) {
   if (narrow && isUnboundedTrackValue(FIGMA_NARROW_MAX_PX[columns])) {
     return unsafeCSS("1fr");
@@ -50,7 +55,8 @@ function defaultSelector(narrow: boolean) {
 export function collectionGridStyles(prefix: string) {
   const internalMin = unsafeCSS(`--_${prefix}-track-min`);
   const internalMax = unsafeCSS(`--_${prefix}-track-max`);
-  const internalGap = unsafeCSS(`--_${prefix}-track-gap`);
+  const internalColumnGap = unsafeCSS(`--_${prefix}-track-column-gap`);
+  const internalRowGap = unsafeCSS(`--_${prefix}-track-row-gap`);
 
   return css`
     :host {
@@ -61,19 +67,22 @@ export function collectionGridStyles(prefix: string) {
     ${unsafeCSS(defaultSelector(false))} {
       ${internalMin}: min(100%, ${trackMinToken(prefix, "3", false)});
       ${internalMax}: ${trackMaxValue(prefix, "3", false)};
-      ${internalGap}: ${trackGapToken(prefix, "3", false)};
+      ${internalColumnGap}: ${trackGapToken(prefix, "3", false)};
+      ${internalRowGap}: ${trackRowGapToken(prefix, "3", false)};
     }
 
     ${unsafeCSS(selector("2", false))} {
       ${internalMin}: min(100%, ${trackMinToken(prefix, "2", false)});
       ${internalMax}: ${trackMaxValue(prefix, "2", false)};
-      ${internalGap}: ${trackGapToken(prefix, "2", false)};
+      ${internalColumnGap}: ${trackGapToken(prefix, "2", false)};
+      ${internalRowGap}: ${trackRowGapToken(prefix, "2", false)};
     }
 
     ${unsafeCSS(selector("4", false))} {
       ${internalMin}: min(100%, ${trackMinToken(prefix, "4", false)});
       ${internalMax}: ${trackMaxValue(prefix, "4", false)};
-      ${internalGap}: ${trackGapToken(prefix, "4", false)};
+      ${internalColumnGap}: ${trackGapToken(prefix, "4", false)};
+      ${internalRowGap}: ${trackRowGapToken(prefix, "4", false)};
     }
 
     [part="base"] {
@@ -83,7 +92,8 @@ export function collectionGridStyles(prefix: string) {
         auto-fit,
         minmax(var(${internalMin}), var(${internalMax}))
       );
-      gap: var(${internalGap});
+      column-gap: var(${internalColumnGap});
+      row-gap: var(${internalRowGap});
       align-items: start;
       justify-content: start;
       inline-size: 100%;
@@ -94,7 +104,8 @@ export function collectionGridStyles(prefix: string) {
       ${unsafeCSS(defaultSelector(true))} {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "3", true)});
         ${internalMax}: ${trackMaxValue(prefix, "3", true)};
-        ${internalGap}: ${trackGapToken(prefix, "3", true)};
+        ${internalColumnGap}: ${trackGapToken(prefix, "3", true)};
+        ${internalRowGap}: ${trackRowGapToken(prefix, "3", true)};
       }
     }
 
@@ -102,7 +113,8 @@ export function collectionGridStyles(prefix: string) {
       ${unsafeCSS(selector("2", true))} {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "2", true)});
         ${internalMax}: ${trackMaxValue(prefix, "2", true)};
-        ${internalGap}: ${trackGapToken(prefix, "2", true)};
+        ${internalColumnGap}: ${trackGapToken(prefix, "2", true)};
+        ${internalRowGap}: ${trackRowGapToken(prefix, "2", true)};
       }
     }
 
@@ -110,7 +122,8 @@ export function collectionGridStyles(prefix: string) {
       ${unsafeCSS(selector("4", true))} {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "4", true)});
         ${internalMax}: ${trackMaxValue(prefix, "4", true)};
-        ${internalGap}: ${trackGapToken(prefix, "4", true)};
+        ${internalColumnGap}: ${trackGapToken(prefix, "4", true)};
+        ${internalRowGap}: ${trackRowGapToken(prefix, "4", true)};
       }
     }
   `;

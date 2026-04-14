@@ -64,6 +64,25 @@ describe("fd-link", () => {
     expect(inner.classList.contains("size-h3")).toBe(true);
   });
 
+  it("does not apply hover-fill spacing in the base link treatment", () => {
+    const styles = (
+      customElements.get("fd-link") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("padding: 0");
+    expect(styles).not.toContain("--fd-link-hover-overlay");
+  });
+
+  it("does not render empty icon slots when no icons are provided", async () => {
+    const el = await createLink({ href: "/coverage" });
+    const inner = getInternal(el);
+
+    expect(inner.querySelector('slot[name="icon-start"]')).toBeNull();
+    expect(inner.querySelector('slot[name="icon-end"]')).toBeNull();
+  });
+
   it("forwards aria-label to the rendered anchor", async () => {
     const el = await createLink(
       { href: "/coverage", "aria-label": "Coverage details" },

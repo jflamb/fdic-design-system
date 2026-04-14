@@ -40,6 +40,7 @@ The following classes are part of the supported stylesheet contract:
 - `.fdic-composition-section--highlight`
 - `.fdic-composition-section--warm`
 - `.fdic-composition-feature-rail`
+- `.fdic-composition-feature-item`
 - `.fdic-composition-story`
 - `.fdic-composition-story__media`
 - `.fdic-composition-story__body`
@@ -65,6 +66,8 @@ These classes are additive CSS patterns, not components. They assume you keep th
 
 Use `.fdic-composition-section` for a full-bleed page band and `.fdic-composition-section__inner` for the aligned content wrapper inside it.
 
+Section headings use a proportional `0.35em` bottom margin so the gap between the heading and the first block scales with the heading size instead of relying on a fixed spacing token, while still reading tighter than a default token-sized section stack.
+
 ```html
 <section class="fdic-composition-section" aria-labelledby="latest-news-title">
   <div class="fdic-composition-section__inner">
@@ -85,10 +88,12 @@ Use modifier classes only when the section surface itself needs that system trea
 
 Use `.fdic-composition-feature-rail` when one primary content rail sits beside a supporting aside or message column.
 
+Use `.fdic-composition-feature-item` when a section heading should stay in the same content cell as the primary story block inside that rail, with the heading-to-story rhythm controlled directly instead of by grid row spacing.
+
 ```html
 <section class="fdic-composition-section" aria-labelledby="feature-title">
   <div class="fdic-composition-section__inner fdic-composition-feature-rail">
-    <article aria-labelledby="feature-story-title">
+    <article class="fdic-composition-feature-item" aria-labelledby="feature-story-title">
       <h2 id="feature-title">Featured story</h2>
       <div class="fdic-composition-story">
         <figure class="fdic-composition-story__media">
@@ -130,7 +135,7 @@ Use `.fdic-composition-meta` for secondary text that pairs with a story or resou
 
 Use `.fdic-composition-title-stack` when a heading and its supporting `.fdic-composition-meta` line should read as one typographic unit. This keeps the relationship between the destination title and its secondary text tighter and more consistent than free-floating heading and paragraph spacing, and it gives CMS consumers one governed pairing for headline-plus-metadata treatment.
 
-The story split pattern also owns the default spacing between the media column, the title/meta stack, and the teaser copy. The default media-to-copy gap is intentionally looser than the internal copy rhythm so the image and text read as related columns rather than one collapsed text block. Consumers should not add ad hoc margins between those elements unless a page has a documented exception.
+The story split pattern also owns the default spacing between the media column, the title/meta stack, and the teaser copy. The default media-to-copy gap is intentionally looser than the internal copy rhythm so the image and text read as related columns rather than one collapsed text block. When the pattern collapses to one column, it switches back to document-flow rhythm and uses a tighter `--fdic-composition-story-stacked-gap` between the media and body so stacked stories keep a clearer hierarchy. Consumers should not add ad hoc margins between those elements unless a page has a documented exception.
 
 Use `.fdic-composition-copy-stack` when a short teaser paragraph or compact action row should stay in the same governed rhythm as the heading/meta pair. Use it for both primary and secondary story summaries when the page needs a consistent title/meta/teaser stack.
 
@@ -164,12 +169,15 @@ Accessibility expectations:
 - treat the icon as decorative unless it conveys unique meaning not present in text
 - do not use this pattern for dense navigation trees or long descriptions
 - rely on the pattern's hover and focus treatment instead of adding one-off card hovers in the CMS layer
+- let the split collapse to a single column at tablet widths before the copy column becomes unreadably narrow
 
 ## Link columns
 
 Use `.fdic-composition-link-columns` when several short related link groups share equal visual weight.
 
 The column title uses a tighter sub-section heading scale than the primary section heading so utility groups stay scannable without overpowering the section shell.
+
+The pattern owns separate row and column rhythm. By default, wrapped two-column layouts increase the row gap so a lower group reads like a new row instead of looking glued to the content above. Override `--fdic-composition-link-columns-row-gap`, `--fdic-composition-link-columns-column-gap`, or `--fdic-composition-link-columns-row-gap-tablet` only when a page needs a different section rhythm.
 
 ```html
 <nav class="fdic-composition-section" aria-labelledby="tools-title">
@@ -179,7 +187,7 @@ The column title uses a tighter sub-section heading scale than the primary secti
       <section class="fdic-composition-link-column" aria-labelledby="benefits-title">
         <h3 id="benefits-title" class="fdic-composition-link-column__title">Benefits</h3>
         <ul class="fdic-composition-link-column__list">
-          <li><a href="/tool-a">Tool A</a></li>
+          <li><fd-link href="/tool-a" size="md">Tool A</fd-link></li>
         </ul>
       </section>
     </div>
@@ -187,7 +195,7 @@ The column title uses a tighter sub-section heading scale than the primary secti
 </nav>
 ```
 
-This pattern is appropriate for employee resources, service directories, and grouped utility links. It is not a substitute for application navigation menus.
+This pattern is appropriate for employee resources, service directories, and grouped utility links. Use `fd-link` for the destinations so link styling, focus treatment, and icon behavior stay aligned with the design system. It is not a substitute for application navigation menus.
 
 ## Person snippet
 
@@ -204,6 +212,8 @@ Use `.fdic-composition-person` when a small identity block pairs an avatar or de
 ```
 
 Use this for editorial spotlight snippets and small author or team callouts. The pattern keeps the avatar inline with the stacked name and role line, rather than letting the identity text drift into a separate block. If the content needs a primary destination and supporting links, switch to `fd-tile` instead.
+
+For responsive behavior, peer content panels should collapse before each panel drops below a comfortable reading width. The shared composition styles stack the feature rail, story split, and dual-panel layouts at tablet widths instead of forcing narrow two-column copy.
 
 Do not collapse the links into bare `div` elements:
 

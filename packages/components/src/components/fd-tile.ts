@@ -62,13 +62,23 @@ export class FdTile extends LitElement {
 
     [part="base"] {
       display: flex;
-      align-items: flex-start;
-      gap: var(--fd-tile-gap, var(--fdic-spacing-sm, 12px));
+      flex-direction: column;
+      gap: 0;
       min-inline-size: 0;
       box-sizing: border-box;
     }
 
-    [part="base"].compact {
+    [part="primary-link"] {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--fd-tile-gap, var(--fdic-spacing-sm, 12px));
+      min-inline-size: 0;
+      color: inherit;
+      text-decoration: none;
+      outline-color: transparent;
+    }
+
+    [part="primary-link"].compact {
       align-items: center;
     }
 
@@ -85,6 +95,30 @@ export class FdTile extends LitElement {
       --fd-visual-size: var(--fd-tile-visual-size, 40px);
       --fd-visual-padding: var(--fd-tile-visual-padding, var(--fdic-spacing-xs, 8px));
       --fd-visual-content-size: var(--fd-tile-visual-content-size, 18px);
+      --fd-visual-bg-neutral: var(
+        --fd-tile-visual-bg-neutral,
+        var(--fdic-color-overlay-hover)
+      );
+      --fd-visual-fg-neutral: var(
+        --fd-tile-visual-fg-neutral,
+        var(--fdic-color-text-primary)
+      );
+      --fd-visual-bg-cool: var(
+        --fd-tile-visual-bg-cool,
+        var(--fdic-color-primary-200)
+      );
+      --fd-visual-fg-cool: var(
+        --fd-tile-visual-fg-cool,
+        var(--fdic-color-text-primary)
+      );
+      --fd-visual-bg-warm: var(
+        --fd-tile-visual-bg-warm,
+        var(--fdic-color-secondary-300)
+      );
+      --fd-visual-fg-warm: var(
+        --fd-tile-visual-fg-warm,
+        var(--fdic-color-text-primary)
+      );
       flex: none;
     }
 
@@ -137,21 +171,17 @@ export class FdTile extends LitElement {
       text-decoration-line: none;
     }
 
-    .title-link:hover,
-    .title-link:focus-visible,
+    [part="primary-link"]:hover .title-link,
+    [part="primary-link"]:focus-visible .title-link,
     .support-link:hover,
     .support-link:focus-visible {
-      background: var(
-        --fd-tile-link-hover-overlay,
-        var(--fdic-color-overlay-hover)
-      );
       text-decoration-thickness: var(
         --fd-tile-link-underline-thickness-emphasis,
         2px
       );
     }
 
-    .title-link:focus-visible,
+    [part="primary-link"]:focus-visible,
     .support-link:focus-visible {
       box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
           var(--fd-tile-focus-gap, var(--fdic-focus-gap-color)),
@@ -160,6 +190,34 @@ export class FdTile extends LitElement {
             --fd-tile-focus-ring,
             var(--fdic-focus-ring-color)
           );
+    }
+
+    [part="primary-link"]:hover [part="visual"] fd-visual,
+    [part="primary-link"]:focus-visible [part="visual"] fd-visual {
+      --fd-visual-bg-cool: var(
+        --fd-tile-visual-bg-cool-emphasis,
+        var(--fdic-color-primary-500)
+      );
+      --fd-visual-fg-cool: var(
+        --fd-tile-visual-fg-cool-emphasis,
+        var(--fdic-color-text-inverted)
+      );
+      --fd-visual-bg-neutral: var(
+        --fd-tile-visual-bg-neutral-emphasis,
+        var(--fdic-color-icon-primary)
+      );
+      --fd-visual-fg-neutral: var(
+        --fd-tile-visual-fg-neutral-emphasis,
+        var(--fdic-color-text-inverted)
+      );
+      --fd-visual-bg-warm: var(
+        --fd-tile-visual-bg-warm-emphasis,
+        var(--fdic-color-secondary-800)
+      );
+      --fd-visual-fg-warm: var(
+        --fd-tile-visual-fg-warm-emphasis,
+        var(--fdic-color-text-inverted)
+      );
     }
 
     [part="description"] {
@@ -224,7 +282,7 @@ export class FdTile extends LitElement {
     }
 
     @container (min-width: 440px) {
-      [part="base"] {
+      [part="primary-link"] {
         gap: var(--fdic-spacing-md, 16px);
       }
 
@@ -249,6 +307,10 @@ export class FdTile extends LitElement {
     }
 
     @media (forced-colors: active) {
+      [part="primary-link"] {
+        color: LinkText;
+      }
+
       .title-link,
       .support-link,
       .title-text {
@@ -260,7 +322,7 @@ export class FdTile extends LitElement {
         color: CanvasText;
       }
 
-      .title-link:focus-visible,
+      [part="primary-link"]:focus-visible,
       .support-link:focus-visible {
         outline: 2px solid Highlight;
         outline-offset: 2px;
@@ -314,21 +376,8 @@ export class FdTile extends LitElement {
       return nothing;
     }
 
-    if (!this.href?.trim()) {
-      return html`<span id=${this._titleId} class="title-text">${title}</span>`;
-    }
-
-    return html`
-      <a
-        id=${this._titleId}
-        class="title-link"
-        href=${this.href}
-        target=${ifDefined(this.target ?? undefined)}
-        rel=${ifDefined(normalizeLinkRel(this.target, this.rel) ?? undefined)}
-      >
-        ${title}
-      </a>
-    `;
+    const className = this.href?.trim() ? "title-link" : "title-text";
+    return html`<span id=${this._titleId} class=${className}>${title}</span>`;
   }
 
   private _renderDescription() {
@@ -378,26 +427,42 @@ export class FdTile extends LitElement {
     const tone = normalizeTileTone(this.tone);
     const visualType = normalizeTileVisualType(this.visualType, tone);
 
+    const primaryContent = html`
+      <div part="visual">
+        <fd-visual type=${visualType}>
+          ${this.iconName?.trim()
+            ? html`<fd-icon name=${this.iconName} aria-hidden="true"></fd-icon>`
+            : nothing}
+        </fd-visual>
+      </div>
+      <div part="content">
+        <div part="text">
+          <div part="title">${this._renderTitle()}</div>
+          ${this._renderDescription()}
+        </div>
+      </div>
+    `;
+
     return html`
-      <article
-        part="base"
-        class=${compact ? "compact" : ""}
-        aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
-      >
-        <div part="visual">
-          <fd-visual type=${visualType}>
-            ${this.iconName?.trim()
-              ? html`<fd-icon name=${this.iconName} aria-hidden="true"></fd-icon>`
-              : nothing}
-          </fd-visual>
-        </div>
-        <div part="content">
-          <div part="text">
-            <div part="title">${this._renderTitle()}</div>
-            ${this._renderDescription()}
-          </div>
-          ${this._renderLinks()}
-        </div>
+      <article part="base" aria-labelledby=${ifDefined(title ? this._titleId : undefined)}>
+        ${this.href?.trim()
+          ? html`
+              <a
+                part="primary-link"
+                class=${compact ? "compact" : ""}
+                href=${this.href}
+                target=${ifDefined(this.target ?? undefined)}
+                rel=${ifDefined(normalizeLinkRel(this.target, this.rel) ?? undefined)}
+              >
+                ${primaryContent}
+              </a>
+            `
+          : html`
+              <div part="primary-link" class=${compact ? "compact" : ""}>
+                ${primaryContent}
+              </div>
+            `}
+        ${this._renderLinks()}
       </article>
     `;
   }

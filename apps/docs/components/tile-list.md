@@ -66,6 +66,7 @@ The Tile List component arranges related tiles in a responsive collection layout
 - **Choose `columns` for the preferred desktop density.** `2`, `3`, and `4` map to the public `--fdic-layout-col-2-*`, `--fdic-layout-col-3-*`, and `--fdic-layout-col-4-*` recipe families.
 - **Treat the list as a collection contract, not a page-layout utility.** The shared `--fdic-layout-col-*` tokens are stable for collection wrappers; general section and split spacing belong to the foundations layout contract.
 - **Let the layout collapse naturally after the desktop recipe.** The component keeps the requested desktop count on wide containers, then shifts to the narrow-screen recipe based on the container's available inline space instead of relying on viewport breakpoints.
+- **Override row rhythm separately only when the pattern needs it.** `fd-tile-list` now accepts `--fd-tile-list-col-*-row-gap` and `--fd-tile-list-col-*-row-gap-mobile` overrides. Leave them unset to inherit the matching column gap, or set them when a section needs tighter vertical rhythm without narrowing the columns.
 - **Treat collapse thresholds as internal.** The component is intentionally container-aware, but the exact threshold where it changes track behavior is not a published API guarantee.
 - **Keep grouping honest.** Tile List does not add composite keyboarding or item state. If the interaction starts behaving like a menu, selector, or card-action grid, use a different pattern instead.
 
@@ -130,7 +131,7 @@ The Tile List component arranges related tiles in a responsive collection layout
 - The component expects **direct `fd-tile` children** for its list-item semantics.
 - The component expects **one shared visual tone per list**. Use separate lists when sections need different tones.
 - Tile List does not manage focus, selection, expansion, or removal.
-- Layout tuning is intentionally narrow: column size and gaps only.
+- Layout tuning is intentionally narrow: column sizing plus row/column gap control only.
 - Exact collapse thresholds are internal implementation details and may change.
 
 ## Related components

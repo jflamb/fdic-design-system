@@ -46,12 +46,15 @@ describe("FdTile", () => {
     });
 
     const article = el.shadowRoot?.querySelector("article");
-    const title = el.shadowRoot?.querySelector<HTMLAnchorElement>(".title-link");
+    const primaryLink = el.shadowRoot?.querySelector<HTMLAnchorElement>(
+      '[part="primary-link"]',
+    );
+    const title = el.shadowRoot?.querySelector<HTMLElement>(".title-link");
     const description = el.shadowRoot?.querySelector("[part=description]");
 
     expect(article?.getAttribute("aria-labelledby")).toBeTruthy();
+    expect(primaryLink?.getAttribute("href")).toBe("/benefits");
     expect(title?.textContent).toContain("Benefits");
-    expect(title?.getAttribute("href")).toBe("/benefits");
     expect(description?.textContent).toContain("Review insurance");
   });
 
@@ -90,7 +93,9 @@ describe("FdTile", () => {
       ],
     });
 
-    const title = el.shadowRoot?.querySelector<HTMLAnchorElement>(".title-link");
+    const title = el.shadowRoot?.querySelector<HTMLAnchorElement>(
+      '[part="primary-link"]',
+    );
     const support = el.shadowRoot?.querySelector<HTMLAnchorElement>(".support-link");
 
     expect(title?.getAttribute("rel")).toBe("noopener noreferrer");
@@ -100,6 +105,7 @@ describe("FdTile", () => {
   it("renders plain text when href is omitted", async () => {
     const el = await createTile({ title: "Benefits" });
 
+    expect(el.shadowRoot?.querySelector('[part="primary-link"]')?.tagName).toBe("DIV");
     expect(el.shadowRoot?.querySelector(".title-link")).toBeNull();
     expect(el.shadowRoot?.querySelector(".title-text")?.textContent).toContain(
       "Benefits",
@@ -113,7 +119,7 @@ describe("FdTile", () => {
 
   it("renders in compact mode when description and links are absent", async () => {
     const el = await createTile({ title: "Benefits" });
-    expect(el.shadowRoot?.querySelector("[part=base]")?.className).toContain("compact");
+    expect(el.shadowRoot?.querySelector('[part="primary-link"]')?.className).toContain("compact");
   });
 
   it("omits the description block when description is blank", async () => {
@@ -171,8 +177,44 @@ describe("FdTile", () => {
       links: [{ label: "Support", href: "/support", rel: "help" }],
     });
 
-    expect(el.shadowRoot?.querySelector(".title-link")?.getAttribute("rel")).toBe("author");
+    expect(
+      el.shadowRoot?.querySelector('[part="primary-link"]')?.getAttribute("rel"),
+    ).toBe("author");
     expect(el.shadowRoot?.querySelector(".support-link")?.getAttribute("rel")).toBe("help");
+  });
+
+  it("uses the primary link as the shared hit area for the visual and title", async () => {
+    const el = await createTile({
+      title: "Benefits",
+      href: "/benefits",
+      description: "Review insurance, leave, and retirement resources.",
+      iconName: "bank",
+    });
+
+    const primaryLink = el.shadowRoot?.querySelector('[part="primary-link"]');
+    expect(primaryLink?.querySelector('[part="visual"] fd-visual')).not.toBeNull();
+    expect(primaryLink?.querySelector(".title-link")?.textContent).toContain("Benefits");
+  });
+
+  it("darkens the nested visual with Figma hover tones on the primary link", () => {
+    const styles = (
+      customElements.get("fd-tile") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("--fd-tile-visual-bg-neutral");
+    expect(styles).toContain("var(--fdic-color-overlay-hover)");
+    expect(styles).toContain("--fd-tile-visual-bg-cool");
+    expect(styles).toContain("var(--fdic-color-primary-200)");
+    expect(styles).toContain("--fd-tile-visual-bg-warm");
+    expect(styles).toContain("var(--fdic-color-secondary-300)");
+    expect(styles).toContain("--fd-tile-visual-bg-cool-emphasis");
+    expect(styles).toContain("var(--fdic-color-primary-500)");
+    expect(styles).toContain("--fd-tile-visual-bg-neutral-emphasis");
+    expect(styles).toContain("var(--fdic-color-icon-primary)");
+    expect(styles).toContain("--fd-tile-visual-bg-warm-emphasis");
+    expect(styles).toContain("var(--fdic-color-secondary-800)");
   });
 
   it("passes an axe audit in linked mode", async () => {
