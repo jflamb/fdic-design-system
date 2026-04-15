@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { expect } from "storybook/test";
-import "@fdic-ds/components/register-all";
-import type { FdTileLinkItem } from "@fdic-ds/components";
+import "@jflamb/fdic-ds-components/register-all";
+import type { FdTileLinkItem } from "@jflamb/fdic-ds-components";
 import {
   getComponentArgs,
   getComponentArgTypes,

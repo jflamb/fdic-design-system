@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import "@fdic-ds/components/register-all";
+import "@jflamb/fdic-ds-components/register-all";
 import type { ReviewListItem } from "../../../packages/components/src/components/fd-review-list";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,

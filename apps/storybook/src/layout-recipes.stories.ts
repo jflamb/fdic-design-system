@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import "@fdic-ds/components/register-all";
+import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_META_CLASS,
@@ -9,10 +9,22 @@ import {
 } from "./docs-overview";
 
 const PAGE_STYLE = [
-  "display: grid",
+  "display: flex",
+  "flex-direction: column",
+  "min-height: 100vh",
   "gap: 0",
   "width: 100%",
   "background: var(--fdic-color-bg-base, #ffffff)",
+].join("; ");
+
+const PAGE_MAIN_STYLE = [
+  "display: block",
+  "flex: 1 0 auto",
+].join("; ");
+
+const PAGE_CHROME_END_STYLE = [
+  "display: block",
+  "margin-block-start: auto",
 ].join("; ");
 
 const SECTION_SHELL_STYLE = [
@@ -220,80 +232,84 @@ const renderRecipe = () => html`
       </a>
     </fd-global-header>
 
-    <fd-page-header
-      heading="FDICnet"
-      kicker="Employee resources, updates, and tools"
-      breadcrumb-label="Breadcrumbs"
-      .breadcrumbs=${[{ label: "Home", href: "#" }]}
-      style=${[
-        "--fd-page-header-max-width: var(--fdic-layout-content-max-width, 1312px)",
-        "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
-        "--fd-page-header-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-        "--fd-page-header-padding-block: var(--fdic-layout-section-block-padding, 48px)",
-      ].join("; ")}
-    ></fd-page-header>
+    <main style=${PAGE_MAIN_STYLE}>
+      <fd-page-header
+        heading="FDICnet"
+        kicker="Employee resources, updates, and tools"
+        breadcrumb-label="Breadcrumbs"
+        .breadcrumbs=${[{ label: "Home", href: "#" }]}
+        style=${[
+          "--fd-page-header-max-width: var(--fdic-layout-content-max-width, 1312px)",
+          "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
+          "--fd-page-header-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
+          "--fd-page-header-padding-block: var(--fdic-layout-section-block-padding, 48px)",
+        ].join("; ")}
+      ></fd-page-header>
 
-    <section style=${COOL_SECTION_STYLE}>
-      <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_STYLE}>
-        <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-          <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Full-bleed cool section with constrained tile list</strong>
-          <p class=${DOCS_OVERVIEW_META_CLASS}>
-            Use a full-width background on the outer section, then keep interactive content inside the
-            shared page shell. The section wrapper uses the documented
-            <code>--fdic-layout-shell-max-width</code>, <code>--fdic-layout-gutter</code>, and
-            <code>--fdic-layout-section-block-padding</code> tokens, while DS components that own their
-            own padding align to <code>--fdic-layout-content-max-width</code>.
-          </p>
-          ${renderQuickLinks()}
+      <section style=${COOL_SECTION_STYLE}>
+        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_STYLE}>
+          <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+            <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Full-bleed cool section with constrained tile list</strong>
+            <p class=${DOCS_OVERVIEW_META_CLASS}>
+              Use a full-width background on the outer section, then keep interactive content inside the
+              shared page shell. The section wrapper uses the documented
+              <code>--fdic-layout-shell-max-width</code>, <code>--fdic-layout-gutter</code>, and
+              <code>--fdic-layout-section-block-padding</code> tokens, while DS components that own their
+              own padding align to <code>--fdic-layout-content-max-width</code>.
+            </p>
+            ${renderQuickLinks()}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section style=${WARM_SECTION_STYLE}>
-      <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
-        <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
-          <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Warm event section using the same shell</strong>
-          <p class=${DOCS_OVERVIEW_META_CLASS}>
-            Keep borders and fills on the full-bleed wrapper. Let <code>fd-event-list</code> handle the
-            internal column math while the shared container controls page rhythm through the canonical
-            <code>--fdic-layout-*</code> contract.
-          </p>
-          ${renderEvents()}
+      <section style=${WARM_SECTION_STYLE}>
+        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
+          <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+            <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Warm event section using the same shell</strong>
+            <p class=${DOCS_OVERVIEW_META_CLASS}>
+              Keep borders and fills on the full-bleed wrapper. Let <code>fd-event-list</code> handle the
+              internal column math while the shared container controls page rhythm through the canonical
+              <code>--fdic-layout-*</code> contract.
+            </p>
+            ${renderEvents()}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <section style=${NEUTRAL_SECTION_STYLE}>
-      <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
-        <fd-page-feedback
-          survey-href="https://www.fdic.gov"
-          style=${[
-            "--fd-page-feedback-inline-padding: 0",
-            "--fd-page-feedback-inline-padding-mobile: 0",
-            "--fd-page-feedback-block-padding: 0",
-          ].join("; ")}
-        ></fd-page-feedback>
-      </div>
-    </section>
+    <div style=${PAGE_CHROME_END_STYLE}>
+      <section style=${NEUTRAL_SECTION_STYLE}>
+        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
+          <fd-page-feedback
+            survey-href="https://www.fdic.gov"
+            style=${[
+              "--fd-page-feedback-inline-padding: 0",
+              "--fd-page-feedback-inline-padding-mobile: 0",
+              "--fd-page-feedback-block-padding: 0",
+            ].join("; ")}
+          ></fd-page-feedback>
+        </div>
+      </section>
 
-    <fd-global-footer
-      agency-name="Federal Deposit Insurance Corporation"
-      agency-href="/"
-      updated-text="Updated August 7, 2024"
-      .utilityLinks=${[{ label: "Accessibility", href: "/accessibility" }]}
-      .socialLinks=${[
-        { icon: "facebook", label: "Follow the FDIC on Facebook", href: "#" },
-        { icon: "x", label: "Follow the FDIC on X", href: "#" },
-        { icon: "instagram", label: "Follow the FDIC on Instagram", href: "#" },
-        { icon: "youtube", label: "Follow the FDIC on YouTube", href: "#" },
-        { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
-      ]}
-      style=${[
-        "--fd-global-footer-max-width: var(--fdic-layout-content-max-width, 1312px)",
-        "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
-        "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-      ].join("; ")}
-    ></fd-global-footer>
+      <fd-global-footer
+        agency-name="Federal Deposit Insurance Corporation"
+        agency-href="/"
+        updated-text="Updated August 7, 2024"
+        .utilityLinks=${[{ label: "Accessibility", href: "/accessibility" }]}
+        .socialLinks=${[
+          { icon: "facebook", label: "Follow the FDIC on Facebook", href: "#" },
+          { icon: "x", label: "Follow the FDIC on X", href: "#" },
+          { icon: "instagram", label: "Follow the FDIC on Instagram", href: "#" },
+          { icon: "youtube", label: "Follow the FDIC on YouTube", href: "#" },
+          { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
+        ]}
+        style=${[
+          "--fd-global-footer-max-width: var(--fdic-layout-content-max-width, 1312px)",
+          "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
+          "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
+        ].join("; ")}
+      ></fd-global-footer>
+    </div>
   </div>
 `;
 

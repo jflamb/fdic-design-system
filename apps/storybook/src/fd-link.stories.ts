@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { expect } from "storybook/test";
-import "@fdic-ds/components/register-all";
+import "@jflamb/fdic-ds-components/register-all";
 import {
   getComponentArgs,
   getComponentArgTypes,

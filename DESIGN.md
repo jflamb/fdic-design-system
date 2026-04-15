@@ -1,141 +1,215 @@
 # FDIC Design System
 
 ## Design System Rules
-This document defines the core design system implemented in this repository. Always refer to this file and the underlying CSS token files when generating or modifying any UI component.
-- Use ONLY the CSS variables defined in the system (e.g., `var(--ds-color-text-primary)`). Do not invent new hex codes, `oklch` values, or use default framework styles.
-- Components are built as Web Components (custom elements prefixed with `fd-`).
-- Support both light and dark modes inherently by using semantic `var(--ds-color-*)` tokens, which leverage `light-dark()` under the hood.
-- Maintain a clean, accessible aesthetic that aligns with federal guidelines.
+This document summarizes the current runtime design contract implemented in this repository. Use it together with the shipped token files in `packages/tokens/` and the public docs in `apps/docs/` when generating or modifying UI.
+
+- Prefer the canonical `--fdic-*` runtime tokens. The legacy `--ds-*` names still exist only as deprecated compatibility aliases.
+- Use documented component override hooks (`--fd-*`) only where a component page explicitly exposes them.
+- Components are Web Components (`fd-*`) and should stay aligned to the published package and token contract.
+- Treat layout helpers such as the page shell, section wrappers, and split layouts as documented patterns built from stable tokens, not as a separate utility-class API.
+- Dark mode is token-driven. Semantic color tokens use `light-dark()` and should be consumed by role rather than by hard-coded palette values.
 
 ---
 
-## 1. Design Tokens
+## 1. Runtime Tokens
 
-### 1.1 Colors
-The system uses an `oklch`-based palette. Always use the semantic tokens rather than primitive scales when building components.
+### 1.1 Color tokens
+Use semantic `--fdic-color-*` role tokens first. Primitive ramps exist, but consumer-facing work should normally stay on semantic tokens.
 
-**Semantic Backgrounds**
-- `--ds-color-bg-base`: Main page background (Neutral 000 / Neutral 1000)
-- `--ds-color-bg-surface`: Card and surface backgrounds
-- `--ds-color-bg-container`: Secondary container backgrounds
-- `--ds-color-bg-brand`: Primary brand background
-- `--ds-color-bg-interactive`: Interactive element backgrounds
-- `--ds-color-semantic-bg-success`: Success/confirmation states
-- `--ds-color-semantic-bg-warning`: Alert/warning states
-- `--ds-color-semantic-bg-error`: Destructive/error states
-- `--ds-color-semantic-bg-info`: Informational states
+**Backgrounds**
+- `--fdic-color-bg-base`
+- `--fdic-color-bg-surface`
+- `--fdic-color-bg-container`
+- `--fdic-color-bg-overlay`
+- `--fdic-color-bg-modal`
+- `--fdic-color-bg-input`
+- `--fdic-color-bg-interactive`
+- `--fdic-color-bg-inverted`
+- `--fdic-color-bg-brand`
+- `--fdic-color-bg-highlight`
+- `--fdic-color-bg-selected`
+- `--fdic-color-bg-active`
+- `--fdic-color-bg-hovered`
+- `--fdic-color-bg-pressed`
+- `--fdic-color-bg-destructive`
+- `--fdic-color-bg-readonly`
 
-**Semantic Text & Icons**
-- `--ds-color-text-primary` / `--ds-color-icon-primary`: Main text and icons
-- `--ds-color-text-secondary` / `--ds-color-icon-secondary`: Supporting text and descriptions
-- `--ds-color-text-brand`: Brand-colored text
-- `--ds-color-text-error`: Error messages
-- `--ds-color-text-link`: Hyperlinks (`--ds-color-link-default` / `--ds-color-link-300`)
+**Text and icon roles**
+- `--fdic-color-text-primary`
+- `--fdic-color-text-secondary`
+- `--fdic-color-text-placeholder`
+- `--fdic-color-text-disabled`
+- `--fdic-color-text-inverted`
+- `--fdic-color-text-brand`
+- `--fdic-color-text-warm`
+- `--fdic-color-text-link`
+- `--fdic-color-text-link-visited`
+- `--fdic-color-text-error`
+- `--fdic-color-text-wordmark`
+- `--fdic-color-icon-primary`
+- `--fdic-color-icon-secondary`
+- `--fdic-color-icon-placeholder`
+- `--fdic-color-icon-disabled`
+- `--fdic-color-icon-inverted`
+- `--fdic-color-icon-warm`
+- `--fdic-color-icon-active`
+- `--fdic-color-icon-link`
 
-**Borders**
-- `--ds-color-border-divider`: Standard dividers and rules
-- `--ds-color-border-subtle`: Subtle framing and outlines
-- `--ds-color-border-input`: Form input borders
-- `--ds-color-border-input-focus`: Input focus state borders
-- `--ds-color-semantic-border-error`: Error state borders
+**Borders, semantic states, overlays, and effects**
+- `--fdic-color-border-divider`
+- `--fdic-color-border-subtle`
+- `--fdic-color-border-input`
+- `--fdic-color-border-input-hover`
+- `--fdic-color-border-input-focus`
+- `--fdic-color-border-input-active`
+- `--fdic-color-border-input-readonly`
+- `--fdic-color-border-input-interactive`
+- `--fdic-color-border-input-disabled`
+- `--fdic-color-border-glass`
+- `--fdic-color-border-glass-soft`
+- `--fdic-color-border-focus-inner`
+- `--fdic-color-semantic-bg-success`, `--fdic-color-semantic-bg-warning`, `--fdic-color-semantic-bg-error`, `--fdic-color-semantic-bg-info`, `--fdic-color-semantic-bg-warm`
+- `--fdic-color-semantic-fg-success`, `--fdic-color-semantic-fg-warning`, `--fdic-color-semantic-fg-error`, `--fdic-color-semantic-fg-info`
+- `--fdic-color-semantic-border-success`, `--fdic-color-semantic-border-warning`, `--fdic-color-semantic-border-error`, `--fdic-color-semantic-border-info`
+- `--fdic-color-overlay-hover`
+- `--fdic-color-overlay-pressed`
+- `--fdic-color-overlay-scrim`
+- `--fdic-color-overlay-brand-hover`
+- `--fdic-color-overlay-brand-selected`
+- `--fdic-color-overlay-brand-pressed`
+- `--fdic-color-overlay-scrim-soft`
+- `--fdic-color-overlay-scrim-strong`
+- `--fdic-color-effect-shadow`
+- `--fdic-color-effect-shadow-panel`
 
-### 1.2 Typography
-Public typography naming currently uses the shipped `--fdic-font-*`, `--fdic-line-height-*`, `--fdic-letter-spacing-*`, and `--fdic-heading-padding-*` families.
+### 1.2 Typography, spacing, and radius
+Public type and spacing tokens ship on the `--fdic-*` families below.
 
-**Font Families**
-- **Sans-Serif:** `'Source Sans 3', Arial, sans-serif`
-- **Serif:** `'Lora', Georgia, serif`
+**Typography**
+- Font families: `--fdic-font-family-sans-serif`, `--fdic-font-family-mono`
+- Font sizes: `--fdic-font-size-h1` through `--fdic-font-size-h6`, `--fdic-font-size-body`, `--fdic-font-size-body-big`, `--fdic-font-size-body-small`, `--fdic-font-size-body-smaller`, `--fdic-font-size-lg`
+- Font weights: `--fdic-font-weight-regular`, `--fdic-font-weight-medium`, `--fdic-font-weight-semibold`, `--fdic-font-weight-bold`
+- Line heights: `--fdic-line-height-h1` through `--fdic-line-height-h6`, `--fdic-line-height-body`, `--fdic-line-height-tight`
+- Letter spacing: `--fdic-letter-spacing-h1`, `--fdic-letter-spacing-h2`, `--fdic-letter-spacing-h6`, `--fdic-letter-spacing-none`
+- Heading padding: `--fdic-heading-padding-h1-*` through `--fdic-heading-padding-h6-*`
 
-### 1.3 Focus & Interaction
-**Focus Rings**
-All interactive elements must use the standard focus ring approach:
-- **Gap:** `var(--ds-focus-gap-width, 2px)` using `var(--ds-color-bg-input)` or base background.
-- **Ring:** `var(--ds-focus-ring-width, 4px)` using `var(--ds-focus-ring-color, var(--ds-color-border-input-focus))`.
+**Spacing and radius**
+- Spacing: `--fdic-spacing-3xs` through `--fdic-spacing-5xl`, plus `--fdic-spacing-none`
+- Radius: `--fdic-corner-radius-sm`, `--fdic-corner-radius-md`, `--fdic-corner-radius-lg`, `--fdic-corner-radius-xl`, `--fdic-corner-radius-full`
 
-**Motion & Easing**
-- `var(--ds-motion-duration-fast)`: 120ms
-- `var(--ds-motion-duration-normal)`: 150ms
-- `var(--ds-motion-duration-slow)`: 240ms
-- `var(--ds-motion-easing-default)`: `cubic-bezier(0.25, 0.1, 0.25, 1)`
+### 1.3 Interaction, shadows, and gradients
+Use the shared interaction and effect tokens instead of inventing component-local values.
 
-### 1.4 Elevations (Shadows)
-- `--ds-shadow-raised`: Subtle depth for standard raised elements.
-- `--ds-shadow-dropdown`: Elevation for dropdowns and popovers.
-- `--ds-shadow-menu`: Elevation for menus.
-- `--ds-shadow-panel`: Deepest elevation for dialogs and modals.
+**Focus and motion**
+- `--fdic-focus-gap-color`
+- `--fdic-focus-ring-color`
+- `--fdic-focus-gap-width`
+- `--fdic-focus-ring-width`
+- `--fdic-motion-duration-fast`
+- `--fdic-motion-duration-normal`
+- `--fdic-motion-duration-slow`
+- `--fdic-motion-easing-default`
 
-### 1.5 Layout
-**Shared Page Shell**
-- `--ds-layout-shell-max-width`: Common inner width for page-level chrome and content wrappers that should align horizontally.
-- `--ds-layout-content-max-width`: Content width baseline when a shell-specific width is not required.
-- `--ds-layout-gutter`, `--ds-layout-gutter-tablet`, `--ds-layout-gutter-mobile`: Standard horizontal gutters across breakpoints.
-- `--ds-layout-section-block-padding`, `--ds-layout-section-block-padding-compact`: Approved section block padding defaults for major and compact full-width sections.
-- `--ds-layout-content-gap`, `--ds-layout-stack-gap`, `--ds-layout-split-gap`: Shared page-composition gaps for peer regions, vertical stacks, and sidebar/main splits.
-- `--ds-layout-sidebar-width`: Preferred sidebar rail width for documented split layouts.
-- `--ds-layout-paragraph-max-width`: Readable long-form content width.
+**Shadows**
+- `--fdic-shadow-raised`
+- `--fdic-shadow-raised-hover`
+- `--fdic-shadow-dropdown`
+- `--fdic-shadow-menu`
+- `--fdic-shadow-panel`
 
-**Shared Collection Columns**
-- `--ds-layout-col-2-*`, `--ds-layout-col-3-*`, `--ds-layout-col-4-*`: Approved desktop min, max, and gap recipes for 2-column, 3-column, and 4-column collection layouts.
-- `--ds-layout-col-2-*-narrow`, `--ds-layout-col-3-*-narrow`, `--ds-layout-col-4-*-narrow`: Narrow-screen variants of the same recipes.
+**Gradients**
+- `--fdic-gradient-brand-core`
+- `--fdic-gradient-hero-overlay-cool`
+- `--fdic-gradient-hero-overlay-warm`
+- `--fdic-gradient-hero-overlay-neutral`
+- `--fdic-gradient-glass-button`
+- `--fdic-gradient-glass-sheen`
+
+### 1.4 Layout tokens
+These are the stable layout foundations currently shipped in `@jflamb/fdic-ds-tokens/styles.css`.
+
+**Page shell and readable widths**
+- `--fdic-layout-max-width`
+- `--fdic-layout-shell-max-width`
+- `--fdic-layout-content-max-width`
+- `--fdic-layout-paragraph-max-width`
+
+**Gutters and section rhythm**
+- `--fdic-layout-gutter`
+- `--fdic-layout-gutter-tablet`
+- `--fdic-layout-gutter-mobile`
+- `--fdic-layout-section-block-padding`
+- `--fdic-layout-section-block-padding-compact`
+- `--fdic-layout-content-gap`
+- `--fdic-layout-split-gap`
+- `--fdic-layout-stack-gap`
+- `--fdic-layout-sidebar-width`
+
+**Shared collection recipes**
+- `--fdic-layout-col-2-min`, `--fdic-layout-col-2-max`, `--fdic-layout-col-2-gap`
+- `--fdic-layout-col-3-min`, `--fdic-layout-col-3-max`, `--fdic-layout-col-3-gap`
+- `--fdic-layout-col-4-min`, `--fdic-layout-col-4-max`, `--fdic-layout-col-4-gap`
+- `--fdic-layout-col-2-min-narrow`, `--fdic-layout-col-2-gap-narrow`
+- `--fdic-layout-col-3-min-narrow`, `--fdic-layout-col-3-gap-narrow`
+- `--fdic-layout-col-4-min-narrow`, `--fdic-layout-col-4-max-narrow`, `--fdic-layout-col-4-gap-narrow`
 
 ---
 
-## 2. Component Specifications
+## 2. Layout Guidance
 
-### 2.0 Collection Layouts (`fd-card-group`, `fd-tile-list`, `fd-event-list`)
-- Collection wrappers use CSS Grid to flow items left-to-right, then top-to-bottom.
-- Use the approved layout recipes only: `2`, `3`, and `4` columns.
-- Width constraints and gaps must come from the shared `--ds-layout-col-*` tokens, which encode the approved Figma `col-#-min`, `col-#-max`, and `col-#-gap` recipes.
-- Collection layout behavior is container-aware. Components should react to their available inline size rather than only to the viewport.
-- Exact collection collapse thresholds are intentionally private implementation details. Do not document or depend on a published threshold contract.
-- When Figma uses very large mobile max values to indicate effectively unbounded tracks, treat that as a fill behavior in code rather than exposing a literal `9999px` contract.
-- Collection wrappers own the responsive grid rules. Child cards, tiles, and event items should stretch to fill the assigned track instead of defining competing layout widths.
-- Preserve the component-level `--fd-*` layout variables as explicit override hooks, but default them to the shared `--ds-layout-col-*` tokens instead of duplicating recipe values inside each component.
-- Preserve list semantics for content collections: the wrapper should expose `role="list"` and direct collection items should expose `role="listitem"` when native semantics do not already provide the correct structure.
+### 2.1 Shared page shell
+- Use `--fdic-layout-shell-max-width` to align page-level chrome such as `fd-global-header`, `fd-page-header`, `fd-page-feedback`, and `fd-global-footer`.
+- Let backgrounds, separators, and dividers run full bleed when needed, but keep the inner content wrapper aligned to the shared shell unless the pattern explicitly documents a wider composition.
+- Use the shared gutter tokens at the documented desktop/tablet/mobile ranges instead of introducing page-local breakpoint math.
 
-### 2.0.1 Page Shell Alignment
-- Use `--ds-layout-shell-max-width` to align the global header, page header, page feedback, footer, and page-content wrappers.
-- Section backgrounds, dividers, and border treatments may span full bleed, but the section's inner content wrapper should stay pinned to the shared shell width unless a documented pattern intentionally diverges.
-- Prefer shared shell and gutter tokens over page-specific max-width values. Introduce a component-level override only when a page-level pattern has a clear, documented reason to diverge.
+### 2.2 Viewport-height shell
+- Build outer application shells as a viewport-height flex column when the route includes top chrome and bottom chrome.
+- Put the route body in a `main` region that can grow (`flex: 1 0 auto`).
+- Group end-of-page chrome such as `fd-page-feedback` and `fd-global-footer` in a bottom wrapper that uses `margin-block-start: auto`.
+- Enable `fd-global-header.shy` only when the page actually overflows vertically. On short pages, leave shy mode off.
+- When shy mode is active, reserve the fixed-header offset with `padding-top: var(--fd-global-header-shy-height, 0px)` on the outer shell.
 
-### 2.0.2 Section wrappers, readable rails, and split layouts
+### 2.3 Section wrappers and readable rails
+- Treat section wrappers as patterns built from the stable shell, gutter, and section-padding tokens.
+- Use `--fdic-layout-section-block-padding` for major page sections and `--fdic-layout-section-block-padding-compact` for compact supporting sections.
+- Use `--fdic-layout-paragraph-max-width` for sustained reading content, survey copy, and explanatory text. Do not force all page content to that narrow rail.
 
-Stable tokens:
+### 2.4 Split layouts and collection layouts
+- Use `--fdic-layout-sidebar-width` and `--fdic-layout-split-gap` for sidebar/content patterns.
+- Keep split-collapse behavior as documented pattern guidance, not as a separate public token family.
+- `fd-card-group`, `fd-tile-list`, and `fd-event-list` should default to the shared `--fdic-layout-col-*` recipes rather than duplicating their own hard-coded track math.
+- Collection layouts are container-aware. Consumers should not depend on private breakpoint thresholds.
 
-- Use `--ds-layout-section-block-padding` for major shell sections and `--ds-layout-section-block-padding-compact` for smaller supporting sections.
-- Use `--ds-layout-paragraph-max-width` for sustained long-form reading content.
-- Use `--ds-layout-content-gap`, `--ds-layout-stack-gap`, and `--ds-layout-split-gap` for shared page-composition rhythm.
-- Use `--ds-layout-sidebar-width` as the preferred sidebar rail width when a sidebar/main split is needed.
+---
 
-Documented patterns, not separate token APIs:
+## 3. Component Guidance
 
-- Full-bleed sections with constrained inner wrappers.
-- Sidebar/content split collapse behavior on narrow containers.
-- Exact page templates, hero compositions, and campaign-specific layout recipes.
-- Section-specific inner wrappers that intentionally diverge from the common shell.
+### 3.1 General component rules
+- Components should consume semantic role tokens, spacing tokens, and documented layout foundations before introducing component-local styling values.
+- Use component-level `--fd-*` hooks only for documented overrides. Do not expose internal implementation details as public styling API.
+- Preserve semantic HTML and accessibility behavior before visual flourish.
 
-Accessibility expectations:
+### 3.2 Buttons and interactive controls
+- Use the shared focus geometry: `--fdic-focus-gap-width`, `--fdic-focus-ring-width`, `--fdic-focus-gap-color`, and `--fdic-focus-ring-color`.
+- Hover and pressed states should come from overlay tokens such as `--fdic-color-overlay-hover`, `--fdic-color-overlay-pressed`, or the relevant semantic background role.
+- Disabled states should use the semantic disabled text and border roles rather than reduced-opacity hacks.
 
-- Layouts must reflow cleanly at zoom without overlap or horizontal scrolling for primary content.
-- Readable rails should keep long-form copy within comfortable line lengths.
-- Full-bleed sections must still preserve a constrained inner reading area.
-- Focus indicators and touch targets must remain visible and usable within constrained shells and split layouts.
+### 3.3 Forms and validation
+- Inputs and selectors should use `--fdic-color-border-input`, `--fdic-color-border-input-hover`, and `--fdic-color-border-input-focus`.
+- Error states should use `--fdic-color-semantic-border-error`, `--fdic-color-semantic-fg-error`, and the related semantic background roles when a container treatment is needed.
+- Read-only and disabled states should use the shipped semantic roles rather than custom gray values.
 
-### 2.1 Buttons (`fd-button`)
-- **Focus State:** Employs the standard 2px gap and 4px focus ring.
-- **Hover/Active:** Utilizes `--ds-color-overlay-hover` and `--ds-color-bg-active` over the base background to indicate interactivity.
-- **Disabled:** Uses `--ds-color-text-disabled` and appropriate disabled background/border tokens.
+### 3.4 Status, feedback, and surfaces
+- Status components should map to the semantic success, warning, error, info, and warm tokens.
+- Raised surfaces should use the shared shadows, especially `--fdic-shadow-raised`, `--fdic-shadow-raised-hover`, `--fdic-shadow-dropdown`, and `--fdic-shadow-panel`.
+- Branded and glass treatments should use the shared gradients and glass-border roles instead of component-local gradients.
 
-### 2.2 Inputs & Forms (`fd-input`, `fd-selector`, `fd-checkbox-group`, `fd-radio-group`)
-- **Default Border:** `var(--ds-color-border-input)`
-- **Hover Border:** `var(--ds-color-border-input-hover)`
-- **Focus State:** Border changes to `var(--ds-color-border-input-focus)` with the standard focus ring applied.
-- **Error State:** Border changes to `var(--ds-color-semantic-border-error)` and text to `var(--ds-color-semantic-fg-error)`.
+---
 
-### 2.3 Status Indicators (`fd-badge`, `fd-chip`, `fd-message`)
-- Ensure backgrounds map to their respective semantic variables:
-  - Info: `var(--ds-color-semantic-bg-info)`
-  - Success: `var(--ds-color-semantic-bg-success)`
-  - Warning: `var(--ds-color-semantic-bg-warning)`
-  - Error: `var(--ds-color-semantic-bg-error)`
-- Interactive chips utilize `var(--ds-color-overlay-hover)` and `var(--ds-color-overlay-pressed)` for interaction feedback.
+## 4. Source of Truth
+
+- Canonical runtime CSS: `packages/tokens/styles.css` and `packages/tokens/interaction.css`
+- Public guidance: `apps/docs/guide/foundations/spacing-layout.md`, `apps/docs/guide/foundations/page-shell.md`, and component docs in `apps/docs/components/`
+- Internal inventory and translation context: `docs/architecture/token-inventory.md`
+
+If this file disagrees with the shipped token CSS or the current public docs, treat the shipped token CSS and public docs as the source of truth and update this file.

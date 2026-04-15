@@ -13,20 +13,15 @@ Consumer-facing docs, examples, and downstream references should use only those 
 
 ## Internal workspace wiring
 
-The repository also uses a private workbench alias:
+The repository uses npm workspaces and local `file:` links so docs, Storybook, and validation tasks can exercise unpublished changes before release.
 
-- `@fdic-ds/components`
-
-That alias is for internal workspace consumers such as Storybook. It is not a supported consumer import and must not appear in public adoption guidance.
-
-Storybook may continue using internal workspace wiring because it also depends on unpublished helper and fixture modules such as Storybook-only references and workbench adapters. Those helpers are not part of the public package surface.
+That wiring is internal repository setup, not part of the public adoption contract. Consumer-facing docs should describe only the published GitHub Packages installation path.
 
 ## Non-public modules
 
 The following should be treated as non-public API unless a package export explicitly says otherwise:
 
 - Storybook-only stories, fixtures, and reference data under `apps/storybook/`
-- internal workspace aliases such as `@fdic-ds/components`
 - private app wiring in `apps/*`
 - unpublished helper modules that are present only to support docs, tests, or workbench composition
 

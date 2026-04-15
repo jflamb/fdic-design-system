@@ -271,7 +271,7 @@ The source of truth for classifications is `scripts/components/inventory.mjs`. U
   - `apps/storybook/src/generated/component-arg-types.ts`
   - docs content between `<!-- GENERATED_COMPONENT_API:START -->` and `<!-- GENERATED_COMPONENT_API:END -->`
 - Use explicit registration entry points in `packages/components/src/register/` for custom element registration.
-- Import `@fdic-ds/components/register-all` in Storybook stories unless a narrower registration path is needed for a specific reason.
+- Import `@jflamb/fdic-ds-components/register-all` in Storybook stories unless a narrower registration path is needed for a specific reason.
 - For direct component properties in Storybook, prefer `getComponentArgs()` and `getComponentArgTypes()` from `apps/storybook/src/generated/component-arg-types.ts`. Keep manual story args for wrapper content, slot text, or composed fixtures only.
 - Keep root package symbol exports side-effect-free.
 - For public component events, prefer component-specific names over generic library-wide names. Use `fd-{component}-change` for value or selection changes, `fd-{component}-open-change` for open-state changes, and `fd-{component}-action` or `fd-{component}-select` when those verbs are the clearest fit.

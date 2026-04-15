@@ -360,6 +360,26 @@ describe("fd-global-header", () => {
     expect(stylesText).toContain("overflow: hidden");
   });
 
+  it("keeps current and open top-nav treatments visually distinct", () => {
+    const stylesText = getStyleText(FdGlobalHeader.styles);
+
+    expect(stylesText).toContain(
+      '.top-nav-button[data-current="true"],',
+    );
+    expect(stylesText).toContain(
+      "background-color: var(--fd-global-header-color-surface-brand-hover);",
+    );
+    expect(stylesText).toContain(
+      "box-shadow: inset 0 0 0 1px var(--fd-global-header-glass-border-strong);",
+    );
+    expect(stylesText).toContain(
+      '.top-nav-button[data-active="true"]::before',
+    );
+    expect(stylesText).toContain(
+      "background: var(--fd-global-header-color-surface-base);",
+    );
+  });
+
   it("generates instance-safe trigger and search control ids", async () => {
     const first = await createHeader();
     const second = await createHeader();
@@ -646,6 +666,73 @@ describe("fd-global-header", () => {
 
     expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
     expect(menuViewport.style.maxHeight).toBe("");
+  });
+
+  it("caps tall desktop mega-menu sections to the available viewport height", async () => {
+    const el = await createHeader();
+    const trigger = getPanelTrigger(el, "news-events");
+
+    trigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const menuViewport = el.shadowRoot?.querySelector(
+      ".mega-menu-viewport",
+    ) as HTMLElement | null;
+    const menuInner = el.shadowRoot?.querySelector(
+      ".mega-menu-inner",
+    ) as HTMLElement | null;
+
+    if (!menuViewport || !menuInner) {
+      throw new Error("Expected mega-menu viewport and inner surface");
+    }
+
+    Object.defineProperty(menuViewport, "getBoundingClientRect", {
+      configurable: true,
+      value: () => ({
+        width: 0,
+        height: 320,
+        top: 120,
+        right: 0,
+        bottom: 440,
+        left: 0,
+        x: 0,
+        y: 120,
+        toJSON: () => ({}),
+      }),
+    });
+
+    Object.defineProperty(menuInner, "getBoundingClientRect", {
+      configurable: true,
+      value: () => ({
+        width: 0,
+        height: 900,
+        top: 0,
+        right: 0,
+        bottom: 900,
+        left: 0,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+      }),
+    });
+
+    Object.defineProperty(menuInner, "scrollHeight", {
+      configurable: true,
+      get: () => 900,
+    });
+
+    Object.defineProperty(window, "innerHeight", {
+      configurable: true,
+      writable: true,
+      value: 720,
+    });
+
+    (el as unknown as { _syncMegaMenuHeight: () => void })._syncMegaMenuHeight();
+
+    expect(menuViewport.hasAttribute("data-scrollable")).toBe(true);
+    expect(menuViewport.style.maxHeight).toBe("584px");
+    expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
   });
 
   it("attaches scroll tracking only while shy mode is enabled and cleans it up on disconnect", async () => {

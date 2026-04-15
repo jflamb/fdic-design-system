@@ -92,6 +92,40 @@ The standard section model is:
 The section background, border, stripe, or divider may still span full bleed.
 Only the inner content row needs to align to the shared shell width.
 
+## Viewport-height shell
+
+When the page includes shell chrome such as `fd-global-header`, `fd-page-feedback`,
+and `fd-global-footer`, use a viewport-height flex column at the outer wrapper so
+short pages still finish at the bottom of the viewport.
+
+```css
+.page-shell {
+  min-block-size: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-shell__main {
+  flex: 1 0 auto;
+}
+
+.page-shell__chrome-end {
+  margin-block-start: auto;
+}
+
+.page-shell[data-page-overflow="true"] {
+  padding-top: var(--fd-global-header-shy-height, 0px);
+}
+```
+
+- Put the document's primary route content in `.page-shell__main`.
+- Group bottom-of-page chrome such as `fd-page-feedback` and `fd-global-footer`
+  inside `.page-shell__chrome-end`.
+- If the page overflows vertically, reserve the shy-header offset on the shell
+  wrapper and opt into `fd-global-header.shy`.
+- If the page does not overflow, leave shy mode off and let the bottom chrome
+  settle at the viewport edge through normal flex layout.
+
 ## Shell-participating components
 
 These components consume the page-shell contract directly:

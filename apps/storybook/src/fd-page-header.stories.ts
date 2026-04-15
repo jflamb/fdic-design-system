@@ -1,8 +1,8 @@
-import type { FdPageHeaderBreadcrumb } from "@fdic-ds/components";
+import type { FdPageHeaderBreadcrumb } from "@jflamb/fdic-ds-components";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { expect } from "storybook/test";
-import "@fdic-ds/components/register-all";
+import "@jflamb/fdic-ds-components/register-all";
 import {
   getComponentArgs,
   getComponentArgTypes,

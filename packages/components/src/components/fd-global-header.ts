@@ -747,14 +747,19 @@ export class FdGlobalHeader extends LitElement {
 
     .top-nav-button[data-current="true"],
     .top-nav-button[data-current="true"]:hover {
-      background-color: var(--fd-global-header-color-surface-base);
-      color: var(--fd-global-header-color-text-primary);
+      background-color: var(--fd-global-header-color-surface-brand-hover);
+      box-shadow: inset 0 0 0 1px var(--fd-global-header-glass-border-strong);
+      color: var(--fd-global-header-color-text-inverted);
     }
 
     .top-nav-button[data-current="true"]:focus-visible,
     .top-nav-button[data-current="true"][data-manual-focus-visible="true"] {
-      background-color: var(--fd-global-header-color-surface-base);
-      color: var(--fd-global-header-color-text-primary);
+      background-color: var(--fd-global-header-color-surface-brand-hover);
+      box-shadow:
+        inset 0 0 0 1px var(--fd-global-header-glass-border-strong),
+        0 0 0 2px var(--fd-global-header-color-surface-base),
+        0 0 0 4px var(--fd-global-header-color-accent);
+      color: var(--fd-global-header-color-text-inverted);
     }
 
     .top-nav-link:focus-visible,
@@ -773,6 +778,16 @@ export class FdGlobalHeader extends LitElement {
       font-weight: 600;
       box-shadow: none;
       z-index: 2;
+    }
+
+    .top-nav-button[data-active="true"]::before {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: -6px;
+      height: 6px;
+      background: var(--fd-global-header-color-surface-base);
+      pointer-events: none;
     }
 
     .top-nav-button[data-active="true"]:focus-visible,
@@ -997,6 +1012,12 @@ export class FdGlobalHeader extends LitElement {
       position: relative;
       z-index: 1;
       transition: max-height 160ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .mega-menu-viewport[data-scrollable="true"] {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
     }
 
     .mega-menu-viewport[data-height-animating="true"] {
@@ -2351,7 +2372,9 @@ export class FdGlobalHeader extends LitElement {
 
     this._clearMegaMenuHeightAnimationListener(target);
     target.removeAttribute("data-height-animating");
-    target.style.removeProperty("max-height");
+    if (target.getAttribute("data-scrollable") !== "true") {
+      target.style.removeProperty("max-height");
+    }
   }
 
   private _resetMegaMenuHeight() {
@@ -2359,11 +2382,23 @@ export class FdGlobalHeader extends LitElement {
       ".mega-menu-viewport",
     );
     if (menuViewport) {
+      menuViewport.removeAttribute("data-scrollable");
+      menuViewport.style.removeProperty("max-height");
       this._finishMegaMenuHeightAnimation(menuViewport);
       return;
     }
 
     this._finishMegaMenuHeightAnimation();
+  }
+
+  private _getMaxDesktopMegaMenuHeight(menuViewport: HTMLElement) {
+    if (typeof window === "undefined") {
+      return Number.POSITIVE_INFINITY;
+    }
+
+    const viewportRect = menuViewport.getBoundingClientRect();
+    const availableHeight = window.innerHeight - viewportRect.top - 16;
+    return Math.max(availableHeight, 240);
   }
 
   private _captureMegaMenuHeight(changed: PropertyValues<this>) {
@@ -2428,20 +2463,30 @@ export class FdGlobalHeader extends LitElement {
       return;
     }
 
-    const nextHeight = Math.max(
+    const rawNextHeight = Math.max(
       menuInner.scrollHeight,
       menuInner.getBoundingClientRect().height,
       0,
     );
-    const startHeight = this._capturedMegaMenuHeight;
+    const maxHeight = this._getMaxDesktopMegaMenuHeight(menuViewport);
+    const nextHeight = Math.min(rawNextHeight, maxHeight);
+    const startHeight = Math.min(this._capturedMegaMenuHeight, maxHeight);
+    const isScrollable = rawNextHeight - nextHeight > 1;
     const shouldAnimate =
       this._shouldAnimateMegaMenuHeight &&
       Math.abs(startHeight - nextHeight) > 1;
 
     this._shouldAnimateMegaMenuHeight = false;
     this._capturedMegaMenuHeight = nextHeight;
+    menuViewport.toggleAttribute("data-scrollable", isScrollable);
     if (!shouldAnimate) {
-      this._finishMegaMenuHeightAnimation(menuViewport);
+      this._clearMegaMenuHeightAnimationListener(menuViewport);
+      menuViewport.removeAttribute("data-height-animating");
+      if (isScrollable) {
+        menuViewport.style.maxHeight = `${nextHeight}px`;
+      } else {
+        menuViewport.style.removeProperty("max-height");
+      }
       return;
     }
 

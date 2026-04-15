@@ -223,7 +223,7 @@ describe("${newComponent.className}", () => {
 function storyTemplate(newComponent) {
   return `import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import "@fdic-ds/components/register-all";
+import "@jflamb/fdic-ds-components/register-all";
 import {
   getComponentArgs,
   getComponentArgTypes,

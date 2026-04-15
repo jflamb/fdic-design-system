@@ -43,7 +43,10 @@ function main() {
 
   assert(componentsPackage.exports["./styles.css"] === "./styles.css", "components package must export ./styles.css");
   assert(componentsPackage.files.includes("styles.css"), "components package must publish styles.css");
-  assert(componentsPackage.dependencies["@jflamb/fdic-ds-tokens"] === "0.1.0", "components package must depend on the published tokens version");
+  assert(
+    componentsPackage.dependencies["@jflamb/fdic-ds-tokens"] === tokensPackage.version,
+    "components package must depend on the published tokens version"
+  );
   const importsTokenRuntimeViaRelativePath = componentStyles.includes('@import "../fdic-ds-tokens/styles.css";');
   const importsTokenRuntimeViaPackagePath = componentStyles.includes('@import "@jflamb/fdic-ds-tokens/styles.css";');
   assert(

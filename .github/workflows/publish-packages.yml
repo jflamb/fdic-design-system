@@ -21,24 +21,31 @@ jobs:
 
       - name: Configure npm for GitHub Packages
         run: |
-          npm config set "@fdic-ds:registry" "https://npm.pkg.github.com"
+          npm config set "@jflamb:registry" "https://npm.pkg.github.com"
           npm config set "//npm.pkg.github.com/:_authToken" "${NODE_AUTH_TOKEN}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build tokens
-        run: npm run build:tokens
+      - name: Validate release packages
+        run: |
+          npm run validate:tokens
+          npm run validate:packages
+          npm run test:components
+          npm run build:tokens
+          npm run build:components
 
-      - name: Build components
-        run: npm run build:components
+      - name: Validate publish payloads
+        run: |
+          npm pack --dry-run --workspace @jflamb/fdic-ds-tokens
+          npm pack --dry-run --workspace @jflamb/fdic-ds-components
 
-      - name: Publish @fdic-ds/tokens
-        run: npm publish --workspace @fdic-ds/tokens
+      - name: Publish @jflamb/fdic-ds-tokens
+        run: npm publish --workspace @jflamb/fdic-ds-tokens
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish @fdic-ds/components
-        run: npm publish --workspace @fdic-ds/components
+      - name: Publish @jflamb/fdic-ds-components
+        run: npm publish --workspace @jflamb/fdic-ds-components
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

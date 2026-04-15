@@ -9,7 +9,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@fdic-ds/components": "file:../../packages/components"
+    "@jflamb/fdic-ds-components": "file:../../packages/components"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.3.1",

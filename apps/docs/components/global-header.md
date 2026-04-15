@@ -78,6 +78,7 @@ if (header) {
 ### Shy header adoption
 
 - Set `shy` to opt into the sticky hide/reveal behavior. Leave it unset to preserve the current in-flow header behavior.
+- Prefer enabling `shy` only on routes that actually overflow vertically. Short pages usually read better with the simpler in-flow header.
 - When `shy` is enabled the header switches to `position: fixed` and exposes `--fd-global-header-shy-height` on the host element. The consumer is responsible for reserving space in the document flow using this property (e.g., `padding-top` on a wrapper).
 - On desktop, scrolling down past the threshold hides the full header and reveals a **compact sticky header** with the brand, utility actions, and a menu toggle for accessing the full navigation. Scrolling back up reveals the full header. The transition between states is animated (250ms ease).
 - On mobile, scrolling down hides the header entirely (`translateY(-100%)`). Scrolling up reveals it. There is no compact mobile variant.
@@ -101,12 +102,21 @@ if (header) {
 
 ```ts
 const header = document.querySelector("fd-global-header");
+const shell = document.querySelector(".page-wrapper");
 
-if (header) {
+if (header && shell) {
+  const syncShyState = () => {
+    const hasPageOverflow = document.documentElement.scrollHeight > window.innerHeight + 1;
+
+    shell.dataset.pageOverflow = String(hasPageOverflow);
+    header.shy = hasPageOverflow;
+    header.shyThreshold = hasPageOverflow ? 64 : undefined;
+  };
+
   header.navigation = resolved.navigation;
   header.search = resolved.search ?? null;
-  header.shy = true;
-  header.shyThreshold = 64;
+  syncShyState();
+  window.addEventListener("resize", syncShyState, { passive: true });
 }
 ```
 

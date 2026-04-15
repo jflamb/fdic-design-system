@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { expect, waitFor } from "storybook/test";
-import "@fdic-ds/components/register-all";
-import type { FileInputItem } from "@fdic-ds/components/fd-file-input";
+import "@jflamb/fdic-ds-components/register-all";
+import type { FileInputItem } from "@jflamb/fdic-ds-components/fd-file-input";
 import {
   getComponentArgs,
   getComponentArgTypes,

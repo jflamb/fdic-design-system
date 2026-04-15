@@ -30,10 +30,25 @@ Apply token overrides at the application shell wrapper, not inside individual pa
 
 ```css
 .fdic-app-shell {
+  min-block-size: 100svh;
+  display: flex;
+  flex-direction: column;
   --fdic-layout-shell-max-width: 90rem;
   --fdic-color-bg-base: #f4f8fb;
   --fdic-color-bg-surface: #ffffff;
   --fdic-color-text-primary: #17324d;
+}
+
+.fdic-app-shell__main {
+  flex: 1 0 auto;
+}
+
+.fdic-app-shell__chrome-end {
+  margin-block-start: auto;
+}
+
+.fdic-app-shell[data-page-overflow="true"] {
+  padding-top: var(--fd-global-header-shy-height, 0px);
 }
 ```
 
@@ -42,7 +57,7 @@ Apply token overrides at the application shell wrapper, not inside individual pa
 This HTML is meaningful before upgrade and stays within the published public contract after upgrade.
 
 ```html
-<div class="fdic-app-shell">
+<div class="fdic-app-shell" data-page-overflow="false">
   <fd-global-header></fd-global-header>
 
   <fd-alert variant="info" heading="System maintenance scheduled">
@@ -50,7 +65,7 @@ This HTML is meaningful before upgrade and stays within the published public con
     2:00 a.m. to 6:00 a.m. Eastern for scheduled maintenance.
   </fd-alert>
 
-  <main>
+  <main class="fdic-app-shell__main">
     <fd-page-header>
       <nav slot="breadcrumbs" aria-label="Breadcrumb">
         <a href="/institutions">Institutions</a>
@@ -113,6 +128,15 @@ This HTML is meaningful before upgrade and stays within the published public con
       </table>
     </section>
   </main>
+
+  <div class="fdic-app-shell__chrome-end">
+    <fd-page-feedback survey-href="/feedback"></fd-page-feedback>
+    <fd-global-footer
+      agency-name="Federal Deposit Insurance Corporation"
+      agency-href="/"
+      updated-text="Updated April 14, 2026"
+    ></fd-global-footer>
+  </div>
 </div>
 ```
 
@@ -144,12 +168,42 @@ if (header) {
 }
 ```
 
+## Viewport-shell enhancement
+
+Enable shy-header behavior only when the page actually overflows vertically, and keep the feedback-plus-footer chrome pinned to the viewport floor when it does not.
+
+```ts
+const shell = document.querySelector(".fdic-app-shell");
+const header = shell?.querySelector("fd-global-header");
+
+if (shell && header) {
+  const syncViewportChrome = () => {
+    const hasPageOverflow = document.documentElement.scrollHeight > window.innerHeight + 1;
+
+    shell.dataset.pageOverflow = String(hasPageOverflow);
+    header.shy = hasPageOverflow;
+    header.shyThreshold = hasPageOverflow ? 64 : undefined;
+  };
+
+  const scheduleSync = () => requestAnimationFrame(syncViewportChrome);
+  const resizeObserver = new ResizeObserver(scheduleSync);
+
+  resizeObserver.observe(document.body);
+  resizeObserver.observe(header);
+  window.addEventListener("resize", scheduleSync, { passive: true });
+
+  syncViewportChrome();
+}
+```
+
 ## Operational notes
 
 - Keep landmark headings and description lists in the server-rendered HTML so the page is navigable before JavaScript upgrades complete.
 - Use `fd-alert` for time-sensitive system notices that affect the institution workflow.
 - Use `fd-button` with `href` for navigation actions and `variant` for visual hierarchy.
 - Let the application own data fetching and rendering for dynamic sections like filing history.
+- Use a viewport-height flex shell so `fd-page-feedback` and `fd-global-footer` stay at the bottom of short pages without switching either component to fixed positioning.
+- Turn on `fd-global-header.shy` only when the page has vertical overflow; leave it off on short pages so the shell keeps the simpler in-flow header behavior.
 
 ## Related guidance
 
