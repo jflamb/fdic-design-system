@@ -559,6 +559,49 @@ describe("fd-global-header", () => {
     expect(menuViewport.style.maxHeight).toBe("");
   });
 
+  it("skips mega-menu height animation when switching between top-level panels", async () => {
+    const el = await createHeader();
+    const newsTrigger = getPanelTrigger(el, "news-events");
+    const careerTrigger = getPanelTrigger(el, "career-development");
+
+    newsTrigger?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const menuViewport = el.shadowRoot?.querySelector(
+      ".mega-menu-viewport",
+    ) as HTMLElement | null;
+    const menuInner = el.shadowRoot?.querySelector(
+      ".mega-menu-inner",
+    ) as HTMLElement | null;
+
+    if (!menuViewport || !menuInner) {
+      throw new Error("Expected mega-menu viewport and inner surface");
+    }
+
+    let renderedHeight = 248;
+    let contentHeight = renderedHeight;
+
+    setElementHeightMetrics(menuViewport, () => renderedHeight);
+    setElementHeightMetrics(
+      menuInner,
+      () => renderedHeight,
+      () => contentHeight,
+    );
+
+    contentHeight = 396;
+
+    careerTrigger?.dispatchEvent(
+      new PointerEvent("pointerenter", { bubbles: true, composed: true }),
+    );
+    await wait(160);
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
+    expect(menuViewport.style.maxHeight).toBe("");
+  });
+
   it("skips mega-menu height animation when reduced motion is requested", async () => {
     prefersReducedMotionMatches = true;
 

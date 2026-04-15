@@ -2362,6 +2362,13 @@ export class FdGlobalHeader extends LitElement {
       !changed.has("_previewItemIndex") &&
       !changed.has("_activeChildIndex") &&
       !changed.has("_previewingOverview");
+    const panelSwitchOnlyChanged =
+      changed.has("_activePanelId") &&
+      !changed.has("_menuOpen") &&
+      !changed.has("_selectedSectionIndex") &&
+      !changed.has("_previewItemIndex") &&
+      !changed.has("_activeChildIndex") &&
+      !changed.has("_previewingOverview");
     const menuStateChanged =
       changed.has("_menuOpen") ||
       changed.has("_activePanelId") ||
@@ -2388,6 +2395,7 @@ export class FdGlobalHeader extends LitElement {
       : 0;
     this._shouldAnimateMegaMenuHeight =
       !sectionSelectionOnlyChanged &&
+      !panelSwitchOnlyChanged &&
       wasMenuOpen &&
       this._menuOpen &&
       !this._isMobile &&
