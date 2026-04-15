@@ -737,6 +737,10 @@ export class FdGlobalHeader extends LitElement {
       opacity: 1;
     }
 
+    .top-nav-button[data-current="true"]::after {
+      opacity: 1;
+    }
+
     .top-nav-link:focus-visible,
     .top-nav-button:focus-visible,
     .top-nav-link[data-manual-focus-visible="true"],
@@ -1716,6 +1720,7 @@ export class FdGlobalHeader extends LitElement {
       }
 
       .top-nav-link[aria-current="page"],
+      .top-nav-button[data-current="true"],
       .top-nav-button[data-active="true"] {
         border-bottom-color: Highlight;
       }
@@ -3635,6 +3640,7 @@ export class FdGlobalHeader extends LitElement {
           aria-controls=${controlsId}
           data-panel-trigger=${item.id}
           data-top-nav-index=${String(index)}
+          data-current=${String(Boolean(item.current))}
           data-active=${String(isActive)}
           @blur=${this._clearTopNavManualFocusVisible}
           @click=${() => this._handleTopNavClick(item, index)}

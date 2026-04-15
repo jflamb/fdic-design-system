@@ -1123,6 +1123,29 @@ describe("fd-global-header", () => {
     expect(el.shadowRoot?.activeElement).toBe(firstItem);
   });
 
+  it("marks a current top-level panel trigger without promoting it to the open state", async () => {
+    const el = await createHeader();
+    const navigation = structuredClone(
+      fdGlobalHeaderReferenceNavigation,
+    ) as FdGlobalHeaderNavigationItem[];
+    const firstItem = navigation[0];
+
+    if (!firstItem || firstItem.kind !== "panel") {
+      throw new Error("Expected first navigation item to be a panel");
+    }
+
+    firstItem.current = true;
+    el.navigation = navigation as typeof fdGlobalHeaderReferenceNavigation;
+    await el.updateComplete;
+    await nextFrame();
+
+    const trigger = getPanelTrigger(el, firstItem.id);
+
+    expect(trigger?.getAttribute("data-current")).toBe("true");
+    expect(trigger?.getAttribute("data-active")).toBe("false");
+    expect(trigger?.getAttribute("aria-expanded")).toBe("false");
+  });
+
   it("moves one shared top-nav active indicator between active tabs", async () => {
     const el = await createHeader();
     const topNavTrack = el.shadowRoot?.querySelector(
