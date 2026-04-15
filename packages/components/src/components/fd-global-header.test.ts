@@ -1309,12 +1309,17 @@ describe("fd-global-header", () => {
     const mobileDescription = el.shadowRoot?.querySelector(
       ".mobile-intro",
     ) as HTMLElement | null;
+    const mobileLinks = Array.from(
+      el.shadowRoot?.querySelectorAll(".mobile-link, .mobile-button") || [],
+    ).map((element) => element.textContent?.trim());
 
     expect(drillBackButton?.textContent?.trim()).toBe("News & Events Overview");
-    expect(sectionOverviewLink?.textContent?.trim()).toBe("News");
+    expect(sectionOverviewLink?.textContent?.trim()).toBe("News Overview");
+    expect(sectionOverviewLink?.getAttribute("href")).toBe("#news-overview");
     expect(mobileDescription?.textContent?.trim()).toBe(
-      "Explore News services, guidance, and related resources.",
+      "Start with the full News & Events overview, then jump to the area you need.",
     );
+    expect(mobileLinks).not.toContain("View all");
     expect(el.shadowRoot?.querySelector(".mobile-context")).toBeNull();
 
     menuToggle?.click();
@@ -1360,7 +1365,7 @@ describe("fd-global-header", () => {
       ".mobile-overview-link",
     ) as HTMLAnchorElement | null;
 
-    expect(sectionOverviewLink?.textContent?.trim()).toBe("News");
+    expect(sectionOverviewLink?.textContent?.trim()).toBe("News Overview");
   });
 
   it("uses native dialog elements for mobile menu and search surfaces", async () => {

@@ -140,6 +140,10 @@ function getSectionMenuDescription(
   return getFallbackSectionDescription(section, panelLabel, isOverview);
 }
 
+function isCatchAllSectionItem(item: FdGlobalHeaderSectionItem) {
+  return item.label.trim().toLowerCase() === "view all";
+}
+
 function parseDurationMs(
   value: string,
   fallback = DEFAULT_SHY_HIDE_DURATION_MS,
@@ -4142,15 +4146,22 @@ export class FdGlobalHeader extends LitElement {
             ? html`
                 <ul class="mobile-list" role="list">
                   ${this._renderMobileOverviewItem(
-                    section.label,
-                    section.href || section.overviewHref,
+                    getSectionOverview(section)?.label || section.label,
+                    getSectionOverview(section)?.href ||
+                      section.href ||
+                      section.overviewHref,
                     getSectionMenuDescription(
                       section,
                       this._getMobilePanelLabel(panel),
+                      true,
                     ),
                   )}
-                  ${(section.items || []).map(
-                    (sectionItem, index) => html`
+                  ${(section.items || []).flatMap((sectionItem, index) => {
+                    if (isCatchAllSectionItem(sectionItem)) {
+                      return [];
+                    }
+
+                    return html`
                       <li>
                         ${this._renderMobileListItem(
                           sectionItem.label,
@@ -4160,8 +4171,8 @@ export class FdGlobalHeader extends LitElement {
                             : null,
                         )}
                       </li>
-                    `,
-                  )}
+                    `;
+                  })}
                 </ul>
               `
             : html`
