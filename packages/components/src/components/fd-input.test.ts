@@ -46,6 +46,16 @@ async function waitForExpectation(expectation: () => void, attempts = 10) {
   throw lastError;
 }
 
+async function waitForMessageState(
+  el: HTMLElement,
+  expectedState: string | null,
+  attempts = 30,
+) {
+  await waitForExpectation(() => {
+    expect(el.getAttribute("data-state")).toBe(expectedState);
+  }, attempts);
+}
+
 describe("fd-input", () => {
   beforeEach(() => {
     clearTestDom();
@@ -674,28 +684,17 @@ describe("fd-input", () => {
     msg.setAttribute("state", "error");
     document.body.appendChild(msg);
     await msg.updateComplete;
-
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-    expect(el.getAttribute("data-state")).toBe("error");
+    await waitForMessageState(el, "error");
 
     // Rapid change to warning
     msg.setAttribute("state", "warning");
     await msg.updateComplete;
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-    await waitForExpectation(() => {
-      expect(el.getAttribute("data-state")).toBe("warning");
-    });
+    await waitForMessageState(el, "warning");
 
     // Rapid change to default
     msg.setAttribute("state", "default");
     await msg.updateComplete;
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-    await waitForExpectation(() => {
-      expect(el.getAttribute("data-state")).toBeNull();
-    });
+    await waitForMessageState(el, null);
   });
 
   // --- pattern attribute ---
