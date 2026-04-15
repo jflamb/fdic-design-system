@@ -412,6 +412,63 @@ Desktop.play = async ({ canvasElement }) => {
   });
 };
 
+export const DesktopActiveItem: Story = {
+  args: createStoryArgs(),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows the desktop mega-menu with a first-column section actively selected so the selected row and dependent second-column content are visible without manual hover.",
+      },
+    },
+  },
+};
+
+DesktopActiveItem.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+  });
+
+  const trigger = host?.shadowRoot?.querySelector(
+    '[data-panel-trigger="news-events"]',
+  ) as HTMLButtonElement | null;
+
+  expect(trigger).toBeTruthy();
+  await userEvent.click(trigger!);
+
+  await waitFor(() => {
+    const panel = host?.shadowRoot?.querySelector(
+      ".mega-menu",
+    ) as HTMLElement | null;
+    expect(panel?.hidden).toBe(false);
+  });
+
+  const sectionButton = host?.shadowRoot?.querySelector(
+    ".mega-col--l1 .menu-item-button--l1",
+  ) as HTMLButtonElement | null;
+
+  expect(sectionButton).toBeTruthy();
+  await userEvent.hover(sectionButton!);
+
+  await waitFor(() => {
+    const selectedSection = host?.shadowRoot?.querySelector(
+      ".mega-col--l1 .menu-item-button--l1[data-selected='true']",
+    ) as HTMLButtonElement | null;
+    const overviewLink = host?.shadowRoot?.querySelector(
+      ".mega-col--l2 .menu-item-link--overview",
+    ) as HTMLAnchorElement | null;
+
+    expect(selectedSection?.textContent).toContain("News");
+    expect(overviewLink?.textContent).toContain("News Overview");
+  });
+
+  await waitForSettledFrame(canvasElement);
+};
+
 export const SearchOpen: Story = {
   args: createStoryArgs(),
 };
