@@ -80,6 +80,13 @@ const additionalPublicModules = [
     includeInRootIndex: false,
     rootExports: [],
   },
+  {
+    entryName: "fd-global-header-reference",
+    sourceFile: "src/components/fd-global-header.reference.ts",
+    exportSubpath: "./fd-global-header-reference",
+    includeInRootIndex: false,
+    rootExports: [],
+  },
 ];
 const reactWrapperDefinitions = new Map([
   ["fd-alert", {

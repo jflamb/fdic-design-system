@@ -9,6 +9,7 @@ export default defineConfig({
     // Public helper modules
     "fd-global-header-content": "src/fd-global-header-content.ts",
     "fd-global-header-drupal": "src/fd-global-header-drupal.ts",
+    "fd-global-header-reference": "src/components/fd-global-header.reference.ts",
 
     // Per-component symbol exports
     "components/fd-button": "src/components/fd-button.ts",

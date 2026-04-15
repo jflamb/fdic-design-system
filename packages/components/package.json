@@ -34,6 +34,10 @@
       "types": "./dist/fd-global-header-drupal.d.ts",
       "import": "./dist/fd-global-header-drupal.js"
     },
+    "./fd-global-header-reference": {
+      "types": "./dist/fd-global-header-reference.d.ts",
+      "import": "./dist/fd-global-header-reference.js"
+    },
     "./fd-button": {
       "types": "./dist/components/fd-button.d.ts",
       "import": "./dist/components/fd-button.js"
