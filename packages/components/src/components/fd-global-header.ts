@@ -1036,7 +1036,7 @@ export class FdGlobalHeader extends LitElement {
       min-width: 0;
       padding: 0.5rem 0;
       z-index: 1;
-      animation: mega-col-enter 250ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      animation: none;
     }
 
     .mega-col--l1 {
@@ -2355,6 +2355,13 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _captureMegaMenuHeight(changed: PropertyValues<this>) {
+    const sectionSelectionOnlyChanged =
+      changed.has("_selectedSectionIndex") &&
+      !changed.has("_menuOpen") &&
+      !changed.has("_activePanelId") &&
+      !changed.has("_previewItemIndex") &&
+      !changed.has("_activeChildIndex") &&
+      !changed.has("_previewingOverview");
     const menuStateChanged =
       changed.has("_menuOpen") ||
       changed.has("_activePanelId") ||
@@ -2380,6 +2387,7 @@ export class FdGlobalHeader extends LitElement {
       ? Math.max(menuViewport.getBoundingClientRect().height, 0)
       : 0;
     this._shouldAnimateMegaMenuHeight =
+      !sectionSelectionOnlyChanged &&
       wasMenuOpen &&
       this._menuOpen &&
       !this._isMobile &&

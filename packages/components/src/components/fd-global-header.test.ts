@@ -512,7 +512,7 @@ describe("fd-global-header", () => {
     expect(activeL3AfterHover).not.toBeNull();
   });
 
-  it("animates mega-menu height changes when desktop panel content changes", async () => {
+  it("skips mega-menu height animation when first-column section changes drive the content swap", async () => {
     const el = await createHeader();
     const trigger = getPanelTrigger(el, "news-events");
 
@@ -553,13 +553,6 @@ describe("fd-global-header", () => {
       new PointerEvent("pointerenter", { bubbles: true, composed: true }),
     );
     await el.updateComplete;
-    await nextFrame();
-
-    expect(menuViewport.getAttribute("data-height-animating")).toBe("true");
-    expect(menuViewport.style.maxHeight).toBe("396px");
-
-    renderedHeight = 396;
-    menuViewport.dispatchEvent(new Event("transitionend"));
     await nextFrame();
 
     expect(menuViewport.hasAttribute("data-height-animating")).toBe(false);
