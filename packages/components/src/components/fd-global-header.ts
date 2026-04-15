@@ -745,6 +745,18 @@ export class FdGlobalHeader extends LitElement {
       opacity: 1;
     }
 
+    .top-nav-button[data-current="true"],
+    .top-nav-button[data-current="true"]:hover {
+      background-color: var(--fd-global-header-color-surface-base);
+      color: var(--fd-global-header-color-text-primary);
+    }
+
+    .top-nav-button[data-current="true"]:focus-visible,
+    .top-nav-button[data-current="true"][data-manual-focus-visible="true"] {
+      background-color: var(--fd-global-header-color-surface-base);
+      color: var(--fd-global-header-color-text-primary);
+    }
+
     .top-nav-link:focus-visible,
     .top-nav-button:focus-visible,
     .top-nav-link[data-manual-focus-visible="true"],
