@@ -66,6 +66,7 @@
 
   /* Primary */
   --fdic-color-primary-050: oklch(0.9585 0.0169 225.19);
+  --fdic-color-primary-100: oklch(0.9193 0.0412 223.97);
   --fdic-color-primary-200: oklch(0.8495 0.0978 226.58);
   --fdic-color-primary-400: oklch(0.741 0.1499 239.59);
   --fdic-color-primary-500: oklch(0.4716 0.1061 241.57);
@@ -78,7 +79,7 @@
   --fdic-color-secondary-300: oklch(0.8756 0.0778 88.57);
   --fdic-color-secondary-400: oklch(0.8212 0.1089 88.87);
   --fdic-color-secondary-500: oklch(0.7727 0.1309 86.96);
-  --fdic-color-secondary-600: oklch(0.6849 0.1281 85.85);
+  --fdic-color-secondary-600: oklch(0.538 0.099 85.44);
   --fdic-color-secondary-800: oklch(0.538 0.099 85.44);
   --fdic-color-secondary-900: oklch(0.4387 0.0744 93.45);
 
@@ -128,6 +129,7 @@
   /* ===== Semantic tokens ===== */
 
   /* Background */
+  --fdic-color-bg-none: light-dark(oklch(from var(--fdic-color-neutral-000) l c h / 0.2), oklch(from var(--fdic-color-neutral-1000) l c h / 0.2));
   --fdic-color-bg-base: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-1000));
   --fdic-color-bg-surface: light-dark(var(--fdic-color-neutral-000), var(--fdic-color-neutral-900));
   --fdic-color-bg-container: light-dark(var(--fdic-color-neutral-100), var(--fdic-color-neutral-900));
@@ -138,7 +140,7 @@
   --fdic-color-bg-inverted: light-dark(var(--fdic-color-neutral-900), var(--fdic-color-neutral-100));
   --fdic-color-bg-brand: light-dark(var(--fdic-color-primary-900), var(--fdic-color-primary-050));
   --fdic-color-bg-highlight: var(--fdic-color-primary-400);
-  --fdic-color-bg-selected: light-dark(var(--fdic-color-primary-050), var(--fdic-color-primary-900));
+  --fdic-color-bg-selected: light-dark(var(--fdic-color-primary-100), var(--fdic-color-primary-900));
   --fdic-color-bg-active: light-dark(var(--fdic-color-primary-500), var(--fdic-color-primary-200));
   --fdic-color-bg-hovered: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.04), oklch(from var(--fdic-color-neutral-000) l c h / 0.08));
   --fdic-color-bg-pressed: light-dark(oklch(from var(--fdic-color-neutral-1000) l c h / 0.08), oklch(from var(--fdic-color-neutral-000) l c h / 0.14));
@@ -159,7 +161,7 @@
   --fdic-color-text-wordmark: light-dark(var(--fdic-color-primary-900), var(--fdic-color-neutral-000));
 
   /* Icon */
-  --fdic-color-icon-primary: light-dark(var(--fdic-color-neutral-800), var(--fdic-color-neutral-200));
+  --fdic-color-icon-primary: light-dark(var(--fdic-color-neutral-900), var(--fdic-color-neutral-200));
   --fdic-color-icon-secondary: light-dark(var(--fdic-color-neutral-700), var(--fdic-color-neutral-400));
   --fdic-color-icon-placeholder: light-dark(var(--fdic-color-neutral-700), var(--fdic-color-neutral-500));
   --fdic-color-icon-disabled: light-dark(var(--fdic-color-neutral-400), var(--fdic-color-neutral-700));
@@ -185,9 +187,9 @@
 
   /* Semantic */
   --fdic-color-semantic-bg-success: light-dark(var(--fdic-color-success-050), var(--fdic-color-success-800));
-  --fdic-color-semantic-bg-warning: light-dark(var(--fdic-color-warning-050), var(--fdic-color-warning-800));
+  --fdic-color-semantic-bg-warning: light-dark(oklch(0.9717 0.0231 75.86), var(--fdic-color-warning-800));
   --fdic-color-semantic-bg-error: light-dark(var(--fdic-color-error-050), var(--fdic-color-error-800));
-  --fdic-color-semantic-bg-info: light-dark(var(--fdic-color-info-050), var(--fdic-color-info-800));
+  --fdic-color-semantic-bg-info: light-dark(oklch(0.9532 0.0218 239.43), var(--fdic-color-info-800));
   --fdic-color-semantic-bg-warm: light-dark(var(--fdic-color-secondary-050), var(--fdic-color-secondary-900));
   --fdic-color-semantic-fg-success: light-dark(var(--fdic-color-success-500), var(--fdic-color-success-300));
   --fdic-color-semantic-fg-warning: light-dark(var(--fdic-color-warning-500), var(--fdic-color-warning-300));
@@ -397,6 +399,7 @@
   --ds-color-neutral-900: var(--fdic-color-neutral-900);
   --ds-color-neutral-1000: var(--fdic-color-neutral-1000);
   --ds-color-primary-050: var(--fdic-color-primary-050);
+  --ds-color-primary-100: var(--fdic-color-primary-100);
   --ds-color-primary-200: var(--fdic-color-primary-200);
   --ds-color-primary-400: var(--fdic-color-primary-400);
   --ds-color-primary-500: var(--fdic-color-primary-500);
@@ -443,6 +446,7 @@
   --ds-color-link-default: var(--fdic-color-link-default);
   --ds-color-link-visited: var(--fdic-color-link-visited);
   --ds-color-link-visited-300: var(--fdic-color-link-visited-300);
+  --ds-color-bg-none: var(--fdic-color-bg-none);
   --ds-color-bg-base: var(--fdic-color-bg-base);
   --ds-color-bg-surface: var(--fdic-color-bg-surface);
   --ds-color-bg-container: var(--fdic-color-bg-container);

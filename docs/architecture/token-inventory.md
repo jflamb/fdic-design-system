@@ -67,7 +67,7 @@ Top-level groups observed:
 Examples:
 
 - `_color._brand.--primary-500 = #0D6191`
-- `_color._brand.--secondary-600 = #BD9327`
+- `_color._brand.--secondary-600 = #88691C`
 - `_color._neutral.--neutral-000 = #FFFFFF`
 - `_spacing.--spacing-16 = 16`
 - `_corner-radius.--radius-md` is not present by that exact name; the primitive export currently uses numeric labels such as `--radius-5`

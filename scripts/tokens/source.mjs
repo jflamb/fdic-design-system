@@ -34,6 +34,7 @@ export const tokenSource = {
     },
     primary: {
       "primary-050": "oklch(0.9585 0.0169 225.19)",
+      "primary-100": "oklch(0.9193 0.0412 223.97)",
       "primary-200": "oklch(0.8495 0.0978 226.58)",
       "primary-400": "oklch(0.741 0.1499 239.59)",
       "primary-500": "oklch(0.4716 0.1061 241.57)",
@@ -46,7 +47,7 @@ export const tokenSource = {
       "secondary-300": "oklch(0.8756 0.0778 88.57)",
       "secondary-400": "oklch(0.8212 0.1089 88.87)",
       "secondary-500": "oklch(0.7727 0.1309 86.96)",
-      "secondary-600": "oklch(0.6849 0.1281 85.85)",
+      "secondary-600": "oklch(0.538 0.099 85.44)",
       "secondary-800": "oklch(0.538 0.099 85.44)",
       "secondary-900": "oklch(0.4387 0.0744 93.45)",
     },
@@ -96,6 +97,7 @@ export const tokenSource = {
   },
   semanticColors: {
     background: {
+      none: { light: { from: "{core.color.neutral.neutral-000}", alpha: 0.2 }, dark: { from: "{core.color.neutral.neutral-1000}", alpha: 0.2 } },
       base: { light: "{core.color.neutral.neutral-000}", dark: "{core.color.neutral.neutral-1000}" },
       surface: { light: "{core.color.neutral.neutral-000}", dark: "{core.color.neutral.neutral-900}" },
       container: { light: "{core.color.neutral.neutral-100}", dark: "{core.color.neutral.neutral-900}" },
@@ -106,7 +108,7 @@ export const tokenSource = {
       inverted: { light: "{core.color.neutral.neutral-900}", dark: "{core.color.neutral.neutral-100}" },
       brand: { light: "{core.color.primary.primary-900}", dark: "{core.color.primary.primary-050}" },
       highlight: "{core.color.primary.primary-400}",
-      selected: { light: "{core.color.primary.primary-050}", dark: "{core.color.primary.primary-900}" },
+      selected: { light: "{core.color.primary.primary-100}", dark: "{core.color.primary.primary-900}" },
       active: { light: "{core.color.primary.primary-500}", dark: "{core.color.primary.primary-200}" },
       hovered: { light: { from: "{core.color.neutral.neutral-1000}", alpha: 0.04 }, dark: { from: "{core.color.neutral.neutral-000}", alpha: 0.08 } },
       pressed: { light: { from: "{core.color.neutral.neutral-1000}", alpha: 0.08 }, dark: { from: "{core.color.neutral.neutral-000}", alpha: 0.14 } },
@@ -127,7 +129,7 @@ export const tokenSource = {
       wordmark: { light: "{core.color.primary.primary-900}", dark: "{core.color.neutral.neutral-000}" },
     },
     icon: {
-      primary: { light: "{core.color.neutral.neutral-800}", dark: "{core.color.neutral.neutral-200}" },
+      primary: { light: "{core.color.neutral.neutral-900}", dark: "{core.color.neutral.neutral-200}" },
       secondary: { light: "{core.color.neutral.neutral-700}", dark: "{core.color.neutral.neutral-400}" },
       placeholder: { light: "{core.color.neutral.neutral-700}", dark: "{core.color.neutral.neutral-500}" },
       disabled: { light: "{core.color.neutral.neutral-400}", dark: "{core.color.neutral.neutral-700}" },
@@ -153,9 +155,9 @@ export const tokenSource = {
     },
     semantic: {
       "bg-success": { light: "{core.color.success.success-050}", dark: "{core.color.success.success-800}" },
-      "bg-warning": { light: "{core.color.warning.warning-050}", dark: "{core.color.warning.warning-800}" },
+      "bg-warning": { light: "oklch(0.9717 0.0231 75.86)", dark: "{core.color.warning.warning-800}" },
       "bg-error": { light: "{core.color.error.error-050}", dark: "{core.color.error.error-800}" },
-      "bg-info": { light: "{core.color.info.info-050}", dark: "{core.color.info.info-800}" },
+      "bg-info": { light: "oklch(0.9532 0.0218 239.43)", dark: "{core.color.info.info-800}" },
       "bg-warm": { light: "{core.color.secondary.secondary-050}", dark: "{core.color.secondary.secondary-900}" },
       "fg-success": { light: "{core.color.success.success-500}", dark: "{core.color.success.success-300}" },
       "fg-warning": { light: "{core.color.warning.warning-500}", dark: "{core.color.warning.warning-300}" },

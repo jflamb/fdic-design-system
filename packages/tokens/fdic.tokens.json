@@ -157,6 +157,16 @@
             ]
           }
         },
+        "primary-100": {
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.9193,
+              0.0412,
+              223.97
+            ]
+          }
+        },
         "primary-200": {
           "$value": {
             "colorSpace": "oklch",
@@ -264,9 +274,9 @@
           "$value": {
             "colorSpace": "oklch",
             "components": [
-              0.6849,
-              0.1281,
-              85.85
+              0.538,
+              0.099,
+              85.44
             ]
           }
         },
@@ -643,6 +653,17 @@
       "light": {
         "background": {
           "$type": "color",
+          "none": {
+            "$value": {
+              "colorSpace": "oklch",
+              "components": [
+                1,
+                0,
+                0
+              ],
+              "alpha": 0.2
+            }
+          },
           "base": {
             "$value": "{core.color.neutral.neutral-000}"
           },
@@ -674,7 +695,7 @@
             "$value": "{core.color.primary.primary-400}"
           },
           "selected": {
-            "$value": "{core.color.primary.primary-050}"
+            "$value": "{core.color.primary.primary-100}"
           },
           "active": {
             "$value": "{core.color.primary.primary-500}"
@@ -747,7 +768,7 @@
         "icon": {
           "$type": "color",
           "primary": {
-            "$value": "{core.color.neutral.neutral-800}"
+            "$value": "{core.color.neutral.neutral-900}"
           },
           "secondary": {
             "$value": "{core.color.neutral.neutral-700}"
@@ -843,13 +864,27 @@
             "$value": "{core.color.success.success-050}"
           },
           "bg-warning": {
-            "$value": "{core.color.warning.warning-050}"
+            "$value": {
+              "colorSpace": "oklch",
+              "components": [
+                0.9717,
+                0.0231,
+                75.86
+              ]
+            }
           },
           "bg-error": {
             "$value": "{core.color.error.error-050}"
           },
           "bg-info": {
-            "$value": "{core.color.info.info-050}"
+            "$value": {
+              "colorSpace": "oklch",
+              "components": [
+                0.9532,
+                0.0218,
+                239.43
+              ]
+            }
           },
           "bg-warm": {
             "$value": "{core.color.secondary.secondary-050}"
@@ -1068,6 +1103,17 @@
       "dark": {
         "background": {
           "$type": "color",
+          "none": {
+            "$value": {
+              "colorSpace": "oklch",
+              "components": [
+                0,
+                0,
+                0
+              ],
+              "alpha": 0.2
+            }
+          },
           "base": {
             "$value": "{core.color.neutral.neutral-1000}"
           },
