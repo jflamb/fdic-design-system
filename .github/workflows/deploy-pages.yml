@@ -33,7 +33,7 @@ jobs:
         run: cp -r apps/storybook/storybook-static apps/docs/.vitepress/dist/storybook
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: apps/docs/.vitepress/dist
 
