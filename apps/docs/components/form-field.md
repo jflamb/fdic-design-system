@@ -15,7 +15,7 @@
 
 ## When not to use
 
-- **Do not use it to change submit behavior** — Native `<form>` and native `<button type="submit">` still own submission.
+- **Do not use it to change submit behavior** — Native `<form>` semantics still own submission. Use `fd-button type="submit"` for the styled primary submit action.
 - **Do not use it as a validation engine** — The page decides when `invalid` and `error` become visible.
 - **Do not replace simple existing `fd-field` use just for text-entry sugar** — `fd-field` remains supported for the narrow direct-child text recipe, especially when the authored label and message markup needs to stay visible before upgrade.
 

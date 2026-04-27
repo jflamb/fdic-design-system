@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-04-12
+- Status note: Superseded in part by [ADR-009](./ADR-009-submit-capable-fd-button.md) for `fd-button type="submit"` only. Reset behavior, slot-based `fd-field`, wrapper elements inside `fd-field`, and cross-root label discovery remain out of scope.
 
 ## Context
 

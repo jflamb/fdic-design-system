@@ -15,6 +15,12 @@
           "description": "Makes the control inert. In link mode, `fd-button` uses `aria-disabled=\"true\"` and suppresses navigation."
         },
         {
+          "name": "type",
+          "type": "`\"button\"` \\| `\"submit\"` \\| `\"reset\"`",
+          "defaultValue": "`\"button\"`",
+          "description": "Controls button-mode behavior. Use `submit` for primary form submission. `reset` remains deferred and renders as `button`."
+        },
+        {
           "name": "href",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
@@ -45,7 +51,7 @@
           "description": "Optional replacement label to show and announce while `loading` is true."
         }
       ],
-      "after": "`fd-button` currently exposes a reactive `type` property in source, but v1 always renders `<button type=\"button\">` in button mode. Submit/reset behavior is not part of the supported public contract."
+      "after": "`fd-button type=\"submit\"` participates in the host form as the recommended primary submit action. `type=\"reset\"` is intentionally deferred by ADR-009 and renders as `<button type=\"button\">` for now."
     },
     "slots": {
       "rows": [

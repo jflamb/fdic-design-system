@@ -27,6 +27,10 @@ describe("fd-button", () => {
     expect(customElements.get("fd-button")).toBeDefined();
   });
 
+  it("is form-associated", () => {
+    expect((customElements.get("fd-button") as any).formAssociated).toBe(true);
+  });
+
   it("renders native <button> by default with type='button'", async () => {
     const el = await createButton();
     const inner = getInternal(el);
@@ -47,11 +51,11 @@ describe("fd-button", () => {
     expect(inner.getAttribute("role")).toBeNull();
   });
 
-  it("keeps the rendered control as type='button' even when submit is requested", async () => {
+  it("renders an internal <button type='submit'> when submit is requested", async () => {
     const el = await createButton({ type: "submit" });
     const inner = getInternal(el);
     expect(inner.tagName).toBe("BUTTON");
-    expect(inner.getAttribute("type")).toBe("button");
+    expect(inner.getAttribute("type")).toBe("submit");
   });
 
   it("ignores type when href is set", async () => {
@@ -64,7 +68,7 @@ describe("fd-button", () => {
     expect(inner.hasAttribute("type")).toBe(false);
   });
 
-  it("does not submit a light-DOM form when host type='submit' is set", async () => {
+  it("submits the host form when the internal submit button is activated", async () => {
     const form = document.createElement("form");
     const submitSpy = vi.fn((event: Event) => event.preventDefault());
     form.addEventListener("submit", submitSpy);
@@ -78,6 +82,96 @@ describe("fd-button", () => {
     inner.click();
 
     expect(inner.tagName).toBe("BUTTON");
+    expect(inner.getAttribute("type")).toBe("submit");
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("submits the host form when the custom element host is clicked", async () => {
+    const form = document.createElement("form");
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    form.addEventListener("submit", submitSpy);
+    form.innerHTML = '<fd-button type="submit">Submit filing</fd-button>';
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-button") as any;
+    await el.updateComplete;
+
+    el.click();
+
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("submits the host form when Enter activates the internal submit button", async () => {
+    const form = document.createElement("form");
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    form.addEventListener("submit", submitSpy);
+    form.innerHTML = '<fd-button type="submit">Submit filing</fd-button>';
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-button") as any;
+    await el.updateComplete;
+
+    getInternal(el).dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Enter",
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("blocks submission when disabled", async () => {
+    const form = document.createElement("form");
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    form.addEventListener("submit", submitSpy);
+    form.innerHTML =
+      '<fd-button type="submit" disabled>Submit filing</fd-button>';
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-button") as any;
+    await el.updateComplete;
+
+    const inner = getInternal(el) as HTMLButtonElement;
+    inner.click();
+
+    expect(inner.disabled).toBe(true);
+    expect(submitSpy).not.toHaveBeenCalled();
+  });
+
+  it("blocks submission when loading", async () => {
+    const form = document.createElement("form");
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    form.addEventListener("submit", submitSpy);
+    form.innerHTML =
+      '<fd-button type="submit" loading>Submit filing</fd-button>';
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-button") as any;
+    await el.updateComplete;
+
+    const inner = getInternal(el) as HTMLButtonElement;
+    inner.click();
+
+    expect(inner.disabled).toBe(true);
+    expect(submitSpy).not.toHaveBeenCalled();
+  });
+
+  it("renders type='reset' as type='button' and does not submit", async () => {
+    const form = document.createElement("form");
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    form.addEventListener("submit", submitSpy);
+    form.innerHTML = '<fd-button type="reset">Reset filing</fd-button>';
+    document.body.appendChild(form);
+
+    const el = form.querySelector("fd-button") as any;
+    await el.updateComplete;
+
+    const inner = getInternal(el);
+    inner.click();
+
+    // Reset-capable fd-button remains deferred by ADR-009.
     expect(inner.getAttribute("type")).toBe("button");
     expect(submitSpy).not.toHaveBeenCalled();
   });

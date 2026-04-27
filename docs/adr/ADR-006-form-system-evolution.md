@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-04-12
+- Status note: Amended by [ADR-009](./ADR-009-submit-capable-fd-button.md) to remove `fd-button type="submit"` from the deferred-pattern list. `fd-button type="reset"` and the other deferred form patterns remain deferred.
 
 ## Context
 
