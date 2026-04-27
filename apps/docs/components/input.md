@@ -162,7 +162,7 @@ To override for a specific input, set `--fd-input-icon-size`:
 ## Accessibility
 
 - `fd-input` renders a native `<input>` in **shadow DOM** and participates in form submission via `ElementInternals` (form-associated custom element).
-- Use a native `<button type="submit">` when the field participates in a submitted form. `fd-input` is form-associated, but `fd-button` is not submit-capable in v1.
+- Use `fd-button type="submit"` for the primary submit action when the field participates in a submitted form.
 - **Labeling:** Pair with `fd-label` using matching `for`/`id` attributes. `fd-label` renders a native `<label>` in light DOM for real click-to-focus and screen reader name computation.
 - **Description wiring:** `fd-input` is the **single owner** of `aria-describedby` on the inner `<input>`. It discovers associated `fd-label` and `fd-message` siblings via their `for` attributes and reads their stable public getters (`descriptionId`, `messageId`) to assemble the description.
 - **Error state:** `fd-message` is the primary authored error surface and still controls the border/message styling through its own `state`. It does **not** control `aria-invalid`.
@@ -179,7 +179,7 @@ To override for a specific input, set `--fd-input-icon-size`:
 
 - `checkValidity()` updates and returns validity but does not reveal invalid state.
 - `reportValidity()` updates and returns validity. When the field is invalid, it applies `data-user-invalid` on the host. When the field is valid, it has no visible effect.
-- In normal forms, prefer `form.requestSubmit()` from a native submit button over calling `reportValidity()` ad hoc from unrelated controls.
+- In normal forms, prefer form submission through a submit control such as `fd-button type="submit"` over calling `reportValidity()` ad hoc from unrelated controls.
 - Blur after user interaction is also a visibility boundary. A required field can be internally invalid before that boundary without showing invalid styling yet.
 - `aria-invalid` is applied to the internal native `<input>` only while `data-user-invalid` is present.
 - `data-user-invalid` clears when the field becomes valid or when the form reset path runs.

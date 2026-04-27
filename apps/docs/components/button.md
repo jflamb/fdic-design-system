@@ -4,7 +4,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-button</code> to let users take actions — confirming decisions, navigating to new pages, or triggering client-side operations. Six variants communicate the weight and risk of each action, including an inverted subtle treatment for dark surfaces. The component renders a native <code>&lt;button type="button"&gt;</code> by default, or an <code>&lt;a&gt;</code> when an <code>href</code> is provided.</p>
+  <p>Use <code>fd-button</code> to let users take actions — confirming decisions, navigating to new pages, submitting forms, or triggering client-side operations. Six variants communicate the weight and risk of each action, including an inverted subtle treatment for dark surfaces. The component renders a native <code>&lt;button type="button"&gt;</code> by default, a submit-capable button when <code>type="submit"</code> is set, or an <code>&lt;a&gt;</code> when an <code>href</code> is provided.</p>
 </div>
 
 ## When to use
@@ -38,7 +38,7 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
   storyId="components-button--form-action-row"
   linkStoryId="components-button--playground"
   height="140"
-  caption="Form action rows keep submit semantics on a native HTML button. Use `fd-button` for cancel, save draft, and other non-submitting actions."
+  caption="Form action rows use `fd-button type=&quot;submit&quot;` for the primary submit action and `type=&quot;button&quot;` for non-submitting actions."
 />
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -48,13 +48,14 @@ Buttons trigger actions or navigate to new pages. They tell the user what will h
 |---|---|---|---|
 | `variant` | `"primary"` \| `"neutral"` \| `"subtle"` \| `"subtle-inverted"` \| `"outline"` \| `"destructive"` | `primary` | Visual treatment for the action. Use `subtle-inverted` on dark surfaces and `destructive` only for high-risk actions. |
 | `disabled` | `boolean` | `false` | Makes the control inert. In link mode, `fd-button` uses `aria-disabled="true"` and suppresses navigation. |
+| `type` | `"button"` \| `"submit"` \| `"reset"` | `button` | Controls button-mode behavior. Use `submit` for primary form submission. `reset` remains deferred and renders as `button`. |
 | `href` | `string \| undefined` | `undefined` | When set, `fd-button` renders a native `<a>` instead of an internal `<button>`. |
 | `target` | `string \| undefined` | `undefined` | Native link target. Applies only when `href` is set. |
 | `rel` | `string \| undefined` | `undefined` | Native link relationship tokens. When `target="_blank"`, `fd-button` always adds `noopener noreferrer`. |
 | `loading` | `boolean` | `false` | Shows a spinner and makes the control inert while work is in progress. |
 | `loading-label` | `string \| undefined` | `undefined` | Optional replacement label to show and announce while `loading` is true. |
 
-`fd-button` currently exposes a reactive `type` property in source, but v1 always renders `<button type="button">` in button mode. Submit/reset behavior is not part of the supported public contract.
+`fd-button type="submit"` participates in the host form as the recommended primary submit action. `type="reset"` is intentionally deferred by ADR-009 and renders as `<button type="button">` for now.
 
 ## Slots
 
@@ -225,7 +226,7 @@ Use the `loading` attribute when an action is in progress and you need to preven
 
 ## Known limitations
 
-- **Form submission is out of scope in v1** — `fd-button` always renders an internal `<button type="button">` when it is not in link mode. Because the component is not form-associated, use a native `<button type="submit">` or `<button type="reset">` inside light-DOM forms until a future version explicitly expands the supported form contract.
+- **Reset behavior is deferred** — `fd-button type="reset"` currently renders an internal `<button type="button">` and does not reset the form. Use reset or clear actions only when the workflow has a strong, documented reason; consequential forms should usually avoid them.
 - **`aria-busy` AT coverage varies** — `aria-busy` on `<button>` is not consistently announced across all screen reader / browser combinations. The primary inert signal is the native `disabled` attribute (or `aria-disabled` for links), with `aria-busy` as supplemental. Verify with your target AT combinations.
 
 ## Related components

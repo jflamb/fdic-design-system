@@ -90,8 +90,8 @@ function validateTokens(referencePath, markdown, publishedTokenNames, errors) {
 
 function validateFormContract(referencePath, markdown, errors) {
   assert(
-    !/<fd-button[^>]+type="submit"/.test(markdown),
-    `${referencePath}: must not use fd-button as a submit control`,
+    /<fd-button[^>]+type="submit"/.test(markdown),
+    `${referencePath}: must show fd-button type="submit" as the primary submit control`,
     errors,
   );
 
@@ -127,7 +127,7 @@ function validateFormContract(referencePath, markdown, errors) {
 
   assert(
     markdown.includes('type="submit"'),
-    `${referencePath}: downstream reference must show a native submit button`,
+    `${referencePath}: downstream reference must show an explicit submit control`,
     errors,
   );
 }

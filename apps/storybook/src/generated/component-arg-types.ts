@@ -4,6 +4,7 @@ export const componentStoryApi = {
     argTypes: {
     "variant": { control: "select", options: ["primary","neutral","subtle","subtle-inverted","outline","destructive"] },
     "disabled": { control: "boolean" },
+    "type": { control: "select", options: ["button","submit","reset"] },
     "href": { control: "text" },
     "target": { control: "text" },
     "rel": { control: "text" },
@@ -13,6 +14,7 @@ export const componentStoryApi = {
     args: {
     "variant": "primary",
     "disabled": false,
+    "type": "button",
     "href": undefined,
     "target": undefined,
     "rel": undefined,

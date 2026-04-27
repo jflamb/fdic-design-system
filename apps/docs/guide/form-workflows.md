@@ -37,7 +37,7 @@ If you are building a form for the first time, start with this pattern. It demon
   </fd-field>
 
   <fd-button-group>
-    <button type="submit">Submit filing</button>
+    <fd-button variant="primary" type="submit">Submit filing</fd-button>
     <fd-button variant="subtle" type="button">Cancel</fd-button>
   </fd-button-group>
 </form>
@@ -49,7 +49,7 @@ If you are building a form for the first time, start with this pattern. It demon
 - `fd-label` with `label` and `required` shows the visible label and required indicator.
 - `fd-message` provides persistent instructions below the field.
 - Numeric identifiers use `type="text"` with `inputmode="numeric"` — never `type="number"`.
-- Use a native `<button type="submit">` for the primary submit action. `fd-button` is still appropriate for non-submitting secondary actions inside the same workflow.
+- Use `fd-button type="submit"` for the primary submit action and `fd-button type="button"` for non-submitting secondary actions inside the same workflow.
 - There is no reset or clear button.
 
 **What happens on error:** When validation fails, update the `fd-message` content to explain what needs to be fixed and let the target control or group own its visible invalid state. See the validation timing rules below for when to show errors.
@@ -58,21 +58,21 @@ If you are building a form for the first time, start with this pattern. It demon
 
 This repository's minimum supported form contract is intentionally narrow:
 
-- Use native `<form>` semantics and a native `<button type="submit">` for the primary submit action.
+- Use native `<form>` semantics and `fd-button type="submit"` for the primary submit action.
 - Use `fd-field` only for direct-child `fd-label` + `fd-input` or `fd-textarea` + `fd-message` composition.
 - Use `fd-form-field` for new wrapper-based form shells when the workflow mixes text-entry, grouped, or file controls and one shared wrapper contract reduces drift.
 - Keep `fd-label`, the target control, and `fd-message` in the same DOM root so `for`/`id` and sibling discovery continue to work.
 - Use `fd-checkbox`, `fd-slider`, `fd-radio-group`, `fd-checkbox-group`, `fd-selector`, and other self-labeling or grouped controls directly unless their own docs explicitly route you to `fd-form-field`.
-- Treat `fd-button` as an action primitive for button-mode and link-mode actions that do not rely on native form submission behavior.
+- Treat `fd-button` as an action primitive for button-mode actions, submit actions, and link-mode actions.
 
 The following patterns are currently out of scope for the supported public path:
 
-- `fd-button type="submit"` or `fd-button type="reset"` as a substitute for native form controls
+- `fd-button type="reset"` as a substitute for native reset controls
 - slot-based `fd-field` composition
 - wrapper elements inside `fd-field` around the auto-wired control, label, or message
 - cross-root label/message discovery between light DOM and another component's shadow root
 
-If a workflow needs submit, reset, or grouped-field behavior beyond that contract, keep the native HTML structure and let the design-system primitives handle labeling, helper text, and validation surfaces around it.
+If a workflow needs reset or grouped-field behavior beyond that contract, keep the native HTML structure and let the design-system primitives handle labeling, helper text, and validation surfaces around it.
 
 Choose the wrapper intentionally:
 
@@ -81,7 +81,7 @@ Choose the wrapper intentionally:
 
 ## Workflow examples
 
-The stories below show the supported workflow boundary in fuller consequential flows. They stay docs-first, use existing primitives only, and keep native submit behavior on plain HTML buttons.
+The stories below show the supported workflow boundary in fuller consequential flows. They stay docs-first, use existing primitives only, and keep submission owned by native form semantics with `fd-button type="submit"` as the styled submit trigger.
 
 ### Blocked submit with summary and inline recovery
 

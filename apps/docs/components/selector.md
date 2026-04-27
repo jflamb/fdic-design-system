@@ -12,7 +12,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 - **The option list is too long for visible radio buttons or checkboxes** — Selectors save space by hiding options behind a trigger.
 - **Users need to select from a predefined, stable set of options** — Account types, report categories, filing classifications.
 - **Screen space is constrained** — Selectors use a single row plus a popup, compared to one row per option for radios or checkboxes.
-- **The workflow still owns native submit behavior** — Use `fd-selector` for the choice itself, but keep native `<form>` and `<button type="submit">` elements around it when the selection is part of a submitted workflow.
+- **The workflow still owns submit behavior** — Use `fd-selector` for the choice itself, but keep native `<form>` semantics and a submit control such as `fd-button type="submit"` around it when the selection is part of a submitted workflow.
 
 ## When not to use
 

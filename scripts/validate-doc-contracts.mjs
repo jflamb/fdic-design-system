@@ -136,14 +136,14 @@ function validateFormRecipe(errors) {
   }
 
   assert(
-    !/<fd-button[^>]+type="submit"/.test(formWorkflows),
-    "apps/docs/guide/form-workflows.md: fd-button submit usage remains in the public form recipe",
+    /<fd-button[^>]+type="submit"/.test(formWorkflows),
+    "apps/docs/guide/form-workflows.md: public form recipe must use fd-button type=\"submit\"",
     errors,
   );
 
   assert(
-    formWorkflows.includes("native `<button type=\"submit\">`"),
-    "apps/docs/guide/form-workflows.md: canonical guidance must explicitly keep submit behavior on native HTML buttons",
+    formWorkflows.includes("`fd-button type=\"submit\"`"),
+    "apps/docs/guide/form-workflows.md: canonical guidance must explicitly allow fd-button type=\"submit\"",
     errors,
   );
 
@@ -157,12 +157,6 @@ function validateFormRecipe(errors) {
 function validateStorybookFormStories(errors) {
   for (const relativePath of storybookFiles) {
     const source = read(relativePath);
-
-    assert(
-      !/<fd-button[^>]+type="submit"/.test(source),
-      `${relativePath}: public Storybook story still uses unsupported fd-button submit behavior`,
-      errors,
-    );
 
     assert(
       !/<fd-button[^>]+type="reset"/.test(source),

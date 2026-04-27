@@ -25,6 +25,7 @@ type ButtonArgs = {
   href: string;
   target: string;
   rel: string;
+  type: "button" | "submit" | "reset";
 };
 
 const meta = {
@@ -67,6 +68,7 @@ const meta = {
       href=${ifDefined(args.href || undefined)}
       target=${ifDefined(args.target || undefined)}
       rel=${ifDefined(args.rel || undefined)}
+      type=${args.type}
     >
       ${args.iconStart
         ? html`<fd-icon slot="icon-start" name=${args.iconStart}></fd-icon>`
@@ -127,6 +129,7 @@ export const SubtleInverted: Story = {
         href=${ifDefined(args.href || undefined)}
         target=${ifDefined(args.target || undefined)}
         rel=${ifDefined(args.rel || undefined)}
+        type=${args.type}
       >
         ${args.iconStart
           ? html`<fd-icon slot="icon-start" name=${args.iconStart}></fd-icon>`
@@ -271,30 +274,53 @@ export const FormActionRow: Story = {
   render: () => html`
     <form
       style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;"
-      @submit=${(event: SubmitEvent) => event.preventDefault()}
+      data-submit-count="0"
+      @submit=${(event: SubmitEvent) => {
+        event.preventDefault();
+        const form = event.currentTarget as HTMLFormElement;
+        const nextCount = Number(form.dataset.submitCount ?? "0") + 1;
+        form.dataset.submitCount = String(nextCount);
+        const status = form.querySelector("[data-submit-status]");
+        if (status) {
+          status.textContent = `Submit event received (${nextCount})`;
+        }
+      }}
     >
-      <button type="submit">Submit filing</button>
+      <fd-button variant="primary" type="submit">Submit filing</fd-button>
       <fd-button variant="subtle" type="button">Cancel</fd-button>
       <fd-button variant="outline" type="button">Save draft</fd-button>
+      <span data-submit-status role="status">Ready</span>
     </form>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          "In forms, keep submit behavior on a native HTML button. Use `fd-button` for non-submitting secondary actions in the same action row.",
+          "In forms, use `fd-button type=\"submit\"` for the primary submit action and `type=\"button\"` for non-submitting secondary actions in the same action row.",
       },
     },
   },
 };
 
-FormActionRow.play = async ({ canvasElement }) => {
-  const submit = canvasElement.querySelector('button[type="submit"]');
+FormActionRow.play = async ({ canvasElement, userEvent }) => {
+  const form = canvasElement.querySelector("form") as HTMLFormElement | null;
   const dsButtons = Array.from(canvasElement.querySelectorAll("fd-button"));
+  const submitControl = dsButtons[0]?.shadowRoot?.querySelector("[part=base]") as
+    | HTMLButtonElement
+    | undefined;
 
-  expect(submit).toBeTruthy();
-  expect(dsButtons).toHaveLength(2);
-  expect(dsButtons.every((button) => button.getAttribute("type") === "button")).toBe(true);
+  expect(dsButtons).toHaveLength(3);
+  expect(dsButtons[0]?.getAttribute("type")).toBe("submit");
+  expect(
+    dsButtons
+      .slice(1)
+      .every((button) => button.getAttribute("type") === "button"),
+  ).toBe(true);
+  expect(submitControl).toBeDefined();
+
+  await userEvent.click(submitControl!);
+
+  expect(form?.dataset.submitCount).toBe("1");
 };
 
 export const AllVariantsDisabled: Story = {

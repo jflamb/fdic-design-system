@@ -37,24 +37,6 @@ const WORKFLOW_FORM_STYLE =
 const ACTION_ROW_STYLE =
   "display: flex; gap: var(--fdic-spacing-sm, 0.75rem); align-items: center; flex-wrap: wrap;";
 
-const NATIVE_BUTTON_STYLE = [
-  "display: inline-flex",
-  "align-items: center",
-  "justify-content: center",
-  "min-height: 44px",
-  "min-width: 44px",
-  "padding-inline: 1rem",
-  "border: none",
-  "border-radius: var(--fdic-corner-radius-sm, 3px)",
-  "background: var(--fdic-color-bg-active)",
-  "color: var(--fdic-color-text-inverted)",
-  "font: inherit",
-  "font-weight: 600",
-  "line-height: 1.375",
-  "text-decoration: none",
-  "cursor: pointer",
-].join("; ");
-
 const SECONDARY_LINK_STYLE = "font: inherit;";
 
 const meta = {
@@ -104,7 +86,7 @@ export const MinimumViableRecipe: Story = {
         </h2>
         <p style="margin: 0;">
           This is the narrow supported path: native form semantics, <code>fd-field</code> for
-          direct-child text-entry composition, and a native submit button.
+          direct-child text-entry composition, and a submit-capable <code>fd-button</code>.
         </p>
       </div>
 
@@ -137,7 +119,7 @@ export const MinimumViableRecipe: Story = {
         </fd-field>
 
         <div style=${ACTION_ROW_STYLE}>
-          <button type="submit" style=${NATIVE_BUTTON_STYLE}>Submit filing</button>
+          <fd-button variant="primary" type="submit">Submit filing</fd-button>
           <fd-button variant="subtle" type="button">Cancel</fd-button>
         </div>
       </form>
@@ -147,7 +129,7 @@ export const MinimumViableRecipe: Story = {
     docs: {
       description: {
         story:
-          "The canonical form recipe uses `fd-field` only for direct-child text-entry composition and keeps native submit behavior on a plain HTML button.",
+          "The canonical form recipe uses `fd-field` only for direct-child text-entry composition and uses `fd-button type=\"submit\"` for the primary submit action.",
       },
     },
   },
@@ -155,8 +137,12 @@ export const MinimumViableRecipe: Story = {
 
 MinimumViableRecipe.play = async ({ canvasElement }) => {
   const fields = Array.from(canvasElement.querySelectorAll("fd-field"));
-  const submit = canvasElement.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-  const cancel = canvasElement.querySelector("fd-button") as HTMLElement | null;
+  const submit = canvasElement.querySelector(
+    'fd-button[type="submit"]',
+  ) as HTMLElement | null;
+  const cancel = canvasElement.querySelector(
+    'fd-button[type="button"]',
+  ) as HTMLElement | null;
 
   expect(fields).toHaveLength(3);
   expect(submit).toBeTruthy();
@@ -225,7 +211,7 @@ export const SingleQuestion: Story = {
         </div>
 
         <div style=${ACTION_ROW_STYLE}>
-          <button type="submit" style=${NATIVE_BUTTON_STYLE}>Continue</button>
+          <fd-button variant="primary" type="submit">Continue</fd-button>
           <a href="https://www.fdic.gov" style=${SECONDARY_LINK_STYLE}>
             See why we ask for this information
           </a>
@@ -308,7 +294,7 @@ export const GroupedSection: Story = {
         </p>
 
         <div style=${ACTION_ROW_STYLE}>
-          <button type="submit" style=${NATIVE_BUTTON_STYLE}>Continue to review</button>
+          <fd-button variant="primary" type="submit">Continue to review</fd-button>
         </div>
       </form>
     </section>
@@ -546,7 +532,7 @@ export const BlockedSubmitValidation: Story = {
           </section>
 
           <div style=${ACTION_ROW_STYLE}>
-            <button type="submit" style=${NATIVE_BUTTON_STYLE}>Continue</button>
+            <fd-button variant="primary" type="submit">Continue</fd-button>
           </div>
         </form>
       </section>
@@ -637,7 +623,7 @@ export const ReviewBeforeSubmit: Story = {
         </p>
 
         <div style=${ACTION_ROW_STYLE}>
-          <button type="submit" style=${NATIVE_BUTTON_STYLE}>Submit update</button>
+          <fd-button variant="primary" type="submit">Submit update</fd-button>
           <a href="https://www.fdic.gov" style=${SECONDARY_LINK_STYLE}>
             Return to the draft
           </a>

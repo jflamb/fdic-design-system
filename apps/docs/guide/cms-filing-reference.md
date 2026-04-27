@@ -4,7 +4,7 @@ Use this page as the copyable downstream reference for a server-rendered CMS int
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Downstream reference</span>
-  <p>This example shows a realistic filing-update page that a CMS team could adopt directly: semantic HTML first, progressive enhancement through published Web Component assets, native submit behavior, and trust language that remains visible before JavaScript upgrades finish.</p>
+  <p>This example shows a realistic filing-update page that a CMS team could adopt directly: semantic HTML first, progressive enhancement through published Web Component assets, native form semantics with a styled submit control, and trust language that remains visible before JavaScript upgrades finish.</p>
 </div>
 
 ## What this reference proves
@@ -13,7 +13,7 @@ Use this page as the copyable downstream reference for a server-rendered CMS int
 - Token overrides stay on documented `--fdic-*` names.
 - The form remains understandable as server-rendered HTML.
 - `fd-field` remains limited to direct-child text-entry composition, while `fd-form-field` provides the broader wrapper contract.
-- The primary submit action stays on a native `<button type="submit">`.
+- The primary submit action uses `fd-button type="submit"` so submission keeps FDIC styling without leaving native form semantics.
 
 ## Client bundle entry
 
@@ -135,7 +135,7 @@ This HTML is meaningful before upgrade and remains within the supported public c
     </section>
 
     <div>
-      <button type="submit">Continue to review</button>
+      <fd-button variant="primary" type="submit">Continue to review</fd-button>
       <fd-button href="/institution-profile" variant="subtle">
         Cancel
       </fd-button>

@@ -119,7 +119,7 @@ When `maxlength` is present, the visible count is always shown and the screen-re
 ## Accessibility
 
 - `fd-textarea` renders a native `<textarea>` in shadow DOM and participates in form submission via `ElementInternals`.
-- Use a native `<button type="submit">` when the textarea participates in a submitted form. `fd-textarea` is form-associated, but `fd-button` is not submit-capable in v1.
+- Use `fd-button type="submit"` for the primary submit action when the textarea participates in a submitted form.
 - Pair it with `fd-label` using matching `for` / `id` attributes, use `fd-field` for the narrow direct-child helper, or use [`fd-form-field`](/components/form-field) for the broader long-term field shell.
 - `fd-textarea` is the single owner of `aria-describedby` on the inner textarea. It assembles description IDs from sibling `fd-label`, sibling `fd-message`, and the built-in character count when present.
 - Visible invalid state follows the same contract as `fd-input`: `checkValidity()` updates validity without showing an error, while `reportValidity()`, submit-time invalid events, or blur after interaction can reveal invalid styling.

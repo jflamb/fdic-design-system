@@ -40,6 +40,14 @@ const config: StorybookConfig = {
       import.meta.dirname,
       "../../../packages/components/src/register/register-all.ts"
     );
+    const globalHeaderContentSource = resolve(
+      import.meta.dirname,
+      "../../../packages/components/src/fd-global-header-content.ts"
+    );
+    const globalHeaderDrupalSource = resolve(
+      import.meta.dirname,
+      "../../../packages/components/src/fd-global-header-drupal.ts"
+    );
     const globalHeaderReferenceSource = resolve(
       import.meta.dirname,
       "../../../packages/components/src/components/fd-global-header.reference.ts"
@@ -54,11 +62,43 @@ const config: StorybookConfig = {
         replacement: globalHeaderReferenceSource,
       },
       {
+        find: /^@fdic-ds\/components\/fd-global-header-content$/,
+        replacement: globalHeaderContentSource,
+      },
+      {
+        find: /^@fdic-ds\/components\/fd-global-header-drupal$/,
+        replacement: globalHeaderDrupalSource,
+      },
+      {
         find: /^@fdic-ds\/components\/register-all$/,
         replacement: registerAllSource,
       },
       {
         find: /^@fdic-ds\/components\/(.*)$/,
+        replacement: `${componentRootSource}/$1`,
+      },
+      {
+        find: /^@jflamb\/fdic-ds-components$/,
+        replacement: componentIndexSource,
+      },
+      {
+        find: /^@jflamb\/fdic-ds-components\/fd-global-header-reference$/,
+        replacement: globalHeaderReferenceSource,
+      },
+      {
+        find: /^@jflamb\/fdic-ds-components\/fd-global-header-content$/,
+        replacement: globalHeaderContentSource,
+      },
+      {
+        find: /^@jflamb\/fdic-ds-components\/fd-global-header-drupal$/,
+        replacement: globalHeaderDrupalSource,
+      },
+      {
+        find: /^@jflamb\/fdic-ds-components\/register-all$/,
+        replacement: registerAllSource,
+      },
+      {
+        find: /^@jflamb\/fdic-ds-components\/(fd-[^/]+)$/,
         replacement: `${componentRootSource}/$1`,
       },
     ];

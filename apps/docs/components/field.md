@@ -95,7 +95,7 @@ The three components work standalone without `fd-field`. Use manual `for`/`id` w
 
 - **Only discovers `fd-input` and `fd-textarea`** — does not auto-wire `fd-selector`, `fd-checkbox`, or other form controls.
 - **Direct children only** — children nested inside wrapper elements are not discovered.
-- **Not a form shell** — `fd-field` does not make `fd-button` submit-capable and does not replace native `<form>` and `<button type="submit">` semantics.
+- **Not a form shell** — `fd-field` does not own submission and does not replace native `<form>` semantics or submit controls such as `fd-button type="submit"`.
 - **No prop proxying** — all attributes (`label`, `message`, `state`, `required`, etc.) go on the child components directly.
 
 ## Related components
