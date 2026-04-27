@@ -40,5 +40,10 @@
     "dev-server:stop": "node scripts/dev/local-dev-servers.mjs stop",
     "dev-server:status": "node scripts/dev/local-dev-servers.mjs status",
     "dev-server:url": "node scripts/dev/local-dev-servers.mjs url"
+  },
+  "overrides": {
+    "vitepress": {
+      "vite": "^5.4.21"
+    }
   }
 }
