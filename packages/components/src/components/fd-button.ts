@@ -12,6 +12,8 @@ export type ButtonVariant =
   | "destructive";
 
 export class FdButton extends LitElement {
+  static formAssociated = true;
+
   static override get observedAttributes() {
     return [...super.observedAttributes, "aria-label", "aria-labelledby"];
   }
@@ -315,8 +317,11 @@ export class FdButton extends LitElement {
   declare loading: boolean;
   declare loadingLabel: string | undefined;
 
+  private _internals: ElementInternals;
+
   constructor() {
     super();
+    this._internals = this.attachInternals();
     this.variant = "primary";
     this.disabled = false;
     this.type = "button";
@@ -325,6 +330,7 @@ export class FdButton extends LitElement {
     this.rel = undefined;
     this.loading = false;
     this.loadingLabel = undefined;
+    this.addEventListener("click", this._handleHostClick as EventListener);
   }
 
   override attributeChangedCallback(
@@ -345,6 +351,55 @@ export class FdButton extends LitElement {
   private _handleDisabledClick(e: Event) {
     e.preventDefault();
     e.stopImmediatePropagation();
+  }
+
+  private _canSubmit() {
+    if (this.type !== "submit" || this.href !== undefined) {
+      return false;
+    }
+
+    if (this.disabled || this.loading) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private _requestSubmitFromActivation(e: Event) {
+    if (!this._canSubmit()) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
+
+    e.preventDefault();
+    this._internals.form?.requestSubmit();
+  }
+
+  private _handleButtonClick(e: MouseEvent) {
+    if (this.type === "submit" && this.href === undefined) {
+      this._requestSubmitFromActivation(e);
+    }
+  }
+
+  private _handleButtonKeydown(e: KeyboardEvent) {
+    if (
+      this.type === "submit" &&
+      this.href === undefined &&
+      (e.key === "Enter" || e.key === " ")
+    ) {
+      this._requestSubmitFromActivation(e);
+    }
+  }
+
+  private _handleHostClick(e: MouseEvent) {
+    if (
+      this.type === "submit" &&
+      this.href === undefined &&
+      e.composedPath()[0] === this
+    ) {
+      this._requestSubmitFromActivation(e);
+    }
   }
 
   private _getAccessibleNameAttributes() {
@@ -400,6 +455,7 @@ export class FdButton extends LitElement {
     const hasIconEnd = Boolean(this.querySelector('[slot="icon-end"]'));
     const hasLeadingVisual = hasIconStart || isLoading;
     const { ariaLabel, ariaLabelledby } = this._getAccessibleNameAttributes();
+    const buttonType = this.type === "submit" ? "submit" : "button";
 
     // When loading-label is active, override the accessible name and
     // suppress aria-labelledby so it doesn't take precedence over aria-label
@@ -461,11 +517,13 @@ export class FdButton extends LitElement {
     return html`<button
       part="base"
       class=${classMap(classes)}
-      type="button"
+      type=${buttonType}
       aria-label=${effectiveAriaLabel}
       aria-labelledby=${effectiveAriaLabelledby}
       aria-busy=${isLoading ? "true" : nothing}
       ?disabled=${isInert}
+      @click=${this._handleButtonClick}
+      @keydown=${this._handleButtonKeydown}
     >
       ${content}
     </button>`;
