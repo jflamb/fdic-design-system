@@ -240,6 +240,7 @@
     "./src/icons/*.ts",
     "./src/register/*.ts",
     "./dist/register/*.js",
+    "./dist/chunk-*.js",
     "./dist/styles.css"
   ],
   "scripts": {

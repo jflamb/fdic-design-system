@@ -1,11 +1,11 @@
 import type {
   FdGlobalHeaderNavigationItem,
   FdGlobalHeaderSearchConfig,
-} from "@fdic-ds/components";
+} from "@jflamb/fdic-ds-components";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { expect, userEvent, waitFor } from "storybook/test";
-import "@fdic-ds/components/register-all";
+import "@jflamb/fdic-ds-components/register-all";
 import fdicnetWordmarkUrl from "./assets/fdicnet-wordmark.svg?url";
 import {
   getComponentArgs,
@@ -14,8 +14,8 @@ import {
 import {
   createFdGlobalHeaderReferenceSearch,
   fdGlobalHeaderReferenceNavigation,
-} from "@fdic-ds/components/fd-global-header-reference";
-import { createFdGlobalHeaderContentFromDrupal } from "@fdic-ds/components/fd-global-header-drupal";
+} from "@jflamb/fdic-ds-components/fd-global-header-reference";
+import { createFdGlobalHeaderContentFromDrupal } from "@jflamb/fdic-ds-components/fd-global-header-drupal";
 
 type GlobalHeaderArgs = {
   navigation: FdGlobalHeaderNavigationItem[];
