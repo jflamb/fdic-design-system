@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-04-12
+- Status note: Affected by [ADR-009](./ADR-009-submit-capable-fd-button.md) for the submit control boundary. `fd-form-field` still does not own submission, validation timing, transport, or form state.
 
 ## Context
 
