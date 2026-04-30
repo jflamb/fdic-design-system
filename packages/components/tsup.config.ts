@@ -58,6 +58,7 @@ export default defineConfig({
     "components/fd-form-field": "src/components/fd-form-field.ts",
     "components/fd-error-summary": "src/components/fd-error-summary.ts",
     "components/fd-review-list": "src/components/fd-review-list.ts",
+    "components/fd-link-category": "src/components/fd-link-category.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -104,6 +105,7 @@ export default defineConfig({
     "register/fd-form-field": "src/register/fd-form-field.ts",
     "register/fd-error-summary": "src/register/fd-error-summary.ts",
     "register/fd-review-list": "src/register/fd-review-list.ts",
+    "register/fd-link-category": "src/register/fd-link-category.ts",
 
     // Icon packs
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",

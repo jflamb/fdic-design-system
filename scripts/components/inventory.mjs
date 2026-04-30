@@ -1061,6 +1061,28 @@ export const componentInventory = [
     },
     typeExports: ["ReviewListHeadingLevel", "ReviewListDensity", "ReviewListItem"]
   },
+  {
+    tagName: "fd-link-category",
+    className: "FdLinkCategory",
+    sourceFile: "fd-link-category.ts",
+    docs: {
+      kind: "first-class",
+      title: "Link Category",
+      slug: "link-category",
+      category: "actions-navigation",
+      order: 90
+    },
+    storybook: {
+      title: "Components/Link Category",
+      file: "fd-link-category.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon", "fd-visual", "fd-stripe"]
+    },
+    typeExports: ["LinkCategorySize", "LinkCategoryTone", "FdLinkCategoryLinkItem"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

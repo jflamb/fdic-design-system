@@ -67,3 +67,5 @@ export { FdGlobalFooter } from "./generated/fd-global-footer.js";
 export type { FdGlobalFooterProps } from "./generated/fd-global-footer.js";
 export { FdCardGroup } from "./generated/fd-card-group.js";
 export type { FdCardGroupProps } from "./generated/fd-card-group.js";
+export { FdLinkCategory } from "./generated/fd-link-category.js";
+export type { FdLinkCategoryProps } from "./generated/fd-link-category.js";
