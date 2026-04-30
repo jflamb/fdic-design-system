@@ -4,7 +4,7 @@ A dropdown that lets users choose one or more options from a predefined list. Av
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
-  <p>Use <code>fd-selector</code> when users need to pick from a set of predefined options and the list is too long for inline radio buttons or checkboxes (roughly 6+ options), or when screen space is constrained. The component provides a trigger button that opens a listbox popup with full keyboard and screen reader support.</p>
+  <p>Use <code>fd-selector</code> when users need to pick from a set of predefined options and the list is too long for inline radio buttons or checkboxes (roughly 6+ options), or when screen space is constrained. The component provides a trigger control that opens a listbox popup with full keyboard and screen reader support.</p>
 </div>
 
 ## When to use
@@ -97,8 +97,10 @@ Compatibility note:
 | `label-text` | Label text wrapper |
 | `required-marker` | Required asterisk |
 | `description` | Optional description wrapper |
-| `trigger` | Native trigger button |
+| `trigger` | Trigger surface. In simple and single variants, this is the native trigger button; in `multiple` mode, this is the trigger shell that contains removable chips and a separate trigger button. |
 | `value-display` | Selected value or placeholder text wrapper |
+| `selected-chip` | Embedded `fd-chip` selected option shown inside the trigger in `multiple` mode |
+| `trigger-button` | Separate native popup trigger button used in `multiple` mode |
 | `chevron` | Trigger chevron wrapper |
 | `listbox` | Popup listbox container |
 | `error` | Error message wrapper |
@@ -150,7 +152,7 @@ Compatibility note:
 - **Focus**: DOM focus moves to the listbox when open. Focus returns to the trigger on close. Focus is not trapped.
 - **Validation contract**: `checkValidity()` updates and returns validity without revealing invalid state. `reportValidity()` reveals invalid state only when the selector is invalid; if the selector is valid, it has no visible effect.
 - **Visibility boundaries**: invalid state becomes visible on form submit attempts, explicit `reportValidity()`, and popup close or focus-out after user interaction.
-- **Invalid ownership**: the host carries `data-user-invalid`; the trigger button carries `aria-invalid="true"` only while that visible invalid state is active.
+- **Invalid ownership**: the host carries `data-user-invalid`; the trigger control carries `aria-invalid="true"` only while that visible invalid state is active.
 - **Clearing behavior**: `aria-invalid` is present iff `data-user-invalid` is present, and both clear in the same update cycle when the selector becomes valid or when the form reset path runs.
 - **Error content**: provide authored error text in the `error` slot whenever the selector can block submission. Missing error copy is incomplete usage even though invalid styling still appears.
 - **Selection indicators**: Radio dots (single) and checkboxes (multiple) provide a shape-based indicator alongside background color, so selection is never conveyed by color alone.

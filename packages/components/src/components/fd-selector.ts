@@ -100,7 +100,26 @@ export class FdSelector extends LitElement {
       text-align: start;
     }
 
+    [part="trigger"].trigger-shell {
+      position: relative;
+      padding: 0;
+    }
+
     [part="trigger"]:focus-visible {
+      outline: 2px solid
+        var(
+          --fd-selector-trigger-border-focus,
+          var(--fdic-focus-ring-color)
+        );
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    [part="trigger"].trigger-shell:focus-visible {
+      outline: none;
+    }
+
+    [part="trigger"].trigger-shell:has([part="trigger-button"]:focus-visible) {
       outline: 2px solid
         var(
           --fd-selector-trigger-border-focus,
@@ -129,11 +148,46 @@ export class FdSelector extends LitElement {
       white-space: nowrap;
     }
 
+    .value-display--chips {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--fdic-spacing-2xs, 4px);
+      padding-block: var(--fdic-spacing-2xs, 4px);
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
+    fd-chip[part="selected-chip"] {
+      max-inline-size: 100%;
+    }
+
     .placeholder {
       color: var(
         --fd-selector-trigger-placeholder,
         var(--fdic-color-text-secondary)
       );
+    }
+
+    [part="trigger-button"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--fd-selector-trigger-height, 44px);
+      align-self: stretch;
+      flex-shrink: 0;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    [part="trigger-button"]:focus {
+      outline-color: transparent;
     }
 
     [part="chevron"] {
@@ -223,6 +277,10 @@ export class FdSelector extends LitElement {
         outline-color: LinkText;
       }
 
+      [part="trigger"].trigger-shell:has([part="trigger-button"]:focus-visible) {
+        outline-color: LinkText;
+      }
+
       [part="listbox"] {
         border-color: ButtonText;
         forced-color-adjust: none;
@@ -230,6 +288,11 @@ export class FdSelector extends LitElement {
 
       :host([data-user-invalid]) [part="trigger"] {
         border-color: LinkText;
+      }
+
+      fd-chip[part="selected-chip"]::part(remove-button):focus-visible {
+        box-shadow: none;
+        outline: 2px solid Highlight;
       }
     }
 
@@ -247,6 +310,10 @@ export class FdSelector extends LitElement {
       }
 
       [part="chevron"] {
+        display: none;
+      }
+
+      fd-chip[part="selected-chip"]::part(remove-button) {
         display: none;
       }
     }
@@ -596,6 +663,19 @@ export class FdSelector extends LitElement {
     }
   }
 
+  private _removeSelectedOption(opt: FdOption, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.disabled || !opt.selected) return;
+
+    this._formController.markInteracted();
+    opt.selected = false;
+    this._syncMultipleValue();
+    this._formController.sync();
+    this._fireEvents();
+    this.requestUpdate();
+  }
+
   /** In multiple mode, sync this.value to the first selected option's value. */
   private _syncMultipleValue() {
     const selected = this._getOptions().find((o) => o.selected);
@@ -722,6 +802,29 @@ export class FdSelector extends LitElement {
 
     this._formController.revealIfInteractedAndInvalid();
   };
+
+  private _onTriggerClick() {
+    if (this.open) {
+      this._closeListbox();
+    } else {
+      this._openListbox();
+    }
+  }
+
+  private _onMultipleTriggerSurfaceClick(event: MouseEvent) {
+    const path = event.composedPath();
+    if (
+      path.some(
+        (target) =>
+          target instanceof HTMLButtonElement ||
+          (target instanceof Element && target.localName === "fd-chip"),
+      )
+    ) {
+      return;
+    }
+
+    this._onTriggerClick();
+  }
 
   private _onListboxFocusOut = (event: FocusEvent) => {
     if (this._isFocusWithinWidget(event.relatedTarget)) {
@@ -884,8 +987,44 @@ export class FdSelector extends LitElement {
 
   // --- Shadow DOM queries ---
 
-  private _getTrigger(): HTMLButtonElement | null {
-    return this.shadowRoot?.querySelector("[part=trigger]") as HTMLButtonElement | null;
+  private _getTrigger(): HTMLElement | null {
+    return this.shadowRoot?.querySelector("[data-trigger-button]") as HTMLElement | null;
+  }
+
+  private _renderChevron() {
+    return html`
+      <span part="chevron" aria-hidden="true">
+        <svg
+          class="chevron-icon"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.5 6.75L9 11.25L13.5 6.75"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    `;
+  }
+
+  private _renderSelectedChips(selectedOptions: FdOption[]) {
+    return selectedOptions.map(
+      (option) => html`
+        <fd-chip
+          part="selected-chip"
+          remove-label=${`Remove ${option.displayText}`}
+          @click=${(event: Event) => event.stopPropagation()}
+          @fd-chip-remove=${(event: Event) => this._removeSelectedOption(option, event)}
+        >
+          ${option.displayText}
+        </fd-chip>
+      `,
+    );
   }
 
   private _getListbox(): HTMLElement | null {
@@ -895,9 +1034,13 @@ export class FdSelector extends LitElement {
   // --- Display text ---
 
   private _getDisplayText(): string {
-    const selected = this._getOptions().filter((o) => o.selected);
+    const selected = this._getSelectedOptions();
     if (selected.length === 0) return "";
     return selected.map((o) => o.displayText).join(", ");
+  }
+
+  private _getSelectedOptions(): FdOption[] {
+    return this._getOptions().filter((o) => o.selected);
   }
 
   private _getLiveRegionText(): string {
@@ -911,15 +1054,19 @@ export class FdSelector extends LitElement {
 
   render() {
     const displayText = this._getDisplayText();
+    const selectedOptions = this._getSelectedOptions();
     const hasValue = displayText.length > 0;
+    const showChips = this.variant === "multiple" && selectedOptions.length > 0;
     const labelId = "selector-label";
     const descId = "selector-desc";
     const errorId = "selector-error";
     const listboxId = "selector-listbox";
+    const statusId = "selector-selection-status";
 
     const isInvalid = this.hasAttribute("data-user-invalid");
     const describedBy = [
       this._descHasContent ? descId : "",
+      this.variant === "multiple" ? statusId : "",
       this._errorHasContent && isInvalid ? errorId : "",
     ]
       .filter(Boolean)
@@ -950,43 +1097,73 @@ export class FdSelector extends LitElement {
           <slot name="description" @slotchange=${this._onDescSlotChange}></slot>
         </div>
 
-        <button
-          part="trigger"
-          type="button"
-          aria-haspopup="listbox"
-          aria-expanded=${String(this.open)}
-          aria-controls=${listboxId}
-          aria-labelledby=${this.label ? labelId : ""}
-          aria-describedby=${describedBy || nothing}
-          aria-invalid=${this.hasAttribute("data-user-invalid") ? "true" : nothing}
-          ?disabled=${this.disabled}
-          @click=${() => (this.open ? this._closeListbox() : this._openListbox())}
-          @keydown=${this._onTriggerKeydown}
-          @blur=${this._onTriggerBlur}
-        >
-          <span
-            part="value-display"
-            class=${hasValue ? "" : "placeholder"}
-          >
-            ${hasValue ? displayText : this.placeholder}
-          </span>
-          <span part="chevron" aria-hidden="true">
-            <svg
-              class="chevron-icon"
-              viewBox="0 0 18 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.5 6.75L9 11.25L13.5 6.75"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        </button>
+        ${this.variant === "multiple"
+          ? html`
+              <div
+                part="trigger"
+                class="trigger-shell"
+                aria-invalid=${this.hasAttribute("data-user-invalid") ? "true" : nothing}
+                @click=${this._onMultipleTriggerSurfaceClick}
+                @blur=${this._onTriggerBlur}
+                @focusout=${this._onTriggerBlur}
+              >
+                <span
+                  part="value-display"
+                  class=${[
+                    hasValue ? "" : "placeholder",
+                    showChips ? "value-display--chips" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
+                  ${showChips
+                    ? this._renderSelectedChips(selectedOptions)
+                    : this.placeholder}
+                </span>
+                <button
+                  part="trigger-button"
+                  data-trigger-button
+                  type="button"
+                  aria-label=${this.label ? `Open ${this.label} options` : "Open options"}
+                  aria-haspopup="listbox"
+                  aria-expanded=${String(this.open)}
+                  aria-controls=${listboxId}
+                  aria-describedby=${describedBy || nothing}
+                  aria-invalid=${this.hasAttribute("data-user-invalid") ? "true" : nothing}
+                  ?disabled=${this.disabled}
+                  @click=${this._onTriggerClick}
+                  @keydown=${this._onTriggerKeydown}
+                  @blur=${this._onTriggerBlur}
+                >
+                  ${this._renderChevron()}
+                </button>
+              </div>
+            `
+          : html`
+              <button
+                part="trigger"
+                data-trigger-button
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded=${String(this.open)}
+                aria-controls=${listboxId}
+                aria-labelledby=${this.label ? labelId : ""}
+                aria-describedby=${describedBy || nothing}
+                aria-invalid=${this.hasAttribute("data-user-invalid") ? "true" : nothing}
+                ?disabled=${this.disabled}
+                @click=${this._onTriggerClick}
+                @keydown=${this._onTriggerKeydown}
+                @blur=${this._onTriggerBlur}
+              >
+                <span
+                  part="value-display"
+                  class=${hasValue ? "" : "placeholder"}
+                >
+                  ${hasValue ? displayText : this.placeholder}
+                </span>
+                ${this._renderChevron()}
+              </button>
+            `}
 
         <div
           part="listbox"
@@ -1014,7 +1191,11 @@ export class FdSelector extends LitElement {
         </div>
 
         ${this.variant === "multiple"
-          ? html`<div class="sr-only" aria-live="polite">
+          ? html`<div
+              class="sr-only"
+              id=${statusId}
+              aria-live="polite"
+            >
               ${this._getLiveRegionText()}
             </div>`
           : nothing}

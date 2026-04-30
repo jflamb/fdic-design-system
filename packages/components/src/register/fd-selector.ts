@@ -2,11 +2,16 @@
 import { FdSelector } from "../components/fd-selector.js";
 import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 import { FdOption } from "../components/fd-option.js";
+import { FdChip } from "../components/fd-chip.js";
 
 warnIfDesignSystemRuntimeMissing();
 
 if (!customElements.get("fd-option")) {
   customElements.define("fd-option", FdOption);
+}
+
+if (!customElements.get("fd-chip")) {
+  customElements.define("fd-chip", FdChip);
 }
 
 if (!customElements.get("fd-selector")) {
