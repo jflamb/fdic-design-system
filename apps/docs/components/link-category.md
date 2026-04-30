@@ -88,9 +88,6 @@ The Link Category component groups a short category description with a small set
 | `--fd-link-category-link-underline-thickness-emphasis` | 2px | Hover and focus-visible underline thickness for supporting links. |
 | `--fd-link-category-stripe-width` | 80px | Decorative stripe width. |
 | `--fd-link-category-stripe-height` | 4px | Decorative stripe thickness. |
-| `--fd-link-category-visual-bg-neutral` | var(--fdic-color-bg-interactive) | Neutral visual background. |
-| `--fd-link-category-visual-bg-cool` | var(--fdic-color-primary-400) | Cool visual background. |
-| `--fd-link-category-visual-bg-warm` | var(--fdic-color-secondary-300) | Warm visual background. |
 
 ## Shadow parts
 

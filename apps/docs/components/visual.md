@@ -52,12 +52,12 @@ Slot content is decorative in v1. Do not slot interactive controls or content th
 | `--fd-visual-padding` | Preset from `size` | Overrides the inner padding for non-avatar variants. |
 | `--fd-visual-content-size` | Preset from `size` | Overrides the inner content box size for non-avatar variants. |
 | `--fd-visual-radius` | `9999px` | Corner radius for the circular surface. |
-| `--fd-visual-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral surface background. |
+| `--fd-visual-bg-neutral` | `light-dark(var(--fdic-color-neutral-300), var(--fdic-color-neutral-800))` | Neutral surface background. Uses a stronger neutral surface than the page background in light and dark themes. |
 | `--fd-visual-fg-neutral` | `var(--fdic-color-text-primary, #212123)` | Neutral foreground color used by the fallback glyph and slotted icon content. |
-| `--fd-visual-bg-cool` | `var(--fdic-color-primary-400)` | Cool surface background. |
-| `--fd-visual-fg-cool` | `var(--fdic-color-primary-900)` | Cool foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the bright cool surface in light and dark themes. |
-| `--fd-visual-bg-warm` | `var(--fdic-color-secondary-300)` | Warm surface background. |
-| `--fd-visual-fg-warm` | `var(--fdic-color-secondary-900)` | Warm foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes. |
+| `--fd-visual-bg-cool` | `light-dark(var(--fdic-color-primary-200), var(--fdic-color-primary-700))` | Cool surface background. Uses a lighter blue in light mode and a darker blue in dark mode. |
+| `--fd-visual-fg-cool` | `light-dark(var(--fdic-color-primary-900), var(--fdic-color-primary-100))` | Cool foreground color used by the fallback glyph and slotted icon content. Switches with the surface so the glyph remains legible in light and dark themes. |
+| `--fd-visual-bg-warm` | `light-dark(var(--fdic-color-secondary-300), var(--fdic-color-secondary-900))` | Warm surface background. Uses a lighter warm surface in light mode and a softer dark warm surface in dark mode. |
+| `--fd-visual-fg-warm` | `light-dark(var(--fdic-color-secondary-900), var(--fdic-color-secondary-050))` | Warm foreground color used by the fallback glyph and slotted icon content. Switches with the surface so the glyph remains legible in light and dark themes. |
 | `--fd-visual-bg-avatar` | `transparent` | Avatar background surface. |
 | `--fd-visual-avatar-placeholder-color` | `#b0b0b3` | Placeholder avatar silhouette color. |
 

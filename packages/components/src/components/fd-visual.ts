@@ -86,7 +86,7 @@ export class FdVisual extends LitElement {
       border-radius: var(--fd-visual-radius, var(--fdic-corner-radius-full, 9999px));
       background: var(
         --fd-visual-bg-neutral,
-        var(--fdic-color-bg-interactive)
+        light-dark(var(--fdic-color-neutral-300), var(--fdic-color-neutral-800))
       );
       color: var(
         --fd-visual-fg-neutral,
@@ -105,21 +105,24 @@ export class FdVisual extends LitElement {
     }
 
     .type-cool {
-      background: var(--fd-visual-bg-cool, var(--fdic-color-primary-400));
+      background: var(
+        --fd-visual-bg-cool,
+        light-dark(var(--fdic-color-primary-200), var(--fdic-color-primary-700))
+      );
       color: var(
         --fd-visual-fg-cool,
-        var(--fdic-color-primary-900)
+        light-dark(var(--fdic-color-primary-900), var(--fdic-color-primary-100))
       );
     }
 
     .type-warm {
       background: var(
         --fd-visual-bg-warm,
-        var(--fdic-color-secondary-300)
+        light-dark(var(--fdic-color-secondary-300), var(--fdic-color-secondary-900))
       );
       color: var(
         --fd-visual-fg-warm,
-        var(--fdic-color-secondary-900)
+        light-dark(var(--fdic-color-secondary-900), var(--fdic-color-secondary-050))
       );
     }
 

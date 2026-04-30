@@ -129,18 +129,21 @@ describe("FdLinkCategory", () => {
     expect(stripe?.getAttribute("type")).toBe("cool");
   });
 
-  it("inherits visual foreground colors from fd-visual instead of patching them locally", () => {
+  it("inherits visual colors from fd-visual instead of patching them locally", () => {
     const styles = (
       customElements.get("fd-link-category") as typeof HTMLElement & {
         styles?: { cssText?: string };
       }
     ).styles?.cssText ?? "";
+    const visualRule = styles.match(/\[part="visual"\] fd-visual \{[^}]+}/)?.[0] ?? "";
 
-    expect(styles).toContain("--fd-link-category-visual-bg-warm");
-    expect(styles).toContain("var(--fdic-color-secondary-300)");
-    expect(styles).not.toContain("--fd-link-category-visual-fg");
-    expect(styles).not.toContain("var(--fdic-color-icon-warm)");
-    expect(styles).not.toContain("var(--fdic-color-icon-inverted)");
+    expect(visualRule).toContain("--fd-visual-size");
+    expect(visualRule).not.toContain("--fd-link-category-visual-bg");
+    expect(visualRule).not.toContain("--fd-link-category-visual-fg");
+    expect(visualRule).not.toContain("var(--fdic-color-primary-400)");
+    expect(visualRule).not.toContain("var(--fdic-color-secondary-300)");
+    expect(visualRule).not.toContain("var(--fdic-color-icon-warm)");
+    expect(visualRule).not.toContain("var(--fdic-color-icon-inverted)");
   });
 
   it("omits decorative visual and stripe when disabled", async () => {

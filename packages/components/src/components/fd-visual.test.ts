@@ -110,11 +110,14 @@ describe("FdVisual", () => {
       }
     ).styles?.cssText ?? "";
 
-    expect(styles).toContain("var(--fdic-color-primary-400)");
+    expect(styles).toContain("var(--fdic-color-neutral-300)");
+    expect(styles).toContain("var(--fdic-color-neutral-800)");
+    expect(styles).toContain("var(--fdic-color-primary-200)");
+    expect(styles).toContain("var(--fdic-color-primary-700)");
     expect(styles).toContain("var(--fdic-color-primary-900)");
+    expect(styles).toContain("var(--fdic-color-primary-100)");
     expect(styles).toContain("var(--fdic-color-secondary-300)");
     expect(styles).toContain("var(--fdic-color-secondary-900)");
-    expect(styles).not.toContain("var(--fdic-color-secondary-200)");
     expect(styles).not.toContain("var(--fdic-color-icon-warm)");
   });
 

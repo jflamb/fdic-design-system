@@ -2446,8 +2446,8 @@
         },
         {
           "name": "--fd-visual-bg-neutral",
-          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
-          "description": "Neutral surface background."
+          "default": "`light-dark(var(--fdic-color-neutral-300), var(--fdic-color-neutral-800))`",
+          "description": "Neutral surface background. Uses a stronger neutral surface than the page background in light and dark themes."
         },
         {
           "name": "--fd-visual-fg-neutral",
@@ -2456,23 +2456,23 @@
         },
         {
           "name": "--fd-visual-bg-cool",
-          "default": "`var(--fdic-color-primary-400)`",
-          "description": "Cool surface background."
+          "default": "`light-dark(var(--fdic-color-primary-200), var(--fdic-color-primary-700))`",
+          "description": "Cool surface background. Uses a lighter blue in light mode and a darker blue in dark mode."
         },
         {
           "name": "--fd-visual-fg-cool",
-          "default": "`var(--fdic-color-primary-900)`",
-          "description": "Cool foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the bright cool surface in light and dark themes."
+          "default": "`light-dark(var(--fdic-color-primary-900), var(--fdic-color-primary-100))`",
+          "description": "Cool foreground color used by the fallback glyph and slotted icon content. Switches with the surface so the glyph remains legible in light and dark themes."
         },
         {
           "name": "--fd-visual-bg-warm",
-          "default": "`var(--fdic-color-secondary-300)`",
-          "description": "Warm surface background."
+          "default": "`light-dark(var(--fdic-color-secondary-300), var(--fdic-color-secondary-900))`",
+          "description": "Warm surface background. Uses a lighter warm surface in light mode and a softer dark warm surface in dark mode."
         },
         {
           "name": "--fd-visual-fg-warm",
-          "default": "`var(--fdic-color-secondary-900)`",
-          "description": "Warm foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes."
+          "default": "`light-dark(var(--fdic-color-secondary-900), var(--fdic-color-secondary-050))`",
+          "description": "Warm foreground color used by the fallback glyph and slotted icon content. Switches with the surface so the glyph remains legible in light and dark themes."
         },
         {
           "name": "--fd-visual-bg-avatar",
@@ -5203,21 +5203,6 @@
           "name": "--fd-link-category-stripe-height",
           "default": "4px",
           "description": "Decorative stripe thickness."
-        },
-        {
-          "name": "--fd-link-category-visual-bg-neutral",
-          "default": "var(--fdic-color-bg-interactive)",
-          "description": "Neutral visual background."
-        },
-        {
-          "name": "--fd-link-category-visual-bg-cool",
-          "default": "var(--fdic-color-primary-400)",
-          "description": "Cool visual background."
-        },
-        {
-          "name": "--fd-link-category-visual-bg-warm",
-          "default": "var(--fdic-color-secondary-300)",
-          "description": "Warm visual background."
         }
       ],
       "after": ""

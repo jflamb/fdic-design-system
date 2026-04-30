@@ -100,18 +100,6 @@ export class FdLinkCategory extends LitElement {
       --fd-visual-size: var(--_fd-link-category-visual-size);
       --fd-visual-padding: var(--_fd-link-category-visual-padding);
       --fd-visual-content-size: var(--_fd-link-category-visual-content-size);
-      --fd-visual-bg-neutral: var(
-        --fd-link-category-visual-bg-neutral,
-        var(--fdic-color-bg-interactive)
-      );
-      --fd-visual-bg-cool: var(
-        --fd-link-category-visual-bg-cool,
-        var(--fdic-color-primary-400)
-      );
-      --fd-visual-bg-warm: var(
-        --fd-link-category-visual-bg-warm,
-        var(--fdic-color-secondary-300)
-      );
     }
 
     [part="content"] {
