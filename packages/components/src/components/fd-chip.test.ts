@@ -161,4 +161,15 @@ describe("FdChip", () => {
     expect(el.shadowRoot?.querySelector("[part=label]")?.tagName).toBe("SPAN");
     expect(el.shadowRoot?.querySelector(".remove-wrap")?.tagName).toBe("SPAN");
   });
+
+  it("uses asymmetric label padding for optical centering", async () => {
+    await createChip({}, "Pending review");
+
+    const styles = String(
+      (customElements.get("fd-chip") as any).styles?.cssText ?? "",
+    );
+
+    expect(styles).toContain("padding-block-start: var(--fdic-spacing-3xs, 2px)");
+    expect(styles).toContain("padding-block-end: var(--fdic-spacing-2xs, 4px)");
+  });
 });

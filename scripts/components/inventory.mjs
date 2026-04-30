@@ -328,7 +328,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-option"],
+      dependencies: ["fd-option", "fd-chip"],
     },
     typeExports: ["SelectorVariant"],
   },

@@ -1364,11 +1364,19 @@
         },
         {
           "name": "trigger",
-          "description": "Native trigger button"
+          "description": "Trigger surface. In simple and single variants, this is the native trigger button; in `multiple` mode, this is the trigger shell that contains removable chips and a separate trigger button."
         },
         {
           "name": "value-display",
           "description": "Selected value or placeholder text wrapper"
+        },
+        {
+          "name": "selected-chip",
+          "description": "Embedded `fd-chip` selected option shown inside the trigger in `multiple` mode"
+        },
+        {
+          "name": "trigger-button",
+          "description": "Separate native popup trigger button used in `multiple` mode"
         },
         {
           "name": "chevron",

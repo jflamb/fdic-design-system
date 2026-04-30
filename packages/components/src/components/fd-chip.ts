@@ -84,7 +84,8 @@ export class FdChip extends LitElement {
       min-inline-size: 0;
       overflow-wrap: anywhere;
       word-break: break-word;
-      padding-block: var(--fdic-spacing-2xs, 4px);
+      padding-block-start: var(--fdic-spacing-3xs, 2px);
+      padding-block-end: var(--fdic-spacing-2xs, 4px);
     }
 
     .remove-wrap {

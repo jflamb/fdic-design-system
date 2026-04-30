@@ -49,6 +49,10 @@ function getValueDisplay(el: any): HTMLElement {
   return el.shadowRoot!.querySelector("[part=value-display]") as HTMLElement;
 }
 
+function getTriggerButton(el: any): HTMLButtonElement {
+  return el.shadowRoot!.querySelector("[data-trigger-button]") as HTMLButtonElement;
+}
+
 describe("fd-selector", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
@@ -424,7 +428,7 @@ describe("fd-selector", () => {
     expect(el.values).toEqual([]);
   });
 
-  it("multiple: displays comma-separated values in trigger", async () => {
+  it("multiple: displays selected values as chips in trigger", async () => {
     const el = await createSelector({ label: "Account", variant: "multiple" });
     getTrigger(el).click();
     await el.updateComplete;
@@ -434,9 +438,81 @@ describe("fd-selector", () => {
     getOptions(el)[2].click();
     await el.updateComplete;
 
-    expect(getValueDisplay(el).textContent?.trim()).toBe(
-      "Checking, Certificate of Deposit",
-    );
+    const chips = Array.from(
+      el.shadowRoot!.querySelectorAll("fd-chip[part=selected-chip]"),
+    ) as HTMLElement[];
+
+    expect(chips.map((chip) => chip.textContent?.trim())).toEqual([
+      "Checking",
+      "Certificate of Deposit",
+    ]);
+    expect(getValueDisplay(el).textContent).not.toContain(",");
+  });
+
+  it("multiple: removes a selected chip without opening the popup", async () => {
+    const el = await createSelector({ label: "Account", variant: "multiple" });
+
+    el.values = ["checking", "cd"];
+    await el.updateComplete;
+
+    const removeButton = el.shadowRoot!
+      .querySelector("fd-chip[part=selected-chip]")!
+      .shadowRoot!.querySelector("[part=remove-button]") as HTMLButtonElement;
+
+    removeButton.click();
+    await el.updateComplete;
+
+    const chips = Array.from(
+      el.shadowRoot!.querySelectorAll("fd-chip[part=selected-chip]"),
+    ) as HTMLElement[];
+
+    expect(el.open).toBe(false);
+    expect(el.values).toEqual(["cd"]);
+    expect(chips.map((chip) => chip.textContent?.trim())).toEqual([
+      "Certificate of Deposit",
+    ]);
+    expect(getValueDisplay(el).textContent).toContain("Certificate of Deposit");
+  });
+
+  it("multiple: ignores composed chip clicks on the trigger shell", async () => {
+    const el = await createSelector({ label: "Account", variant: "multiple" });
+
+    el.values = ["checking"];
+    await el.updateComplete;
+
+    const chip = el.shadowRoot!.querySelector(
+      "fd-chip[part=selected-chip]",
+    ) as HTMLElement;
+
+    chip.dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true }));
+    await el.updateComplete;
+
+    expect(el.open).toBe(false);
+  });
+
+  it("multiple: describes the trigger button with the selection count", async () => {
+    const el = await createSelector({ label: "Account", variant: "multiple" });
+
+    const trigger = getTriggerButton(el);
+    const describedBy = trigger.getAttribute("aria-describedby") ?? "";
+    const status = el.shadowRoot!.querySelector("#selector-selection-status");
+
+    expect(status?.textContent?.trim()).toBe("0 of 3 options selected");
+    expect(describedBy.split(/\s+/)).toContain("selector-selection-status");
+  });
+
+  it("multiple: renders a separate trigger button so removable chips are not nested in a button", async () => {
+    const el = await createSelector({ label: "Account", variant: "multiple" });
+
+    el.values = ["checking"];
+    await el.updateComplete;
+
+    expect(getTrigger(el).tagName).toBe("DIV");
+    expect(getTriggerButton(el).tagName).toBe("BUTTON");
+    const removeButton = el.shadowRoot!
+      .querySelector("fd-chip[part=selected-chip]")!
+      .shadowRoot!.querySelector("[part=remove-button]") as HTMLButtonElement;
+    expect(removeButton.parentElement?.closest("button")).toBeNull();
   });
 
   it("multiple: values property returns array of selected values", async () => {
