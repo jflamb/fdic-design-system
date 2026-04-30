@@ -129,7 +129,7 @@ describe("FdLinkCategory", () => {
     expect(stripe?.getAttribute("type")).toBe("cool");
   });
 
-  it("keeps the warm visual glyph dark enough for the light warm surface in every theme", () => {
+  it("inherits visual foreground colors from fd-visual instead of patching them locally", () => {
     const styles = (
       customElements.get("fd-link-category") as typeof HTMLElement & {
         styles?: { cssText?: string };
@@ -138,9 +138,9 @@ describe("FdLinkCategory", () => {
 
     expect(styles).toContain("--fd-link-category-visual-bg-warm");
     expect(styles).toContain("var(--fdic-color-secondary-300)");
-    expect(styles).toContain("--fd-link-category-visual-fg-warm");
-    expect(styles).toContain("var(--fdic-color-secondary-900)");
+    expect(styles).not.toContain("--fd-link-category-visual-fg");
     expect(styles).not.toContain("var(--fdic-color-icon-warm)");
+    expect(styles).not.toContain("var(--fdic-color-icon-inverted)");
   });
 
   it("omits decorative visual and stripe when disabled", async () => {
