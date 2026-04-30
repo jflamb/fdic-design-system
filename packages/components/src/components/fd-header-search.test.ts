@@ -51,6 +51,28 @@ async function waitForExpectation(expectation: () => void, attempts = 10) {
   throw lastError;
 }
 
+async function waitForSearchResult(el: HTMLElement, href: string) {
+  let lastError: unknown;
+
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    try {
+      const panel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+      expect(panel?.hidden).toBe(false);
+      expect(
+        el.shadowRoot?.querySelector(`.result-link[href="${href}"]`),
+      ).not.toBeNull();
+      await el.updateComplete;
+      return;
+    } catch (error) {
+      lastError = error;
+      await new Promise<void>((resolve) => window.setTimeout(resolve, 25));
+      await el.updateComplete;
+    }
+  }
+
+  throw lastError;
+}
+
 async function createSearch({
   surface = "desktop",
   open = false,
@@ -161,14 +183,7 @@ describe("fd-header-search", () => {
       input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     }
 
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
-    await el.updateComplete;
-
-    const firstPanel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
-    expect(firstPanel?.hidden).toBe(false);
-    expect(
-      el.shadowRoot?.querySelector('.result-link[href="#global-messages"]'),
-    ).not.toBeNull();
+    await waitForSearchResult(el, "#global-messages");
 
     if (input) {
       input.value = "";
@@ -183,14 +198,7 @@ describe("fd-header-search", () => {
       input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     }
 
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
-    await el.updateComplete;
-
-    const reopenedPanel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
-    expect(reopenedPanel?.hidden).toBe(false);
-    expect(
-      el.shadowRoot?.querySelector('.result-link[href="#csrr"]'),
-    ).not.toBeNull();
+    await waitForSearchResult(el, "#csrr");
   });
 
   it("clears desktop results immediately when the query becomes empty", async () => {
@@ -272,8 +280,7 @@ describe("fd-header-search", () => {
         input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
       }
 
-      await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
-      await el.updateComplete;
+      await waitForSearchResult(el, "#fdicnews");
 
       input?.dispatchEvent(
         new KeyboardEvent("keydown", {
