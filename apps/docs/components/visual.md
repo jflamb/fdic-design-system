@@ -54,10 +54,10 @@ Slot content is decorative in v1. Do not slot interactive controls or content th
 | `--fd-visual-radius` | `9999px` | Corner radius for the circular surface. |
 | `--fd-visual-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral surface background. |
 | `--fd-visual-fg-neutral` | `var(--fdic-color-text-primary, #212123)` | Neutral foreground color used by the fallback glyph and slotted icon content. |
-| `--fd-visual-bg-cool` | `var(--fdic-color-info-100, #38b6ff)` | Cool surface background. |
-| `--fd-visual-fg-cool` | `var(--fdic-color-text-inverted, #ffffff)` | Cool foreground color used by the fallback glyph and slotted icon content. |
-| `--fd-visual-bg-warm` | `var(--fdic-color-secondary-200, #ebd49b)` | Warm surface background. |
-| `--fd-visual-fg-warm` | `var(--fdic-color-text-primary, #212123)` | Warm foreground color used by the fallback glyph and slotted icon content. |
+| `--fd-visual-bg-cool` | `var(--fdic-color-primary-400)` | Cool surface background. |
+| `--fd-visual-fg-cool` | `var(--fdic-color-primary-900)` | Cool foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the bright cool surface in light and dark themes. |
+| `--fd-visual-bg-warm` | `var(--fdic-color-secondary-300)` | Warm surface background. |
+| `--fd-visual-fg-warm` | `var(--fdic-color-secondary-900)` | Warm foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes. |
 | `--fd-visual-bg-avatar` | `transparent` | Avatar background surface. |
 | `--fd-visual-avatar-placeholder-color` | `#b0b0b3` | Placeholder avatar silhouette color. |
 

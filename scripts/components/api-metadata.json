@@ -2456,23 +2456,23 @@
         },
         {
           "name": "--fd-visual-bg-cool",
-          "default": "`var(--fdic-color-info-100, #38b6ff)`",
+          "default": "`var(--fdic-color-primary-400)`",
           "description": "Cool surface background."
         },
         {
           "name": "--fd-visual-fg-cool",
-          "default": "`var(--fdic-color-text-inverted, #ffffff)`",
-          "description": "Cool foreground color used by the fallback glyph and slotted icon content."
+          "default": "`var(--fdic-color-primary-900)`",
+          "description": "Cool foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the bright cool surface in light and dark themes."
         },
         {
           "name": "--fd-visual-bg-warm",
-          "default": "`var(--fdic-color-secondary-200, #ebd49b)`",
+          "default": "`var(--fdic-color-secondary-300)`",
           "description": "Warm surface background."
         },
         {
           "name": "--fd-visual-fg-warm",
-          "default": "`var(--fdic-color-text-primary, #212123)`",
-          "description": "Warm foreground color used by the fallback glyph and slotted icon content."
+          "default": "`var(--fdic-color-secondary-900)`",
+          "description": "Warm foreground color used by the fallback glyph and slotted icon content. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes."
         },
         {
           "name": "--fd-visual-bg-avatar",
@@ -5218,11 +5218,6 @@
           "name": "--fd-link-category-visual-bg-warm",
           "default": "var(--fdic-color-secondary-300)",
           "description": "Warm visual background."
-        },
-        {
-          "name": "--fd-link-category-visual-fg-warm",
-          "default": "var(--fdic-color-secondary-900)",
-          "description": "Warm visual foreground color. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes."
         }
       ],
       "after": ""
