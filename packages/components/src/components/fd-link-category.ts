@@ -122,7 +122,7 @@ export class FdLinkCategory extends LitElement {
       );
       --fd-visual-fg-warm: var(
         --fd-link-category-visual-fg-warm,
-        var(--fdic-color-icon-warm)
+        var(--fdic-color-secondary-900)
       );
     }
 

@@ -5218,6 +5218,11 @@
           "name": "--fd-link-category-visual-bg-warm",
           "default": "var(--fdic-color-secondary-300)",
           "description": "Warm visual background."
+        },
+        {
+          "name": "--fd-link-category-visual-fg-warm",
+          "default": "var(--fdic-color-secondary-900)",
+          "description": "Warm visual foreground color. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes."
         }
       ],
       "after": ""
