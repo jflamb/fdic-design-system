@@ -708,6 +708,28 @@ export const componentStoryApi = {
     "dividers": false,
     },
   },
+  "fd-link-category": {
+    argTypes: {
+    "size": { control: "select", options: ["medium","large"] },
+    "tone": { control: "select", options: ["neutral","cool","warm"] },
+    "iconName": { control: "text" },
+    "category": { control: "text" },
+    "overview": { control: "text" },
+    "showVisual": { control: "boolean" },
+    "showStripe": { control: "boolean" },
+    "links": { control: "text" },
+    },
+    args: {
+    "size": "medium",
+    "tone": "neutral",
+    "iconName": undefined,
+    "category": "",
+    "overview": undefined,
+    "showVisual": true,
+    "showStripe": true,
+    "links": "[]",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

@@ -30,6 +30,7 @@ export const componentSidebarGroups = [
       { text: "Tile", link: "/components/tile" },
       { text: "Tile List", link: "/components/tile-list" },
       { text: "Event", link: "/components/event" },
+      { text: "Link Category", link: "/components/link-category" },
       { text: "Event List", link: "/components/event-list" }
     ]
   },

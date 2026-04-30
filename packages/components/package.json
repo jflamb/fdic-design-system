@@ -222,6 +222,10 @@
       "types": "./dist/components/fd-review-list.d.ts",
       "import": "./dist/components/fd-review-list.js"
     },
+    "./fd-link-category": {
+      "types": "./dist/components/fd-link-category.d.ts",
+      "import": "./dist/components/fd-link-category.js"
+    },
     "./icons/phosphor-regular": {
       "types": "./dist/icons/phosphor-regular.d.ts",
       "import": "./dist/icons/phosphor-regular.js"

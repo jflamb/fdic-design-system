@@ -17,7 +17,7 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Actions & Navigation</span>
-    <h3>Link, Button, Button Group, Split Button, Menu, Pagination, Tile, Tile List, Event, Event List</h3>
+    <h3>Link, Button, Button Group, Split Button, Menu, Pagination, Tile, Tile List, Event, Link Category, Event List</h3>
     <p>Controls and navigation patterns that trigger actions, expose destinations, or move people through flows.</p>
   </div>
   <div class="fdic-card">
@@ -76,6 +76,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Tile](./tile) documents tile usage, constraints, and accessibility guidance.
 - [Tile List](./tile-list) documents tile list usage, constraints, and accessibility guidance.
 - [Event](./event) documents event usage, constraints, and accessibility guidance.
+- [Link Category](./link-category) documents link category usage, constraints, and accessibility guidance.
 - [Event List](./event-list) documents event list usage, constraints, and accessibility guidance.
 
 ### Feedback & Status

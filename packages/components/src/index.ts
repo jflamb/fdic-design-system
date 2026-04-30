@@ -48,6 +48,7 @@ export { FdConfirmationRecord } from "./components/fd-confirmation-record.js";
 export { FdFormField } from "./components/fd-form-field.js";
 export { FdErrorSummary } from "./components/fd-error-summary.js";
 export { FdReviewList } from "./components/fd-review-list.js";
+export { FdLinkCategory } from "./components/fd-link-category.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -78,6 +79,7 @@ export type { ConfirmationRecordVariant, ConfirmationRecordStatus } from "./comp
 export type { FormFieldLayout, FormFieldControlType } from "./components/fd-form-field.js";
 export type { ErrorSummaryFocusTarget, ErrorSummaryItem } from "./components/fd-error-summary.js";
 export type { ReviewListHeadingLevel, ReviewListDensity, ReviewListItem } from "./components/fd-review-list.js";
+export type { LinkCategorySize, LinkCategoryTone, FdLinkCategoryLinkItem } from "./components/fd-link-category.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

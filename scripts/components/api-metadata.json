@@ -5089,5 +5089,183 @@
       ],
       "after": ""
     }
+  },
+  "fd-link-category": {
+    "properties": {
+      "rows": [
+        {
+          "name": "size",
+          "type": "`\"medium\" \\| \"large\"`",
+          "default": "medium",
+          "description": "Visual size treatment. Use `large` for stronger hierarchy and `medium` for standard category groups."
+        },
+        {
+          "name": "tone",
+          "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
+          "default": "neutral",
+          "description": "Decorative tone shared by the visual and stripe."
+        },
+        {
+          "name": "icon-name",
+          "type": "`string \\| undefined`",
+          "default": "undefined",
+          "description": "Optional Phosphor registry icon name rendered inside the decorative visual. When omitted, `fd-visual` uses its archive fallback glyph."
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "default": "",
+          "description": "Visible category name. When present, it labels the internal article."
+        },
+        {
+          "name": "overview",
+          "type": "`string \\| undefined`",
+          "default": "undefined",
+          "description": "Short overview text shown before the supporting links."
+        },
+        {
+          "name": "show-visual",
+          "type": "boolean",
+          "defaultValue": "`true`",
+          "description": "Controls whether the decorative circular visual renders. The `show-visual=\"false\"` attribute hides it in HTML."
+        },
+        {
+          "name": "show-stripe",
+          "type": "boolean",
+          "defaultValue": "`true`",
+          "description": "Controls whether the decorative stripe renders. The `show-stripe=\"false\"` attribute hides it in HTML."
+        },
+        {
+          "name": "links",
+          "type": "FdLinkCategoryLinkItem[]",
+          "default": "[]",
+          "description": "Property-only supporting link data. Invalid items are filtered and the rendered list is capped at six links."
+        }
+      ],
+      "after": "- `fd-link-category` is static in v1. It owns visual grouping and native link rendering only; the application owns destinations, analytics, layout across multiple categories, and lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on rendered native links in DOM order.\n- Link text should be unique and visible. Avoid repeated generic labels inside one category."
+    },
+    "slots": {
+      "rows": [],
+      "after": "`fd-link-category` exposes no slots in v1. Use the `category`, `overview`, and `links` properties for authored content."
+    },
+    "events": {
+      "rows": [],
+      "after": "`fd-link-category` emits no custom events in v1."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-link-category-max-width",
+          "default": "344px",
+          "description": "Maximum inline size of the component host."
+        },
+        {
+          "name": "--fd-link-category-focus-gap",
+          "default": "var(--fdic-focus-gap-color)",
+          "description": "Inner focus-ring gap color for rendered links."
+        },
+        {
+          "name": "--fd-link-category-focus-ring",
+          "default": "var(--fdic-focus-ring-color)",
+          "description": "Outer focus-ring color for rendered links."
+        },
+        {
+          "name": "--fd-link-category-category-color",
+          "default": "var(--fdic-color-text-primary)",
+          "description": "Category text color."
+        },
+        {
+          "name": "--fd-link-category-overview-color",
+          "default": "var(--fdic-color-text-secondary)",
+          "description": "Overview text color."
+        },
+        {
+          "name": "--fd-link-category-link-color",
+          "default": "var(--fdic-color-text-link)",
+          "description": "Supporting link text color."
+        },
+        {
+          "name": "--fd-link-category-link-underline-thickness",
+          "default": "1px",
+          "description": "Default underline thickness for supporting links."
+        },
+        {
+          "name": "--fd-link-category-link-underline-thickness-emphasis",
+          "default": "2px",
+          "description": "Hover and focus-visible underline thickness for supporting links."
+        },
+        {
+          "name": "--fd-link-category-stripe-width",
+          "default": "80px",
+          "description": "Decorative stripe width."
+        },
+        {
+          "name": "--fd-link-category-stripe-height",
+          "default": "4px",
+          "description": "Decorative stripe thickness."
+        },
+        {
+          "name": "--fd-link-category-visual-bg-neutral",
+          "default": "var(--fdic-color-bg-interactive)",
+          "description": "Neutral visual background."
+        },
+        {
+          "name": "--fd-link-category-visual-bg-cool",
+          "default": "var(--fdic-color-primary-400)",
+          "description": "Cool visual background."
+        },
+        {
+          "name": "--fd-link-category-visual-bg-warm",
+          "default": "var(--fdic-color-secondary-300)",
+          "description": "Warm visual background."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper."
+        },
+        {
+          "name": "visual",
+          "description": "Decorative visual wrapper containing the internal `fd-visual`."
+        },
+        {
+          "name": "content",
+          "description": "Content column containing text, stripe, and links."
+        },
+        {
+          "name": "text",
+          "description": "Text wrapper containing category and overview."
+        },
+        {
+          "name": "category",
+          "description": "Visible category title."
+        },
+        {
+          "name": "overview",
+          "description": "Overview paragraph."
+        },
+        {
+          "name": "stripe",
+          "description": "Decorative stripe wrapper containing the internal `fd-stripe`."
+        },
+        {
+          "name": "links",
+          "description": "Supporting links list."
+        },
+        {
+          "name": "link-item",
+          "description": "Individual supporting link list item."
+        },
+        {
+          "name": "link",
+          "description": "Native supporting anchor."
+        }
+      ],
+      "after": ""
+    }
   }
 }
