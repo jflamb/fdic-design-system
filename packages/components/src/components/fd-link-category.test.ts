@@ -129,6 +129,20 @@ describe("FdLinkCategory", () => {
     expect(stripe?.getAttribute("type")).toBe("cool");
   });
 
+  it("keeps the warm visual glyph dark enough for the light warm surface in every theme", () => {
+    const styles = (
+      customElements.get("fd-link-category") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("--fd-link-category-visual-bg-warm");
+    expect(styles).toContain("var(--fdic-color-secondary-300)");
+    expect(styles).toContain("--fd-link-category-visual-fg-warm");
+    expect(styles).toContain("var(--fdic-color-secondary-900)");
+    expect(styles).not.toContain("var(--fdic-color-icon-warm)");
+  });
+
   it("omits decorative visual and stripe when disabled", async () => {
     const el = await createLinkCategory({
       category: "Resources",

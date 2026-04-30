@@ -91,6 +91,7 @@ The Link Category component groups a short category description with a small set
 | `--fd-link-category-visual-bg-neutral` | var(--fdic-color-bg-interactive) | Neutral visual background. |
 | `--fd-link-category-visual-bg-cool` | var(--fdic-color-primary-400) | Cool visual background. |
 | `--fd-link-category-visual-bg-warm` | var(--fdic-color-secondary-300) | Warm visual background. |
+| `--fd-link-category-visual-fg-warm` | var(--fdic-color-secondary-900) | Warm visual foreground color. Uses a stable dark foreground so the glyph remains legible on the light warm surface in light and dark themes. |
 
 ## Shadow parts
 
