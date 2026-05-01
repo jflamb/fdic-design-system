@@ -62,7 +62,8 @@ gutters at these ranges unless they document a deliberate exception.
 
 ## Section model
 
-The standard section model is:
+The standard section model keeps the full-bleed surface separate from the
+aligned content rail:
 
 ```css
 .section {
@@ -71,26 +72,37 @@ The standard section model is:
 
 .section__inner {
   box-sizing: border-box;
-  width: min(100%, var(--fdic-layout-shell-max-width));
+  width: min(
+    var(--fdic-layout-shell-max-width),
+    calc(100% - 2 * var(--fdic-layout-gutter))
+  );
   margin-inline: auto;
-  padding-inline: var(--fdic-layout-gutter);
 }
 
-@media (max-width: 63.999rem) {
+@media (min-width: 40.001rem) and (max-width: 63.999rem) {
   .section__inner {
-    padding-inline: var(--fdic-layout-gutter-tablet);
+    width: min(
+      var(--fdic-layout-shell-max-width),
+      calc(100% - 2 * var(--fdic-layout-gutter-tablet))
+    );
   }
 }
 
 @media (max-width: 39.999rem) {
   .section__inner {
-    padding-inline: var(--fdic-layout-gutter-mobile);
+    width: calc(100% - 2 * var(--fdic-layout-gutter-mobile));
   }
 }
 ```
 
 The section background, border, stripe, or divider may still span full bleed.
 Only the inner content row needs to align to the shared shell width.
+
+Do not put shell gutters on both the full-bleed section and the inner wrapper.
+For component chrome that owns its own internal padding, such as page header,
+page feedback, and footer, set the component's documented shell tokens to the
+same max width and gutter values instead of wrapping it in an additional
+padded container.
 
 ## Viewport-height shell
 

@@ -454,7 +454,7 @@ export class FdGlobalHeader extends LitElement {
       background: var(--fd-global-header-color-surface-brand);
       color: var(--fd-global-header-color-text-inverted);
       min-height: 5.1875rem;
-      padding: 1.5rem 0;
+      padding: 1rem 0;
       display: flex;
       align-items: center;
     }

@@ -33,20 +33,49 @@ const SECTION_SHELL_STYLE = [
   "width: 100%",
 ].join("; ");
 
+const PAGE_SHELL_INLINE_SIZE =
+  "min(var(--fdic-layout-shell-max-width, 1312px), calc(100% - 2 * var(--fdic-layout-gutter, 64px)))";
+
+const PAGE_SHELL_INLINE_SIZE_TABLET =
+  "min(var(--fdic-layout-shell-max-width, 1312px), calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px)))";
+
+const PAGE_SHELL_INLINE_SIZE_MOBILE =
+  "calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px))";
+
 const SECTION_CONTENT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, var(--fdic-layout-shell-max-width, 1312px))",
+  `width: ${PAGE_SHELL_INLINE_SIZE}`,
   "margin-inline: auto",
-  "padding-inline: var(--fdic-layout-gutter, 64px)",
   "padding-block: var(--fdic-layout-section-block-padding, 48px)",
 ].join("; ");
 
 const SECTION_CONTENT_TIGHT_STYLE = [
   "box-sizing: border-box",
-  "width: min(100%, var(--fdic-layout-shell-max-width, 1312px))",
+  `width: ${PAGE_SHELL_INLINE_SIZE}`,
   "margin-inline: auto",
-  "padding-inline: var(--fdic-layout-gutter, 64px)",
   "padding-block: var(--fdic-layout-section-block-padding-compact, 24px)",
+].join("; ");
+
+const PAGE_HEADER_SHELL_STYLE = [
+  "--fd-page-header-max-width: var(--fdic-layout-shell-max-width, 1312px)",
+  "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
+  "--fd-page-header-padding-inline-tablet: var(--fdic-layout-gutter-tablet, 32px)",
+  "--fd-page-header-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
+  "--fd-page-header-padding-block: var(--fdic-layout-section-block-padding, 48px)",
+].join("; ");
+
+const PAGE_FEEDBACK_SHELL_STYLE = [
+  "--fd-page-feedback-max-width: var(--fdic-layout-shell-max-width, 1312px)",
+  "--fd-page-feedback-inline-padding: var(--fdic-layout-gutter, 64px)",
+  "--fd-page-feedback-inline-padding-tablet: var(--fdic-layout-gutter-tablet, 32px)",
+  "--fd-page-feedback-inline-padding-mobile: var(--fdic-layout-gutter-mobile, 16px)",
+].join("; ");
+
+const FOOTER_SHELL_STYLE = [
+  "--fd-global-footer-max-width: var(--fdic-layout-shell-max-width, 1312px)",
+  "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
+  "--fd-global-footer-padding-inline-tablet: var(--fdic-layout-gutter-tablet, 32px)",
+  "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
 ].join("; ");
 
 const BAND_CONTENT_STACK_STYLE = [
@@ -208,7 +237,13 @@ const renderRecipe = () => html`
   <style>
     @media (max-width: 640px) {
       .fdic-layout-recipe-content {
-        padding-inline: var(--fdic-layout-gutter-mobile, 16px) !important;
+        width: ${PAGE_SHELL_INLINE_SIZE_MOBILE} !important;
+      }
+    }
+
+    @media (min-width: 640.001px) and (max-width: 1023.999px) {
+      .fdic-layout-recipe-content {
+        width: ${PAGE_SHELL_INLINE_SIZE_TABLET} !important;
       }
     }
   </style>
@@ -216,12 +251,6 @@ const renderRecipe = () => html`
     <fd-global-header
       .navigation=${GLOBAL_HEADER_SOURCE.items}
       .search=${GLOBAL_HEADER_SOURCE.search}
-      style=${[
-        "--fd-global-header-shell-max-width: var(--fdic-layout-content-max-width, 1312px)",
-        "--fd-global-header-shell-inline-gutter: calc(2 * var(--fdic-layout-gutter, 64px))",
-        "--fd-global-header-shell-inline-gutter-tablet: calc(2 * var(--fdic-layout-gutter-tablet, 32px))",
-        "--fd-global-header-panel-inline-gutter: 5rem",
-      ].join("; ")}
     >
       <a
         slot="brand"
@@ -238,12 +267,7 @@ const renderRecipe = () => html`
         kicker="Employee resources, updates, and tools"
         breadcrumb-label="Breadcrumbs"
         .breadcrumbs=${[{ label: "Home", href: "#" }]}
-        style=${[
-          "--fd-page-header-max-width: var(--fdic-layout-content-max-width, 1312px)",
-          "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
-          "--fd-page-header-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-          "--fd-page-header-padding-block: var(--fdic-layout-section-block-padding, 48px)",
-        ].join("; ")}
+        style=${PAGE_HEADER_SHELL_STYLE}
       ></fd-page-header>
 
       <section style=${COOL_SECTION_STYLE}>
@@ -255,7 +279,7 @@ const renderRecipe = () => html`
               shared page shell. The section wrapper uses the documented
               <code>--fdic-layout-shell-max-width</code>, <code>--fdic-layout-gutter</code>, and
               <code>--fdic-layout-section-block-padding</code> tokens, while DS components that own their
-              own padding align to <code>--fdic-layout-content-max-width</code>.
+              own padding align to the same shell contract through documented component hooks.
             </p>
             ${renderQuickLinks()}
           </div>
@@ -280,12 +304,7 @@ const renderRecipe = () => html`
     <div style=${PAGE_CHROME_END_STYLE}>
       <fd-page-feedback
         survey-href="https://www.fdic.gov"
-        style=${[
-          "--fd-page-feedback-max-width: calc(var(--fdic-layout-shell-max-width, 1312px) - (2 * var(--fdic-layout-gutter, 64px)))",
-          "--fd-page-feedback-inline-padding: var(--fdic-layout-gutter, 64px)",
-          "--fd-page-feedback-inline-padding-tablet: var(--fdic-layout-gutter-tablet, 32px)",
-          "--fd-page-feedback-inline-padding-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-        ].join("; ")}
+        style=${PAGE_FEEDBACK_SHELL_STYLE}
       ></fd-page-feedback>
 
       <fd-global-footer
@@ -300,11 +319,7 @@ const renderRecipe = () => html`
           { icon: "youtube", label: "Follow the FDIC on YouTube", href: "#" },
           { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
         ]}
-        style=${[
-          "--fd-global-footer-max-width: var(--fdic-layout-content-max-width, 1312px)",
-          "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
-          "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-        ].join("; ")}
+        style=${FOOTER_SHELL_STYLE}
       ></fd-global-footer>
     </div>
   </div>
@@ -327,28 +342,47 @@ type Story = StoryObj<typeof meta>;
 export const HomepageBands: Story = {};
 
 HomepageBands.play = async ({ canvasElement }) => {
+  const globalHeader = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const pageHeader = canvasElement.querySelector("fd-page-header") as HTMLElement | null;
   const feedback = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
   const contentShell = canvasElement.querySelector(".fdic-layout-recipe-content") as HTMLElement | null;
   const warmSection = canvasElement.querySelector("main section:last-of-type") as HTMLElement | null;
+  const tileList = canvasElement.querySelector("fd-tile-list") as HTMLElement | null;
+  const eventList = canvasElement.querySelector("fd-event-list") as HTMLElement | null;
   const footer = canvasElement.querySelector("fd-global-footer") as HTMLElement | null;
+  const headerShell = globalHeader?.shadowRoot?.querySelector(".shell") as HTMLElement | null;
+  const pageHeaderContent = pageHeader?.shadowRoot?.querySelector(".content") as HTMLElement | null;
   const base = feedback?.shadowRoot?.querySelector("[part=base]") as HTMLElement | null;
   const prompt = feedback?.shadowRoot?.querySelector("[part=prompt]") as HTMLElement | null;
+  const feedbackPanel = feedback?.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+  const footerContent = footer?.shadowRoot?.querySelector(".content") as HTMLElement | null;
 
   await waitFor(() => {
     const shellRect = contentShell?.getBoundingClientRect();
-    const shellStyle = contentShell ? getComputedStyle(contentShell) : null;
-    const shellContentStart =
-      (shellRect?.left ?? 0) + Number.parseFloat(shellStyle?.paddingInlineStart ?? "0");
     const warmRect = warmSection?.getBoundingClientRect();
     const footerRect = footer?.getBoundingClientRect();
     const baseRect = base?.getBoundingClientRect();
     const promptRect = prompt?.getBoundingClientRect();
+    const alignedRects = [
+      headerShell?.getBoundingClientRect(),
+      pageHeaderContent?.getBoundingClientRect(),
+      tileList?.getBoundingClientRect(),
+      eventList?.getBoundingClientRect(),
+      feedbackPanel?.getBoundingClientRect(),
+      footerContent?.getBoundingClientRect(),
+    ];
+    const shellLeft = Math.round(shellRect?.left ?? -1);
+    const shellWidth = Math.round(shellRect?.width ?? -1);
 
     expect(Math.round(baseRect?.left ?? -1)).toBe(Math.round(warmRect?.left ?? 0));
     expect(Math.round(baseRect?.width ?? 0)).toBe(Math.round(warmRect?.width ?? 0));
     expect(Math.round(baseRect?.top ?? 0)).toBe(Math.round(warmRect?.bottom ?? 0));
     expect(Math.round(footerRect?.top ?? 0)).toBe(Math.round(baseRect?.bottom ?? 0));
-    expect(Math.round(promptRect?.left ?? 0)).toBe(Math.round(shellContentStart));
+    for (const rect of alignedRects) {
+      expect(Math.round(rect?.left ?? -1)).toBe(shellLeft);
+      expect(Math.round(rect?.width ?? -1)).toBe(shellWidth);
+    }
+    expect(Math.round(promptRect?.left ?? 0)).toBe(shellLeft);
     expect((promptRect?.top ?? 0) - (baseRect?.top ?? 0)).toBeGreaterThan(16);
   });
 };
@@ -359,9 +393,9 @@ export const DocsOverview: Story = {
       <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Homepage section shell</strong>
         <p class=${DOCS_OVERVIEW_META_CLASS}>
-          Recipe: full-bleed section backgrounds and borders on the outside, a 1440px outer shell with
-          64px desktop gutters and 16px mobile gutters, and a derived 1312px inner content column for
-          DS chrome components that already manage their own internal padding.
+          Recipe: full-bleed section backgrounds and borders on the outside, with every top-level content
+          region aligned to the shared 1312px page shell and the same desktop, tablet, and mobile gutter
+          tokens.
         </p>
         ${renderRecipe()}
       </section>

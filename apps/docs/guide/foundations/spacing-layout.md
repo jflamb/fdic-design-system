@@ -47,7 +47,7 @@ This is a documented pattern built from stable tokens, not a separate utility AP
 - Constrain the section's inner wrapper to `--fdic-layout-shell-max-width`.
 - Use `--fdic-layout-section-block-padding` for major page sections such as page headers and footers.
 - Use `--fdic-layout-section-block-padding-compact` for supporting sections such as inline feedback or small follow-on content bands.
-- Keep horizontal padding on the shared gutter tokens so aligned sections continue to line up at zoom and across breakpoints.
+- Use the shared gutter tokens in the shell-width calculation so aligned sections continue to line up at zoom and across breakpoints.
 
 The canonical desktop/tablet/mobile gutter switches for this pattern are defined
 on [Page Shell](./page-shell.md). This page focuses on the stable tokens that
@@ -58,11 +58,13 @@ Example:
 ```css
 .section {
   padding-block: var(--fdic-layout-section-block-padding);
-  padding-inline: var(--fdic-layout-gutter);
 }
 
 .section__inner {
-  max-inline-size: var(--fdic-layout-shell-max-width);
+  width: min(
+    var(--fdic-layout-shell-max-width),
+    calc(100% - 2 * var(--fdic-layout-gutter))
+  );
   margin-inline: auto;
 }
 ```
