@@ -90,7 +90,16 @@ export function componentSourcePath(component) {
 }
 
 export function componentSourceText(component) {
-  return readText(componentSourcePath(component));
+  const sourceText = readText(componentSourcePath(component));
+
+  if (!sourceText.includes("createWrappingGroup(")) {
+    return sourceText;
+  }
+
+  return [
+    sourceText,
+    readText(path.join(componentsRoot, "wrapping-group-base.ts")),
+  ].join("\n");
 }
 
 export function kebabToPascal(value) {

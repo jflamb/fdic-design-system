@@ -120,7 +120,7 @@ describe("FdChipGroup", () => {
       }
     ).styles?.cssText ?? "";
 
-    expect(styles).toContain(":host {\n      display: block;");
+    expect(styles).toMatch(/:host\s*{\s*display:\s*block;/);
   });
 
   it("includes a token-driven gap between chips", () => {
