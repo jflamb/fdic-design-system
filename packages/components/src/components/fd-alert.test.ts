@@ -82,6 +82,9 @@ describe("FdAlert", () => {
     expect(getDismissButton(el)?.getAttribute("aria-label")).toBe(
       "Dismiss Important update",
     );
+    expect(
+      getDismissButton(el)?.querySelector("[part=dismiss-icon]")?.innerHTML,
+    ).not.toContain('opacity="0.2"');
   });
 
   it("uses dismiss-label when provided", async () => {

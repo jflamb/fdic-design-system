@@ -311,6 +311,39 @@ describe("fd-file-input", () => {
     expect(el.files).toHaveLength(0);
   });
 
+  it("uses regular icons for uploading spinners and dismiss actions", async () => {
+    const el = await createFileInput(
+      {
+        label: "Upload files",
+        name: "attachment",
+      },
+      [
+        {
+          id: "file-1",
+          fileName: "statement.pdf",
+          state: "uploading",
+        },
+        {
+          id: "file-2",
+          fileName: "notes.txt",
+          state: "invalid",
+        },
+      ],
+    );
+
+    const uploadingStatusIcon = el.shadowRoot?.querySelector(
+      '[part=item][data-state="uploading"] [part=item-status] .fd-file-input__status-icon',
+    );
+    const dismissIcon = el.shadowRoot?.querySelector(
+      '[part=item][data-state="invalid"] [part=item-action] .fd-file-input__status-icon',
+    );
+
+    expect(uploadingStatusIcon?.innerHTML).toContain("<svg");
+    expect(uploadingStatusIcon?.innerHTML).not.toContain('opacity="0.2"');
+    expect(dismissIcon?.innerHTML).toContain("<svg");
+    expect(dismissIcon?.innerHTML).not.toContain('opacity="0.2"');
+  });
+
   it("shows a fallback summary when files are selected without authored rows", async () => {
     const el = await createFileInput({
       label: "Upload files",

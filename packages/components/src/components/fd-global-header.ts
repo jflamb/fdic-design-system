@@ -12,6 +12,7 @@ import type {
 } from "./fd-header-search.js";
 import { extractHeaderSearchAliasData } from "./fd-header-search-utils.js";
 import { reducedMotion } from "./reduced-motion.js";
+import { REGULAR_X_ICON_SVG } from "./regular-icons.js";
 
 export type GlobalHeaderSearchSurface = HeaderSearchSurface;
 
@@ -594,6 +595,19 @@ export class FdGlobalHeader extends LitElement {
 
     .icon-button fd-icon {
       --fd-icon-size: 1.75rem;
+    }
+
+    .icon-button .regular-icon,
+    .mobile-drawer-close .regular-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-button .regular-icon svg {
+      display: block;
+      width: 1.75rem;
+      height: 1.75rem;
     }
 
     .icon-button--round {
@@ -1389,6 +1403,12 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-drawer-close fd-icon {
       --fd-icon-size: 1.25rem;
+    }
+
+    .mobile-drawer-close .regular-icon svg {
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     .mobile-drawer-close:focus-visible {
@@ -4366,6 +4386,14 @@ export class FdGlobalHeader extends LitElement {
     `;
   }
 
+  private _renderRegularXIcon() {
+    return html`
+      <span class="regular-icon" aria-hidden="true">
+        ${unsafeSVG(REGULAR_X_ICON_SVG)}
+      </span>
+    `;
+  }
+
   override render() {
     return html`
       <div
@@ -4392,10 +4420,9 @@ export class FdGlobalHeader extends LitElement {
                   aria-expanded=${String(this._mobileMenuOpen)}
                   @click=${this._toggleMobileMenu}
                 >
-                  <fd-icon
-                    name=${this._mobileMenuOpen ? "x" : "list"}
-                    aria-hidden="true"
-                  ></fd-icon>
+                  ${this._mobileMenuOpen
+                    ? this._renderRegularXIcon()
+                    : html`<fd-icon name="list" aria-hidden="true"></fd-icon>`}
                   <span>${this._mobileMenuOpen ? "Close" : "Menu"}</span>
                 </button>
               </div>
@@ -4420,12 +4447,12 @@ export class FdGlobalHeader extends LitElement {
                         aria-expanded=${String(this._mobileSearchOpen)}
                         @click=${() => this._toggleMobileSearch()}
                       >
-                        <fd-icon
-                          name=${this._mobileSearchOpen
-                            ? "x"
-                            : "magnifying-glass"}
-                          aria-hidden="true"
-                        ></fd-icon>
+                        ${this._mobileSearchOpen
+                          ? this._renderRegularXIcon()
+                          : html`<fd-icon
+                              name="magnifying-glass"
+                              aria-hidden="true"
+                            ></fd-icon>`}
                       </button>
                     </div>
                   `
@@ -4512,7 +4539,7 @@ export class FdGlobalHeader extends LitElement {
                 this._closeMobileMenu({ restoreFocus: true });
               }}
             >
-              <fd-icon name="x" aria-hidden="true"></fd-icon>
+              ${this._renderRegularXIcon()}
             </button>
           </div>
           ${this._renderMobileDrawerBody()}

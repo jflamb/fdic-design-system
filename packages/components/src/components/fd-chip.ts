@@ -1,10 +1,10 @@
-import { LitElement, css, html, nothing } from "lit";
+import { LitElement, css, html } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
-import { iconRegistry } from "../icons/registry.js";
 import { normalizeLabelText, normalizePillType } from "./chip-common.js";
 import type { FdChipRemoveDetail } from "../public-events.js";
 import type { PillType } from "./chip-common.js";
 import { forcedColorsBadgeContainer } from "./forced-colors.js";
+import { REGULAR_X_ICON_SVG } from "./regular-icons.js";
 
 export type ChipType = PillType;
 
@@ -230,13 +230,7 @@ export class FdChip extends LitElement {
   }
 
   private _renderIcon() {
-    const svg = iconRegistry.get("x");
-
-    if (!svg) {
-      return html`<span aria-hidden="true">&times;</span>`;
-    }
-
-    return html`${unsafeSVG(svg)}`;
+    return html`${unsafeSVG(REGULAR_X_ICON_SVG)}`;
   }
 
   render() {
@@ -256,7 +250,7 @@ export class FdChip extends LitElement {
             @click=${this._handleRemoveClick}
           >
             <span part="remove-icon" class="remove-icon" aria-hidden="true">
-              ${this._renderIcon() ?? nothing}
+              ${this._renderIcon()}
             </span>
           </button>
         </span>

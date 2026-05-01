@@ -25,6 +25,7 @@ type EventListArgs = {
   label: string;
   tone: "neutral" | "cool" | "warm";
   density: "default" | "tight";
+  style?: string;
 };
 
 const SAMPLE_EVENTS: EventItem[] = [
@@ -69,7 +70,10 @@ const renderEventList = (args: EventListArgs) => html`
     columns=${args.columns}
     label=${args.label}
     tone=${args.tone}
-    style=${args.density === "tight" ? "--fd-event-list-col-3-gap: 20px;" : ""}
+    style=${[
+      args.density === "tight" ? "--fd-event-list-col-3-gap: 20px;" : "",
+      args.style ?? "",
+    ].join(" ")}
   >
     ${SAMPLE_EVENTS.map((item) => renderEvent(item))}
   </fd-event-list>
@@ -123,6 +127,11 @@ Playground.play = async ({ canvasElement }) => {
   expect(firstEvent?.getAttribute("role")).toBe("listitem");
 };
 
+const DOCS_OVERVIEW_EVENT_LIST_STYLE = [
+  "--fd-event-list-col-2-gap-mobile: var(--fdic-layout-col-2-gap, 48px);",
+  "--fd-event-list-col-2-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px);",
+].join(" ");
+
 export const OfficialSet: Story = {
   args: {
     tone: "warm",
@@ -147,19 +156,21 @@ export const DocsOverview: Story = {
       <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive event grouping</strong>
         ${renderEventList({
-          columns: "3",
+          columns: "2",
           label: "Upcoming events",
           tone: "cool",
           density: "default",
+          style: DOCS_OVERVIEW_EVENT_LIST_STYLE,
         })}
       </section>
       <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Shared official-event tone</strong>
         ${renderEventList({
-          columns: "4",
+          columns: "2",
           label: "Official events",
           tone: "warm",
-          density: "tight",
+          density: "default",
+          style: DOCS_OVERVIEW_EVENT_LIST_STYLE,
         })}
       </section>
     </div>

@@ -1,10 +1,12 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import {
   extractHeaderSearchAliasData,
   normalizeHeaderSearchText,
 } from "./fd-header-search-utils.js";
+import { REGULAR_X_ICON_SVG } from "./regular-icons.js";
 
 export type HeaderSearchSurface = "desktop" | "mobile";
 
@@ -298,6 +300,12 @@ export class FdHeaderSearch extends LitElement {
 
     .actions fd-button fd-icon {
       --fd-icon-size: 1.25rem;
+    }
+
+    .actions fd-button .regular-icon svg {
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     .submit::part(base) {
@@ -982,7 +990,13 @@ export class FdHeaderSearch extends LitElement {
                       aria-label="Clear search"
                       @click=${this._handleClear}
                     >
-                      <fd-icon slot="icon-start" name="x" aria-hidden="true"></fd-icon>
+                      <span
+                        slot="icon-start"
+                        class="regular-icon"
+                        aria-hidden="true"
+                      >
+                        ${unsafeSVG(REGULAR_X_ICON_SVG)}
+                      </span>
                     </fd-button>
                   `
                 : nothing}

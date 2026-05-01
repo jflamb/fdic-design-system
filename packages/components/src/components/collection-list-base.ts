@@ -42,6 +42,7 @@ export abstract class CollectionListBase extends LitElement {
   declare labelledby: string | undefined;
 
   private readonly _childController: CollectionChildController;
+  private readonly _isManagedChild: CollectionListBaseOptions["isManagedChild"];
   private readonly _labelProxyId = `fd-collection-list-label-${collectionListBaseId += 1}`;
   private _labelSourceObserver: MutationObserver | undefined;
   private _labelledbyText = "";
@@ -52,6 +53,7 @@ export abstract class CollectionListBase extends LitElement {
     this.columns = "3";
     this.label = undefined;
     this.labelledby = undefined;
+    this._isManagedChild = options.isManagedChild;
     this._childController = new CollectionChildController({
       applyToChild: (element) => this.applyToChild(element),
       attributeFilter: options.attributeFilter ?? ["role"],
@@ -73,6 +75,7 @@ export abstract class CollectionListBase extends LitElement {
 
   override willUpdate(changedProperties: PropertyValues<this>) {
     super.willUpdate(changedProperties);
+    this._managedChildCount = this.getManagedChildCount();
 
     if (changedProperties.has("columns")) {
       const normalized = normalizeCollectionColumns(this.columns);
@@ -114,6 +117,10 @@ export abstract class CollectionListBase extends LitElement {
       this._managedChildCount = managedChildCount;
       this.requestUpdate();
     }
+  }
+
+  private getManagedChildCount() {
+    return Array.from(this.children).filter(this._isManagedChild).length;
   }
 
   protected syncLabelledbyText() {

@@ -1,9 +1,10 @@
 import { LitElement, css, html, nothing } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { iconRegistry } from "../icons/registry.js";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { normalizeLinkRel } from "./link-utils.js";
 import { reducedMotion } from "./reduced-motion.js";
+import { REGULAR_SPINNER_GAP_ICON_SVG } from "./regular-icons.js";
 
 export type ButtonVariant =
   | "primary"
@@ -414,13 +415,13 @@ export class FdButton extends LitElement {
   }
 
   private _renderSpinner() {
-    const svg = iconRegistry.get("spinner-gap") ?? "";
     return html`<span
       part="spinner"
       class="spinner"
       aria-hidden="true"
-      .innerHTML=${svg}
-    ></span>`;
+    >
+      ${unsafeSVG(REGULAR_SPINNER_GAP_ICON_SVG)}
+    </span>`;
   }
 
   private _isIconOnly() {

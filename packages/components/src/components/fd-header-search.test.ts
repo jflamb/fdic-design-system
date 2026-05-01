@@ -257,6 +257,9 @@ describe("fd-header-search", () => {
     expect(clear).not.toBeNull();
     expect(submit).not.toBeNull();
     expect(customElements.get("fd-button")).toBeDefined();
+    expect(
+      clear?.querySelector('[slot="icon-start"]')?.innerHTML,
+    ).not.toContain('opacity="0.2"');
   });
 
   it("scrolls the active desktop suggestion into view during keyboard navigation", async () => {

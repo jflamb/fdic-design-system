@@ -346,6 +346,8 @@ describe("fd-button", () => {
     const spinner = el.shadowRoot!.querySelector("[part=spinner]");
     expect(spinner).not.toBeNull();
     expect(spinner!.getAttribute("aria-hidden")).toBe("true");
+    expect(spinner!.innerHTML).toContain("<svg");
+    expect(spinner!.innerHTML).not.toContain('opacity="0.2"');
   });
 
   it("does not render a spinner when not loading", async () => {

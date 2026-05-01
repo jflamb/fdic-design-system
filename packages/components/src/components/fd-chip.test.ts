@@ -92,6 +92,8 @@ describe("FdChip", () => {
 
     expect(removeIcon).not.toBeNull();
     expect(removeIcon?.getAttribute("aria-hidden")).toBe("true");
+    expect(removeIcon?.innerHTML).toContain("<svg");
+    expect(removeIcon?.innerHTML).not.toContain('opacity="0.2"');
   });
 
   it("dispatches fd-chip-remove from the host", async () => {

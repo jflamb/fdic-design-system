@@ -4,6 +4,10 @@ import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { iconRegistry } from "../icons/registry.js";
 import { FormControlController } from "./form-control-controller.js";
 import { reducedMotion } from "./reduced-motion.js";
+import {
+  REGULAR_SPINNER_GAP_ICON_SVG,
+  REGULAR_X_ICON_SVG,
+} from "./regular-icons.js";
 
 export type FileInputItemState =
   | "uploading"
@@ -974,7 +978,12 @@ export class FdFileInput extends LitElement {
   }
 
   private _renderIcon(name: string, className?: string) {
-    const svg = iconRegistry.get(name);
+    const svg =
+      name === "x"
+        ? REGULAR_X_ICON_SVG
+        : name === "spinner-gap"
+          ? REGULAR_SPINNER_GAP_ICON_SVG
+          : iconRegistry.get(name);
     if (!svg) {
       return nothing;
     }

@@ -1509,6 +1509,13 @@ describe("fd-global-header", () => {
       ".mobile-drawer-close",
     ) as HTMLButtonElement | null;
 
+    expect(closeButton?.querySelector(".regular-icon")?.innerHTML).toContain(
+      "<svg",
+    );
+    expect(closeButton?.querySelector(".regular-icon")?.innerHTML).not.toContain(
+      'opacity="0.2"',
+    );
+
     closeButton?.click();
     await el.updateComplete;
     await nextFrame();
@@ -1709,6 +1716,13 @@ describe("fd-global-header", () => {
     searchToggle?.click();
     await el.updateComplete;
     await nextFrame();
+
+    expect(searchToggle?.querySelector(".regular-icon")?.innerHTML).toContain(
+      "<svg",
+    );
+    expect(searchToggle?.querySelector(".regular-icon")?.innerHTML).not.toContain(
+      'opacity="0.2"',
+    );
 
     const searchDialog = el.shadowRoot?.querySelector(
       ".mobile-search-shell",
