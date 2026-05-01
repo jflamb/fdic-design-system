@@ -723,7 +723,7 @@ export const componentInventory = [
     },
     typeExports: ["FdDrawerPlacement", "FdDrawerCloseRequestDetail"],
   },
-    {
+  {
     tagName: "fd-page-header",
     className: "FdPageHeader",
     sourceFile: "fd-page-header.ts",
@@ -903,7 +903,7 @@ export const componentInventory = [
     },
     typeExports: []
   },
-    {
+  {
     tagName: "fd-card",
     className: "FdCard",
     sourceFile: "fd-card.ts",
@@ -951,7 +951,7 @@ export const componentInventory = [
       "FdGlobalFooterSocialLink",
     ],
   },
-    {
+  {
     tagName: "fd-card-group",
     className: "FdCardGroup",
     sourceFile: "fd-card-group.ts",
@@ -1126,6 +1126,50 @@ export const componentInventory = [
       dependencies: []
     },
     typeExports: ["SocialMediaListColumns"]
+  },
+    {
+    tagName: "fd-media-item",
+    className: "FdMediaItem",
+    sourceFile: "fd-media-item.ts",
+    docs: {
+      kind: "first-class",
+      title: "Media Item",
+      slug: "media-item",
+      category: "visual-media",
+      order: 130
+    },
+    storybook: {
+      title: "Components/Media Item",
+      file: "fd-media-item.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: []
+  },
+  {
+    tagName: "fd-media-list",
+    className: "FdMediaList",
+    sourceFile: "fd-media-list.ts",
+    docs: {
+      kind: "first-class",
+      title: "Media List",
+      slug: "media-list",
+      category: "visual-media",
+      order: 140
+    },
+    storybook: {
+      title: "Components/Media List",
+      file: "fd-media-list.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["MediaListColumns"]
   },
   // New component entries are inserted above this line by the scaffold script.
 ];

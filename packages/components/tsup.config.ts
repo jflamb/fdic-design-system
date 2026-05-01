@@ -61,6 +61,8 @@ export default defineConfig({
     "components/fd-link-category": "src/components/fd-link-category.ts",
     "components/fd-social-media-item": "src/components/fd-social-media-item.ts",
     "components/fd-social-media-list": "src/components/fd-social-media-list.ts",
+    "components/fd-media-item": "src/components/fd-media-item.ts",
+    "components/fd-media-list": "src/components/fd-media-list.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -110,6 +112,8 @@ export default defineConfig({
     "register/fd-link-category": "src/register/fd-link-category.ts",
     "register/fd-social-media-item": "src/register/fd-social-media-item.ts",
     "register/fd-social-media-list": "src/register/fd-social-media-list.ts",
+    "register/fd-media-item": "src/register/fd-media-item.ts",
+    "register/fd-media-list": "src/register/fd-media-list.ts",
 
     // Icon packs
     "icons/phosphor-duotone": "src/icons/phosphor-duotone.ts",

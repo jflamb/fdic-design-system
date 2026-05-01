@@ -234,6 +234,14 @@
       "types": "./dist/components/fd-social-media-list.d.ts",
       "import": "./dist/components/fd-social-media-list.js"
     },
+    "./fd-media-item": {
+      "types": "./dist/components/fd-media-item.d.ts",
+      "import": "./dist/components/fd-media-item.js"
+    },
+    "./fd-media-list": {
+      "types": "./dist/components/fd-media-list.d.ts",
+      "import": "./dist/components/fd-media-list.js"
+    },
     "./icons/phosphor-duotone": {
       "types": "./dist/icons/phosphor-duotone.d.ts",
       "import": "./dist/icons/phosphor-duotone.js"

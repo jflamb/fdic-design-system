@@ -768,6 +768,36 @@ export const componentStoryApi = {
     "label": undefined,
     },
   },
+  "fd-media-item": {
+    argTypes: {
+    "title": { control: "text" },
+    "href": { control: "text" },
+    "target": { control: "text" },
+    "rel": { control: "text" },
+    "metadata": { control: "text" },
+    "imageSrc": { control: "text" },
+    "imageAlt": { control: "text" },
+    },
+    args: {
+    "title": "",
+    "href": undefined,
+    "target": undefined,
+    "rel": undefined,
+    "metadata": "",
+    "imageSrc": undefined,
+    "imageAlt": "",
+    },
+  },
+  "fd-media-list": {
+    argTypes: {
+    "columns": { control: "select", options: ["2","3","4"] },
+    "label": { control: "text" },
+    },
+    args: {
+    "columns": "3",
+    "label": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

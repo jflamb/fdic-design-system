@@ -5617,5 +5617,250 @@
       ],
       "after": ""
     }
+  },
+  "fd-media-item": {
+    "properties": {
+      "rows": [
+        {
+          "name": "title",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible media title. When `href` is present, this text becomes the native link name."
+        },
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the title link. If omitted or blank, the title renders as static text."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native title-link target. Applies only when `href` is set."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native title-link relationship tokens. When `target=\"_blank\"`, `fd-media-item` always adds `noopener noreferrer`."
+        },
+        {
+          "name": "metadata",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible supporting metadata such as duration, level, date, or update status."
+        },
+        {
+          "name": "image-src",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Thumbnail image URL."
+        },
+        {
+          "name": "image-alt",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Alternative text for the thumbnail. Use empty text only when the image is decorative or repeats nearby text."
+        }
+      ],
+      "after": "`fd-media-item` keeps the host shell and thumbnail static. The title is the only native navigation target when `href` is set."
+    },
+    "slots": {
+      "rows": [],
+      "after": "`fd-media-item` does not expose slots in v1."
+    },
+    "events": {
+      "rows": [],
+      "after": "`fd-media-item` does not emit custom events in v1. Native link events bubble from the internal title link."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-media-item-gap",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
+          "description": "Gap between the thumbnail and content."
+        },
+        {
+          "name": "--fd-media-item-media-height",
+          "default": "`auto`",
+          "description": "Optional fixed thumbnail container height. Leave unset to preserve the default aspect ratio."
+        },
+        {
+          "name": "--fd-media-item-media-aspect-ratio",
+          "default": "`366 / 201`",
+          "description": "Thumbnail aspect ratio."
+        },
+        {
+          "name": "--fd-media-item-media-radius",
+          "default": "`var(--fdic-corner-radius-lg, 7px)`",
+          "description": "Thumbnail corner radius."
+        },
+        {
+          "name": "--fd-media-item-title-color",
+          "default": "`var(--fdic-color-text-link, #1278b0)`",
+          "description": "Linked title text color."
+        },
+        {
+          "name": "--fd-media-item-title-font-size",
+          "default": "`var(--fdic-font-size-body-big, 20px)`",
+          "description": "Title font size."
+        },
+        {
+          "name": "--fd-media-item-title-font-weight",
+          "default": "`450`",
+          "description": "Title font weight."
+        },
+        {
+          "name": "--fd-media-item-metadata-color",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
+          "description": "Metadata text color."
+        },
+        {
+          "name": "--fd-media-item-metadata-font-size",
+          "default": "`var(--fdic-font-size-body, 18px)`",
+          "description": "Metadata font size."
+        },
+        {
+          "name": "--fd-media-item-focus-gap",
+          "default": "`var(--fdic-focus-gap-color)`",
+          "description": "Inner gap color for title-link focus."
+        },
+        {
+          "name": "--fd-media-item-focus-ring",
+          "default": "`var(--fdic-focus-ring-color)`",
+          "description": "Outer ring color for title-link focus."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper."
+        },
+        {
+          "name": "media",
+          "description": "Thumbnail image wrapper."
+        },
+        {
+          "name": "image",
+          "description": "Native thumbnail image."
+        },
+        {
+          "name": "content",
+          "description": "Title and metadata wrapper."
+        },
+        {
+          "name": "title",
+          "description": "Shared title styling hook for linked and static titles."
+        },
+        {
+          "name": "title-link",
+          "description": "Native title link."
+        },
+        {
+          "name": "title-text",
+          "description": "Static title text when `href` is omitted."
+        },
+        {
+          "name": "metadata",
+          "description": "Visible supporting metadata."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-media-list": {
+    "properties": {
+      "rows": [
+        {
+          "name": "columns",
+          "type": "`\"2\"` \\| `\"3\"` \\| `\"4\"`",
+          "defaultValue": "`\"3\"`",
+          "description": "Preferred desktop column count. Narrow containers automatically wrap to fewer columns."
+        },
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible label for the internal list."
+        }
+      ],
+      "after": "`fd-media-list` is a static grouping container. It does not own active-item, selection, removal, sorting, playback, or keyboard navigation state."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Author direct `fd-media-item` children. Each direct child receives list-item semantics."
+        }
+      ],
+      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct `fd-media-item` children."
+    },
+    "events": {
+      "rows": [],
+      "after": "`fd-media-list` does not emit custom events in v1."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-media-list-col-2-min",
+          "default": "`var(--fdic-layout-col-2-min)`",
+          "description": "Minimum track size for two-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-2-max",
+          "default": "`var(--fdic-layout-col-2-max)`",
+          "description": "Maximum track size for two-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-2-gap",
+          "default": "`var(--fdic-layout-col-2-gap)`",
+          "description": "Column gap for two-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-3-min",
+          "default": "`320px`",
+          "description": "Minimum track size for three-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-3-gap",
+          "default": "`var(--fdic-layout-col-3-gap)`",
+          "description": "Column gap for three-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-3-row-gap",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
+          "description": "Row gap for three-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-4-min",
+          "default": "`var(--fdic-layout-col-4-min)`",
+          "description": "Minimum track size for four-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-4-max",
+          "default": "`var(--fdic-layout-col-4-max)`",
+          "description": "Maximum track size for four-column layout."
+        },
+        {
+          "name": "--fd-media-list-col-4-gap",
+          "default": "`var(--fdic-layout-col-4-gap)`",
+          "description": "Column gap for four-column layout."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Internal responsive list wrapper."
+        }
+      ],
+      "after": ""
+    }
   }
 }
