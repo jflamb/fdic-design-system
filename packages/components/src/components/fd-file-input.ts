@@ -3,6 +3,7 @@ import type { PropertyValues, TemplateResult } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { iconRegistry } from "../icons/registry.js";
 import { FormControlController } from "./form-control-controller.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export type FileInputItemState =
   | "uploading"
@@ -433,14 +434,14 @@ export class FdFileInput extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       [part="container"]::before,
       .fd-file-input__indicator-progress,
       .fd-file-input__status-icon--uploading {
         transition: none;
         animation: none;
       }
-    }
+    `}
 
     @media (forced-colors: active) {
       [part="container"] {

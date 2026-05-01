@@ -5,6 +5,7 @@ import { ifDefined } from "lit/directives/if-defined.js";
 import { repeat } from "lit/directives/repeat.js";
 import type { FdPaginationRequestDetail } from "../public-events.js";
 import "../icons/phosphor-duotone.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 type PaginationEntry =
   | {
@@ -302,12 +303,12 @@ export class FdPagination extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       .control,
       .mobile-select {
         transition: none !important;
       }
-    }
+    `}
 
     @media print {
       .control {

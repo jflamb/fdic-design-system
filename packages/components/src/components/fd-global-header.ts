@@ -11,6 +11,7 @@ import type {
   HeaderSearchSurface,
 } from "./fd-header-search.js";
 import { extractHeaderSearchAliasData } from "./fd-header-search-utils.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export type GlobalHeaderSearchSurface = HeaderSearchSurface;
 
@@ -1801,7 +1802,7 @@ export class FdGlobalHeader extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       *,
       *::before,
       *::after {
@@ -1812,7 +1813,7 @@ export class FdGlobalHeader extends LitElement {
       .base[data-shy-active="true"] {
         transition: none !important;
       }
-    }
+    `}
   `;
 
   declare navigation: FdGlobalHeaderNavigationItem[];

@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { forcedColorsMediaFrame } from "./forced-colors.js";
 import { normalizeLinkRel } from "./link-utils.js";
 
 export const CARD_SIZES = ["medium", "large"] as const;
@@ -225,6 +226,8 @@ export class FdCard extends LitElement {
       }
     }
 
+    ${forcedColorsMediaFrame}
+
     @media (forced-colors: active) {
       article {
         border-color: CanvasText;
@@ -232,11 +235,6 @@ export class FdCard extends LitElement {
         color: CanvasText;
         box-shadow: none;
         forced-color-adjust: none;
-      }
-
-      [part="media"] {
-        background: Canvas;
-        border: 1px solid CanvasText;
       }
 
       [part="media"] img {

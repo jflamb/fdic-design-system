@@ -2,6 +2,8 @@ import { LitElement, css, html, nothing } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { iconRegistry } from "../icons/registry.js";
+import { normalizeLinkRel } from "./link-utils.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export type ButtonVariant =
   | "primary"
@@ -263,11 +265,11 @@ export class FdButton extends LitElement {
       padding-inline: 6px;
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       .spinner {
         animation: none;
       }
-    }
+    `}
 
     /* --- Forced colors --- */
     @media (forced-colors: active) {
@@ -411,24 +413,6 @@ export class FdButton extends LitElement {
     };
   }
 
-  private _getNormalizedRel() {
-    if (this.target !== "_blank") {
-      return this.rel;
-    }
-
-    const tokens = new Set(
-      (this.rel ?? "")
-        .split(/\s+/)
-        .map((token) => token.trim().toLowerCase())
-        .filter(Boolean),
-    );
-
-    tokens.add("noopener");
-    tokens.add("noreferrer");
-
-    return [...tokens].join(" ");
-  }
-
   private _renderSpinner() {
     const svg = iconRegistry.get("spinner-gap") ?? "";
     return html`<span
@@ -507,7 +491,7 @@ export class FdButton extends LitElement {
         class=${classMap(classes)}
         href=${ifDefined(this.href)}
         target=${ifDefined(this.target)}
-        rel=${ifDefined(this._getNormalizedRel())}
+        rel=${ifDefined(normalizeLinkRel(this.target, this.rel))}
         aria-label=${ariaLabel}
         aria-labelledby=${ariaLabelledby}
         >${content}</a

@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export const VISUAL_TYPES = ["neutral", "cool", "warm", "avatar"] as const;
 export type VisualType = (typeof VISUAL_TYPES)[number];
@@ -249,11 +250,11 @@ export class FdVisual extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       .surface {
         transition: none;
       }
-    }
+    `}
   `;
 
   declare type: string;

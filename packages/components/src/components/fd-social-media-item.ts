@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { GLOBAL_FOOTER_SOCIAL_ICONS } from "./fd-global-footer.icons.js";
+import { forcedColorsMediaFrame } from "./forced-colors.js";
 
 export const SOCIAL_MEDIA_PLATFORMS = [
   "facebook",
@@ -264,13 +265,9 @@ export class FdSocialMediaItem extends LitElement {
       clip-path: inset(50%);
     }
 
-    @media (forced-colors: active) {
-      [part="media"] {
-        border: 1px solid CanvasText;
-        background: Canvas;
-        forced-color-adjust: none;
-      }
+    ${forcedColorsMediaFrame}
 
+    @media (forced-colors: active) {
       [part="timestamp"],
       [part="platform-label"],
       [part="body"],

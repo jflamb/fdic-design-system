@@ -3,6 +3,7 @@ import type { CSSResult, PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { forcedColorsFieldGroup } from "./forced-colors.js";
 import { GroupFormController } from "./group-form-controller.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export type FormGroupOrientation = "vertical" | "horizontal";
 
@@ -82,11 +83,11 @@ export function fieldGroupStyles(customPropertyPrefix: string): CSSResult[] {
       padding-inline-start: var(--fdic-spacing-sm, 12px);
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       :host {
         transition: none !important;
       }
-    }
+    `}
   `];
 }
 

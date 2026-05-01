@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { normalizePillType } from "./chip-common.js";
 import type { PillType } from "./chip-common.js";
+import { forcedColorsBadgeContainer } from "./forced-colors.js";
 
 export type BadgeType = PillType;
 
@@ -83,13 +84,7 @@ export class FdBadge extends LitElement {
       word-break: break-word;
     }
 
-    @media (forced-colors: active) {
-      .container {
-        background: Canvas;
-        color: CanvasText;
-        border: 1px solid ButtonText;
-      }
-    }
+    ${forcedColorsBadgeContainer}
   `;
 
   declare type: string;

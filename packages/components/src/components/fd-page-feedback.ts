@@ -2,6 +2,7 @@ import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues, TemplateResult } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
+import { normalizeLinkRel } from "./link-utils.js";
 
 export const PAGE_FEEDBACK_VIEWS = [
   "prompt",
@@ -598,7 +599,7 @@ export class FdPageFeedback extends LitElement {
         <fd-link
           href=${this.surveyHref}
           target=${ifDefined(this.surveyTarget)}
-          rel=${ifDefined(this.surveyRel)}
+          rel=${ifDefined(normalizeLinkRel(this.surveyTarget, this.surveyRel))}
           data-focus-target="survey-link"
         >
           Please complete this survey

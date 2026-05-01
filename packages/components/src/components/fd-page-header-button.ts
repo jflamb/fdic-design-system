@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { iconRegistry } from "../icons/registry.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 /**
  * `fd-page-header-button` — Convenience wrapper around `fd-button` for `fd-page-header` actions.
@@ -96,11 +97,11 @@ export class FdPageHeaderButton extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       fd-button {
         --fd-button-spinner-speed: 0s;
       }
-    }
+    `}
   `;
 
   declare icon: string;

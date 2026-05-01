@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { normalizeLinkRel } from "./link-utils.js";
 
 export const HERO_TONES = ["cool", "warm", "neutral"] as const;
 export type HeroTone = (typeof HERO_TONES)[number];
@@ -375,24 +376,6 @@ export class FdHero extends LitElement {
     this.requestUpdate();
   }
 
-  private _getNormalizedRel() {
-    if (this.actionTarget !== "_blank") {
-      return this.actionRel;
-    }
-
-    const tokens = new Set(
-      (this.actionRel ?? "")
-        .split(/\s+/)
-        .map((token) => token.trim().toLowerCase())
-        .filter(Boolean),
-    );
-
-    tokens.add("noopener");
-    tokens.add("noreferrer");
-
-    return [...tokens].join(" ");
-  }
-
   private get _hasAction() {
     return Boolean(this.actionLabel?.trim() && this.actionHref?.trim());
   }
@@ -455,7 +438,7 @@ export class FdHero extends LitElement {
                     class="action"
                     href=${this.actionHref!}
                     target=${ifDefined(this.actionTarget)}
-                    rel=${ifDefined(this._getNormalizedRel())}
+                    rel=${ifDefined(normalizeLinkRel(this.actionTarget, this.actionRel))}
                   >
                     <span>${this.actionLabel}</span>
                     <span part="action-icon" class="action-icon">

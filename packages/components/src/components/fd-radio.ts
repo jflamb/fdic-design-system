@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { reducedMotion } from "./reduced-motion.js";
 import { SingleValueFormController } from "./single-value-form-controller.js";
 
 export class FdRadio extends LitElement {
@@ -139,11 +140,11 @@ export class FdRadio extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       [part="control"] input {
         transition: none !important;
       }
-    }
+    `}
 
     @media print {
       [part="control"] input {

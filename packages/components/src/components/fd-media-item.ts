@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { forcedColorsMediaFrame } from "./forced-colors.js";
 import { normalizeLinkRel } from "./link-utils.js";
 
 let mediaItemTitleIds = 0;
@@ -157,13 +158,9 @@ export class FdMediaItem extends LitElement {
       white-space: pre-wrap;
     }
 
-    @media (forced-colors: active) {
-      [part="media"] {
-        border: 1px solid CanvasText;
-        background: Canvas;
-        forced-color-adjust: none;
-      }
+    ${forcedColorsMediaFrame}
 
+    @media (forced-colors: active) {
       [part~="title"],
       [part="metadata"] {
         color: CanvasText;

@@ -67,3 +67,35 @@ export const forcedColorsFieldGroup = css`
     }
   }
 `;
+
+/**
+ * Badge container forced-colors — shared by fd-badge and fd-chip.
+ *
+ * Covers the compact pill/swatch shell colors while leaving component-specific
+ * controls, such as chip removal buttons, in the owning component.
+ */
+export const forcedColorsBadgeContainer = css`
+  @media (forced-colors: active) {
+    .container {
+      background: Canvas;
+      color: CanvasText;
+      border: 1px solid ButtonText;
+    }
+  }
+`;
+
+/**
+ * Media frame forced-colors — shared by editorial media surfaces.
+ *
+ * Covers the repeated `[part="media"]` frame treatment used by cards and media
+ * list items. Component-specific text and link colors stay local.
+ */
+export const forcedColorsMediaFrame = css`
+  @media (forced-colors: active) {
+    [part="media"] {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      forced-color-adjust: none;
+    }
+  }
+`;

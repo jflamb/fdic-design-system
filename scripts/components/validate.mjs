@@ -161,6 +161,8 @@ for (const component of standaloneDocComponents) {
   }
 }
 
+validateBlankTargetLinkRelHardening(errors);
+
 if (generatedFilesChanged(beforeSync, afterSync)) {
   errors.push(
     "Generated files are out of date. Run `npm run sync:components` and commit the results.",
@@ -219,4 +221,30 @@ function propertyExistsInSource(sourceText, propertyName) {
 
 function isNativeEventRow(row) {
   return typeof row.detail === "string" && row.detail.includes("Native");
+}
+
+function validateBlankTargetLinkRelHardening(errors) {
+  const componentDir = path.join(repoRoot, "packages/components/src/components");
+  const files = fs
+    .readdirSync(componentDir)
+    .filter(
+      (file) =>
+        file.startsWith("fd-") &&
+        file.endsWith(".ts") &&
+        !file.endsWith(".test.ts") &&
+        !file.includes(".reference"),
+    );
+
+  for (const file of files) {
+    const sourceText = fs.readFileSync(path.join(componentDir, file), "utf8");
+    const bindsTargetAttribute =
+      /(^|\s)target\s*=\s*\$\{\s*ifDefined\(/.test(sourceText) ||
+      /(^|\s)target\s*=\s*\$\{/.test(sourceText);
+
+    if (bindsTargetAttribute && !sourceText.includes("normalizeLinkRel(")) {
+      errors.push(
+        `${file} binds a link target but does not call normalizeLinkRel() for blank-target rel hardening.`,
+      );
+    }
+  }
 }

@@ -4,6 +4,7 @@ import { iconRegistry } from "../icons/registry.js";
 import { normalizeLabelText, normalizePillType } from "./chip-common.js";
 import type { FdChipRemoveDetail } from "../public-events.js";
 import type { PillType } from "./chip-common.js";
+import { forcedColorsBadgeContainer } from "./forced-colors.js";
 
 export type ChipType = PillType;
 
@@ -167,13 +168,9 @@ export class FdChip extends LitElement {
       block-size: 100%;
     }
 
-    @media (forced-colors: active) {
-      .container {
-        background: Canvas;
-        color: CanvasText;
-        border: 1px solid ButtonText;
-      }
+    ${forcedColorsBadgeContainer}
 
+    @media (forced-colors: active) {
       .remove-button {
         color: ButtonText;
       }

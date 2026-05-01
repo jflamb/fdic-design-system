@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { reducedMotion } from "./reduced-motion.js";
 import { SingleValueFormController } from "./single-value-form-controller.js";
 
 type NormalizedSliderConfig = {
@@ -359,12 +360,12 @@ export class FdSlider extends LitElement {
       border: 0;
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       [part="range"]::-webkit-slider-thumb,
       [part="range"]::-moz-range-thumb {
         transition: none;
       }
-    }
+    `}
 
     @media (forced-colors: active) {
       [part="track"] {

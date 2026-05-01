@@ -7,7 +7,7 @@ export function normalizeLinkRel(
   target: string | undefined,
   rel: string | undefined,
 ) {
-  if (target !== "_blank") {
+  if (target?.trim() !== "_blank") {
     return rel;
   }
 

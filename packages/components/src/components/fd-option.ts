@@ -1,4 +1,5 @@
 import { LitElement, css, html, nothing } from "lit";
+import { reducedMotion } from "./reduced-motion.js";
 
 export class FdOption extends LitElement {
   static properties = {
@@ -214,11 +215,11 @@ export class FdOption extends LitElement {
     }
 
     /* --- Reduced motion --- */
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       [part="option"]::after {
         transition: none !important;
       }
-    }
+    `}
 
     @media print {
       [part="option"]::after {

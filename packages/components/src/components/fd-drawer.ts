@@ -1,4 +1,5 @@
 import { LitElement, css, html, nothing } from "lit";
+import { reducedMotion } from "./reduced-motion.js";
 
 export const DRAWER_PLACEMENTS = ["top", "right", "bottom", "left"] as const;
 export type FdDrawerPlacement = (typeof DRAWER_PLACEMENTS)[number];
@@ -229,13 +230,13 @@ export class FdDrawer extends LitElement {
       min-width: 0;
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       dialog.base,
       dialog.base::backdrop,
       .surface {
         transition: none;
       }
-    }
+    `}
 
     @media (forced-colors: active) {
       .surface {

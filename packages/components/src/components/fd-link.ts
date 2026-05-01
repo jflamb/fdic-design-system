@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { normalizeLinkRel } from "./link-utils.js";
 
 export const LINK_VARIANTS = [
   "normal",
@@ -255,24 +256,6 @@ export class FdLink extends LitElement {
     };
   }
 
-  private _getNormalizedRel() {
-    if (this.target !== "_blank") {
-      return this.rel;
-    }
-
-    const tokens = new Set(
-      (this.rel ?? "")
-        .split(/\s+/)
-        .map((token) => token.trim().toLowerCase())
-        .filter(Boolean),
-    );
-
-    tokens.add("noopener");
-    tokens.add("noreferrer");
-
-    return [...tokens].join(" ");
-  }
-
   private _hasNamedSlot(name: "icon-start" | "icon-end") {
     return this.querySelector(`[slot="${name}"]`) !== null;
   }
@@ -295,7 +278,7 @@ export class FdLink extends LitElement {
         class=${classMap(classes)}
         href=${ifDefined(this.href ?? undefined)}
         target=${ifDefined(this.target ?? undefined)}
-        rel=${ifDefined(this._getNormalizedRel() ?? undefined)}
+        rel=${ifDefined(normalizeLinkRel(this.target, this.rel) ?? undefined)}
         aria-current=${ariaCurrent}
         aria-label=${ariaLabel}
         aria-labelledby=${ariaLabelledby}

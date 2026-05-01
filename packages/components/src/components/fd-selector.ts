@@ -4,6 +4,7 @@ import type {
   FdSelectorChangeDetail,
   FdSelectorOpenChangeDetail,
 } from "../public-events.js";
+import { reducedMotion } from "./reduced-motion.js";
 import { SingleValueFormController } from "./single-value-form-controller.js";
 import type { FdOption } from "./fd-option.js";
 
@@ -297,11 +298,11 @@ export class FdSelector extends LitElement {
     }
 
     /* --- Reduced motion --- */
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       [part="chevron"] {
         transition: none !important;
       }
-    }
+    `}
 
     /* --- Print --- */
     @media print {

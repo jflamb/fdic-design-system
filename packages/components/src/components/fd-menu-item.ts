@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import type { FdMenuItemSelectDetail } from "../public-events.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export type MenuItemVariant = "default" | "destructive";
 
@@ -97,11 +98,11 @@ export class FdMenuItem extends LitElement {
     }
 
     /* --- Reduced motion guard --- */
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       .base {
         transition: none;
       }
-    }
+    `}
   `;
 
   declare disabled: boolean;

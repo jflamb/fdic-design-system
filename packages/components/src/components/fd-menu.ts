@@ -4,6 +4,7 @@ import type { FdMenuOpenChangeDetail } from "../public-events.js";
 import { computePlacement } from "./placement.js";
 import type { Placement } from "./placement.js";
 import type { FdMenuItem } from "./fd-menu-item.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export { Placement };
 
@@ -69,11 +70,11 @@ export class FdMenu extends LitElement {
     }
 
     /* --- Reduced motion guard --- */
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       .surface {
         transition: none;
       }
-    }
+    `}
 
     @media print {
       .surface {

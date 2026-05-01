@@ -1,6 +1,7 @@
 import { LitElement, css, html, nothing } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { normalizeLinkRel } from "./link-utils.js";
+import { reducedMotion } from "./reduced-motion.js";
 
 export const EVENT_TONES = ["neutral", "cool", "warm"] as const;
 export type EventTone = (typeof EVENT_TONES)[number];
@@ -279,12 +280,12 @@ export class FdEvent extends LitElement {
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    ${reducedMotion`
       [part="date"],
       .title-link {
         transition: none;
       }
-    }
+    `}
   `;
 
   declare tone: EventTone;
