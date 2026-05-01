@@ -151,6 +151,10 @@ export class FdHeaderSearch extends LitElement {
       z-index: 62;
     }
 
+    :host([surface="mobile"]) {
+      min-width: 0;
+    }
+
     :host([hidden]) {
       display: none;
     }
@@ -173,11 +177,13 @@ export class FdHeaderSearch extends LitElement {
 
     .root {
       display: block;
+      min-width: 0;
     }
 
     .field {
       position: relative;
       width: 100%;
+      min-width: 0;
     }
 
     :host([surface="desktop"]) .field {
@@ -411,7 +417,8 @@ export class FdHeaderSearch extends LitElement {
 
     .mobile-results-group {
       display: grid;
-      gap: 0;
+      gap: 0.875rem;
+      margin-block-start: 1rem;
     }
 
     .mobile-header .field {
@@ -427,17 +434,28 @@ export class FdHeaderSearch extends LitElement {
     }
 
     :host([surface="mobile"]) .results {
-      width: 100%;
+      width: calc(100% + 2rem);
       min-height: 0;
       max-height: none;
-      border: 1px solid var(--fdic-color-border-divider, rgba(188, 202, 214, 0.7));
-      border-radius: 12px;
-      background: var(--fdic-color-bg-surface, #ffffff);
-      box-shadow: 0 10px 24px var(--fdic-color-effect-shadow, rgba(0, 18, 32, 0.16));
+      margin-inline: -1rem;
+      border-block: 1px solid var(--fdic-color-border-divider, rgba(188, 202, 214, 0.7));
+      background: transparent;
+      box-shadow: none;
     }
 
     :host([surface="mobile"]) .result-link {
-      padding-inline: 1rem;
+      padding: 1rem;
+    }
+
+    :host([surface="mobile"]) .result-link:focus-visible,
+    :host([surface="mobile"]) .result-link[data-active="true"] {
+      box-shadow:
+        inset 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fdic-focus-gap-color, #ffffff),
+        inset 0 0 0 calc(
+          var(--fdic-focus-gap-width, 2px) + var(--fdic-focus-ring-width, 4px)
+        )
+          var(--fdic-focus-ring-color, #38b6ff);
     }
 
     .shortcut-hint {

@@ -1297,6 +1297,7 @@ export class FdGlobalHeader extends LitElement {
     .mobile-search-shell {
       position: fixed;
       inset-block: 0;
+      inset-inline-start: auto;
       inset-inline-end: 0;
       width: min(88vw, 22.5rem);
       max-width: 100vw;
@@ -1329,11 +1330,14 @@ export class FdGlobalHeader extends LitElement {
 
     .mobile-search-sheet {
       min-height: 100dvh;
+      box-sizing: border-box;
       padding: 1rem 1rem 1.5rem;
     }
 
     .mobile-search {
-      width: 100%;
+      width: auto;
+      max-width: 100%;
+      min-width: 0;
     }
 
     .mobile-drawer-close {
@@ -1672,6 +1676,7 @@ export class FdGlobalHeader extends LitElement {
       gap: 0.75rem;
       width: 100%;
       height: 100%;
+      box-sizing: border-box;
       padding: 1rem;
       background: var(--fd-global-header-color-surface-base);
       overflow: hidden;
@@ -1738,6 +1743,7 @@ export class FdGlobalHeader extends LitElement {
         gap: 0.75rem;
         width: 100%;
         height: 100%;
+        box-sizing: border-box;
         padding: 1rem;
         background: var(--fd-global-header-color-surface-base);
         overflow: hidden;

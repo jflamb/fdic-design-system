@@ -257,8 +257,8 @@ const renderRecipe = () => html`
 
     <main style=${PAGE_MAIN_STYLE}>
       <fd-page-header
-        heading="FDICnet"
-        kicker="Employee resources, updates, and tools"
+        heading="Employee Resources"
+        kicker="Find commonly used FDICnet tools, events, and support information."
         breadcrumb-label="Breadcrumbs"
         .breadcrumbs=${[{ label: "Home", href: "#" }]}
         style=${PAGE_HEADER_SHELL_STYLE}
