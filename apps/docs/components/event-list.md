@@ -79,6 +79,7 @@ The Event List component arranges direct event children in a responsive wrapping
 |---|---|---|---|
 | `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC Figma column constraint set. `2`, `3`, and `4` map to the design-system `col-2`, `col-3`, and `col-4` min/max/gap metrics. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
+| `labelledby` | `string \| undefined` | `undefined` | ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found. |
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Shared decorative tone applied to each direct `fd-event` child in the list. |
 
 - `fd-event-list` is a static grouping container. It does not own active-item, selection, or keyboard navigation state.
@@ -99,7 +100,7 @@ The Event List component arranges direct event children in a responsive wrapping
 | `--fd-event-list-col-2-min` | `var(--fdic-layout-col-2-min, 384px)` | Desktop minimum event-track width for the two-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-2-max` | `var(--fdic-layout-col-2-max, 688px)` | Desktop maximum event-track width for the two-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-2-gap` | `var(--fdic-layout-col-2-gap, 48px)` | Desktop row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-event-list-col-3-min` | `320px` | Desktop minimum event-track width for the three-column constraint set. |
+| `--fd-event-list-col-3-min` | `var(--fdic-layout-col-3-min, 320px)` | Desktop minimum event-track width for the three-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-3-max` | `calc((var(--fdic-layout-shell-max-width, 1312px) - (2 * var(--fd-event-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px)))) / 3)` | Desktop maximum event-track width for the three-column constraint set, derived from the shared shell width and column gap. |
 | `--fd-event-list-col-3-gap` | `var(--fdic-layout-col-3-gap, 48px)` | Desktop column gap for the three-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-3-row-gap` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Desktop row gap for the three-column constraint set. Defaults to compact section rhythm. |
@@ -108,7 +109,7 @@ The Event List component arranges direct event children in a responsive wrapping
 | `--fd-event-list-col-4-gap` | `var(--fdic-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-2-min-mobile` | `var(--fdic-layout-col-2-min-narrow, 320px)` | Narrow-screen minimum event-track width for the two-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-2-gap-mobile` | `var(--fdic-layout-col-2-gap-narrow, 16px)` | Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-event-list-col-3-min-mobile` | `320px` | Narrow-container minimum event-track width for the three-column constraint set. |
+| `--fd-event-list-col-3-min-mobile` | `var(--fdic-layout-col-3-min-narrow, 320px)` | Narrow-container minimum event-track width for the three-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-3-gap-mobile` | `var(--fdic-layout-col-3-gap, 48px)` | Narrow-container column gap for the three-column constraint set. Defaults to the shared desktop column gap so collapsed rows preserve readable track widths. |
 | `--fd-event-list-col-3-row-gap-mobile` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Narrow-container row gap for the three-column constraint set. Defaults to compact section rhythm. |
 | `--fd-event-list-col-4-min-mobile` | `var(--fdic-layout-col-4-min-narrow, 160px)` | Narrow-screen minimum event-track width for the four-column constraint set. Defaults to the shared layout column token. |

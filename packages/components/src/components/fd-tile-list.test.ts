@@ -8,12 +8,14 @@ async function createList(
   props: Partial<HTMLElement & {
     columns?: "2" | "3" | "4";
     label?: string;
+    labelledby?: string;
     tone?: "neutral" | "cool" | "warm";
   }> = {},
 ) {
   const el = document.createElement("fd-tile-list") as HTMLElement & {
     columns?: "2" | "3" | "4";
     label?: string;
+    labelledby?: string;
     tone?: "neutral" | "cool" | "warm";
     updateComplete: Promise<void>;
   };
@@ -176,9 +178,9 @@ describe("FdTileList", () => {
       .join("\n");
 
     expect(styles).toContain("var(--fd-tile-list-col-2-min, var(--fdic-layout-col-2-min))");
-    expect(styles).toContain("--fd-tile-list-col-3-min: 320px");
+    expect(styles).toContain("--fd-tile-list-col-3-min: var(--fdic-layout-col-3-min, 320px)");
     expect(styles).toContain("--fd-tile-list-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px)");
-    expect(styles).toContain("--fd-tile-list-col-3-min-mobile: 320px");
+    expect(styles).toContain("--fd-tile-list-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow, 320px)");
     expect(styles).toContain("--fd-tile-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap, 48px)");
     expect(styles).toContain("--fd-tile-list-col-3-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px)");
     expect(styles).toContain("var(--fdic-layout-shell-max-width, 1312px)");
@@ -215,6 +217,25 @@ describe("FdTileList", () => {
     await tile.updateComplete;
 
     expect(tile.getAttribute("tone")).toBe("neutral");
+    expect(list.getAttribute("tone")).toBe("neutral");
+  });
+
+  it("uses aria-labelledby when labelledby references visible copy", async () => {
+    const heading = document.createElement("h2");
+    heading.id = "benefits-heading";
+    heading.textContent = "Visible benefits links";
+    document.body.append(heading);
+    const el = await createList({
+      label: "Benefits links",
+      labelledby: "benefits-heading",
+    });
+    const list = el.shadowRoot?.querySelector("[part=base]");
+    const proxy = el.shadowRoot?.getElementById(
+      list?.getAttribute("aria-labelledby") ?? "",
+    );
+
+    expect(proxy?.textContent).toBe("Visible benefits links");
+    expect(list?.hasAttribute("aria-label")).toBe(false);
   });
 
   it("updates the accessible name when the label changes", async () => {

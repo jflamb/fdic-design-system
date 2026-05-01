@@ -65,7 +65,7 @@ describe("FdMediaList", () => {
     expect(items[1]?.getAttribute("role")).toBe("listitem");
   });
 
-  it("assigns listitem semantics to unexpected direct element children", async () => {
+  it("does not assign listitem semantics to unexpected direct element children", async () => {
     const el = await createMediaList({}, 0);
     const child = document.createElement("div");
     el.appendChild(child);
@@ -73,7 +73,25 @@ describe("FdMediaList", () => {
     await el.updateComplete;
     el.shadowRoot?.querySelector("slot")?.dispatchEvent(new Event("slotchange"));
 
-    expect(child.getAttribute("role")).toBe("listitem");
+    expect(child.hasAttribute("role")).toBe(false);
+  });
+
+  it("uses aria-labelledby when labelledby references visible copy", async () => {
+    const heading = document.createElement("h2");
+    heading.id = "training-heading";
+    heading.textContent = "Visible training videos";
+    document.body.append(heading);
+    const el = await createMediaList({
+      label: "Training videos",
+      labelledby: "training-heading",
+    });
+    const list = el.shadowRoot?.querySelector("[part=base]");
+    const proxy = el.shadowRoot?.getElementById(
+      list?.getAttribute("aria-labelledby") ?? "",
+    );
+
+    expect(proxy?.textContent).toBe("Visible training videos");
+    expect(list?.hasAttribute("aria-label")).toBe(false);
   });
 
   it("restores listitem semantics if a managed child role changes", async () => {

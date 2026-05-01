@@ -14,6 +14,11 @@ const FIGMA_NARROW_THRESHOLD_PX: Record<CollectionColumns, number> = {
   "3": 1176,
   "4": 1168,
 };
+const COLLECTION_COLLAPSE_MAX_WIDTH_PX: Record<CollectionColumns, number> = {
+  "2": FIGMA_NARROW_THRESHOLD_PX["2"] - 1,
+  "3": FIGMA_NARROW_THRESHOLD_PX["3"] - 1,
+  "4": FIGMA_NARROW_THRESHOLD_PX["4"] - 1,
+};
 
 function trackMinToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
   const componentSuffix = narrow ? `col-${columns}-min-mobile` : `col-${columns}-min`;
@@ -61,6 +66,7 @@ export function collectionGridStyles(prefix: string) {
   return css`
     :host {
       inline-size: 100%;
+      /* Collection list collapse queries depend on this local container. */
       container-type: inline-size;
     }
 
@@ -125,6 +131,93 @@ export function collectionGridStyles(prefix: string) {
         ${internalColumnGap}: ${trackGapToken(prefix, "4", true)};
         ${internalRowGap}: ${trackRowGapToken(prefix, "4", true)};
       }
+    }
+  `;
+}
+
+export function collectionGridLayoutStyles(prefix: string, childSelector: string) {
+  const trackMin = unsafeCSS(`--_${prefix}-track-min`);
+  const trackMax = unsafeCSS(`--_${prefix}-track-max`);
+
+  return css`
+    :host {
+      display: block;
+      --${unsafeCSS(prefix)}-col-2-min: var(--fdic-layout-col-2-min);
+      --${unsafeCSS(prefix)}-col-2-max: var(--fdic-layout-col-2-max);
+      --${unsafeCSS(prefix)}-col-2-gap: var(--fdic-layout-col-2-gap);
+      --${unsafeCSS(prefix)}-col-3-min: var(--fdic-layout-col-3-min, 320px);
+      --${unsafeCSS(prefix)}-col-3-max: calc(
+        (
+          var(--fdic-layout-shell-max-width, 1312px) -
+            (2 * var(--${unsafeCSS(prefix)}-col-3-gap, var(--fdic-layout-col-3-gap, 48px)))
+        ) / 3
+      );
+      --${unsafeCSS(prefix)}-col-3-gap: var(--fdic-layout-col-3-gap);
+      --${unsafeCSS(prefix)}-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px);
+      --${unsafeCSS(prefix)}-col-4-min: var(--fdic-layout-col-4-min);
+      --${unsafeCSS(prefix)}-col-4-max: var(--fdic-layout-col-4-max);
+      --${unsafeCSS(prefix)}-col-4-gap: var(--fdic-layout-col-4-gap);
+      --${unsafeCSS(prefix)}-col-2-min-mobile: var(--fdic-layout-col-2-min-narrow);
+      --${unsafeCSS(prefix)}-col-2-gap-mobile: var(--fdic-layout-col-2-gap-narrow);
+      --${unsafeCSS(prefix)}-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow, 320px);
+      --${unsafeCSS(prefix)}-col-3-gap-mobile: var(--fdic-layout-col-3-gap, 48px);
+      --${unsafeCSS(prefix)}-col-3-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px);
+      --${unsafeCSS(prefix)}-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
+      --${unsafeCSS(prefix)}-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
+      --${unsafeCSS(prefix)}-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);
+    }
+
+    :host([hidden]) {
+      display: none;
+    }
+
+    slot {
+      display: contents;
+    }
+
+    :host([columns="2"]) [part="base"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    :host([columns="3"]) [part="base"] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    :host([columns="4"]) [part="base"] {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @container (max-width: ${unsafeCSS(`${COLLECTION_COLLAPSE_MAX_WIDTH_PX["2"]}px`)}) {
+      :host([columns="2"]) [part="base"] {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(var(${trackMin}), var(${trackMax}))
+        );
+      }
+    }
+
+    @container (max-width: ${unsafeCSS(`${COLLECTION_COLLAPSE_MAX_WIDTH_PX["3"]}px`)}) {
+      :host([columns="3"]) [part="base"] {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(var(${trackMin}), var(${trackMax}))
+        );
+      }
+    }
+
+    @container (max-width: ${unsafeCSS(`${COLLECTION_COLLAPSE_MAX_WIDTH_PX["4"]}px`)}) {
+      :host([columns="4"]) [part="base"] {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(var(${trackMin}), var(${trackMax}))
+        );
+      }
+    }
+
+    ::slotted(${unsafeCSS(childSelector)}) {
+      inline-size: 100%;
+      min-inline-size: 0;
+      max-inline-size: 100%;
     }
   `;
 }

@@ -10,6 +10,7 @@ async function createEventList() {
     HTMLElement & {
       columns: "2" | "3" | "4";
       label?: string;
+      labelledby?: string;
       tone: "neutral" | "cool" | "warm";
       updateComplete: Promise<void>;
     }
@@ -158,9 +159,9 @@ describe("FdEventList", () => {
       .join("\n");
 
     expect(styles).toContain("var(--fd-event-list-col-2-min, var(--fdic-layout-col-2-min))");
-    expect(styles).toContain("--fd-event-list-col-3-min: 320px");
+    expect(styles).toContain("--fd-event-list-col-3-min: var(--fdic-layout-col-3-min, 320px)");
     expect(styles).toContain("--fd-event-list-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px)");
-    expect(styles).toContain("--fd-event-list-col-3-min-mobile: 320px");
+    expect(styles).toContain("--fd-event-list-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow, 320px)");
     expect(styles).toContain("--fd-event-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap, 48px)");
     expect(styles).toContain("--fd-event-list-col-3-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px)");
     expect(styles).toContain("var(--fdic-layout-shell-max-width, 1312px)");
@@ -189,6 +190,42 @@ describe("FdEventList", () => {
     await list.updateComplete;
 
     expect(list.columns).toBe("3");
+  });
+
+  it("normalizes invalid tones back to neutral", async () => {
+    const list = await createEventList();
+    const event = document.createElement("fd-event") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+
+    list.setAttribute("tone", "unsupported");
+    event.title = "Regional conference";
+    list.append(event);
+    await list.updateComplete;
+    await event.updateComplete;
+
+    expect(event.getAttribute("tone")).toBe("neutral");
+    expect(list.getAttribute("tone")).toBe("neutral");
+  });
+
+  it("uses aria-labelledby when labelledby references visible copy", async () => {
+    const heading = document.createElement("h2");
+    heading.id = "events-heading";
+    heading.textContent = "Visible upcoming events";
+    document.body.append(heading);
+    const list = await createEventList();
+    list.label = "Upcoming events";
+    list.labelledby = "events-heading";
+    await list.updateComplete;
+    const proxy = list.shadowRoot?.getElementById(
+      queryShadow(list, "[part=base]")?.getAttribute("aria-labelledby") ?? "",
+    );
+
+    expect(proxy?.textContent).toBe("Visible upcoming events");
+    expect(queryShadow(list, "[part=base]")?.hasAttribute("aria-label")).toBe(
+      false,
+    );
   });
 
   it("updates the accessible name when the label changes", async () => {

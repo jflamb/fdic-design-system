@@ -3980,6 +3980,12 @@
           "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
         },
         {
+          "name": "labelledby",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found."
+        },
+        {
           "name": "tone",
           "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
           "defaultValue": "`\"neutral\"`",
@@ -4020,8 +4026,8 @@
         },
         {
           "name": "--fd-tile-list-col-3-min",
-          "default": "`320px`",
-          "description": "Desktop minimum tile-track width for the three-column constraint set."
+          "default": "`var(--fdic-layout-col-3-min, 320px)`",
+          "description": "Desktop minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-max",
@@ -4065,8 +4071,8 @@
         },
         {
           "name": "--fd-tile-list-col-3-min-mobile",
-          "default": "`320px`",
-          "description": "Narrow-container minimum tile-track width for the three-column constraint set."
+          "default": "`var(--fdic-layout-col-3-min-narrow, 320px)`",
+          "description": "Narrow-container minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-tile-list-col-3-gap-mobile",
@@ -4247,6 +4253,12 @@
           "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
         },
         {
+          "name": "labelledby",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found."
+        },
+        {
           "name": "tone",
           "type": "`\"neutral\" \\| \"cool\" \\| \"warm\"`",
           "defaultValue": "`\"neutral\"`",
@@ -4287,8 +4299,8 @@
         },
         {
           "name": "--fd-event-list-col-3-min",
-          "default": "`320px`",
-          "description": "Desktop minimum event-track width for the three-column constraint set."
+          "default": "`var(--fdic-layout-col-3-min, 320px)`",
+          "description": "Desktop minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-max",
@@ -4332,8 +4344,8 @@
         },
         {
           "name": "--fd-event-list-col-3-min-mobile",
-          "default": "`320px`",
-          "description": "Narrow-container minimum event-track width for the three-column constraint set."
+          "default": "`var(--fdic-layout-col-3-min-narrow, 320px)`",
+          "description": "Narrow-container minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {
           "name": "--fd-event-list-col-3-gap-mobile",
@@ -5541,6 +5553,12 @@
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
           "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
+        },
+        {
+          "name": "labelledby",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found."
         }
       ],
       "after": "`fd-social-media-list` is a static grouping container. It does not own active-item, selection, removal, sorting, or keyboard navigation state."
@@ -5577,7 +5595,7 @@
         },
         {
           "name": "--fd-social-media-list-col-3-min",
-          "default": "`320px`",
+          "default": "`var(--fdic-layout-col-3-min, 320px)`",
           "description": "Desktop minimum track width for the three-column constraint set."
         },
         {
@@ -5795,6 +5813,12 @@
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
           "description": "Optional accessible label for the internal list."
+        },
+        {
+          "name": "labelledby",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found."
         }
       ],
       "after": "`fd-media-list` is a static grouping container. It does not own active-item, selection, removal, sorting, playback, or keyboard navigation state."
@@ -5803,10 +5827,10 @@
       "rows": [
         {
           "name": "default",
-          "description": "Author direct `fd-media-item` children. Direct element children receive list-item semantics."
+          "description": "Author direct `fd-media-item` children. Each direct child receives list-item semantics."
         }
       ],
-      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct element children so the internal ARIA list remains valid. Direct `fd-media-item` children are the supported layout pattern."
+      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct `fd-media-item` children. Other direct element children are not managed."
     },
     "events": {
       "rows": [],

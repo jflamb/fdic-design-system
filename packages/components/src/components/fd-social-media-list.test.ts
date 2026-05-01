@@ -62,9 +62,38 @@ describe("FdSocialMediaList", () => {
     const item = el.querySelector("fd-social-media-item");
 
     item?.setAttribute("role", "presentation");
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => queueMicrotask(resolve));
 
     expect(item?.getAttribute("role")).toBe("listitem");
+  });
+
+  it("does not assign listitem semantics to unexpected direct element children", async () => {
+    const el = await createSocialMediaList({}, 0);
+    const child = document.createElement("div");
+    el.appendChild(child);
+
+    await el.updateComplete;
+    el.shadowRoot?.querySelector("slot")?.dispatchEvent(new Event("slotchange"));
+
+    expect(child.hasAttribute("role")).toBe(false);
+  });
+
+  it("uses aria-labelledby when labelledby references visible copy", async () => {
+    const heading = document.createElement("h2");
+    heading.id = "social-heading";
+    heading.textContent = "Visible social posts";
+    document.body.append(heading);
+    const el = await createSocialMediaList({
+      label: "Recent FDIC social posts",
+      labelledby: "social-heading",
+    });
+    const list = el.shadowRoot?.querySelector("[part=base]");
+    const proxy = el.shadowRoot?.getElementById(
+      list?.getAttribute("aria-labelledby") ?? "",
+    );
+
+    expect(proxy?.textContent).toBe("Visible social posts");
+    expect(list?.hasAttribute("aria-label")).toBe(false);
   });
 
   it("normalizes unsupported column values to the default", async () => {

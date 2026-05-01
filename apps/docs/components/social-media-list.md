@@ -77,6 +77,7 @@ The Social Media List component arranges direct Social Media Item children in a 
 |---|---|---|---|
 | `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred FDIC collection column constraint set. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set. |
+| `labelledby` | `string \| undefined` | `undefined` | ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found. |
 
 `fd-social-media-list` is a static grouping container. It does not own active-item, selection, removal, sorting, or keyboard navigation state.
 
@@ -95,7 +96,7 @@ The Social Media List component arranges direct Social Media Item children in a 
 | `--fd-social-media-list-col-2-min` | `var(--fdic-layout-col-2-min, 384px)` | Desktop minimum track width for the two-column constraint set. |
 | `--fd-social-media-list-col-2-max` | `var(--fdic-layout-col-2-max, 688px)` | Desktop maximum track width for the two-column constraint set. |
 | `--fd-social-media-list-col-2-gap` | `var(--fdic-layout-col-2-gap, 48px)` | Desktop row and column gap for the two-column constraint set. |
-| `--fd-social-media-list-col-3-min` | `320px` | Desktop minimum track width for the three-column constraint set. |
+| `--fd-social-media-list-col-3-min` | `var(--fdic-layout-col-3-min, 320px)` | Desktop minimum track width for the three-column constraint set. |
 | `--fd-social-media-list-col-3-gap` | `var(--fdic-layout-col-3-gap, 48px)` | Desktop column gap for the three-column constraint set. |
 | `--fd-social-media-list-col-3-row-gap` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Desktop row gap for the three-column constraint set. |
 | `--fd-social-media-list-col-4-min` | `var(--fdic-layout-col-4-min, 256px)` | Desktop minimum track width for the four-column constraint set. |

@@ -62,6 +62,7 @@ The Media List component groups Media Items in a responsive, left-to-right and t
 |---|---|---|---|
 | `columns` | `"2"` \| `"3"` \| `"4"` | `3` | Preferred desktop column count. Narrow containers automatically wrap to fewer columns. |
 | `label` | `string \| undefined` | `undefined` | Optional accessible label for the internal list. |
+| `labelledby` | `string \| undefined` | `undefined` | ID reference for visible copy that labels the internal list. The component resolves the referenced light-DOM text into a shadow-local `aria-labelledby` proxy. Takes precedence over `label` when found. |
 
 `fd-media-list` is a static grouping container. It does not own active-item, selection, removal, sorting, playback, or keyboard navigation state.
 
@@ -69,9 +70,9 @@ The Media List component groups Media Items in a responsive, left-to-right and t
 
 | Name | Description |
 |---|---|
-| (default) | Author direct `fd-media-item` children. Direct element children receive list-item semantics. |
+| (default) | Author direct `fd-media-item` children. Each direct child receives list-item semantics. |
 
-`fd-media-list` assigns `role="listitem"` to direct element children so the internal ARIA list remains valid. Direct `fd-media-item` children are the supported layout pattern.
+`fd-media-list` assigns `role="listitem"` to direct `fd-media-item` children. Other direct element children are not managed.
 
 ## CSS custom properties
 

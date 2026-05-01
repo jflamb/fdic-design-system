@@ -540,11 +540,13 @@ export const componentStoryApi = {
     argTypes: {
     "columns": { control: "select", options: ["2","3","4"] },
     "label": { control: "text" },
+    "labelledby": { control: "text" },
     "tone": { control: "select", options: ["neutral","cool","warm"] },
     },
     args: {
     "columns": "3",
     "label": undefined,
+    "labelledby": undefined,
     "tone": "neutral",
     },
   },
@@ -574,11 +576,13 @@ export const componentStoryApi = {
     argTypes: {
     "columns": { control: "select", options: ["2","3","4"] },
     "label": { control: "text" },
+    "labelledby": { control: "text" },
     "tone": { control: "select", options: ["neutral","cool","warm"] },
     },
     args: {
     "columns": "3",
     "label": undefined,
+    "labelledby": undefined,
     "tone": "neutral",
     },
   },
@@ -762,10 +766,12 @@ export const componentStoryApi = {
     argTypes: {
     "columns": { control: "select", options: ["2","3","4"] },
     "label": { control: "text" },
+    "labelledby": { control: "text" },
     },
     args: {
     "columns": "3",
     "label": undefined,
+    "labelledby": undefined,
     },
   },
   "fd-media-item": {
@@ -792,10 +798,12 @@ export const componentStoryApi = {
     argTypes: {
     "columns": { control: "select", options: ["2","3","4"] },
     "label": { control: "text" },
+    "labelledby": { control: "text" },
     },
     args: {
     "columns": "3",
     "label": undefined,
+    "labelledby": undefined,
     },
   },
 } as const;
