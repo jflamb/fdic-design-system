@@ -51,6 +51,8 @@ export class FdDrawer extends LitElement {
       position: fixed;
       inset: 0;
       z-index: 0;
+      inline-size: 100%;
+      block-size: 100%;
       opacity: 0;
       overflow: visible;
       transition:
