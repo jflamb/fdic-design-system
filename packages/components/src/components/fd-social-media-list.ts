@@ -29,6 +29,7 @@ export class FdSocialMediaList extends CollectionListBase {
   };
 
   static styles = [
+    // `collectionGridStyles` owns `container-type` for this list's collapse queries.
     collectionGridStyles("fd-social-media-list"),
     collectionGridLayoutStyles("fd-social-media-list", "fd-social-media-item"),
   ];

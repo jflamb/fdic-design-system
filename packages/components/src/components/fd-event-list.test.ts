@@ -32,10 +32,17 @@ describe("FdEventList", () => {
       updateComplete: Promise<void>;
       label?: string;
     };
+    const event = document.createElement("fd-event") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
     el.label = "Upcoming events";
+    event.title = "Health insurance workshop";
+    el.append(event);
 
     document.body.appendChild(el);
     await el.updateComplete;
+    await event.updateComplete;
 
     const list = el.shadowRoot?.querySelector("[part=base]");
 
@@ -217,7 +224,14 @@ describe("FdEventList", () => {
     const list = await createEventList();
     list.label = "Upcoming events";
     list.labelledby = "events-heading";
+    const event = document.createElement("fd-event") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+    event.title = "Regional conference";
+    list.append(event);
     await list.updateComplete;
+    await event.updateComplete;
     const proxy = list.shadowRoot?.getElementById(
       queryShadow(list, "[part=base]")?.getAttribute("aria-labelledby") ?? "",
     );
@@ -230,8 +244,15 @@ describe("FdEventList", () => {
 
   it("updates the accessible name when the label changes", async () => {
     const list = await createEventList();
+    const event = document.createElement("fd-event") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+    event.title = "Regional conference";
+    list.append(event);
     list.label = "Upcoming events";
     await list.updateComplete;
+    await event.updateComplete;
     list.label = "Archived events";
     await list.updateComplete;
 
@@ -288,7 +309,7 @@ describe("FdEventList", () => {
     const list = await createEventList();
 
     expect(queryShadow<HTMLSlotElement>(list, "slot")).not.toBeNull();
-    expect(queryShadow(list, "[part=base]")?.getAttribute("role")).toBe("list");
+    expect(queryShadow(list, "[part=base]")?.hasAttribute("role")).toBe(false);
   });
 
   it("passes an axe audit when labelled", async () => {

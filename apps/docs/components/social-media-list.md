@@ -88,6 +88,7 @@ The Social Media List component arranges direct Social Media Item children in a 
 | (default) | Author direct `fd-social-media-item` children. Each direct child receives list-item semantics. |
 
 `fd-social-media-list` assigns `role="listitem"` to direct `fd-social-media-item` children.
+- `fd-social-media-list` omits `role="list"` until it has at least one managed `fd-social-media-item` child.
 
 ## CSS custom properties
 

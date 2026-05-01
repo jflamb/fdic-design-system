@@ -37,6 +37,7 @@ export class FdTileList extends CollectionListBase {
   };
 
   static styles = [
+    // `collectionGridStyles` owns `container-type` for this list's collapse queries.
     collectionGridStyles("fd-tile-list"),
     collectionGridLayoutStyles("fd-tile-list", "fd-tile"),
   ];

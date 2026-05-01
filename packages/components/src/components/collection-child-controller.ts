@@ -24,7 +24,7 @@ export class CollectionChildController {
   sync() {
     const slot = this.#slot();
     if (!slot) {
-      return;
+      return 0;
     }
 
     const assignedChildren = slot
@@ -61,6 +61,8 @@ export class CollectionChildController {
         this.#observers.set(element, observer);
       }
     }
+
+    return assignedChildren.length;
   }
 
   disconnect() {

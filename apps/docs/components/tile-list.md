@@ -90,6 +90,7 @@ The Tile List component arranges related tiles in a responsive collection layout
 
 - `fd-tile-list` assigns `role="listitem"` to direct `fd-tile` children so the group is announced as a list without making the tiles themselves interactive.
 - `fd-tile-list` also applies a single shared `tone` to each direct `fd-tile` child so one list cannot mix cool, neutral, and warm tile visuals.
+- `fd-tile-list` omits `role="list"` until it has at least one managed `fd-tile` child.
 
 ## CSS custom properties
 

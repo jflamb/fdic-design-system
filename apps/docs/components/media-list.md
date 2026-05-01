@@ -73,6 +73,7 @@ The Media List component groups Media Items in a responsive, left-to-right and t
 | (default) | Author direct `fd-media-item` children. Each direct child receives list-item semantics. |
 
 `fd-media-list` assigns `role="listitem"` to direct `fd-media-item` children. Other direct element children are not managed.
+- `fd-media-list` omits `role="list"` until it has at least one managed `fd-media-item` child.
 
 ## CSS custom properties
 

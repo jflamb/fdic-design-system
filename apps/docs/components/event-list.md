@@ -92,6 +92,7 @@ The Event List component arranges direct event children in a responsive wrapping
 
 - `fd-event-list` assigns `role="listitem"` to direct `fd-event` children so the group is announced as a list without making the events themselves interactive.
 - `fd-event-list` also applies a single shared `tone` to each direct child event.
+- `fd-event-list` omits `role="list"` until it has at least one managed `fd-event` child.
 
 ## CSS custom properties
 

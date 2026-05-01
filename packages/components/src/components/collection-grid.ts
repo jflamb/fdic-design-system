@@ -14,10 +14,13 @@ const FIGMA_NARROW_THRESHOLD_PX: Record<CollectionColumns, number> = {
   "3": 1176,
   "4": 1168,
 };
-const COLLECTION_COLLAPSE_MAX_WIDTH_PX: Record<CollectionColumns, number> = {
-  "2": FIGMA_NARROW_THRESHOLD_PX["2"] - 1,
-  "3": FIGMA_NARROW_THRESHOLD_PX["3"] - 1,
-  "4": FIGMA_NARROW_THRESHOLD_PX["4"] - 1,
+const COLLECTION_COL_2_COLLAPSE_MAX_WIDTH_PX = FIGMA_NARROW_THRESHOLD_PX["2"] - 1;
+const COLLECTION_COL_3_COLLAPSE_MAX_WIDTH_PX = FIGMA_NARROW_THRESHOLD_PX["3"] - 1;
+const COLLECTION_COL_4_COLLAPSE_MAX_WIDTH_PX = FIGMA_NARROW_THRESHOLD_PX["4"] - 1;
+const COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX: Record<CollectionColumns, number> = {
+  "2": COLLECTION_COL_2_COLLAPSE_MAX_WIDTH_PX,
+  "3": COLLECTION_COL_3_COLLAPSE_MAX_WIDTH_PX,
+  "4": COLLECTION_COL_4_COLLAPSE_MAX_WIDTH_PX,
 };
 
 function trackMinToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
@@ -187,7 +190,7 @@ export function collectionGridLayoutStyles(prefix: string, childSelector: string
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    @container (max-width: ${unsafeCSS(`${COLLECTION_COLLAPSE_MAX_WIDTH_PX["2"]}px`)}) {
+    @container (max-width: ${unsafeCSS(`${COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX["2"]}px`)}) {
       :host([columns="2"]) [part="base"] {
         grid-template-columns: repeat(
           auto-fit,
@@ -196,7 +199,7 @@ export function collectionGridLayoutStyles(prefix: string, childSelector: string
       }
     }
 
-    @container (max-width: ${unsafeCSS(`${COLLECTION_COLLAPSE_MAX_WIDTH_PX["3"]}px`)}) {
+    @container (max-width: ${unsafeCSS(`${COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX["3"]}px`)}) {
       :host([columns="3"]) [part="base"] {
         grid-template-columns: repeat(
           auto-fit,
@@ -205,7 +208,7 @@ export function collectionGridLayoutStyles(prefix: string, childSelector: string
       }
     }
 
-    @container (max-width: ${unsafeCSS(`${COLLECTION_COLLAPSE_MAX_WIDTH_PX["4"]}px`)}) {
+    @container (max-width: ${unsafeCSS(`${COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX["4"]}px`)}) {
       :host([columns="4"]) [part="base"] {
         grid-template-columns: repeat(
           auto-fit,

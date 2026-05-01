@@ -45,6 +45,7 @@ export abstract class CollectionListBase extends LitElement {
   private readonly _labelProxyId = `fd-collection-list-label-${collectionListBaseId += 1}`;
   private _labelSourceObserver: MutationObserver | undefined;
   private _labelledbyText = "";
+  private _managedChildCount = 0;
 
   protected constructor(options: CollectionListBaseOptions) {
     super();
@@ -108,7 +109,11 @@ export abstract class CollectionListBase extends LitElement {
   }
 
   protected syncChildren() {
-    this._childController.sync();
+    const managedChildCount = this._childController.sync();
+    if (managedChildCount !== this._managedChildCount) {
+      this._managedChildCount = managedChildCount;
+      this.requestUpdate();
+    }
   }
 
   protected syncLabelledbyText() {
@@ -149,6 +154,7 @@ export abstract class CollectionListBase extends LitElement {
     const label = this.label?.trim();
     const labelledby = this.labelledby?.trim();
     const labelledbyText = this._labelledbyText;
+    const hasManagedChildren = this._managedChildCount > 0;
 
     return html`
       ${labelledby && labelledbyText
@@ -156,9 +162,9 @@ export abstract class CollectionListBase extends LitElement {
         : nothing}
       <div
         part="base"
-        role="list"
-        aria-label=${ifDefined(labelledbyText ? undefined : label || undefined)}
-        aria-labelledby=${ifDefined(labelledbyText ? this._labelProxyId : undefined)}
+        role=${ifDefined(hasManagedChildren ? "list" : undefined)}
+        aria-label=${ifDefined(hasManagedChildren && !labelledbyText ? label || undefined : undefined)}
+        aria-labelledby=${ifDefined(hasManagedChildren && labelledbyText ? this._labelProxyId : undefined)}
       >
         <slot @slotchange=${() => this.syncChildren()}></slot>
       </div>

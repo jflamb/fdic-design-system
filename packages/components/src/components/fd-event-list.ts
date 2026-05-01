@@ -37,6 +37,7 @@ export class FdEventList extends CollectionListBase {
   };
 
   static styles = [
+    // `collectionGridStyles` owns `container-type` for this list's collapse queries.
     collectionGridStyles("fd-event-list"),
     collectionGridLayoutStyles("fd-event-list", "fd-event"),
   ];

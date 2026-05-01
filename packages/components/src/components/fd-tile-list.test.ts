@@ -32,6 +32,14 @@ describe("FdTileList", () => {
 
   it("renders a labelled list container", async () => {
     const el = await createList({ label: "Benefits links" });
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+    tile.title = "Health benefits";
+    el.append(tile);
+    await el.updateComplete;
+    await tile.updateComplete;
 
     const list = el.shadowRoot?.querySelector("[part=base]");
 
@@ -229,6 +237,14 @@ describe("FdTileList", () => {
       label: "Benefits links",
       labelledby: "benefits-heading",
     });
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+    tile.title = "Health benefits";
+    el.append(tile);
+    await el.updateComplete;
+    await tile.updateComplete;
     const list = el.shadowRoot?.querySelector("[part=base]");
     const proxy = el.shadowRoot?.getElementById(
       list?.getAttribute("aria-labelledby") ?? "",
@@ -240,6 +256,14 @@ describe("FdTileList", () => {
 
   it("updates the accessible name when the label changes", async () => {
     const el = await createList({ label: "Benefits links" });
+    const tile = document.createElement("fd-tile") as HTMLElement & {
+      updateComplete: Promise<void>;
+      title: string;
+    };
+    tile.title = "Health benefits";
+    el.append(tile);
+    await el.updateComplete;
+    await tile.updateComplete;
 
     el.label = "Updated benefits links";
     await el.updateComplete;

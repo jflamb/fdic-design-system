@@ -29,6 +29,7 @@ export class FdMediaList extends CollectionListBase {
   };
 
   static styles = [
+    // `collectionGridStyles` owns `container-type` for this list's collapse queries.
     collectionGridStyles("fd-media-list"),
     collectionGridLayoutStyles("fd-media-list", "fd-media-item"),
   ];

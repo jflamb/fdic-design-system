@@ -4001,7 +4001,7 @@
           "description": "Author one or more `fd-tile` children. Each direct child inherits the list's shared tone."
         }
       ],
-      "after": "- `fd-tile-list` assigns `role=\"listitem\"` to direct `fd-tile` children so the group is announced as a list without making the tiles themselves interactive.\n- `fd-tile-list` also applies a single shared `tone` to each direct `fd-tile` child so one list cannot mix cool, neutral, and warm tile visuals."
+      "after": "- `fd-tile-list` assigns `role=\"listitem\"` to direct `fd-tile` children so the group is announced as a list without making the tiles themselves interactive.\n- `fd-tile-list` also applies a single shared `tone` to each direct `fd-tile` child so one list cannot mix cool, neutral, and warm tile visuals.\n- `fd-tile-list` omits `role=\"list\"` until it has at least one managed `fd-tile` child."
     },
     "events": {
       "rows": [],
@@ -4274,7 +4274,7 @@
           "description": "Author one or more direct `fd-event` children. Each direct child inherits the list's shared tone."
         }
       ],
-      "after": "- `fd-event-list` assigns `role=\"listitem\"` to direct `fd-event` children so the group is announced as a list without making the events themselves interactive.\n- `fd-event-list` also applies a single shared `tone` to each direct child event."
+      "after": "- `fd-event-list` assigns `role=\"listitem\"` to direct `fd-event` children so the group is announced as a list without making the events themselves interactive.\n- `fd-event-list` also applies a single shared `tone` to each direct child event.\n- `fd-event-list` omits `role=\"list\"` until it has at least one managed `fd-event` child."
     },
     "events": {
       "rows": [],
@@ -5570,7 +5570,7 @@
           "description": "Author direct `fd-social-media-item` children. Each direct child receives list-item semantics."
         }
       ],
-      "after": "`fd-social-media-list` assigns `role=\"listitem\"` to direct `fd-social-media-item` children."
+      "after": "`fd-social-media-list` assigns `role=\"listitem\"` to direct `fd-social-media-item` children.\n- `fd-social-media-list` omits `role=\"list\"` until it has at least one managed `fd-social-media-item` child."
     },
     "events": {
       "rows": [],
@@ -5830,7 +5830,7 @@
           "description": "Author direct `fd-media-item` children. Each direct child receives list-item semantics."
         }
       ],
-      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct `fd-media-item` children. Other direct element children are not managed."
+      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct `fd-media-item` children. Other direct element children are not managed.\n- `fd-media-list` omits `role=\"list\"` until it has at least one managed `fd-media-item` child."
     },
     "events": {
       "rows": [],
