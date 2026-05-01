@@ -318,10 +318,10 @@ export class FdHeaderSearch extends LitElement {
       justify-content: center;
       width: 100%;
       color: var(--fdic-color-text-secondary, #4b5b69);
-      font-size: 0.8125rem;
-      font-weight: 700;
+      font-size: var(--fd-header-search-shortcut-font-size, 1.25rem);
+      font-weight: 600;
       line-height: 1;
-      letter-spacing: 0.01em;
+      transform: translateY(var(--fd-header-search-shortcut-offset-y, -0.08em));
     }
 
     .actions[hidden] {
