@@ -1625,6 +1625,32 @@ describe("fd-global-header", () => {
     ]);
   });
 
+  it("uses regular caret icons in desktop and mobile navigation chrome", async () => {
+    const desktop = await createHeader();
+    const trigger = getPanelTrigger(desktop, "news-events");
+
+    trigger?.click();
+    await desktop.updateComplete;
+    await nextFrame();
+
+    const desktopCaret = desktop.shadowRoot?.querySelector(".menu-caret");
+    expect(desktopCaret?.innerHTML).toContain("<svg");
+    expect(desktopCaret?.innerHTML).not.toContain('opacity="0.2"');
+
+    const mobile = await createHeader({ mobile: true });
+    const menuToggle = mobile.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+
+    menuToggle?.click();
+    await mobile.updateComplete;
+    await nextFrame();
+
+    const mobileCaret = mobile.shadowRoot?.querySelector(".mobile-button .menu-caret");
+    expect(mobileCaret?.innerHTML).toContain("<svg");
+    expect(mobileCaret?.innerHTML).not.toContain('opacity="0.2"');
+  });
+
   it("syncs native mobile drawer dismissal back into component state and restores toggle focus", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(

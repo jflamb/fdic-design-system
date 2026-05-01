@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from "lit";
 import type { PropertyValues } from "lit";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import type {
   FdSelectorChangeDetail,
   FdSelectorOpenChangeDetail,
@@ -7,6 +8,7 @@ import type {
 import { reducedMotion } from "./reduced-motion.js";
 import { SingleValueFormController } from "./single-value-form-controller.js";
 import type { FdOption } from "./fd-option.js";
+import { REGULAR_CARET_DOWN_ICON_SVG } from "./regular-icons.js";
 
 export type SelectorVariant = "simple" | "single" | "multiple";
 
@@ -201,9 +203,15 @@ export class FdSelector extends LitElement {
     }
 
     .chevron-icon {
+      display: inline-flex;
       width: 24px;
       height: 24px;
       transition: transform var(--fdic-motion-duration-normal, 150ms) var(--fdic-motion-easing-default, ease);
+    }
+
+    .chevron-icon svg {
+      width: 100%;
+      height: 100%;
     }
 
     :host([open]) .chevron-icon {
@@ -995,20 +1003,9 @@ export class FdSelector extends LitElement {
   private _renderChevron() {
     return html`
       <span part="chevron" aria-hidden="true">
-        <svg
-          class="chevron-icon"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4.5 6.75L9 11.25L13.5 6.75"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <span class="chevron-icon">
+          ${unsafeSVG(REGULAR_CARET_DOWN_ICON_SVG)}
+        </span>
       </span>
     `;
   }

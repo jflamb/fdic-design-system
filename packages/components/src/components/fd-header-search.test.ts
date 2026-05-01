@@ -260,6 +260,9 @@ describe("fd-header-search", () => {
     expect(
       clear?.querySelector('[slot="icon-start"]')?.innerHTML,
     ).not.toContain('opacity="0.2"');
+    expect(
+      submit?.querySelector('[slot="icon-start"]')?.innerHTML,
+    ).not.toContain('opacity="0.2"');
   });
 
   it("scrolls the active desktop suggestion into view during keyboard navigation", async () => {

@@ -12,7 +12,12 @@ import type {
 } from "./fd-header-search.js";
 import { extractHeaderSearchAliasData } from "./fd-header-search-utils.js";
 import { reducedMotion } from "./reduced-motion.js";
-import { REGULAR_X_ICON_SVG } from "./regular-icons.js";
+import {
+  REGULAR_CARET_DOWN_ICON_SVG,
+  REGULAR_CARET_LEFT_ICON_SVG,
+  REGULAR_CARET_RIGHT_ICON_SVG,
+  REGULAR_X_ICON_SVG,
+} from "./regular-icons.js";
 
 export type GlobalHeaderSearchSurface = HeaderSearchSurface;
 
@@ -945,14 +950,17 @@ export class FdGlobalHeader extends LitElement {
       --fd-button-focus-ring: var(--fd-global-header-color-accent);
     }
 
-    .base[data-compact-desktop="true"] .compact-menu-toggle fd-icon {
-      --fd-icon-size: 1rem;
+    .base[data-compact-desktop="true"] .compact-menu-toggle .regular-caret svg {
+      display: block;
+      width: 1rem;
+      height: 1rem;
       transition: transform 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .base[data-compact-desktop="true"]
       .compact-menu-toggle[aria-expanded="true"]
-      fd-icon {
+      .regular-caret
+      svg {
       transform: rotate(180deg);
     }
 
@@ -1273,8 +1281,13 @@ export class FdGlobalHeader extends LitElement {
 
     .menu-caret {
       color: var(--fd-global-header-color-text-primary);
-      --fd-icon-size: 1.25rem;
       flex: none;
+    }
+
+    .menu-caret svg {
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     .menu-spacer {
@@ -1467,14 +1480,16 @@ export class FdGlobalHeader extends LitElement {
       transform: translateY(1px);
     }
 
-    .mobile-back fd-icon {
-      --fd-icon-size: 1rem;
+    .mobile-back .regular-caret svg {
+      display: block;
+      width: 1rem;
+      height: 1rem;
       transition: transform var(--fdic-motion-duration-fast, 120ms)
         cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
-    .mobile-back:hover fd-icon,
-    .mobile-back:focus-visible fd-icon {
+    .mobile-back:hover .regular-caret svg,
+    .mobile-back:focus-visible .regular-caret svg {
       transform: translateX(-2px);
     }
 
@@ -3705,7 +3720,11 @@ export class FdGlobalHeader extends LitElement {
         @click=${() => this._toggleCompactDesktopMenu()}
       >
         Menu
-        <fd-icon slot="icon-end" name="caret-down" aria-hidden="true"></fd-icon>
+        ${this._renderRegularCaretIcon(
+          REGULAR_CARET_DOWN_ICON_SVG,
+          "regular-caret",
+          "icon-end",
+        )}
       </fd-button>
     `;
   }
@@ -3939,11 +3958,10 @@ export class FdGlobalHeader extends LitElement {
                     const content = html`
                       <span class="menu-item-label">${section.label}</span>
                       ${hasChildren
-                        ? html`<fd-icon
-                            class="menu-caret"
-                            name="caret-right"
-                            aria-hidden="true"
-                          ></fd-icon>`
+                        ? this._renderRegularCaretIcon(
+                            REGULAR_CARET_RIGHT_ICON_SVG,
+                            "menu-caret",
+                          )
                         : html`<span
                             class="menu-spacer"
                             aria-hidden="true"
@@ -4080,11 +4098,10 @@ export class FdGlobalHeader extends LitElement {
                                   >${item.label}</span
                                 >
                                 ${hasChildren
-                                  ? html`<fd-icon
-                                      class="menu-caret"
-                                      name="caret-right"
-                                      aria-hidden="true"
-                                    ></fd-icon>`
+                                  ? this._renderRegularCaretIcon(
+                                      REGULAR_CARET_RIGHT_ICON_SVG,
+                                      "menu-caret",
+                                    )
                                   : html`<span
                                       class="menu-spacer"
                                       aria-hidden="true"
@@ -4160,11 +4177,10 @@ export class FdGlobalHeader extends LitElement {
     const content = html`
       <span class="mobile-item-label">${label}</span>
       ${nextPath
-        ? html`<fd-icon
-            class="menu-caret"
-            name="caret-right"
-            aria-hidden="true"
-          ></fd-icon>`
+        ? this._renderRegularCaretIcon(
+            REGULAR_CARET_RIGHT_ICON_SVG,
+            "menu-caret",
+          )
         : nothing}
     `;
 
@@ -4262,7 +4278,7 @@ export class FdGlobalHeader extends LitElement {
                   this._mobilePath = (backTarget as MobileDrillPath) || [];
                 }}
               >
-                <fd-icon name="caret-left" aria-hidden="true"></fd-icon>
+                ${this._renderRegularCaretIcon(REGULAR_CARET_LEFT_ICON_SVG)}
                 <span>${backLabel}</span>
               </button>
             </div>
@@ -4390,6 +4406,22 @@ export class FdGlobalHeader extends LitElement {
     return html`
       <span class="regular-icon" aria-hidden="true">
         ${unsafeSVG(REGULAR_X_ICON_SVG)}
+      </span>
+    `;
+  }
+
+  private _renderRegularCaretIcon(
+    svg: string,
+    className = "regular-caret",
+    slot?: string,
+  ) {
+    return html`
+      <span
+        class=${className}
+        aria-hidden="true"
+        slot=${slot ?? nothing}
+      >
+        ${unsafeSVG(svg)}
       </span>
     `;
   }

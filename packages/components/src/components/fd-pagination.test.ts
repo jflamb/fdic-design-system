@@ -81,6 +81,21 @@ describe("fd-pagination", () => {
     expect(previous?.disabled).toBe(true);
   });
 
+  it("uses regular caret icons for desktop controls and mobile select", async () => {
+    const el = await createPagination({
+      "current-page": "7",
+      "total-pages": "24",
+    });
+
+    const desktopIcon = el.shadowRoot!.querySelector(".desktop .icon");
+    const mobileSelectIcon = el.shadowRoot!.querySelector(".mobile .select-icon");
+
+    expect(desktopIcon?.innerHTML).toContain("<svg");
+    expect(desktopIcon?.innerHTML).not.toContain('opacity="0.2"');
+    expect(mobileSelectIcon?.innerHTML).toContain("<svg");
+    expect(mobileSelectIcon?.innerHTML).not.toContain('opacity="0.2"');
+  });
+
   it("renders the supplied middle-page desktop window from Figma", async () => {
     const el = await createPagination({
       "current-page": "7",

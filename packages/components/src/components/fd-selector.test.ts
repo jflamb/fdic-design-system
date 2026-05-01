@@ -79,6 +79,9 @@ describe("fd-selector", () => {
     expect(trigger.getAttribute("type")).toBe("button");
     expect(listbox.getAttribute("role")).toBe("listbox");
     expect(listbox.hidden).toBe(true);
+    expect(
+      el.shadowRoot!.querySelector("[part=chevron]")?.innerHTML,
+    ).not.toContain('opacity="0.2"');
   });
 
   it("renders the label text", async () => {

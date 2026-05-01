@@ -3,9 +3,14 @@ import type { PropertyValues } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { repeat } from "lit/directives/repeat.js";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import type { FdPaginationRequestDetail } from "../public-events.js";
-import "../icons/phosphor-duotone.js";
 import { reducedMotion } from "./reduced-motion.js";
+import {
+  REGULAR_CARET_DOWN_ICON_SVG,
+  REGULAR_CARET_LEFT_ICON_SVG,
+  REGULAR_CARET_RIGHT_ICON_SVG,
+} from "./regular-icons.js";
 
 type PaginationEntry =
   | {
@@ -186,8 +191,8 @@ export class FdPagination extends LitElement {
       color: currentColor;
     }
 
-    .icon fd-icon,
-    .select-icon fd-icon {
+    .icon svg,
+    .select-icon svg {
       inline-size: 18px;
       block-size: 18px;
     }
@@ -629,14 +634,14 @@ export class FdPagination extends LitElement {
       disabled: options.disabled ?? false,
     };
     const iconStart = options.iconStart
-      ? html`<span class="icon" aria-hidden="true"
-          ><fd-icon name=${options.iconStart}></fd-icon
-        ></span>`
+      ? html`<span class="icon" aria-hidden="true">
+          ${unsafeSVG(this._getRegularCaretIcon(options.iconStart))}
+        </span>`
       : null;
     const iconEnd = options.iconEnd
-      ? html`<span class="icon" aria-hidden="true"
-          ><fd-icon name=${options.iconEnd}></fd-icon
-        ></span>`
+      ? html`<span class="icon" aria-hidden="true">
+          ${unsafeSVG(this._getRegularCaretIcon(options.iconEnd))}
+        </span>`
       : null;
     const content = html`
       ${iconStart}
@@ -754,7 +759,7 @@ export class FdPagination extends LitElement {
             })}
           </select>
           <span class="select-icon" aria-hidden="true">
-            <fd-icon name="caret-down"></fd-icon>
+            ${unsafeSVG(REGULAR_CARET_DOWN_ICON_SVG)}
           </span>
         </div>
 
@@ -769,6 +774,12 @@ export class FdPagination extends LitElement {
         })}
       </div>
     `;
+  }
+
+  private _getRegularCaretIcon(name: string) {
+    return name === "caret-left"
+      ? REGULAR_CARET_LEFT_ICON_SVG
+      : REGULAR_CARET_RIGHT_ICON_SVG;
   }
 
   render() {

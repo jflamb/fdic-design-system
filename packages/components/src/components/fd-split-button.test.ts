@@ -71,6 +71,10 @@ describe("fd-split-button", () => {
     const trigger = getTrigger(el);
     expect(trigger).not.toBeNull();
     expect(trigger.tagName).toBe("BUTTON");
+    expect(trigger.querySelector(".regular-icon")?.innerHTML).toContain("<svg");
+    expect(trigger.querySelector(".regular-icon")?.innerHTML).not.toContain(
+      'opacity="0.2"',
+    );
   });
 
   it("renders a divider with part='divider'", async () => {

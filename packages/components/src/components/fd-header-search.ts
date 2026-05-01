@@ -6,7 +6,10 @@ import {
   extractHeaderSearchAliasData,
   normalizeHeaderSearchText,
 } from "./fd-header-search-utils.js";
-import { REGULAR_X_ICON_SVG } from "./regular-icons.js";
+import {
+  REGULAR_CARET_RIGHT_ICON_SVG,
+  REGULAR_X_ICON_SVG,
+} from "./regular-icons.js";
 
 export type HeaderSearchSurface = "desktop" | "mobile";
 
@@ -1009,11 +1012,13 @@ export class FdHeaderSearch extends LitElement {
                       "Open first matching result"}
                       @click=${this._handleSubmitAction}
                     >
-                      <fd-icon
+                      <span
                         slot="icon-start"
-                        name="caret-right"
+                        class="regular-icon"
                         aria-hidden="true"
-                      ></fd-icon>
+                      >
+                        ${unsafeSVG(REGULAR_CARET_RIGHT_ICON_SVG)}
+                      </span>
                     </fd-button>
                   `
                 : nothing}

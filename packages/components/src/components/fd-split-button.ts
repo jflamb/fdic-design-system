@@ -1,6 +1,7 @@
 import { LitElement, css, html } from "lit";
 import type { PropertyValues } from "lit";
 import { classMap } from "lit/directives/class-map.js";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import type {
   FdSplitButtonActionDetail,
   FdSplitButtonOpenChangeDetail,
@@ -8,9 +9,9 @@ import type {
 import type { ButtonVariant } from "./fd-button.js";
 import type { Placement } from "./placement.js";
 import type { FdMenu } from "./fd-menu.js";
+import { REGULAR_CARET_DOWN_ICON_SVG } from "./regular-icons.js";
 import "./fd-menu.js";
 import "./fd-menu-item.js";
-import "./fd-icon.js";
 
 export class FdSplitButton extends LitElement {
   static properties = {
@@ -75,6 +76,12 @@ export class FdSplitButton extends LitElement {
       min-height: var(--fd-button-height, 44px);
       padding-inline: 0;
       border-radius: 0;
+    }
+
+    .trigger-segment .regular-icon svg {
+      display: block;
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
     }
 
     /* --- Label --- */
@@ -549,7 +556,9 @@ export class FdSplitButton extends LitElement {
           @click=${this._onTriggerClick}
           @keydown=${this._onTriggerKeydown}
         >
-          <fd-icon name="caret-down" aria-hidden="true"></fd-icon>
+          <span class="regular-icon" aria-hidden="true">
+            ${unsafeSVG(REGULAR_CARET_DOWN_ICON_SVG)}
+          </span>
         </button>
       </div>
       <fd-menu
