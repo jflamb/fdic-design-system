@@ -365,4 +365,36 @@ describe("fd-header-search", () => {
       (el.shadowRoot?.querySelector(".panel") as HTMLElement | null)?.hidden,
     ).toBe(false);
   });
+
+  it("keeps the desktop panel open with a search-all fallback when no menu item matches", async () => {
+    const el = await createSearch();
+    const input = getInput(el);
+
+    input?.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
+    if (input) {
+      input.value = "ocom";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
+    await el.updateComplete;
+
+    const panel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+    const directResults = el.shadowRoot?.querySelectorAll(
+      ".results .result-link",
+    );
+    const fallback = el.shadowRoot?.querySelector(
+      ".result-link--search-all",
+    ) as HTMLAnchorElement | null;
+    const status = el.shadowRoot?.querySelector(".status") as HTMLElement | null;
+
+    expect(panel?.hidden).toBe(false);
+    expect(directResults).toHaveLength(0);
+    expect(fallback?.textContent).toContain("Search all");
+    expect(fallback?.textContent).toContain("ocom");
+    expect(fallback?.href).toContain("q=ocom");
+    expect(status?.textContent).toContain('No menu destinations match "ocom".');
+  });
 });

@@ -454,7 +454,7 @@ export class FdGlobalHeader extends LitElement {
       background: var(--fd-global-header-color-surface-brand);
       color: var(--fd-global-header-color-text-inverted);
       min-height: 5.1875rem;
-      padding: 1rem 0;
+      padding: 0;
       display: flex;
       align-items: center;
     }
@@ -2768,6 +2768,37 @@ export class FdGlobalHeader extends LitElement {
     );
   }
 
+  private _isElementRendered(element: HTMLElement | null | undefined) {
+    if (!element) {
+      return false;
+    }
+
+    const styles = getComputedStyle(element);
+    return styles.display !== "none" && styles.visibility !== "hidden";
+  }
+
+  private _isDesktopSearchVisible() {
+    const desktopSearch = this._getHeaderSearchHost("desktop");
+    const searchRegion = desktopSearch?.closest(
+      ".desktop-search-region",
+    ) as HTMLElement | null;
+
+    return (
+      this._isElementRendered(desktopSearch) &&
+      this._isElementRendered(searchRegion)
+    );
+  }
+
+  private _focusDesktopSearch() {
+    this._closeMenu();
+    this._mobileSearchOpen = false;
+    this.updateComplete.then(() => {
+      const desktopSearch = this._getHeaderSearchHost("desktop");
+      desktopSearch?.focus();
+      desktopSearch?.select?.();
+    });
+  }
+
   private _focusSearchFieldFromShortcut() {
     if (!this.search) {
       return;
@@ -2778,17 +2809,17 @@ export class FdGlobalHeader extends LitElement {
       return;
     }
 
-    if (this._isMobile && this._isMobileSearchToggleVisible()) {
+    if (this._isDesktopSearchVisible()) {
+      this._focusDesktopSearch();
+      return;
+    }
+
+    if (this._isMobileSearchToggleVisible()) {
       this._toggleMobileSearch(true);
       return;
     }
 
-    this._closeMenu();
-    this.updateComplete.then(() => {
-      const desktopSearch = this._getHeaderSearchHost("desktop");
-      desktopSearch?.focus();
-      desktopSearch?.select?.();
-    });
+    this._focusDesktopSearch();
   }
 
   private _getPanelById(panelId: string) {
@@ -4181,17 +4212,21 @@ export class FdGlobalHeader extends LitElement {
       ${!panel
         ? html`
             <ul class="mobile-list" role="list">
-              ${this.navigation
-                .filter(isPanelItem)
-                .map(
-                  (navItem) => html`
-                    <li>
-                      ${this._renderMobileListItem(navItem.label, undefined, [
-                        navItem.id,
-                      ])}
-                    </li>
-                  `,
-                )}
+              ${this.navigation.map(
+                (navItem) => html`
+                  <li>
+                    ${isPanelItem(navItem)
+                      ? this._renderMobileListItem(navItem.label, undefined, [
+                          navItem.id,
+                        ])
+                      : this._renderMobileListItem(
+                          navItem.label,
+                          navItem.href,
+                          null,
+                        )}
+                  </li>
+                `,
+              )}
             </ul>
           `
         : item

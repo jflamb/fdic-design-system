@@ -1532,6 +1532,57 @@ describe("fd-global-header", () => {
     expect(searchShell?.getAttribute("aria-labelledby")).toBeTruthy();
   });
 
+  it("renders direct top-level links in the mobile menu", async () => {
+    const el = await createHeader({ mobile: true });
+    el.navigation = [
+      {
+        kind: "link",
+        id: "news-events",
+        label: "News & Events",
+        href: "#news",
+      },
+      {
+        kind: "link",
+        id: "learning",
+        label: "Learning",
+        href: "#learning",
+      },
+      {
+        kind: "link",
+        id: "support",
+        label: "Support",
+        href: "#support",
+      },
+    ] as typeof fdGlobalHeaderReferenceNavigation;
+    await el.updateComplete;
+    await nextFrame();
+
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+
+    menuToggle?.click();
+    await el.updateComplete;
+    await nextFrame();
+
+    const links = Array.from(
+      el.shadowRoot?.querySelectorAll<HTMLAnchorElement>(
+        ".mobile-drawer .mobile-link",
+      ) || [],
+    );
+
+    expect(links.map((link) => link.textContent?.trim())).toEqual([
+      "News & Events",
+      "Learning",
+      "Support",
+    ]);
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "#news",
+      "#learning",
+      "#support",
+    ]);
+  });
+
   it("syncs native mobile drawer dismissal back into component state and restores toggle focus", async () => {
     const el = await createHeader({ mobile: true });
     const menuToggle = el.shadowRoot?.querySelector(
@@ -1697,6 +1748,33 @@ describe("fd-global-header", () => {
     );
     await el.updateComplete;
 
+    expect(desktopSearch?.shadowRoot?.activeElement).toBe(desktopInput);
+  });
+
+  it("keeps the slash shortcut on the visible desktop search in mobile-layout headers", async () => {
+    const el = await createHeader({ mobile: true });
+    const desktopSearch = getDesktopSearch(el);
+    const desktopInput = getSearchInput(desktopSearch);
+    const searchDialog = el.shadowRoot?.querySelector(
+      ".mobile-search-shell",
+    ) as HTMLDialogElement | null;
+
+    expect(el.hasAttribute("mobile-layout")).toBe(true);
+    expect(el.hasAttribute("compact-mobile-layout")).toBe(false);
+    expect(searchDialog?.open).toBe(false);
+
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "/",
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(searchDialog?.open).toBe(false);
+    expect(el.shadowRoot?.activeElement).toBe(desktopSearch);
     expect(desktopSearch?.shadowRoot?.activeElement).toBe(desktopInput);
   });
 

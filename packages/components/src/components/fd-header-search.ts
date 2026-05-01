@@ -379,6 +379,10 @@ export class FdHeaderSearch extends LitElement {
       outline-color: transparent;
     }
 
+    .result-link--search-all {
+      border-top: 1px solid var(--fdic-color-border-divider, rgba(9, 53, 84, 0.08));
+    }
+
     .result-title {
       font-size: var(--fdic-font-size-body-small, 1rem);
       font-weight: 700;
@@ -605,7 +609,7 @@ export class FdHeaderSearch extends LitElement {
       this._results = getHeaderSearchMatches(trimmedValue, this.items);
       this._activeIndex = -1;
       if (this.surface === "desktop") {
-        this._setOpen(this._hasFocusWithin && this._results.length > 0);
+        this._setOpen(this._hasFocusWithin && Boolean(trimmedValue));
       }
     }, SEARCH_DEBOUNCE_MS);
   }
@@ -803,6 +807,14 @@ export class FdHeaderSearch extends LitElement {
     this._activateSuggestion(item);
   }
 
+  private _getFallbackHref() {
+    return buildHeaderSearchFallbackHref(
+      this.action,
+      this.paramName,
+      this.value.trim(),
+    );
+  }
+
   private _getDeepActiveElement() {
     let active: Element | null = this.ownerDocument.activeElement;
 
@@ -856,6 +868,20 @@ export class FdHeaderSearch extends LitElement {
     `;
   }
 
+  private _renderSearchAllLink() {
+    const query = this.value.trim();
+    if (!query) {
+      return nothing;
+    }
+
+    return html`
+      <a class="result-link result-link--search-all" href=${this._getFallbackHref()}>
+        <span class="result-title">${this.searchAllLabel || "Search all"}</span>
+        <span class="result-meta">${query}</span>
+      </a>
+    `;
+  }
+
   private _renderStatus() {
     const query = this.value.trim();
     if (!query) {
@@ -863,10 +889,6 @@ export class FdHeaderSearch extends LitElement {
     }
 
     if (this._results.length === 0) {
-      if (this.surface === "desktop") {
-        return nothing;
-      }
-
       return html`
         <p class="status" role="status" aria-live="polite">
           No menu destinations match "${query}".
@@ -981,9 +1003,10 @@ export class FdHeaderSearch extends LitElement {
           class="panel"
           part="results"
           aria-label="Search suggestions"
-          ?hidden=${!(this.open && this._results.length > 0)}
+          ?hidden=${!(this.open && this.value.trim())}
         >
           ${this._renderResultsList(resultsId)}
+          ${this._renderSearchAllLink()}
           <div id=${statusId}>${this._renderStatus()}</div>
         </section>
       </div>

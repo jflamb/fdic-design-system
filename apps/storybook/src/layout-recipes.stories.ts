@@ -8,6 +8,10 @@ import {
   DOCS_OVERVIEW_SECTION_STYLE,
   DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
 } from "./docs-overview";
+import {
+  createFdGlobalHeaderReferenceSearch,
+  fdGlobalHeaderReferenceNavigation,
+} from "@jflamb/fdic-ds-components/fd-global-header-reference";
 
 const PAGE_STYLE = [
   "display: flex",
@@ -160,20 +164,10 @@ const EVENTS = [
 ];
 
 const GLOBAL_HEADER_SOURCE = {
-  items: [
-    { kind: "link", id: "news-events", label: "News & Events", href: "#news", current: true },
-    { kind: "link", id: "learning", label: "Learning", href: "#learning" },
-    { kind: "link", id: "knowledge-base", label: "Knowledge Base", href: "#knowledge-base" },
-    { kind: "link", id: "benefits", label: "Benefits", href: "#benefits" },
-    { kind: "link", id: "support", label: "Support", href: "#support" },
-    { kind: "link", id: "about", label: "About", href: "#about" },
-  ],
+  items: structuredClone(fdGlobalHeaderReferenceNavigation),
   search: {
-    action: "#search",
+    ...createFdGlobalHeaderReferenceSearch("#search"),
     paramName: "keys",
-    label: "Search FDICnet",
-    placeholder: "Search FDICnet",
-    searchAllLabel: "Search all FDICnet",
   },
 };
 
