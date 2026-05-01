@@ -730,6 +730,30 @@ export const componentStoryApi = {
     "links": "[]",
     },
   },
+  "fd-social-media-item": {
+    argTypes: {
+    "timestamp": { control: "text" },
+    "imageSrc": { control: "text" },
+    "imageAlt": { control: "text" },
+    "platforms": { control: "select", options: ["facebook","youtube","instagram","x","reddit","linkedin"] },
+    },
+    args: {
+    "timestamp": "",
+    "imageSrc": undefined,
+    "imageAlt": "",
+    "platforms": "[]",
+    },
+  },
+  "fd-social-media-list": {
+    argTypes: {
+    "columns": { control: "select", options: ["2","3","4"] },
+    "label": { control: "text" },
+    },
+    args: {
+    "columns": "3",
+    "label": undefined,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

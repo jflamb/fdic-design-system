@@ -69,3 +69,7 @@ export { FdCardGroup } from "./generated/fd-card-group.js";
 export type { FdCardGroupProps } from "./generated/fd-card-group.js";
 export { FdLinkCategory } from "./generated/fd-link-category.js";
 export type { FdLinkCategoryProps } from "./generated/fd-link-category.js";
+export { FdSocialMediaItem } from "./generated/fd-social-media-item.js";
+export type { FdSocialMediaItemProps } from "./generated/fd-social-media-item.js";
+export { FdSocialMediaList } from "./generated/fd-social-media-list.js";
+export type { FdSocialMediaListProps } from "./generated/fd-social-media-list.js";

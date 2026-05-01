@@ -5327,5 +5327,234 @@
       ],
       "after": ""
     }
+  },
+  "fd-social-media-item": {
+    "properties": {
+      "rows": [
+        {
+          "name": "timestamp",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible timestamp text for the post."
+        },
+        {
+          "name": "image-src",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Representative image URL for the social post."
+        },
+        {
+          "name": "image-alt",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Alternative text for the representative image. Required when the image conveys post content."
+        },
+        {
+          "name": "platforms",
+          "type": "`\"facebook\"` \\| `\"youtube\"` \\| `\"instagram\"` \\| `\"x\"` \\| `\"reddit\"` \\| `\"linkedin\"` \\| `\"threads\"` array or space-separated attribute",
+          "defaultValue": "`[]`",
+          "description": "Published platform tokens shown as attribution. Unsupported tokens are ignored and duplicates are removed."
+        }
+      ],
+      "after": "`fd-social-media-item` is static in v1. The host shell is not focusable, and the component does not emit events."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Authored post body content. Use native text and links; the component does not parse URLs or hashtags."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-social-media-item-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Gap between media, content, and platform attribution."
+        },
+        {
+          "name": "--fd-social-media-item-media-height",
+          "default": "`auto`",
+          "description": "Optional fixed representative image container height. Leave unset to preserve the default aspect ratio."
+        },
+        {
+          "name": "--fd-social-media-item-media-aspect-ratio",
+          "default": "`368 / 341`",
+          "description": "Representative image aspect ratio."
+        },
+        {
+          "name": "--fd-social-media-item-media-radius",
+          "default": "`var(--fdic-corner-radius-xl, 9px)`",
+          "description": "Representative image corner radius."
+        },
+        {
+          "name": "--fd-social-media-item-body-color",
+          "default": "`var(--fdic-color-text-primary, #212123)`",
+          "description": "Post body text color."
+        },
+        {
+          "name": "--fd-social-media-item-supporting-color",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
+          "description": "Timestamp and platform-label text color."
+        },
+        {
+          "name": "--fd-social-media-item-platform-gap",
+          "default": "`var(--fdic-spacing-2xs, 4px)`",
+          "description": "Gap between platform attribution icons."
+        },
+        {
+          "name": "--fd-social-media-item-platform-icon-size",
+          "default": "`22px`",
+          "description": "Inline and block size for platform icons."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper."
+        },
+        {
+          "name": "media",
+          "description": "Representative image wrapper."
+        },
+        {
+          "name": "image",
+          "description": "Native representative image."
+        },
+        {
+          "name": "content",
+          "description": "Timestamp and post body wrapper."
+        },
+        {
+          "name": "timestamp",
+          "description": "Visible timestamp text."
+        },
+        {
+          "name": "body",
+          "description": "Slotted post body wrapper."
+        },
+        {
+          "name": "platforms",
+          "description": "Platform attribution wrapper."
+        },
+        {
+          "name": "platform-label",
+          "description": "Visible platform attribution label."
+        },
+        {
+          "name": "platform-list",
+          "description": "Platform attribution list."
+        },
+        {
+          "name": "platform-item",
+          "description": "Individual platform attribution item."
+        },
+        {
+          "name": "platform-icon",
+          "description": "Decorative platform icon wrapper."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-social-media-list": {
+    "properties": {
+      "rows": [
+        {
+          "name": "columns",
+          "type": "`\"2\"` \\| `\"3\"` \\| `\"4\"`",
+          "defaultValue": "`3`",
+          "description": "Preferred FDIC collection column constraint set."
+        },
+        {
+          "name": "label",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional accessible label applied to the internal list wrapper when nearby visible copy does not already name the set."
+        }
+      ],
+      "after": "`fd-social-media-list` is a static grouping container. It does not own active-item, selection, removal, sorting, or keyboard navigation state."
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "default",
+          "description": "Author direct `fd-social-media-item` children. Each direct child receives list-item semantics."
+        }
+      ],
+      "after": "`fd-social-media-list` assigns `role=\"listitem\"` to direct `fd-social-media-item` children."
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-social-media-list-col-2-min",
+          "default": "`var(--fdic-layout-col-2-min, 384px)`",
+          "description": "Desktop minimum track width for the two-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-2-max",
+          "default": "`var(--fdic-layout-col-2-max, 688px)`",
+          "description": "Desktop maximum track width for the two-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-2-gap",
+          "default": "`var(--fdic-layout-col-2-gap, 48px)`",
+          "description": "Desktop row and column gap for the two-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-3-min",
+          "default": "`344px`",
+          "description": "Desktop minimum track width for the three-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-3-gap",
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
+          "description": "Desktop column gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-3-row-gap",
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
+          "description": "Desktop row gap for the three-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-4-min",
+          "default": "`var(--fdic-layout-col-4-min, 256px)`",
+          "description": "Desktop minimum track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-4-max",
+          "default": "`var(--fdic-layout-col-4-max, 320px)`",
+          "description": "Desktop maximum track width for the four-column constraint set."
+        },
+        {
+          "name": "--fd-social-media-list-col-4-gap",
+          "default": "`var(--fdic-layout-col-4-gap, 48px)`",
+          "description": "Desktop row and column gap for the four-column constraint set."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Responsive list/grid wrapper."
+        }
+      ],
+      "after": ""
+    }
   }
 }
