@@ -196,25 +196,22 @@ describe("FdTile", () => {
     expect(primaryLink?.querySelector(".title-link")?.textContent).toContain("Benefits");
   });
 
-  it("darkens the nested visual with Figma hover tones on the primary link", () => {
+  it("inherits nested visual colors from fd-visual instead of patching them locally", () => {
     const styles = (
       customElements.get("fd-tile") as typeof HTMLElement & {
         styles?: { cssText?: string };
       }
     ).styles?.cssText ?? "";
+    const visualRule = styles.match(/\[part="visual"\] fd-visual \{[^}]+}/)?.[0] ?? "";
 
-    expect(styles).toContain("--fd-tile-visual-bg-neutral");
-    expect(styles).toContain("var(--fdic-color-overlay-hover)");
-    expect(styles).toContain("--fd-tile-visual-bg-cool");
-    expect(styles).toContain("var(--fdic-color-primary-200)");
-    expect(styles).toContain("--fd-tile-visual-bg-warm");
-    expect(styles).toContain("var(--fdic-color-secondary-300)");
-    expect(styles).toContain("--fd-tile-visual-bg-cool-emphasis");
-    expect(styles).toContain("var(--fdic-color-primary-500)");
-    expect(styles).toContain("--fd-tile-visual-bg-neutral-emphasis");
-    expect(styles).toContain("var(--fdic-color-icon-primary)");
-    expect(styles).toContain("--fd-tile-visual-bg-warm-emphasis");
-    expect(styles).toContain("var(--fdic-color-secondary-800)");
+    expect(visualRule).toContain("--fd-visual-size");
+    expect(visualRule).toContain("--fd-visual-padding");
+    expect(visualRule).toContain("--fd-visual-content-size");
+    expect(visualRule).not.toContain("--fd-tile-visual-bg");
+    expect(visualRule).not.toContain("--fd-tile-visual-fg");
+    expect(styles).not.toContain("--fd-tile-visual-bg-cool-emphasis");
+    expect(styles).not.toContain("--fd-tile-visual-bg-neutral-emphasis");
+    expect(styles).not.toContain("--fd-tile-visual-bg-warm-emphasis");
   });
 
   it("passes an axe audit in linked mode", async () => {

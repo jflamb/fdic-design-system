@@ -95,30 +95,6 @@ export class FdTile extends LitElement {
       --fd-visual-size: var(--fd-tile-visual-size, 40px);
       --fd-visual-padding: var(--fd-tile-visual-padding, var(--fdic-spacing-xs, 8px));
       --fd-visual-content-size: var(--fd-tile-visual-content-size, 18px);
-      --fd-visual-bg-neutral: var(
-        --fd-tile-visual-bg-neutral,
-        var(--fdic-color-overlay-hover)
-      );
-      --fd-visual-fg-neutral: var(
-        --fd-tile-visual-fg-neutral,
-        var(--fdic-color-text-primary)
-      );
-      --fd-visual-bg-cool: var(
-        --fd-tile-visual-bg-cool,
-        var(--fdic-color-primary-200)
-      );
-      --fd-visual-fg-cool: var(
-        --fd-tile-visual-fg-cool,
-        var(--fdic-color-text-primary)
-      );
-      --fd-visual-bg-warm: var(
-        --fd-tile-visual-bg-warm,
-        var(--fdic-color-secondary-300)
-      );
-      --fd-visual-fg-warm: var(
-        --fd-tile-visual-fg-warm,
-        var(--fdic-color-text-primary)
-      );
       flex: none;
     }
 
@@ -190,34 +166,6 @@ export class FdTile extends LitElement {
             --fd-tile-focus-ring,
             var(--fdic-focus-ring-color)
           );
-    }
-
-    [part="primary-link"]:hover [part="visual"] fd-visual,
-    [part="primary-link"]:focus-visible [part="visual"] fd-visual {
-      --fd-visual-bg-cool: var(
-        --fd-tile-visual-bg-cool-emphasis,
-        var(--fdic-color-primary-500)
-      );
-      --fd-visual-fg-cool: var(
-        --fd-tile-visual-fg-cool-emphasis,
-        var(--fdic-color-text-inverted)
-      );
-      --fd-visual-bg-neutral: var(
-        --fd-tile-visual-bg-neutral-emphasis,
-        var(--fdic-color-icon-primary)
-      );
-      --fd-visual-fg-neutral: var(
-        --fd-tile-visual-fg-neutral-emphasis,
-        var(--fdic-color-text-inverted)
-      );
-      --fd-visual-bg-warm: var(
-        --fd-tile-visual-bg-warm-emphasis,
-        var(--fdic-color-secondary-800)
-      );
-      --fd-visual-fg-warm: var(
-        --fd-tile-visual-fg-warm-emphasis,
-        var(--fdic-color-text-inverted)
-      );
     }
 
     [part="description"] {

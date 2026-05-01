@@ -85,7 +85,8 @@ The Tile component presents one primary destination with a decorative circular i
 | `--fd-tile-description-color` | `var(--fdic-color-text-secondary, #595961)` | Supporting description color. |
 | `--fd-tile-links-gap` | `4px` | Gap between supporting links in the optional link stack. |
 
-- The component also forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively. Prefer the documented tile-level hooks before overriding the nested visual directly.
+- The component forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively.
+- Tile uses the same foreground and background tone colors as `fd-visual`; use `fd-visual` hooks only when a product needs to intentionally diverge from the shared visual tone system.
 
 ## Shadow parts
 

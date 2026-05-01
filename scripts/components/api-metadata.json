@@ -3873,7 +3873,7 @@
           "description": "Gap between supporting links in the optional link stack."
         }
       ],
-      "after": "- The component also forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively. Prefer the documented tile-level hooks before overriding the nested visual directly."
+      "after": "- The component forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively.\n- Tile uses the same foreground and background tone colors as `fd-visual`; use `fd-visual` hooks only when a product needs to intentionally diverge from the shared visual tone system."
     },
     "shadowParts": {
       "rows": [
