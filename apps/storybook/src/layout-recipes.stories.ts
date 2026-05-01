@@ -46,20 +46,6 @@ const PAGE_SHELL_INLINE_SIZE_TABLET =
 const PAGE_SHELL_INLINE_SIZE_MOBILE =
   "calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px))";
 
-const SECTION_CONTENT_STYLE = [
-  "box-sizing: border-box",
-  `width: ${PAGE_SHELL_INLINE_SIZE}`,
-  "margin-inline: auto",
-  "padding-block: var(--fdic-layout-section-block-padding, 48px)",
-].join("; ");
-
-const SECTION_CONTENT_TIGHT_STYLE = [
-  "box-sizing: border-box",
-  `width: ${PAGE_SHELL_INLINE_SIZE}`,
-  "margin-inline: auto",
-  "padding-block: var(--fdic-layout-section-block-padding-compact, 24px)",
-].join("; ");
-
 const PAGE_HEADER_SHELL_STYLE = [
   "--fd-page-header-max-width: var(--fdic-layout-shell-max-width, 1312px)",
   "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
@@ -80,32 +66,6 @@ const FOOTER_SHELL_STYLE = [
   "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
   "--fd-global-footer-padding-inline-tablet: var(--fdic-layout-gutter-tablet, 32px)",
   "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-].join("; ");
-
-const BAND_CONTENT_STACK_STYLE = [
-  DOCS_OVERVIEW_SECTION_STYLE,
-  "gap: var(--fdic-spacing-xl, 24px)",
-].join("; ");
-
-const BAND_HEADER_STYLE = [
-  DOCS_OVERVIEW_SECTION_STYLE,
-  "gap: var(--fdic-spacing-xs, 8px)",
-  "max-width: var(--fdic-layout-paragraph-max-width, 720px)",
-].join("; ");
-
-const BAND_HEADING_STYLE = [
-  "margin: 0",
-  "color: var(--fdic-color-text-primary, #212123)",
-  "font-size: var(--fdic-font-size-h3, 22.5px)",
-  "font-weight: 600",
-  "line-height: 1.25",
-].join("; ");
-
-const BAND_LEDE_STYLE = [
-  "margin: 0",
-  "color: var(--fdic-color-text-secondary, #595961)",
-  "font-size: var(--fdic-font-size-body, 18px)",
-  "line-height: 1.375",
 ].join("; ");
 
 const COOL_SECTION_STYLE = [
@@ -233,15 +193,27 @@ const renderEvents = () => html`
 
 const renderRecipe = () => html`
   <style>
+    .fdic-layout-recipe-content {
+      box-sizing: border-box;
+      width: ${PAGE_SHELL_INLINE_SIZE};
+      margin-inline: auto;
+      padding-block: var(--fdic-layout-section-block-padding-compact, 24px);
+    }
+
+    .fdic-layout-recipe-band-stack {
+      display: grid;
+      gap: var(--fdic-spacing-xl, 24px);
+    }
+
     @media (max-width: 640px) {
       .fdic-layout-recipe-content {
-        width: ${PAGE_SHELL_INLINE_SIZE_MOBILE} !important;
+        width: ${PAGE_SHELL_INLINE_SIZE_MOBILE};
       }
     }
 
     @media (min-width: 640.001px) and (max-width: 1023.999px) {
       .fdic-layout-recipe-content {
-        width: ${PAGE_SHELL_INLINE_SIZE_TABLET} !important;
+        width: ${PAGE_SHELL_INLINE_SIZE_TABLET};
       }
     }
   </style>
@@ -269,11 +241,11 @@ const renderRecipe = () => html`
       ></fd-page-header>
 
       <section style=${COOL_SECTION_STYLE}>
-        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
-          <div style=${BAND_CONTENT_STACK_STYLE}>
-            <div style=${BAND_HEADER_STYLE}>
-              <h2 style=${BAND_HEADING_STYLE}>Featured tools</h2>
-              <p style=${BAND_LEDE_STYLE}>
+        <div class="fdic-layout-recipe-content">
+          <div class="fdic-layout-recipe-band-stack">
+            <div class="fdic-section-header">
+              <h2>Featured tools</h2>
+              <p>
                 Quickly open the FDICnet resources employees use most often.
               </p>
             </div>
@@ -283,11 +255,11 @@ const renderRecipe = () => html`
       </section>
 
       <section style=${WARM_SECTION_STYLE}>
-        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
-          <div style=${BAND_CONTENT_STACK_STYLE}>
-            <div style=${BAND_HEADER_STYLE}>
-              <h2 style=${BAND_HEADING_STYLE}>Upcoming events</h2>
-              <p style=${BAND_LEDE_STYLE}>
+        <div class="fdic-layout-recipe-content">
+          <div class="fdic-layout-recipe-band-stack">
+            <div class="fdic-section-header">
+              <h2>Upcoming events</h2>
+              <p>
                 Review upcoming FDIC-wide training, meetings, and announcements.
               </p>
             </div>

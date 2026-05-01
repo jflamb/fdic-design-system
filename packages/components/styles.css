@@ -77,6 +77,25 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
   line-height: 1.15;
 }
 
+.fdic-section-header {
+  display: grid;
+  gap: var(--fdic-section-header-gap, var(--fdic-spacing-xs, 8px));
+  align-content: start;
+  max-inline-size: var(
+    --fdic-section-header-max-width,
+    var(--fdic-layout-paragraph-max-width, 720px)
+  );
+}
+
+.fdic-section-header :where(h1, h2, h3, h4, h5, h6, p) {
+  margin-block: 0;
+}
+
+.fdic-section-header :where(h1, h2, h3, h4, h5, h6) {
+  padding-block: 0;
+  border-block-end: 0;
+}
+
 .fdic-composition-section :where(h3) {
   color: var(--fdic-color-text-primary, #212123);
   line-height: var(--fdic-line-height-tight, 1.2);

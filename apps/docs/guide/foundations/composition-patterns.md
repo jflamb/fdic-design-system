@@ -42,6 +42,7 @@ The following classes are part of the supported stylesheet contract:
 - `.fdic-composition-section__inner`
 - `.fdic-composition-section--highlight`
 - `.fdic-composition-section--warm`
+- `.fdic-section-header`
 - `.fdic-composition-feature-rail`
 - `.fdic-composition-feature-item`
 - `.fdic-composition-story`
@@ -95,6 +96,25 @@ Modifiers:
 - `.fdic-composition-section--warm` adds the warm supporting-band treatment
 
 Use modifier classes only when the section surface itself needs that system treatment. Do not stack custom one-off color overrides on top without a documented reason.
+
+## Section header
+
+Use `.fdic-section-header` for a compact heading stack at the top of a page section, band, card group, or other layout container.
+
+Unlike `.prose`, this pattern does not add extra space above headings. The surrounding section owns the block padding, and the header stack owns only the small gap between the heading and optional supporting copy.
+
+```html
+<section class="fdic-composition-section" aria-labelledby="tools-title">
+  <div class="fdic-composition-section__inner">
+    <div class="fdic-section-header">
+      <h2 id="tools-title">Featured tools</h2>
+      <p>Quickly open the resources employees use most often.</p>
+    </div>
+  </div>
+</section>
+```
+
+Use `.prose` instead when the heading is part of a long-form document flow where spacing above headings helps readers scan between multiple content sections.
 
 ## Feature rail
 
