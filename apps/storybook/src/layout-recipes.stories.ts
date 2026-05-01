@@ -49,9 +49,6 @@ const SECTION_CONTENT_TIGHT_STYLE = [
   "padding-block: var(--fdic-layout-section-block-padding-compact, 24px)",
 ].join("; ");
 
-const SECTION_RULE_STYLE =
-  "border-block: 1px solid var(--fdic-color-border-subtle, #dfe1e2);";
-
 const COOL_SECTION_STYLE = [
   SECTION_SHELL_STYLE,
   "background: var(--fdic-color-primary-050, #e7f6fd)",
@@ -62,11 +59,6 @@ const WARM_SECTION_STYLE = [
   SECTION_SHELL_STYLE,
   "background: var(--fdic-color-secondary-050, #fbf4df)",
   "border-block: 1px solid var(--fdic-color-secondary-300, #e0c875)",
-].join("; ");
-
-const NEUTRAL_SECTION_STYLE = [
-  SECTION_SHELL_STYLE,
-  SECTION_RULE_STYLE,
 ].join("; ");
 
 const QUICK_LINKS = [
@@ -279,17 +271,15 @@ const renderRecipe = () => html`
     </main>
 
     <div style=${PAGE_CHROME_END_STYLE}>
-      <section style=${NEUTRAL_SECTION_STYLE}>
-        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
-          <fd-page-feedback
-            survey-href="https://www.fdic.gov"
-            style=${[
-              "--fd-page-feedback-inline-padding: 0",
-              "--fd-page-feedback-inline-padding-mobile: 0",
-            ].join("; ")}
-          ></fd-page-feedback>
-        </div>
-      </section>
+      <fd-page-feedback
+        survey-href="https://www.fdic.gov"
+        style=${[
+          "--fd-page-feedback-max-width: calc(var(--fdic-layout-shell-max-width, 1312px) - (2 * var(--fdic-layout-gutter, 64px)))",
+          "--fd-page-feedback-inline-padding: var(--fdic-layout-gutter, 64px)",
+          "--fd-page-feedback-inline-padding-tablet: var(--fdic-layout-gutter-tablet, 32px)",
+          "--fd-page-feedback-inline-padding-mobile: var(--fdic-layout-gutter-mobile, 16px)",
+        ].join("; ")}
+      ></fd-page-feedback>
 
       <fd-global-footer
         agency-name="Federal Deposit Insurance Corporation"
@@ -331,12 +321,27 @@ export const HomepageBands: Story = {};
 
 HomepageBands.play = async ({ canvasElement }) => {
   const feedback = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
+  const contentShell = canvasElement.querySelector(".fdic-layout-recipe-content") as HTMLElement | null;
+  const warmSection = canvasElement.querySelector("main section:last-of-type") as HTMLElement | null;
+  const footer = canvasElement.querySelector("fd-global-footer") as HTMLElement | null;
   const base = feedback?.shadowRoot?.querySelector("[part=base]") as HTMLElement | null;
   const prompt = feedback?.shadowRoot?.querySelector("[part=prompt]") as HTMLElement | null;
 
   await waitFor(() => {
+    const shellRect = contentShell?.getBoundingClientRect();
+    const shellStyle = contentShell ? getComputedStyle(contentShell) : null;
+    const shellContentStart =
+      (shellRect?.left ?? 0) + Number.parseFloat(shellStyle?.paddingInlineStart ?? "0");
+    const warmRect = warmSection?.getBoundingClientRect();
+    const footerRect = footer?.getBoundingClientRect();
     const baseRect = base?.getBoundingClientRect();
     const promptRect = prompt?.getBoundingClientRect();
+
+    expect(Math.round(baseRect?.left ?? -1)).toBe(Math.round(warmRect?.left ?? 0));
+    expect(Math.round(baseRect?.width ?? 0)).toBe(Math.round(warmRect?.width ?? 0));
+    expect(Math.round(baseRect?.top ?? 0)).toBe(Math.round(warmRect?.bottom ?? 0));
+    expect(Math.round(footerRect?.top ?? 0)).toBe(Math.round(baseRect?.bottom ?? 0));
+    expect(Math.round(promptRect?.left ?? 0)).toBe(Math.round(shellContentStart));
     expect((promptRect?.top ?? 0) - (baseRect?.top ?? 0)).toBeGreaterThan(16);
   });
 };
