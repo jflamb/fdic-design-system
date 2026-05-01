@@ -1,6 +1,6 @@
 # Media Item
 
-The Media Item component presents one multimedia resource with a thumbnail, linked title, and short metadata.
+The Media Item component presents one multimedia resource with a linked thumbnail, linked title, and short metadata.
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Component</span>
@@ -16,7 +16,7 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 ## When not to use
 
 - **Do not use it as an embedded player** — playback controls, transcripts, captions, and player state are application concerns.
-- **Do not use it for a whole-card link** — v1 keeps the title as the only navigation target so keyboard behavior stays native and predictable.
+- **Do not use it for a whole-card link** — v1 keeps the thumbnail and title in one native link so keyboard behavior stays native and predictable.
 - **Do not use it for complex archives** — filtering, sorting, loading, and empty states belong to a larger media gallery or search pattern.
 
 ## Examples
@@ -24,7 +24,7 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 <StoryEmbed
   storyId="components-media-item--docs-overview"
   linkStoryId="components-media-item--playground"
-  caption="Media Item shows a thumbnail, native title link, and concise supporting metadata."
+  caption="Media Item shows a thumbnail and title in one native link, with concise supporting metadata."
 />
 
 ### Basic usage
@@ -43,8 +43,8 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 
 - **Use a descriptive title.** The title is the link name when `href` is present, so it should make sense out of context.
 - **Keep metadata concise.** Use short display text such as duration, level, date, or update status. Do not pack long descriptions into metadata.
-- **Write useful image alt text.** If the thumbnail adds information, describe that information. If the thumbnail duplicates the title or is decorative, use an empty `image-alt`.
-- **Keep the title as the destination.** Do not add a second thumbnail link to the same destination unless a future pattern explicitly supports it.
+- **Write useful image alt text.** If the thumbnail adds information and no `href` is present, describe that information. When `href` is present, the linked thumbnail is treated as decorative so the link name stays focused on the title.
+- **Use one destination.** Do not add a second duplicate link around the thumbnail or title. The component uses one native link for both.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -52,14 +52,14 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `title` | `string` | `` | Visible media title. When `href` is present, this text becomes the native link name. |
-| `href` | `string \| undefined` | `undefined` | Destination URL for the title link. If omitted or blank, the title renders as static text. |
-| `target` | `string \| undefined` | `undefined` | Native title-link target. Applies only when `href` is set. |
-| `rel` | `string \| undefined` | `undefined` | Native title-link relationship tokens. When `target="_blank"`, `fd-media-item` always adds `noopener noreferrer`. |
+| `href` | `string \| undefined` | `undefined` | Destination URL for the combined thumbnail and title link. If omitted or blank, the title renders as static text. |
+| `target` | `string \| undefined` | `undefined` | Native media-link target. Applies only when `href` is set. |
+| `rel` | `string \| undefined` | `undefined` | Native media-link relationship tokens. When `target="_blank"`, `fd-media-item` always adds `noopener noreferrer`. |
 | `metadata` | `string` | `` | Visible supporting metadata such as duration, level, date, or update status. |
 | `image-src` | `string \| undefined` | `undefined` | Thumbnail image URL. |
-| `image-alt` | `string` | `` | Alternative text for the thumbnail. Use empty text only when the image is decorative or repeats nearby text. |
+| `image-alt` | `string` | `` | Alternative text for the thumbnail when it is not already named by the linked title. Linked thumbnails use empty alt text when a title is present. |
 
-`fd-media-item` keeps the host shell and thumbnail static. The title is the only native navigation target when `href` is set.
+`fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and title share one native link and one tab stop; metadata remains outside the link.
 
 ## CSS custom properties
 
@@ -74,8 +74,8 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 | `--fd-media-item-title-font-weight` | `450` | Title font weight. |
 | `--fd-media-item-metadata-color` | `var(--fdic-color-text-secondary, #595961)` | Metadata text color. |
 | `--fd-media-item-metadata-font-size` | `var(--fdic-font-size-body, 18px)` | Metadata font size. |
-| `--fd-media-item-focus-gap` | `var(--fdic-focus-gap-color)` | Inner gap color for title-link focus. |
-| `--fd-media-item-focus-ring` | `var(--fdic-focus-ring-color)` | Outer ring color for title-link focus. |
+| `--fd-media-item-focus-gap` | `var(--fdic-focus-gap-color)` | Inner gap color for media-link focus. |
+| `--fd-media-item-focus-ring` | `var(--fdic-focus-ring-color)` | Outer ring color for media-link focus. |
 
 ## Shadow parts
 
@@ -84,9 +84,10 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 | `base` | Root article wrapper. |
 | `media` | Thumbnail image wrapper. |
 | `image` | Native thumbnail image. |
-| `content` | Title and metadata wrapper. |
+| `content` | Static title and metadata wrapper used when `href` is omitted. |
 | `title` | Shared title styling hook for linked and static titles. |
-| `title-link` | Native title link. |
+| `title-link` | Native link wrapping the thumbnail and title when `href` is present. |
+| `title-link-text` | Linked title text inside the native media link. |
 | `title-text` | Static title text when `href` is omitted. |
 | `metadata` | Visible supporting metadata. |
 <!-- GENERATED_COMPONENT_API:END -->
@@ -94,11 +95,11 @@ The Media Item component presents one multimedia resource with a thumbnail, link
 ## Accessibility
 
 - The component renders a semantic `article`.
-- The host shell and thumbnail are not focusable or clickable.
-- When `href` is present, the title renders as a native link and uses the normal tab order. There is no roving tabindex or custom keyboard model.
-- Keyboard focus appears on the title link. Hover and focus thicken the underline to match the Figma interaction state.
+- The host shell is not focusable or clickable.
+- When `href` is present, the thumbnail and title render inside one native link and use the normal tab order. There is no roving tabindex or custom keyboard model.
+- Keyboard focus appears on the combined thumbnail and title link. Hover and focus thicken the title underline to match the Figma interaction state.
 - The component does not manage focus recovery because it is not dismissible and does not remove itself.
-- `image-alt` is author-owned. Empty alt text is appropriate only when the thumbnail is decorative or repeats nearby text.
+- `image-alt` is author-owned for static media items. Linked thumbnails render with empty alt text when a title is present so the link name is not duplicated.
 
 ## Known limitations
 

@@ -48,7 +48,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A compact multimedia resource summary with a thumbnail, native title link, and supporting metadata.",
+          "A compact multimedia resource summary with a thumbnail, native media link, and supporting metadata.",
       },
     },
   },
@@ -79,7 +79,8 @@ Playground.play = async ({ canvasElement }) => {
   const link = item?.shadowRoot?.querySelector<HTMLAnchorElement>(".title-link");
 
   expect(item?.getAttribute("tabindex")).toBeNull();
-  expect(image?.getAttribute("alt")).toContain("protected credit card");
+  expect(image?.getAttribute("alt")).toBe("");
+  expect(link?.querySelector("[part=media]")).toBe(image?.parentElement);
   expect(link?.getAttribute("href")).toContain("fdic.gov");
   expect(link?.textContent).toContain("PCI Compliance");
 };

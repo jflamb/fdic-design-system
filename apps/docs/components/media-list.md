@@ -98,7 +98,7 @@ The Media List component groups Media Items in a responsive, left-to-right and t
 
 - The list renders an internal `role="list"` wrapper and applies `role="listitem"` to direct `fd-media-item` children.
 - The list does not create a composite widget. There is no roving tabindex, arrow-key navigation, or selection model.
-- Focus remains on each item's native title link in source order.
+- Focus remains on each item's native media link in source order.
 - The component does not manage focus recovery because it is not dismissible and does not remove items.
 - Use clear, unique item titles so assistive technology users can distinguish links when reviewing a page's link list.
 

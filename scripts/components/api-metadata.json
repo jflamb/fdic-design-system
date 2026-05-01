@@ -5631,19 +5631,19 @@
           "name": "href",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
-          "description": "Destination URL for the title link. If omitted or blank, the title renders as static text."
+          "description": "Destination URL for the combined thumbnail and title link. If omitted or blank, the title renders as static text."
         },
         {
           "name": "target",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
-          "description": "Native title-link target. Applies only when `href` is set."
+          "description": "Native media-link target. Applies only when `href` is set."
         },
         {
           "name": "rel",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
-          "description": "Native title-link relationship tokens. When `target=\"_blank\"`, `fd-media-item` always adds `noopener noreferrer`."
+          "description": "Native media-link relationship tokens. When `target=\"_blank\"`, `fd-media-item` always adds `noopener noreferrer`."
         },
         {
           "name": "metadata",
@@ -5661,10 +5661,10 @@
           "name": "image-alt",
           "type": "`string`",
           "defaultValue": "``",
-          "description": "Alternative text for the thumbnail. Use empty text only when the image is decorative or repeats nearby text."
+          "description": "Alternative text for the thumbnail when it is not already named by the linked title. Linked thumbnails use empty alt text when a title is present."
         }
       ],
-      "after": "`fd-media-item` keeps the host shell and thumbnail static. The title is the only native navigation target when `href` is set."
+      "after": "`fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and title share one native link and one tab stop; metadata remains outside the link."
     },
     "slots": {
       "rows": [],
@@ -5672,7 +5672,7 @@
     },
     "events": {
       "rows": [],
-      "after": "`fd-media-item` does not emit custom events in v1. Native link events bubble from the internal title link."
+      "after": "`fd-media-item` does not emit custom events in v1. Native link events bubble from the internal media link."
     },
     "cssProperties": {
       "rows": [
@@ -5724,12 +5724,12 @@
         {
           "name": "--fd-media-item-focus-gap",
           "default": "`var(--fdic-focus-gap-color)`",
-          "description": "Inner gap color for title-link focus."
+          "description": "Inner gap color for media-link focus."
         },
         {
           "name": "--fd-media-item-focus-ring",
           "default": "`var(--fdic-focus-ring-color)`",
-          "description": "Outer ring color for title-link focus."
+          "description": "Outer ring color for media-link focus."
         }
       ],
       "after": ""
@@ -5750,7 +5750,7 @@
         },
         {
           "name": "content",
-          "description": "Title and metadata wrapper."
+          "description": "Static title and metadata wrapper used when `href` is omitted."
         },
         {
           "name": "title",
@@ -5758,7 +5758,11 @@
         },
         {
           "name": "title-link",
-          "description": "Native title link."
+          "description": "Native link wrapping the thumbnail and title when `href` is present."
+        },
+        {
+          "name": "title-link-text",
+          "description": "Linked title text inside the native media link."
         },
         {
           "name": "title-text",

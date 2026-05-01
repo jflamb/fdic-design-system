@@ -39,18 +39,39 @@ describe("FdMediaItem", () => {
     const article = queryShadow(el, "article");
     const image = queryShadow<HTMLImageElement>(el, "[part=image]");
     const link = queryShadow<HTMLAnchorElement>(el, ".title-link");
+    const title = queryShadow<HTMLElement>(el, ".title-link-text");
 
-    expect(article?.getAttribute("aria-labelledby")).toBe(link?.id);
+    expect(article?.getAttribute("aria-labelledby")).toBe(title?.id);
     expect(image?.getAttribute("src")).toBe("/images/media/pci.png");
-    expect(image?.getAttribute("alt")).toBe(
-      "Illustration of a protected credit card transaction.",
-    );
+    expect(image?.getAttribute("alt")).toBe("");
     expect(link?.getAttribute("href")).toBe("/training/pci-compliance");
-    expect(link?.textContent?.trim()).toBe(
+    expect(link?.querySelector("[part=media]")).toBe(image?.parentElement);
+    expect(title?.textContent?.trim()).toBe(
       "Safeguarding Customer Credit Card Data: PCI Compliance",
     );
     expect(queryShadow(el, "[part=metadata]")?.textContent?.trim()).toBe(
       "1h 3m  ·  Beginner  ·  2 months ago",
+    );
+  });
+
+  it("uses one native link for the thumbnail and title when href is present", async () => {
+    const el = await createMediaItem();
+    el.title = "FDIC failed bank exercise";
+    el.href = "/training/failed-bank-exercise";
+    el.imageSrc = "/images/media/failed-bank.png";
+    el.metadata = "42m  ·  Intermediate";
+    await el.updateComplete;
+
+    const links = el.shadowRoot?.querySelectorAll("a") ?? [];
+    const link = links[0];
+
+    expect(links).toHaveLength(1);
+    expect(link?.querySelector("[part=media]")).not.toBeNull();
+    expect(link?.querySelector("[part~='title']")).not.toBeNull();
+    expect(link?.textContent?.trim()).toBe("FDIC failed bank exercise");
+    expect(link?.querySelector("[part=metadata]")).toBeNull();
+    expect(queryShadow(el, "[part=metadata]")?.textContent?.trim()).toBe(
+      "42m  ·  Intermediate",
     );
   });
 
@@ -113,6 +134,16 @@ describe("FdMediaItem", () => {
 
     expect(queryShadow(el, "[part=media]")).toBeNull();
     expect(queryShadow(el, "[part=metadata]")).toBeNull();
+  });
+
+  it("does not duplicate metadata when href has no linked content", async () => {
+    const el = await createMediaItem();
+    el.href = "/training/untitled";
+    el.metadata = "Updated Oct 2023";
+    await el.updateComplete;
+
+    expect(el.shadowRoot?.querySelectorAll("[part=metadata]")).toHaveLength(1);
+    expect(queryShadow(el, ".title-link")).toBeNull();
   });
 
   it("omits aria-labelledby when the title is blank", async () => {
