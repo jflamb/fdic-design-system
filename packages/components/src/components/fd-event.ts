@@ -75,7 +75,7 @@ export class FdEvent extends LitElement {
       white-space: nowrap;
       background: var(
         --fd-event-date-bg-neutral,
-        var(--fdic-color-overlay-hover)
+        light-dark(var(--fdic-color-neutral-300), var(--fdic-color-neutral-800))
       );
       color: var(--fd-event-date-color-neutral, var(--fdic-color-text-primary));
     }
@@ -83,17 +83,23 @@ export class FdEvent extends LitElement {
     :host([tone="warm"]) [part="date"] {
       background: var(
         --fd-event-date-bg-warm,
-        var(--fdic-color-secondary-300)
+        light-dark(var(--fdic-color-secondary-300), var(--fdic-color-secondary-900))
       );
-      color: var(--fd-event-date-color-warm, var(--fdic-color-text-primary));
+      color: var(
+        --fd-event-date-color-warm,
+        light-dark(var(--fdic-color-secondary-900), var(--fdic-color-secondary-050))
+      );
     }
 
     :host([tone="cool"]) [part="date"] {
       background: var(
         --fd-event-date-bg-cool,
-        var(--fdic-color-primary-200)
+        light-dark(var(--fdic-color-primary-200), var(--fdic-color-primary-700))
       );
-      color: var(--fd-event-date-color-cool, var(--fdic-color-text-primary));
+      color: var(
+        --fd-event-date-color-cool,
+        light-dark(var(--fdic-color-primary-900), var(--fdic-color-primary-100))
+      );
     }
 
     .event-link:hover [part="date"],

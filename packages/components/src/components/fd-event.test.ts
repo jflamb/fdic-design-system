@@ -182,17 +182,21 @@ describe("FdEvent", () => {
     expect(queryShadow(el, "[part=day]")?.textContent).toBe("18");
   });
 
-  it("uses the Figma date-chip token defaults", () => {
+  it("uses visual-aligned date block token defaults", () => {
     const styles = (
       customElements.get("fd-event") as typeof HTMLElement & {
         styles?: { cssText?: string };
       }
     ).styles?.cssText ?? "";
 
+    expect(styles).toContain("light-dark(var(--fdic-color-neutral-300), var(--fdic-color-neutral-800))");
     expect(styles).toContain("var(--fdic-color-primary-200)");
+    expect(styles).toContain("var(--fdic-color-primary-700)");
+    expect(styles).toContain("var(--fdic-color-primary-900)");
+    expect(styles).toContain("var(--fdic-color-primary-100)");
     expect(styles).toContain("var(--fdic-color-secondary-300)");
-    expect(styles).toContain("var(--fdic-color-primary-500)");
-    expect(styles).toContain("var(--fdic-color-secondary-800)");
+    expect(styles).toContain("var(--fdic-color-secondary-900)");
+    expect(styles).toContain("var(--fdic-color-secondary-050)");
     expect(styles).toContain("gap: var(--fd-event-date-gap, 3px)");
     expect(styles).toContain("line-height: var(--fd-event-month-line-height, 1)");
     expect(styles).toContain("margin-block: var(--fd-event-month-leading-trim, -0.06em)");
