@@ -87,6 +87,27 @@ const BAND_CONTENT_STACK_STYLE = [
   "gap: var(--fdic-spacing-xl, 24px)",
 ].join("; ");
 
+const BAND_HEADER_STYLE = [
+  DOCS_OVERVIEW_SECTION_STYLE,
+  "gap: var(--fdic-spacing-xs, 8px)",
+  "max-width: var(--fdic-layout-paragraph-max-width, 720px)",
+].join("; ");
+
+const BAND_HEADING_STYLE = [
+  "margin: 0",
+  "color: var(--fdic-color-text-primary, #212123)",
+  "font-size: var(--fdic-font-size-h3, 22.5px)",
+  "font-weight: 600",
+  "line-height: 1.25",
+].join("; ");
+
+const BAND_LEDE_STYLE = [
+  "margin: 0",
+  "color: var(--fdic-color-text-secondary, #595961)",
+  "font-size: var(--fdic-font-size-body, 18px)",
+  "line-height: 1.375",
+].join("; ");
+
 const COOL_SECTION_STYLE = [
   SECTION_SHELL_STYLE,
   "background: var(--fdic-color-primary-050, #e7f6fd)",
@@ -176,15 +197,6 @@ const renderQuickLinks = () => html`
     columns="3"
     label="Featured links"
     tone="cool"
-    style=${[
-      "--fd-tile-list-col-3-max: 405.333px",
-      "--fd-tile-list-col-3-gap: 48px",
-      "--fd-tile-list-col-3-row-gap: 24px",
-      "--fd-tile-list-col-3-min: 320px",
-      "--fd-tile-title-font-weight: 600",
-      "--fd-tile-description-font-size: 18px",
-      "--fd-tile-link-color: var(--fdic-color-text-primary, #212123)",
-    ].join("; ")}
   >
     ${QUICK_LINKS.map(
       (item) => html`
@@ -204,14 +216,6 @@ const renderEvents = () => html`
     columns="3"
     label="Upcoming events"
     tone="warm"
-    style=${[
-      "--fd-event-list-col-3-max: 405.333px",
-      "--fd-event-list-col-3-gap: 48px",
-      "--fd-event-list-col-3-row-gap: 24px",
-      "--fd-event-list-col-3-min: 320px",
-      "--fd-event-link-color: var(--fdic-color-text-primary, #212123)",
-      "--fd-event-title-color: var(--fdic-color-text-primary, #212123)",
-    ].join("; ")}
   >
     ${EVENTS.map(
       (item) => html`
@@ -265,16 +269,14 @@ const renderRecipe = () => html`
       ></fd-page-header>
 
       <section style=${COOL_SECTION_STYLE}>
-        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_STYLE}>
+        <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
           <div style=${BAND_CONTENT_STACK_STYLE}>
-            <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Full-bleed cool section with constrained tile list</strong>
-            <p class=${DOCS_OVERVIEW_META_CLASS}>
-              Use a full-width background on the outer section, then keep interactive content inside the
-              shared page shell. The section wrapper uses the documented
-              <code>--fdic-layout-shell-max-width</code>, <code>--fdic-layout-gutter</code>, and
-              <code>--fdic-layout-section-block-padding</code> tokens, while DS components that own their
-              own padding align to the same shell contract through documented component hooks.
-            </p>
+            <div style=${BAND_HEADER_STYLE}>
+              <h2 style=${BAND_HEADING_STYLE}>Featured tools</h2>
+              <p style=${BAND_LEDE_STYLE}>
+                Quickly open the FDICnet resources employees use most often.
+              </p>
+            </div>
             ${renderQuickLinks()}
           </div>
         </div>
@@ -283,12 +285,12 @@ const renderRecipe = () => html`
       <section style=${WARM_SECTION_STYLE}>
         <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
           <div style=${BAND_CONTENT_STACK_STYLE}>
-            <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Warm event section using the same shell</strong>
-            <p class=${DOCS_OVERVIEW_META_CLASS}>
-              Keep borders and fills on the full-bleed wrapper. Let <code>fd-event-list</code> handle the
-              internal column math while the shared container controls page rhythm through the canonical
-              <code>--fdic-layout-*</code> contract.
-            </p>
+            <div style=${BAND_HEADER_STYLE}>
+              <h2 style=${BAND_HEADING_STYLE}>Upcoming events</h2>
+              <p style=${BAND_LEDE_STYLE}>
+                Review upcoming FDIC-wide training, meetings, and announcements.
+              </p>
+            </div>
             ${renderEvents()}
           </div>
         </div>

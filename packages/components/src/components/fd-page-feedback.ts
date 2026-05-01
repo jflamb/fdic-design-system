@@ -195,6 +195,16 @@ export class FdPageFeedback extends LitElement {
 
     fd-button.send-button {
       flex: none;
+      inline-size: auto;
+      min-inline-size: 0;
+      --fd-button-font-size: var(--fdic-font-size-body, 1.125rem);
+      --fd-button-height: 84px;
+      --fd-button-gap: var(--fdic-spacing-sm, 0.75rem);
+      --fd-button-icon-edge-padding: 22px;
+    }
+
+    fd-button.send-button::part(base) {
+      padding-inline: var(--fdic-spacing-lg, 20px);
     }
 
     .survey-link-row {
@@ -217,16 +227,19 @@ export class FdPageFeedback extends LitElement {
     .report-fields {
       display: grid;
       gap: var(--fdic-layout-stack-gap, var(--fdic-spacing-md, 16px));
-      inline-size: min(100%, var(--fdic-layout-paragraph-max-width, 720px));
+      inline-size: min(
+        100%,
+        var(--fd-page-feedback-report-max-width, 716px)
+      );
     }
 
     .report-field {
       display: grid;
-      gap: 6px;
+      gap: var(--fdic-spacing-sm, 0.75rem);
     }
 
     .report-field fd-textarea {
-      --fd-textarea-min-height: 84px;
+      --fd-textarea-min-height: 124px;
       inline-size: 100%;
     }
 
@@ -247,13 +260,17 @@ export class FdPageFeedback extends LitElement {
     }
 
     fd-button-group.actions {
-      inline-size: 100%;
+      inline-size: auto;
       min-inline-size: 0;
       flex: 1 1 auto;
       --fd-button-group-gap: var(
         --fd-page-feedback-action-gap,
         var(--fdic-spacing-sm, 0.75rem)
       );
+    }
+
+    fd-button-group.actions fd-button {
+      flex: none;
     }
 
     [part="thank-you"] {
@@ -286,19 +303,17 @@ export class FdPageFeedback extends LitElement {
         padding-inline: var(--fd-page-feedback-inline-padding-mobile, var(--fdic-layout-gutter-mobile, 16px));
       }
 
-      .base::before {
-        inset-inline: var(--fd-page-feedback-inline-padding-mobile, var(--fdic-layout-gutter-mobile, 16px));
-      }
-
-      .panel--prompt,
-      .prompt-shell {
-        flex-direction: column;
-        align-items: flex-start;
+      .panel--prompt {
+        grid-template-columns: 1fr;
         gap: var(--fdic-spacing-md, 16px);
       }
 
       .prompt-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) max-content;
+        align-items: center;
         inline-size: 100%;
+        gap: var(--fdic-spacing-md, 16px);
       }
 
       .prompt-copy {
@@ -319,11 +334,24 @@ export class FdPageFeedback extends LitElement {
         --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
       }
 
+      fd-button-group.responses {
+        justify-self: end;
+      }
+
+      .actions {
+        inline-size: 100%;
+        justify-self: stretch;
+      }
+
       fd-button.report-trigger,
       fd-button.send-button {
         inline-size: 100%;
         min-inline-size: 64px;
         --fd-button-font-size: var(--fdic-font-size-body-small, 1rem);
+      }
+
+      fd-button.send-button {
+        --fd-button-height: 44px;
       }
 
       .survey-link-icon {

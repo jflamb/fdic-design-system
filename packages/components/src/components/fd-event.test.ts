@@ -204,6 +204,16 @@ describe("FdEvent", () => {
     expect(styles).toContain("margin-block: var(--fd-event-day-leading-trim, -0.15em)");
   });
 
+  it("uses the standard hyperlink color for linked event titles by default", () => {
+    const styles = (
+      customElements.get("fd-event") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("color: var(--fd-event-link-color, var(--fdic-color-text-link))");
+  });
+
   it("assigns a stable generated title id when rendering a link", async () => {
     const el = await createEvent();
     el.title = "Regional outreach event";

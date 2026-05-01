@@ -196,7 +196,17 @@ describe("FdTile", () => {
     expect(primaryLink?.querySelector(".title-link")?.textContent).toContain("Benefits");
   });
 
-  it("inherits nested visual colors from fd-visual instead of patching them locally", () => {
+  it("uses the standard hyperlink color for linked titles and support links by default", () => {
+    const styles = (
+      customElements.get("fd-tile") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("color: var(--fd-tile-link-color, var(--fdic-color-text-link))");
+  });
+
+  it("uses fd-visual variables for linked visual hover emphasis", () => {
     const styles = (
       customElements.get("fd-tile") as typeof HTMLElement & {
         styles?: { cssText?: string };
@@ -207,11 +217,12 @@ describe("FdTile", () => {
     expect(visualRule).toContain("--fd-visual-size");
     expect(visualRule).toContain("--fd-visual-padding");
     expect(visualRule).toContain("--fd-visual-content-size");
-    expect(visualRule).not.toContain("--fd-tile-visual-bg");
-    expect(visualRule).not.toContain("--fd-tile-visual-fg");
-    expect(styles).not.toContain("--fd-tile-visual-bg-cool-emphasis");
-    expect(styles).not.toContain("--fd-tile-visual-bg-neutral-emphasis");
-    expect(styles).not.toContain("--fd-tile-visual-bg-warm-emphasis");
+    expect(styles).toContain("--fd-visual-bg-neutral: var(");
+    expect(styles).toContain("--fd-tile-visual-bg-neutral-emphasis");
+    expect(styles).toContain("--fd-tile-visual-bg-cool-emphasis");
+    expect(styles).toContain("--fd-tile-visual-bg-warm-emphasis");
+    expect(styles).toContain("--fdic-color-primary-500");
+    expect(styles).toContain("--fdic-color-secondary-800");
   });
 
   it("passes an axe audit in linked mode", async () => {

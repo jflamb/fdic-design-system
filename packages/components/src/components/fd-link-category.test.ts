@@ -146,6 +146,16 @@ describe("FdLinkCategory", () => {
     expect(visualRule).not.toContain("var(--fdic-color-icon-inverted)");
   });
 
+  it("uses the standard hyperlink color for category links by default", () => {
+    const styles = (
+      customElements.get("fd-link-category") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("color: var(--fd-link-category-link-color, var(--fdic-color-text-link))");
+  });
+
   it("omits decorative visual and stripe when disabled", async () => {
     const el = await createLinkCategory({
       category: "Resources",

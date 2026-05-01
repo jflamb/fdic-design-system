@@ -176,8 +176,13 @@ describe("FdTileList", () => {
       .join("\n");
 
     expect(styles).toContain("var(--fd-tile-list-col-2-min, var(--fdic-layout-col-2-min))");
-    expect(styles).toContain("var(--fd-tile-list-col-3-max, var(--fdic-layout-col-3-max))");
+    expect(styles).toContain("--fd-tile-list-col-3-min: 320px");
+    expect(styles).toContain("--fd-tile-list-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px)");
+    expect(styles).toContain("var(--fdic-layout-shell-max-width, 1312px)");
+    expect(styles).toContain("var(--fd-tile-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px))");
     expect(styles).toContain("var(--fd-tile-list-col-4-gap-mobile, var(--fdic-layout-col-4-gap-narrow))");
+    expect(styles).toContain("--fd-tile-title-font-weight: 600");
+    expect(styles).toContain("--fd-tile-description-font-size: var(--fdic-font-size-body, 18px)");
     expect(styles).toContain("@container (max-width: 815px)");
     expect(styles).toContain("1fr");
     expect(styles).toContain(':host([columns="3"]) [part="base"]');

@@ -121,6 +121,19 @@ describe("FdVisual", () => {
     expect(styles).not.toContain("var(--fdic-color-icon-warm)");
   });
 
+  it("transitions color changes while respecting reduced motion", () => {
+    const styles = (
+      customElements.get("fd-visual") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("background-color var(--fdic-motion-duration-fast, 120ms)");
+    expect(styles).toContain("color var(--fdic-motion-duration-fast, 120ms)");
+    expect(styles).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(styles).toContain("transition: none");
+  });
+
   it("applies the xs size class", async () => {
     const el = await createVisual({ size: "xs" });
 

@@ -47,9 +47,15 @@ export class FdTileList extends LitElement {
       --fd-tile-list-col-2-min: var(--fdic-layout-col-2-min);
       --fd-tile-list-col-2-max: var(--fdic-layout-col-2-max);
       --fd-tile-list-col-2-gap: var(--fdic-layout-col-2-gap);
-      --fd-tile-list-col-3-min: var(--fdic-layout-col-3-min);
-      --fd-tile-list-col-3-max: var(--fdic-layout-col-3-max);
+      --fd-tile-list-col-3-min: 320px;
+      --fd-tile-list-col-3-max: calc(
+        (
+          var(--fdic-layout-shell-max-width, 1312px) -
+            (2 * var(--fd-tile-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px)))
+        ) / 3
+      );
       --fd-tile-list-col-3-gap: var(--fdic-layout-col-3-gap);
+      --fd-tile-list-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px);
       --fd-tile-list-col-4-min: var(--fdic-layout-col-4-min);
       --fd-tile-list-col-4-max: var(--fdic-layout-col-4-max);
       --fd-tile-list-col-4-gap: var(--fdic-layout-col-4-gap);
@@ -60,6 +66,8 @@ export class FdTileList extends LitElement {
       --fd-tile-list-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
       --fd-tile-list-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
       --fd-tile-list-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);
+      --fd-tile-title-font-weight: 600;
+      --fd-tile-description-font-size: var(--fdic-font-size-body, 18px);
     }
 
     :host([hidden]) {

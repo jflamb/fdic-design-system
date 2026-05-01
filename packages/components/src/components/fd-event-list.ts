@@ -44,9 +44,15 @@ export class FdEventList extends LitElement {
       --fd-event-list-col-2-min: var(--fdic-layout-col-2-min);
       --fd-event-list-col-2-max: var(--fdic-layout-col-2-max);
       --fd-event-list-col-2-gap: var(--fdic-layout-col-2-gap);
-      --fd-event-list-col-3-min: var(--fdic-layout-col-3-min);
-      --fd-event-list-col-3-max: var(--fdic-layout-col-3-max);
+      --fd-event-list-col-3-min: 320px;
+      --fd-event-list-col-3-max: calc(
+        (
+          var(--fdic-layout-shell-max-width, 1312px) -
+            (2 * var(--fd-event-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px)))
+        ) / 3
+      );
       --fd-event-list-col-3-gap: var(--fdic-layout-col-3-gap);
+      --fd-event-list-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px);
       --fd-event-list-col-4-min: var(--fdic-layout-col-4-min);
       --fd-event-list-col-4-max: var(--fdic-layout-col-4-max);
       --fd-event-list-col-4-gap: var(--fdic-layout-col-4-gap);

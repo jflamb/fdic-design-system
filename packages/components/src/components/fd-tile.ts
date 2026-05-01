@@ -98,6 +98,42 @@ export class FdTile extends LitElement {
       flex: none;
     }
 
+    a[part="primary-link"]:hover [part="visual"] fd-visual,
+    a[part="primary-link"]:focus-visible [part="visual"] fd-visual {
+      --fd-visual-bg-neutral: var(
+        --fd-tile-visual-bg-neutral-emphasis,
+        var(--fdic-color-icon-primary)
+      );
+      --fd-visual-fg-neutral: var(
+        --fd-tile-visual-fg-neutral-emphasis,
+        var(--fdic-color-text-inverted)
+      );
+    }
+
+    :host([tone="cool"]) a[part="primary-link"]:hover [part="visual"] fd-visual,
+    :host([tone="cool"]) a[part="primary-link"]:focus-visible [part="visual"] fd-visual {
+      --fd-visual-bg-cool: var(
+        --fd-tile-visual-bg-cool-emphasis,
+        var(--fdic-color-primary-500)
+      );
+      --fd-visual-fg-cool: var(
+        --fd-tile-visual-fg-cool-emphasis,
+        var(--fdic-color-text-inverted)
+      );
+    }
+
+    :host([tone="warm"]) a[part="primary-link"]:hover [part="visual"] fd-visual,
+    :host([tone="warm"]) a[part="primary-link"]:focus-visible [part="visual"] fd-visual {
+      --fd-visual-bg-warm: var(
+        --fd-tile-visual-bg-warm-emphasis,
+        var(--fdic-color-secondary-800)
+      );
+      --fd-visual-fg-warm: var(
+        --fd-tile-visual-fg-warm-emphasis,
+        var(--fdic-color-text-inverted)
+      );
+    }
+
     [part="content"] {
       display: flex;
       flex: 1 1 auto;

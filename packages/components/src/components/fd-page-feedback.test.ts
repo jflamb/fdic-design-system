@@ -86,6 +86,7 @@ describe("FdPageFeedback", () => {
     expect(styles).toContain("overflow-wrap: normal");
     expect(styles).toContain("justify-self: end");
     expect(styles).toContain("font-size: var(--fdic-font-size-body, 1.125rem)");
+    expect(styles).not.toContain(".base::before {\n        inset-inline: var(--fd-page-feedback-inline-padding-mobile");
   });
 
   it("renders the default prompt view with light group semantics", async () => {

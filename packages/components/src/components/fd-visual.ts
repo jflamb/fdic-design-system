@@ -92,6 +92,11 @@ export class FdVisual extends LitElement {
         --fd-visual-fg-neutral,
         var(--fdic-color-text-primary)
       );
+      transition:
+        background-color var(--fdic-motion-duration-fast, 120ms)
+          var(--fdic-motion-easing-default, ease),
+        color var(--fdic-motion-duration-fast, 120ms)
+          var(--fdic-motion-easing-default, ease);
     }
 
     .icon-surface {
@@ -241,6 +246,12 @@ export class FdVisual extends LitElement {
         color: ButtonText;
         border: 1px solid ButtonText;
         forced-color-adjust: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .surface {
+        transition: none;
       }
     }
   `;
