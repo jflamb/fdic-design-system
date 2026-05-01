@@ -217,9 +217,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HomepageBands: Story = {};
+export const SectionBands: Story = {};
 
-HomepageBands.play = async ({ canvasElement }) => {
+SectionBands.play = async ({ canvasElement }) => {
   const globalHeader = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
   const pageHeader = canvasElement.querySelector("fd-page-header") as HTMLElement | null;
   const feedback = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
@@ -290,7 +290,7 @@ export const DocsOverview: Story = {
   render: () => html`
     <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
       <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
-        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Homepage section shell</strong>
+        <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Section bands</strong>
         <p class=${DOCS_OVERVIEW_META_CLASS}>
           Recipe: full-bleed section backgrounds and borders on the outside, with every top-level content
           region aligned to the shared 1312px page shell and the same desktop, tablet, and mobile gutter

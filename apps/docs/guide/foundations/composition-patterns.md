@@ -78,7 +78,7 @@ These classes are additive CSS patterns, not components. They assume you keep th
 
 ## Page layout shell
 
-Use the page layout classes when a full page needs the same shell constraints as the Homepage Bands recipe: full-width structural regions with content aligned to the shared `--fdic-layout-shell-max-width` and desktop, tablet, and mobile gutter tokens.
+Use the page layout classes when a full page needs the same shell constraints as the Section Bands recipe: full-width structural regions with content aligned to the shared `--fdic-layout-shell-max-width` and desktop, tablet, and mobile gutter tokens.
 
 ```html
 <div class="fdic-page">
