@@ -84,6 +84,13 @@ The Tile component presents one primary destination with a decorative circular i
 | `--fd-tile-link-color` | `var(--fdic-color-text-link, #1278b0)` | Primary and supporting link color. |
 | `--fd-tile-description-color` | `var(--fdic-color-text-secondary, #595961)` | Supporting description color. |
 | `--fd-tile-links-gap` | `4px` | Gap between supporting links in the optional link stack. |
+| `--fd-tile-visual-track-size-expanded` | `48px` | Visual track width when the tile's container reaches the expanded layout threshold. |
+| `--fd-tile-visual-size-expanded` | `48px` | Internal `fd-visual` size when the tile's container reaches the expanded layout threshold. |
+| `--fd-tile-visual-content-size-expanded` | `22px` | Icon content size inside the internal `fd-visual` at the expanded layout threshold. |
+| `--fd-tile-visual-track-size-large` | `60px` | Visual track width when the tile's container reaches the large layout threshold. |
+| `--fd-tile-visual-size-large` | `60px` | Internal `fd-visual` size when the tile's container reaches the large layout threshold. |
+| `--fd-tile-visual-padding-large` | `10px` | Internal `fd-visual` padding when the tile's container reaches the large layout threshold. |
+| `--fd-tile-visual-content-size-large` | `28px` | Icon content size inside the internal `fd-visual` at the large layout threshold. |
 
 - The component forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively.
 - Tile uses the same foreground and background tone colors as `fd-visual`; use `fd-visual` hooks only when a product needs to intentionally diverge from the shared visual tone system.

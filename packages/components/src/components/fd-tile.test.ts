@@ -225,6 +225,10 @@ describe("FdTile", () => {
     expect(visualRule).toContain("--fd-visual-size");
     expect(visualRule).toContain("--fd-visual-padding");
     expect(visualRule).toContain("--fd-visual-content-size");
+    expect(styles).toContain("--fd-tile-visual-size-expanded");
+    expect(styles).toContain("--fd-tile-visual-size-large");
+    expect(styles).toContain("--fd-tile-visual-track-size-large");
+    expect(styles).toContain("--fd-tile-visual-content-size-large");
     expect(styles).toContain("--fd-visual-bg-neutral: var(");
     expect(styles).toContain("--fd-tile-visual-bg-neutral-emphasis");
     expect(styles).toContain("--fd-tile-visual-bg-cool-emphasis");

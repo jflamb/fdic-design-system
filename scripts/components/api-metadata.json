@@ -3891,6 +3891,41 @@
           "name": "--fd-tile-links-gap",
           "default": "`4px`",
           "description": "Gap between supporting links in the optional link stack."
+        },
+        {
+          "name": "--fd-tile-visual-track-size-expanded",
+          "default": "`48px`",
+          "description": "Visual track width when the tile's container reaches the expanded layout threshold."
+        },
+        {
+          "name": "--fd-tile-visual-size-expanded",
+          "default": "`48px`",
+          "description": "Internal `fd-visual` size when the tile's container reaches the expanded layout threshold."
+        },
+        {
+          "name": "--fd-tile-visual-content-size-expanded",
+          "default": "`22px`",
+          "description": "Icon content size inside the internal `fd-visual` at the expanded layout threshold."
+        },
+        {
+          "name": "--fd-tile-visual-track-size-large",
+          "default": "`60px`",
+          "description": "Visual track width when the tile's container reaches the large layout threshold."
+        },
+        {
+          "name": "--fd-tile-visual-size-large",
+          "default": "`60px`",
+          "description": "Internal `fd-visual` size when the tile's container reaches the large layout threshold."
+        },
+        {
+          "name": "--fd-tile-visual-padding-large",
+          "default": "`10px`",
+          "description": "Internal `fd-visual` padding when the tile's container reaches the large layout threshold."
+        },
+        {
+          "name": "--fd-tile-visual-content-size-large",
+          "default": "`28px`",
+          "description": "Icon content size inside the internal `fd-visual` at the large layout threshold."
         }
       ],
       "after": "- The component forwards the internal `fd-visual` sizing hooks by setting `--fd-visual-size`, `--fd-visual-padding`, and `--fd-visual-content-size` responsively.\n- Tile uses the same foreground and background tone colors as `fd-visual`; use `fd-visual` hooks only when a product needs to intentionally diverge from the shared visual tone system."

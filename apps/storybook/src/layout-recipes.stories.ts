@@ -90,6 +90,19 @@ const renderQuickLinks = () => html`
     columns="3"
     label="Featured links"
     tone="cool"
+    style=${[
+      "--fd-tile-visual-track-size: var(--fd-event-date-size, 48px)",
+      "--fd-tile-visual-size: var(--fd-event-date-size, 48px)",
+      "--fd-tile-visual-padding: var(--fdic-spacing-xs, 8px)",
+      "--fd-tile-visual-content-size: 22px",
+      "--fd-tile-visual-track-size-expanded: var(--fd-event-date-size, 48px)",
+      "--fd-tile-visual-size-expanded: var(--fd-event-date-size, 48px)",
+      "--fd-tile-visual-content-size-expanded: 22px",
+      "--fd-tile-visual-track-size-large: var(--fd-event-date-size, 48px)",
+      "--fd-tile-visual-size-large: var(--fd-event-date-size, 48px)",
+      "--fd-tile-visual-padding-large: var(--fdic-spacing-xs, 8px)",
+      "--fd-tile-visual-content-size-large: 22px",
+    ].join(";")}
   >
     ${QUICK_LINKS.map(
       (item) => html`
@@ -214,6 +227,14 @@ HomepageBands.play = async ({ canvasElement }) => {
   const warmSection = canvasElement.querySelector("main section:last-of-type") as HTMLElement | null;
   const tileList = canvasElement.querySelector("fd-tile-list") as HTMLElement | null;
   const eventList = canvasElement.querySelector("fd-event-list") as HTMLElement | null;
+  const tileVisual = canvasElement
+    .querySelector("fd-tile")
+    ?.shadowRoot
+    ?.querySelector("fd-visual") as HTMLElement | null;
+  const eventDate = canvasElement
+    .querySelector("fd-event")
+    ?.shadowRoot
+    ?.querySelector("[part=date]") as HTMLElement | null;
   const footer = canvasElement.querySelector("fd-global-footer") as HTMLElement | null;
   const headerShell = globalHeader?.shadowRoot?.querySelector(".shell") as HTMLElement | null;
   const pageHeaderContent = pageHeader?.shadowRoot?.querySelector(".content") as HTMLElement | null;
@@ -248,6 +269,14 @@ HomepageBands.play = async ({ canvasElement }) => {
     expectClose(baseRect?.width, warmRect?.width);
     expectClose(baseRect?.top, warmRect?.bottom);
     expectClose(footerRect?.top, baseRect?.bottom);
+    expectClose(
+      tileVisual?.getBoundingClientRect().width,
+      eventDate?.getBoundingClientRect().width,
+    );
+    expectClose(
+      tileVisual?.getBoundingClientRect().height,
+      eventDate?.getBoundingClientRect().height,
+    );
     for (const rect of alignedRects) {
       expectClose(rect?.left, shellLeft);
       expectClose(rect?.width, shellWidth);

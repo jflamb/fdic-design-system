@@ -246,13 +246,13 @@ export class FdTile extends LitElement {
 
     @container (min-width: 360px) {
       [part="visual"] {
-        inline-size: 48px;
+        inline-size: var(--fd-tile-visual-track-size-expanded, 48px);
         padding-block: 0;
       }
 
       [part="visual"] fd-visual {
-        --fd-visual-size: 48px;
-        --fd-visual-content-size: 22px;
+        --fd-visual-size: var(--fd-tile-visual-size-expanded, 48px);
+        --fd-visual-content-size: var(--fd-tile-visual-content-size-expanded, 22px);
       }
 
       [part="text"] {
@@ -273,14 +273,14 @@ export class FdTile extends LitElement {
       }
 
       [part="visual"] {
-        inline-size: 60px;
+        inline-size: var(--fd-tile-visual-track-size-large, 60px);
         padding-block: 0;
       }
 
       [part="visual"] fd-visual {
-        --fd-visual-size: 60px;
-        --fd-visual-padding: 10px;
-        --fd-visual-content-size: 28px;
+        --fd-visual-size: var(--fd-tile-visual-size-large, 60px);
+        --fd-visual-padding: var(--fd-tile-visual-padding-large, 10px);
+        --fd-visual-content-size: var(--fd-tile-visual-content-size-large, 28px);
       }
 
       [part="content"] {
