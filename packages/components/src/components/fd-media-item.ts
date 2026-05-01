@@ -5,7 +5,7 @@ import { normalizeLinkRel } from "./link-utils.js";
 let mediaItemTitleIds = 0;
 
 /**
- * `fd-media-item` — Compact multimedia resource summary with a native title link.
+ * `fd-media-item` — Compact multimedia resource summary with a native media link.
  */
 export class FdMediaItem extends LitElement {
   static properties = {
@@ -36,6 +36,24 @@ export class FdMediaItem extends LitElement {
       gap: var(--fd-media-item-gap, var(--fdic-spacing-sm, 12px));
       min-inline-size: 0;
       box-sizing: border-box;
+    }
+
+    [part="base"].is-linked {
+      gap: var(--fd-media-item-content-gap, var(--fdic-spacing-2xs, 4px));
+    }
+
+    [part~="title-link"] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--fd-media-item-gap, var(--fdic-spacing-sm, 12px));
+      min-inline-size: 0;
+      color: inherit;
+      text-decoration-line: none;
+      border-radius: var(
+        --fd-media-item-link-radius,
+        var(--fdic-corner-radius-lg, 7px)
+      );
+      outline-color: transparent;
     }
 
     [part="media"] {
@@ -85,11 +103,10 @@ export class FdMediaItem extends LitElement {
       line-height: var(--fd-media-item-title-line-height, 1.25);
     }
 
-    [part~="title-link"] {
+    [part~="title-link-text"] {
       border-radius: 2px;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
-      outline-color: transparent;
       text-decoration-line: underline;
       text-decoration-color: currentColor;
       text-decoration-thickness: var(--fd-media-item-link-underline-thickness, 1px);
@@ -97,8 +114,8 @@ export class FdMediaItem extends LitElement {
       text-decoration-skip-ink: auto;
     }
 
-    [part~="title-link"]:hover,
-    [part~="title-link"]:focus-visible {
+    [part~="title-link"]:hover [part~="title-link-text"],
+    [part~="title-link"]:focus-visible [part~="title-link-text"] {
       text-decoration-thickness: var(
         --fd-media-item-link-underline-thickness-emphasis,
         2px
@@ -148,6 +165,10 @@ export class FdMediaItem extends LitElement {
       [part~="title-link"] {
         color: LinkText;
       }
+
+      [part~="title-link"] [part~="title"] {
+        color: LinkText;
+      }
     }
   `;
 
@@ -172,27 +193,55 @@ export class FdMediaItem extends LitElement {
     this.imageAlt = "";
   }
 
-  private renderTitle(title: string, href: string | undefined) {
-    if (!title) {
+  private renderMedia(imageSrc: string | undefined, imageAlt: string) {
+    if (!imageSrc) {
       return nothing;
     }
 
+    return html`
+      <div part="media">
+        <img part="image" src=${imageSrc} alt=${imageAlt} />
+      </div>
+    `;
+  }
+
+  private renderLinkedMediaTitle(
+    title: string,
+    href: string,
+    imageSrc: string | undefined,
+    imageAlt: string,
+  ) {
     const target = this.target?.trim() || undefined;
     const rel = normalizeLinkRel(target, this.rel);
+    const linkedImageAlt = title ? "" : imageAlt;
 
-    if (href) {
-      return html`
-        <a
-          id=${this._titleId}
-          part="title title-link"
-          class="title-link"
-          href=${href}
-          target=${ifDefined(target)}
-          rel=${ifDefined(rel || undefined)}
-        >
-          ${title}
-        </a>
-      `;
+    return html`
+      <a
+        part="title-link"
+        class="title-link"
+        href=${href}
+        target=${ifDefined(target)}
+        rel=${ifDefined(rel || undefined)}
+      >
+        ${this.renderMedia(imageSrc, linkedImageAlt)}
+        ${title
+          ? html`
+              <span
+                id=${this._titleId}
+                part="title title-link-text"
+                class="title-link-text"
+              >
+                ${title}
+              </span>
+            `
+          : nothing}
+      </a>
+    `;
+  }
+
+  private renderStaticTitle(title: string) {
+    if (!title) {
+      return nothing;
     }
 
     return html`
@@ -203,28 +252,31 @@ export class FdMediaItem extends LitElement {
   }
 
   render() {
-    const title = this.title?.trim();
+    const title = this.title?.trim() ?? "";
     const href = this.href?.trim() || undefined;
-    const metadata = this.metadata?.trim();
+    const metadata = this.metadata?.trim() ?? "";
     const imageSrc = this.imageSrc?.trim();
     const imageAlt = this.imageAlt?.trim() ?? "";
+    const hasLinkedTarget = Boolean(href && (title || imageSrc));
 
     return html`
       <article
         part="base"
+        class=${hasLinkedTarget ? "is-linked" : ""}
         aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
       >
-        ${imageSrc
-          ? html`
-              <div part="media">
-                <img part="image" src=${imageSrc} alt=${imageAlt} />
+        ${hasLinkedTarget && href
+          ? this.renderLinkedMediaTitle(title, href, imageSrc, imageAlt)
+          : html`
+              ${this.renderMedia(imageSrc, imageAlt)}
+              <div part="content">
+                ${this.renderStaticTitle(title)}
+                ${metadata ? html`<p part="metadata">${metadata}</p>` : nothing}
               </div>
-            `
+            `}
+        ${hasLinkedTarget && metadata
+          ? html`<p part="metadata">${metadata}</p>`
           : nothing}
-        <div part="content">
-          ${this.renderTitle(title, href)}
-          ${metadata ? html`<p part="metadata">${metadata}</p>` : nothing}
-        </div>
       </article>
     `;
   }
