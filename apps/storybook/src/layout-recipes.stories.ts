@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
@@ -285,7 +286,6 @@ const renderRecipe = () => html`
             style=${[
               "--fd-page-feedback-inline-padding: 0",
               "--fd-page-feedback-inline-padding-mobile: 0",
-              "--fd-page-feedback-block-padding: 0",
             ].join("; ")}
           ></fd-page-feedback>
         </div>
@@ -328,6 +328,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const HomepageBands: Story = {};
+
+HomepageBands.play = async ({ canvasElement }) => {
+  const feedback = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
+  const base = feedback?.shadowRoot?.querySelector("[part=base]") as HTMLElement | null;
+  const prompt = feedback?.shadowRoot?.querySelector("[part=prompt]") as HTMLElement | null;
+
+  await waitFor(() => {
+    const baseRect = base?.getBoundingClientRect();
+    const promptRect = prompt?.getBoundingClientRect();
+    expect((promptRect?.top ?? 0) - (baseRect?.top ?? 0)).toBeGreaterThan(16);
+  });
+};
 
 export const DocsOverview: Story = {
   render: () => html`
