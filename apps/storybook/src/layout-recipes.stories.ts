@@ -49,6 +49,11 @@ const SECTION_CONTENT_TIGHT_STYLE = [
   "padding-block: var(--fdic-layout-section-block-padding-compact, 24px)",
 ].join("; ");
 
+const BAND_CONTENT_STACK_STYLE = [
+  DOCS_OVERVIEW_SECTION_STYLE,
+  "gap: var(--fdic-spacing-xl, 24px)",
+].join("; ");
+
 const COOL_SECTION_STYLE = [
   SECTION_SHELL_STYLE,
   "background: var(--fdic-color-primary-050, #e7f6fd)",
@@ -151,6 +156,7 @@ const renderQuickLinks = () => html`
     style=${[
       "--fd-tile-list-col-3-max: 405.333px",
       "--fd-tile-list-col-3-gap: 48px",
+      "--fd-tile-list-col-3-row-gap: 24px",
       "--fd-tile-list-col-3-min: 320px",
       "--fd-tile-title-font-weight: 600",
       "--fd-tile-description-font-size: 18px",
@@ -178,6 +184,7 @@ const renderEvents = () => html`
     style=${[
       "--fd-event-list-col-3-max: 405.333px",
       "--fd-event-list-col-3-gap: 48px",
+      "--fd-event-list-col-3-row-gap: 24px",
       "--fd-event-list-col-3-min: 320px",
       "--fd-event-link-color: var(--fdic-color-text-primary, #212123)",
       "--fd-event-title-color: var(--fdic-color-text-primary, #212123)",
@@ -241,7 +248,7 @@ const renderRecipe = () => html`
 
       <section style=${COOL_SECTION_STYLE}>
         <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_STYLE}>
-          <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+          <div style=${BAND_CONTENT_STACK_STYLE}>
             <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Full-bleed cool section with constrained tile list</strong>
             <p class=${DOCS_OVERVIEW_META_CLASS}>
               Use a full-width background on the outer section, then keep interactive content inside the
@@ -257,7 +264,7 @@ const renderRecipe = () => html`
 
       <section style=${WARM_SECTION_STYLE}>
         <div class="fdic-layout-recipe-content" style=${SECTION_CONTENT_TIGHT_STYLE}>
-          <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+          <div style=${BAND_CONTENT_STACK_STYLE}>
             <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Warm event section using the same shell</strong>
             <p class=${DOCS_OVERVIEW_META_CLASS}>
               Keep borders and fills on the full-bleed wrapper. Let <code>fd-event-list</code> handle the
