@@ -22,20 +22,20 @@ type MediaListArgs = {
 };
 
 const renderItem = ({
-  title,
+  heading,
   href,
   metadata,
   imageSrc,
   imageAlt,
 }: {
-  title: string;
+  heading: string;
   href: string;
   metadata: string;
   imageSrc: string;
   imageAlt: string;
 }) => html`
   <fd-media-item
-    title=${title}
+    heading=${heading}
     href=${href}
     metadata=${metadata}
     image-src=${imageSrc}
@@ -46,21 +46,21 @@ const renderItem = ({
 const renderMediaList = (args: MediaListArgs) => html`
   <fd-media-list columns=${args.columns} label=${ifDefined(args.label)}>
     ${renderItem({
-      title: "Safeguarding Customer Credit Card Data: PCI Compliance",
+      heading: "Safeguarding Customer Credit Card Data: PCI Compliance",
       href: "https://www.fdic.gov/resources/bankers/information-technology/",
       metadata: "1h 3m  ·  Beginner  ·  2 months ago",
       imageSrc: pciCompliance,
       imageAlt: "Illustration of a protected credit card transaction.",
     })}
     ${renderItem({
-      title: "FDIC failed bank exercise",
+      heading: "FDIC failed bank exercise",
       href: "https://www.fdic.gov/resources/resolutions/bank-failures/",
       metadata: "1m 23s  ·  Updated Oct 2023",
       imageSrc: failedBankExercise,
       imageAlt: "Illustration of a person reviewing charts and data screens.",
     })}
     ${renderItem({
-      title: "Examining bank customer data",
+      heading: "Examining bank customer data",
       href: "https://www.fdic.gov/analysis/",
       metadata: "5m 56s  ·  Updated Sep 2023",
       imageSrc: customerData,

@@ -9,7 +9,7 @@ let mediaItemTitleIds = 0;
  */
 export class FdMediaItem extends LitElement {
   static properties = {
-    title: { reflect: true },
+    heading: { reflect: true },
     href: { reflect: true },
     target: { reflect: true },
     rel: { reflect: true },
@@ -17,6 +17,10 @@ export class FdMediaItem extends LitElement {
     imageSrc: { attribute: "image-src", reflect: true },
     imageAlt: { attribute: "image-alt", reflect: true },
   };
+
+  static override get observedAttributes() {
+    return [...super.observedAttributes, "title"];
+  }
 
   static styles = css`
     :host {
@@ -104,7 +108,10 @@ export class FdMediaItem extends LitElement {
     }
 
     [part~="title-link-text"] {
-      border-radius: 2px;
+      border-radius: var(
+        --fd-media-item-title-radius,
+        var(--fdic-corner-radius-2xs, 2px)
+      );
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
       text-decoration-line: underline;
@@ -172,7 +179,7 @@ export class FdMediaItem extends LitElement {
     }
   `;
 
-  declare title: string;
+  declare heading: string;
   declare href: string | undefined;
   declare target: string | undefined;
   declare rel: string | undefined;
@@ -184,13 +191,33 @@ export class FdMediaItem extends LitElement {
 
   constructor() {
     super();
-    this.title = "";
+    this.heading = "";
     this.href = undefined;
     this.target = undefined;
     this.rel = undefined;
     this.metadata = "";
     this.imageSrc = undefined;
     this.imageAlt = "";
+  }
+
+  override attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    value: string | null,
+  ) {
+    if (name === "title") {
+      if (value && !this.heading) {
+        this.heading = value;
+      }
+
+      if (value !== null) {
+        this.removeAttribute("title");
+      }
+
+      return;
+    }
+
+    super.attributeChangedCallback(name, oldValue, value);
   }
 
   private renderMedia(imageSrc: string | undefined, imageAlt: string) {
@@ -206,14 +233,14 @@ export class FdMediaItem extends LitElement {
   }
 
   private renderLinkedMediaTitle(
-    title: string,
+    heading: string,
     href: string,
     imageSrc: string | undefined,
     imageAlt: string,
   ) {
     const target = this.target?.trim() || undefined;
     const rel = normalizeLinkRel(target, this.rel);
-    const linkedImageAlt = title ? "" : imageAlt;
+    const linkedImageAlt = heading ? "" : imageAlt;
 
     return html`
       <a
@@ -224,14 +251,14 @@ export class FdMediaItem extends LitElement {
         rel=${ifDefined(rel || undefined)}
       >
         ${this.renderMedia(imageSrc, linkedImageAlt)}
-        ${title
+        ${heading
           ? html`
               <span
                 id=${this._titleId}
                 part="title title-link-text"
                 class="title-link-text"
               >
-                ${title}
+                ${heading}
               </span>
             `
           : nothing}
@@ -239,44 +266,70 @@ export class FdMediaItem extends LitElement {
     `;
   }
 
-  private renderStaticTitle(title: string) {
-    if (!title) {
+  private renderStaticTitle(heading: string) {
+    if (!heading) {
       return nothing;
     }
 
     return html`
       <p id=${this._titleId} part="title title-text" class="title-text">
-        ${title}
+        ${heading}
       </p>
     `;
   }
 
+  private renderContent(
+    heading: string,
+    href: string | undefined,
+    metadata: string,
+    imageSrc: string | undefined,
+    imageAlt: string,
+  ) {
+    const hasLinkedTarget = Boolean(href && (heading || (imageSrc && imageAlt)));
+    const metadataTemplate = metadata
+      ? html`<p part="metadata">${metadata}</p>`
+      : nothing;
+
+    if (hasLinkedTarget && href) {
+      return html`
+        ${this.renderLinkedMediaTitle(heading, href, imageSrc, imageAlt)}
+        ${metadataTemplate}
+      `;
+    }
+
+    return html`
+      ${this.renderMedia(imageSrc, imageAlt)}
+      <div part="content">
+        ${this.renderStaticTitle(heading)}
+        ${metadataTemplate}
+      </div>
+    `;
+  }
+
   render() {
-    const title = this.title?.trim() ?? "";
+    const heading = this.heading?.trim() ?? "";
     const href = this.href?.trim() || undefined;
     const metadata = this.metadata?.trim() ?? "";
     const imageSrc = this.imageSrc?.trim();
     const imageAlt = this.imageAlt?.trim() ?? "";
-    const hasLinkedTarget = Boolean(href && (title || imageSrc));
+    const hasLinkedTarget = Boolean(href && (heading || (imageSrc && imageAlt)));
+    const content = this.renderContent(heading, href, metadata, imageSrc, imageAlt);
+
+    if (!heading) {
+      return html`
+        <div part="base" class=${hasLinkedTarget ? "is-linked" : ""}>
+          ${content}
+        </div>
+      `;
+    }
 
     return html`
       <article
         part="base"
         class=${hasLinkedTarget ? "is-linked" : ""}
-        aria-labelledby=${ifDefined(title ? this._titleId : undefined)}
+        aria-labelledby=${this._titleId}
       >
-        ${hasLinkedTarget && href
-          ? this.renderLinkedMediaTitle(title, href, imageSrc, imageAlt)
-          : html`
-              ${this.renderMedia(imageSrc, imageAlt)}
-              <div part="content">
-                ${this.renderStaticTitle(title)}
-                ${metadata ? html`<p part="metadata">${metadata}</p>` : nothing}
-              </div>
-            `}
-        ${hasLinkedTarget && metadata
-          ? html`<p part="metadata">${metadata}</p>`
-          : nothing}
+        ${content}
       </article>
     `;
   }
