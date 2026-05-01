@@ -80,6 +80,18 @@ describe("FdHero", () => {
     expect(stylesheet).toContain("var(--fdic-gradient-hero-overlay-neutral)");
   });
 
+  it("uses optically balanced stripe spacing between lede and body copy", () => {
+    const stylesheet = Array.isArray(FdHero.styles)
+      ? FdHero.styles.map((style) => style.cssText).join("\n")
+      : FdHero.styles.cssText;
+
+    expect(stylesheet).toContain("--fd-hero-stripe-gap-before");
+    expect(stylesheet).toContain("var(--fdic-spacing-2xs, 4px)");
+    expect(stylesheet).toContain("--fd-hero-stripe-gap-after");
+    expect(stylesheet).toContain("var(--fdic-spacing-xl, 24px)");
+    expect(stylesheet).not.toContain("padding-block: var(--fdic-spacing-sm, 12px)");
+  });
+
   it("preserves an authored heading id", async () => {
     const el = await createHero(
       {},
@@ -127,6 +139,17 @@ describe("FdHero", () => {
         withAction.shadowRoot?.querySelector("[part=action]") as HTMLAnchorElement
       )?.getAttribute("href"),
     ).toBe("/benefits");
+  });
+
+  it("scales the CTA trailing icon with the action text", () => {
+    const stylesheet = Array.isArray(FdHero.styles)
+      ? FdHero.styles.map((style) => style.cssText).join("\n")
+      : FdHero.styles.cssText;
+
+    expect(stylesheet).toContain("--fd-hero-action-icon-size, 1em");
+    expect(stylesheet).toContain("--fd-hero-action-icon-size-mobile, 1em");
+    expect(stylesheet).not.toContain("inline-size: 18px");
+    expect(stylesheet).not.toContain("inline-size: 16px");
   });
 
   it("normalizes rel tokens for blank CTA targets", async () => {

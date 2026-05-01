@@ -73,6 +73,14 @@ describe("FdAlert", () => {
     expect(getDismissButton(el)).toBeNull();
   });
 
+  it("uses regular fallback status icons", async () => {
+    const el = await createAlert({ type: "warning" });
+    const icon = el.shadowRoot?.querySelector("[part=icon] svg");
+
+    expect(icon?.outerHTML).toContain("<svg");
+    expect(icon?.outerHTML).not.toContain('opacity="0.2"');
+  });
+
   it("renders a dismiss button with a derived accessible name", async () => {
     const el = await createAlert({
       title: "Important update",

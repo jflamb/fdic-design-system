@@ -138,7 +138,7 @@ const renderEvents = () => html`
 `;
 
 const renderRecipe = () => html`
-  <div class="fdic-page">
+  <div class="fdic-page" style="--fdic-layout-shell-max-width: 1312px;">
     <fd-global-header
       .navigation=${GLOBAL_HEADER_SOURCE.items}
       .search=${GLOBAL_HEADER_SOURCE.search}
@@ -262,9 +262,18 @@ SectionBands.play = async ({ canvasElement }) => {
       feedbackPanel?.getBoundingClientRect(),
       footerContent?.getBoundingClientRect(),
     ];
+    const tileRects = Array.from(
+      canvasElement.querySelectorAll<HTMLElement>("fd-tile"),
+    ).map((tile) => tile.getBoundingClientRect());
+    const firstTileTop = tileRects[0]?.top;
+    const tilesInFirstRow = tileRects.filter(
+      (rect) => Math.abs(rect.top - (firstTileTop ?? -1)) <= 1,
+    );
     const shellLeft = shellRect?.left;
     const shellWidth = shellRect?.width;
 
+    expect(shellWidth).toBeLessThanOrEqual(1313);
+    expect(tilesInFirstRow).toHaveLength(3);
     expectClose(baseRect?.left, warmRect?.left);
     expectClose(baseRect?.width, warmRect?.width);
     expectClose(baseRect?.top, warmRect?.bottom);

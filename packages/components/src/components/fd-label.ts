@@ -521,6 +521,9 @@ export class FdLabel extends LitElement {
       fd-label [part="description"] {
         color: var(--fdic-color-text-secondary, #595961);
         font-size: var(--fdic-font-size-body-small, 1rem);
+      }
+
+      fd-label[infotip] [part="description"] {
         padding-right: 32px;
       }
 

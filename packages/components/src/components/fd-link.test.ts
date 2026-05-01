@@ -205,6 +205,13 @@ describe("fd-link", () => {
     expect(slotNames).toContain("icon-end");
   });
 
+  it("scales additive icon slots with the link text by default", () => {
+    const styles = (customElements.get("fd-link") as any).styles?.cssText ?? "";
+
+    expect(styles).toContain("--fd-link-icon-size, 1em");
+    expect(styles).not.toContain("--fd-link-icon-size, 1rem");
+  });
+
   it("updates forwarded aria attributes after host mutations", async () => {
     const el = await createLink({ href: "/coverage" }, "Read more");
     const inner = getInternal(el);

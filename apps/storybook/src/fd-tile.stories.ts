@@ -16,6 +16,7 @@ import {
 type TileArgs = {
   tone: "neutral" | "cool" | "warm";
   visualType: "auto" | "neutral" | "cool" | "warm" | "avatar";
+  visualPosition: "left" | "top";
   iconName: string;
   title: string;
   href: string;
@@ -52,6 +53,7 @@ const renderTile = (args: TileArgs) => html`
     <fd-tile
       tone=${args.tone}
       visual-type=${args.visualType === "auto" ? "" : args.visualType}
+      visual-position=${args.visualPosition}
       icon-name=${args.iconName}
       title=${args.title}
       href=${args.href}
@@ -84,6 +86,12 @@ const meta = {
         "Optional override for the internal fd-visual type. Use avatar for editorial identity snippets.",
       table: { category: "Story controls" },
     },
+    visualPosition: {
+      control: "radio",
+      options: ["left", "top"],
+      description:
+        "Position for the decorative visual relative to the primary link text.",
+    },
     linksMode: {
       control: "radio",
       options: ["none", "two", "four"],
@@ -103,6 +111,7 @@ const meta = {
     ...getComponentArgs("fd-tile"),
     tone: "neutral",
     visualType: "auto",
+    visualPosition: "left",
     iconName: "download",
     title: "Benefits",
     href: "/benefits",
@@ -159,6 +168,7 @@ export const DocsOverview: Story = {
         <div style="display:grid; gap:1rem;">
           ${renderTile({
             tone: "neutral",
+            visualPosition: "left",
             iconName: "download",
             title: "Benefits",
             href: "/benefits",
@@ -169,6 +179,7 @@ export const DocsOverview: Story = {
           })}
           ${renderTile({
             tone: "cool",
+            visualPosition: "left",
             iconName: "eye",
             title: "Vision coverage",
             href: "/vision",
@@ -178,6 +189,7 @@ export const DocsOverview: Story = {
           })}
           ${renderTile({
             tone: "warm",
+            visualPosition: "top",
             iconName: "star",
             title: "Employee support",
             href: "/employee-support",

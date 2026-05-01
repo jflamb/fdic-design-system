@@ -59,6 +59,6 @@ import "./fd-social-media-item.js";
 import "./fd-social-media-list.js";
 import "./fd-media-item.js";
 import "./fd-media-list.js";
-import "../icons/phosphor-duotone.js";
+import "../icons/phosphor-regular.js";
 
 warnIfDesignSystemRuntimeMissing();

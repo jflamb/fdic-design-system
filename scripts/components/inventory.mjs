@@ -879,7 +879,7 @@ export const componentInventory = [
       includeInRegisterAll: true,
       dependencies: ["fd-visual"]
     },
-    typeExports: ["TileTone", "FdTileLinkItem"]
+    typeExports: ["TileTone", "TileVisualPosition", "FdTileLinkItem"]
   },
   {
     tagName: "fd-tile-list",

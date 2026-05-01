@@ -328,6 +328,19 @@ describe("fd-global-header", () => {
     expect(styles).not.toContain("light-dark(#0b466f, #38b6ff)");
   });
 
+  it("renders the mobile drawer close action as a plain primary-color icon button", () => {
+    const styles = getStyleText(FdGlobalHeader.styles);
+
+    expect(styles).toContain(".mobile-drawer-close");
+    expect(styles).toContain("background: transparent");
+    expect(styles).toContain(
+      "color: var(--fd-global-header-color-text-primary)",
+    );
+    expect(styles).not.toContain(
+      ".mobile-drawer-close {\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n      width: 2.75rem;\n      height: 2.75rem;\n      border: 0;\n      border-radius: 4px;\n      background: var(--fd-global-header-color-surface-brand)",
+    );
+  });
+
   it("renders the reference FDICnet wordmark when no brand slot is provided", async () => {
     const el = document.createElement("fd-global-header") as HTMLElement & {
       updateComplete: Promise<unknown>;

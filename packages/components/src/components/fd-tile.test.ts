@@ -13,6 +13,7 @@ async function createTile(
     rel?: string;
     tone: string;
     visualType?: string;
+    visualPosition?: string;
     iconName?: string;
   }> = {},
 ) {
@@ -26,6 +27,7 @@ async function createTile(
     rel?: string;
     tone: string;
     visualType?: string;
+    visualPosition?: string;
     iconName?: string;
   };
   Object.assign(el, props);
@@ -82,6 +84,35 @@ describe("FdTile", () => {
       "Dental",
       "Life",
     ]);
+  });
+
+  it("aligns supporting links with the text column", () => {
+    const styles = FdTile.styles.cssText;
+
+    expect(styles).toContain("margin-inline-start: calc(");
+    expect(styles).toContain("var(--fd-tile-visual-track-size, 46px)");
+    expect(styles).toContain("var(--fd-tile-gap, var(--fdic-spacing-sm, 12px))");
+    expect(styles).toContain("var(--fd-tile-visual-track-size-expanded, 48px)");
+    expect(styles).toContain("var(--fd-tile-visual-track-size-large, 60px)");
+    expect(styles).toContain("var(--fd-tile-gap-large, var(--fdic-spacing-md, 16px))");
+  });
+
+  it("defaults the decorative visual to the left of the link content", async () => {
+    const el = await createTile({ title: "Benefits" });
+
+    expect(el.getAttribute("visual-position")).toBe("left");
+  });
+
+  it("supports placing the decorative visual above the link content", async () => {
+    const el = await createTile({ title: "Benefits", visualPosition: "top" });
+    const styles = FdTile.styles.cssText;
+
+    expect(el.getAttribute("visual-position")).toBe("top");
+    expect(styles).toContain(':host([visual-position="top"]) [part="primary-link"]');
+    expect(styles).toContain("flex-direction: column");
+    expect(styles).toContain("gap: var(--fd-tile-visual-top-gap, var(--fdic-spacing-xs, 8px))");
+    expect(styles).toContain(':host([visual-position="top"]) [part="links"]');
+    expect(styles).toContain("margin-inline-start: 0");
   });
 
   it("adds noopener noreferrer for _blank links", async () => {

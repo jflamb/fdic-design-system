@@ -93,6 +93,7 @@ describe("fd-message", () => {
     const icon = getIcon(el);
     expect(icon).not.toBeNull();
     expect(icon!.getAttribute("aria-hidden")).toBe("true");
+    expect(icon!.outerHTML).not.toContain('opacity="0.2"');
   });
 
   it("renders warning state with icon", async () => {

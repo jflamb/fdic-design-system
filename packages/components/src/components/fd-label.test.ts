@@ -118,6 +118,22 @@ describe("fd-label", () => {
     expect(desc?.textContent).toContain("9-digit number");
   });
 
+  it("reserves description inline space only when an infotip is present", async () => {
+    const el = await createLabel({
+      label: "Routing number",
+      description: "9-digit number on the bottom left of your check",
+    });
+
+    expect(el.textContent).toContain('fd-label [part="description"]');
+    expect(el.textContent).toContain('fd-label[infotip] [part="description"]');
+    expect(el.textContent).not.toContain(
+      `fd-label [part="description"] {
+        color: var(--fdic-color-text-secondary, #595961);
+        font-size: var(--fdic-font-size-body-small, 1rem);
+        padding-right: 32px;`,
+    );
+  });
+
   it("generates a stable description ID based on for attribute", async () => {
     const el = await createLabel({
       label: "Account",

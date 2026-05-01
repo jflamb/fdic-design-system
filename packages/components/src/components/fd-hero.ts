@@ -144,7 +144,14 @@ export class FdHero extends LitElement {
     .stripe-shell {
       display: flex;
       align-items: center;
-      padding-block: var(--fdic-spacing-sm, 12px);
+      padding-block-start: var(
+        --fd-hero-stripe-gap-before,
+        var(--fdic-spacing-2xs, 4px)
+      );
+      padding-block-end: var(
+        --fd-hero-stripe-gap-after,
+        var(--fdic-spacing-xl, 24px)
+      );
     }
 
     .stripe-shell.is-hidden {
@@ -198,8 +205,8 @@ export class FdHero extends LitElement {
 
     .action-icon {
       display: inline-flex;
-      inline-size: 18px;
-      block-size: 18px;
+      inline-size: var(--fd-hero-action-icon-size, 1em);
+      block-size: var(--fd-hero-action-icon-size, 1em);
       align-items: center;
       justify-content: center;
       flex: none;
@@ -266,8 +273,8 @@ export class FdHero extends LitElement {
       }
 
       .action-icon {
-        inline-size: 16px;
-        block-size: 16px;
+        inline-size: var(--fd-hero-action-icon-size-mobile, 1em);
+        block-size: var(--fd-hero-action-icon-size-mobile, 1em);
       }
     }
 

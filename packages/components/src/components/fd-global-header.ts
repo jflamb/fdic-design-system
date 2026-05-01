@@ -1408,10 +1408,16 @@ export class FdGlobalHeader extends LitElement {
       height: 2.75rem;
       border: 0;
       border-radius: 4px;
-      background: var(--fd-global-header-color-surface-brand);
-      color: var(--fd-global-header-color-text-inverted);
+      background: transparent;
+      color: var(--fd-global-header-color-text-primary);
       cursor: pointer;
       padding: 0;
+      transition:
+        box-shadow var(--fdic-motion-duration-fast, 120ms)
+          cubic-bezier(0.2, 0.7, 0.2, 1),
+        background-color var(--fdic-motion-duration-fast, 120ms)
+          cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 100ms cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     .mobile-drawer-close fd-icon {
@@ -1424,11 +1430,23 @@ export class FdGlobalHeader extends LitElement {
       height: 1.25rem;
     }
 
+    .mobile-drawer-close:hover {
+      box-shadow: inset 0 0 0 999px var(--fd-global-header-overlay-hover);
+    }
+
     .mobile-drawer-close:focus-visible {
       outline-color: transparent;
       box-shadow:
-        inset 0 0 0 2px var(--fd-global-header-focus-inner),
-        inset 0 0 0 4px var(--fd-global-header-color-accent);
+        0 0 0 2px var(--fd-global-header-color-surface-base),
+        0 0 0 4px var(--fd-global-header-color-accent);
+      background: var(--fd-global-header-overlay-hover);
+      position: relative;
+      z-index: 1;
+    }
+
+    .mobile-drawer-close:active {
+      box-shadow: inset 0 0 0 999px var(--fd-global-header-overlay-pressed);
+      transform: translateY(1px);
     }
 
     .mobile-drawer-header {

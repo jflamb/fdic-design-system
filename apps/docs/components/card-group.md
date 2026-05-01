@@ -92,7 +92,7 @@ The Card Group component arranges related `fd-card` items into a responsive coll
 | `--fd-card-group-col-4-gap` | `var(--fdic-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
 | `--fd-card-group-col-2-min-mobile` | `var(--fdic-layout-col-2-min-narrow, 320px)` | Narrow-screen minimum card-track width for the two-column constraint set. Defaults to the shared layout column token. |
 | `--fd-card-group-col-2-gap-mobile` | `var(--fdic-layout-col-2-gap-narrow, 16px)` | Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-card-group-col-3-min-mobile` | `var(--fdic-layout-col-3-min-narrow, 200px)` | Narrow-screen minimum card-track width for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-card-group-col-3-min-mobile` | `var(--fdic-layout-col-3-min-narrow, 320px)` | Narrow-screen minimum card-track width for the three-column constraint set. Defaults to the shared layout column token. |
 | `--fd-card-group-col-3-gap-mobile` | `var(--fdic-layout-col-3-gap-narrow, 16px)` | Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
 | `--fd-card-group-col-4-min-mobile` | `var(--fdic-layout-col-4-min-narrow, 160px)` | Narrow-screen minimum card-track width for the four-column constraint set. Defaults to the shared layout column token. |
 | `--fd-card-group-col-4-max-mobile` | `var(--fdic-layout-col-4-max-narrow, 180px)` | Narrow-screen maximum card-track width for the four-column constraint set. Defaults to the shared layout column token. |

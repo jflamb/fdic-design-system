@@ -1912,7 +1912,7 @@
     },
     "col-3-min-narrow": {
       "$value": {
-        "value": 200,
+        "value": 320,
         "unit": "px"
       }
     },

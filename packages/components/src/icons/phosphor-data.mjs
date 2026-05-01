@@ -1,9 +1,10 @@
 /**
- * Shared Phosphor Duotone icon SVG data.
+ * Shared Phosphor icon SVG data.
  *
  * This plain JS module is the single source of truth for icon shapes.
  * Consumers:
- * - phosphor-duotone.ts (runtime icon registry)
+ * - phosphor-regular.ts (default runtime icon registry)
+ * - phosphor-duotone.ts (explicit duotone runtime icon registry)
  * - scripts/icons/generate-icon-masks.mjs (build-time CSS mask generator)
  *
  * SVG path data sourced from the official Phosphor Icons repository:
@@ -86,3 +87,23 @@ export const phosphorDuotoneIcons = {
 
   "share-fat": '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M152,192V144c-61.4,0-104.61,37.19-121.07,54.72a4,4,0,0,1-6.9-3.18C31.51,130.45,99.19,80,152,80V32l80,80Z" opacity="0.2"/><path d="M237.66,106.35l-80-80A8,8,0,0,0,144,32V72.35c-25.94,2.22-54.59,14.92-78.16,34.91-28.38,24.08-46.05,55.11-49.76,87.37a12,12,0,0,0,20.68,9.58h0c11-11.71,50.14-48.74,107.24-52V192a8,8,0,0,0,13.66,5.65l80-80A8,8,0,0,0,237.66,106.35ZM160,172.69V144a8,8,0,0,0-8-8c-28.08,0-55.43,7.33-81.29,21.8a196.17,196.17,0,0,0-36.57,26.52c5.8-23.84,20.42-46.51,42.05-64.86C99.41,99.77,127.75,88,152,88a8,8,0,0,0,8-8V51.32L220.69,112Z"/></svg>',
 };
+
+const duotoneLayerPattern = /<path\b(?=[^>]*\bopacity="0\.2")[^>]*\/>/g;
+
+const strokedCaretIcons = {
+  "caret-down":
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><path d="M48 96 128 176 208 96"/></svg>',
+  "caret-left":
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><path d="M160 48 80 128 160 208"/></svg>',
+  "caret-right":
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><path d="M96 48 176 128 96 208"/></svg>',
+  "caret-up":
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><path d="M48 160 128 80 208 160"/></svg>',
+};
+
+export const phosphorRegularIcons = Object.fromEntries(
+  Object.entries(phosphorDuotoneIcons).map(([name, svg]) => [
+    name,
+    strokedCaretIcons[name] ?? svg.replace(duotoneLayerPattern, ""),
+  ]),
+);

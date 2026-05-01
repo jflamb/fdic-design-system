@@ -103,9 +103,9 @@ export class FdLink extends LitElement {
     ::slotted([slot="icon-end"]) {
       color: currentColor;
       flex: none;
-      inline-size: var(--fd-link-icon-size, 1rem);
-      block-size: var(--fd-link-icon-size, 1rem);
-      --fd-icon-size: var(--fd-link-icon-size, 1rem);
+      inline-size: var(--fd-link-icon-size, 1em);
+      block-size: var(--fd-link-icon-size, 1em);
+      --fd-icon-size: var(--fd-link-icon-size, 1em);
     }
 
     .base:hover,

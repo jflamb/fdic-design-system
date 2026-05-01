@@ -313,7 +313,7 @@ export const tokenSource = {
     "col-4-gap": "48px",
     "col-2-min-narrow": "320px",
     "col-2-gap-narrow": "16px",
-    "col-3-min-narrow": "200px",
+    "col-3-min-narrow": "320px",
     "col-3-gap-narrow": "16px",
     "col-4-min-narrow": "160px",
     "col-4-max-narrow": "180px",

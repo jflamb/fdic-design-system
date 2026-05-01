@@ -553,6 +553,7 @@ export const componentStoryApi = {
   "fd-tile": {
     argTypes: {
     "tone": { control: "select", options: ["neutral","cool","warm"] },
+    "visualPosition": { control: "select", options: ["left","top"] },
     "iconName": { control: "text" },
     "title": { control: "text" },
     "href": { control: "text" },
@@ -563,6 +564,7 @@ export const componentStoryApi = {
     },
     args: {
     "tone": "neutral",
+    "visualPosition": "left",
     "iconName": undefined,
     "title": "",
     "href": undefined,

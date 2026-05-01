@@ -1,13 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { iconRegistry } from "./registry.js";
-// Import triggers the legacy compatibility entry point.
+// Import triggers auto-registration.
 import "./phosphor-regular.js";
 
-describe("phosphor-regular compatibility entry point", () => {
-  it("registers the current duotone icon set", () => {
+describe("phosphor-regular built-in icons", () => {
+  it("registers the regular icon set", () => {
     const star = iconRegistry.get("star");
 
     expect(star).toBeDefined();
-    expect(star).toContain('opacity="0.2"');
+    expect(star).not.toContain('opacity="0.2"');
+  });
+
+  it("uses stroked carets for interface chrome", () => {
+    const caretDown = iconRegistry.get("caret-down");
+
+    expect(caretDown).toBeDefined();
+    expect(caretDown).toContain('fill="none"');
+    expect(caretDown).toContain('stroke="currentColor"');
+    expect(caretDown).not.toContain('opacity="0.2"');
   });
 });

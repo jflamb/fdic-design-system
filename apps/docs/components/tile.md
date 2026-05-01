@@ -65,6 +65,7 @@ The Tile component presents one primary destination with a decorative circular i
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Decorative visual tone passed to the internal `fd-visual`. |
+| `visual-position` | `"left" \| "top"` | `"left"` | Position of the decorative visual relative to the primary link text. |
 | `icon-name` | `string \| undefined` | `undefined` | Optional Phosphor registry icon name rendered inside the decorative visual. When omitted, `fd-visual` falls back to its built-in archive glyph. |
 | `title` | `string` | `` | Visible primary text for the tile. |
 | `href` | `string \| undefined` | `undefined` | Optional destination for the primary title. When omitted, the title renders as plain text. |
@@ -84,6 +85,7 @@ The Tile component presents one primary destination with a decorative circular i
 | `--fd-tile-link-color` | `var(--fdic-color-text-link, #1278b0)` | Primary and supporting link color. |
 | `--fd-tile-description-color` | `var(--fdic-color-text-secondary, #595961)` | Supporting description color. |
 | `--fd-tile-links-gap` | `4px` | Gap between supporting links in the optional link stack. |
+| `--fd-tile-visual-top-gap` | `8px` | Gap between the decorative visual and text column when `visual-position="top"`. |
 | `--fd-tile-visual-track-size-expanded` | `48px` | Visual track width when the tile's container reaches the expanded layout threshold. |
 | `--fd-tile-visual-size-expanded` | `48px` | Internal `fd-visual` size when the tile's container reaches the expanded layout threshold. |
 | `--fd-tile-visual-content-size-expanded` | `22px` | Icon content size inside the internal `fd-visual` at the expanded layout threshold. |

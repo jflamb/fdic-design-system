@@ -32,7 +32,7 @@ type TextareaArgs = {
 
 type FdTextareaHost = HTMLElement & { value?: string };
 const renderTextarea = (args: TextareaArgs) => html`
-  <div style="max-width: 328px;">
+  <div style="max-width: 30rem;">
     <fd-label
       for=${args.id}
       label=${args.label}
@@ -193,7 +193,7 @@ export const WithCharacterCountNearLimit: Story = {
 
 export const ValidationLifecycle: Story = {
   render: () => html`
-    <form style="display: grid; gap: 12px; max-width: 328px;">
+    <form style="display: grid; gap: 12px; max-width: 30rem;">
       <fd-label
         for="textarea-lifecycle"
         label="Explanation"
@@ -205,7 +205,7 @@ export const ValidationLifecycle: Story = {
         name="explanation"
         required
       ></fd-textarea>
-      <button type="submit">Submit</button>
+      <fd-button type="submit">Submit</fd-button>
     </form>
   `,
   parameters: {

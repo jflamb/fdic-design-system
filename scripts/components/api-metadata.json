@@ -3818,6 +3818,12 @@
           "description": "Decorative visual tone passed to the internal `fd-visual`."
         },
         {
+          "name": "visual-position",
+          "type": "`\"left\" \\| \"top\"`",
+          "defaultValue": "`\"left\"`",
+          "description": "Position of the decorative visual relative to the primary link text."
+        },
+        {
           "name": "icon-name",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
@@ -3891,6 +3897,11 @@
           "name": "--fd-tile-links-gap",
           "default": "`4px`",
           "description": "Gap between supporting links in the optional link stack."
+        },
+        {
+          "name": "--fd-tile-visual-top-gap",
+          "default": "`8px`",
+          "description": "Gap between the decorative visual and text column when `visual-position=\"top\"`."
         },
         {
           "name": "--fd-tile-visual-track-size-expanded",
@@ -4757,7 +4768,7 @@
         },
         {
           "name": "--fd-card-group-col-3-min-mobile",
-          "default": "`var(--fdic-layout-col-3-min-narrow, 200px)`",
+          "default": "`var(--fdic-layout-col-3-min-narrow, 320px)`",
           "description": "Narrow-screen minimum card-track width for the three-column constraint set. Defaults to the shared layout column token."
         },
         {

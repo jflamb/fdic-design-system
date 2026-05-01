@@ -77,7 +77,7 @@ export type { FdPageHeaderBreadcrumb } from "./components/fd-page-header.js";
 export type { HeroTone } from "./components/fd-hero.js";
 export type { PageFeedbackView, PageFeedbackViewChangeReason, PageFeedbackViewChangeDetail, PageFeedbackReportSubmitDetail } from "./components/fd-page-feedback.js";
 export type { EventTone } from "./components/fd-event.js";
-export type { TileTone, FdTileLinkItem } from "./components/fd-tile.js";
+export type { TileTone, TileVisualPosition, FdTileLinkItem } from "./components/fd-tile.js";
 export type { GlobalFooterSocialIcon, FdGlobalFooterLink, FdGlobalFooterSocialLink } from "./components/fd-global-footer.js";
 export type { ConfirmationRecordVariant, ConfirmationRecordStatus } from "./components/fd-confirmation-record.js";
 export type { FormFieldLayout, FormFieldControlType } from "./components/fd-form-field.js";

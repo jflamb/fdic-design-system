@@ -6,6 +6,8 @@ export const TILE_TONES = ["neutral", "cool", "warm"] as const;
 export type TileTone = (typeof TILE_TONES)[number];
 export const TILE_VISUAL_TYPES = ["neutral", "cool", "warm", "avatar"] as const;
 export type TileVisualType = (typeof TILE_VISUAL_TYPES)[number];
+export const TILE_VISUAL_POSITIONS = ["left", "top"] as const;
+export type TileVisualPosition = (typeof TILE_VISUAL_POSITIONS)[number];
 
 export interface FdTileLinkItem {
   label: string;
@@ -39,6 +41,7 @@ export class FdTile extends LitElement {
   static properties = {
     tone: { reflect: true },
     visualType: { attribute: "visual-type", reflect: true },
+    visualPosition: { attribute: "visual-position", reflect: true },
     iconName: { attribute: "icon-name", reflect: true },
     title: { reflect: true },
     href: { reflect: true },
@@ -226,6 +229,10 @@ export class FdTile extends LitElement {
       gap: var(--fd-tile-links-gap, var(--fdic-spacing-2xs, 4px));
       margin: 0;
       margin-block-start: var(--fd-tile-links-margin-block-start, var(--fdic-spacing-xs, 8px));
+      margin-inline-start: calc(
+        var(--fd-tile-visual-track-size, 46px) +
+        var(--fd-tile-gap, var(--fdic-spacing-sm, 12px))
+      );
       padding: 0;
       list-style: none;
     }
@@ -259,6 +266,13 @@ export class FdTile extends LitElement {
         gap: var(--fdic-spacing-3xs, 2px);
       }
 
+      [part="links"] {
+        margin-inline-start: calc(
+          var(--fd-tile-visual-track-size-expanded, 48px) +
+          var(--fd-tile-gap, var(--fdic-spacing-sm, 12px))
+        );
+      }
+
       .title-link,
       .title-text {
         font-size: var(--fdic-font-size-body-big, 20px);
@@ -269,7 +283,7 @@ export class FdTile extends LitElement {
 
     @container (min-width: 440px) {
       [part="primary-link"] {
-        gap: var(--fdic-spacing-md, 16px);
+        gap: var(--fd-tile-gap-large, var(--fdic-spacing-md, 16px));
       }
 
       [part="visual"] {
@@ -287,9 +301,36 @@ export class FdTile extends LitElement {
         padding-block: 2px;
       }
 
+      [part="links"] {
+        margin-inline-start: calc(
+          var(--fd-tile-visual-track-size-large, 60px) +
+          var(--fd-tile-gap-large, var(--fdic-spacing-md, 16px))
+        );
+      }
+
       [part="description"] {
         font-size: var(--fdic-font-size-body, 18px);
       }
+    }
+
+    :host([visual-position="top"]) [part="primary-link"] {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--fd-tile-visual-top-gap, var(--fdic-spacing-xs, 8px));
+    }
+
+    :host([visual-position="top"]) [part="primary-link"].compact {
+      align-items: flex-start;
+    }
+
+    :host([visual-position="top"]) [part="visual"] {
+      inline-size: auto;
+      padding-block: 0;
+      justify-content: flex-start;
+    }
+
+    :host([visual-position="top"]) [part="links"] {
+      margin-inline-start: 0;
     }
 
     @media (forced-colors: active) {
@@ -323,6 +364,7 @@ export class FdTile extends LitElement {
 
   declare tone: TileTone;
   declare visualType: TileVisualType | undefined;
+  declare visualPosition: TileVisualPosition;
   declare iconName: string | undefined;
   declare title: string;
   declare href: string | undefined;
@@ -337,6 +379,7 @@ export class FdTile extends LitElement {
     super();
     this.tone = "neutral";
     this.visualType = undefined;
+    this.visualPosition = "left";
     this.iconName = undefined;
     this.title = "";
     this.href = undefined;

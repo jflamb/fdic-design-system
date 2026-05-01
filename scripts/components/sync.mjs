@@ -324,7 +324,7 @@ function generateRegisterAllFile() {
  */
 import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 ${importLines}
-import "../icons/phosphor-duotone.js";
+import "../icons/phosphor-regular.js";
 
 warnIfDesignSystemRuntimeMissing();
 `;
