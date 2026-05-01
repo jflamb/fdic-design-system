@@ -44,6 +44,9 @@ export class FdDrawer extends LitElement {
       border: none;
       background: transparent;
       max-width: none;
+      max-height: none;
+      max-inline-size: none;
+      max-block-size: none;
       width: 100%;
     }
 

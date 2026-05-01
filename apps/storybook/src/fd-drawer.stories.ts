@@ -138,15 +138,18 @@ ReferenceMenuSurface.play = async ({ canvasElement, userEvent }) => {
     expect(status?.textContent).toContain("Drawer open");
   });
 
+  const dialog = drawer?.shadowRoot?.querySelector("dialog") as HTMLDialogElement | null;
   const surface = drawer?.shadowRoot?.querySelector(".surface") as HTMLElement | null;
 
   await waitFor(() => {
+    const expectedBlockSize = canvasElement.ownerDocument.defaultView?.innerHeight ?? 0;
+    const dialogRect = dialog?.getBoundingClientRect();
     const rect = surface?.getBoundingClientRect();
+    expect(Math.round(dialogRect?.height ?? 0)).toBe(Math.round(expectedBlockSize));
     expect(rect?.width).toBeGreaterThan(0);
     expect(rect?.height).toBeGreaterThan(0);
   });
 
-  const dialog = drawer?.shadowRoot?.querySelector("dialog");
   dialog?.dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true }));
 
   await waitFor(() => {
