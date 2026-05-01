@@ -73,3 +73,7 @@ export { FdSocialMediaItem } from "./generated/fd-social-media-item.js";
 export type { FdSocialMediaItemProps } from "./generated/fd-social-media-item.js";
 export { FdSocialMediaList } from "./generated/fd-social-media-list.js";
 export type { FdSocialMediaListProps } from "./generated/fd-social-media-list.js";
+export { FdMediaItem } from "./generated/fd-media-item.js";
+export type { FdMediaItemProps } from "./generated/fd-media-item.js";
+export { FdMediaList } from "./generated/fd-media-list.js";
+export type { FdMediaListProps } from "./generated/fd-media-list.js";

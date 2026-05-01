@@ -51,6 +51,8 @@ export { FdReviewList } from "./components/fd-review-list.js";
 export { FdLinkCategory } from "./components/fd-link-category.js";
 export { FdSocialMediaItem } from "./components/fd-social-media-item.js";
 export { FdSocialMediaList } from "./components/fd-social-media-list.js";
+export { FdMediaItem } from "./components/fd-media-item.js";
+export { FdMediaList } from "./components/fd-media-list.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -84,6 +86,7 @@ export type { ReviewListHeadingLevel, ReviewListDensity, ReviewListItem } from "
 export type { LinkCategorySize, LinkCategoryTone, FdLinkCategoryLinkItem } from "./components/fd-link-category.js";
 export type { SocialMediaPlatform } from "./components/fd-social-media-item.js";
 export type { SocialMediaListColumns } from "./components/fd-social-media-list.js";
+export type { MediaListColumns } from "./components/fd-media-list.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,
