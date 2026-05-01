@@ -31,7 +31,7 @@ The global header provides the FDICnet-style masthead, attached mega-menu, mobil
 />
 
 - Pass the navigation tree as a JavaScript property. Assign a new array or object when content changes so the component can re-render.
-- Use the `brand` slot for the branded home link or wordmark content.
+- Leave the `brand` slot empty for the reference FDICnet wordmark, or use it only when an application needs a different branded home link.
 - Use the `utility` slot for application-specific support links or actions. Keep the set short and high-value.
 - Enable `shy` only on pages that benefit from reclaiming vertical space while scrolling. Keep it off by default for short or highly task-dense screens.
 - The reference stories and tests use the exact exported fixture from <code>packages/components/src/components/fd-global-header.reference-content.ts</code> and <code>packages/components/src/components/fd-global-header.reference.ts</code>.
@@ -293,10 +293,11 @@ const content = createFdGlobalHeaderContentFromDrupal({
 
 | Name | Description |
 |---|---|
-| `brand` | Required brand or home-link content for the masthead |
+| `brand` | Optional brand or home-link content for the masthead. When omitted, the component renders the reference FDICnet wordmark link. |
 | `utility` | Optional utility links or actions rendered in the masthead |
 
-- Author brand and utility content as real links or controls. The component only provides the layout and state management.
+- The default brand is the reference FDICnet wordmark linked to `/` with `aria-label="FDICnet home"`.
+- Author brand and utility content as real links or controls when an application needs to replace the default brand.
 
 ## Events
 
@@ -310,6 +311,9 @@ const content = createFdGlobalHeaderContentFromDrupal({
 |---|---|---|
 | `--fd-global-header-shy-transition-duration` | `0.3s` | Hide-transition duration used when `shy` is enabled. Reveal timing is derived internally as a proportionally faster transition. |
 | `--fd-global-header-shy-height` | — | Read-only. Set on the host when `shy` is enabled. Contains the header's full (non-compact) rendered height as a pixel value. Use it on a parent wrapper to reserve space for the fixed header (e.g., `padding-top: var(--fd-global-header-shy-height, 0px)`). Removed when `shy` is disabled. |
+| `--fd-global-header-wordmark-height` | `35px` | Block size of the default FDICnet wordmark. |
+| `--fd-global-header-wordmark-width` | `8.75rem` | Inline size of the default FDICnet wordmark. |
+| `--fd-global-header-wordmark-color` | `currentColor` | Color used by the default FDICnet wordmark. |
 
 - `--fd-global-header-shy-transition-duration` is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely.
 - `--fd-global-header-shy-height` updates automatically when the header resizes (e.g., viewport changes).

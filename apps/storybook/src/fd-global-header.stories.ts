@@ -6,7 +6,6 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
 import { expect, userEvent, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
-import fdicnetWordmarkUrl from "./assets/fdicnet-wordmark.svg?url";
 import {
   getComponentArgs,
   getComponentArgTypes,
@@ -307,20 +306,6 @@ const renderHeader = (
       .shy=${Boolean(args.shy)}
       .shyThreshold=${args.shyThreshold}
     >
-      <a
-        slot="brand"
-        href="/"
-        aria-label="FDICnet home"
-        style="display:inline-flex; align-items:center; height:35px; color:#ffffff; text-decoration:none; border-radius:0; overflow:visible;"
-      >
-        <img
-          src=${fdicnetWordmarkUrl}
-          alt="FDICnet"
-          width="140"
-          height="35"
-          style="display:block; width:8.75rem; height:auto; border-radius:0; overflow:visible;"
-        />
-      </a>
       <fd-button slot="utility" variant="subtle-inverted" aria-label="Apps">
         <fd-icon
           slot="icon-start"
@@ -531,20 +516,6 @@ export const ShyHeader: Story = {
           .shy=${Boolean(args.shy)}
           .shyThreshold=${args.shyThreshold}
         >
-          <a
-            slot="brand"
-            href="/"
-            aria-label="FDICnet home"
-            style="display:inline-flex; align-items:center; height:35px; color:#ffffff; text-decoration:none; border-radius:0; overflow:visible;"
-          >
-            <img
-              src=${fdicnetWordmarkUrl}
-              alt="FDICnet"
-              width="140"
-              height="35"
-              style="display:block; width:8.75rem; height:auto; border-radius:0; overflow:visible;"
-            />
-          </a>
           <fd-button slot="utility" variant="subtle-inverted" aria-label="Apps">
             <fd-icon
               slot="icon-start"

@@ -38,6 +38,16 @@ Use them with authored HTML that already carries the right meaning:
 
 The following classes are part of the supported stylesheet contract:
 
+- `.fdic-page`
+- `.fdic-page__main`
+- `.fdic-page__chrome-end`
+- `.fdic-page-band`
+- `.fdic-page-band--neutral`
+- `.fdic-page-band--cool`
+- `.fdic-page-band--warm`
+- `.fdic-page-band__content`
+- `.fdic-page-band__stack`
+- `.fdic-brand-wordmark`
 - `.fdic-composition-section`
 - `.fdic-composition-section__inner`
 - `.fdic-composition-section--highlight`
@@ -65,6 +75,48 @@ The following classes are part of the supported stylesheet contract:
 - `.fdic-composition-dual__panel`
 
 These classes are additive CSS patterns, not components. They assume you keep the underlying HTML semantic and accessible.
+
+## Page layout shell
+
+Use the page layout classes when a full page needs the same shell constraints as the Homepage Bands recipe: full-width structural regions with content aligned to the shared `--fdic-layout-shell-max-width` and desktop, tablet, and mobile gutter tokens.
+
+```html
+<div class="fdic-page">
+  <fd-global-header></fd-global-header>
+
+  <main class="fdic-page__main">
+    <fd-page-header></fd-page-header>
+
+    <section class="fdic-page-band fdic-page-band--cool" aria-labelledby="tools-title">
+      <div class="fdic-page-band__content">
+        <div class="fdic-page-band__stack">
+          <div class="fdic-section-header">
+            <h2 id="tools-title">Featured tools</h2>
+            <p>Quickly open the resources employees use most often.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="fdic-page__chrome-end">
+    <fd-page-feedback></fd-page-feedback>
+    <fd-global-footer></fd-global-footer>
+  </div>
+</div>
+```
+
+`fd-page-header`, `fd-page-feedback`, and `fd-global-footer` default to the same shared shell width and gutter tokens as `.fdic-page-band__content`, so they align without page-specific overrides.
+
+Use `.fdic-page-band--neutral`, `.fdic-page-band--cool`, and `.fdic-page-band--warm` only when the entire band needs a system surface treatment. Plain sections can use `.fdic-page-band` without a tone modifier.
+
+Band tone classes are intentionally token-driven:
+
+- neutral: `--fdic-page-band-neutral-background` and `--fdic-page-band-neutral-border`
+- cool: `--fdic-page-band-cool-background` and `--fdic-page-band-cool-border`
+- warm: `--fdic-page-band-warm-background` and `--fdic-page-band-warm-border`
+
+For the reference FDICnet header brand, `fd-global-header` renders the default wordmark when no `brand` slot is provided. Use `.fdic-brand-wordmark` only when an application needs to author its own equivalent brand link outside that default path.
 
 ## Section shell
 

@@ -61,6 +61,79 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
  * page-shell component.
  */
 
+.fdic-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--fdic-color-bg-base, #ffffff);
+}
+
+.fdic-page__main {
+  display: block;
+  flex: 1 0 auto;
+}
+
+.fdic-page__chrome-end {
+  display: block;
+  margin-block-start: auto;
+}
+
+.fdic-page-band {
+  display: block;
+  width: 100%;
+}
+
+.fdic-page-band--neutral {
+  border-block: 1px solid var(--fdic-page-band-neutral-border, var(--fdic-color-neutral-200, #d8d8db));
+  background: var(--fdic-page-band-neutral-background, var(--fdic-color-neutral-050, #f5f5f7));
+}
+
+.fdic-page-band--cool {
+  border-block: 1px solid var(--fdic-page-band-cool-border, var(--fdic-color-primary-200, #9bd8f2));
+  background: var(--fdic-page-band-cool-background, var(--fdic-color-primary-050, #e7f6fd));
+}
+
+.fdic-page-band--warm {
+  border-block: 1px solid var(--fdic-page-band-warm-border, var(--fdic-color-secondary-300, #e0c875));
+  background: var(--fdic-page-band-warm-background, var(--fdic-color-secondary-050, #fbf4df));
+}
+
+.fdic-page-band__content {
+  box-sizing: border-box;
+  width: min(
+    var(--fdic-layout-shell-max-width, 1312px),
+    calc(100% - 2 * var(--fdic-layout-gutter, 64px))
+  );
+  margin-inline: auto;
+  padding-block: var(--fdic-layout-section-block-padding-compact, 24px);
+}
+
+.fdic-page-band__stack {
+  display: grid;
+  gap: var(--fdic-page-band-stack-gap, var(--fdic-spacing-xl, 24px));
+}
+
+.fdic-brand-wordmark {
+  display: inline-flex;
+  align-items: center;
+  block-size: var(--fd-global-header-wordmark-height, 35px);
+  color: var(--fd-global-header-wordmark-color, currentColor);
+  overflow: visible;
+  border-radius: 0;
+  text-decoration: none;
+  line-height: 0;
+}
+
+.fdic-brand-wordmark :where(svg, img) {
+  display: block;
+  inline-size: var(--fd-global-header-wordmark-width, 8.75rem);
+  block-size: auto;
+  overflow: visible;
+  border-radius: 0;
+}
+
 .fdic-composition-section {
   width: 100%;
   max-width: none;
@@ -360,6 +433,13 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
 }
 
 @media (max-width: 63.999rem) {
+  .fdic-page-band__content {
+    width: min(
+      var(--fdic-layout-shell-max-width, 1312px),
+      calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px))
+    );
+  }
+
   .fdic-composition-section__inner {
     padding-inline: var(--fdic-layout-gutter-tablet, 32px);
     padding-block: clamp(2rem, 1.7rem + 0.8vw, 2.75rem);
@@ -399,6 +479,10 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
 }
 
 @media (max-width: 47.999rem) {
+  .fdic-page-band__content {
+    width: calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px));
+  }
+
   .fdic-composition-section__inner {
     padding-inline: var(--fdic-layout-gutter-mobile, 16px);
     padding-block: var(--fdic-layout-section-block-padding-compact, 1.5rem);

@@ -13,73 +13,6 @@ import {
   fdGlobalHeaderReferenceNavigation,
 } from "@jflamb/fdic-ds-components/fd-global-header-reference";
 
-const PAGE_STYLE = [
-  "display: flex",
-  "flex-direction: column",
-  "min-height: 100vh",
-  "gap: 0",
-  "width: 100%",
-  "background: var(--fdic-color-bg-base, #ffffff)",
-].join("; ");
-
-const PAGE_MAIN_STYLE = [
-  "display: block",
-  "flex: 1 0 auto",
-].join("; ");
-
-const PAGE_CHROME_END_STYLE = [
-  "display: block",
-  "margin-block-start: auto",
-].join("; ");
-
-const SECTION_SHELL_STYLE = [
-  "display: block",
-  "width: 100%",
-].join("; ");
-
-const PAGE_SHELL_INLINE_SIZE =
-  "min(var(--fdic-layout-shell-max-width, 1312px), calc(100% - 2 * var(--fdic-layout-gutter, 64px)))";
-
-const PAGE_SHELL_INLINE_SIZE_TABLET =
-  "min(var(--fdic-layout-shell-max-width, 1312px), calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px)))";
-
-const PAGE_SHELL_INLINE_SIZE_MOBILE =
-  "calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px))";
-
-const PAGE_HEADER_SHELL_STYLE = [
-  "--fd-page-header-max-width: var(--fdic-layout-shell-max-width, 1312px)",
-  "--fd-page-header-padding-inline: var(--fdic-layout-gutter, 64px)",
-  "--fd-page-header-padding-inline-tablet: var(--fdic-layout-gutter-tablet, 32px)",
-  "--fd-page-header-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-  "--fd-page-header-padding-block: var(--fdic-layout-section-block-padding, 48px)",
-].join("; ");
-
-const PAGE_FEEDBACK_SHELL_STYLE = [
-  "--fd-page-feedback-max-width: var(--fdic-layout-shell-max-width, 1312px)",
-  "--fd-page-feedback-inline-padding: var(--fdic-layout-gutter, 64px)",
-  "--fd-page-feedback-inline-padding-tablet: var(--fdic-layout-gutter-tablet, 32px)",
-  "--fd-page-feedback-inline-padding-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-].join("; ");
-
-const FOOTER_SHELL_STYLE = [
-  "--fd-global-footer-max-width: var(--fdic-layout-shell-max-width, 1312px)",
-  "--fd-global-footer-padding-inline: var(--fdic-layout-gutter, 64px)",
-  "--fd-global-footer-padding-inline-tablet: var(--fdic-layout-gutter-tablet, 32px)",
-  "--fd-global-footer-padding-inline-mobile: var(--fdic-layout-gutter-mobile, 16px)",
-].join("; ");
-
-const COOL_SECTION_STYLE = [
-  SECTION_SHELL_STYLE,
-  "background: var(--fdic-color-primary-050, #e7f6fd)",
-  "border-block: 1px solid var(--fdic-color-primary-200, #9bd8f2)",
-].join("; ");
-
-const WARM_SECTION_STYLE = [
-  SECTION_SHELL_STYLE,
-  "background: var(--fdic-color-secondary-050, #fbf4df)",
-  "border-block: 1px solid var(--fdic-color-secondary-300, #e0c875)",
-].join("; ");
-
 const QUICK_LINKS = [
   {
     iconName: "speedometer",
@@ -192,57 +125,23 @@ const renderEvents = () => html`
 `;
 
 const renderRecipe = () => html`
-  <style>
-    .fdic-layout-recipe-content {
-      box-sizing: border-box;
-      width: ${PAGE_SHELL_INLINE_SIZE};
-      margin-inline: auto;
-      padding-block: var(--fdic-layout-section-block-padding-compact, 24px);
-    }
-
-    .fdic-layout-recipe-band-stack {
-      display: grid;
-      gap: var(--fdic-spacing-xl, 24px);
-    }
-
-    @media (max-width: 640px) {
-      .fdic-layout-recipe-content {
-        width: ${PAGE_SHELL_INLINE_SIZE_MOBILE};
-      }
-    }
-
-    @media (min-width: 640.001px) and (max-width: 1023.999px) {
-      .fdic-layout-recipe-content {
-        width: ${PAGE_SHELL_INLINE_SIZE_TABLET};
-      }
-    }
-  </style>
-  <div style=${PAGE_STYLE}>
+  <div class="fdic-page">
     <fd-global-header
       .navigation=${GLOBAL_HEADER_SOURCE.items}
       .search=${GLOBAL_HEADER_SOURCE.search}
-    >
-      <a
-        slot="brand"
-        href="#home"
-        style="display:inline-flex; align-items:center; color:inherit; text-decoration:none; font-size:2.25rem; font-weight:700; line-height:1;"
-      >
-        FDICnet
-      </a>
-    </fd-global-header>
+    ></fd-global-header>
 
-    <main style=${PAGE_MAIN_STYLE}>
+    <main class="fdic-page__main">
       <fd-page-header
         heading="Employee Resources"
         kicker="Find commonly used FDICnet tools, events, and support information."
         breadcrumb-label="Breadcrumbs"
         .breadcrumbs=${[{ label: "Home", href: "#" }]}
-        style=${PAGE_HEADER_SHELL_STYLE}
       ></fd-page-header>
 
-      <section style=${COOL_SECTION_STYLE}>
-        <div class="fdic-layout-recipe-content">
-          <div class="fdic-layout-recipe-band-stack">
+      <section class="fdic-page-band fdic-page-band--cool">
+        <div class="fdic-page-band__content">
+          <div class="fdic-page-band__stack">
             <div class="fdic-section-header">
               <h2>Featured tools</h2>
               <p>
@@ -254,9 +153,9 @@ const renderRecipe = () => html`
         </div>
       </section>
 
-      <section style=${WARM_SECTION_STYLE}>
-        <div class="fdic-layout-recipe-content">
-          <div class="fdic-layout-recipe-band-stack">
+      <section class="fdic-page-band fdic-page-band--warm">
+        <div class="fdic-page-band__content">
+          <div class="fdic-page-band__stack">
             <div class="fdic-section-header">
               <h2>Upcoming events</h2>
               <p>
@@ -269,10 +168,9 @@ const renderRecipe = () => html`
       </section>
     </main>
 
-    <div style=${PAGE_CHROME_END_STYLE}>
+    <div class="fdic-page__chrome-end">
       <fd-page-feedback
         survey-href="https://www.fdic.gov"
-        style=${PAGE_FEEDBACK_SHELL_STYLE}
       ></fd-page-feedback>
 
       <fd-global-footer
@@ -287,7 +185,6 @@ const renderRecipe = () => html`
           { icon: "youtube", label: "Follow the FDIC on YouTube", href: "#" },
           { icon: "linkedin", label: "Follow the FDIC on LinkedIn", href: "#" },
         ]}
-        style=${FOOTER_SHELL_STYLE}
       ></fd-global-footer>
     </div>
   </div>
@@ -313,7 +210,7 @@ HomepageBands.play = async ({ canvasElement }) => {
   const globalHeader = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
   const pageHeader = canvasElement.querySelector("fd-page-header") as HTMLElement | null;
   const feedback = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
-  const contentShell = canvasElement.querySelector(".fdic-layout-recipe-content") as HTMLElement | null;
+  const contentShell = canvasElement.querySelector(".fdic-page-band__content") as HTMLElement | null;
   const warmSection = canvasElement.querySelector("main section:last-of-type") as HTMLElement | null;
   const tileList = canvasElement.querySelector("fd-tile-list") as HTMLElement | null;
   const eventList = canvasElement.querySelector("fd-event-list") as HTMLElement | null;

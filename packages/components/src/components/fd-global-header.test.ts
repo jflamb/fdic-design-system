@@ -328,6 +328,41 @@ describe("fd-global-header", () => {
     expect(styles).not.toContain("light-dark(#0b466f, #38b6ff)");
   });
 
+  it("renders the reference FDICnet wordmark when no brand slot is provided", async () => {
+    const el = document.createElement("fd-global-header") as HTMLElement & {
+      updateComplete: Promise<unknown>;
+    };
+
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    const defaultBrand = el.shadowRoot?.querySelector(
+      ".fdic-brand-wordmark",
+    ) as HTMLAnchorElement | null;
+
+    expect(defaultBrand).toBeTruthy();
+    expect(defaultBrand?.getAttribute("href")).toBe("/");
+    expect(defaultBrand?.getAttribute("aria-label")).toBe("FDICnet home");
+    expect(defaultBrand?.querySelector("svg")).toBeTruthy();
+  });
+
+  it("keeps an authored brand slot ahead of the default wordmark fallback", async () => {
+    const el = document.createElement("fd-global-header") as HTMLElement & {
+      updateComplete: Promise<unknown>;
+    };
+
+    el.innerHTML = `<a slot="brand" href="/custom">Custom brand</a>`;
+    document.body.appendChild(el);
+    await el.updateComplete;
+
+    const slot = el.shadowRoot?.querySelector(
+      'slot[name="brand"]',
+    ) as HTMLSlotElement | null;
+
+    expect(slot?.assignedElements()).toHaveLength(1);
+    expect(slot?.assignedElements()[0]?.textContent).toContain("Custom brand");
+  });
+
   it("uses DS layout tokens for shell width and gutter alignment", () => {
     const styles = getStyleText(FdGlobalHeader.styles);
 

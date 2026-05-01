@@ -3075,14 +3075,14 @@
       "rows": [
         {
           "name": "brand",
-          "description": "Required brand or home-link content for the masthead"
+          "description": "Optional brand or home-link content for the masthead. When omitted, the component renders the reference FDICnet wordmark link."
         },
         {
           "name": "utility",
           "description": "Optional utility links or actions rendered in the masthead"
         }
       ],
-      "after": "- Author brand and utility content as real links or controls. The component only provides the layout and state management."
+      "after": "- The default brand is the reference FDICnet wordmark linked to `/` with `aria-label=\"FDICnet home\"`.\n- Author brand and utility content as real links or controls when an application needs to replace the default brand."
     },
     "events": {
       "rows": [
@@ -3105,6 +3105,21 @@
           "name": "--fd-global-header-shy-height",
           "default": "—",
           "description": "Read-only. Set on the host when `shy` is enabled. Contains the header's full (non-compact) rendered height as a pixel value. Use it on a parent wrapper to reserve space for the fixed header (e.g., `padding-top: var(--fd-global-header-shy-height, 0px)`). Removed when `shy` is disabled."
+        },
+        {
+          "name": "--fd-global-header-wordmark-height",
+          "default": "`35px`",
+          "description": "Block size of the default FDICnet wordmark."
+        },
+        {
+          "name": "--fd-global-header-wordmark-width",
+          "default": "`8.75rem`",
+          "description": "Inline size of the default FDICnet wordmark."
+        },
+        {
+          "name": "--fd-global-header-wordmark-color",
+          "default": "`currentColor`",
+          "description": "Color used by the default FDICnet wordmark."
         }
       ],
       "after": "- `--fd-global-header-shy-transition-duration` is ignored when the user requests reduced motion because the component suppresses shy-header transitions entirely.\n- `--fd-global-header-shy-height` updates automatically when the header resizes (e.g., viewport changes)."
@@ -3426,8 +3441,8 @@
         },
         {
           "name": "--fd-page-header-padding-inline",
-          "defaultValue": "`64px`",
-          "description": "Inline (horizontal) padding on desktop."
+          "defaultValue": "`var(--fdic-layout-gutter, 64px)`",
+          "description": "Inline (horizontal) padding on desktop. Defaults to the shared page-shell gutter token."
         }
       ],
       "after": ""
@@ -3723,8 +3738,8 @@
         },
         {
           "name": "--fd-page-feedback-inline-padding",
-          "default": "`64px`",
-          "description": "Desktop inline padding."
+          "default": "`var(--fdic-layout-gutter, 64px)`",
+          "description": "Desktop inline padding. Defaults to the shared page-shell gutter token."
         },
         {
           "name": "--fd-page-feedback-inline-padding-mobile",
@@ -3970,18 +3985,23 @@
         },
         {
           "name": "--fd-tile-list-col-3-min",
-          "default": "`var(--fdic-layout-col-3-min, 360px)`",
-          "description": "Desktop minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`320px`",
+          "description": "Desktop minimum tile-track width for the three-column constraint set."
         },
         {
           "name": "--fd-tile-list-col-3-max",
-          "default": "`var(--fdic-layout-col-3-max, 440px)`",
-          "description": "Desktop maximum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`calc((var(--fdic-layout-shell-max-width, 1312px) - (2 * var(--fd-tile-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px)))) / 3)`",
+          "description": "Desktop maximum tile-track width for the three-column constraint set, derived from the shared shell width and column gap."
         },
         {
           "name": "--fd-tile-list-col-3-gap",
           "default": "`var(--fdic-layout-col-3-gap, 48px)`",
-          "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
+          "description": "Desktop column gap for the three-column constraint set. Defaults to the shared layout column token."
+        },
+        {
+          "name": "--fd-tile-list-col-3-row-gap",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
+          "description": "Desktop row gap for the three-column constraint set. Defaults to compact section rhythm."
         },
         {
           "name": "--fd-tile-list-col-4-min",
@@ -4010,13 +4030,18 @@
         },
         {
           "name": "--fd-tile-list-col-3-min-mobile",
-          "default": "`var(--fdic-layout-col-3-min-narrow, 200px)`",
-          "description": "Narrow-screen minimum tile-track width for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`320px`",
+          "description": "Narrow-container minimum tile-track width for the three-column constraint set."
         },
         {
           "name": "--fd-tile-list-col-3-gap-mobile",
-          "default": "`var(--fdic-layout-col-3-gap-narrow, 16px)`",
-          "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
+          "description": "Narrow-container column gap for the three-column constraint set. Defaults to the shared desktop column gap so collapsed rows preserve readable track widths."
+        },
+        {
+          "name": "--fd-tile-list-col-3-row-gap-mobile",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
+          "description": "Narrow-container row gap for the three-column constraint set. Defaults to compact section rhythm."
         },
         {
           "name": "--fd-tile-list-col-4-min-mobile",
@@ -4227,18 +4252,23 @@
         },
         {
           "name": "--fd-event-list-col-3-min",
-          "default": "`var(--fdic-layout-col-3-min, 360px)`",
-          "description": "Desktop minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`320px`",
+          "description": "Desktop minimum event-track width for the three-column constraint set."
         },
         {
           "name": "--fd-event-list-col-3-max",
-          "default": "`var(--fdic-layout-col-3-max, 440px)`",
-          "description": "Desktop maximum event-track width for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`calc((var(--fdic-layout-shell-max-width, 1312px) - (2 * var(--fd-event-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px)))) / 3)`",
+          "description": "Desktop maximum event-track width for the three-column constraint set, derived from the shared shell width and column gap."
         },
         {
           "name": "--fd-event-list-col-3-gap",
           "default": "`var(--fdic-layout-col-3-gap, 48px)`",
-          "description": "Desktop row and column gap for the three-column constraint set. Defaults to the shared layout column token."
+          "description": "Desktop column gap for the three-column constraint set. Defaults to the shared layout column token."
+        },
+        {
+          "name": "--fd-event-list-col-3-row-gap",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
+          "description": "Desktop row gap for the three-column constraint set. Defaults to compact section rhythm."
         },
         {
           "name": "--fd-event-list-col-4-min",
@@ -4267,13 +4297,18 @@
         },
         {
           "name": "--fd-event-list-col-3-min-mobile",
-          "default": "`var(--fdic-layout-col-3-min-narrow, 200px)`",
-          "description": "Narrow-screen minimum event-track width for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`320px`",
+          "description": "Narrow-container minimum event-track width for the three-column constraint set."
         },
         {
           "name": "--fd-event-list-col-3-gap-mobile",
-          "default": "`var(--fdic-layout-col-3-gap-narrow, 16px)`",
-          "description": "Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token."
+          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
+          "description": "Narrow-container column gap for the three-column constraint set. Defaults to the shared desktop column gap so collapsed rows preserve readable track widths."
+        },
+        {
+          "name": "--fd-event-list-col-3-row-gap-mobile",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
+          "description": "Narrow-container row gap for the three-column constraint set. Defaults to compact section rhythm."
         },
         {
           "name": "--fd-event-list-col-4-min-mobile",
@@ -4506,8 +4541,8 @@
         },
         {
           "name": "--fd-global-footer-padding-inline",
-          "default": "`64px`",
-          "description": "Desktop inline padding."
+          "default": "`var(--fdic-layout-gutter, 64px)`",
+          "description": "Desktop inline padding. Defaults to the shared page-shell gutter token."
         },
         {
           "name": "--fd-global-footer-max-width",

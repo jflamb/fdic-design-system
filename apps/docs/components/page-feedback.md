@@ -57,7 +57,7 @@ Collect a quick usefulness signal, route dissatisfied visitors to a fuller surve
 |---|---|---|
 | `--fd-page-feedback-border-image` | `var(--fdic-gradient-brand-core, var(--fdic-brand-core-light, #38b6ff))` | Decorative top rule fill applied to the feedback surface. |
 | `--fd-page-feedback-max-width` | `var(--fdic-layout-shell-max-width, var(--fdic-layout-content-max-width, 1312px))` | Maximum inline size of the feedback panel. Defaults to the shared page-shell width contract. |
-| `--fd-page-feedback-inline-padding` | `64px` | Desktop inline padding. |
+| `--fd-page-feedback-inline-padding` | `var(--fdic-layout-gutter, 64px)` | Desktop inline padding. Defaults to the shared page-shell gutter token. |
 | `--fd-page-feedback-inline-padding-mobile` | `16px` | Mobile inline padding at `640px` and below. |
 | `--fd-page-feedback-block-padding` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Desktop block padding. Defaults to the shared compact-section spacing token. |
 | `--fd-page-feedback-block-padding-mobile` | `20px` | Mobile block padding at `640px` and below. |

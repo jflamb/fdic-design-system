@@ -107,7 +107,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 | `--fd-page-header-text-color` |  | Text color for all content inside the header. |
 | `--fd-page-header-max-width` |  | Maximum inline size of the page header content area. Defaults to the shared page-shell width contract. |
 | `--fd-page-header-padding-block` |  | Block (vertical) padding on desktop. Defaults to the shared major-section spacing token. |
-| `--fd-page-header-padding-inline` |  | Inline (horizontal) padding on desktop. |
+| `--fd-page-header-padding-inline` |  | Inline (horizontal) padding on desktop. Defaults to the shared page-shell gutter token. |
 
 ## Shadow parts
 
