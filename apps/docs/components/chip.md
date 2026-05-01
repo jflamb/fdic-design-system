@@ -59,7 +59,7 @@ A dismissible pill for active filters, selected tokens, or removable lightweight
 | `--fd-chip-radius` | `9999px` | Pill corner radius. |
 | `--fd-chip-font-size` | `var(--fdic-font-size-body-small, 1rem)` | Label font size. |
 | `--fd-chip-text-color` | `var(--fdic-color-text-primary, #212123)` | Shared text color across tones. |
-| `--fd-chip-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral chip background. |
+| `--fd-chip-bg-neutral` | `light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))` | Neutral chip background. Uses stronger neutral surfaces in light and dark themes so neutral chips remain visually comparable with semantic chip types. |
 | `--fd-chip-bg-cool` | `var(--fdic-color-info-050, #f1f8fe)` | Cool chip background. |
 | `--fd-chip-bg-warm` | `var(--fdic-color-secondary-050, #f8efda)` | Warm chip background. |
 | `--fd-chip-bg-positive` | `var(--fdic-color-success-050, #e8f5e9)` | Positive chip background. |

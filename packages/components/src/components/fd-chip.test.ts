@@ -172,4 +172,13 @@ describe("FdChip", () => {
     expect(styles).toContain("padding-block-start: var(--fdic-spacing-3xs, 2px)");
     expect(styles).toContain("padding-block-end: var(--fdic-spacing-2xs, 4px)");
   });
+
+  it("uses a theme-aware neutral background with stronger page contrast", () => {
+    const styles = String(
+      (customElements.get("fd-chip") as any).styles?.cssText ?? "",
+    );
+
+    expect(styles).toContain("light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))");
+    expect(styles).not.toContain("var(--fdic-color-bg-interactive, #f5f5f7)");
+  });
 });

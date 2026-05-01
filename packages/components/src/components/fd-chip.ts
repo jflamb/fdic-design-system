@@ -36,7 +36,7 @@ export class FdChip extends LitElement {
       border-radius: var(--fd-chip-radius, var(--fdic-corner-radius-full, 9999px));
       background: var(
         --fd-chip-bg-neutral,
-        var(--fdic-color-bg-interactive, #f5f5f7)
+        light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))
       );
       color: var(
         --fd-chip-text-color,

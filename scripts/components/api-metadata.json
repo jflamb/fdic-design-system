@@ -2140,8 +2140,8 @@
         },
         {
           "name": "--fd-chip-bg-neutral",
-          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
-          "description": "Neutral chip background."
+          "default": "`light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))`",
+          "description": "Neutral chip background. Uses stronger neutral surfaces in light and dark themes so neutral chips remain visually comparable with semantic chip types."
         },
         {
           "name": "--fd-chip-bg-cool",
