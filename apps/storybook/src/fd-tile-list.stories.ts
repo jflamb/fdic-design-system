@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type TileItem = {
@@ -149,8 +149,8 @@ export const WarmSet: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Responsive wrapping</strong>
         ${renderTileList({
           columns: "3",
@@ -159,7 +159,7 @@ export const DocsOverview: Story = {
           density: "default",
         })}
       </section>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Shared warm tone</strong>
         ${renderTileList({
           columns: "4",
@@ -168,7 +168,7 @@ export const DocsOverview: Story = {
           density: "default",
         })}
       </section>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Tighter list density</strong>
         ${renderTileList({
           columns: "2",

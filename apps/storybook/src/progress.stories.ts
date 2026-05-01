@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import { DOCS_OVERVIEW_STACK_STYLE } from "./docs-overview";
+import { DOCS_OVERVIEW_STACK_CLASS } from "./docs-overview";
 
 type ProgressArgs = {
   value: number;
@@ -63,7 +63,7 @@ export const Indeterminate: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
       <div class="prose-progress-group">
         <label for="docs-progress-determinate">Call report review</label>
         <progress

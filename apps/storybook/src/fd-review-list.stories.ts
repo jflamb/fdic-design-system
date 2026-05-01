@@ -4,8 +4,8 @@ import "@jflamb/fdic-ds-components/register-all";
 import type { ReviewListItem } from "../../../packages/components/src/components/fd-review-list";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_STACK_CLASS,
 } from "./docs-overview";
 
 const reviewItems: ReviewListItem[] = [
@@ -62,8 +62,8 @@ export const Compact: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Review-before-submit</p>
         <fd-review-list
           heading="Review the information before you submit"
@@ -72,7 +72,7 @@ export const DocsOverview: Story = {
         ></fd-review-list>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Change actions stay explicit</p>
         <p style="margin: 0;">
           Use change links only when the workflow supports returning to the

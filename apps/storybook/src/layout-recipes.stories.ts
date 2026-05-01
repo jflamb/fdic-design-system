@@ -5,8 +5,8 @@ import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_META_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 import {
   createFdGlobalHeaderReferenceSearch,
@@ -254,8 +254,8 @@ HomepageBands.play = async ({ canvasElement }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Homepage section shell</strong>
         <p class=${DOCS_OVERVIEW_META_CLASS}>
           Recipe: full-bleed section backgrounds and borders on the outside, with every top-level content

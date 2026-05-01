@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type ChipArgs = {
@@ -107,8 +107,8 @@ FocusVisible.play = async ({ canvasElement }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default removable chips</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 4px;">
           <fd-chip>Pending review</fd-chip>
@@ -117,7 +117,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Status tones</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 4px;">
           <fd-chip type="neutral">Neutral</fd-chip>

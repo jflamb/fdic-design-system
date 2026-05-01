@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type AlertArgs = {
@@ -225,7 +225,7 @@ export const Emergency: Story = {
 
 export const AllSeverities: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
       <fd-alert type="info" title="Information">
         Review the updated application instructions before you continue.
       </fd-alert>
@@ -249,8 +249,8 @@ export const AllSeverities: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Default</p>
         <fd-alert title="System update">
           Review the updated submission guidance before you continue.
@@ -258,14 +258,14 @@ export const DocsOverview: Story = {
         </fd-alert>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Slim</p>
         <fd-alert variant="slim" type="warning" dismissible>
           Your session will expire in 2 minutes unless you save your work.
         </fd-alert>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Site-level</p>
         <div style=${SITE_FRAME_STYLE}>
           <fd-alert
@@ -281,7 +281,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Emergency</p>
         <fd-alert type="emergency" title="Emergency closure" dismissible>
           Branch access is temporarily suspended while staff resolve an active

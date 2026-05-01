@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import { DOCS_OVERVIEW_STACK_STYLE } from "./docs-overview";
+import { DOCS_OVERVIEW_STACK_CLASS } from "./docs-overview";
 
 type CodeBlockArgs = {
   code: string;
@@ -56,7 +56,7 @@ export const WithCopy: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
       <pre><code class="language-css">.prose {
   max-width: var(--prose-max-width, 65ch);
   line-height: var(--fdic-line-height-body, 1.5);

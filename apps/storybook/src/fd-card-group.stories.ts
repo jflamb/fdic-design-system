@@ -12,8 +12,8 @@ import warmHero from "./assets/hero/warm.webp";
 import neutralHero from "./assets/hero/neutral.webp";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type CardGroupArgs = {
@@ -135,20 +135,20 @@ export const FourColumns: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Two-column constraints</strong>
         <fd-card-group columns="2" label="Featured updates">
           ${renderCardSet(4)}
         </fd-card-group>
       </section>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Three-column constraints</strong>
         <fd-card-group columns="3" label="Latest updates">
           ${renderCardSet()}
         </fd-card-group>
       </section>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Four-column constraints</strong>
         <fd-card-group columns="4" label="Quick links">
           ${renderCardSet()}

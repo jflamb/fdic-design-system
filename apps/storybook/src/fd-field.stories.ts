@@ -4,8 +4,8 @@ import { expect } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 const meta = {
@@ -104,8 +104,8 @@ export const DirectChildrenOnly: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Auto-wiring</p>
         <fd-field style="max-width: 22rem;">
           <fd-label label="Routing number" required></fd-label>
@@ -117,7 +117,7 @@ export const DocsOverview: Story = {
         </fd-field>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Preserves explicit IDs</p>
         <fd-field style="max-width: 22rem;">
           <fd-label label="Certificate number"></fd-label>
@@ -132,7 +132,7 @@ export const DocsOverview: Story = {
         </fd-field>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Supporting primitive role</p>
         <p>
           Use <code>fd-field</code> when you want the label, input, and message

@@ -5,8 +5,8 @@ import { expect, userEvent, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type RadioArgs = {
@@ -162,8 +162,8 @@ export const FormIntegration: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default and selected</strong>
         <div style="display: grid; gap: 12px;">
           <fd-radio name="contact-default" value="email">Email</fd-radio>
@@ -171,7 +171,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Description</strong>
         <fd-radio name="delivery" value="mail">
           Paper mail
@@ -181,7 +181,7 @@ export const DocsOverview: Story = {
         </fd-radio>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Disabled state</strong>
         <div style="display: grid; gap: 12px;">
           <fd-radio name="disabled-contact" value="email" disabled>Email</fd-radio>

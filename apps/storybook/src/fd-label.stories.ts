@@ -5,8 +5,8 @@ import { expect } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type LabelArgs = {
@@ -117,8 +117,8 @@ export const FullFeatured: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Basic label</p>
         <div style="max-width: 328px;">
           <fd-label for="do-basic" label="Account number"></fd-label>
@@ -126,7 +126,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Required with description</p>
         <div style="max-width: 328px;">
           <fd-label
@@ -139,7 +139,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>With InfoTip</p>
         <div style="max-width: 328px;">
           <fd-label
@@ -152,7 +152,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>
           Full featured (required + description + InfoTip)
         </p>

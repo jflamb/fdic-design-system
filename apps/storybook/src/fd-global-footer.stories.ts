@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type FooterStoryLink = {
@@ -156,8 +156,8 @@ export const Mobile: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Global footer shell</p>
         ${renderFooter({
           agencyName: "Federal Deposit Insurance Corporation",

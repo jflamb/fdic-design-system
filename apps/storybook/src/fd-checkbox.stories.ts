@@ -5,8 +5,8 @@ import { expect, userEvent, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type CheckboxArgs = {
@@ -176,8 +176,8 @@ ValidationLifecycle.play = async ({ canvasElement }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default and checked</strong>
         <div style="display: grid; gap: 12px;">
           <fd-checkbox>Short label</fd-checkbox>
@@ -185,7 +185,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Description and indeterminate</strong>
         <div style="display: grid; gap: 12px;">
           <fd-checkbox indeterminate>Select all accounts</fd-checkbox>
@@ -198,7 +198,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Disabled state</strong>
         <fd-checkbox disabled>Disabled option</fd-checkbox>
       </section>

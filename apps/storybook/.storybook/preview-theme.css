@@ -9,6 +9,28 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.fdic-storybook-overview-stack {
+  display: grid;
+  gap: var(--fdic-spacing-xl, 1.25rem);
+  max-width: 45rem;
+}
+
+.fdic-storybook-overview-stack--spacious {
+  gap: var(--fdic-spacing-3xl, 3rem);
+}
+
+.fdic-storybook-overview-grid {
+  display: grid;
+  gap: var(--fdic-spacing-xl, 1.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));
+}
+
+.fdic-storybook-overview-section {
+  display: grid;
+  gap: var(--fdic-spacing-sm, 0.75rem);
+  align-content: start;
+}
+
 .dark {
   --fdic-text-primary: var(--ds-color-text-primary, #FFFFFF);
   --fdic-text-secondary: var(--ds-color-text-secondary, #E0E0E2);

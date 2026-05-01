@@ -3,10 +3,10 @@ import { html } from "lit";
 import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
-  DOCS_OVERVIEW_GRID_STYLE,
+  DOCS_OVERVIEW_GRID_CLASS,
   DOCS_OVERVIEW_HEADING_CLASS,
   DOCS_OVERVIEW_META_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
 } from "./docs-overview";
 
 const meta = {
@@ -441,11 +441,12 @@ export const DocsOverview: Story = {
 
     return html`
       <div
-        style=${`${DOCS_OVERVIEW_GRID_STYLE} padding: 6rem 1.25rem 11.25rem;`}
+        class=${DOCS_OVERVIEW_GRID_CLASS}
+        style="padding: 6rem 1.25rem 11.25rem;"
       >
         ${configs.map(
           (config) => html`
-            <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+            <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
               <div style="display: grid; gap: var(--fdic-spacing-xs, 0.375rem);">
                 <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>${config.caption}</strong>
                 <span class=${DOCS_OVERVIEW_META_CLASS}

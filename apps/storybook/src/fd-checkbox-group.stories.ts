@@ -5,8 +5,8 @@ import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type CheckboxGroupArgs = {
@@ -158,8 +158,8 @@ FormValidation.play = async ({ canvasElement, userEvent }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Vertical group</strong>
         <fd-checkbox-group>
           <span slot="legend">Communication preferences</span>
@@ -169,7 +169,7 @@ export const DocsOverview: Story = {
         </fd-checkbox-group>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Long labels and disabled option</strong>
         <fd-checkbox-group>
           <span slot="legend">Account types</span>
@@ -183,7 +183,7 @@ export const DocsOverview: Story = {
         </fd-checkbox-group>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Required group with description</strong>
         <fd-checkbox-group required>
           <span slot="legend">Communication preferences (required)</span>

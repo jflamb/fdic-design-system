@@ -3,8 +3,8 @@ import { html } from "lit";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_STACK_CLASS,
 } from "./docs-overview";
 
 const meta = {
@@ -54,8 +54,8 @@ export const PendingReceipt: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Completion and record-keeping</p>
         <fd-confirmation-record
           heading="Filing update received"
@@ -70,7 +70,7 @@ export const DocsOverview: Story = {
         </fd-confirmation-record>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Actions remain authored</p>
         <p style="margin: 0;">
           Use the <code>actions</code> slot for print, download, dashboard, or

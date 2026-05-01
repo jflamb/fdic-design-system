@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type ButtonGroupArgs = {
@@ -112,8 +112,8 @@ export const MixedVariants: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default horizontal group</strong>
         <fd-button-group>
           <fd-button variant="primary">Save</fd-button>
@@ -122,7 +122,7 @@ export const DocsOverview: Story = {
         </fd-button-group>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Separated primary and escape action</strong>
         <fd-button-group align="spread">
           <fd-button variant="primary">Submit filing</fd-button>
@@ -131,7 +131,7 @@ export const DocsOverview: Story = {
         </fd-button-group>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Labeled action set</strong>
         <fd-button-group label="Document actions">
           <fd-button variant="outline">Download PDF</fd-button>
@@ -140,7 +140,7 @@ export const DocsOverview: Story = {
         </fd-button-group>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Wrapping in a narrow container</strong>
         <div style="max-width: 320px;">
           <fd-button-group>

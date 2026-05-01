@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type SelectorArgs = {
@@ -289,8 +289,8 @@ export const DisabledOptions: Story = {
 
 export const OptionContract: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Single-select authoring</p>
         <fd-selector label="Account type" variant="single">
           <fd-option value="checking">Checking</fd-option>
@@ -301,7 +301,7 @@ export const OptionContract: Story = {
         </fd-selector>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Multi-select authoring</p>
         <fd-selector
           label="Report categories"
@@ -329,8 +329,8 @@ export const OptionContract: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Simple variant</p>
         <fd-selector label="Account type" variant="simple">
           <fd-option value="checking">Checking</fd-option>
@@ -339,7 +339,7 @@ export const DocsOverview: Story = {
         </fd-selector>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Single variant (radio indicators)</p>
         <fd-selector label="Primary account" variant="single">
           <fd-option value="checking">Checking</fd-option>
@@ -348,7 +348,7 @@ export const DocsOverview: Story = {
         </fd-selector>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>
           Multiple variant (checkbox indicators)
         </p>

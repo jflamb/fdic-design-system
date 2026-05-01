@@ -4,8 +4,8 @@ import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_STACK_CLASS,
 } from "./docs-overview";
 
 type FdInputHost = HTMLElement & {
@@ -78,8 +78,8 @@ function setRoutingMessage(
 
 export const MinimumViableRecipe: Story = {
   render: () => html`
-    <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="minimum-viable-form-title">
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <section class=${DOCS_OVERVIEW_STACK_CLASS} aria-labelledby="minimum-viable-form-title">
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Minimum viable recipe</strong>
         <h2 id="minimum-viable-form-title" style="margin: 0;">
           Canonical form composition
@@ -172,8 +172,8 @@ MinimumViableRecipe.play = async ({ canvasElement }) => {
 
 export const SingleQuestion: Story = {
   render: () => html`
-    <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="single-question-title">
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <section class=${DOCS_OVERVIEW_STACK_CLASS} aria-labelledby="single-question-title">
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Single-question workflow</strong>
         <h2 id="single-question-title" style="margin: 0;">
           Report the routing number used for this transfer
@@ -231,8 +231,8 @@ export const SingleQuestion: Story = {
 
 export const GroupedSection: Story = {
   render: () => html`
-    <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="grouped-section-title">
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <section class=${DOCS_OVERVIEW_STACK_CLASS} aria-labelledby="grouped-section-title">
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Grouped sections</strong>
         <h2 id="grouped-section-title" style="margin: 0;">
           Update the contact information for this filing
@@ -247,7 +247,7 @@ export const GroupedSection: Story = {
         style=${WORKFLOW_FORM_STYLE}
         @submit=${(event: SubmitEvent) => event.preventDefault()}
       >
-        <section aria-labelledby="institution-details-title" style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <section aria-labelledby="institution-details-title" class=${DOCS_OVERVIEW_SECTION_CLASS}>
           <h3 id="institution-details-title" style="margin: 0;">Institution details</h3>
           <div>
             <fd-label
@@ -273,7 +273,7 @@ export const GroupedSection: Story = {
           </div>
         </section>
 
-        <section aria-labelledby="follow-up-title" style=${DOCS_OVERVIEW_SECTION_STYLE}>
+        <section aria-labelledby="follow-up-title" class=${DOCS_OVERVIEW_SECTION_CLASS}>
           <h3 id="follow-up-title" style="margin: 0;">Follow-up preference</h3>
           <fd-radio-group required>
             <span slot="legend">How should we contact you if a reviewer needs clarification?</span>
@@ -461,8 +461,8 @@ export const BlockedSubmitValidation: Story = {
     };
 
     return html`
-      <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="blocked-submit-title">
-        <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_STACK_CLASS} aria-labelledby="blocked-submit-title">
+        <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
           <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Blocked submit with recovery</strong>
           <h2 id="blocked-submit-title" style="margin: 0;">
             Submit a contact-method update for this filing
@@ -508,7 +508,7 @@ export const BlockedSubmitValidation: Story = {
             id="submission-contact-method"
             tabindex="-1"
             aria-labelledby="submission-contact-method-title"
-            style=${DOCS_OVERVIEW_SECTION_STYLE}
+            class=${DOCS_OVERVIEW_SECTION_CLASS}
           >
             <h3 id="submission-contact-method-title" style="margin: 0;">
               Follow-up preference
@@ -574,8 +574,8 @@ BlockedSubmitValidation.play = async ({ canvasElement }) => {
 
 export const ReviewBeforeSubmit: Story = {
   render: () => html`
-    <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="review-title">
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <section class=${DOCS_OVERVIEW_STACK_CLASS} aria-labelledby="review-title">
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Review before submit</strong>
         <h2 id="review-title" style="margin: 0;">
           Review the information before you submit this filing update
@@ -643,8 +643,8 @@ export const ReviewBeforeSubmit: Story = {
 
 export const ConfirmationKeepRecord: Story = {
   render: () => html`
-    <section style=${DOCS_OVERVIEW_STACK_STYLE} aria-labelledby="confirmation-title">
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <section class=${DOCS_OVERVIEW_STACK_CLASS} aria-labelledby="confirmation-title">
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Confirmation and record-keeping</strong>
         <h2 id="confirmation-title" style="margin: 0;">
           Submission complete

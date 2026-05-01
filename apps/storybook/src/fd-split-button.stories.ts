@@ -5,8 +5,8 @@ import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type SplitButtonArgs = {
@@ -291,8 +291,8 @@ export const AllVariantsDisabled: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Default with menu items</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="primary">
@@ -303,7 +303,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>With icon</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="primary">
@@ -315,7 +315,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Destructive action</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="destructive">
@@ -326,7 +326,7 @@ export const DocsOverview: Story = {
         </div>
       </section>
 
-      <section style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Disabled</strong>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
           <fd-split-button variant="primary" disabled>

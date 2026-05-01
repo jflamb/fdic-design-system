@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import { DOCS_OVERVIEW_STACK_STYLE } from "./docs-overview";
+import { DOCS_OVERVIEW_STACK_CLASS } from "./docs-overview";
 
 type CalloutArgs = {
   variant: "default" | "info" | "warning" | "success" | "danger";
@@ -93,7 +93,7 @@ export const Danger: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
       ${[
         {
           variant: "default",

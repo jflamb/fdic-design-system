@@ -9,8 +9,8 @@ import {
 } from "./generated/component-arg-types";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type TextareaArgs = {
@@ -242,8 +242,8 @@ ValidationLifecycle.play = async ({ canvasElement }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Default</p>
         <div style="max-width: 328px;">
           <fd-label for="docs-textarea-default" label="Case details"></fd-label>
@@ -255,7 +255,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>With description</p>
         <div style="max-width: 328px;">
           <fd-label
@@ -271,7 +271,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Error state</p>
         <div style="max-width: 328px;">
           <fd-label
@@ -293,7 +293,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Character count</p>
         <div style="max-width: 328px;">
           <fd-label
@@ -309,7 +309,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Read-only</p>
         <div style="max-width: 328px;">
           <fd-label
@@ -325,7 +325,7 @@ export const DocsOverview: Story = {
         </div>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Field composition</p>
         <fd-field>
           <fd-label

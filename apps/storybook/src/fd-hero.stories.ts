@@ -11,8 +11,8 @@ import neutralHero from "./assets/hero/neutral.webp";
 import warmHero from "./assets/hero/warm.webp";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_SPACIOUS_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_SPACIOUS_STACK_CLASS,
 } from "./docs-overview";
 
 type HeroArgs = {
@@ -174,8 +174,8 @@ export const NoImage: Story = {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_SPACIOUS_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Cool tone</p>
         ${renderHero({
           tone: "cool",
@@ -192,7 +192,7 @@ export const DocsOverview: Story = {
             "Access the Federal Employee Health Benefits Program (FEHB), dental and vision insurance through FEDVIP, life insurance with FEGLI, long-term care options, and more.",
         })}
       </div>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Warm and neutral tones</p>
         <div style="display: grid; gap: 1.5rem;">
           ${renderHero({

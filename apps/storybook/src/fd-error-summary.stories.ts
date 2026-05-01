@@ -5,8 +5,8 @@ import "@jflamb/fdic-ds-components/register-all";
 import type { ErrorSummaryItem } from "../../../packages/components/src/components/fd-error-summary";
 import {
   DOCS_OVERVIEW_HEADING_CLASS,
-  DOCS_OVERVIEW_SECTION_STYLE,
-  DOCS_OVERVIEW_STACK_STYLE,
+  DOCS_OVERVIEW_SECTION_CLASS,
+  DOCS_OVERVIEW_STACK_CLASS,
 } from "./docs-overview";
 
 const defaultItems: ErrorSummaryItem[] = [
@@ -45,7 +45,7 @@ export const Playground: Story = {};
 
 export const AutofocusHeading: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
       <fd-error-summary
         .items=${defaultItems}
         heading="Fix the following before you continue"
@@ -68,8 +68,8 @@ AutofocusHeading.play = async ({ canvasElement }) => {
 
 export const DocsOverview: Story = {
   render: () => html`
-    <div style=${DOCS_OVERVIEW_STACK_STYLE}>
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+    <div class=${DOCS_OVERVIEW_STACK_CLASS}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Blocked submit navigation</p>
         <fd-error-summary
           .items=${defaultItems}
@@ -79,7 +79,7 @@ export const DocsOverview: Story = {
         ></fd-error-summary>
       </div>
 
-      <div style=${DOCS_OVERVIEW_SECTION_STYLE}>
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Focus behavior</p>
         <p style="margin: 0;">
           Use <code>autofocus</code> after a blocked submit when keyboard and
