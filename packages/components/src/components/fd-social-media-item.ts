@@ -25,6 +25,25 @@ const SOCIAL_MEDIA_PLATFORM_LABELS: Record<SocialMediaPlatform, string> = {
   threads: "Threads",
 };
 
+type SocialMediaPlatformHrefProperty =
+  | "facebookHref"
+  | "youtubeHref"
+  | "instagramHref"
+  | "xHref"
+  | "redditHref"
+  | "linkedinHref"
+  | "threadsHref";
+
+const SOCIAL_MEDIA_PLATFORM_HREF_PROPERTIES = {
+  facebook: "facebookHref",
+  youtube: "youtubeHref",
+  instagram: "instagramHref",
+  x: "xHref",
+  reddit: "redditHref",
+  linkedin: "linkedinHref",
+  threads: "threadsHref",
+} as const satisfies Record<SocialMediaPlatform, SocialMediaPlatformHrefProperty>;
+
 const PLATFORM_ICONS: Record<SocialMediaPlatform, string> = {
   ...GLOBAL_FOOTER_SOCIAL_ICONS,
   reddit:
@@ -64,6 +83,15 @@ export class FdSocialMediaItem extends LitElement {
     timestamp: { reflect: true },
     imageSrc: { attribute: "image-src", reflect: true },
     imageAlt: { attribute: "image-alt", reflect: true },
+    facebookHref: { attribute: "facebook-href", reflect: true },
+    youtubeHref: { attribute: "youtube-href", reflect: true },
+    instagramHref: { attribute: "instagram-href", reflect: true },
+    xHref: { attribute: "x-href", reflect: true },
+    redditHref: { attribute: "reddit-href", reflect: true },
+    linkedinHref: { attribute: "linkedin-href", reflect: true },
+    threadsHref: { attribute: "threads-href", reflect: true },
+    activeFocusPlatform: { state: true },
+    activePointerPlatform: { state: true },
     platforms: {
       reflect: true,
       converter: {
@@ -157,8 +185,19 @@ export class FdSocialMediaItem extends LitElement {
     }
 
     [part="body"] ::slotted(*) {
-      margin-block: 0;
       overflow-wrap: anywhere;
+    }
+
+    [part="body"] ::slotted(p) {
+      margin-block-start: 0;
+      margin-block-end: var(
+        --fd-social-media-item-paragraph-gap,
+        var(--fdic-spacing-sm, 16px)
+      );
+    }
+
+    [part="body"] ::slotted(p:last-child) {
+      margin-block-end: 0;
     }
 
     [part="body"] ::slotted(a) {
@@ -190,9 +229,17 @@ export class FdSocialMediaItem extends LitElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-inline-size: var(--fd-social-media-item-platform-icon-size, 22px);
-      min-block-size: var(--fd-social-media-item-platform-icon-size, 22px);
       color: var(--fd-social-media-item-platform-color, currentColor);
+    }
+
+    fd-button[part="platform-link"] {
+      --fd-button-height: var(--fd-social-media-item-platform-button-size, 32px);
+      --fd-button-icon-only-size: var(--fd-social-media-item-platform-button-size, 32px);
+      --fd-button-min-width: var(--fd-social-media-item-platform-button-size, 32px);
+      --fd-button-radius: var(--fd-social-media-item-platform-button-radius, var(--fdic-corner-radius-sm, 3px));
+      --fd-button-text-subtle: var(--fd-social-media-item-platform-color, currentColor);
+      --fd-button-focus-gap: var(--fdic-color-bg-input, #ffffff);
+      display: inline-flex;
     }
 
     [part="platform-icon"] {
@@ -240,6 +287,15 @@ export class FdSocialMediaItem extends LitElement {
   declare timestamp: string;
   declare imageSrc: string | undefined;
   declare imageAlt: string;
+  declare facebookHref: string | undefined;
+  declare youtubeHref: string | undefined;
+  declare instagramHref: string | undefined;
+  declare xHref: string | undefined;
+  declare redditHref: string | undefined;
+  declare linkedinHref: string | undefined;
+  declare threadsHref: string | undefined;
+  declare activeFocusPlatform: SocialMediaPlatform | undefined;
+  declare activePointerPlatform: SocialMediaPlatform | undefined;
   declare platforms: SocialMediaPlatform[];
 
   constructor() {
@@ -247,25 +303,92 @@ export class FdSocialMediaItem extends LitElement {
     this.timestamp = "";
     this.imageSrc = undefined;
     this.imageAlt = "";
+    this.facebookHref = undefined;
+    this.youtubeHref = undefined;
+    this.instagramHref = undefined;
+    this.xHref = undefined;
+    this.redditHref = undefined;
+    this.linkedinHref = undefined;
+    this.threadsHref = undefined;
+    this.activeFocusPlatform = undefined;
+    this.activePointerPlatform = undefined;
     this.platforms = [];
   }
 
-  private renderPlatforms(platforms: SocialMediaPlatform[]) {
-    if (!platforms.length) {
+  private getPlatformHref(platform: SocialMediaPlatform) {
+    const property = SOCIAL_MEDIA_PLATFORM_HREF_PROPERTIES[platform];
+    const value = this[property];
+    return typeof value === "string" && value.trim() ? value.trim() : undefined;
+  }
+
+  private getPlatformLinks(platforms: SocialMediaPlatform[]) {
+    const orderedPlatforms = platforms.length ? platforms : SOCIAL_MEDIA_PLATFORMS;
+
+    return orderedPlatforms
+      .map((platform) => ({
+        platform,
+        href: this.getPlatformHref(platform),
+      }))
+      .filter(
+        (link): link is { platform: SocialMediaPlatform; href: string } =>
+          Boolean(link.href),
+      );
+  }
+
+  private getPlatformLabel() {
+    const activePlatform = this.activePointerPlatform ?? this.activeFocusPlatform;
+
+    return activePlatform
+      ? `Posted on ${SOCIAL_MEDIA_PLATFORM_LABELS[activePlatform]}`
+      : "Posted on";
+  }
+
+  private setFocusPlatform(platform: SocialMediaPlatform) {
+    this.activeFocusPlatform = platform;
+  }
+
+  private clearFocusPlatform(platform: SocialMediaPlatform) {
+    if (this.activeFocusPlatform === platform) {
+      this.activeFocusPlatform = undefined;
+    }
+  }
+
+  private setPointerPlatform(platform: SocialMediaPlatform) {
+    this.activePointerPlatform = platform;
+  }
+
+  private clearPointerPlatform(platform: SocialMediaPlatform) {
+    if (this.activePointerPlatform === platform) {
+      this.activePointerPlatform = undefined;
+    }
+  }
+
+  private renderPlatforms(platformLinks: { platform: SocialMediaPlatform; href: string }[]) {
+    if (!platformLinks.length) {
       return nothing;
     }
 
     return html`
       <div part="platforms">
-        <p part="platform-label">Posted on</p>
+        <p part="platform-label">${this.getPlatformLabel()}</p>
         <ul part="platform-list" aria-label="Published platforms">
-          ${platforms.map(
-            (platform) => html`
+          ${platformLinks.map(
+            ({ platform, href }) => html`
               <li part="platform-item">
-                <span part="platform-icon" aria-hidden="true">
-                  ${unsafeSVG(PLATFORM_ICONS[platform])}
-                </span>
-                <span class="visually-hidden">${SOCIAL_MEDIA_PLATFORM_LABELS[platform]}</span>
+                <fd-button
+                  part="platform-link"
+                  variant="subtle"
+                  href=${href}
+                  aria-label=${`View post on ${SOCIAL_MEDIA_PLATFORM_LABELS[platform]}`}
+                  @focusin=${() => this.setFocusPlatform(platform)}
+                  @focusout=${() => this.clearFocusPlatform(platform)}
+                  @pointerenter=${() => this.setPointerPlatform(platform)}
+                  @pointerleave=${() => this.clearPointerPlatform(platform)}
+                >
+                  <span slot="icon-start" part="platform-icon" aria-hidden="true">
+                    ${unsafeSVG(PLATFORM_ICONS[platform])}
+                  </span>
+                </fd-button>
               </li>
             `,
           )}
@@ -279,6 +402,7 @@ export class FdSocialMediaItem extends LitElement {
     const imageSrc = this.imageSrc?.trim();
     const imageAlt = this.imageAlt?.trim();
     const platforms = normalizePlatforms(this.platforms);
+    const platformLinks = this.getPlatformLinks(platforms);
 
     return html`
       <article part="base">
@@ -295,7 +419,7 @@ export class FdSocialMediaItem extends LitElement {
             <slot></slot>
           </div>
         </div>
-        ${this.renderPlatforms(platforms)}
+        ${this.renderPlatforms(platformLinks)}
       </article>
     `;
   }

@@ -19,6 +19,13 @@ type SocialMediaItemArgs = {
   imageSrc?: string;
   imageAlt: string;
   platforms: string[];
+  facebookHref?: string;
+  youtubeHref?: string;
+  instagramHref?: string;
+  xHref?: string;
+  redditHref?: string;
+  linkedinHref?: string;
+  threadsHref?: string;
 };
 
 const PLATFORM_OPTIONS = [
@@ -32,18 +39,28 @@ const PLATFORM_OPTIONS = [
 ] as const;
 
 const renderSocialMediaItem = (args: SocialMediaItemArgs) => html`
-  <div style="inline-size:min(100%, 368px);">
+  <div style="inline-size:min(100%, 320px);">
     <fd-social-media-item
       timestamp=${args.timestamp}
       image-src=${ifDefined(args.imageSrc)}
       image-alt=${args.imageAlt}
+      facebook-href=${ifDefined(args.facebookHref)}
+      youtube-href=${ifDefined(args.youtubeHref)}
+      instagram-href=${ifDefined(args.instagramHref)}
+      x-href=${ifDefined(args.xHref)}
+      reddit-href=${ifDefined(args.redditHref)}
+      linkedin-href=${ifDefined(args.linkedinHref)}
+      threads-href=${ifDefined(args.threadsHref)}
       .platforms=${args.platforms}
     >
-      <span
-        >Did you know that unbanked Hispanic households were more likely to rely on
+      <p>
+        Did you know that unbanked Hispanic households were more likely to rely on
         cash to meet their financial needs, which carries the risk of theft and
-        loss? Our latest research explores these findings </span
-      ><a href="https://www.fdic.gov/analysis/household-survey">https://fdic.gov/household-survey</a><span>.</span>
+        loss? Our latest research explores these findings.
+      </p>
+      <p>
+        <a href="https://www.fdic.gov/analysis/household-survey">https://fdic.gov/household-survey</a>
+      </p>
     </fd-social-media-item>
   </div>
 `;
@@ -76,6 +93,13 @@ const meta = {
     imageAlt:
       "Graphic stating that 75 percent of unbanked Hispanic households rely on cash.",
     platforms: ["facebook", "youtube", "instagram", "x", "reddit", "linkedin", "threads"],
+    facebookHref: "https://www.facebook.com/fdicgov/posts/example",
+    youtubeHref: "https://www.youtube.com/watch?v=fdic-example",
+    instagramHref: "https://www.instagram.com/fdicgov/p/example",
+    xHref: "https://x.com/FDICgov/status/example",
+    redditHref: "https://www.reddit.com/r/fdic/comments/example",
+    linkedinHref: "https://www.linkedin.com/company/fdic/posts/example",
+    threadsHref: "https://www.threads.net/@fdicgov/post/example",
   },
   render: renderSocialMediaItem,
 } satisfies Meta<SocialMediaItemArgs>;
@@ -89,10 +113,13 @@ Playground.play = async ({ canvasElement }) => {
   const item = canvasElement.querySelector("fd-social-media-item");
   const image = item?.shadowRoot?.querySelector<HTMLImageElement>("[part=image]");
   const platformItems = item?.shadowRoot?.querySelectorAll("[part=platform-item]");
+  const platformLinks = item?.shadowRoot?.querySelectorAll("fd-button[part=platform-link]");
 
   expect(item?.getAttribute("tabindex")).toBeNull();
   expect(image?.getAttribute("alt")).toContain("75 percent");
   expect(platformItems).toHaveLength(7);
+  expect(platformLinks?.[0]?.getAttribute("href")).toContain("facebook.com");
+  expect(platformLinks?.[0]?.getAttribute("aria-label")).toBe("View post on Facebook");
 };
 
 export const TextOnly: Story = {
@@ -100,6 +127,8 @@ export const TextOnly: Story = {
     imageSrc: undefined,
     imageAlt: "",
     platforms: ["linkedin", "x"],
+    linkedinHref: "https://www.linkedin.com/company/fdic/posts/example",
+    xHref: "https://x.com/FDICgov/status/example",
   },
 };
 
@@ -122,6 +151,13 @@ export const DocsOverview: Story = {
             "linkedin",
             "threads",
           ],
+          facebookHref: "https://www.facebook.com/fdicgov/posts/example",
+          youtubeHref: "https://www.youtube.com/watch?v=fdic-example",
+          instagramHref: "https://www.instagram.com/fdicgov/p/example",
+          xHref: "https://x.com/FDICgov/status/example",
+          redditHref: "https://www.reddit.com/r/fdic/comments/example",
+          linkedinHref: "https://www.linkedin.com/company/fdic/posts/example",
+          threadsHref: "https://www.threads.net/@fdicgov/post/example",
         })}
       </section>
     </div>

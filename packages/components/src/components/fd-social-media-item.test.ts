@@ -8,6 +8,13 @@ async function createSocialMediaItem(
     imageSrc?: string;
     imageAlt: string;
     platforms: string[];
+    facebookHref?: string;
+    youtubeHref?: string;
+    instagramHref?: string;
+    xHref?: string;
+    redditHref?: string;
+    linkedinHref?: string;
+    threadsHref?: string;
   }> = {},
   body = "Did you know that unbanked households can face higher risks when relying on cash?",
 ) {
@@ -17,6 +24,13 @@ async function createSocialMediaItem(
     imageSrc?: string;
     imageAlt: string;
     platforms: string[];
+    facebookHref?: string;
+    youtubeHref?: string;
+    instagramHref?: string;
+    xHref?: string;
+    redditHref?: string;
+    linkedinHref?: string;
+    threadsHref?: string;
   };
 
   Object.assign(el, props);
@@ -38,6 +52,9 @@ describe("FdSocialMediaItem", () => {
       imageAlt:
         "Graphic stating that 75 percent of unbanked Hispanic households rely on cash.",
       platforms: ["facebook", "youtube", "linkedin"],
+      facebookHref: "https://www.facebook.com/fdic/posts/1",
+      youtubeHref: "https://www.youtube.com/watch?v=fdic",
+      linkedinHref: "https://www.linkedin.com/company/fdic/posts/1",
     });
 
     const article = el.shadowRoot?.querySelector("article");
@@ -74,12 +91,7 @@ describe("FdSocialMediaItem", () => {
     document.body.appendChild(el);
     await el.updateComplete;
 
-    const labels = [...(el.shadowRoot?.querySelectorAll(".visually-hidden") ?? [])].map(
-      (node) => node.textContent,
-    );
-
     expect(el.getAttribute("platforms")).toBe("facebook x threads");
-    expect(labels).toEqual(["Facebook", "X", "Threads"]);
   });
 
   it("omits image and platform regions when corresponding data is absent", async () => {
@@ -89,16 +101,114 @@ describe("FdSocialMediaItem", () => {
     expect(el.shadowRoot?.querySelector("[part=platforms]")).toBeNull();
   });
 
-  it("renders platform icons as decorative with accessible text labels", async () => {
+  it("omits the platform region when no platform links are available", async () => {
     const el = await createSocialMediaItem({ platforms: ["reddit", "threads"] });
 
+    expect(el.shadowRoot?.querySelector("[part=platforms]")).toBeNull();
+  });
+
+  it("renders platform icons as subtle link buttons with accessible labels", async () => {
+    const el = await createSocialMediaItem({
+      platforms: ["reddit", "threads"],
+      redditHref: "https://www.reddit.com/r/fdic/comments/example",
+      threadsHref: "https://www.threads.net/@fdic/post/example",
+    });
+
     const icons = el.shadowRoot?.querySelectorAll("[part=platform-icon]");
-    const labels = [...(el.shadowRoot?.querySelectorAll(".visually-hidden") ?? [])].map(
-      (node) => node.textContent,
-    );
+    const links = el.shadowRoot?.querySelectorAll("fd-button[part=platform-link]");
 
     expect(icons?.[0]?.getAttribute("aria-hidden")).toBe("true");
-    expect(labels).toEqual(["Reddit", "Threads"]);
+    expect(links).toHaveLength(2);
+    expect(links?.[0]?.getAttribute("variant")).toBe("subtle");
+    expect(links?.[0]?.getAttribute("href")).toBe(
+      "https://www.reddit.com/r/fdic/comments/example",
+    );
+    expect(links?.[0]?.getAttribute("aria-label")).toBe("View post on Reddit");
+  });
+
+  it("uses href attributes as the default platform order when platforms is absent", async () => {
+    const el = await createSocialMediaItem({
+      linkedinHref: "https://www.linkedin.com/company/fdic/posts/1",
+      facebookHref: "https://www.facebook.com/fdic/posts/1",
+    });
+
+    const links = [...(el.shadowRoot?.querySelectorAll("fd-button[part=platform-link]") ?? [])];
+
+    expect(links.map((link) => link.getAttribute("aria-label"))).toEqual([
+      "View post on Facebook",
+      "View post on LinkedIn",
+    ]);
+  });
+
+  it("updates the platform label while a platform link is hovered", async () => {
+    const el = await createSocialMediaItem({
+      platforms: ["facebook", "linkedin"],
+      facebookHref: "https://www.facebook.com/fdic/posts/1",
+      linkedinHref: "https://www.linkedin.com/company/fdic/posts/1",
+    });
+
+    const label = el.shadowRoot?.querySelector("[part=platform-label]");
+    const links = el.shadowRoot?.querySelectorAll("fd-button[part=platform-link]");
+
+    expect(label?.textContent).toBe("Posted on");
+
+    links?.[0]?.dispatchEvent(new PointerEvent("pointerenter"));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on Facebook");
+
+    links?.[0]?.dispatchEvent(new PointerEvent("pointerleave"));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on");
+  });
+
+  it("updates the platform label while a platform link has keyboard focus", async () => {
+    const el = await createSocialMediaItem({
+      platforms: ["facebook", "linkedin"],
+      facebookHref: "https://www.facebook.com/fdic/posts/1",
+      linkedinHref: "https://www.linkedin.com/company/fdic/posts/1",
+    });
+
+    const label = el.shadowRoot?.querySelector("[part=platform-label]");
+    const links = el.shadowRoot?.querySelectorAll("fd-button[part=platform-link]");
+
+    links?.[1]?.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on LinkedIn");
+
+    links?.[1]?.dispatchEvent(new FocusEvent("focusout", { bubbles: true }));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on");
+  });
+
+  it("keeps the focused platform label after pointer leaves the focused link", async () => {
+    const el = await createSocialMediaItem({
+      platforms: ["facebook", "linkedin"],
+      facebookHref: "https://www.facebook.com/fdic/posts/1",
+      linkedinHref: "https://www.linkedin.com/company/fdic/posts/1",
+    });
+
+    const label = el.shadowRoot?.querySelector("[part=platform-label]");
+    const links = el.shadowRoot?.querySelectorAll("fd-button[part=platform-link]");
+
+    links?.[0]?.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    links?.[0]?.dispatchEvent(new PointerEvent("pointerenter"));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on Facebook");
+
+    links?.[0]?.dispatchEvent(new PointerEvent("pointerleave"));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on Facebook");
+
+    links?.[0]?.dispatchEvent(new FocusEvent("focusout", { bubbles: true }));
+    await el.updateComplete;
+
+    expect(label?.textContent).toBe("Posted on");
   });
 
   it("passes an axe audit in a representative state", async () => {
@@ -109,8 +219,15 @@ describe("FdSocialMediaItem", () => {
         imageAlt:
           "Graphic stating that 75 percent of unbanked Hispanic households rely on cash.",
         platforms: ["facebook", "youtube", "instagram", "x", "reddit", "linkedin", "threads"],
+        facebookHref: "https://www.facebook.com/fdic/posts/1",
+        youtubeHref: "https://www.youtube.com/watch?v=fdic",
+        instagramHref: "https://www.instagram.com/fdic/p/example",
+        xHref: "https://x.com/FDICgov/status/example",
+        redditHref: "https://www.reddit.com/r/fdic/comments/example",
+        linkedinHref: "https://www.linkedin.com/company/fdic/posts/1",
+        threadsHref: "https://www.threads.net/@fdic/post/example",
       },
-      'Did you know that unbanked Hispanic households were more likely to rely on cash? <a href="https://example.com/research">Read the research</a>.',
+      '<p>Did you know that unbanked Hispanic households were more likely to rely on cash?</p><p><a href="https://example.com/research">Read the research</a>.</p>',
     );
 
     await expectNoAxeViolations(el.shadowRoot!);

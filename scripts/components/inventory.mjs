@@ -1101,7 +1101,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: []
+      dependencies: ["fd-button"]
     },
     typeExports: ["SocialMediaPlatform"]
   },
