@@ -50,7 +50,7 @@ A static text-first pill for tags, categories, and lightweight status labels.
 | `--fd-badge-radius` | `9999px` | Pill corner radius. |
 | `--fd-badge-font-size` | `var(--fdic-font-size-body-small, 1rem)` | Label font size. |
 | `--fd-badge-text-color` | `var(--fdic-color-text-primary, #212123)` | Shared text color across tones. |
-| `--fd-badge-bg-neutral` | `var(--fdic-color-bg-interactive, #f5f5f7)` | Neutral badge background. |
+| `--fd-badge-bg-neutral` | `light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))` | Neutral badge background. Uses stronger neutral surfaces in light and dark themes so neutral badges remain visually comparable with semantic badge types. |
 | `--fd-badge-bg-cool` | `var(--fdic-color-info-050, #f1f8fe)` | Cool badge background. |
 | `--fd-badge-bg-warm` | `var(--fdic-color-secondary-050, #f8efda)` | Warm badge background. |
 | `--fd-badge-bg-positive` | `var(--fdic-color-success-050, #e8f5e9)` | Positive badge background. |

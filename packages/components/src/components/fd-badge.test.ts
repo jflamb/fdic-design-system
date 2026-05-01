@@ -102,6 +102,17 @@ describe("FdBadge", () => {
     expect(styles).toContain("border: 1px solid ButtonText");
   });
 
+  it("uses a theme-aware neutral background with stronger page contrast", () => {
+    const styles = (
+      customElements.get("fd-badge") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain("light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))");
+    expect(styles).not.toContain("var(--fdic-color-bg-interactive, #f5f5f7)");
+  });
+
   it("renders the visual shell as a non-interactive span", async () => {
     const el = await createBadge();
     expect(el.shadowRoot?.querySelector("[part=container]")?.tagName.toLowerCase()).toBe("span");

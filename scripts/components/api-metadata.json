@@ -2024,8 +2024,8 @@
         },
         {
           "name": "--fd-badge-bg-neutral",
-          "default": "`var(--fdic-color-bg-interactive, #f5f5f7)`",
-          "description": "Neutral badge background."
+          "default": "`light-dark(var(--fdic-color-neutral-200), var(--fdic-color-neutral-800))`",
+          "description": "Neutral badge background. Uses stronger neutral surfaces in light and dark themes so neutral badges remain visually comparable with semantic badge types."
         },
         {
           "name": "--fd-badge-bg-cool",
