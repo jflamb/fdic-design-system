@@ -324,7 +324,7 @@ function generateRegisterAllFile() {
  */
 import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 ${importLines}
-import "../icons/phosphor-regular.js";
+import "../icons/phosphor-duotone.js";
 
 warnIfDesignSystemRuntimeMissing();
 `;
@@ -367,6 +367,7 @@ ${symbolEntries}
 ${registerEntries}
 
     // Icon packs
+    "icons/phosphor-duotone": "src/icons/phosphor-duotone.ts",
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",
   },
   format: ["esm"],
@@ -411,6 +412,11 @@ function generatePackageExports(packageJson) {
       import: `./dist/components/${component.tagName}.js`,
     };
   }
+
+  exportsMap["./icons/phosphor-duotone"] = {
+    types: "./dist/icons/phosphor-duotone.d.ts",
+    import: "./dist/icons/phosphor-duotone.js",
+  };
 
   exportsMap["./icons/phosphor-regular"] = {
     types: "./dist/icons/phosphor-regular.d.ts",

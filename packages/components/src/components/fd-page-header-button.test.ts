@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import "../register/fd-page-header.js";
-import "../icons/phosphor-regular.js";
+import "../icons/phosphor-duotone.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 import { FdPageHeaderButton } from "./fd-page-header-button.js";
 

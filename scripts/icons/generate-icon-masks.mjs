@@ -13,7 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { phosphorRegularIcons } from "../../packages/components/src/icons/phosphor-data.mjs";
+import { phosphorDuotoneIcons } from "../../packages/components/src/icons/phosphor-data.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,7 +57,7 @@ const lines = [
 ];
 
 for (const name of PROSE_ICONS) {
-  const svg = phosphorRegularIcons[name];
+  const svg = phosphorDuotoneIcons[name];
   if (!svg) {
     console.error(`ERROR: Icon "${name}" not found in phosphor-data.mjs`);
     process.exit(1);

@@ -60,7 +60,7 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
 
 - Use the icon name that most closely matches the concept — `warning` for alerts, `info` for informational context, `check-circle` for confirmations.
 - Keep the icon set intentional. Not every piece of text needs an icon. Use them where they create genuine recognition advantage.
-- When extending the registry with `FdIcon.register()`, follow the same Phosphor Regular weight for visual consistency.
+- When extending the registry with `FdIcon.register()`, follow the same Phosphor Duotone weight for visual consistency.
 
 ## Customization
 

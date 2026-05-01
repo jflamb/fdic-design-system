@@ -55,6 +55,6 @@ import "./fd-form-field.js";
 import "./fd-error-summary.js";
 import "./fd-review-list.js";
 import "./fd-link-category.js";
-import "../icons/phosphor-regular.js";
+import "../icons/phosphor-duotone.js";
 
 warnIfDesignSystemRuntimeMissing();

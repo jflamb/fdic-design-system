@@ -19,7 +19,7 @@ Implementation task breakdown should live in GitHub Issues or PRs, not here.
 
 - Ship a first-party `<fd-icon>` component now rather than deferring icon support.
 - Use a global inline SVG registry pattern.
-- Seed the registry with a curated built-in subset of Phosphor Regular icons used by the Figma system and common FDIC patterns.
+- Seed the registry with a curated built-in subset of Phosphor Duotone icons used by the Figma system and common FDIC patterns.
 - Keep `FdIcon.register(name, svg)` and `FdIcon.register(record)` public for app-level extension.
 - Treat registered SVG as trusted input. Basic sanitization is defense-in-depth, not a general untrusted-content pipeline.
 - Render decorative icons by default with `aria-hidden="true"`.

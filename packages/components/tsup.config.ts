@@ -108,6 +108,7 @@ export default defineConfig({
     "register/fd-link-category": "src/register/fd-link-category.ts",
 
     // Icon packs
+    "icons/phosphor-duotone": "src/icons/phosphor-duotone.ts",
     "icons/phosphor-regular": "src/icons/phosphor-regular.ts",
   },
   format: ["esm"],

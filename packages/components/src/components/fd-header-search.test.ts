@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "../icons/phosphor-regular.js";
+import "../icons/phosphor-duotone.js";
 import "../register/fd-header-search.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 import {

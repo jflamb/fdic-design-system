@@ -4,7 +4,7 @@ import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { repeat } from "lit/directives/repeat.js";
 import type { FdPaginationRequestDetail } from "../public-events.js";
-import "../icons/phosphor-regular.js";
+import "../icons/phosphor-duotone.js";
 
 type PaginationEntry =
   | {
