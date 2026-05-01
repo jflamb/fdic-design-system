@@ -61,8 +61,9 @@ export class FdTileList extends LitElement {
       --fd-tile-list-col-4-gap: var(--fdic-layout-col-4-gap);
       --fd-tile-list-col-2-min-mobile: var(--fdic-layout-col-2-min-narrow);
       --fd-tile-list-col-2-gap-mobile: var(--fdic-layout-col-2-gap-narrow);
-      --fd-tile-list-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow);
-      --fd-tile-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap-narrow);
+      --fd-tile-list-col-3-min-mobile: 320px;
+      --fd-tile-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap, 48px);
+      --fd-tile-list-col-3-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px);
       --fd-tile-list-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
       --fd-tile-list-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
       --fd-tile-list-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);

@@ -101,7 +101,7 @@ export function collectionGridStyles(prefix: string) {
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["3"] - 1}px`)}) {
-      ${unsafeCSS(defaultSelector(true))} {
+      ${unsafeCSS(defaultSelector(true))} [part="base"] {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "3", true)});
         ${internalMax}: ${trackMaxValue(prefix, "3", true)};
         ${internalColumnGap}: ${trackGapToken(prefix, "3", true)};
@@ -110,7 +110,7 @@ export function collectionGridStyles(prefix: string) {
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["2"] - 1}px`)}) {
-      ${unsafeCSS(selector("2", true))} {
+      ${unsafeCSS(selector("2", true))} [part="base"] {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "2", true)});
         ${internalMax}: ${trackMaxValue(prefix, "2", true)};
         ${internalColumnGap}: ${trackGapToken(prefix, "2", true)};
@@ -119,7 +119,7 @@ export function collectionGridStyles(prefix: string) {
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["4"] - 1}px`)}) {
-      ${unsafeCSS(selector("4", true))} {
+      ${unsafeCSS(selector("4", true))} [part="base"] {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "4", true)});
         ${internalMax}: ${trackMaxValue(prefix, "4", true)};
         ${internalColumnGap}: ${trackGapToken(prefix, "4", true)};

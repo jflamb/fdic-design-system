@@ -108,8 +108,9 @@ The Event List component arranges direct event children in a responsive wrapping
 | `--fd-event-list-col-4-gap` | `var(--fdic-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-2-min-mobile` | `var(--fdic-layout-col-2-min-narrow, 320px)` | Narrow-screen minimum event-track width for the two-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-2-gap-mobile` | `var(--fdic-layout-col-2-gap-narrow, 16px)` | Narrow-screen row and column gap for the two-column constraint set. Defaults to the shared layout column token. |
-| `--fd-event-list-col-3-min-mobile` | `var(--fdic-layout-col-3-min-narrow, 200px)` | Narrow-screen minimum event-track width for the three-column constraint set. Defaults to the shared layout column token. |
-| `--fd-event-list-col-3-gap-mobile` | `var(--fdic-layout-col-3-gap-narrow, 16px)` | Narrow-screen row and column gap for the three-column constraint set. Defaults to the shared layout column token. |
+| `--fd-event-list-col-3-min-mobile` | `320px` | Narrow-container minimum event-track width for the three-column constraint set. |
+| `--fd-event-list-col-3-gap-mobile` | `var(--fdic-layout-col-3-gap, 48px)` | Narrow-container column gap for the three-column constraint set. Defaults to the shared desktop column gap so collapsed rows preserve readable track widths. |
+| `--fd-event-list-col-3-row-gap-mobile` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Narrow-container row gap for the three-column constraint set. Defaults to compact section rhythm. |
 | `--fd-event-list-col-4-min-mobile` | `var(--fdic-layout-col-4-min-narrow, 160px)` | Narrow-screen minimum event-track width for the four-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-4-max-mobile` | `var(--fdic-layout-col-4-max-narrow, 180px)` | Narrow-screen maximum event-track width for the four-column constraint set. Defaults to the shared layout column token. |
 | `--fd-event-list-col-4-gap-mobile` | `var(--fdic-layout-col-4-gap-narrow, 16px)` | Narrow-screen row and column gap for the four-column constraint set. Defaults to the shared layout column token. |
