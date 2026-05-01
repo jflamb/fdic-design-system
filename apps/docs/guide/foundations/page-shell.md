@@ -110,31 +110,27 @@ When the page includes shell chrome such as `fd-global-header`, `fd-page-feedbac
 and `fd-global-footer`, use a viewport-height flex column at the outer wrapper so
 short pages still finish at the bottom of the viewport.
 
-```css
-.page-shell {
-  min-block-size: 100svh;
-  display: flex;
-  flex-direction: column;
-}
+```html
+<div class="fdic-page" data-page-overflow="false">
+  <fd-global-header></fd-global-header>
 
-.page-shell__main {
-  flex: 1 0 auto;
-}
+  <main class="fdic-page__main">
+    <fd-page-header></fd-page-header>
+    <!-- Route content -->
+  </main>
 
-.page-shell__chrome-end {
-  margin-block-start: auto;
-}
-
-.page-shell[data-page-overflow="true"] {
-  padding-top: var(--fd-global-header-shy-height, 0px);
-}
+  <div class="fdic-page__chrome-end">
+    <fd-page-feedback></fd-page-feedback>
+    <fd-global-footer></fd-global-footer>
+  </div>
+</div>
 ```
 
-- Put the document's primary route content in `.page-shell__main`.
+- Put the document's primary route content in `.fdic-page__main`.
 - Group bottom-of-page chrome such as `fd-page-feedback` and `fd-global-footer`
-  inside `.page-shell__chrome-end`.
+  inside `.fdic-page__chrome-end`.
 - If the page overflows vertically, reserve the shy-header offset on the shell
-  wrapper and opt into `fd-global-header.shy`.
+  wrapper with `data-page-overflow="true"` and opt into `fd-global-header.shy`.
 - If the page does not overflow, leave shy mode off and let the bottom chrome
   settle at the viewport edge through normal flex layout.
 

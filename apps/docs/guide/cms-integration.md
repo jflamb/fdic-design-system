@@ -23,7 +23,7 @@ These map to the published package entrypoints:
 
 That pair is the stable browser-delivered contract for CMS adopters. Avoid reaching into unpublished workspace paths or generated source files from theme code.
 
-The shared stylesheet also includes the documented `fdic-composition-*` page-pattern classes described in [Composition Patterns](/guide/foundations/composition-patterns). Use those when a CMS page needs reusable section and collection composition without introducing a new component.
+The shared stylesheet also includes the documented page-pattern classes described in [Composition Patterns](/guide/foundations/composition-patterns), including the `.fdic-page*` shell classes and the `.fdic-composition-*` section and collection classes. Use those when a CMS page needs reusable layout structure without introducing a new component.
 
 If your CMS build prefers selective registration, you can ship only the components you use instead of `register-all`.
 
@@ -170,6 +170,8 @@ When a page needs more than tokenized spacing but less than a new component, use
 
 Recommended uses:
 
+- `.fdic-page`, `.fdic-page__main`, and `.fdic-page__chrome-end` for full-page shells
+- `.fdic-page-band`, tone modifiers, `__content`, and `__stack` for full-bleed bands aligned to the shared shell
 - `.fdic-composition-section` and `__inner` for full-bleed section bands with aligned inner content
 - `.fdic-composition-feature-rail` for a primary story rail plus a supporting aside
 - `.fdic-composition-story` for media-plus-copy splits

@@ -29,26 +29,11 @@ import "@jflamb/fdic-ds-components/register-all";
 Apply token overrides at the application shell wrapper, not inside individual page content.
 
 ```css
-.fdic-app-shell {
-  min-block-size: 100svh;
-  display: flex;
-  flex-direction: column;
+.fdic-page {
   --fdic-layout-shell-max-width: 90rem;
   --fdic-color-bg-base: #f4f8fb;
   --fdic-color-bg-surface: #ffffff;
   --fdic-color-text-primary: #17324d;
-}
-
-.fdic-app-shell__main {
-  flex: 1 0 auto;
-}
-
-.fdic-app-shell__chrome-end {
-  margin-block-start: auto;
-}
-
-.fdic-app-shell[data-page-overflow="true"] {
-  padding-top: var(--fd-global-header-shy-height, 0px);
 }
 ```
 
@@ -57,7 +42,7 @@ Apply token overrides at the application shell wrapper, not inside individual pa
 This HTML is meaningful before upgrade and stays within the published public contract after upgrade.
 
 ```html
-<div class="fdic-app-shell" data-page-overflow="false">
+<div class="fdic-page" data-page-overflow="false">
   <fd-global-header></fd-global-header>
 
   <fd-alert variant="info" heading="System maintenance scheduled">
@@ -65,7 +50,7 @@ This HTML is meaningful before upgrade and stays within the published public con
     2:00 a.m. to 6:00 a.m. Eastern for scheduled maintenance.
   </fd-alert>
 
-  <main class="fdic-app-shell__main">
+  <main class="fdic-page__main">
     <fd-page-header>
       <nav slot="breadcrumbs" aria-label="Breadcrumb">
         <a href="/institutions">Institutions</a>
@@ -129,7 +114,7 @@ This HTML is meaningful before upgrade and stays within the published public con
     </section>
   </main>
 
-  <div class="fdic-app-shell__chrome-end">
+  <div class="fdic-page__chrome-end">
     <fd-page-feedback survey-href="/feedback"></fd-page-feedback>
     <fd-global-footer
       agency-name="Federal Deposit Insurance Corporation"
@@ -173,7 +158,7 @@ if (header) {
 Enable shy-header behavior only when the page actually overflows vertically, and keep the feedback-plus-footer chrome pinned to the viewport floor when it does not.
 
 ```ts
-const shell = document.querySelector(".fdic-app-shell");
+const shell = document.querySelector(".fdic-page");
 const header = shell?.querySelector("fd-global-header");
 
 if (shell && header) {

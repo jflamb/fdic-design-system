@@ -70,6 +70,10 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
   background: var(--fdic-color-bg-base, #ffffff);
 }
 
+.fdic-page[data-page-overflow="true"] {
+  padding-block-start: var(--fd-global-header-shy-height, 0px);
+}
+
 .fdic-page__main {
   display: block;
   flex: 1 0 auto;

@@ -22,6 +22,7 @@ describe("component runtime stylesheet", () => {
 
   it("includes reusable page layout classes for full-width band recipes", () => {
     expect(runtimeStylesheet).toContain(".fdic-page");
+    expect(runtimeStylesheet).toContain('.fdic-page[data-page-overflow="true"]');
     expect(runtimeStylesheet).toContain(".fdic-page__main");
     expect(runtimeStylesheet).toContain(".fdic-page__chrome-end");
     expect(runtimeStylesheet).toContain(".fdic-page-band");

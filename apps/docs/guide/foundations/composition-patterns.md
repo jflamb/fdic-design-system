@@ -108,6 +108,8 @@ Use the page layout classes when a full page needs the same shell constraints as
 
 `fd-page-header`, `fd-page-feedback`, and `fd-global-footer` default to the same shared shell width and gutter tokens as `.fdic-page-band__content`, so they align without page-specific overrides.
 
+When a page enables the global header's shy behavior, set `data-page-overflow="true"` on `.fdic-page`. The page shell then reserves `--fd-global-header-shy-height` above the document flow so content does not jump under the fixed header.
+
 Use `.fdic-page-band--neutral`, `.fdic-page-band--cool`, and `.fdic-page-band--warm` only when the entire band needs a system surface treatment. Plain sections can use `.fdic-page-band` without a tone modifier.
 
 Band tone classes are intentionally token-driven:
