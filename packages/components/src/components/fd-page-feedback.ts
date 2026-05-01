@@ -292,9 +292,6 @@ export class FdPageFeedback extends LitElement {
         );
       }
 
-      .base::before {
-        inset-inline: 0;
-      }
     }
 
     @media (max-width: 640px) {

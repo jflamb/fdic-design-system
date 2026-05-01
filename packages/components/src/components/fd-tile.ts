@@ -54,6 +54,8 @@ export class FdTile extends LitElement {
       container-type: inline-size;
       color: var(--fdic-color-text-primary);
       font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
+      --fd-tile-title-font-weight: 600;
+      --fd-tile-description-font-size: var(--fdic-font-size-body, 18px);
     }
 
     :host([hidden]) {

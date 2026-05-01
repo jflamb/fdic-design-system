@@ -67,8 +67,6 @@ export class FdTileList extends LitElement {
       --fd-tile-list-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
       --fd-tile-list-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
       --fd-tile-list-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);
-      --fd-tile-title-font-weight: 600;
-      --fd-tile-description-font-size: var(--fdic-font-size-body, 18px);
     }
 
     :host([hidden]) {

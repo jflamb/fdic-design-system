@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import "../register/fd-tile.js";
+import { FdTile } from "./fd-tile.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
 async function createTile(
@@ -120,6 +121,13 @@ describe("FdTile", () => {
   it("renders in compact mode when description and links are absent", async () => {
     const el = await createTile({ title: "Benefits" });
     expect(el.shadowRoot?.querySelector('[part="primary-link"]')?.className).toContain("compact");
+  });
+
+  it("defines the default title and description scale on the tile itself", () => {
+    const styles = FdTile.styles.cssText;
+
+    expect(styles).toContain("--fd-tile-title-font-weight: 600");
+    expect(styles).toContain("--fd-tile-description-font-size: var(--fdic-font-size-body, 18px)");
   });
 
   it("omits the description block when description is blank", async () => {

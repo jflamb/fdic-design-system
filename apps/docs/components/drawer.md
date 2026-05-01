@@ -30,7 +30,7 @@
 | `open` | `boolean` | `false` | Whether the drawer is visible. |
 | `label` | `string` | `` | Accessible label announced for the drawer surface. |
 | `modal` | `boolean` | `false` | When true, the drawer uses a native modal `<dialog>` shell with a browser-managed backdrop and focus containment. |
-| `placement` | `"top" | "right" | "bottom" | "left"` | `top` | Drawer placement. Unsupported values render as `top` while preserving the reflected attribute for debugging. |
+| `placement` | `"top" | "right" | "bottom" | "left"` | `top` | Drawer placement. In modal mode, placement attaches the surface to that viewport edge. In inline mode, placement only changes the edge treatment and motion direction. Unsupported values render as `top` while preserving the reflected attribute for debugging. |
 
 - `fd-drawer` keeps its public contract intentionally small so callers can compose navigation and search semantics around it.
 
@@ -76,6 +76,7 @@
 ## Known limitations
 
 - Drawer supports top, right, bottom, and left placement. Placement changes geometry and motion only; it does not change whether the drawer is modal or inline.
+- Left and right placement attaches modal drawers to the viewport edge. Inline drawers stay in normal document flow, so placement only changes the drawer edge treatment and motion direction.
 - Body scroll management and page inerting remain the caller’s responsibility.
 - Modal backdrop styling now comes from the native dialog `::backdrop`, so there is no separate backdrop shadow part to target.
 

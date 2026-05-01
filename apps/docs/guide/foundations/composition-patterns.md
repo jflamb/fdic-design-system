@@ -118,7 +118,7 @@ Band tone classes are intentionally token-driven:
 - cool: `--fdic-page-band-cool-background` and `--fdic-page-band-cool-border`
 - warm: `--fdic-page-band-warm-background` and `--fdic-page-band-warm-border`
 
-For the reference FDICnet header brand, `fd-global-header` renders the default wordmark when no `brand` slot is provided. Use `.fdic-brand-wordmark` only when an application needs to author its own equivalent brand link outside that default path.
+For the FDICnet-specific default header brand, `fd-global-header` renders the wordmark when no `brand` slot is provided. Use the `brand` slot for other agencies, products, or site brands. Use `.fdic-brand-wordmark` only when an application needs to author its own equivalent brand link outside that default path.
 
 ## Section shell
 

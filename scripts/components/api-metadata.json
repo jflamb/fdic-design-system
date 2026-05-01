@@ -3075,14 +3075,14 @@
       "rows": [
         {
           "name": "brand",
-          "description": "Optional brand or home-link content for the masthead. When omitted, the component renders the reference FDICnet wordmark link."
+          "description": "Optional brand or home-link content for the masthead. When omitted, the component renders the FDICnet-specific default wordmark link."
         },
         {
           "name": "utility",
           "description": "Optional utility links or actions rendered in the masthead"
         }
       ],
-      "after": "- The default brand is the reference FDICnet wordmark linked to `/` with `aria-label=\"FDICnet home\"`.\n- Author brand and utility content as real links or controls when an application needs to replace the default brand."
+      "after": "- The default brand is the FDICnet wordmark linked to `/` with `aria-label=\"FDICnet home\"`; replace the `brand` slot for other agencies, products, or site brands.\n- Author brand and utility content as real links or controls when an application needs to replace the default brand."
     },
     "events": {
       "rows": [
@@ -3104,7 +3104,7 @@
         {
           "name": "--fd-global-header-shy-height",
           "default": "—",
-          "description": "Read-only. Set on the host when `shy` is enabled. Contains the header's full (non-compact) rendered height as a pixel value. Use it on a parent wrapper to reserve space for the fixed header (e.g., `padding-top: var(--fd-global-header-shy-height, 0px)`). Removed when `shy` is disabled."
+          "description": "Read-only. Set on the host when `shy` is enabled. Contains the header's full (non-compact) rendered height as a pixel value. Use `.fdic-page[data-page-overflow=\"true\"]` or an equivalent parent wrapper to reserve space for the fixed header. Removed when `shy` is disabled."
         },
         {
           "name": "--fd-global-header-wordmark-height",
@@ -3298,7 +3298,7 @@
           "name": "placement",
           "type": "`\"top\" | \"right\" | \"bottom\" | \"left\"`",
           "defaultValue": "`\"top\"`",
-          "description": "Drawer placement. Unsupported values render as `top` while preserving the reflected attribute for debugging."
+          "description": "Drawer placement. In modal mode, placement attaches the surface to that viewport edge. In inline mode, placement only changes the edge treatment and motion direction. Unsupported values render as `top` while preserving the reflected attribute for debugging."
         }
       ],
       "after": "- `fd-drawer` keeps its public contract intentionally small so callers can compose navigation and search semantics around it."

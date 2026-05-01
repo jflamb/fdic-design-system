@@ -275,7 +275,7 @@ export const PlacementOptions: Story = {
     docs: {
       description: {
         story:
-          "Drawer supports top, right, bottom, and left placements. Inline examples are shown together here so the placement geometry can be compared without opening multiple modal dialogs.",
+          "Drawer supports top, right, bottom, and left placements. Placement attaches modal drawers to the requested viewport edge; inline drawers stay in normal document flow and use placement only for edge treatment and motion direction.",
       },
     },
   },

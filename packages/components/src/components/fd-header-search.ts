@@ -321,7 +321,7 @@ export class FdHeaderSearch extends LitElement {
       font-size: var(--fd-header-search-shortcut-font-size, 1.25rem);
       font-weight: 600;
       line-height: 1;
-      transform: translateY(var(--fd-header-search-shortcut-offset-y, -0.08em));
+      padding-block-end: var(--fd-header-search-shortcut-offset-block-end, 0.12em);
     }
 
     .actions[hidden] {

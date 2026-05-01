@@ -223,6 +223,11 @@ HomepageBands.play = async ({ canvasElement }) => {
   const footerContent = footer?.shadowRoot?.querySelector(".content") as HTMLElement | null;
 
   await waitFor(() => {
+    const expectClose = (actual: number | undefined, expected: number | undefined) => {
+      expect(actual).toBeDefined();
+      expect(expected).toBeDefined();
+      expect(Math.abs((actual ?? -1) - (expected ?? -1))).toBeLessThanOrEqual(1);
+    };
     const shellRect = contentShell?.getBoundingClientRect();
     const warmRect = warmSection?.getBoundingClientRect();
     const footerRect = footer?.getBoundingClientRect();
@@ -236,18 +241,18 @@ HomepageBands.play = async ({ canvasElement }) => {
       feedbackPanel?.getBoundingClientRect(),
       footerContent?.getBoundingClientRect(),
     ];
-    const shellLeft = Math.round(shellRect?.left ?? -1);
-    const shellWidth = Math.round(shellRect?.width ?? -1);
+    const shellLeft = shellRect?.left;
+    const shellWidth = shellRect?.width;
 
-    expect(Math.round(baseRect?.left ?? -1)).toBe(Math.round(warmRect?.left ?? 0));
-    expect(Math.round(baseRect?.width ?? 0)).toBe(Math.round(warmRect?.width ?? 0));
-    expect(Math.round(baseRect?.top ?? 0)).toBe(Math.round(warmRect?.bottom ?? 0));
-    expect(Math.round(footerRect?.top ?? 0)).toBe(Math.round(baseRect?.bottom ?? 0));
+    expectClose(baseRect?.left, warmRect?.left);
+    expectClose(baseRect?.width, warmRect?.width);
+    expectClose(baseRect?.top, warmRect?.bottom);
+    expectClose(footerRect?.top, baseRect?.bottom);
     for (const rect of alignedRects) {
-      expect(Math.round(rect?.left ?? -1)).toBe(shellLeft);
-      expect(Math.round(rect?.width ?? -1)).toBe(shellWidth);
+      expectClose(rect?.left, shellLeft);
+      expectClose(rect?.width, shellWidth);
     }
-    expect(Math.round(promptRect?.left ?? 0)).toBe(shellLeft);
+    expectClose(promptRect?.left, shellLeft);
     expect((promptRect?.top ?? 0) - (baseRect?.top ?? 0)).toBeGreaterThan(16);
   });
 };

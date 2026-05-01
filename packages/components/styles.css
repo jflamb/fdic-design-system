@@ -67,6 +67,7 @@ fd-form-field > fd-message[data-fd-form-field-owned="error"] [part="message"] {
   gap: 0;
   width: 100%;
   min-height: 100vh;
+  min-block-size: 100svh;
   background: var(--fdic-color-bg-base, #ffffff);
 }
 
