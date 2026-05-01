@@ -5350,13 +5350,55 @@
           "description": "Alternative text for the representative image. Required when the image conveys post content."
         },
         {
+          "name": "facebook-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the Facebook post link button."
+        },
+        {
+          "name": "youtube-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the YouTube post link button."
+        },
+        {
+          "name": "instagram-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the Instagram post link button."
+        },
+        {
+          "name": "x-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the X post link button."
+        },
+        {
+          "name": "reddit-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the Reddit post link button."
+        },
+        {
+          "name": "linkedin-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the LinkedIn post link button."
+        },
+        {
+          "name": "threads-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Destination URL for the Threads post link button."
+        },
+        {
           "name": "platforms",
           "type": "`\"facebook\"` \\| `\"youtube\"` \\| `\"instagram\"` \\| `\"x\"` \\| `\"reddit\"` \\| `\"linkedin\"` \\| `\"threads\"` array or space-separated attribute",
           "defaultValue": "`[]`",
-          "description": "Published platform tokens shown as attribution. Unsupported tokens are ignored and duplicates are removed."
+          "description": "Published platform token order for platform link buttons. Unsupported tokens are ignored and duplicates are removed. If omitted, any platform with an href is shown in the default platform order."
         }
       ],
-      "after": "`fd-social-media-item` is static in v1. The host shell is not focusable, and the component does not emit events."
+      "after": "`fd-social-media-item` keeps the host shell static and non-focusable. Platform icons render as native links through subtle `fd-button` link mode when the matching `*-href` attribute is present."
     },
     "slots": {
       "rows": [
@@ -5399,6 +5441,11 @@
           "description": "Post body text color."
         },
         {
+          "name": "--fd-social-media-item-paragraph-gap",
+          "default": "`var(--fdic-spacing-sm, 16px)`",
+          "description": "Spacing after slotted post-body paragraphs."
+        },
+        {
           "name": "--fd-social-media-item-supporting-color",
           "default": "`var(--fdic-color-text-secondary, #595961)`",
           "description": "Timestamp and platform-label text color."
@@ -5406,7 +5453,17 @@
         {
           "name": "--fd-social-media-item-platform-gap",
           "default": "`var(--fdic-spacing-2xs, 4px)`",
-          "description": "Gap between platform attribution icons."
+          "description": "Gap between platform link buttons."
+        },
+        {
+          "name": "--fd-social-media-item-platform-button-size",
+          "default": "`32px`",
+          "description": "Square size for each subtle platform link button."
+        },
+        {
+          "name": "--fd-social-media-item-platform-button-radius",
+          "default": "`var(--fdic-corner-radius-sm, 3px)`",
+          "description": "Corner radius for each subtle platform link button."
         },
         {
           "name": "--fd-social-media-item-platform-icon-size",
@@ -5457,6 +5514,10 @@
         {
           "name": "platform-item",
           "description": "Individual platform attribution item."
+        },
+        {
+          "name": "platform-link",
+          "description": "Subtle platform link button."
         },
         {
           "name": "platform-icon",
@@ -5516,7 +5577,7 @@
         },
         {
           "name": "--fd-social-media-list-col-3-min",
-          "default": "`344px`",
+          "default": "`320px`",
           "description": "Desktop minimum track width for the three-column constraint set."
         },
         {
@@ -5526,7 +5587,7 @@
         },
         {
           "name": "--fd-social-media-list-col-3-row-gap",
-          "default": "`var(--fdic-layout-col-3-gap, 48px)`",
+          "default": "`var(--fdic-layout-section-block-padding-compact, 24px)`",
           "description": "Desktop row gap for the three-column constraint set."
         },
         {

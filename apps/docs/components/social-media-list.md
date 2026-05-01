@@ -36,9 +36,16 @@ The Social Media List component arranges direct Social Media Item children in a 
     image-src="/images/social/unbanked-households.png"
     image-alt="Graphic stating that 75 percent of unbanked Hispanic households rely on cash."
     platforms="facebook youtube instagram x reddit linkedin threads"
+    facebook-href="https://www.facebook.com/fdicgov/posts/example"
+    youtube-href="https://www.youtube.com/watch?v=fdic-example"
+    instagram-href="https://www.instagram.com/fdicgov/p/example"
+    x-href="https://x.com/FDICgov/status/example"
+    reddit-href="https://www.reddit.com/r/fdic/comments/example"
+    linkedin-href="https://www.linkedin.com/company/fdic/posts/example"
+    threads-href="https://www.threads.net/@fdicgov/post/example"
   >
-    <span>Did you know that unbanked households can face higher risks?</span>
-    <a href="/analysis/household-survey">Read the research</a><span>.</span>
+    <p>Did you know that unbanked households can face higher risks?</p>
+    <p><a href="/analysis/household-survey">Read the research</a>.</p>
   </fd-social-media-item>
 
   <fd-social-media-item
@@ -46,9 +53,12 @@ The Social Media List component arranges direct Social Media Item children in a 
     image-src="/images/social/office-hours.png"
     image-alt="Blue virtual event graphic for an Office Hours Session on diversity self-assessment."
     platforms="instagram x linkedin"
+    instagram-href="https://www.instagram.com/fdicgov/p/office-hours"
+    x-href="https://x.com/FDICgov/status/office-hours"
+    linkedin-href="https://www.linkedin.com/company/fdic/posts/office-hours"
   >
-    <span>Join an FDIC office hours session for FDIC-supervised banks.</span>
-    <a href="/events">Learn more</a><span>.</span>
+    <p>Join an FDIC office hours session for FDIC-supervised banks.</p>
+    <p><a href="/events">Learn more</a>.</p>
   </fd-social-media-item>
 </fd-social-media-list>
 ```
@@ -57,7 +67,7 @@ The Social Media List component arranges direct Social Media Item children in a 
 
 - **Author direct item children.** The list applies list-item semantics only to direct `fd-social-media-item` children.
 - **Use `label` only when needed.** If a visible heading already names the section, leave `label` unset to avoid redundant announcements.
-- **Choose `columns` for intended density.** `2`, `3`, and `4` map to the shared collection layout recipes.
+- **Choose `columns` for intended density.** `2`, `3`, and `4` map to the shared collection layout recipes used by Event List and Tile List.
 - **Let the application own state.** Filtering, sorting, removal, analytics, and feed refresh behavior stay outside this component.
 
 <!-- GENERATED_COMPONENT_API:START -->
@@ -85,9 +95,9 @@ The Social Media List component arranges direct Social Media Item children in a 
 | `--fd-social-media-list-col-2-min` | `var(--fdic-layout-col-2-min, 384px)` | Desktop minimum track width for the two-column constraint set. |
 | `--fd-social-media-list-col-2-max` | `var(--fdic-layout-col-2-max, 688px)` | Desktop maximum track width for the two-column constraint set. |
 | `--fd-social-media-list-col-2-gap` | `var(--fdic-layout-col-2-gap, 48px)` | Desktop row and column gap for the two-column constraint set. |
-| `--fd-social-media-list-col-3-min` | `344px` | Desktop minimum track width for the three-column constraint set. |
+| `--fd-social-media-list-col-3-min` | `320px` | Desktop minimum track width for the three-column constraint set. |
 | `--fd-social-media-list-col-3-gap` | `var(--fdic-layout-col-3-gap, 48px)` | Desktop column gap for the three-column constraint set. |
-| `--fd-social-media-list-col-3-row-gap` | `var(--fdic-layout-col-3-gap, 48px)` | Desktop row gap for the three-column constraint set. |
+| `--fd-social-media-list-col-3-row-gap` | `var(--fdic-layout-section-block-padding-compact, 24px)` | Desktop row gap for the three-column constraint set. |
 | `--fd-social-media-list-col-4-min` | `var(--fdic-layout-col-4-min, 256px)` | Desktop minimum track width for the four-column constraint set. |
 | `--fd-social-media-list-col-4-max` | `var(--fdic-layout-col-4-max, 320px)` | Desktop maximum track width for the four-column constraint set. |
 | `--fd-social-media-list-col-4-gap` | `var(--fdic-layout-col-4-gap, 48px)` | Desktop row and column gap for the four-column constraint set. |
@@ -103,7 +113,7 @@ The Social Media List component arranges direct Social Media Item children in a 
 
 - The component renders an internal container with `role="list"`.
 - Direct `fd-social-media-item` children receive `role="listitem"` automatically.
-- The component adds no custom keyboard behavior. Focus follows the native links inside each item in source order.
+- The component adds no custom keyboard behavior. Focus follows the native post links and platform link buttons inside each item in source order.
 - The component does not manage focus recovery because it does not remove items.
 - The responsive layout must preserve readable text reflow at narrow widths and browser zoom.
 

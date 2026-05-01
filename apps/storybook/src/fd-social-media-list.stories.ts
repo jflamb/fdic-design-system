@@ -26,18 +26,27 @@ const renderItem = ({
   imageSrc,
   imageAlt,
   platforms,
+  platformHrefs,
   body,
 }: {
   timestamp: string;
   imageSrc: string;
   imageAlt: string;
   platforms: string[];
+  platformHrefs: Partial<Record<string, string>>;
   body: unknown;
 }) => html`
   <fd-social-media-item
     timestamp=${timestamp}
     image-src=${imageSrc}
     image-alt=${imageAlt}
+    facebook-href=${ifDefined(platformHrefs.facebook)}
+    youtube-href=${ifDefined(platformHrefs.youtube)}
+    instagram-href=${ifDefined(platformHrefs.instagram)}
+    x-href=${ifDefined(platformHrefs.x)}
+    reddit-href=${ifDefined(platformHrefs.reddit)}
+    linkedin-href=${ifDefined(platformHrefs.linkedin)}
+    threads-href=${ifDefined(platformHrefs.threads)}
     .platforms=${platforms}
   >
     ${body}
@@ -52,11 +61,21 @@ const renderSocialMediaList = (args: SocialMediaListArgs) => html`
       imageAlt:
         "Graphic stating that 75 percent of unbanked Hispanic households rely on cash.",
       platforms: ["facebook", "youtube", "instagram", "x", "reddit", "linkedin", "threads"],
-      body: html`<span
-          >Did you know that unbanked Hispanic households were more likely to rely on
+      platformHrefs: {
+        facebook: "https://www.facebook.com/fdicgov/posts/example",
+        youtube: "https://www.youtube.com/watch?v=fdic-example",
+        instagram: "https://www.instagram.com/fdicgov/p/example",
+        x: "https://x.com/FDICgov/status/example",
+        reddit: "https://www.reddit.com/r/fdic/comments/example",
+        linkedin: "https://www.linkedin.com/company/fdic/posts/example",
+        threads: "https://www.threads.net/@fdicgov/post/example",
+      },
+      body: html`<p>
+          Did you know that unbanked Hispanic households were more likely to rely on
           cash to meet their financial needs, which carries the risk of theft and loss?
-          Our latest research explores these findings </span
-        ><a href="https://www.fdic.gov/analysis/household-survey">https://fdic.gov/household-survey</a><span>.</span>`,
+          Our latest research explores these findings.
+        </p>
+        <p><a href="https://www.fdic.gov/analysis/household-survey">https://fdic.gov/household-survey</a></p>`,
     })}
     ${renderItem({
       timestamp: "Aug. 26, 2024 · 9:25 AM",
@@ -64,10 +83,16 @@ const renderSocialMediaList = (args: SocialMediaListArgs) => html`
       imageAlt:
         "Historical black-and-white photo of President Franklin Roosevelt signing the Banking Act.",
       platforms: ["instagram", "x", "linkedin"],
-      body: html`<a href="https://www.fdic.gov/history">#OnThisDay</a><span>
+      platformHrefs: {
+        instagram: "https://www.instagram.com/fdicgov/p/banking-act",
+        x: "https://x.com/FDICgov/status/banking-act",
+        linkedin: "https://www.linkedin.com/company/fdic/posts/banking-act",
+      },
+      body: html`<p>
+          <a href="https://www.fdic.gov/history">#OnThisDay</a>
           in 1935, President Franklin Roosevelt signed the Banking Act into law and
-          made the FDIC a permanent part of the financial system.</span
-        >`,
+          made the FDIC a permanent part of the financial system.
+        </p>`,
     })}
     ${renderItem({
       timestamp: "Aug. 23, 2024 · 1:25 PM",
@@ -75,11 +100,17 @@ const renderSocialMediaList = (args: SocialMediaListArgs) => html`
       imageAlt:
         "Blue virtual event graphic for an Office Hours Session on diversity self-assessment.",
       platforms: ["instagram", "x", "linkedin"],
-      body: html`<span
-          >Calling all bankers at FDIC-supervised banks. Join us for office hours
+      platformHrefs: {
+        instagram: "https://www.instagram.com/fdicgov/p/office-hours",
+        x: "https://x.com/FDICgov/status/office-hours",
+        linkedin: "https://www.linkedin.com/company/fdic/posts/office-hours",
+      },
+      body: html`<p>
+          Calling all bankers at FDIC-supervised banks. Join us for office hours
           on completing the voluntary self-assessment of diversity policies and
-          practices. </span
-        ><a href="https://www.fdic.gov">Learn more</a><span>.</span>`,
+          practices.
+        </p>
+        <p><a href="https://www.fdic.gov">Learn more</a>.</p>`,
     })}
   </fd-social-media-list>
 `;

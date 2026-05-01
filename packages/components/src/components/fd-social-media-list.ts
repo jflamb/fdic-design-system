@@ -40,7 +40,7 @@ export class FdSocialMediaList extends LitElement {
       --fd-social-media-list-col-2-min: var(--fdic-layout-col-2-min);
       --fd-social-media-list-col-2-max: var(--fdic-layout-col-2-max);
       --fd-social-media-list-col-2-gap: var(--fdic-layout-col-2-gap);
-      --fd-social-media-list-col-3-min: 344px;
+      --fd-social-media-list-col-3-min: 320px;
       --fd-social-media-list-col-3-max: calc(
         (
           var(--fdic-layout-shell-max-width, 1312px) -
@@ -48,15 +48,15 @@ export class FdSocialMediaList extends LitElement {
         ) / 3
       );
       --fd-social-media-list-col-3-gap: var(--fdic-layout-col-3-gap);
-      --fd-social-media-list-col-3-row-gap: var(--fdic-layout-col-3-gap);
+      --fd-social-media-list-col-3-row-gap: var(--fdic-layout-section-block-padding-compact, 24px);
       --fd-social-media-list-col-4-min: var(--fdic-layout-col-4-min);
       --fd-social-media-list-col-4-max: var(--fdic-layout-col-4-max);
       --fd-social-media-list-col-4-gap: var(--fdic-layout-col-4-gap);
       --fd-social-media-list-col-2-min-mobile: var(--fdic-layout-col-2-min-narrow);
       --fd-social-media-list-col-2-gap-mobile: var(--fdic-layout-col-2-gap-narrow);
-      --fd-social-media-list-col-3-min-mobile: 344px;
+      --fd-social-media-list-col-3-min-mobile: 320px;
       --fd-social-media-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap, 48px);
-      --fd-social-media-list-col-3-row-gap-mobile: var(--fdic-layout-col-3-gap, 48px);
+      --fd-social-media-list-col-3-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px);
       --fd-social-media-list-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
       --fd-social-media-list-col-4-max-mobile: var(--fdic-layout-col-4-max-narrow);
       --fd-social-media-list-col-4-gap-mobile: var(--fdic-layout-col-4-gap-narrow);
