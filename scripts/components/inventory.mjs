@@ -1083,6 +1083,50 @@ export const componentInventory = [
     },
     typeExports: ["LinkCategorySize", "LinkCategoryTone", "FdLinkCategoryLinkItem"]
   },
+  {
+    tagName: "fd-social-media-item",
+    className: "FdSocialMediaItem",
+    sourceFile: "fd-social-media-item.ts",
+    docs: {
+      kind: "first-class",
+      title: "Social Media Item",
+      slug: "social-media-item",
+      category: "visual-media",
+      order: 20
+    },
+    storybook: {
+      title: "Components/Social Media Item",
+      file: "fd-social-media-item.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["SocialMediaPlatform"]
+  },
+  {
+    tagName: "fd-social-media-list",
+    className: "FdSocialMediaList",
+    sourceFile: "fd-social-media-list.ts",
+    docs: {
+      kind: "first-class",
+      title: "Social Media List",
+      slug: "social-media-list",
+      category: "visual-media",
+      order: 30
+    },
+    storybook: {
+      title: "Components/Social Media List",
+      file: "fd-social-media-list.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["SocialMediaListColumns"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

@@ -32,7 +32,7 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Visual & Media</span>
-    <h3>Card, Visual, Icon</h3>
+    <h3>Card, Social Media Item, Visual, Icon, Social Media List</h3>
     <p>Icons and visual primitives that support other components and layouts without becoming full authored-content patterns.</p>
   </div>
   <div class="fdic-card">
@@ -105,5 +105,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 ### Visual & Media
 
 - [Card](./card) documents card usage, constraints, and accessibility guidance.
+- [Social Media Item](./social-media-item) documents social media item usage, constraints, and accessibility guidance.
 - [Visual](./visual) documents the supporting primitive contract for visual.
 - [Icon](./icon) documents icon usage, constraints, and accessibility guidance.
+- [Social Media List](./social-media-list) documents social media list usage, constraints, and accessibility guidance.

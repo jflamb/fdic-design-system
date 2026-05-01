@@ -49,6 +49,8 @@ export { FdFormField } from "./components/fd-form-field.js";
 export { FdErrorSummary } from "./components/fd-error-summary.js";
 export { FdReviewList } from "./components/fd-review-list.js";
 export { FdLinkCategory } from "./components/fd-link-category.js";
+export { FdSocialMediaItem } from "./components/fd-social-media-item.js";
+export { FdSocialMediaList } from "./components/fd-social-media-list.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -80,6 +82,8 @@ export type { FormFieldLayout, FormFieldControlType } from "./components/fd-form
 export type { ErrorSummaryFocusTarget, ErrorSummaryItem } from "./components/fd-error-summary.js";
 export type { ReviewListHeadingLevel, ReviewListDensity, ReviewListItem } from "./components/fd-review-list.js";
 export type { LinkCategorySize, LinkCategoryTone, FdLinkCategoryLinkItem } from "./components/fd-link-category.js";
+export type { SocialMediaPlatform } from "./components/fd-social-media-item.js";
+export type { SocialMediaListColumns } from "./components/fd-social-media-list.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,
