@@ -1,6 +1,13 @@
 import { LitElement, css, html, nothing } from "lit";
 
-export type FdDrawerPlacement = "top";
+export const DRAWER_PLACEMENTS = ["top", "right", "bottom", "left"] as const;
+export type FdDrawerPlacement = (typeof DRAWER_PLACEMENTS)[number];
+
+const DRAWER_PLACEMENT_SET = new Set<string>(DRAWER_PLACEMENTS);
+
+function normalizeDrawerPlacement(value: string | undefined): FdDrawerPlacement {
+  return value && DRAWER_PLACEMENT_SET.has(value) ? (value as FdDrawerPlacement) : "top";
+}
 
 export interface FdDrawerCloseRequestDetail {
   source: "backdrop" | "escape";
@@ -82,13 +89,7 @@ export class FdDrawer extends LitElement {
       width: 100%;
       background: var(--fd-drawer-surface, var(--fdic-color-bg-surface));
       color: var(--fd-drawer-color, inherit);
-      border-block-end: 1px solid
-        var(
-          --fd-drawer-border-color,
-          var(--fdic-color-border-divider)
-        );
       box-shadow: var(--fd-drawer-shadow, var(--fdic-shadow-panel));
-      transform: translateY(-1.25rem);
       opacity: 0;
       transition:
         transform var(--fdic-motion-duration-slow, 240ms) cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -96,8 +97,85 @@ export class FdDrawer extends LitElement {
       will-change: transform, opacity;
     }
 
+    dialog.base .surface {
+      position: absolute;
+      max-inline-size: 100%;
+      max-block-size: 100%;
+      overflow: auto;
+    }
+
     .surface[data-placement="top"] {
       transform-origin: top center;
+      border-block-end: 1px solid
+        var(
+          --fd-drawer-border-color,
+          var(--fdic-color-border-divider)
+        );
+      transform: translateY(-1.25rem);
+    }
+
+    dialog.base .surface[data-placement="top"] {
+      inset-block-start: 0;
+      inset-inline: 0;
+      inline-size: 100%;
+    }
+
+    .surface[data-placement="bottom"] {
+      transform-origin: bottom center;
+      border-block-start: 1px solid
+        var(
+          --fd-drawer-border-color,
+          var(--fdic-color-border-divider)
+        );
+      transform: translateY(1.25rem);
+    }
+
+    dialog.base .surface[data-placement="bottom"] {
+      inset-block-end: 0;
+      inset-inline: 0;
+      inline-size: 100%;
+    }
+
+    .surface[data-placement="left"] {
+      transform-origin: center left;
+      border-inline-end: 1px solid
+        var(
+          --fd-drawer-border-color,
+          var(--fdic-color-border-divider)
+        );
+      transform: translateX(-1.25rem);
+    }
+
+    dialog.base .surface[data-placement="left"] {
+      inset-block: 0;
+      inset-inline-start: 0;
+      inline-size: min(var(--fd-drawer-inline-size, 22rem), 100vw);
+      block-size: 100%;
+    }
+
+    .base--inline .surface[data-placement="left"] {
+      inline-size: min(var(--fd-drawer-inline-size, 22rem), 100%);
+    }
+
+    .surface[data-placement="right"] {
+      transform-origin: center right;
+      border-inline-start: 1px solid
+        var(
+          --fd-drawer-border-color,
+          var(--fdic-color-border-divider)
+        );
+      transform: translateX(1.25rem);
+    }
+
+    dialog.base .surface[data-placement="right"] {
+      inset-block: 0;
+      inset-inline-end: 0;
+      inline-size: min(var(--fd-drawer-inline-size, 22rem), 100vw);
+      block-size: 100%;
+    }
+
+    .base--inline .surface[data-placement="right"] {
+      inline-size: min(var(--fd-drawer-inline-size, 22rem), 100%);
     }
 
     dialog.base[open] .surface,
@@ -118,6 +196,18 @@ export class FdDrawer extends LitElement {
       dialog.base[open] .surface {
         transform: translateY(-1.25rem);
         opacity: 0;
+      }
+
+      dialog.base[open] .surface[data-placement="bottom"] {
+        transform: translateY(1.25rem);
+      }
+
+      dialog.base[open] .surface[data-placement="left"] {
+        transform: translateX(-1.25rem);
+      }
+
+      dialog.base[open] .surface[data-placement="right"] {
+        transform: translateX(1.25rem);
       }
     }
 
@@ -257,12 +347,13 @@ export class FdDrawer extends LitElement {
 
   override render() {
     const hasHeaderSlot = this.querySelector("[slot='header']");
+    const placement = normalizeDrawerPlacement(this.placement);
     const regionRole = !this.modal && this.open ? "region" : nothing;
     const content = html`
       <div
         class="surface"
         part="surface"
-        data-placement=${this.placement}
+        data-placement=${placement}
         role=${regionRole}
         aria-label=${!this.modal && this.label ? this.label : nothing}
         tabindex="-1"

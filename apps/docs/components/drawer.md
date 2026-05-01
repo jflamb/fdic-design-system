@@ -4,14 +4,14 @@
 
 ## When to use
 
-- Use it when a top-attached drawer needs the same motion and close-request contract as the header family.
-- Use it when the parent component should own state while the drawer owns the top-attached shell and translates native dialog dismissal into close requests.
+- Use it when a drawer surface needs the same motion and close-request contract as the header family.
+- Use it when the parent component should own state while the drawer owns the placed shell and translates native dialog dismissal into close requests.
 - Use it for lightweight modal drawer surfaces, not for a full generic overlay system.
 
 ## When not to use
 
 - Don’t use it as a catch-all modal, popover, or toast primitive.
-- Don’t over-generalize it with unrelated placement variants until the design system has a real use case.
+- Don’t use placement alone to decide semantics. Choose `modal` when the drawer needs dialog behavior and focus containment; choose inline mode when the drawer belongs in the document flow.
 
 ## Examples
 
@@ -30,7 +30,7 @@
 | `open` | `boolean` | `false` | Whether the drawer is visible. |
 | `label` | `string` | `` | Accessible label announced for the drawer surface. |
 | `modal` | `boolean` | `false` | When true, the drawer uses a native modal `<dialog>` shell with a browser-managed backdrop and focus containment. |
-| `placement` | `"top"` | `top` | Drawer placement. The current primitive intentionally supports the top-attached header-family use case only. |
+| `placement` | `"top" | "right" | "bottom" | "left"` | `top` | Drawer placement. Unsupported values render as `top` while preserving the reflected attribute for debugging. |
 
 - `fd-drawer` keeps its public contract intentionally small so callers can compose navigation and search semantics around it.
 
@@ -54,6 +54,7 @@
 | `--fd-drawer-color` | `inherit` | Foreground color for drawer content. |
 | `--fd-drawer-border-color` | `rgba(9, 53, 84, 0.14)` | Border color for the drawer edge. |
 | `--fd-drawer-shadow` | `0 18px 48px rgba(0, 18, 32, 0.22)` | Box shadow applied to the drawer surface. |
+| `--fd-drawer-inline-size` | `22rem` | Inline size for left and right drawer placements. |
 
 ## Shadow parts
 
@@ -74,7 +75,7 @@
 
 ## Known limitations
 
-- The current primitive intentionally supports only the top-attached header-family use case.
+- Drawer supports top, right, bottom, and left placement. Placement changes geometry and motion only; it does not change whether the drawer is modal or inline.
 - Body scroll management and page inerting remain the caller’s responsibility.
 - Modal backdrop styling now comes from the native dialog `::backdrop`, so there is no separate backdrop shadow part to target.
 

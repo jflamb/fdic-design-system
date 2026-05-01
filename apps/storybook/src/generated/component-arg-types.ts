@@ -459,7 +459,7 @@ export const componentStoryApi = {
     "open": { control: "boolean" },
     "label": { control: "text" },
     "modal": { control: "boolean" },
-    "placement": { control: "select", options: ["top"] },
+    "placement": { control: "select", options: ["top","right","bottom","left"] },
     },
     args: {
     "open": false,

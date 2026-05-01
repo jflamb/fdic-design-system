@@ -88,6 +88,7 @@ const meta = {
           ?open=${args.open}
           ?modal=${args.modal}
           label=${args.label}
+          placement=${args.placement}
         >
         <div
           slot="header"
@@ -159,6 +160,7 @@ export const InlineDrawer: Story = {
         ?open=${args.open}
         ?modal=${args.modal}
         label=${args.label}
+        placement=${args.placement}
       >
         <div
           slot="header"
@@ -235,25 +237,34 @@ EscapeDismissal.play = async ({ canvasElement, userEvent }) => {
 
 export const PlacementOptions: Story = {
   render: () => html`
-    <div style="padding: 1.5rem; background: #eef3f7;">
-      <fd-drawer open modal label="Top placement example">
-        <div
-          slot="header"
-          style="display:flex; align-items:center; justify-content:space-between; padding:1rem; border-bottom:1px solid rgba(9, 53, 84, 0.08);"
-        >
-          <h2 style="margin:0; font-size:1.125rem;">Placement contract</h2>
-        </div>
-        <div style="padding: 1rem; display:grid; gap:0.75rem;">
-          <p style="margin:0;">The current public API exposes only the top placement. Use modal or inline mode to change document behavior without introducing new placement values.</p>
-        </div>
-      </fd-drawer>
+    <div style="display:grid; gap:1rem; padding: 1.5rem; background: #eef3f7;">
+      ${["top", "right", "bottom", "left"].map(
+        (placement) => html`
+          <fd-drawer
+            open
+            ?modal=${false}
+            label=${`${placement} placement example`}
+            placement=${placement}
+          >
+            <div
+              slot="header"
+              style="display:flex; align-items:center; justify-content:space-between; padding:1rem; border-bottom:1px solid rgba(9, 53, 84, 0.08);"
+            >
+              <h2 style="margin:0; font-size:1.125rem; text-transform:capitalize;">${placement}</h2>
+            </div>
+            <div style="padding: 1rem; display:grid; gap:0.75rem;">
+              <p style="margin:0;">Inline ${placement} placement preview.</p>
+            </div>
+          </fd-drawer>
+        `,
+      )}
     </div>
   `,
   parameters: {
     docs: {
       description: {
         story:
-          "The current drawer API intentionally supports only top placement. This story documents the supported placement contract until additional positions are designed and approved.",
+          "Drawer supports top, right, bottom, and left placements. Inline examples are shown together here so the placement geometry can be compared without opening multiple modal dialogs.",
       },
     },
   },

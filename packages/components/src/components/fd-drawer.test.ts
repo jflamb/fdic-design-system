@@ -15,6 +15,7 @@ async function createDrawer() {
     open: boolean;
     modal: boolean;
     label: string;
+    placement: string;
     updateComplete: Promise<unknown>;
     focus: (options?: FocusOptions) => void;
   };
@@ -22,6 +23,7 @@ async function createDrawer() {
   el.open = true;
   el.modal = true;
   el.label = "Reference drawer";
+  el.placement = "top";
   el.innerHTML = `
     <div slot="header">
       <button type="button">Back</button>
@@ -41,12 +43,14 @@ async function createInlineDrawer() {
     open: boolean;
     modal: boolean;
     label: string;
+    placement: string;
     updateComplete: Promise<unknown>;
   };
 
   el.open = true;
   el.modal = false;
   el.label = "Inline drawer";
+  el.placement = "top";
   el.innerHTML = `
     <div slot="header">
       <button type="button">Close panel</button>
@@ -310,6 +314,45 @@ describe("fd-drawer", () => {
 
     const header = el.shadowRoot?.querySelector(".header") as HTMLElement | null;
     expect(header?.hasAttribute("hidden")).toBe(true);
+  });
+
+  it.each(["top", "right", "bottom", "left"])(
+    "applies %s placement to the drawer surface",
+    async (placement) => {
+      const el = await createDrawer();
+      el.placement = placement;
+      await el.updateComplete;
+
+      expect(el.shadowRoot?.querySelector(".surface")?.getAttribute("data-placement")).toBe(
+        placement,
+      );
+    },
+  );
+
+  it("normalizes unsupported placement values back to top", async () => {
+    const el = await createDrawer();
+    el.placement = "diagonal";
+    await el.updateComplete;
+
+    expect(el.getAttribute("placement")).toBe("diagonal");
+    expect(el.shadowRoot?.querySelector(".surface")?.getAttribute("data-placement")).toBe(
+      "top",
+    );
+  });
+
+  it("includes placement-specific geometry hooks", () => {
+    const styles = (
+      customElements.get("fd-drawer") as typeof HTMLElement & {
+        styles?: { cssText?: string };
+      }
+    ).styles?.cssText ?? "";
+
+    expect(styles).toContain('[data-placement="right"]');
+    expect(styles).toContain('[data-placement="bottom"]');
+    expect(styles).toContain('[data-placement="left"]');
+    expect(styles).toContain("--fd-drawer-inline-size");
+    expect(styles).toContain("translateX(1.25rem)");
+    expect(styles).toContain("translateY(1.25rem)");
   });
 
   it("has no detectable axe violations in the open modal state", async () => {

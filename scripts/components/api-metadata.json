@@ -3281,9 +3281,9 @@
         },
         {
           "name": "placement",
-          "type": "`\"top\"`",
+          "type": "`\"top\" | \"right\" | \"bottom\" | \"left\"`",
           "defaultValue": "`\"top\"`",
-          "description": "Drawer placement. The current primitive intentionally supports the top-attached header-family use case only."
+          "description": "Drawer placement. Unsupported values render as `top` while preserving the reflected attribute for debugging."
         }
       ],
       "after": "- `fd-drawer` keeps its public contract intentionally small so callers can compose navigation and search semantics around it."
@@ -3328,6 +3328,11 @@
           "name": "--fd-drawer-shadow",
           "default": "`0 18px 48px rgba(0, 18, 32, 0.22)`",
           "description": "Box shadow applied to the drawer surface."
+        },
+        {
+          "name": "--fd-drawer-inline-size",
+          "default": "`22rem`",
+          "description": "Inline size for left and right drawer placements."
         }
       ],
       "after": ""
