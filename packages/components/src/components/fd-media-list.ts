@@ -13,8 +13,8 @@ export type MediaListColumns = CollectionColumns;
 
 const MEDIA_LIST_COLUMNS_SET = new Set<string>(MEDIA_LIST_COLUMNS);
 
-function isMediaItemElement(node: Element): node is HTMLElement {
-  return node.tagName.toLowerCase() === "fd-media-item";
+function isElementChild(node: Element): node is HTMLElement {
+  return node instanceof HTMLElement;
 }
 
 function normalizeColumns(value: string | undefined): MediaListColumns {
@@ -40,7 +40,7 @@ export class FdMediaList extends LitElement {
       --fd-media-list-col-2-min: var(--fdic-layout-col-2-min);
       --fd-media-list-col-2-max: var(--fdic-layout-col-2-max);
       --fd-media-list-col-2-gap: var(--fdic-layout-col-2-gap);
-      --fd-media-list-col-3-min: 320px;
+      --fd-media-list-col-3-min: var(--fdic-layout-col-3-min, 320px);
       --fd-media-list-col-3-max: calc(
         (
           var(--fdic-layout-shell-max-width, 1312px) -
@@ -54,7 +54,7 @@ export class FdMediaList extends LitElement {
       --fd-media-list-col-4-gap: var(--fdic-layout-col-4-gap);
       --fd-media-list-col-2-min-mobile: var(--fdic-layout-col-2-min-narrow);
       --fd-media-list-col-2-gap-mobile: var(--fdic-layout-col-2-gap-narrow);
-      --fd-media-list-col-3-min-mobile: 320px;
+      --fd-media-list-col-3-min-mobile: var(--fdic-layout-col-3-min-narrow, 320px);
       --fd-media-list-col-3-gap-mobile: var(--fdic-layout-col-3-gap, 48px);
       --fd-media-list-col-3-row-gap-mobile: var(--fdic-layout-section-block-padding-compact, 24px);
       --fd-media-list-col-4-min-mobile: var(--fdic-layout-col-4-min-narrow);
@@ -112,7 +112,6 @@ export class FdMediaList extends LitElement {
     ::slotted(fd-media-item) {
       inline-size: 100%;
       min-inline-size: 0;
-      max-inline-size: 100%;
     }
   `,
   ];
@@ -127,7 +126,7 @@ export class FdMediaList extends LitElement {
       }
     },
     attributeFilter: ["role"],
-    isManagedChild: isMediaItemElement,
+    isManagedChild: isElementChild,
     slot: () => this.shadowRoot?.querySelector("slot") ?? null,
   });
 
@@ -147,9 +146,7 @@ export class FdMediaList extends LitElement {
     super.disconnectedCallback();
   }
 
-  override updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
+  override willUpdate(changedProperties: PropertyValues<this>) {
     if (changedProperties.has("columns")) {
       const normalized = normalizeColumns(this.columns);
       if (normalized !== this.columns) {

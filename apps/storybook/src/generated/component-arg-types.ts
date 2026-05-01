@@ -770,7 +770,7 @@ export const componentStoryApi = {
   },
   "fd-media-item": {
     argTypes: {
-    "title": { control: "text" },
+    "heading": { control: "text" },
     "href": { control: "text" },
     "target": { control: "text" },
     "rel": { control: "text" },
@@ -779,7 +779,7 @@ export const componentStoryApi = {
     "imageAlt": { control: "text" },
     },
     args: {
-    "title": "",
+    "heading": "",
     "href": undefined,
     "target": undefined,
     "rel": undefined,

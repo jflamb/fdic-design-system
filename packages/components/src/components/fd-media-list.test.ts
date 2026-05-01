@@ -20,12 +20,12 @@ async function createMediaList(
   for (let index = 0; index < childCount; index += 1) {
     const item = document.createElement("fd-media-item") as HTMLElement & {
       updateComplete: Promise<void>;
-      title: string;
+      heading: string;
       href: string;
       metadata: string;
       imageAlt: string;
     };
-    item.title = `Media resource ${index + 1}`;
+    item.heading = `Media resource ${index + 1}`;
     item.href = `/media/${index + 1}`;
     item.metadata = `${index + 1}m 23s  ·  Updated Oct 2023`;
     item.imageAlt = "";
@@ -65,12 +65,23 @@ describe("FdMediaList", () => {
     expect(items[1]?.getAttribute("role")).toBe("listitem");
   });
 
+  it("assigns listitem semantics to unexpected direct element children", async () => {
+    const el = await createMediaList({}, 0);
+    const child = document.createElement("div");
+    el.appendChild(child);
+
+    await el.updateComplete;
+    el.shadowRoot?.querySelector("slot")?.dispatchEvent(new Event("slotchange"));
+
+    expect(child.getAttribute("role")).toBe("listitem");
+  });
+
   it("restores listitem semantics if a managed child role changes", async () => {
     const el = await createMediaList();
     const item = el.querySelector("fd-media-item");
 
     item?.setAttribute("role", "presentation");
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => queueMicrotask(resolve));
 
     expect(item?.getAttribute("role")).toBe("listitem");
   });
@@ -80,6 +91,7 @@ describe("FdMediaList", () => {
 
     await el.updateComplete;
     expect(el.columns).toBe("3");
+    expect(el.getAttribute("columns")).toBe("3");
   });
 
   it("passes an axe audit with representative children", async () => {

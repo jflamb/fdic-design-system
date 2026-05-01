@@ -15,7 +15,7 @@ import {
 } from "./docs-overview";
 
 type MediaItemArgs = {
-  title: string;
+  heading: string;
   href?: string;
   target?: string;
   rel?: string;
@@ -27,7 +27,7 @@ type MediaItemArgs = {
 const renderMediaItem = (args: MediaItemArgs) => html`
   <div style="inline-size:min(100%, 366px);">
     <fd-media-item
-      title=${args.title}
+      heading=${args.heading}
       href=${ifDefined(args.href)}
       target=${ifDefined(args.target)}
       rel=${ifDefined(args.rel)}
@@ -57,7 +57,7 @@ const meta = {
   },
   args: {
     ...getComponentArgs("fd-media-item"),
-    title: "Safeguarding Customer Credit Card Data: PCI Compliance",
+    heading: "Safeguarding Customer Credit Card Data: PCI Compliance",
     href: "https://www.fdic.gov/resources/bankers/information-technology/",
     target: undefined,
     rel: undefined,
@@ -91,7 +91,7 @@ export const TextOnly: Story = {
     imageSrc: undefined,
     imageAlt: "",
     metadata: "Updated Oct 2023",
-    title: "FDIC failed bank exercise",
+    heading: "FDIC failed bank exercise",
   },
 };
 
@@ -101,7 +101,7 @@ export const DocsOverview: Story = {
       <section class=${DOCS_OVERVIEW_SECTION_CLASS}>
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Linked media item</strong>
         ${renderMediaItem({
-          title: "Safeguarding Customer Credit Card Data: PCI Compliance",
+          heading: "Safeguarding Customer Credit Card Data: PCI Compliance",
           href: "https://www.fdic.gov/resources/bankers/information-technology/",
           metadata: "1h 3m  ·  Beginner  ·  2 months ago",
           imageSrc: pciCompliance,

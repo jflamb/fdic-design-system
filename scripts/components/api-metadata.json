@@ -5622,16 +5622,16 @@
     "properties": {
       "rows": [
         {
-          "name": "title",
+          "name": "heading",
           "type": "`string`",
           "defaultValue": "``",
-          "description": "Visible media title. When `href` is present, this text becomes the native link name."
+          "description": "Visible media heading. When `href` is present, this text becomes the native link name."
         },
         {
           "name": "href",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
-          "description": "Destination URL for the combined thumbnail and title link. If omitted or blank, the title renders as static text."
+          "description": "Destination URL for the combined thumbnail and heading link. If omitted or blank, the heading renders as static text."
         },
         {
           "name": "target",
@@ -5661,10 +5661,10 @@
           "name": "image-alt",
           "type": "`string`",
           "defaultValue": "``",
-          "description": "Alternative text for the thumbnail when it is not already named by the linked title. Linked thumbnails use empty alt text when a title is present."
+          "description": "Alternative text for the thumbnail when it is not already named by the linked heading. Linked thumbnails use empty alt text when a heading is present. Image-only links require non-empty `image-alt`."
         }
       ],
-      "after": "`fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and title share one native link and one tab stop; metadata remains outside the link."
+      "after": "`fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and heading share one native link and one tab stop; metadata remains outside the link. The global HTML `title` attribute is migrated to `heading` and removed from the host to avoid browser tooltips."
     },
     "slots": {
       "rows": [],
@@ -5699,17 +5699,22 @@
         {
           "name": "--fd-media-item-title-color",
           "default": "`var(--fdic-color-text-link, #1278b0)`",
-          "description": "Linked title text color."
+          "description": "Linked heading text color."
         },
         {
           "name": "--fd-media-item-title-font-size",
           "default": "`var(--fdic-font-size-body-big, 20px)`",
-          "description": "Title font size."
+          "description": "Heading font size."
         },
         {
           "name": "--fd-media-item-title-font-weight",
           "default": "`450`",
-          "description": "Title font weight."
+          "description": "Heading font weight."
+        },
+        {
+          "name": "--fd-media-item-title-radius",
+          "default": "`var(--fdic-corner-radius-2xs, 2px)`",
+          "description": "Corner radius for linked heading focus-decoration fragments."
         },
         {
           "name": "--fd-media-item-metadata-color",
@@ -5738,7 +5743,7 @@
       "rows": [
         {
           "name": "base",
-          "description": "Root article wrapper."
+          "description": "Root wrapper. Renders as `article` when `heading` is present and `div` otherwise."
         },
         {
           "name": "media",
@@ -5750,23 +5755,23 @@
         },
         {
           "name": "content",
-          "description": "Static title and metadata wrapper used when `href` is omitted."
+          "description": "Static heading and metadata wrapper used when `href` is omitted."
         },
         {
           "name": "title",
-          "description": "Shared title styling hook for linked and static titles."
+          "description": "Shared heading styling hook for linked and static headings."
         },
         {
           "name": "title-link",
-          "description": "Native link wrapping the thumbnail and title when `href` is present."
+          "description": "Native link wrapping the thumbnail and heading when `href` is present."
         },
         {
           "name": "title-link-text",
-          "description": "Linked title text inside the native media link."
+          "description": "Linked heading text inside the native media link."
         },
         {
           "name": "title-text",
-          "description": "Static title text when `href` is omitted."
+          "description": "Static heading text when `href` is omitted."
         },
         {
           "name": "metadata",
@@ -5798,10 +5803,10 @@
       "rows": [
         {
           "name": "default",
-          "description": "Author direct `fd-media-item` children. Each direct child receives list-item semantics."
+          "description": "Author direct `fd-media-item` children. Direct element children receive list-item semantics."
         }
       ],
-      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct `fd-media-item` children."
+      "after": "`fd-media-list` assigns `role=\"listitem\"` to direct element children so the internal ARIA list remains valid. Direct `fd-media-item` children are the supported layout pattern."
     },
     "events": {
       "rows": [],
@@ -5826,7 +5831,7 @@
         },
         {
           "name": "--fd-media-list-col-3-min",
-          "default": "`320px`",
+          "default": "`var(--fdic-layout-col-3-min, 320px)`",
           "description": "Minimum track size for three-column layout."
         },
         {
