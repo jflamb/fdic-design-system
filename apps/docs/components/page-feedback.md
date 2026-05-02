@@ -158,7 +158,7 @@ Key integration rules:
 - All interactive controls stay native: buttons for state changes, a link for the survey path, and textareas for the report prompts.
 - The component owns focus recovery for built-in state changes that remove the active control:
   - `No` moves focus to the survey link when `survey-href` exists, otherwise to the survey Cancel button.
-  - `Report a problem with this page` moves focus to the first textarea.
+  - `Report a problem` moves focus to the first textarea.
   - Survey Cancel returns focus to the `No` button.
   - Report Cancel returns focus to the report trigger button.
   - `Yes` and successful report submit move focus to the thank-you acknowledgement.

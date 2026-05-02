@@ -81,8 +81,9 @@ describe("FdPageFeedback", () => {
     expect(styles).toContain("var(--fdic-layout-gutter, 64px)");
     expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
     expect(styles).toContain("var(--fdic-layout-gutter-mobile, 16px)");
-    expect(styles).toContain("grid-template-columns: minmax(0, 1fr) auto");
-    expect(styles).toContain("grid-template-columns: max-content auto");
+    expect(styles).toContain("flex-wrap: wrap");
+    expect(styles).toContain("justify-content: space-between");
+    expect(styles).toContain("grid-template-columns: max-content max-content");
     expect(styles).toContain("overflow-wrap: normal");
     expect(styles).toContain("justify-self: end");
     expect(styles).toContain("font-size: var(--fdic-font-size-body, 1.125rem)");

@@ -125,18 +125,21 @@ export class FdPageFeedback extends LitElement {
     }
 
     .panel--prompt {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
       align-items: center;
+      justify-content: space-between;
       gap: var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px));
     }
 
     .prompt-shell {
       display: grid;
-      grid-template-columns: max-content auto;
+      grid-template-columns: max-content max-content;
       align-items: center;
       gap: var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px));
       min-inline-size: 0;
+      max-inline-size: 100%;
     }
 
     [part="prompt"] {
@@ -253,6 +256,7 @@ export class FdPageFeedback extends LitElement {
       );
       flex-wrap: wrap;
       min-inline-size: 0;
+      flex: 0 1 auto;
       justify-self: end;
     }
 
@@ -302,7 +306,8 @@ export class FdPageFeedback extends LitElement {
       }
 
       .panel--prompt {
-        grid-template-columns: 1fr;
+        align-items: stretch;
+        justify-content: flex-start;
         gap: var(--fdic-spacing-md, 16px);
       }
 
@@ -582,7 +587,7 @@ export class FdPageFeedback extends LitElement {
             @click=${this._onReportOpen}
           >
             <span slot="icon-start" aria-hidden="true">${unsafeSVG(STAR_ICON)}</span>
-            Report a problem with this page
+            Report a problem
           </fd-button>
         </div>
       </div>
