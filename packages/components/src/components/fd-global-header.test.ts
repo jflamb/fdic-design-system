@@ -386,6 +386,16 @@ describe("fd-global-header", () => {
     expect(styles).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
 
+  it("keeps mobile-layout headers on the base header stacking layer", () => {
+    const styles = getStyleText(FdGlobalHeader.styles);
+
+    expect(styles).toContain("z-index: 10");
+    expect(styles).toContain(":host([mobile-layout])");
+    expect(styles).not.toMatch(
+      /:host\(\[mobile-layout\]\)\s*\{[^}]*z-index:\s*0/,
+    );
+  });
+
   it("suppresses transitions and animations across the component for reduced motion", () => {
     const stylesText = getStyleText(FdGlobalHeader.styles);
 

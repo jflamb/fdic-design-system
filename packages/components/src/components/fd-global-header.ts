@@ -1718,7 +1718,6 @@ export class FdGlobalHeader extends LitElement {
     :host([mobile-layout]) {
       position: relative;
       top: auto;
-      z-index: 0;
     }
 
     :host([mobile-layout]) .masthead-row {
