@@ -78,8 +78,11 @@ describe("FdPageFeedback", () => {
     expect(styles).toContain("var(--fdic-layout-stack-gap, var(--fdic-spacing-md, 16px))");
     expect(styles).toContain("var(--fdic-layout-content-gap, var(--fdic-spacing-xl, 24px))");
     expect(styles).toContain("var(--fdic-layout-paragraph-max-width, 720px)");
+    expect(styles).toContain("container-type: inline-size");
     expect(styles).toContain("var(--fdic-layout-gutter, 64px)");
+    expect(styles).toContain("@container (max-width: 1023.999px)");
     expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
+    expect(styles).toContain("@container (max-width: 640px)");
     expect(styles).toContain("var(--fdic-layout-gutter-mobile, 16px)");
     expect(styles).toContain("flex-wrap: wrap");
     expect(styles).toContain("justify-content: space-between");

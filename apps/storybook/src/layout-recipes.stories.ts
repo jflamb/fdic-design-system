@@ -310,3 +310,35 @@ export const DocsOverview: Story = {
     </div>
   `,
 };
+
+DocsOverview.play = async ({ canvasElement }) => {
+  const globalHeader = canvasElement.querySelector("fd-global-header") as HTMLElement | null;
+  const pageHeader = canvasElement.querySelector("fd-page-header") as HTMLElement | null;
+  const contentShell = canvasElement.querySelector(".fdic-page-band__content") as HTMLElement | null;
+  const feedback = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
+  const footer = canvasElement.querySelector("fd-global-footer") as HTMLElement | null;
+  const headerShell = globalHeader?.shadowRoot?.querySelector(".shell") as HTMLElement | null;
+  const pageHeaderContent = pageHeader?.shadowRoot?.querySelector(".content") as HTMLElement | null;
+  const feedbackPanel = feedback?.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+  const footerContent = footer?.shadowRoot?.querySelector(".content") as HTMLElement | null;
+
+  await waitFor(() => {
+    const expectClose = (actual: number | undefined, expected: number | undefined) => {
+      expect(actual).toBeDefined();
+      expect(expected).toBeDefined();
+      expect(Math.abs((actual ?? -1) - (expected ?? -1))).toBeLessThanOrEqual(1);
+    };
+    const shellRect = headerShell?.getBoundingClientRect();
+    const alignedRects = [
+      pageHeaderContent?.getBoundingClientRect(),
+      contentShell?.getBoundingClientRect(),
+      feedbackPanel?.getBoundingClientRect(),
+      footerContent?.getBoundingClientRect(),
+    ];
+
+    for (const rect of alignedRects) {
+      expectClose(rect?.left, shellRect?.left);
+      expectClose(rect?.right, shellRect?.right);
+    }
+  });
+};

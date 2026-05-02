@@ -69,6 +69,7 @@ export class FdPageFeedback extends LitElement {
   static styles = css`
     :host {
       display: block;
+      container-type: inline-size;
       font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--fdic-color-text-primary);
     }
@@ -289,7 +290,7 @@ export class FdPageFeedback extends LitElement {
       outline-color: transparent;
     }
 
-    @media (max-width: 1023.999px) {
+    @container (max-width: 1023.999px) {
       .base {
         padding-inline: var(
           --fd-page-feedback-inline-padding-tablet,
@@ -299,7 +300,7 @@ export class FdPageFeedback extends LitElement {
 
     }
 
-    @media (max-width: 640px) {
+    @container (max-width: 640px) {
       .base {
         padding-block: var(--fd-page-feedback-block-padding-mobile, var(--fdic-spacing-lg, 20px));
         padding-inline: var(--fd-page-feedback-inline-padding-mobile, var(--fdic-layout-gutter-mobile, 16px));

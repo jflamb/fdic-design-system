@@ -39,6 +39,7 @@ export class FdPageHeader extends LitElement {
   static styles = css`
     :host {
       display: block;
+      container-type: inline-size;
       font-family: var(--fdic-font-family-sans-serif, "Source Sans 3", sans-serif);
       color: var(--fd-page-header-text-color, var(--fdic-color-text-inverted));
     }
@@ -214,7 +215,7 @@ export class FdPageHeader extends LitElement {
 
     /* --- Responsive (tablet) --- */
 
-    @media (max-width: 1023.999px) {
+    @container (max-width: 1023.999px) {
       .base {
         padding-inline: var(
           --fd-page-header-padding-inline-tablet,
@@ -225,7 +226,7 @@ export class FdPageHeader extends LitElement {
 
     /* --- Responsive (≤640px) --- */
 
-    @media (max-width: 640px) {
+    @container (max-width: 640px) {
       .base {
         padding-block-start: var(
           --fd-page-header-padding-block-start-mobile,

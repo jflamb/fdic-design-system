@@ -23,6 +23,7 @@ describe("component runtime stylesheet", () => {
   it("includes reusable page layout classes for full-width band recipes", () => {
     expect(runtimeStylesheet).toContain(".fdic-page");
     expect(runtimeStylesheet).toContain("min-block-size: 100svh");
+    expect(runtimeStylesheet).toContain("container-type: inline-size");
     expect(runtimeStylesheet).toContain('.fdic-page[data-page-overflow="true"]');
     expect(runtimeStylesheet).toContain(".fdic-page__main");
     expect(runtimeStylesheet).toContain(".fdic-page__chrome-end");
@@ -32,6 +33,7 @@ describe("component runtime stylesheet", () => {
     expect(runtimeStylesheet).toContain(".fdic-page-band__stack");
     expect(runtimeStylesheet).toContain(".fdic-brand-wordmark");
     expect(runtimeStylesheet).toContain("@media (max-width: 640px)");
+    expect(runtimeStylesheet).toContain("@container (max-width: 640px)");
     expect(runtimeStylesheet).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
 });
