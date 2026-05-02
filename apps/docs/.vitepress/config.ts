@@ -44,6 +44,7 @@ export default defineConfig({
           { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
+          { text: "Patterns", link: "/guide/patterns" },
           { text: "Form Workflows", link: "/guide/form-workflows" },
           {
             text: "Downstream References",
@@ -61,8 +62,10 @@ export default defineConfig({
           { text: "Overview", link: "/guide/foundations/" },
           { text: "Colors", link: "/guide/foundations/colors" },
           { text: "Customization", link: "/guide/foundations/customization" },
+          { text: "Page Shell", link: "/guide/foundations/page-shell" },
           { text: "Typography", link: "/guide/foundations/typography" },
           { text: "Spacing and Layout", link: "/guide/foundations/spacing-layout" },
+          { text: "Composition Patterns", link: "/guide/foundations/composition-patterns" },
           { text: "Surfaces and Effects", link: "/guide/foundations/surfaces-effects" },
           { text: "Modes and Responsiveness", link: "/guide/foundations/modes" },
           { text: "Trust Patterns", link: "/guide/foundations/trust-patterns" }

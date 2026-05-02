@@ -31,7 +31,7 @@ The [Page Shell](./page-shell.md) page is the canonical responsive section-align
 
 The [Spacing and Layout](./spacing-layout.md) page is the canonical spacing and layout token contract. Other public docs should defer to these foundations pages rather than restating layout tokens or implementation details independently.
 
-The [Composition Patterns](./composition-patterns.md) page documents the small stable layout-class surface that CMS consumers can use when tokens alone are not enough.
+The [Patterns](/guide/patterns) guide explains when to use components, composition patterns, and page recipes. The [Composition Patterns](./composition-patterns.md) page documents the small stable layout-class surface that CMS consumers can use when tokens alone are not enough.
 
 ## Deferred from v1
 

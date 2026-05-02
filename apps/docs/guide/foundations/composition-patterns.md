@@ -13,6 +13,13 @@ shared [Page Shell](./page-shell.md) contract by default.
 
 Use them when a page needs stable section and collection composition without introducing a new custom element.
 
+For page-level recipes, hub-page guidance, and the decision boundary between components, patterns, and recipes, start with the [Patterns](/guide/patterns) guide. This page is the lower-level class reference for the stable composition surface.
+
+<StoryEmbed
+  storyId="foundations-composition-patterns--canonical-contract"
+  caption="Composition patterns use semantic authored HTML with stable layout classes. Open the interactive example to inspect the complete page-section composition."
+/>
+
 ## Required semantics
 
 These classes style layout only. They do not add headings, landmarks, lists, or labels for you.
