@@ -383,6 +383,7 @@ describe("fd-global-header", () => {
     expect(styles).toContain("--fdic-layout-content-max-width, 1312px");
     expect(styles).toContain("var(--fdic-layout-gutter, 64px)");
     expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
+    expect(styles).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
 
   it("suppresses transitions and animations across the component for reduced motion", () => {

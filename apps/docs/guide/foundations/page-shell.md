@@ -50,11 +50,11 @@ Default rule:
 
 The shared alignment ranges are:
 
-- **Desktop:** `>= 64rem` (`>= 1024px`)
+- **Desktop:** `>= 1024px`
   - use `--fdic-layout-gutter`
-- **Tablet:** `40rem–63.999rem` (`640px–1023.999px`)
+- **Tablet:** `640.001px–1023.999px`
   - use `--fdic-layout-gutter-tablet`
-- **Mobile:** `< 40rem` (`< 640px`)
+- **Mobile:** `<= 640px`
   - use `--fdic-layout-gutter-mobile`
 
 Components and patterns that participate in page-level alignment should switch
@@ -79,7 +79,7 @@ aligned content rail:
   margin-inline: auto;
 }
 
-@media (min-width: 40.001rem) and (max-width: 63.999rem) {
+@media (min-width: 640.001px) and (max-width: 1023.999px) {
   .section__inner {
     width: min(
       var(--fdic-layout-shell-max-width),
@@ -88,7 +88,7 @@ aligned content rail:
   }
 }
 
-@media (max-width: 39.999rem) {
+@media (max-width: 640px) {
   .section__inner {
     width: calc(100% - 2 * var(--fdic-layout-gutter-mobile));
   }

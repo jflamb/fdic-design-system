@@ -31,5 +31,7 @@ describe("component runtime stylesheet", () => {
     expect(runtimeStylesheet).toContain(".fdic-page-band__content");
     expect(runtimeStylesheet).toContain(".fdic-page-band__stack");
     expect(runtimeStylesheet).toContain(".fdic-brand-wordmark");
+    expect(runtimeStylesheet).toContain("@media (max-width: 640px)");
+    expect(runtimeStylesheet).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
 });

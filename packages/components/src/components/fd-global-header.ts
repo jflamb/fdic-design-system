@@ -1702,7 +1702,17 @@ export class FdGlobalHeader extends LitElement {
        JS sets them from observed component width so the header can adapt
        to container-sized layouts, not only viewport-sized layouts. */
     :host([mobile-layout]) .shell {
-      width: min(100%, calc(100% - 2rem));
+      width: min(
+        var(
+          --fdic-layout-shell-max-width,
+          var(--fdic-layout-content-max-width, 1312px)
+        ),
+        calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px))
+      );
+    }
+
+    :host([compact-mobile-layout]) .shell {
+      width: min(100%, calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px)));
     }
 
     :host([mobile-layout]) {
@@ -1773,7 +1783,13 @@ export class FdGlobalHeader extends LitElement {
        responsive attributes are unavailable or have not run yet. */
     @media (max-width: 768px) {
       .shell {
-        width: min(100%, calc(100% - 2rem));
+        width: min(
+          var(
+            --fdic-layout-shell-max-width,
+            var(--fdic-layout-content-max-width, 1312px)
+          ),
+          calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px))
+        );
       }
 
       .masthead-row {
@@ -1802,6 +1818,10 @@ export class FdGlobalHeader extends LitElement {
       .masthead {
         min-height: auto;
         padding: 1.25rem 0 1rem;
+      }
+
+      .shell {
+        width: min(100%, calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px)));
       }
 
       .masthead-row {
