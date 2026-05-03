@@ -5906,5 +5906,131 @@
       ],
       "after": ""
     }
+  },
+  "fd-sidebar-nav": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "\"\"",
+          "description": "Accessible label for the internal navigation landmark when `labelledby` is not provided."
+        },
+        {
+          "name": "labelledby",
+          "type": "string \\| undefined",
+          "default": "undefined",
+          "description": "ID of an external visible heading that labels the navigation landmark."
+        },
+        {
+          "name": "root",
+          "type": "FdSidebarNavRoot \\| undefined",
+          "default": "undefined",
+          "description": "Optional level-0 web-area link rendered before the item tree."
+        },
+        {
+          "name": "items",
+          "type": "FdSidebarNavItem[]",
+          "default": "[]",
+          "description": "Structured navigation tree. Invalid items without labels or hrefs are omitted."
+        },
+        {
+          "name": "currentHref",
+          "type": "string \\| undefined",
+          "default": "undefined",
+          "description": "Current-page href matcher. Used when `currentId` is not provided."
+        },
+        {
+          "name": "currentId",
+          "type": "string \\| undefined",
+          "default": "undefined",
+          "description": "Current-page item id matcher. Takes precedence over `currentHref`."
+        },
+        {
+          "name": "maxDepth",
+          "type": "1 \\| 2 \\| 3 \\| 4",
+          "default": "4",
+          "description": "Maximum rendered item depth, capped to the Figma-supported four levels."
+        },
+        {
+          "name": "allowExplicitExpanded",
+          "type": "boolean",
+          "default": "false",
+          "description": "Allows item-level `expanded` branches as an opt-in CMS escape hatch."
+        }
+      ],
+      "after": "```ts\ntype FdSidebarNavRoot = {\n  label: string;\n  href: string;\n};\n\ntype FdSidebarNavItem = {\n  id?: string;\n  label: string;\n  href: string;\n  items?: FdSidebarNavItem[];\n  expanded?: boolean;\n};\n```"
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-sidebar-nav-width",
+          "default": "var(--fdic-layout-sidebar-width, 20rem)",
+          "description": "Inline size of the sidebar navigation."
+        },
+        {
+          "name": "--fd-sidebar-nav-item-min-height",
+          "default": "40px",
+          "description": "Minimum block size for each full-row link target."
+        },
+        {
+          "name": "--fd-sidebar-nav-indent-step",
+          "default": "var(--fdic-spacing-md, 16px)",
+          "description": "Indentation step applied per item level."
+        },
+        {
+          "name": "--fd-sidebar-nav-current-indicator-width",
+          "default": "4px",
+          "description": "Width of the current-page indicator stripe."
+        },
+        {
+          "name": "--fd-sidebar-nav-divider-color",
+          "default": "var(--fdic-color-border-divider)",
+          "description": "Divider color between the root link and item tree."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "nav",
+          "description": "Internal navigation landmark."
+        },
+        {
+          "name": "list",
+          "description": "Root and nested unordered lists."
+        },
+        {
+          "name": "sublist",
+          "description": "Nested unordered lists."
+        },
+        {
+          "name": "item",
+          "description": "List item wrapper for each link."
+        },
+        {
+          "name": "link",
+          "description": "Native full-row anchor element."
+        },
+        {
+          "name": "root-link",
+          "description": "Optional level-0 web-area anchor."
+        },
+        {
+          "name": "divider",
+          "description": "Divider rendered after the root link when child items are present."
+        }
+      ],
+      "after": ""
+    }
   }
 }

@@ -242,6 +242,10 @@
       "types": "./dist/components/fd-media-list.d.ts",
       "import": "./dist/components/fd-media-list.js"
     },
+    "./fd-sidebar-nav": {
+      "types": "./dist/components/fd-sidebar-nav.d.ts",
+      "import": "./dist/components/fd-sidebar-nav.js"
+    },
     "./icons/phosphor-duotone": {
       "types": "./dist/icons/phosphor-duotone.d.ts",
       "import": "./dist/icons/phosphor-duotone.js"

@@ -50,6 +50,7 @@ export default defineConfig({
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
           { text: "Patterns", link: "/guide/patterns" },
+          { text: "Content Page Recipes", link: "/guide/content-page-recipes" },
           { text: "Form Workflows", link: "/guide/form-workflows" },
           {
             text: "Downstream References",

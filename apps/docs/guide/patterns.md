@@ -47,7 +47,15 @@ Many examples include a link to an interactive preview so you can inspect respon
   caption="Composition patterns — semantic authored HTML using the stable layout classes from the shared component stylesheet."
 />
 
+<StoryEmbed
+  storyId="patterns-content-page-recipes--news-article-with-sidebar"
+  linkStoryId="patterns-content-page-recipes--news-stories-with-filters"
+  caption="Content page recipes — article, sidebar navigation, filtering, and headline-list structures for content-heavy pages."
+/>
+
 The stable layout-class surface is documented in [Composition Patterns](/guide/foundations/composition-patterns). Use that page when you need the exact class names and semantic requirements.
+
+Use [Content Page Recipes](/guide/content-page-recipes) for long-form article pages, news archive pages, sidebar navigation, filter rows, and dense headline lists.
 
 Use [Form Workflows](/guide/form-workflows) for multi-step or validation-heavy form recipes. Form patterns have stricter rules because they control error prevention, review, recovery, and submission confidence.
 
@@ -62,6 +70,8 @@ Hub pages help people choose where to go next. They are especially easy to make 
 | General Hub | About, Learning, Support, Knowledge Base | Page header, quick links, feature section, grouped links, resource tiles |
 | Topic Hub | Benefits, compensation, policy areas | Page header, quick links, hub feature, two-up text features, related resources |
 | News And Events Hub | News and Events | Featured story, news list, event list, archive links |
+| Content Article | News stories, policy updates, guidance pages | Page header, sidebar nav, prose article, cover image, topics, related stories |
+| Filtered News List | News archives, global messages, divisional updates | Page header, sidebar nav, filter form, headline list, pagination or empty state |
 | Organization Hub | Divisions, offices, regions | Page header, overview, leadership or contact panel, office links, policy/resource groups |
 
 The recipe should own section order, spacing, heading scale, and available block types. Authors should choose content, not invent layout.

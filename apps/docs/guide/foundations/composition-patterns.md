@@ -80,6 +80,20 @@ The following classes are part of the supported stylesheet contract:
 - `.fdic-composition-person__body`
 - `.fdic-composition-dual`
 - `.fdic-composition-dual__panel`
+- `.fdic-content-layout`
+- `.fdic-content-layout__sidebar`
+- `.fdic-content-layout__main`
+- `.fdic-section-nav`
+- `.fdic-content-filter`
+- `.fdic-content-filter__criteria`
+- `.fdic-content-filter__actions`
+- `.fdic-headline-list`
+- `.fdic-headline-list__item`
+- `.fdic-headline-list__title`
+- `.fdic-headline-list__meta`
+- `.fdic-article-media`
+- `.fdic-related-stories`
+- `.fdic-related-story`
 
 These classes are additive CSS patterns, not components. They assume you keep the underlying HTML semantic and accessible.
 
@@ -212,6 +226,40 @@ Use `.fdic-composition-feature-item` when a section heading should stay in the s
 ```
 
 Use a real `<aside>` only when the supporting rail is a top-level complementary landmark. If the rail sits inside another named section, a `section` is usually safer. On narrow screens, the pattern collapses to one column.
+
+## Content layout
+
+Use `.fdic-content-layout` when a content-heavy page needs a section navigation rail beside a readable article or list rail.
+
+This pattern is intentionally page-level. It does not add navigation behavior, filter behavior, or route state. Authors and applications must still provide real landmarks, headings, lists, links, form labels, result counts, and empty states.
+
+Recommended child structure:
+
+- sidebar rail: `.fdic-content-layout__sidebar`
+- main rail: `.fdic-content-layout__main`
+- governed section navigation: `fd-sidebar-nav`
+- legacy or low-level section navigation list: `.fdic-section-nav`
+
+Use `.fdic-content-filter`, `.fdic-headline-list`, `.fdic-article-media`, and `.fdic-related-stories` inside the main rail when the page follows the article or filtered-news recipes.
+
+```html
+<div class="fdic-page-band__content fdic-content-layout">
+  <div class="fdic-content-layout__sidebar">
+    <fd-sidebar-nav label="News section"></fd-sidebar-nav>
+  </div>
+
+  <article class="fdic-content-layout__main prose" aria-label="Article title">
+    <figure class="fdic-article-media">
+      <img src="/story.jpg" alt="FDIC employees at an event" />
+      <figcaption>Caption text.</figcaption>
+    </figure>
+  </article>
+</div>
+```
+
+For governed section navigation, pass `root`, `items`, and current state to `fd-sidebar-nav` so the component owns native nested lists, `aria-current`, and deterministic branch rendering. The `.fdic-section-nav` class is still supported as a bridge for existing recipes and low-level HTML fallbacks, but it should not be the default for repeated site navigation.
+
+For the full page recipes and authoring guardrails, use [Content Page Recipes](/guide/content-page-recipes).
 
 ## Story split
 

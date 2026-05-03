@@ -1171,6 +1171,28 @@ export const componentInventory = [
     },
     typeExports: ["MediaListColumns"]
   },
+  {
+    tagName: "fd-sidebar-nav",
+    className: "FdSidebarNav",
+    sourceFile: "fd-sidebar-nav.ts",
+    docs: {
+      kind: "first-class",
+      title: "Sidebar Nav",
+      slug: "sidebar-nav",
+      category: "actions-navigation",
+      order: 70
+    },
+    storybook: {
+      title: "Components/Sidebar Nav",
+      file: "fd-sidebar-nav.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["FdSidebarNavRoot", "FdSidebarNavItem"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

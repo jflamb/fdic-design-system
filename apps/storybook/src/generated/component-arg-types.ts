@@ -808,6 +808,28 @@ export const componentStoryApi = {
     "labelledby": undefined,
     },
   },
+  "fd-sidebar-nav": {
+    argTypes: {
+    "label": { control: "text" },
+    "labelledby": { control: "text" },
+    "root": { control: "text" },
+    "items": { control: "text" },
+    "currentHref": { control: "text" },
+    "currentId": { control: "text" },
+    "maxDepth": { control: "text" },
+    "allowExplicitExpanded": { control: "boolean" },
+    },
+    args: {
+    "label": "",
+    "labelledby": null,
+    "root": null,
+    "items": "[]",
+    "currentHref": null,
+    "currentId": null,
+    "maxDepth": 4,
+    "allowExplicitExpanded": false,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {
