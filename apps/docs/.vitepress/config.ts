@@ -9,6 +9,11 @@ export default defineConfig({
   title: "FDIC Design System",
   description: "FDIC Design System documentation",
   base,
+  vite: {
+    server: {
+      host: "127.0.0.1",
+    },
+  },
   head: [
     [
       "script",

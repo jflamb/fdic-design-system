@@ -1686,7 +1686,7 @@ export class FdGlobalHeader extends LitElement {
       border: 0;
     }
 
-    @media (min-width: 769px) and (max-width: 1049px) {
+    @media (min-width: 640.001px) and (max-width: 1023.999px) {
       .shell {
         width: min(
           var(
@@ -1709,6 +1709,28 @@ export class FdGlobalHeader extends LitElement {
         ),
         calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px))
       );
+    }
+
+    :host([navigation-overflow-layout]) .shell {
+      width: min(
+        var(
+          --fdic-layout-shell-max-width,
+          var(--fdic-layout-content-max-width, 1312px)
+        ),
+        calc(100% - 2 * var(--fdic-layout-gutter, 64px))
+      );
+    }
+
+    @media (min-width: 640.001px) and (max-width: 1023.999px) {
+      :host([navigation-overflow-layout]) .shell {
+        width: min(
+          var(
+            --fdic-layout-shell-max-width,
+            var(--fdic-layout-content-max-width, 1312px)
+          ),
+          calc(100% - 2 * var(--fdic-layout-gutter-tablet, 32px))
+        );
+      }
     }
 
     :host([compact-mobile-layout]) .shell {
@@ -1781,6 +1803,7 @@ export class FdGlobalHeader extends LitElement {
        They preserve a pure-CSS viewport fallback when ResizeObserver-driven
        responsive attributes are unavailable or have not run yet. */
     @media (max-width: 768px) {
+      :host([navigation-overflow-layout]) .shell,
       .shell {
         width: min(
           var(
@@ -1819,6 +1842,7 @@ export class FdGlobalHeader extends LitElement {
         padding: 1.25rem 0 1rem;
       }
 
+      :host([navigation-overflow-layout]) .shell,
       .shell {
         width: min(100%, calc(100% - 2 * var(--fdic-layout-gutter-mobile, 16px)));
       }
@@ -1979,6 +2003,13 @@ export class FdGlobalHeader extends LitElement {
   private readonly _onWindowScrollBound = () => {
     this._queueShyScrollEvaluation();
   };
+  private readonly _onWindowResizeBound = () => {
+    if (this._resizeObserver) {
+      return;
+    }
+
+    this._queueResponsiveLayoutSync();
+  };
 
   constructor() {
     super();
@@ -2023,6 +2054,7 @@ export class FdGlobalHeader extends LitElement {
       "change",
       this._onReducedMotionChangeBound,
     );
+    window.addEventListener("resize", this._onWindowResizeBound);
     document.addEventListener(
       "pointerdown",
       this._onDocumentPointerDownBound,
@@ -2056,6 +2088,7 @@ export class FdGlobalHeader extends LitElement {
       this._onReducedMotionChangeBound,
     );
     this._reducedMotionMediaQuery = null;
+    window.removeEventListener("resize", this._onWindowResizeBound);
     document.removeEventListener(
       "pointerdown",
       this._onDocumentPointerDownBound,
@@ -2089,6 +2122,13 @@ export class FdGlobalHeader extends LitElement {
     }
 
     this._captureMegaMenuHeight(changed);
+  }
+
+  override firstUpdated(changed: PropertyValues<this>) {
+    super.firstUpdated(changed);
+    window.requestAnimationFrame(() => {
+      this._syncResponsiveState(this.getBoundingClientRect().width);
+    });
   }
 
   override updated(changed: PropertyValues<this>) {
@@ -2186,36 +2226,43 @@ export class FdGlobalHeader extends LitElement {
     this._resizeObserver?.disconnect();
     this._resizeObserver = new ResizeObserver((entries) => {
       const entry = entries.find(({ target }) => target === this);
-      this._pendingObservedWidth =
-        entry?.contentRect.width ?? this.getBoundingClientRect().width;
+      const hostRect = this.getBoundingClientRect();
+      this._pendingObservedWidth = Math.max(
+        entry?.contentRect.width ?? 0,
+        hostRect.width,
+      );
       this._pendingObservedHeight =
-        entry?.contentRect.height ?? this.getBoundingClientRect().height;
-      if (this._resizeObserverFrame !== null) {
-        return;
-      }
-
-      this._resizeObserverFrame = window.setTimeout(() => {
-        this._resizeObserverFrame = null;
-        if (this._pendingObservedHeight) {
-          this._lastObservedHeight = this._pendingObservedHeight;
-        }
-        this._syncResponsiveState(this._pendingObservedWidth ?? undefined);
-        this._checkNavOverflow();
-        // Only update the shy height when showing the full (non-compact)
-        // header so it reflects the true full-size height.
-        if (this.shy && !this._shyHidden) {
-          this._syncShyHeight();
-        }
-        this._pendingObservedWidth = null;
-        this._pendingObservedHeight = null;
-        this.updateComplete.then(() => {
-          this._syncColumnRails();
-          this._syncTopNavIndicator();
-          this._syncDesktopOverlayOffset();
-        });
-      });
+        entry?.contentRect.height ?? hostRect.height;
+      this._queueResponsiveLayoutSync();
     });
     this._resizeObserver.observe(this);
+  }
+
+  private _queueResponsiveLayoutSync() {
+    if (this._resizeObserverFrame !== null) {
+      return;
+    }
+
+    this._resizeObserverFrame = window.setTimeout(() => {
+      this._resizeObserverFrame = null;
+      if (this._pendingObservedHeight) {
+        this._lastObservedHeight = this._pendingObservedHeight;
+      }
+      this._syncResponsiveState(this._pendingObservedWidth ?? undefined);
+      this._checkNavOverflow();
+      // Only update the shy height when showing the full (non-compact)
+      // header so it reflects the true full-size height.
+      if (this.shy && !this._shyHidden) {
+        this._syncShyHeight();
+      }
+      this._pendingObservedWidth = null;
+      this._pendingObservedHeight = null;
+      this.updateComplete.then(() => {
+        this._syncColumnRails();
+        this._syncTopNavIndicator();
+        this._syncDesktopOverlayOffset();
+      });
+    });
   }
 
   private _prefersReducedMotion() {
@@ -2618,8 +2665,10 @@ export class FdGlobalHeader extends LitElement {
     measuredWidth?: number,
     mediaMatches = this._mobileMediaQuery?.matches || false,
   ) {
-    if (typeof measuredWidth === "number" && measuredWidth > 0) {
-      this._lastMeasuredWidth = measuredWidth;
+    const hostWidth = this.getBoundingClientRect().width;
+    const observedWidth = Math.max(measuredWidth ?? 0, hostWidth);
+    if (observedWidth > 0) {
+      this._lastMeasuredWidth = observedWidth;
     }
 
     const fallbackWidth = mediaMatches
@@ -2634,6 +2683,7 @@ export class FdGlobalHeader extends LitElement {
     this._isMobile = isMobile;
     this.toggleAttribute("mobile-layout", isMobile);
     this.toggleAttribute("compact-mobile-layout", isCompactMobile);
+    this.toggleAttribute("navigation-overflow-layout", false);
     if (isMobile) {
       this._menuOpen = false;
       this._compactDesktopMenuVisible = false;
@@ -2667,6 +2717,7 @@ export class FdGlobalHeader extends LitElement {
     if (this._isTopNavOverflowing()) {
       this._isMobile = true;
       this.toggleAttribute("mobile-layout", true);
+      this.toggleAttribute("navigation-overflow-layout", true);
       this._menuOpen = false;
       this._compactDesktopMenuVisible = false;
       this._compactDesktopSearchExpanded = false;
