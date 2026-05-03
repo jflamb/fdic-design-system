@@ -66,7 +66,7 @@ Icons provide visual cues that reinforce meaning, improve scannability, and supp
 
 - **Size**: Set the `--fd-icon-size` CSS custom property on the element or an ancestor. The default is `18px`.
 - **Color**: Icons inherit `currentColor` by default. Set `color` on the element or let it inherit from the parent.
-- **Custom icons**: Register additional icons with `FdIcon.register({ name: svgString })` or `FdIcon.register("name", svgString)`. Registered icons are available globally.
+- **Custom icons**: Register additional simple SVG icons with `FdIcon.register({ name: svgString })` or `FdIcon.register("name", svgString)`. Registered icons are available globally. The registry keeps only basic SVG glyph elements and presentation attributes; complex features such as external images, embedded documents, animation, filters, gradients, masks, symbols, scripts, event handlers, and URL references are removed.
 
 ## Related components
 

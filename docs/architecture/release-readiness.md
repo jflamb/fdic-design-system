@@ -51,3 +51,7 @@ This runs the full chain: package surfaces, component sync, component tests, Sto
 ## CI integration
 
 The `validate:release` script is intentionally not required for every PR. It is available for release branches and audit checkpoints. Teams can add it to a dedicated CI lane when release cadence warrants it.
+
+## Release-maintenance watchlist
+
+- Track VitePress, Vite, and esbuild security advisories reported by `npm audit` in the docs workspace. The current advisories are dev-time only: docs and dev-server helpers bind to `127.0.0.1`, and `npm audit --omit=dev` is clean. Upgrade VitePress or Vite once a compatible fixed release is available.
