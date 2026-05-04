@@ -35,15 +35,17 @@ async function nextFrame() {
   await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
 
-async function waitForExpectation(expectation: () => void, attempts = 10) {
+async function waitForExpectation(expectation: () => void, timeoutMs = 500) {
+  const startedAt = Date.now();
   let lastError: unknown;
 
-  for (let attempt = 0; attempt < attempts; attempt += 1) {
+  while (Date.now() - startedAt <= timeoutMs) {
     try {
       expectation();
       return;
     } catch (error) {
       lastError = error;
+      await new Promise<void>((resolve) => window.setTimeout(resolve, 25));
       await nextFrame();
     }
   }
@@ -364,12 +366,7 @@ describe("fd-header-search", () => {
       input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     }
 
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
-    await el.updateComplete;
-
-    expect(
-      (el.shadowRoot?.querySelector(".panel") as HTMLElement | null)?.hidden,
-    ).toBe(false);
+    await waitForSearchResult(el, "#fdicnews");
   });
 
   it("keeps the desktop panel open with a search-all fallback when no menu item matches", async () => {
@@ -384,10 +381,11 @@ describe("fd-header-search", () => {
       input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     }
 
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
-    await el.updateComplete;
+    await waitForExpectation(() => {
+      const panel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
+      expect(panel?.hidden).toBe(false);
+    });
 
-    const panel = el.shadowRoot?.querySelector(".panel") as HTMLElement | null;
     const directResults = el.shadowRoot?.querySelectorAll(
       ".results .result-link",
     );
@@ -396,7 +394,6 @@ describe("fd-header-search", () => {
     ) as HTMLAnchorElement | null;
     const status = el.shadowRoot?.querySelector(".status") as HTMLElement | null;
 
-    expect(panel?.hidden).toBe(false);
     expect(directResults).toHaveLength(0);
     expect(fallback?.textContent).toContain("Search all");
     expect(fallback?.textContent).toContain("ocom");
