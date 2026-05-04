@@ -175,7 +175,10 @@ describe("FdEventList", () => {
     expect(styles).toContain("var(--fd-event-list-col-3-gap, var(--fdic-layout-col-3-gap, 48px))");
     expect(styles).toContain("var(--fd-event-list-col-4-gap-mobile, var(--fdic-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
-    expect(styles).toContain("1fr");
+    expect(styles).toContain("display: flex;");
+    expect(styles).toContain("flex-wrap: wrap;");
+    expect(styles).toContain("flex-basis: var(--_fd-event-list-track-min)");
+    expect(styles).toContain("max-inline-size: var(--_fd-event-list-track-max)");
   });
 
   it("omits aria-label when the label is blank", async () => {

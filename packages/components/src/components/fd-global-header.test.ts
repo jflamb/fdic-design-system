@@ -152,6 +152,26 @@ async function wait(ms = 0) {
   await new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 }
 
+async function waitForCondition(assertion: () => void, timeoutMs = 500) {
+  const startedAt = Date.now();
+  let lastError: unknown;
+
+  while (Date.now() - startedAt <= timeoutMs) {
+    try {
+      assertion();
+      return;
+    } catch (error) {
+      lastError = error;
+      await wait(20);
+      await nextFrame();
+    }
+  }
+
+  if (lastError) {
+    throw lastError;
+  }
+}
+
 function setWindowScrollY(scrollY: number) {
   Object.defineProperty(window, "scrollY", {
     configurable: true,
@@ -1384,12 +1404,10 @@ describe("fd-global-header", () => {
     expect(newsTrigger?.getAttribute("aria-expanded")).toBe("true");
     expect(careerTrigger?.getAttribute("aria-expanded")).toBe("false");
 
-    await wait(60);
-    await el.updateComplete;
-    await nextFrame();
-
-    expect(newsTrigger?.getAttribute("aria-expanded")).toBe("false");
-    expect(careerTrigger?.getAttribute("aria-expanded")).toBe("true");
+    await waitForCondition(() => {
+      expect(newsTrigger?.getAttribute("aria-expanded")).toBe("false");
+      expect(careerTrigger?.getAttribute("aria-expanded")).toBe("true");
+    });
   });
 
   it("cancels hover intent when the pointer leaves a top-nav trigger before the delay completes", async () => {
