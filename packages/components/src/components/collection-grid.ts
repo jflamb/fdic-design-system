@@ -14,14 +14,6 @@ const FIGMA_NARROW_THRESHOLD_PX: Record<CollectionColumns, number> = {
   "3": 1176,
   "4": 1168,
 };
-const COLLECTION_COL_2_COLLAPSE_MAX_WIDTH_PX = FIGMA_NARROW_THRESHOLD_PX["2"] - 1;
-const COLLECTION_COL_3_COLLAPSE_MAX_WIDTH_PX = FIGMA_NARROW_THRESHOLD_PX["3"] - 1;
-const COLLECTION_COL_4_COLLAPSE_MAX_WIDTH_PX = FIGMA_NARROW_THRESHOLD_PX["4"] - 1;
-const COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX: Record<CollectionColumns, number> = {
-  "2": COLLECTION_COL_2_COLLAPSE_MAX_WIDTH_PX,
-  "3": COLLECTION_COL_3_COLLAPSE_MAX_WIDTH_PX,
-  "4": COLLECTION_COL_4_COLLAPSE_MAX_WIDTH_PX,
-};
 
 function trackMinToken(prefix: string, columns: CollectionColumns, narrow: boolean) {
   const componentSuffix = narrow ? `col-${columns}-min-mobile` : `col-${columns}-min`;
@@ -42,7 +34,7 @@ function trackRowGapToken(prefix: string, columns: CollectionColumns, narrow: bo
 
 function trackMaxValue(prefix: string, columns: CollectionColumns, narrow: boolean) {
   if (narrow && isUnboundedTrackValue(FIGMA_NARROW_MAX_PX[columns])) {
-    return unsafeCSS("1fr");
+    return unsafeCSS("none");
   }
 
   const componentSuffix = narrow ? `col-${columns}-max-mobile` : `col-${columns}-max`;
@@ -58,6 +50,20 @@ function defaultSelector(narrow: boolean) {
   return narrow
     ? ":host(:not([columns])), :host([columns=\"3\"])"
     : ":host(:not([columns])), :host([columns=\"3\"])";
+}
+
+function baseSelector(selectorList: string) {
+  return selectorList
+    .split(",")
+    .map((item) => `${item.trim()} [part="base"]`)
+    .join(", ");
+}
+
+function childSelector(selectorList: string) {
+  return selectorList
+    .split(",")
+    .map((item) => `${item.trim()} ::slotted(*)`)
+    .join(", ");
 }
 
 export function collectionGridStyles(prefix: string) {
@@ -95,12 +101,8 @@ export function collectionGridStyles(prefix: string) {
     }
 
     [part="base"] {
-      display: grid;
-      grid-auto-flow: row;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(var(${internalMin}), var(${internalMax}))
-      );
+      display: flex;
+      flex-wrap: wrap;
       column-gap: var(${internalColumnGap});
       row-gap: var(${internalRowGap});
       align-items: start;
@@ -109,39 +111,76 @@ export function collectionGridStyles(prefix: string) {
       box-sizing: border-box;
     }
 
+    slot {
+      display: contents;
+    }
+
+    ::slotted(*) {
+      flex: 1 1 auto;
+      min-inline-size: 0;
+      box-sizing: border-box;
+    }
+
+    ${unsafeCSS(childSelector(defaultSelector(false)))} {
+      flex-basis: var(${internalMin});
+      max-inline-size: var(${internalMax});
+    }
+
+    ${unsafeCSS(childSelector(selector("2", false)))} {
+      flex-basis: var(${internalMin});
+      max-inline-size: var(${internalMax});
+    }
+
+    ${unsafeCSS(childSelector(selector("4", false)))} {
+      flex-basis: var(${internalMin});
+      max-inline-size: var(${internalMax});
+    }
+
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["3"] - 1}px`)}) {
-      ${unsafeCSS(defaultSelector(true))} [part="base"] {
+      ${unsafeCSS(baseSelector(defaultSelector(true)))} {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "3", true)});
         ${internalMax}: ${trackMaxValue(prefix, "3", true)};
         ${internalColumnGap}: ${trackGapToken(prefix, "3", true)};
         ${internalRowGap}: ${trackRowGapToken(prefix, "3", true)};
       }
+
+      ${unsafeCSS(childSelector(defaultSelector(true)))} {
+        flex-basis: min(100%, ${trackMinToken(prefix, "3", true)});
+        max-inline-size: ${trackMaxValue(prefix, "3", true)};
+      }
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["2"] - 1}px`)}) {
-      ${unsafeCSS(selector("2", true))} [part="base"] {
+      ${unsafeCSS(baseSelector(selector("2", true)))} {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "2", true)});
         ${internalMax}: ${trackMaxValue(prefix, "2", true)};
         ${internalColumnGap}: ${trackGapToken(prefix, "2", true)};
         ${internalRowGap}: ${trackRowGapToken(prefix, "2", true)};
       }
+
+      ${unsafeCSS(childSelector(selector("2", true)))} {
+        flex-basis: min(100%, ${trackMinToken(prefix, "2", true)});
+        max-inline-size: ${trackMaxValue(prefix, "2", true)};
+      }
     }
 
     @container (max-width: ${unsafeCSS(`${FIGMA_NARROW_THRESHOLD_PX["4"] - 1}px`)}) {
-      ${unsafeCSS(selector("4", true))} [part="base"] {
+      ${unsafeCSS(baseSelector(selector("4", true)))} {
         ${internalMin}: min(100%, ${trackMinToken(prefix, "4", true)});
         ${internalMax}: ${trackMaxValue(prefix, "4", true)};
         ${internalColumnGap}: ${trackGapToken(prefix, "4", true)};
         ${internalRowGap}: ${trackRowGapToken(prefix, "4", true)};
+      }
+
+      ${unsafeCSS(childSelector(selector("4", true)))} {
+        flex-basis: min(100%, ${trackMinToken(prefix, "4", true)});
+        max-inline-size: ${trackMaxValue(prefix, "4", true)};
       }
     }
   `;
 }
 
 export function collectionGridLayoutStyles(prefix: string, childSelector: string) {
-  const trackMin = unsafeCSS(`--_${prefix}-track-min`);
-  const trackMax = unsafeCSS(`--_${prefix}-track-max`);
-
   return css`
     :host {
       display: block;
@@ -174,53 +213,9 @@ export function collectionGridLayoutStyles(prefix: string, childSelector: string
       display: none;
     }
 
-    slot {
-      display: contents;
-    }
-
-    :host([columns="2"]) [part="base"] {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    :host([columns="3"]) [part="base"] {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    :host([columns="4"]) [part="base"] {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    @container (max-width: ${unsafeCSS(`${COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX["2"]}px`)}) {
-      :host([columns="2"]) [part="base"] {
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(var(${trackMin}), var(${trackMax}))
-        );
-      }
-    }
-
-    @container (max-width: ${unsafeCSS(`${COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX["3"]}px`)}) {
-      :host([columns="3"]) [part="base"] {
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(var(${trackMin}), var(${trackMax}))
-        );
-      }
-    }
-
-    @container (max-width: ${unsafeCSS(`${COLLECTION_COLUMN_COLLAPSE_MAX_WIDTH_PX["4"]}px`)}) {
-      :host([columns="4"]) [part="base"] {
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(var(${trackMin}), var(${trackMax}))
-        );
-      }
-    }
-
     ::slotted(${unsafeCSS(childSelector)}) {
       inline-size: 100%;
       min-inline-size: 0;
-      max-inline-size: 100%;
     }
   `;
 }

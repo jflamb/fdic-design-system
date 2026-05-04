@@ -137,7 +137,7 @@ const renderEvents = () => html`
   </fd-event-list>
 `;
 
-const renderRecipe = () => html`
+export const renderRecipe = () => html`
   <div class="fdic-page" style="--fdic-layout-shell-max-width: 1312px;">
     <fd-global-header
       .navigation=${GLOBAL_HEADER_SOURCE.items}
@@ -293,6 +293,20 @@ SectionBands.play = async ({ canvasElement }) => {
     expectClose(promptRect?.left, shellLeft);
     expect((promptRect?.top ?? 0) - (baseRect?.top ?? 0)).toBeGreaterThan(16);
   });
+
+  tileList.style.inlineSize = "1000px";
+  await waitFor(() => {
+    const constrainedTileRects = Array.from(
+      canvasElement.querySelectorAll<HTMLElement>("fd-tile"),
+    ).map((tile) => tile.getBoundingClientRect());
+    const firstTileTop = constrainedTileRects[0]?.top;
+    const constrainedFirstRow = constrainedTileRects.filter(
+      (rect) => Math.abs(rect.top - (firstTileTop ?? -1)) <= 1,
+    );
+
+    expect(constrainedFirstRow).toHaveLength(2);
+  });
+  tileList.style.inlineSize = "";
 };
 
 export const DocsOverview: Story = {

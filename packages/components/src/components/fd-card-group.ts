@@ -66,7 +66,6 @@ export class FdCardGroup extends LitElement {
     ::slotted(*) {
       inline-size: 100%;
       min-inline-size: 0;
-      max-inline-size: 100%;
     }
   `,
   ];

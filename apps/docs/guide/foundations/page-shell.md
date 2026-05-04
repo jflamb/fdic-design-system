@@ -52,7 +52,7 @@ The shared alignment ranges are:
 
 - **Desktop:** `>= 1024px`
   - use `--fdic-layout-gutter`
-- **Tablet:** `640.001px–1023.999px`
+- **Tablet:** `> 640px` and `< 1024px`
   - use `--fdic-layout-gutter-tablet`
 - **Mobile:** `<= 640px`
   - use `--fdic-layout-gutter-mobile`

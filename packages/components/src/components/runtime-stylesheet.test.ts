@@ -36,4 +36,17 @@ describe("component runtime stylesheet", () => {
     expect(runtimeStylesheet).toContain("@container (max-width: 640px)");
     expect(runtimeStylesheet).toContain("var(--fdic-layout-gutter-mobile, 16px)");
   });
+
+  it("includes reusable content-page classes for article and filtered-list recipes", () => {
+    expect(runtimeStylesheet).toContain(".fdic-content-layout");
+    expect(runtimeStylesheet).toContain("var(--fdic-content-layout-sidebar-width, var(--fdic-layout-sidebar-width, 18rem))");
+    expect(runtimeStylesheet).toContain(".fdic-section-nav");
+    expect(runtimeStylesheet).toContain('.fdic-section-nav [aria-current="page"]::before');
+    expect(runtimeStylesheet).toContain(".fdic-content-filter");
+    expect(runtimeStylesheet).toContain(".fdic-content-filter__criteria");
+    expect(runtimeStylesheet).toContain(".fdic-headline-list");
+    expect(runtimeStylesheet).toContain(".fdic-article-media");
+    expect(runtimeStylesheet).toContain("aspect-ratio: 16 / 9");
+    expect(runtimeStylesheet).toContain(".fdic-related-stories");
+  });
 });

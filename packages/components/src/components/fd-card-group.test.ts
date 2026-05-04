@@ -99,7 +99,10 @@ describe("FdCardGroup", () => {
     expect(styles).toContain("var(--fd-card-group-col-4-max-mobile, var(--fdic-layout-col-4-max-narrow))");
     expect(styles).toContain("var(--fd-card-group-col-4-gap-mobile, var(--fdic-layout-col-4-gap-narrow))");
     expect(styles).toContain("@container (max-width: 815px)");
-    expect(styles).toContain("1fr");
+    expect(styles).toContain("display: flex;");
+    expect(styles).toContain("flex-wrap: wrap;");
+    expect(styles).toContain("flex-basis: var(--_fd-card-group-track-min)");
+    expect(styles).toContain("max-inline-size: var(--_fd-card-group-track-max)");
   });
 
   it.each([
