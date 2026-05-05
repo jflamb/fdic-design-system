@@ -20,6 +20,12 @@ Sidebar Nav renders local section navigation as a labeled native navigation land
 - **Do not use it as a menu or tree control** — Sidebar Nav is site navigation, not an application command menu.
 - **Do not use it to hide weak IA** — if the tree is too deep or long to scan, fix the information architecture first.
 
+## Choose Nav or Menu
+
+Use Sidebar Nav when the current page should determine which branch is visible. It renders a predictable route-driven view of the section and omits unrelated descendants from the DOM.
+
+Use [Sidebar Menu](/components/sidebar-menu) when people need to explore sibling branches without leaving the page. Sidebar Menu keeps the same local navigation treatment, but adds separate caret buttons for expanding and collapsing child branches.
+
 ## Examples
 
 <StoryEmbed
@@ -186,6 +192,7 @@ type FdSidebarNavItem = {
 
 ## Related components
 
+- [Sidebar Menu](/components/sidebar-menu) — use when local navigation needs user-controlled expandable branches.
 - [Global Header](/components/global-header) — use for global site navigation.
 - [Pagination](/components/pagination) — use for bounded result-page navigation.
 - [Link](/components/link) — use for standalone inline or standalone navigation links.

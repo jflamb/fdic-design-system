@@ -56,16 +56,18 @@ The default layout uses a 320-ish sidebar rail and a readable content rail. At t
 
 ## Sidebar navigation
 
-Use [Sidebar Nav](/components/sidebar-nav) for governed, repeated section navigation:
+Use [Sidebar Nav](/components/sidebar-nav) or [Sidebar Menu](/components/sidebar-menu) for governed, repeated section navigation:
 
 - Pass structured `root` and `items` data so the component can render native lists and links consistently.
 - Pass `currentHref` or `currentId` from the current route. Do not mark multiple item objects as current.
 - Use the optional `root` for the web-area link shown above the divider.
 - Keep indentation shallow. The component supports four levels, but deeper trees usually need IA review.
+- Use Sidebar Nav when the route should determine the visible branch and unrelated descendants should be omitted.
+- Use Sidebar Menu when people need to expand and collapse sibling branches without leaving the page.
 - Do not use sidebar navigation for article table-of-contents links. Use the Prose table-of-contents pattern for in-page navigation.
 - Do not wrap the sidebar in `aside` when it sits inside `main`; the labeled `nav` is the meaningful landmark.
 
-The `.fdic-section-nav` class remains available as a legacy recipe bridge or low-level fallback when a page cannot use the Web Component yet. New governed section navigation should prefer `fd-sidebar-nav`.
+The `.fdic-section-nav` class remains available as a legacy recipe bridge or low-level fallback when a page cannot use the Web Component yet. New governed section navigation should prefer `fd-sidebar-nav` or `fd-sidebar-menu`, depending on whether the section needs user-controlled branch expansion.
 
 ## Article pages
 

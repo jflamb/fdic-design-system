@@ -237,7 +237,8 @@ Recommended child structure:
 
 - sidebar rail: `.fdic-content-layout__sidebar`
 - main rail: `.fdic-content-layout__main`
-- governed section navigation: `fd-sidebar-nav`
+- governed route-driven section navigation: `fd-sidebar-nav`
+- governed expandable section navigation: `fd-sidebar-menu`
 - legacy or low-level section navigation list: `.fdic-section-nav`
 
 Use `.fdic-content-filter`, `.fdic-headline-list`, `.fdic-article-media`, and `.fdic-related-stories` inside the main rail when the page follows the article or filtered-news recipes.
@@ -257,7 +258,7 @@ Use `.fdic-content-filter`, `.fdic-headline-list`, `.fdic-article-media`, and `.
 </div>
 ```
 
-For governed section navigation, pass `root`, `items`, and current state to `fd-sidebar-nav` so the component owns native nested lists, `aria-current`, and deterministic branch rendering. The `.fdic-section-nav` class is still supported as a bridge for existing recipes and low-level HTML fallbacks, but it should not be the default for repeated site navigation.
+For governed section navigation, pass `root`, `items`, and current state to `fd-sidebar-nav` or `fd-sidebar-menu` so the component owns native nested lists and `aria-current`. Use `fd-sidebar-nav` when the route should determine the visible branch. Use `fd-sidebar-menu` when people need to expand and collapse sibling branches without leaving the page. The `.fdic-section-nav` class is still supported as a bridge for existing recipes and low-level HTML fallbacks, but it should not be the default for repeated site navigation.
 
 For the full page recipes and authoring guardrails, use [Content Page Recipes](/guide/content-page-recipes).
 

@@ -20,6 +20,12 @@ Sidebar Menu renders local section navigation with native links and separate car
 - **Do not use it as an application command menu** — Sidebar Menu is still page navigation, not a toolbar, menu bar, or command list.
 - **Do not use it to hide weak IA** — if the tree is too deep or hard to name clearly, fix the information architecture first.
 
+## Choose Nav or Menu
+
+Use Sidebar Menu when people need to explore sibling branches without leaving the page. It keeps links native and adds separate caret buttons for expanding and collapsing child branches.
+
+Use [Sidebar Nav](/components/sidebar-nav) when the current page should determine which branch is visible. Sidebar Nav renders a predictable route-driven view of the section and omits unrelated descendants from the DOM instead of giving users disclosure controls.
+
 ## Examples
 
 <StoryEmbed
