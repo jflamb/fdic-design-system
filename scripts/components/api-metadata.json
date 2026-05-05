@@ -6032,5 +6032,148 @@
       ],
       "after": ""
     }
+  },
+  "fd-sidebar-menu": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "\"\"",
+          "description": "Accessible label for the internal navigation landmark when `labelledby` is not provided."
+        },
+        {
+          "name": "labelledby",
+          "type": "string \\| undefined",
+          "default": "undefined",
+          "description": "ID of an external visible heading that labels the navigation landmark."
+        },
+        {
+          "name": "root",
+          "type": "FdSidebarMenuRoot \\| undefined",
+          "default": "undefined",
+          "description": "Optional level-0 web-area link rendered before the item tree."
+        },
+        {
+          "name": "items",
+          "type": "FdSidebarMenuItem[]",
+          "default": "[]",
+          "description": "Structured navigation tree. Invalid items without labels or hrefs are omitted."
+        },
+        {
+          "name": "currentHref",
+          "type": "string \\| undefined",
+          "default": "undefined",
+          "description": "Current-page href matcher. Used when `currentId` is not provided."
+        },
+        {
+          "name": "currentId",
+          "type": "string \\| undefined",
+          "default": "undefined",
+          "description": "Current-page item id matcher. Takes precedence over `currentHref`."
+        },
+        {
+          "name": "maxDepth",
+          "type": "1 \\| 2 \\| 3 \\| 4",
+          "default": "4",
+          "description": "Maximum rendered item depth, capped to the Sidebar Nav four-level indentation model."
+        }
+      ],
+      "after": "```ts\ntype FdSidebarMenuRoot = {\n  label: string;\n  href: string;\n};\n\ntype FdSidebarMenuItem = {\n  id?: string;\n  label: string;\n  href: string;\n  items?: FdSidebarMenuItem[];\n  expanded?: boolean;\n};\n```"
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-sidebar-menu-width",
+          "default": "var(--fd-sidebar-nav-width, var(--fdic-layout-sidebar-width, 20rem))",
+          "description": "Inline size of the sidebar menu."
+        },
+        {
+          "name": "--fd-sidebar-menu-item-min-height",
+          "default": "var(--fd-sidebar-nav-item-min-height, 40px)",
+          "description": "Minimum block size for each link and toggle row."
+        },
+        {
+          "name": "--fd-sidebar-menu-indent-step",
+          "default": "var(--fd-sidebar-nav-indent-step, var(--fdic-spacing-md, 16px))",
+          "description": "Indentation step applied per item level."
+        },
+        {
+          "name": "--fd-sidebar-menu-toggle-size",
+          "default": "var(--fd-sidebar-nav-item-min-height, 40px)",
+          "description": "Inline and minimum block size for each caret button."
+        },
+        {
+          "name": "--fd-sidebar-menu-caret-size",
+          "default": "1em",
+          "description": "Rendered size of the caret icon."
+        },
+        {
+          "name": "--fd-sidebar-menu-transition-duration",
+          "default": "160ms",
+          "description": "Duration for branch reveal/collapse and caret rotation."
+        },
+        {
+          "name": "--fd-sidebar-menu-current-indicator-width",
+          "default": "var(--fd-sidebar-nav-current-indicator-width, 4px)",
+          "description": "Width of the current-page indicator stripe."
+        },
+        {
+          "name": "--fd-sidebar-menu-divider-color",
+          "default": "var(--fd-sidebar-nav-divider-color, var(--fdic-color-border-divider))",
+          "description": "Divider color between the root link and item tree."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "nav",
+          "description": "Internal navigation landmark."
+        },
+        {
+          "name": "list",
+          "description": "Root and nested unordered lists."
+        },
+        {
+          "name": "sublist",
+          "description": "Nested unordered lists."
+        },
+        {
+          "name": "item",
+          "description": "List item wrapper for each link row."
+        },
+        {
+          "name": "row",
+          "description": "Grid row that holds the link and optional caret button."
+        },
+        {
+          "name": "link",
+          "description": "Native anchor element for a navigation destination."
+        },
+        {
+          "name": "root-link",
+          "description": "Optional level-0 web-area anchor."
+        },
+        {
+          "name": "toggle",
+          "description": "Caret button used to expand or collapse a child branch."
+        },
+        {
+          "name": "divider",
+          "description": "Divider rendered after the root link when child items are present."
+        }
+      ],
+      "after": ""
+    }
   }
 }

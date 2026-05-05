@@ -1193,6 +1193,28 @@ export const componentInventory = [
     },
     typeExports: ["FdSidebarNavRoot", "FdSidebarNavItem"]
   },
+  {
+    tagName: "fd-sidebar-menu",
+    className: "FdSidebarMenu",
+    sourceFile: "fd-sidebar-menu.ts",
+    docs: {
+      kind: "first-class",
+      title: "Sidebar Menu",
+      slug: "sidebar-menu",
+      category: "actions-navigation",
+      order: 75
+    },
+    storybook: {
+      title: "Components/Sidebar Menu",
+      file: "fd-sidebar-menu.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon"]
+    },
+    typeExports: ["FdSidebarMenuRoot", "FdSidebarMenuItem"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

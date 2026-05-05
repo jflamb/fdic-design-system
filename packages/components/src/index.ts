@@ -54,6 +54,7 @@ export { FdSocialMediaList } from "./components/fd-social-media-list.js";
 export { FdMediaItem } from "./components/fd-media-item.js";
 export { FdMediaList } from "./components/fd-media-list.js";
 export { FdSidebarNav } from "./components/fd-sidebar-nav.js";
+export { FdSidebarMenu } from "./components/fd-sidebar-menu.js";
 
 // --- Public types ---
 export type { ButtonVariant } from "./components/fd-button.js";
@@ -89,6 +90,7 @@ export type { SocialMediaPlatform } from "./components/fd-social-media-item.js";
 export type { SocialMediaListColumns } from "./components/fd-social-media-list.js";
 export type { MediaListColumns } from "./components/fd-media-list.js";
 export type { FdSidebarNavRoot, FdSidebarNavItem } from "./components/fd-sidebar-nav.js";
+export type { FdSidebarMenuRoot, FdSidebarMenuItem } from "./components/fd-sidebar-menu.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

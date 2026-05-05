@@ -79,3 +79,5 @@ export { FdMediaList } from "./generated/fd-media-list.js";
 export type { FdMediaListProps } from "./generated/fd-media-list.js";
 export { FdSidebarNav } from "./generated/fd-sidebar-nav.js";
 export type { FdSidebarNavProps } from "./generated/fd-sidebar-nav.js";
+export { FdSidebarMenu } from "./generated/fd-sidebar-menu.js";
+export type { FdSidebarMenuProps } from "./generated/fd-sidebar-menu.js";

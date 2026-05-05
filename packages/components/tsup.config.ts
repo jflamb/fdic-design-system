@@ -64,6 +64,7 @@ export default defineConfig({
     "components/fd-media-item": "src/components/fd-media-item.ts",
     "components/fd-media-list": "src/components/fd-media-list.ts",
     "components/fd-sidebar-nav": "src/components/fd-sidebar-nav.ts",
+    "components/fd-sidebar-menu": "src/components/fd-sidebar-menu.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -116,6 +117,7 @@ export default defineConfig({
     "register/fd-media-item": "src/register/fd-media-item.ts",
     "register/fd-media-list": "src/register/fd-media-list.ts",
     "register/fd-sidebar-nav": "src/register/fd-sidebar-nav.ts",
+    "register/fd-sidebar-menu": "src/register/fd-sidebar-menu.ts",
 
     // Icon packs
     "icons/phosphor-duotone": "src/icons/phosphor-duotone.ts",
