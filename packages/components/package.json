@@ -250,6 +250,14 @@
       "types": "./dist/components/fd-sidebar-menu.d.ts",
       "import": "./dist/components/fd-sidebar-menu.js"
     },
+    "./fd-org-outline": {
+      "types": "./dist/components/fd-org-outline.d.ts",
+      "import": "./dist/components/fd-org-outline.js"
+    },
+    "./fd-org-details": {
+      "types": "./dist/components/fd-org-details.d.ts",
+      "import": "./dist/components/fd-org-details.js"
+    },
     "./icons/phosphor-duotone": {
       "types": "./dist/icons/phosphor-duotone.d.ts",
       "import": "./dist/icons/phosphor-duotone.js"

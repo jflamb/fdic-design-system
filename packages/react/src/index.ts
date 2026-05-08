@@ -81,3 +81,7 @@ export { FdSidebarNav } from "./generated/fd-sidebar-nav.js";
 export type { FdSidebarNavProps } from "./generated/fd-sidebar-nav.js";
 export { FdSidebarMenu } from "./generated/fd-sidebar-menu.js";
 export type { FdSidebarMenuProps } from "./generated/fd-sidebar-menu.js";
+export { FdOrgOutline } from "./generated/fd-org-outline.js";
+export type { FdOrgOutlineProps } from "./generated/fd-org-outline.js";
+export { FdOrgDetails } from "./generated/fd-org-details.js";
+export type { FdOrgDetailsProps } from "./generated/fd-org-details.js";

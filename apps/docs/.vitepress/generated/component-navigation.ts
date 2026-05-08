@@ -33,7 +33,8 @@ export const componentSidebarGroups = [
       { text: "Tile List", link: "/components/tile-list" },
       { text: "Event", link: "/components/event" },
       { text: "Link Category", link: "/components/link-category" },
-      { text: "Event List", link: "/components/event-list" }
+      { text: "Event List", link: "/components/event-list" },
+      { text: "Org Outline", link: "/components/org-outline" }
     ]
   },
   {
@@ -47,7 +48,8 @@ export const componentSidebarGroups = [
       { text: "Chip Group", link: "/components/chip-group" },
       { text: "Error Summary", link: "/components/error-summary" },
       { text: "Review List", link: "/components/review-list" },
-      { text: "Confirmation Record", link: "/components/confirmation-record" }
+      { text: "Confirmation Record", link: "/components/confirmation-record" },
+      { text: "Org Details", link: "/components/org-details" }
     ]
   },
   {

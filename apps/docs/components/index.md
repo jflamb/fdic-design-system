@@ -17,12 +17,12 @@ The components section documents the reusable building blocks and authored-conte
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Actions & Navigation</span>
-    <h3>Link, Button, Button Group, Split Button, Menu, Pagination, Sidebar Nav, Tile, Sidebar Menu, Tile List, Event, Link Category, Event List</h3>
+    <h3>Link, Button, Button Group, Split Button, Menu, Pagination, Sidebar Nav, Tile, Sidebar Menu, Tile List, Event, Link Category, Event List, Org Outline</h3>
     <p>Controls and navigation patterns that trigger actions, expose destinations, or move people through flows.</p>
   </div>
   <div class="fdic-card">
     <span class="fdic-eyebrow">Feedback & Status</span>
-    <h3>Alert, Page Feedback, Badge, Badge Group, Chip, Chip Group, Error Summary, Review List, Confirmation Record</h3>
+    <h3>Alert, Page Feedback, Badge, Badge Group, Chip, Chip Group, Error Summary, Review List, Confirmation Record, Org Details</h3>
     <p>Components that communicate status, lightweight emphasis, selection context, or supporting state.</p>
   </div>
   <div class="fdic-card">
@@ -80,6 +80,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Event](./event) documents event usage, constraints, and accessibility guidance.
 - [Link Category](./link-category) documents link category usage, constraints, and accessibility guidance.
 - [Event List](./event-list) documents event list usage, constraints, and accessibility guidance.
+- [Org Outline](./org-outline) documents org outline usage, constraints, and accessibility guidance.
 
 ### Feedback & Status
 
@@ -92,6 +93,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Error Summary](./error-summary) documents the supporting primitive contract for error summary.
 - [Review List](./review-list) documents the supporting primitive contract for review list.
 - [Confirmation Record](./confirmation-record) documents the supporting primitive contract for confirmation record.
+- [Org Details](./org-details) documents org details usage, constraints, and accessibility guidance.
 
 ### Layout & Shell
 

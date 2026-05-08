@@ -1215,6 +1215,67 @@ export const componentInventory = [
     },
     typeExports: ["FdSidebarMenuRoot", "FdSidebarMenuItem"]
   },
+  {
+    tagName: "fd-org-outline",
+    className: "FdOrgOutline",
+    sourceFile: "fd-org-outline.ts",
+    docs: {
+      kind: "first-class",
+      title: "Org Outline",
+      slug: "org-outline",
+      category: "actions-navigation",
+      order: 110
+    },
+    storybook: {
+      title: "Components/Org Outline",
+      file: "fd-org-outline.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-icon"]
+    },
+    typeExports: [
+      "FdOrgActingMeta",
+      "FdOrgConflictMeta",
+      "FdOrgDiagnostic",
+      "FdOrgFilterState",
+      "FdOrgInputNode",
+      "FdOrgNode",
+      "FdOrgNodeType",
+      "FdOrgNormalizeResult",
+      "FdOrgPrintDecision",
+      "FdOrgPrintScope",
+      "FdOrgSearchResult",
+      "FdOrgSelectDetail",
+      "FdOrgSourceKind",
+      "FdOrgSourceMeta",
+      "FdOrgSourceStatus",
+      "FdOrgTree"
+    ]
+  },
+    {
+    tagName: "fd-org-details",
+    className: "FdOrgDetails",
+    sourceFile: "fd-org-details.ts",
+    docs: {
+      kind: "first-class",
+      title: "Org Details",
+      slug: "org-details",
+      category: "feedback-status",
+      order: 100
+    },
+    storybook: {
+      title: "Components/Org Details",
+      file: "fd-org-details.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: ["fd-badge", "fd-button", "fd-icon"]
+    },
+    typeExports: []
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

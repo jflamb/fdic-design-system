@@ -26,6 +26,10 @@ export class FdBadge extends LitElement {
       min-block-size: var(--fd-badge-height, 28px);
       max-inline-size: 100%;
       box-sizing: border-box;
+      /* Browsers strip background colors on print by default. Force-print
+         the tone tint so a status badge stays legible on paper. */
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
       padding-block: var(--fdic-spacing-2xs, 4px);
       padding-inline: var(
         --fd-badge-padding-inline,
@@ -79,9 +83,21 @@ export class FdBadge extends LitElement {
     .label {
       display: inline-flex;
       align-items: center;
+      gap: var(--fdic-spacing-3xs, 2px);
       min-inline-size: 0;
       overflow-wrap: anywhere;
       word-break: break-word;
+    }
+
+    /*
+     * Slotted icons inherit the badge's text size by default so a leading
+     * icon visually balances against the label rather than reading too small
+     * against body copy. Consumers can override via the standard
+     * --fd-icon-size custom property if they need a different ratio.
+     */
+    ::slotted(fd-icon) {
+      --fd-icon-size: 1em;
+      flex: none;
     }
 
     ${forcedColorsBadgeContainer}

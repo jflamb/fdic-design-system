@@ -850,6 +850,38 @@ export const componentStoryApi = {
     "maxDepth": 4,
     },
   },
+  "fd-org-outline": {
+    argTypes: {
+    "label": { control: "text" },
+    "emptyLabel": { control: "text" },
+    "noResultsLabel": { control: "text" },
+    "tree": { control: "text" },
+    "currentNodeId": { control: "text" },
+    "searchQuery": { control: "text" },
+    "filters": { control: "text" },
+    },
+    args: {
+    "label": "Organization outline",
+    "emptyLabel": "No organization records are available.",
+    "noResultsLabel": "No organization records match the current filters.",
+    "tree": null,
+    "currentNodeId": undefined,
+    "searchQuery": "",
+    "filters": "{}",
+    },
+  },
+  "fd-org-details": {
+    argTypes: {
+    "tree": { control: "text" },
+    "nodeId": { control: "text" },
+    "emptyLabel": { control: "text" },
+    },
+    args: {
+    "tree": null,
+    "nodeId": null,
+    "emptyLabel": "Select an organization record to review details.",
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

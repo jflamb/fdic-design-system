@@ -6175,5 +6175,205 @@
       ],
       "after": ""
     }
+  },
+  "fd-org-outline": {
+    "properties": {
+      "rows": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Accessible label for the outline navigation landmark."
+        },
+        {
+          "name": "emptyLabel",
+          "type": "string",
+          "description": "Message shown when the tree has no organization records."
+        },
+        {
+          "name": "noResultsLabel",
+          "type": "string",
+          "description": "Message shown when search or filters hide every organization record."
+        },
+        {
+          "name": "tree",
+          "type": "FdOrgTree",
+          "description": "Normalized organization tree returned by `normalizeOrgTree(input)`."
+        },
+        {
+          "name": "currentNodeId",
+          "type": "string",
+          "description": "Selected node id. Matching ancestors open automatically."
+        },
+        {
+          "name": "searchQuery",
+          "type": "string",
+          "description": "Search text used to highlight matching nodes and keep ancestors visible."
+        },
+        {
+          "name": "filters",
+          "type": "FdOrgFilterState",
+          "description": "Approved v1 filters for node type, source/status, and acting assignment."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [
+        {
+          "name": "fd-org-select",
+          "detail": "{ nodeId: string; node: FdOrgNode }",
+          "description": "Fired when a user selects an org node from a summary or leaf button."
+        }
+      ],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-org-outline-indent",
+          "default": "var(--fdic-spacing-lg, 24px)",
+          "description": "Indentation step for nested organization branches."
+        },
+        {
+          "name": "--fd-org-outline-transition-duration",
+          "default": "160ms",
+          "description": "Disclosure indicator transition duration. Suppressed when `prefers-reduced-motion: reduce` is active."
+        }
+      ],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "outline",
+          "description": "Root outline navigation container."
+        },
+        {
+          "name": "list",
+          "description": "Root and nested unordered lists."
+        },
+        {
+          "name": "item",
+          "description": "List item wrapper for each organization node."
+        },
+        {
+          "name": "disclosure",
+          "description": "Native details disclosure wrapper for nodes with children."
+        },
+        {
+          "name": "summary",
+          "description": "Native summary row for expandable nodes."
+        },
+        {
+          "name": "node-button",
+          "description": "Native button row for leaf-node selection."
+        },
+        {
+          "name": "label",
+          "description": "Node label text."
+        },
+        {
+          "name": "meta",
+          "description": "Secondary title or metadata line."
+        },
+        {
+          "name": "indicator",
+          "description": "Ambient \"has issues\" dot. Hidden when the node has no open issues."
+        },
+        {
+          "name": "sr-only",
+          "description": "Visually hidden text linked from the indicator via aria-describedby."
+        },
+        {
+          "name": "empty",
+          "description": "Empty-state message shown when the tree is empty or filters hide every record."
+        }
+      ],
+      "after": ""
+    }
+  },
+  "fd-org-details": {
+    "properties": {
+      "rows": [
+        {
+          "name": "tree",
+          "type": "FdOrgTree",
+          "description": "Normalized organization tree returned by `normalizeOrgTree(input)`."
+        },
+        {
+          "name": "nodeId",
+          "type": "string",
+          "description": "Selected node id to display in the details panel."
+        },
+        {
+          "name": "emptyLabel",
+          "type": "string",
+          "description": "Message shown when no node is selected."
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [
+        {
+          "name": "actions",
+          "description": "Optional downstream actions for the selected node."
+        }
+      ],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "panel",
+          "description": "Details panel wrapper."
+        },
+        {
+          "name": "live",
+          "description": "Visually hidden polite live region announcing the selected record."
+        },
+        {
+          "name": "eyebrow",
+          "description": "Node type and source-status summary."
+        },
+        {
+          "name": "heading",
+          "description": "Selected node heading."
+        },
+        {
+          "name": "status",
+          "description": "Status badge row."
+        },
+        {
+          "name": "badge",
+          "description": "Individual text-plus-icon status badge."
+        },
+        {
+          "name": "section",
+          "description": "Grouped details section."
+        },
+        {
+          "name": "conflict",
+          "description": "Conflict comparison block."
+        },
+        {
+          "name": "actions",
+          "description": "Optional actions slot wrapper."
+        }
+      ],
+      "after": ""
+    }
   }
 }
