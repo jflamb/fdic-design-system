@@ -53,11 +53,19 @@ Many examples include a link to an interactive preview so you can inspect respon
   caption="Content page recipes — article, sidebar navigation, filtering, and headline-list structures for content-heavy pages."
 />
 
+<StoryEmbed
+  storyId="patterns-org-chart--editor-review"
+  linkStoryId="patterns-org-chart--editor-review"
+  caption="Dynamic Org Chart — outline-first hierarchy review with source status, editor diagnostics, details, and print/PDF behavior."
+/>
+
 The stable layout-class surface is documented in [Composition Patterns](/guide/foundations/composition-patterns). Use that page when you need the exact class names and semantic requirements.
 
 Use [Content Page Recipes](/guide/content-page-recipes) for long-form article pages, news archive pages, sidebar navigation, filter rows, and dense headline lists.
 
 Use [Form Workflows](/guide/form-workflows) for multi-step or validation-heavy form recipes. Form patterns have stricter rules because they control error prevention, review, recovery, and submission confidence.
+
+Use [Dynamic Org Chart](/components/org-chart) when an application needs source-aware organization hierarchy review using the public [Org Outline](/components/org-outline) and [Org Details](/components/org-details) components.
 
 ## Hub Page Kit
 

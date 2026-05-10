@@ -83,6 +83,12 @@ export default defineConfig({
           { text: "Overview", link: "/components/" },
           ...componentSidebarGroups,
           {
+            text: "Composed Patterns",
+            items: [
+              { text: "Dynamic Org Chart", link: "/components/org-chart" }
+            ]
+          },
+          {
             text: "Prose",
             items: [
               { text: "Overview", link: "/components/prose" },
