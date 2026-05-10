@@ -134,6 +134,14 @@ export type FdOrgPrintDecision = {
   };
 };
 
+export type FdOrgPrintDecisionOptions = {
+  /**
+   * V1 keeps the public pattern outline-first. Internal prototypes and future
+   * adapters can opt into chart decisions without changing the v1 default.
+   */
+  visualChartAvailable?: boolean;
+};
+
 export const FD_ORG_NODE_TYPE_LABELS: Record<FdOrgNodeType, string> = {
   unit: "Unit",
   position: "Position",
@@ -339,6 +347,7 @@ export function printDecision(
   tree: FdOrgTree,
   scope: FdOrgPrintScope = "all",
   selectedNodeId?: string,
+  options: FdOrgPrintDecisionOptions = {},
 ): FdOrgPrintDecision {
   const scopedIds =
     scope === "selected-branch" && selectedNodeId && tree.nodesById[selectedNodeId]
@@ -381,17 +390,28 @@ export function printDecision(
     };
   }
 
+  const chartMetrics = {
+    nodeCount,
+    maxDepth,
+    maxLabelLength,
+    minimumTextSizePt,
+    estimatedChartPages,
+    clippingTolerance,
+  };
+
+  if (options.visualChartAvailable === true) {
+    return {
+      mode: "chart",
+      reason:
+        "Visual chart print selected because the scoped hierarchy fits the legibility and page-count thresholds.",
+      metrics: chartMetrics,
+    };
+  }
+
   return {
     mode: "outline",
     reason:
       "V1 has no visual chart renderer, so printable output remains outline-first even when chart thresholds would allow a chart.",
-    metrics: {
-      nodeCount,
-      maxDepth,
-      maxLabelLength,
-      minimumTextSizePt,
-      estimatedChartPages,
-      clippingTolerance,
-    },
+    metrics: chartMetrics,
   };
 }

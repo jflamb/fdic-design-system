@@ -4,7 +4,7 @@ Dynamic Org Chart is a composed pattern for reviewing organization hierarchy, so
 
 <div class="fdic-foundation-intro">
   <span class="fdic-eyebrow">Composed pattern</span>
-  <p>V1 is outline-first on every viewport. The visual chart adapter is a post-v1 enhancement and is not part of this release boundary.</p>
+  <p>V1 is outline-first on every viewport. Visual chart printing remains an internal post-v1 prototype, not a public component or release boundary.</p>
 </div>
 
 ## When to use
@@ -27,12 +27,18 @@ Dynamic Org Chart is a composed pattern for reviewing organization hierarchy, so
   caption="Editor review combines toolbar filtering, hierarchy context, outline selection, details conflict comparison, diagnostics, and print/export scope."
 />
 
+<StoryEmbed
+  storyId="patterns-org-chart--printable-visual-prototype"
+  linkStoryId="patterns-org-chart--printable-visual-prototype"
+  caption="Post-v1 prototype: the screen experience stays outline-first while a print-only adapter renders a selected branch as a visual chart when thresholds allow."
+/>
+
 ## Public components
 
 - [Org Outline](/components/org-outline) renders the canonical semantic hierarchy.
 - [Org Details](/components/org-details) renders the selected record and review metadata.
 
-The toolbar and context bar are private v1 modules for the composed pattern. They are not public components, do not have standalone docs pages, and are not exported as package entry points.
+The toolbar, context bar, and print chart adapter are private modules for the composed pattern. They are not public components, do not have standalone docs pages, and are not exported as package entry points.
 
 ## Data contract
 
@@ -65,14 +71,14 @@ V1 explicitly excludes division/office/region taxonomy filters, skip-level filte
 
 ## Print and PDF
 
-V1 print output uses outline/table behavior, not a visual chart. The helper <code>printDecision(tree, scope)</code> defines deterministic post-v1 chart thresholds:
+V1 print output uses outline/table behavior, not a public visual chart. The helper <code>printDecision(tree, scope)</code> defines deterministic post-v1 chart thresholds:
 
 - Minimum legible text size: 10 pt for normal charts; fallback begins when the estimated chart would require less than 9 pt.
 - Maximum visual chart page count: 4 pages before fallback.
 - Clipping/page-break tolerance: no more than 2 split nodes at shallow depth; 0 tolerance beyond depth 6.
 - Large hierarchies over 175 nodes fall back to outline; over 350 nodes fall back to table.
 
-Because v1 has no visual chart renderer, v1 may force outline/table even when a future chart would fit.
+Because v1 has no public visual chart renderer, v1 may force outline/table even when a future chart would fit. Internal prototype stories may opt into <code>printDecision(tree, scope, selectedNodeId, { visualChartAvailable: true })</code> to evaluate a print-only chart adapter before the public boundary is reopened.
 
 ## Accessibility
 
@@ -92,7 +98,7 @@ Because v1 has no visual chart renderer, v1 may force outline/table even when a 
 
 ## Known limitations
 
-- V1 has no visual chart adapter, no chart toggle beyond a disabled explanation, no live fetch, no CHRIS/API dependency, and no historical date picker.
+- V1 has no public visual chart adapter, no chart toggle beyond a disabled explanation, no live fetch, no CHRIS/API dependency, and no historical date picker.
 - Conflict resolution actions are display-only in this pattern. Consuming applications own approval and write workflows.
 - Photo/contact policy is not settled in v1; keep those fields consumer-supplied.
 

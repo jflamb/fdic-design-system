@@ -292,9 +292,11 @@
   "dependencies": {
     "@jflamb/fdic-ds-tokens": "0.1.1",
     "@xmldom/xmldom": "^0.9.9",
+    "d3-hierarchy": "^3.1.2",
     "lit": "^3.2.1"
   },
   "devDependencies": {
+    "@types/d3-hierarchy": "^3.1.7",
     "axe-core": "^4.11.1",
     "happy-dom": "^20.8.9",
     "tsup": "^8.4.0",

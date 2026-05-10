@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { LitElement, css, html, nothing } from "lit";
 import { expect } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
+import { FdOrgPrintChart } from "../../../packages/components/src/components/org-chart/internal/fd-org-print-chart";
 import { normalizeOrgTree } from "../../../packages/components/src/components/org-chart-normalize";
 import {
   searchOrgTree,
@@ -402,7 +403,7 @@ class FdOrgPatternShell extends LitElement {
     return html`
       ${this.renderPrintHeader()}
       <div class="shell">
-        <aside class="filters-panel" aria-label="Filters">${this.renderFilterCard()}</aside>
+        <div class="filters-panel" aria-label="Filters">${this.renderFilterCard()}</div>
         <section class="center" aria-label="Hierarchy">
           <header class="header">
             <div class="search">
@@ -449,14 +450,14 @@ class FdOrgPatternShell extends LitElement {
             @fd-org-select=${this.onSelect}
           ></fd-org-outline>
         </section>
-        <aside class="details-panel" aria-label="Selected record">
+        <div class="details-panel" aria-label="Selected record">
           <fd-org-details
             .tree=${this.tree}
             node-id=${this.selectedNodeId ?? ""}
           >
             <fd-button slot="actions" variant="outline" type="button">Open source record</fd-button>
           </fd-org-details>
-        </aside>
+        </div>
       </div>
 
       <dialog class="drawer start" @close=${() => (this.filtersOpen = false)}>
@@ -675,6 +676,11 @@ if (!customElements.get(SHELL_TAG)) {
   customElements.define(SHELL_TAG, FdOrgPatternShell);
 }
 
+const PRINT_CHART_TAG = "fd-internal-org-print-chart";
+if (!customElements.get(PRINT_CHART_TAG)) {
+  customElements.define(PRINT_CHART_TAG, FdOrgPrintChart);
+}
+
 const mixed = normalizeOrgTree({
   nodes: statesOrgFixture,
   source: {
@@ -685,6 +691,7 @@ const mixed = normalizeOrgTree({
 });
 const malformed = normalizeOrgTree(malformedOrgFixture);
 const selectedNodeId = "branch-chief";
+const printSelectedNodeId = "avery-chen";
 
 const renderEditorReview = () => html`
   <style>
@@ -739,6 +746,99 @@ const renderEditorReview = () => html`
   </section>
 `;
 
+const renderPrintableVisualPrototype = () => html`
+  <style>
+    .print-prototype {
+      display: grid;
+      gap: var(--fdic-spacing-xl, 32px);
+    }
+
+    .print-prototype__section {
+      display: grid;
+      gap: var(--fdic-spacing-md, 16px);
+    }
+
+    .print-prototype__section h3 {
+      margin: 0;
+      font-size: var(--fdic-font-size-h4, 1.125rem);
+    }
+
+    .print-prototype__note {
+      margin: 0;
+      color: var(--fdic-color-text-secondary);
+      font-size: var(--fdic-font-size-body-small, 1rem);
+      max-inline-size: 72ch;
+    }
+
+    .print-prototype__preview {
+      padding: var(--fdic-spacing-lg, 24px);
+      border: 1px solid var(--fdic-color-border-subtle);
+      border-radius: var(--fdic-corner-radius-md, 6px);
+      background: var(--fdic-color-bg-subtle);
+    }
+
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      @page {
+        size: landscape;
+        margin: 0.45in;
+      }
+
+      .screen-only,
+      .print-prototype__preview {
+        display: none !important;
+      }
+
+      .print-only {
+        display: block;
+      }
+    }
+  </style>
+  <section class="print-prototype" aria-label="Printable visual org chart prototype">
+    <section class="screen-only print-prototype__section" aria-labelledby="interactive-heading">
+      <h3 id="interactive-heading">Interactive view</h3>
+      <p class="print-prototype__note">
+        The screen experience stays outline-first. Printing switches to an internal visual
+        adapter when the selected branch fits the chart thresholds.
+      </p>
+      <fd-internal-org-pattern-shell
+        .tree=${mixed.tree}
+        selected-node-id=${selectedNodeId}
+      ></fd-internal-org-pattern-shell>
+    </section>
+
+    <section class="screen-only print-prototype__section" aria-labelledby="preview-heading">
+      <h3 id="preview-heading">Print preview adapter</h3>
+      <p class="print-prototype__note">
+        This is the same internal renderer used by the print-only layer below. It consumes
+        the normalized tree directly rather than reading the expanded outline DOM.
+      </p>
+      <div class="print-prototype__preview">
+        <fd-internal-org-print-chart
+          .tree=${mixed.tree}
+          scope="selected-branch"
+          selected-node-id=${printSelectedNodeId}
+          heading="Selected branch visual print prototype"
+          generated-on="2026-05-08"
+        ></fd-internal-org-print-chart>
+      </div>
+    </section>
+
+    <div class="print-only" aria-hidden="true">
+      <fd-internal-org-print-chart
+        .tree=${mixed.tree}
+        scope="selected-branch"
+        selected-node-id=${printSelectedNodeId}
+        heading="Selected branch visual print prototype"
+        generated-on="2026-05-08"
+      ></fd-internal-org-print-chart>
+    </div>
+  </section>
+`;
+
 const meta = {
   title: "Patterns/Org Chart",
   parameters: {
@@ -757,6 +857,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const EditorReview: Story = {};
+
+export const PrintableVisualPrototype: Story = {
+  render: renderPrintableVisualPrototype,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Post-v1 prototype that keeps the interactive experience outline-first and renders an internal visual chart adapter for print/PDF when the scoped hierarchy fits the printDecision thresholds.",
+      },
+    },
+  },
+};
 
 EditorReview.play = async ({ canvasElement }) => {
   const shell = canvasElement.querySelector(SHELL_TAG) as any;
@@ -787,4 +899,13 @@ EditorReview.play = async ({ canvasElement }) => {
 
   expect(canvasElement.textContent).toContain("Diagnostics from malformed fixture");
   expect(outline?.shadowRoot?.querySelector("[role='tree']")).toBeNull();
+};
+
+PrintableVisualPrototype.play = async ({ canvasElement }) => {
+  const printChart = canvasElement.querySelector(PRINT_CHART_TAG) as any;
+  await printChart?.updateComplete;
+
+  expect(canvasElement.textContent).toContain("Interactive view");
+  expect(printChart?.shadowRoot?.querySelector("svg")).toBeTruthy();
+  expect(printChart?.shadowRoot?.textContent).toContain("Selected branch visual print prototype");
 };
