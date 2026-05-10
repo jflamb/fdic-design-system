@@ -8,6 +8,7 @@ import {
   searchOrgTree,
   type FdOrgFilterState,
   type FdOrgNodeType,
+  type FdOrgPhotoResolver,
   type FdOrgSourceStatus,
   type FdOrgTree,
 } from "../../../packages/components/src/components/org-chart-types";
@@ -41,6 +42,7 @@ class FdOrgPatternShell extends LitElement {
     initialFilters: { attribute: false },
     searchQuery: { state: true },
     filters: { state: true },
+    photoResolver: { attribute: false },
     layoutMode: { state: true },
     filtersOpen: { state: true },
     detailsOpen: { state: true },
@@ -382,6 +384,7 @@ class FdOrgPatternShell extends LitElement {
   declare initialFilters?: FdOrgFilterState;
   declare searchQuery: string;
   declare filters: FdOrgFilterState;
+  declare photoResolver?: FdOrgPhotoResolver;
   declare filtersOpen: boolean;
   declare detailsOpen: boolean;
 
@@ -447,6 +450,7 @@ class FdOrgPatternShell extends LitElement {
             current-node-id=${this.selectedNodeId ?? ""}
             search-query=${this.searchQuery}
             .filters=${this.filters}
+            .photoResolver=${this.photoResolver}
             @fd-org-select=${this.onSelect}
           ></fd-org-outline>
         </section>
@@ -454,6 +458,7 @@ class FdOrgPatternShell extends LitElement {
           <fd-org-details
             .tree=${this.tree}
             node-id=${this.selectedNodeId ?? ""}
+            .photoResolver=${this.photoResolver}
           >
             <fd-button slot="actions" variant="outline" type="button">Open source record</fd-button>
           </fd-org-details>
@@ -493,6 +498,7 @@ class FdOrgPatternShell extends LitElement {
                 <fd-org-details
                   .tree=${this.tree}
                   node-id=${this.selectedNodeId ?? ""}
+                  .photoResolver=${this.photoResolver}
                 ></fd-org-details>
               </div>
             `
@@ -692,6 +698,15 @@ const mixed = normalizeOrgTree({
 const malformed = normalizeOrgTree(malformedOrgFixture);
 const selectedNodeId = "branch-chief";
 const printSelectedNodeId = "avery-chen";
+const SAMPLE_AVATAR_SVG = encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+    <rect width="72" height="72" fill="#d6e8f5" />
+    <circle cx="36" cy="25" r="13" fill="#235c86" />
+    <path d="M14 72C17 54 25 45 36 45C47 45 55 54 58 72Z" fill="#235c86" />
+  </svg>
+`);
+const SAMPLE_AVATAR_SRC = `data:image/svg+xml;charset=utf-8,${SAMPLE_AVATAR_SVG}`;
+const resolveStoryAvatar: FdOrgPhotoResolver = () => SAMPLE_AVATAR_SRC;
 
 const renderEditorReview = () => html`
   <style>
@@ -734,6 +749,7 @@ const renderEditorReview = () => html`
       .initialFilters=${{
         sourceStatuses: ["override", "draft", "historical"],
       }}
+      .photoResolver=${resolveStoryAvatar}
     ></fd-internal-org-pattern-shell>
     <section class="org-pattern__diagnostics" aria-labelledby="diagnostics-heading">
       <h3 id="diagnostics-heading">Diagnostics from malformed fixture</h3>
@@ -807,6 +823,7 @@ const renderPrintableVisualPrototype = () => html`
       <fd-internal-org-pattern-shell
         .tree=${mixed.tree}
         selected-node-id=${selectedNodeId}
+        .photoResolver=${resolveStoryAvatar}
       ></fd-internal-org-pattern-shell>
     </section>
 

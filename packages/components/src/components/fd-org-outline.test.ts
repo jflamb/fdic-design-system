@@ -11,6 +11,8 @@ import { minimalOrgFixture } from "./org-chart-fixtures/fixture.minimal.js";
 import { statesOrgFixture } from "./org-chart-fixtures/fixture.states.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
+const SAMPLE_AVATAR_SRC = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E";
+
 async function createOutline(fixture = minimalOrgFixture) {
   const result = normalizeOrgTree(fixture);
   const el = document.createElement("fd-org-outline") as FdOrgOutline;
@@ -141,6 +143,28 @@ describe("fd-org-outline", () => {
         item.querySelector("[part~='label']")?.textContent?.trim() === "Jordan Pierce",
     );
     expect(officialLeaf?.dataset.issueLevel).toBe("none");
+  });
+
+  it("renders decorative fd-visual avatars for person nodes with resolved photos only", async () => {
+    const { el } = await createOutline(minimalOrgFixture);
+    el.photoResolver = (node) =>
+      node.person?.photoRef === "avatar:alex-rivera" ? SAMPLE_AVATAR_SRC : undefined;
+    await el.updateComplete;
+
+    const avatar = el.shadowRoot!.querySelector("fd-visual[part~='avatar']");
+    expect(avatar?.getAttribute("type")).toBe("avatar");
+    expect(avatar?.getAttribute("size")).toBe("lg");
+    expect(avatar?.querySelector("img")?.getAttribute("alt")).toBe("");
+    expect(el.shadowRoot!.textContent).toContain("Alex Rivera");
+  });
+
+  it("does not render avatars for non-person nodes even when a resolver returns a URL", async () => {
+    const { el } = await createOutline(minimalOrgFixture);
+    el.photoResolver = () => SAMPLE_AVATAR_SRC;
+    await el.updateComplete;
+
+    const avatars = Array.from(el.shadowRoot!.querySelectorAll("fd-visual[part~='avatar']"));
+    expect(avatars).toHaveLength(1);
   });
 
   it("sorts branches first and pushes vacancies to the bottom", async () => {

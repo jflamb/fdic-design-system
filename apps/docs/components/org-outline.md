@@ -54,6 +54,10 @@ Org Outline renders an organization hierarchy as semantic nested lists with nati
 
 Status uses text plus iconography and never depends on color alone. Source status and node type are separate fields, so combinations such as <code>person</code> plus <code>override</code> plus <code>actingMeta</code> remain representable.
 
+### Optional avatars
+
+Org Outline can show a decorative avatar for person nodes when <code>person.photoRef</code> is present and <code>photoResolver</code> returns an image URL. The avatar uses <code>fd-visual type="avatar"</code>, keeps empty image alt text, and never replaces the visible person label.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
@@ -66,6 +70,7 @@ Status uses text plus iconography and never depends on color alone. Source statu
 | `currentNodeId` | string | `undefined` | Selected node id. Matching ancestors open automatically. |
 | `searchQuery` | string | `` | Search text used to highlight matching nodes and keep ancestors visible. |
 | `filters` | FdOrgFilterState | `{}` | Approved v1 filters for node type, source/status, and acting assignment. |
+| `photoResolver` | FdOrgPhotoResolver | `undefined` | Optional resolver that maps person nodes with `person.photoRef` to decorative avatar image URLs. |
 
 ## Events
 
@@ -90,6 +95,7 @@ Status uses text plus iconography and never depends on color alone. Source statu
 | `disclosure` | Native details disclosure wrapper for nodes with children. |
 | `summary` | Native summary row for expandable nodes. |
 | `node-button` | Native button row for leaf-node selection. |
+| `avatar` | Decorative `fd-visual` avatar for person nodes when photo media is available. |
 | `label` | Node label text. |
 | `meta` | Secondary title or metadata line. |
 | `indicator` | Ambient "has issues" dot. Hidden when the node has no open issues. |
@@ -106,6 +112,7 @@ Status uses text plus iconography and never depends on color alone. Source statu
       <li>Pass normalized data from <code>normalizeOrgTree(input)</code>.</li>
       <li>Surface diagnostics in editor review workflows.</li>
       <li>Keep labels short enough to scan at 200% zoom.</li>
+      <li>Use avatars only as decorative reinforcement for person records.</li>
     </ul>
   </div>
   <div>
@@ -114,6 +121,7 @@ Status uses text plus iconography and never depends on color alone. Source statu
       <li>Silently drop org-meaningful records.</li>
       <li>Add effective-date or skip-level filters to v1.</li>
       <li>Use color-only status indicators.</li>
+      <li>Use profile photos to communicate status, seniority, or source confidence.</li>
     </ul>
   </div>
 </div>
@@ -130,6 +138,7 @@ Status uses text plus iconography and never depends on color alone. Source statu
 - Keyboard traversal follows native tab order. <kbd>Enter</kbd> and <kbd>Space</kbd> activate the focused native control.
 - Disclosure state is announced by the browser through native <code>summary</code> behavior.
 - Focus indicators remain visible on summary rows and leaf buttons.
+- Avatars are decorative; the adjacent visible text remains the accessible name.
 - Reduced motion suppresses disclosure indicator animation.
 - At 200% zoom, the outline wraps without requiring horizontal page scroll.
 

@@ -28,7 +28,7 @@ export const statesOrgFixture: FdOrgInputNode[] = [
     title: "Director",
     nodeType: "person",
     sourceStatus: "official",
-    person: { displayName: "Avery Chen" },
+    person: { displayName: "Avery Chen", photoRef: "avatar:avery-chen" },
   },
 
   // Programs Section — director's first reporting branch.
@@ -47,7 +47,7 @@ export const statesOrgFixture: FdOrgInputNode[] = [
     title: "Section Chief",
     nodeType: "person",
     sourceStatus: "official",
-    person: { displayName: "Robin Kim" },
+    person: { displayName: "Robin Kim", photoRef: "avatar:robin-kim" },
   },
   {
     id: "jordan-pierce",
@@ -56,7 +56,7 @@ export const statesOrgFixture: FdOrgInputNode[] = [
     title: "Senior Analyst",
     nodeType: "person",
     sourceStatus: "official",
-    person: { displayName: "Jordan Pierce" },
+    person: { displayName: "Jordan Pierce", photoRef: "avatar:jordan-pierce" },
   },
   {
     id: "sam-taylor",
@@ -70,7 +70,7 @@ export const statesOrgFixture: FdOrgInputNode[] = [
       effectiveStart: "2026-03-15",
       sourceLabel: "Editor review",
     },
-    person: { displayName: "Sam Taylor" },
+    person: { displayName: "Sam Taylor", photoRef: "avatar:sam-taylor" },
   },
   {
     id: "vacant-analyst",
@@ -97,7 +97,7 @@ export const statesOrgFixture: FdOrgInputNode[] = [
     title: "Section Chief",
     nodeType: "person",
     sourceStatus: "official",
-    person: { displayName: "Lin Wei" },
+    person: { displayName: "Lin Wei", photoRef: "avatar:lin-wei" },
   },
   {
     id: "branch-chief",

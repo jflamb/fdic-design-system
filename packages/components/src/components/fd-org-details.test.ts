@@ -5,6 +5,8 @@ import { normalizeOrgTree } from "./org-chart-normalize.js";
 import { statesOrgFixture } from "./org-chart-fixtures/fixture.states.js";
 import { expectNoAxeViolations } from "./test-a11y.js";
 
+const SAMPLE_AVATAR_SRC = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E";
+
 async function createDetails(nodeId = "branch-chief") {
   const el = document.createElement("fd-org-details") as FdOrgDetails;
   el.tree = normalizeOrgTree(statesOrgFixture).tree;
@@ -57,6 +59,27 @@ describe("fd-org-details", () => {
     expect(el.shadowRoot!.textContent).toContain("Acting assignment");
     expect(el.shadowRoot!.textContent).toContain("2026-03-15");
     expect(el.shadowRoot!.textContent).toContain("Editor review");
+  });
+
+  it("renders a decorative fd-visual avatar for person records with resolved photos", async () => {
+    const el = await createDetails("sam-taylor");
+    el.photoResolver = (node) =>
+      node.person?.photoRef === "avatar:sam-taylor" ? SAMPLE_AVATAR_SRC : undefined;
+    await el.updateComplete;
+
+    const avatar = el.shadowRoot!.querySelector("fd-visual[part~='avatar']");
+    expect(avatar?.getAttribute("type")).toBe("avatar");
+    expect(avatar?.getAttribute("size")).toBe("xl");
+    expect(avatar?.querySelector("img")?.getAttribute("alt")).toBe("");
+    await expectNoAxeViolations(el);
+  });
+
+  it("does not render an avatar for position, vacancy, or unit records", async () => {
+    const el = await createDetails("branch-chief");
+    el.photoResolver = () => SAMPLE_AVATAR_SRC;
+    await el.updateComplete;
+
+    expect(el.shadowRoot!.querySelector("fd-visual[part~='avatar']")).toBeNull();
   });
 
   it("renders editorial override metadata for an overridden record", async () => {

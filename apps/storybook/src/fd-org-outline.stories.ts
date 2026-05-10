@@ -17,6 +17,15 @@ const normalizedShape = normalizeOrgTree(fdicShapeOrgFixture);
 const normalizedStates = normalizeOrgTree(statesOrgFixture);
 const normalizedDir = normalizeOrgTree(dirOrgFixture);
 
+const SAMPLE_AVATAR_SVG = encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+    <rect width="72" height="72" fill="#d6e8f5" />
+    <circle cx="36" cy="25" r="13" fill="#235c86" />
+    <path d="M14 72C17 54 25 45 36 45C47 45 55 54 58 72Z" fill="#235c86" />
+  </svg>
+`);
+const SAMPLE_AVATAR_SRC = `data:image/svg+xml;charset=utf-8,${SAMPLE_AVATAR_SVG}`;
+
 const renderOutline = (args: {
   label: string;
   currentNodeId: string;
@@ -38,6 +47,7 @@ const renderOutline = (args: {
         current-node-id=${args.currentNodeId}
         search-query=${args.searchQuery}
         .tree=${tree}
+        .photoResolver=${() => SAMPLE_AVATAR_SRC}
       ></fd-org-outline>
     </div>
   `;
@@ -158,5 +168,6 @@ DocsOverview.play = async ({ canvasElement }) => {
 
   expect(outline?.shadowRoot?.querySelector("[role='tree']")).toBeNull();
   expect(outline?.shadowRoot?.querySelector("ul")).toBeTruthy();
+  expect(outline?.shadowRoot?.querySelector("fd-visual[type='avatar']")).toBeTruthy();
   expect(outline?.shadowRoot?.textContent).toContain("Acting");
 };

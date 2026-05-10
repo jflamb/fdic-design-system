@@ -93,7 +93,7 @@ export type { SocialMediaListColumns } from "./components/fd-social-media-list.j
 export type { MediaListColumns } from "./components/fd-media-list.js";
 export type { FdSidebarNavRoot, FdSidebarNavItem } from "./components/fd-sidebar-nav.js";
 export type { FdSidebarMenuRoot, FdSidebarMenuItem } from "./components/fd-sidebar-menu.js";
-export type { FdOrgActingMeta, FdOrgConflictMeta, FdOrgDiagnostic, FdOrgFilterState, FdOrgInputNode, FdOrgNode, FdOrgNodeType, FdOrgNormalizeResult, FdOrgPrintDecision, FdOrgPrintScope, FdOrgSearchResult, FdOrgSelectDetail, FdOrgSourceKind, FdOrgSourceMeta, FdOrgSourceStatus, FdOrgTree } from "./components/fd-org-outline.js";
+export type { FdOrgActingMeta, FdOrgConflictMeta, FdOrgDiagnostic, FdOrgFilterState, FdOrgInputNode, FdOrgNode, FdOrgNodeType, FdOrgNormalizeResult, FdOrgPhotoResolver, FdOrgPrintDecision, FdOrgPrintScope, FdOrgSearchResult, FdOrgSelectDetail, FdOrgSourceKind, FdOrgSourceMeta, FdOrgSourceStatus, FdOrgTree } from "./components/fd-org-outline.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

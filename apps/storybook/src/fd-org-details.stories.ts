@@ -9,6 +9,14 @@ import {
 } from "./generated/component-arg-types";
 
 const normalizedStates = normalizeOrgTree(statesOrgFixture);
+const SAMPLE_AVATAR_SVG = encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+    <rect width="72" height="72" fill="#d6e8f5" />
+    <circle cx="36" cy="25" r="13" fill="#235c86" />
+    <path d="M14 72C17 54 25 45 36 45C47 45 55 54 58 72Z" fill="#235c86" />
+  </svg>
+`);
+const SAMPLE_AVATAR_SRC = `data:image/svg+xml;charset=utf-8,${SAMPLE_AVATAR_SVG}`;
 
 const renderDetails = (args: { nodeId: string; emptyLabel: string }) => html`
   <div style="max-inline-size: 38rem;">
@@ -16,6 +24,7 @@ const renderDetails = (args: { nodeId: string; emptyLabel: string }) => html`
       node-id=${args.nodeId}
       empty-label=${args.emptyLabel}
       .tree=${normalizedStates.tree}
+      .photoResolver=${() => SAMPLE_AVATAR_SRC}
     >
       <button slot="actions" type="button">Review source</button>
     </fd-org-details>

@@ -2,11 +2,16 @@
 import { FdOrgOutline } from "../components/fd-org-outline.js";
 import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 import { FdIcon } from "../components/fd-icon.js";
+import { FdVisual } from "../components/fd-visual.js";
 
 warnIfDesignSystemRuntimeMissing();
 
 if (!customElements.get("fd-icon")) {
   customElements.define("fd-icon", FdIcon);
+}
+
+if (!customElements.get("fd-visual")) {
+  customElements.define("fd-visual", FdVisual);
 }
 
 if (!customElements.get("fd-org-outline")) {

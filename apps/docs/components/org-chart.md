@@ -58,6 +58,7 @@ This allows combinations such as person plus override plus acting assignment, va
 - Review Editorial override records first when they carry <code>conflictMeta</code> — the hierarchy is showing competing source-of-truth and override values that an editor needs to reconcile.
 - Review Editorial override records with acting assignments when temporary assignments affect reporting context.
 - Preserve diagnostics in the editor workflow. Orphans render under “Unattached,” cycles are broken at the recursive edge with both endpoints kept renderable, and conflicting duplicates are retained side by side. The diagnostics list — not the source status — carries these tree-level issues.
+- Treat profile photos as optional, decorative, and subject to personnel/content policy. The public components can display person avatars through <code>fd-visual</code> when a consuming app provides a <code>photoResolver</code>, but the text label remains the source of meaning.
 
 ## Toolbar filters
 
@@ -95,6 +96,7 @@ Because v1 has no public visual chart renderer, v1 may force outline/table even 
 - Use source-system language where it is official, but avoid unexplained internal abbreviations in public-facing examples.
 - Prefer “Source conflict,” “Editorial override,” and “Unavailable” over vague labels such as “Issue” or “Problem.”
 - Explain what editors should do with diagnostics near the workflow that displays them.
+- Do not use photo presence, image quality, or avatar styling to imply seniority, employment status, source confidence, or review priority.
 
 ## Known limitations
 

@@ -4,6 +4,7 @@ import { repeat } from "lit/directives/repeat.js";
 import type {
   FdOrgFilterState,
   FdOrgNode,
+  FdOrgPhotoResolver,
   FdOrgTree,
 } from "./org-chart-types.js";
 import {
@@ -29,6 +30,7 @@ export type {
   FdOrgNode,
   FdOrgNodeType,
   FdOrgNormalizeResult,
+  FdOrgPhotoResolver,
   FdOrgPrintDecision,
   FdOrgPrintScope,
   FdOrgSearchResult,
@@ -63,6 +65,7 @@ function isLowPriority(node: FdOrgNode) {
  * @csspart disclosure - Native disclosure wrapper for nodes with children.
  * @csspart summary - Native summary row for expandable nodes.
  * @csspart node-button - Native button row for leaf nodes.
+ * @csspart avatar - Decorative avatar visual for person nodes when photo media is available.
  * @csspart label - Node label text.
  * @csspart meta - Secondary title or metadata line.
  * @csspart indicator - Ambient "has issues" dot. Present on every tile but hidden when the node has no open issues.
@@ -78,6 +81,7 @@ export class FdOrgOutline extends LitElement {
     currentNodeId: { attribute: "current-node-id", reflect: true },
     searchQuery: { attribute: "search-query", reflect: true },
     filters: { attribute: false },
+    photoResolver: { attribute: false },
   };
 
   static styles = css`
@@ -139,7 +143,7 @@ export class FdOrgOutline extends LitElement {
     [part~="summary"],
     [part~="node-button"] {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: auto minmax(0, 1fr) auto;
       grid-auto-rows: min-content;
       align-content: start;
       gap: 0 var(--fdic-spacing-sm, 12px);
@@ -167,6 +171,14 @@ export class FdOrgOutline extends LitElement {
        immediate surface so that nested leaves inside a branch do not inherit
        the branch's three-column template via descendant matching. */
     [part~="summary"] {
+      grid-template-columns: auto auto minmax(0, 1fr) auto;
+    }
+
+    [part~="node-button"]:not(:has(> [part~="avatar"])) {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    [part~="summary"]:not(:has(> [part~="avatar"])) {
       grid-template-columns: auto minmax(0, 1fr) auto;
     }
 
@@ -212,6 +224,17 @@ export class FdOrgOutline extends LitElement {
       grid-row: 1 / span 2;
     }
 
+    [part~="avatar"] {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      align-self: center;
+      --fd-visual-bg-avatar: var(--fdic-color-bg-subtle, #f6f7f9);
+    }
+
+    [part~="summary"] > [part~="avatar"] {
+      grid-column: 2;
+    }
+
     details[open] > [part~="summary"] [part~="caret"] {
       transform: rotate(90deg);
     }
@@ -222,10 +245,18 @@ export class FdOrgOutline extends LitElement {
       font-size: var(--fdic-font-size-body, 1.125rem);
       line-height: 1.3;
       overflow-wrap: anywhere;
+      grid-column: 2;
+    }
+
+    [part~="node-button"]:not(:has(> [part~="avatar"])) > [part~="label"] {
       grid-column: 1;
     }
 
     [part~="summary"] > [part~="label"] {
+      grid-column: 3;
+    }
+
+    [part~="summary"]:not(:has(> [part~="avatar"])) > [part~="label"] {
       grid-column: 2;
     }
 
@@ -236,15 +267,23 @@ export class FdOrgOutline extends LitElement {
       line-height: 1.35;
       margin-block-start: var(--fdic-spacing-3xs, 2px);
       overflow-wrap: anywhere;
+      grid-column: 2;
+    }
+
+    [part~="node-button"]:not(:has(> [part~="avatar"])) > [part~="meta"] {
       grid-column: 1;
     }
 
     [part~="summary"] > [part~="meta"] {
+      grid-column: 3;
+    }
+
+    [part~="summary"]:not(:has(> [part~="avatar"])) > [part~="meta"] {
       grid-column: 2;
     }
 
     [part~="indicator"] {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 1 / span 2;
       align-self: start;
       margin-block-start: 6px;
@@ -256,6 +295,14 @@ export class FdOrgOutline extends LitElement {
     }
 
     [part~="summary"] > [part~="indicator"] {
+      grid-column: 4;
+    }
+
+    [part~="node-button"]:not(:has(> [part~="avatar"])) > [part~="indicator"] {
+      grid-column: 2;
+    }
+
+    [part~="summary"]:not(:has(> [part~="avatar"])) > [part~="indicator"] {
       grid-column: 3;
     }
 
@@ -326,6 +373,10 @@ export class FdOrgOutline extends LitElement {
         display: none;
       }
 
+      [part~="avatar"] {
+        display: none;
+      }
+
       [part~="caret"] {
         /* The disclosure caret is meaningless on paper — branches are always
            open in print. Hide it so labels align flush. */
@@ -345,6 +396,7 @@ export class FdOrgOutline extends LitElement {
   declare currentNodeId?: string;
   declare searchQuery: string;
   declare filters: FdOrgFilterState;
+  declare photoResolver?: FdOrgPhotoResolver;
 
   constructor() {
     super();
@@ -473,6 +525,7 @@ export class FdOrgOutline extends LitElement {
     `;
     const body = html`
       ${caret}
+      ${this.renderAvatar(node)}
       <span part="label">${this.renderHighlightedText(node.label)}</span>
       ${this.renderMeta(node)}
       ${indicator}
@@ -530,6 +583,27 @@ export class FdOrgOutline extends LitElement {
       .join(" · ");
 
     return meta ? html`<span part="meta">${this.renderHighlightedText(meta)}</span>` : nothing;
+  }
+
+  private renderAvatar(node: FdOrgNode) {
+    const src = this.resolvePhotoUrl(node);
+    if (!src) return nothing;
+
+    return html`
+      <fd-visual part="avatar" type="avatar" size="lg">
+        <img alt="" src=${src} />
+      </fd-visual>
+    `;
+  }
+
+  private resolvePhotoUrl(node: FdOrgNode) {
+    if (node.nodeType !== "person") return undefined;
+
+    const resolved = this.photoResolver?.(node);
+    if (resolved) return resolved;
+
+    const ref = node.person?.photoRef;
+    return ref && /^(https?:|data:|\/)/.test(ref) ? ref : undefined;
   }
 
   private renderHighlightedText(value: string) {

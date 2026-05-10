@@ -63,6 +63,8 @@ export type FdOrgPerson = {
   contactRefs?: string[];
 };
 
+export type FdOrgPhotoResolver = (node: FdOrgNode) => string | undefined;
+
 export type FdOrgInputNode = {
   id?: string;
   parentId?: string | null;

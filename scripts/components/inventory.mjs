@@ -1233,7 +1233,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-icon"]
+      dependencies: ["fd-icon", "fd-visual"]
     },
     typeExports: [
       "FdOrgActingMeta",
@@ -1244,6 +1244,7 @@ export const componentInventory = [
       "FdOrgNode",
       "FdOrgNodeType",
       "FdOrgNormalizeResult",
+      "FdOrgPhotoResolver",
       "FdOrgPrintDecision",
       "FdOrgPrintScope",
       "FdOrgSearchResult",
@@ -1272,7 +1273,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: ["fd-badge", "fd-button", "fd-icon"]
+      dependencies: ["fd-badge", "fd-button", "fd-icon", "fd-visual"]
     },
     typeExports: []
   },

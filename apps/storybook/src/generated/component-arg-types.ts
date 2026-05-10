@@ -859,6 +859,7 @@ export const componentStoryApi = {
     "currentNodeId": { control: "text" },
     "searchQuery": { control: "text" },
     "filters": { control: "text" },
+    "photoResolver": { control: "text" },
     },
     args: {
     "label": "Organization outline",
@@ -868,6 +869,7 @@ export const componentStoryApi = {
     "currentNodeId": undefined,
     "searchQuery": "",
     "filters": "{}",
+    "photoResolver": null,
     },
   },
   "fd-org-details": {
@@ -875,11 +877,13 @@ export const componentStoryApi = {
     "tree": { control: "text" },
     "nodeId": { control: "text" },
     "emptyLabel": { control: "text" },
+    "photoResolver": { control: "text" },
     },
     args: {
     "tree": null,
     "nodeId": null,
     "emptyLabel": "Select an organization record to review details.",
+    "photoResolver": null,
     },
   },
 } as const;

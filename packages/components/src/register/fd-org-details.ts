@@ -4,6 +4,7 @@ import { warnIfDesignSystemRuntimeMissing } from "../runtime.js";
 import { FdBadge } from "../components/fd-badge.js";
 import { FdButton } from "../components/fd-button.js";
 import { FdIcon } from "../components/fd-icon.js";
+import { FdVisual } from "../components/fd-visual.js";
 
 warnIfDesignSystemRuntimeMissing();
 
@@ -17,6 +18,10 @@ if (!customElements.get("fd-button")) {
 
 if (!customElements.get("fd-icon")) {
   customElements.define("fd-icon", FdIcon);
+}
+
+if (!customElements.get("fd-visual")) {
+  customElements.define("fd-visual", FdVisual);
 }
 
 if (!customElements.get("fd-org-details")) {

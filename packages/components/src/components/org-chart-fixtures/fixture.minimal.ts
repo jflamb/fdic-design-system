@@ -32,6 +32,6 @@ export const minimalOrgFixture: FdOrgInputNode[] = [
     title: "Associate Director",
     nodeType: "person",
     sourceStatus: "official",
-    person: { displayName: "Alex Rivera" },
+    person: { displayName: "Alex Rivera", photoRef: "avatar:alex-rivera" },
   },
 ];

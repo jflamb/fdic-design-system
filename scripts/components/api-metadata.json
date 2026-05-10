@@ -6213,6 +6213,11 @@
           "name": "filters",
           "type": "FdOrgFilterState",
           "description": "Approved v1 filters for node type, source/status, and acting assignment."
+        },
+        {
+          "name": "photoResolver",
+          "type": "FdOrgPhotoResolver",
+          "description": "Optional resolver that maps person nodes with `person.photoRef` to decorative avatar image URLs."
         }
       ],
       "after": ""
@@ -6273,6 +6278,10 @@
           "description": "Native button row for leaf-node selection."
         },
         {
+          "name": "avatar",
+          "description": "Decorative `fd-visual` avatar for person nodes when photo media is available."
+        },
+        {
           "name": "label",
           "description": "Node label text."
         },
@@ -6313,6 +6322,11 @@
           "name": "emptyLabel",
           "type": "string",
           "description": "Message shown when no node is selected."
+        },
+        {
+          "name": "photoResolver",
+          "type": "FdOrgPhotoResolver",
+          "description": "Optional resolver that maps person nodes with `person.photoRef` to decorative avatar image URLs."
         }
       ],
       "after": ""
@@ -6343,6 +6357,10 @@
         {
           "name": "live",
           "description": "Visually hidden polite live region announcing the selected record."
+        },
+        {
+          "name": "avatar",
+          "description": "Decorative `fd-visual` avatar for person nodes when photo media is available."
         },
         {
           "name": "eyebrow",

@@ -27,6 +27,10 @@ Org Details renders the selected organization record, its reporting context, sou
   caption="Org Details shows an editorial override with side-by-side source-of-truth and override values."
 />
 
+### Optional avatars
+
+Org Details can show a larger decorative avatar for person records when <code>person.photoRef</code> is present and <code>photoResolver</code> returns an image URL. The avatar uses <code>fd-visual type="avatar"</code>; the selected node heading remains the accessible source of the person’s name.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 
@@ -35,6 +39,7 @@ Org Details renders the selected organization record, its reporting context, sou
 | `tree` | FdOrgTree | `undefined` | Normalized organization tree returned by `normalizeOrgTree(input)`. |
 | `nodeId` | string | `undefined` | Selected node id to display in the details panel. |
 | `emptyLabel` | string | `Select an organization record to review details.` | Message shown when no node is selected. |
+| `photoResolver` | FdOrgPhotoResolver | `undefined` | Optional resolver that maps person nodes with `person.photoRef` to decorative avatar image URLs. |
 
 ## Slots
 
@@ -48,6 +53,7 @@ Org Details renders the selected organization record, its reporting context, sou
 |---|---|
 | `panel` | Details panel wrapper. |
 | `live` | Visually hidden polite live region announcing the selected record. |
+| `avatar` | Decorative `fd-visual` avatar for person nodes when photo media is available. |
 | `eyebrow` | Node type and source-status summary. |
 | `heading` | Selected node heading. |
 | `status` | Status badge row. |
@@ -66,6 +72,7 @@ Org Details renders the selected organization record, its reporting context, sou
       <li>Pair details with a visible outline selection.</li>
       <li>Show source labels, freshness, and effective dates when available.</li>
       <li>Keep conflict labels explicit: “Source of truth” and “Override.”</li>
+      <li>Treat profile photos as optional, decorative, and policy-gated by the consuming app.</li>
     </ul>
   </div>
   <div>
@@ -74,6 +81,7 @@ Org Details renders the selected organization record, its reporting context, sou
       <li>Hide diagnostics from editors.</li>
       <li>Ask people to infer status from color.</li>
       <li>Use the panel for destructive review actions without app-level confirmation.</li>
+      <li>Use photos for vacancies, positions, or units.</li>
     </ul>
   </div>
 </div>
@@ -91,6 +99,7 @@ Org Details renders the selected organization record, its reporting context, sou
 - Keyboard order should move from toolbar to outline to details in the composed pattern.
 - Text wraps at 200% zoom and details stack on narrow screens.
 - Status remains identifiable in greyscale because every state uses text plus an icon marker.
+- Avatars are decorative; use empty image alt text when adjacent text already identifies the person.
 
 ## Known limitations
 

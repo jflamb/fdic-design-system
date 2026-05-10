@@ -1,5 +1,9 @@
 import { LitElement, css, html, nothing } from "lit";
-import type { FdOrgNode, FdOrgTree } from "./org-chart-types.js";
+import type {
+  FdOrgNode,
+  FdOrgPhotoResolver,
+  FdOrgTree,
+} from "./org-chart-types.js";
 import {
   FD_ORG_NODE_TYPE_LABELS,
   FD_ORG_SOURCE_STATUS_ICONS,
@@ -16,6 +20,7 @@ import {
  *
  * @csspart panel - Details panel wrapper.
  * @csspart live - Visually hidden polite live region announcing the selected record.
+ * @csspart avatar - Decorative avatar visual for person nodes when photo media is available.
  * @csspart eyebrow - Node type/source summary.
  * @csspart heading - Selected node heading.
  * @csspart status - Status badge row.
@@ -29,6 +34,7 @@ export class FdOrgDetails extends LitElement {
     tree: { attribute: false },
     nodeId: { attribute: "node-id", reflect: true },
     emptyLabel: { attribute: "empty-label", reflect: true },
+    photoResolver: { attribute: false },
   };
 
   static styles = css`
@@ -69,6 +75,22 @@ export class FdOrgDetails extends LitElement {
     [part="header"] {
       display: grid;
       gap: var(--fdic-spacing-3xs, 2px);
+    }
+
+    [part="header"][data-has-avatar="true"] {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--fdic-spacing-3xs, 2px) var(--fdic-spacing-md, 16px);
+      align-items: start;
+    }
+
+    [part~="avatar"] {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      --fd-visual-bg-avatar: var(--fdic-color-bg-subtle, #f6f7f9);
+    }
+
+    [part="header"][data-has-avatar="true"] > :not([part~="avatar"]) {
+      grid-column: 2;
     }
 
     [part="eyebrow"] {
@@ -185,6 +207,7 @@ export class FdOrgDetails extends LitElement {
   declare tree?: FdOrgTree;
   declare nodeId?: string;
   declare emptyLabel: string;
+  declare photoResolver?: FdOrgPhotoResolver;
 
   constructor() {
     super();
@@ -205,11 +228,19 @@ export class FdOrgDetails extends LitElement {
 
     const ancestors = this.tree ? getOrgAncestors(this.tree, node.id) : [];
     const children = this.tree ? getOrgChildren(this.tree, node.id) : [];
+    const photoUrl = this.resolvePhotoUrl(node);
 
     return html`
       <section part="panel" aria-label="Organization details">
         <span part="live" aria-live="polite">${node.label} details loaded.</span>
-        <header part="header">
+        <header part="header" data-has-avatar=${String(Boolean(photoUrl))}>
+          ${photoUrl
+            ? html`
+                <fd-visual part="avatar" type="avatar" size="xl">
+                  <img alt="" src=${photoUrl} />
+                </fd-visual>
+              `
+            : nothing}
           <p part="eyebrow">
             ${FD_ORG_NODE_TYPE_LABELS[node.nodeType]} · ${FD_ORG_SOURCE_STATUS_LABELS[node.sourceStatus]}
           </p>
@@ -347,6 +378,16 @@ export class FdOrgDetails extends LitElement {
           `
         : nothing}
     `;
+  }
+
+  private resolvePhotoUrl(node: FdOrgNode) {
+    if (node.nodeType !== "person") return undefined;
+
+    const resolved = this.photoResolver?.(node);
+    if (resolved) return resolved;
+
+    const ref = node.person?.photoRef;
+    return ref && /^(https?:|data:|\/)/.test(ref) ? ref : undefined;
   }
 
   private renderConflicts(node: FdOrgNode) {
