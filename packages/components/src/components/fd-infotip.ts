@@ -423,6 +423,7 @@ export class FdInfotip extends LitElement {
         font-weight: 400;
         line-height: 1.375;
         max-width: min(224px, calc(100vw - 16px));
+        overflow: visible;
         box-shadow:
           0 1px 1px rgba(0, 0, 0, 0.08),
           0 2px 2px rgba(0, 0, 0, 0.06),
