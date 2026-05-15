@@ -95,7 +95,7 @@ Labels identify form inputs and provide optional description text and contextual
 - The required indicator uses a visual asterisk (`aria-hidden="true"`) paired with visually-hidden text "(required)" for screen readers. The input itself must also have the `required` or `aria-required` attribute.
 - Description text is auto-wired via `aria-describedby` on the target input. `fd-label` appends its description ID, preserves existing tokens, and cleans up only its own ID on disconnect.
 - Sibling components such as `fd-input` use `fd-label`'s stable public `labelId` and `descriptionId` getters internally. Consumers normally do not need to set or read these directly.
-- The InfoTip uses a disclosure/toggletip pattern: `<button>` with `aria-expanded` and `aria-controls`. No `role="status"` or live region. Escape closes the panel and returns focus to the trigger.
+- The InfoTip uses the shared [`fd-infotip`](./infotip) primitive: a real `<button>` with `aria-expanded`, `aria-controls`, and `aria-describedby`. No `role="status"` or live region. Escape closes the panel and returns focus to the trigger.
 - **Same-root limitation:** The target control must share the same DOM root tree as `fd-label`. If the input lives inside another component's shadow root, the `for`/`id` association will not cross that boundary.
 
 ## Known limitations
@@ -103,7 +103,7 @@ Labels identify form inputs and provide optional description text and contextual
 - **Light DOM rendering** — `fd-label` renders without a shadow root to enable native label association. This means host-page styles can bleed into the component. Styles are scoped via tag-qualified selectors (`fd-label [part="..."]`) and rendered as an inline `<style>` tag.
 - **No error slot** — Error display stays in consuming form controls where it is coupled to validation state. `fd-label` is a labeling primitive, not a form field wrapper.
 - **InfoTip content is plain text only in v1** — The `infotip` attribute accepts a string. Rich content with links or interactive elements would require a dialog pattern and is out of scope.
-- **Popover API requirement** — The InfoTip panel uses `popover="auto"` as the shipped production model. It does not keep a separate legacy fallback path.
+- **Popover API model** — The InfoTip panel uses `popover="auto"` when available and keeps a narrow fallback path for test and older runtime surfaces.
 
 ## Related components
 

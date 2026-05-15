@@ -6393,5 +6393,79 @@
       ],
       "after": ""
     }
+  },
+  "fd-infotip": {
+    "properties": {
+      "rows": [
+        {
+          "name": "text",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Plain-text supplementary help shown in the InfoTip panel"
+        },
+        {
+          "name": "label",
+          "type": "`string`",
+          "defaultValue": "`\"More information\"`",
+          "description": "Accessible name for the trigger"
+        },
+        {
+          "name": "trigger",
+          "type": "`string`",
+          "defaultValue": "`\"\"`",
+          "description": "Visible trigger text. Icon variant falls back to the information icon when empty."
+        },
+        {
+          "name": "href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional link target. When present, the trigger renders as an anchor instead of a button."
+        },
+        {
+          "name": "variant",
+          "type": "`\"icon\" \\| \"inline\"`",
+          "defaultValue": "`\"icon\"`",
+          "description": "Visual trigger variant. Use `inline` for text references such as footnotes."
+        },
+        {
+          "name": "mode",
+          "type": "`\"click\" \\| \"hover-focus\"`",
+          "defaultValue": "`\"click\"`",
+          "description": "Opening behavior. Use `click` for icon toggletips and `hover-focus` for inline references that keep their primary click action."
+        },
+        {
+          "name": "open",
+          "type": "`boolean`",
+          "defaultValue": "`false`",
+          "description": "Reflects whether the InfoTip panel is currently open"
+        }
+      ],
+      "after": ""
+    },
+    "slots": {
+      "rows": [],
+      "after": ""
+    },
+    "events": {
+      "rows": [],
+      "after": ""
+    },
+    "cssProperties": {
+      "rows": [],
+      "after": ""
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "trigger",
+          "description": "Button or anchor that opens the InfoTip"
+        },
+        {
+          "name": "infotip-trigger",
+          "description": "Compatibility alias for the trigger part"
+        }
+      ],
+      "after": ""
+    }
   }
 }

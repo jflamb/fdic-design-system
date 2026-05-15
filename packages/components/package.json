@@ -258,6 +258,10 @@
       "types": "./dist/components/fd-org-details.d.ts",
       "import": "./dist/components/fd-org-details.js"
     },
+    "./fd-infotip": {
+      "types": "./dist/components/fd-infotip.d.ts",
+      "import": "./dist/components/fd-infotip.js"
+    },
     "./icons/phosphor-duotone": {
       "types": "./dist/icons/phosphor-duotone.d.ts",
       "import": "./dist/icons/phosphor-duotone.js"

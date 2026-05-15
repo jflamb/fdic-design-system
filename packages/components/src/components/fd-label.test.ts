@@ -25,11 +25,11 @@ function getDescription(el: any): HTMLElement | null {
 }
 
 function getInfotipTrigger(el: any): HTMLButtonElement | null {
-  return el.querySelector("[part=infotip-trigger]");
+  return el.querySelector("[part~=infotip-trigger]");
 }
 
 function getInfotipPanel(el: any): HTMLElement | null {
-  return el.querySelector(".fd-label__infotip-panel");
+  return el.querySelector(".fd-infotip__panel");
 }
 
 describe("fd-label", () => {
@@ -489,7 +489,8 @@ describe("fd-label", () => {
     // Open the infotip
     trigger.click();
     await el.updateComplete;
-    expect(el._infotipOpen).toBe(true);
+    const infotip = el.querySelector("fd-infotip") as any;
+    expect(infotip.open).toBe(true);
 
     // Clear the infotip attribute
     el.removeAttribute("infotip");
@@ -498,8 +499,6 @@ describe("fd-label", () => {
     await new Promise((r) => requestAnimationFrame(r));
     await el.updateComplete;
 
-    // State should be cleaned up
-    expect(el._infotipOpen).toBe(false);
     // Trigger and panel should be gone
     expect(getInfotipTrigger(el)).toBeNull();
     expect(getInfotipPanel(el)).toBeNull();
@@ -513,7 +512,7 @@ describe("fd-label", () => {
       infotip: "Help content",
     });
     const panel = getInfotipPanel(el);
-    const caret = panel?.querySelector(".fd-label__infotip-caret");
+    const caret = panel?.querySelector(".fd-infotip__caret");
 
     expect(caret).not.toBeNull();
     expect(caret?.getAttribute("aria-hidden")).toBe("true");
@@ -539,7 +538,8 @@ describe("fd-label", () => {
     );
     await el.updateComplete;
 
-    expect(el._infotipOpen).toBe(false);
+    const infotip = el.querySelector("fd-infotip") as any;
+    expect(infotip.open).toBe(false);
     // In happy-dom, focus tracking is limited, but we verify the
     // trigger still exists and the panel is closed
     expect(trigger.getAttribute("aria-expanded")).toBe("false");

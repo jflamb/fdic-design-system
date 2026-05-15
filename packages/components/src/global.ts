@@ -5,6 +5,7 @@ import type { FdCheckboxGroup } from "./components/fd-checkbox-group.js";
 import type { FdField } from "./components/fd-field.js";
 import type { FdIcon } from "./components/fd-icon.js";
 import type { FdInput } from "./components/fd-input.js";
+import type { FdInfotip } from "./components/fd-infotip.js";
 import type { FdLabel } from "./components/fd-label.js";
 import type { FdMenu } from "./components/fd-menu.js";
 import type { FdMenuItem } from "./components/fd-menu-item.js";
@@ -27,6 +28,7 @@ declare global {
     "fd-field": FdField;
     "fd-icon": FdIcon;
     "fd-input": FdInput;
+    "fd-infotip": FdInfotip;
     "fd-label": FdLabel;
     "fd-menu": FdMenu;
     "fd-menu-item": FdMenuItem;

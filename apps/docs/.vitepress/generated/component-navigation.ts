@@ -6,6 +6,7 @@ export const componentSidebarGroups = [
       { text: "Label", link: "/components/label" },
       { text: "Field", link: "/components/field" },
       { text: "Form Field", link: "/components/form-field" },
+      { text: "Infotip", link: "/components/infotip" },
       { text: "Message", link: "/components/message" },
       { text: "Input", link: "/components/input" },
       { text: "Text Area", link: "/components/textarea" },

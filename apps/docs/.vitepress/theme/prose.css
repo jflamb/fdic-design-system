@@ -843,23 +843,56 @@
 
 /* --- Footnotes ----------------------------------------------------------- */
 
-/* Inline footnote reference */
-.prose sup a[href^="#fn"] {
-  text-decoration: none;
-  font-weight: 600;
+/* Inline footnote reference and back-link */
+.prose sup > a[role="doc-noteref"],
+.prose .prose-footnotes a[role="doc-backlink"] {
+  border-radius: 999px;
   color: var(--fdic-color-text-link, #1278b0);
-  padding: 0.5em 0.35em;
-  margin: -0.5em -0.25em;
+  isolation: isolate;
+  position: relative;
+  text-decoration: none;
 }
 
-.prose sup a[href^="#fn"]:hover {
+.prose sup > a[role="doc-noteref"] {
+  font-weight: 600;
+}
+
+.prose sup > a[role="doc-noteref"]::before,
+.prose .prose-footnotes a[role="doc-backlink"]::before {
+  border-radius: 999px;
+  content: "";
+  block-size: 24px;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  min-inline-size: 24px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.prose sup > a[role="doc-noteref"]::before {
+  inline-size: 24px;
+}
+
+.prose .prose-footnotes a[role="doc-backlink"]::before {
+  inline-size: calc(100% + 16px);
+}
+
+.prose sup > a[role="doc-noteref"]:is(:hover, :focus-visible)::before,
+.prose .prose-footnotes a[role="doc-backlink"]:is(:hover, :focus-visible)::before {
+  background-color: var(--fdic-color-bg-container, #f5f5f7);
+  box-shadow: inset 0 0 0 999px var(--fdic-color-overlay-hover, rgba(0, 0, 0, 0.04));
+}
+
+.prose sup > a[role="doc-noteref"]:is(:hover, :focus-visible),
+.prose .prose-footnotes a[role="doc-backlink"]:is(:hover, :focus-visible) {
   text-decoration: underline;
 }
 
-.prose sup a[href^="#fn"]:focus-visible {
+.prose sup > a[role="doc-noteref"]:focus-visible,
+.prose .prose-footnotes a[role="doc-backlink"]:focus-visible {
   outline: 2px solid var(--fdic-color-border-input-focus, #38b6ff);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline-offset: 4px;
 }
 
 /* Footnote section */
@@ -894,21 +927,10 @@
 
 /* Back-link */
 .prose .prose-footnotes a[href^="#ref"] {
-  color: var(--fdic-color-link-default, #0D6191);
-  text-decoration: underline;
+  white-space: nowrap;
   text-underline-offset: 0.15em;
   text-decoration-thickness: 1px;
-  margin-left: 0.25em;
-}
-
-.prose .prose-footnotes a[href^="#ref"]:hover {
-  text-decoration: underline;
-}
-
-.prose .prose-footnotes a[href^="#ref"]:focus-visible {
-  outline: 2px solid var(--fdic-color-border-input-focus, #38b6ff);
-  outline-offset: 2px;
-  border-radius: 2px;
+  margin-left: 0.5em;
 }
 
 /* Target highlight when clicking a footnote reference */
@@ -1665,9 +1687,23 @@ html {
     word-break: break-all;
   }
 
-  /* Don't append URL to footnote back-links */
-  .prose .prose-footnotes a[href^="#ref"]::after {
-    content: none;
+  /* Footnotes: keep the print convention, hide interactive-only affordances */
+  .prose .prose-footnotes {
+    break-before: auto;
+    color: #000;
+  }
+
+  .prose .prose-footnotes hr {
+    border-top-color: #000;
+  }
+
+  .prose .prose-footnotes li {
+    break-inside: avoid;
+  }
+
+  .prose sup > a[role="doc-noteref"]::before,
+  .prose .prose-footnotes a[role="doc-backlink"] {
+    display: none;
   }
 
   .prose blockquote {

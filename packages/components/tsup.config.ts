@@ -67,6 +67,7 @@ export default defineConfig({
     "components/fd-sidebar-menu": "src/components/fd-sidebar-menu.ts",
     "components/fd-org-outline": "src/components/fd-org-outline.ts",
     "components/fd-org-details": "src/components/fd-org-details.ts",
+    "components/fd-infotip": "src/components/fd-infotip.ts",
 
     // Registration entry points
     "register/register-all": "src/register/register-all.ts",
@@ -122,6 +123,7 @@ export default defineConfig({
     "register/fd-sidebar-menu": "src/register/fd-sidebar-menu.ts",
     "register/fd-org-outline": "src/register/fd-org-outline.ts",
     "register/fd-org-details": "src/register/fd-org-details.ts",
+    "register/fd-infotip": "src/register/fd-infotip.ts",
 
     // Icon packs
     "icons/phosphor-duotone": "src/icons/phosphor-duotone.ts",

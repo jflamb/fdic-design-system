@@ -886,6 +886,26 @@ export const componentStoryApi = {
     "photoResolver": null,
     },
   },
+  "fd-infotip": {
+    argTypes: {
+    "text": { control: "text" },
+    "label": { control: "text" },
+    "trigger": { control: "text" },
+    "href": { control: "text" },
+    "variant": { control: "select", options: ["icon","inline"] },
+    "mode": { control: "select", options: ["click","hover-focus"] },
+    "open": { control: "boolean" },
+    },
+    args: {
+    "text": "",
+    "label": "More information",
+    "trigger": "",
+    "href": undefined,
+    "variant": "icon",
+    "mode": "click",
+    "open": false,
+    },
+  },
 } as const;
 
 export function getComponentArgTypes(tagName: keyof typeof componentStoryApi) {

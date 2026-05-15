@@ -12,7 +12,7 @@ The components section documents the reusable building blocks and authored-conte
 <div class="fdic-card-grid">
   <div class="fdic-card">
     <span class="fdic-eyebrow">Forms & Input</span>
-    <h3>Label, Field, Form Field, Message, Input, Text Area, Selector, Checkbox, Checkbox Group, Radio, Radio Group, Slider, File Input</h3>
+    <h3>Label, Field, Form Field, Infotip, Message, Input, Text Area, Selector, Checkbox, Checkbox Group, Radio, Radio Group, Slider, File Input</h3>
     <p>Data-entry controls and composition helpers for labels, grouping, validation, and supporting guidance.</p>
   </div>
   <div class="fdic-card">
@@ -54,6 +54,7 @@ Embedded-only supporting primitives such as <code>fd-menu-item</code> and <code>
 - [Label](./label) documents label usage, constraints, and accessibility guidance.
 - [Field](./field) documents the supporting primitive contract for field.
 - [Form Field](./form-field) documents the supporting primitive contract for form field.
+- [Infotip](./infotip) documents the supporting primitive contract for infotip.
 - [Message](./message) documents the supporting primitive contract for message.
 - [Input](./input) documents input usage, constraints, and accessibility guidance.
 - [Text Area](./textarea) documents text area usage, constraints, and accessibility guidance.

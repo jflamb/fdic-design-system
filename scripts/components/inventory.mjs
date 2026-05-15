@@ -186,7 +186,7 @@ export const componentInventory = [
     register: {
       exportSubpath: true,
       includeInRegisterAll: true,
-      dependencies: [],
+      dependencies: ["fd-infotip"],
     },
     typeExports: [],
   },
@@ -1276,6 +1276,28 @@ export const componentInventory = [
       dependencies: ["fd-badge", "fd-button", "fd-icon", "fd-visual"]
     },
     typeExports: []
+  },
+  {
+    tagName: "fd-infotip",
+    className: "FdInfotip",
+    sourceFile: "fd-infotip.ts",
+    docs: {
+      kind: "supporting-standalone",
+      title: "Infotip",
+      slug: "infotip",
+      category: "forms-input",
+      order: 25
+    },
+    storybook: {
+      title: "Supporting Primitives/Infotip",
+      file: "fd-infotip.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["InfotipTriggerMode", "InfotipVariant"]
   },
   // New component entries are inserted above this line by the scaffold script.
 ];

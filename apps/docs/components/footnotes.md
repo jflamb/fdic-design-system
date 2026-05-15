@@ -29,7 +29,7 @@ Footnotes provide a way to cite sources, add clarifications, or include suppleme
   <div class="fdic-do-card">
     <span class="fdic-eyebrow">Do</span>
     <h4>Number footnotes sequentially</h4>
-    <p>Number footnotes sequentially as they appear in the text — [1], [2], [3].</p>
+    <p>Number footnotes sequentially as they appear in the text — 1, 2, 3.</p>
   </div>
   <div class="fdic-dont-card">
     <span class="fdic-eyebrow">Don't</span>
@@ -66,10 +66,11 @@ Footnotes provide a way to cite sources, add clarifications, or include suppleme
 
 ## Interaction behavior
 
-- Clicking a **footnote reference** (e.g., [1]) in the body text scrolls to the corresponding footnote at the bottom of the page.
+- Clicking a **footnote reference** (e.g., 1) in the body text scrolls to the corresponding footnote at the bottom of the page.
 - Each footnote includes a **back-link** (↩) that returns the reader to the exact point in the text where the reference appeared.
 - When a footnote is navigated to, it **briefly highlights** with a yellow flash to help the reader locate it. Users who prefer reduced motion see a static highlight instead.
-- Footnote references have **enlarged tap targets** for easier activation on touch devices.
+- Footnote references and back-links appear as inline text at rest. Use `fd-infotip variant="inline" mode="hover-focus"` when numbered references need an accessible citation preview, and both link types show a 24px minimum background fill and underline to make the target easier to see and activate.
+- In print, footnotes remain at the bottom of the content with a horizontal rule separating them from the body text. Back-links and citation previews are hidden because they are interactive-only affordances.
 
 ## Content guidelines
 
