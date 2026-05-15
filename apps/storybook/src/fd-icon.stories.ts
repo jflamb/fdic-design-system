@@ -17,7 +17,7 @@ type IconArgs = {
 const iconNames = [
   "star", "caret-down", "caret-up", "caret-right", "caret-left",
   "plus", "minus", "x", "check", "info", "warning", "warning-circle", "warning-octagon",
-  "arrow-square-out", "download", "upload", "trash", "pencil",
+  "arrow-square-out", "download", "microsoft-outlook-logo", "upload", "trash", "pencil",
   "square", "check-square", "minus-square",
   "eye", "eye-slash", "magnifying-glass",
 ];

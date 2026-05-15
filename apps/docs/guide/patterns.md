@@ -49,8 +49,8 @@ Many examples include a link to an interactive preview so you can inspect respon
 
 <StoryEmbed
   storyId="patterns-content-page-recipes--news-article-with-sidebar"
-  linkStoryId="patterns-content-page-recipes--news-stories-with-filters"
-  caption="Content page recipes — article, sidebar navigation, filtering, and headline-list structures for content-heavy pages."
+  linkStoryId="patterns-content-page-recipes--event-detail"
+  caption="Content page recipes — article, event detail, sidebar navigation, filtering, and headline-list structures for content-heavy pages."
 />
 
 <StoryEmbed
@@ -61,7 +61,7 @@ Many examples include a link to an interactive preview so you can inspect respon
 
 The stable layout-class surface is documented in [Composition Patterns](/guide/foundations/composition-patterns). Use that page when you need the exact class names and semantic requirements.
 
-Use [Content Page Recipes](/guide/content-page-recipes) for long-form article pages, news archive pages, sidebar navigation, filter rows, and dense headline lists.
+Use [Content Page Recipes](/guide/content-page-recipes) for long-form article pages, event detail pages, news archive pages, sidebar navigation, filter rows, and dense headline lists.
 
 Use [Form Workflows](/guide/form-workflows) for multi-step or validation-heavy form recipes. Form patterns have stricter rules because they control error prevention, review, recovery, and submission confidence.
 

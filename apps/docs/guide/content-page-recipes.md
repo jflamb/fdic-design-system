@@ -21,9 +21,15 @@ The examples are based on the FDICnet News Article and News Stories with Filters
   caption="News stories with filters — sidebar navigation, filter criteria, action row, and a dense headline list with metadata."
 />
 
+<StoryEmbed
+  storyId="patterns-content-page-recipes--event-detail"
+  caption="Event detail page — leads with date, time, audience/location, primary actions, and a concise event description."
+/>
+
 ## When to use
 
 - Long-form news, policy, guidance, or editorial pages.
+- Event pages where date, time, location, description, and attendance actions must be visible without turning the page into a dense metadata card.
 - Section pages where a sidebar helps readers understand location and sibling pages.
 - News or archive pages where readers need keyword, topic, office, or date filtering.
 - CMS templates where authors need constrained layout choices instead of freeform spacer and column controls.
@@ -36,23 +42,36 @@ The examples are based on the FDICnet News Article and News Stories with Filters
 
 ## Layout contract
 
-Use `.fdic-content-layout` inside a shell-aligned `.fdic-page-band__content` row:
+Use `.fdic-content-layout` inside a shell-aligned `.fdic-page-band__content` row. Use the standard `fd-sidebar-nav` component for local navigation; do not hand-build sidebar lists inside content recipes.
 
 ```html
 <section class="fdic-page-band" aria-label="Article content">
-  <div class="fdic-page-band__content fdic-content-layout">
-    <div class="fdic-content-layout__sidebar">
-      <!-- section navigation -->
-    </div>
-
+  <div class="fdic-page-band__content fdic-content-layout fdic-content-layout--detail-priority">
     <article class="fdic-content-layout__main prose" aria-label="Article title">
       <!-- article body -->
     </article>
+
+    <div class="fdic-content-layout__sidebar">
+      <div class="fdic-content-layout__sidebar-panel">
+        <fd-sidebar-nav></fd-sidebar-nav>
+      </div>
+
+      <details class="fdic-content-layout__sidebar-disclosure">
+        <summary>More in News & Events</summary>
+        <div class="fdic-content-layout__sidebar-disclosure-body">
+          <fd-sidebar-nav></fd-sidebar-nav>
+        </div>
+      </details>
+    </div>
   </div>
 </section>
 ```
 
-The default layout uses a 320-ish sidebar rail and a readable content rail. At tablet and mobile widths, the sidebar stacks above the main content.
+The default layout uses a 320-ish sidebar rail and a readable content rail. At tablet and mobile widths, the sidebar stacks above the main content. Use `.fdic-content-layout--detail-priority` when the page's primary content needs to come before section navigation on narrow screens. In that modifier, the DOM order should put the main content before the sidebar; grid areas keep the sidebar in the left rail on desktop.
+
+For detail-priority pages, keep the full local navigation visible on desktop, but use `.fdic-content-layout__sidebar-disclosure` to collapse the local navigation on narrow viewports. That keeps section navigation available without making it look like the next article section. Both placements should render `fd-sidebar-nav` from the same structured navigation data.
+
+The narrow treatment uses the same native disclosure primitive documented in [Details / Accordion](/components/details), but it is a navigation placement pattern rather than prose accordion content. Do not wrap local navigation in `.prose` or hand-build an accordion list; keep `fd-sidebar-nav` as the navigation component inside the disclosure.
 
 ## Sidebar navigation
 
@@ -65,6 +84,7 @@ Use [Sidebar Nav](/components/sidebar-nav) or [Sidebar Menu](/components/sidebar
 - Use Sidebar Nav when the route should determine the visible branch and unrelated descendants should be omitted.
 - Use Sidebar Menu when people need to expand and collapse sibling branches without leaving the page.
 - Do not use sidebar navigation for article table-of-contents links. Use the Prose table-of-contents pattern for in-page navigation.
+- Do not replace local navigation with prose accordions. If narrow viewports need a collapsed affordance, put the actual `fd-sidebar-nav` component inside a native disclosure wrapper.
 - Do not wrap the sidebar in `aside` when it sits inside `main`; the labeled `nav` is the meaningful landmark.
 
 The `.fdic-section-nav` class remains available as a legacy recipe bridge or low-level fallback when a page cannot use the Web Component yet. New governed section navigation should prefer `fd-sidebar-nav` or `fd-sidebar-menu`, depending on whether the section needs user-controlled branch expansion.
@@ -79,6 +99,23 @@ Article pages should keep the main story in `.prose`:
 - Use `.fdic-article-media` for 16:9 cover images and captions.
 - Omit the topics block when there are no topics.
 - Keep related stories to a small set and use descriptive link text.
+
+## Event detail pages
+
+Event detail pages should not bury attendance details in the article body, but they also should not repeat the same facts in multiple places. Put the date, time, location, concise description, and actions in `.fdic-event-detail-summary`:
+
+- Show the full date, time, and location as plain text.
+- Use an en dash for time ranges, such as `11 a.m.–Noon ET`.
+- Include audience or category before the format when useful, such as `FDIC-Wide | Virtual`.
+- Put the primary join or registration action immediately after the date/location block.
+- Put secondary actions, such as `Add to Outlook`, next to the primary action when space allows.
+- Put the event description immediately after the action row.
+- Fold short delivery notes into one sentence, such as “Microsoft Teams link sent after registration,” instead of adding a separate alert.
+- Avoid repeating the same destination as both a primary button and a metadata row.
+- Add `.fdic-content-layout--detail-priority` to the content layout so the event details appear before sidebar navigation on mobile.
+- On narrow viewports, collapse the local navigation into a native `details` disclosure, such as “More in News & Events,” instead of rendering the full sidebar as a long block after the content.
+
+The application or CMS still owns event data, calendar file generation, registration state, and meeting-link permission rules. The design system owns the layout, ordering, component choices, and semantic structure.
 
 ## Filtered news lists
 
@@ -97,6 +134,7 @@ Filtering behavior belongs to the application or CMS integration. The design sys
 - Preserve landmark order: header, main, labeled section navigation, article or results section, feedback, footer.
 - Sidebar links must have unique labels or enough surrounding context to distinguish them.
 - Filter controls need visible labels and predictable reset behavior.
+- Event detail summaries must expose date, time, location, description, and actions as real text; do not rely on visual-only date blocks or icon-only controls.
 - Result counts and empty states should be announced in the application when filters update dynamically.
 - Images need useful alt text when they convey story content. Use empty `alt` only for decorative related-story thumbnails.
 - The layout must reflow without horizontal scrolling at 400% zoom and narrow mobile widths.

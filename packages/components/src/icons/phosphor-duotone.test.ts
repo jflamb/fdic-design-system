@@ -27,6 +27,7 @@ describe("phosphor-duotone built-in icons", () => {
     "magnifying-glass",
     "minus",
     "minus-square",
+    "microsoft-outlook-logo",
     "pencil",
     "plus",
     "printer",

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
-import { html, nothing } from "lit";
+import { html } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
 import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 
@@ -7,16 +8,96 @@ import articleHero from "./assets/media-item/failed-bank-exercise.png";
 import relatedOne from "./assets/media-item/customer-data.png";
 import relatedTwo from "./assets/media-item/pci-compliance.png";
 
-const SIDEBAR_LINKS = [
-  { href: "#news-events", label: "News & Events" },
-  { href: "#overview", label: "Overview", level: 1 },
-  { href: "#news", label: "News", level: 1 },
-  { href: "#fdic-news", label: "FDIC News", level: 2, current: true },
-  { href: "#global-messages", label: "Global Messages", level: 2 },
-  { href: "#divisional-news", label: "Divisional News", level: 2 },
-  { href: "#newsroom", label: "Newsroom", level: 2 },
-  { href: "#events", label: "Events", level: 1 },
+const NEWS_EVENTS_SIDEBAR_ROOT = {
+  label: "News & Events",
+  href: "/news-events",
+};
+
+const NEWS_EVENTS_SIDEBAR_ITEMS = [
+  {
+    id: "overview",
+    label: "Overview",
+    href: "/news-events",
+  },
+  {
+    id: "news",
+    label: "News",
+    href: "/news-events/news",
+    items: [
+      {
+        id: "fdic-news",
+        label: "FDIC News",
+        href: "/news-events/news/fdic-news",
+      },
+      {
+        id: "global-messages",
+        label: "Global Messages",
+        href: "/news-events/news/global-messages",
+      },
+      {
+        id: "divisional-news",
+        label: "Divisional News",
+        href: "/news-events/news/divisional-news",
+      },
+      {
+        id: "newsroom",
+        label: "Newsroom",
+        href: "/news-events/news/newsroom",
+      },
+    ],
+  },
+  {
+    id: "events",
+    label: "Events",
+    href: "/news-events/events",
+    items: [
+      {
+        id: "training",
+        label: "Training",
+        href: "/news-events/events/training",
+      },
+      {
+        id: "board-meetings",
+        label: "Board Meetings",
+        href: "/news-events/events/board-meetings",
+      },
+    ],
+  },
+  {
+    id: "podcasts-media",
+    label: "Podcasts & Media",
+    href: "/news-events/podcasts-media",
+  },
 ];
+
+type EventDetailArgs = {
+  eventFormat: "virtual" | "in-person" | "hybrid";
+  eventLocation: string;
+  eventAudience: "FDIC-Wide" | "Public" | "Bankers" | "Internal";
+  eventRegistration: "required" | "not-required" | "waitlist" | "closed";
+  eventDate: string;
+  eventTime: string;
+};
+
+const REGISTRATION_BUTTON_LABELS: Record<EventDetailArgs["eventRegistration"], string> = {
+  required: "Register for the course",
+  "not-required": "Join the event",
+  waitlist: "Join the waitlist",
+  closed: "Registration closed",
+};
+
+const REGISTRATION_NOTES: Record<EventDetailArgs["eventRegistration"], string> = {
+  required: "Microsoft Teams link sent after registration.",
+  "not-required": "No registration is required.",
+  waitlist: "Waitlist confirmation sent by email.",
+  closed: "Registration is closed for this event.",
+};
+
+const FORMAT_LABELS: Record<EventDetailArgs["eventFormat"], string> = {
+  virtual: "Virtual",
+  "in-person": "In person",
+  hybrid: "Hybrid",
+};
 
 const HEADLINES = [
   {
@@ -41,24 +122,25 @@ const HEADLINES = [
   },
 ];
 
-const renderSidebarNav = () => html`
-  <nav aria-label="News section">
-    <ul class="fdic-section-nav">
-      ${SIDEBAR_LINKS.map(
-        (link) => html`
-          <li>
-            <a
-              href=${link.href}
-              data-level=${link.level ?? 0}
-              aria-current=${link.current ? "page" : nothing}
-            >
-              ${link.label}
-            </a>
-          </li>
-        `,
-      )}
-    </ul>
-  </nav>
+const renderStandardSidebarNav = (currentHref: string) => html`
+  <fd-sidebar-nav
+    label="News and Events section"
+    current-href=${ifDefined(currentHref)}
+    .root=${NEWS_EVENTS_SIDEBAR_ROOT}
+    .items=${NEWS_EVENTS_SIDEBAR_ITEMS}
+  ></fd-sidebar-nav>
+`;
+
+const renderResponsiveSidebarNav = (currentHref: string, disclosureLabel = "More in News & Events") => html`
+  <div class="fdic-content-layout__sidebar-panel">
+    ${renderStandardSidebarNav(currentHref)}
+  </div>
+  <details class="fdic-content-layout__sidebar-disclosure">
+    <summary>${disclosureLabel}</summary>
+    <div class="fdic-content-layout__sidebar-disclosure-body">
+      ${renderStandardSidebarNav(currentHref)}
+    </div>
+  </details>
 `;
 
 const renderHeadlineList = () => html`
@@ -93,11 +175,7 @@ const renderArticle = () => html`
       ></fd-page-header>
 
       <section class="fdic-page-band" aria-label="Article content">
-        <div class="fdic-page-band__content fdic-content-layout">
-          <div class="fdic-content-layout__sidebar">
-            ${renderSidebarNav()}
-          </div>
-
+        <div class="fdic-page-band__content fdic-content-layout fdic-content-layout--detail-priority">
           <article class="fdic-content-layout__main prose" aria-label="Economic Analyst Sees Connection in Running">
             <p class="fdic-composition-meta">
               By <a href="mailto:communications@example.gov">Sonya Weakley</a>, Office of
@@ -143,6 +221,10 @@ const renderArticle = () => html`
               </li>
             </ul>
           </article>
+
+          <div class="fdic-content-layout__sidebar">
+            ${renderResponsiveSidebarNav("/news-events/news/fdic-news")}
+          </div>
         </div>
       </section>
     </main>
@@ -165,11 +247,7 @@ const renderNewsIndex = () => html`
       ></fd-page-header>
 
       <section class="fdic-page-band" aria-label="News list">
-        <div class="fdic-page-band__content fdic-content-layout">
-          <div class="fdic-content-layout__sidebar">
-            ${renderSidebarNav()}
-          </div>
-
+        <div class="fdic-page-band__content fdic-content-layout fdic-content-layout--detail-priority">
           <div class="fdic-content-layout__main">
             <div class="prose">
               <p>
@@ -215,6 +293,10 @@ const renderNewsIndex = () => html`
               ${renderHeadlineList()}
             </section>
           </div>
+
+          <div class="fdic-content-layout__sidebar">
+            ${renderResponsiveSidebarNav("/news-events/news/fdic-news")}
+          </div>
         </div>
       </section>
     </main>
@@ -225,6 +307,88 @@ const renderNewsIndex = () => html`
   </div>
 `;
 
+const renderEventDetail = (args: EventDetailArgs) => {
+  const formatLabel = FORMAT_LABELS[args.eventFormat];
+  const locationText =
+    args.eventFormat === "virtual" || !args.eventLocation.trim()
+      ? `${args.eventAudience} | ${formatLabel}`
+      : `${args.eventAudience} | ${formatLabel} | ${args.eventLocation.trim()}`;
+  const registrationLabel = REGISTRATION_BUTTON_LABELS[args.eventRegistration];
+  const isRegistrationClosed = args.eventRegistration === "closed";
+
+  return html`
+  <div class="fdic-page" style="--fdic-layout-shell-max-width: 1312px;">
+    <fd-global-header></fd-global-header>
+    <main class="fdic-page__main">
+      <fd-page-header
+        heading="Building Better Documents with Microsoft Word Tables"
+        breadcrumb-label="Breadcrumbs"
+        .breadcrumbs=${[
+          { label: "Home", href: "#" },
+          { label: "News & Events", href: "#" },
+          { label: "Events", href: "#" },
+        ]}
+      ></fd-page-header>
+
+      <section class="fdic-page-band" aria-label="Event details">
+        <div class="fdic-page-band__content fdic-content-layout fdic-content-layout--detail-priority">
+          <article
+            class="fdic-content-layout__main prose"
+            aria-labelledby="event-detail-title"
+          >
+            <section class="fdic-event-detail-summary" aria-label="Key event details">
+              <p class="fdic-event-detail-summary__date">${args.eventDate}</p>
+              <p class="fdic-event-detail-summary__time">${args.eventTime}</p>
+              <p class="fdic-event-detail-summary__location">${locationText}</p>
+
+              <div class="fdic-event-detail-summary__actions">
+                <fd-button
+                  href=${isRegistrationClosed ? "" : "/learning/word-tables/register"}
+                  variant="primary"
+                  ?disabled=${isRegistrationClosed}
+                >
+                  ${registrationLabel}
+                </fd-button>
+                <fd-button href="/events/word-tables.ics" variant="outline">
+                  <fd-icon slot="icon-start" name="microsoft-outlook-logo"></fd-icon>
+                  Add to Outlook
+                </fd-button>
+              </div>
+
+              <p>
+                Participants will learn how to use Microsoft Word tables to present information in a
+                clear, organized, and professional manner. They will explore how tables help structure
+                content so it is easier to read, compare, and understand while applying formatting
+                techniques that enhance clarity and design.
+              </p>
+
+              <p class="fdic-event-detail-summary__note">
+                ${REGISTRATION_NOTES[args.eventRegistration]}
+              </p>
+            </section>
+
+            <h2>What participants will practice</h2>
+            <ul>
+              <li>Choosing when a table is the clearest format for information.</li>
+              <li>Setting up simple header rows and readable column structure.</li>
+              <li>Checking tables for accessibility before sharing documents.</li>
+            </ul>
+          </article>
+
+          <div class="fdic-content-layout__sidebar">
+            ${renderResponsiveSidebarNav("/news-events/events/training")}
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="fdic-page__chrome-end">
+      <fd-page-feedback></fd-page-feedback>
+      <fd-global-footer agency-name="Federal Deposit Insurance Corporation"></fd-global-footer>
+    </div>
+  </div>
+`;
+};
+
 const meta = {
   title: "Patterns/Content Page Recipes",
   tags: ["autodocs"],
@@ -234,7 +398,50 @@ const meta = {
       test: "error",
     },
   },
-} satisfies Meta;
+  argTypes: {
+    eventFormat: {
+      control: "radio",
+      options: ["virtual", "in-person", "hybrid"],
+      description: "Event Detail story-only control for attendance format.",
+      table: { category: "Event Detail controls" },
+    },
+    eventLocation: {
+      control: "text",
+      description: "Shown for in-person and hybrid events; hidden for virtual events.",
+      table: { category: "Event Detail controls" },
+    },
+    eventAudience: {
+      control: "select",
+      options: ["FDIC-Wide", "Public", "Bankers", "Internal"],
+      description: "Event Detail story-only control for audience metadata.",
+      table: { category: "Event Detail controls" },
+    },
+    eventRegistration: {
+      control: "radio",
+      options: ["required", "not-required", "waitlist", "closed"],
+      description: "Event Detail story-only control for registration action state.",
+      table: { category: "Event Detail controls" },
+    },
+    eventDate: {
+      control: "text",
+      description: "Event Detail story-only control for the displayed date.",
+      table: { category: "Event Detail controls" },
+    },
+    eventTime: {
+      control: "text",
+      description: "Event Detail story-only control for the displayed time.",
+      table: { category: "Event Detail controls" },
+    },
+  },
+  args: {
+    eventFormat: "virtual",
+    eventLocation: "Washington, DC",
+    eventAudience: "FDIC-Wide",
+    eventRegistration: "required",
+    eventDate: "Wednesday, May 20, 2026",
+    eventTime: "11 a.m.–Noon ET",
+  },
+} satisfies Meta<EventDetailArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -248,7 +455,9 @@ NewsArticleWithSidebar.play = async ({ canvasElement }) => {
     const layout = canvasElement.querySelector(".fdic-content-layout") as HTMLElement | null;
     const sidebar = canvasElement.querySelector(".fdic-content-layout__sidebar") as HTMLElement | null;
     const article = canvasElement.querySelector("article.prose") as HTMLElement | null;
-    const current = canvasElement.querySelector('.fdic-section-nav [aria-current="page"]');
+    const sidebarNav = canvasElement.querySelector(".fdic-content-layout__sidebar-panel fd-sidebar-nav");
+    const current = sidebarNav?.shadowRoot?.querySelector('a[aria-current="page"]');
+    const disclosure = canvasElement.querySelector(".fdic-content-layout__sidebar-disclosure");
     const image = canvasElement.querySelector(".fdic-article-media img") as HTMLImageElement | null;
     const related = canvasElement.querySelectorAll(".fdic-related-story");
 
@@ -256,6 +465,8 @@ NewsArticleWithSidebar.play = async ({ canvasElement }) => {
     expect(sidebar?.getBoundingClientRect().width).toBeGreaterThan(0);
     expect(article?.getBoundingClientRect().width).toBeLessThanOrEqual(800);
     expect(current?.textContent?.trim()).toBe("FDIC News");
+    expect(disclosure?.textContent).toContain("More in News & Events");
+    expect(canvasElement.querySelector(".fdic-section-nav")).toBeFalsy();
     expect(image?.getAttribute("alt")).toContain("FDIC employees");
     expect(related).toHaveLength(2);
   });
@@ -276,5 +487,30 @@ NewsStoriesWithFilters.play = async ({ canvasElement }) => {
     expect(criteria).toHaveLength(4);
     expect(headlines).toHaveLength(4);
     expect(submit?.textContent?.trim()).toBe("Apply filters");
+  });
+};
+
+export const EventDetail: Story = {
+  render: renderEventDetail,
+};
+
+EventDetail.play = async ({ canvasElement }) => {
+  await waitFor(() => {
+    const summary = canvasElement.querySelector(".fdic-event-detail-summary");
+    const actions = canvasElement.querySelectorAll(".fdic-event-detail-summary__actions fd-button");
+    const sidebar = canvasElement.querySelector(".fdic-content-layout__sidebar-panel fd-sidebar-nav");
+    const sidebarDisclosure = canvasElement.querySelector(".fdic-content-layout__sidebar-disclosure");
+
+    expect(summary).toBeTruthy();
+    expect(actions).toHaveLength(2);
+    expect(summary?.textContent).toContain("11 a.m.–Noon ET");
+    expect(summary?.textContent).toContain("FDIC-Wide | Virtual");
+    expect(summary?.textContent).toContain("Register for the course");
+    expect(summary?.textContent).toContain("Add to Outlook");
+    expect(summary?.textContent).toContain("Teams link sent after registration");
+    expect(summary?.textContent).toContain("Participants will learn");
+    expect(summary?.querySelector('fd-icon[name="microsoft-outlook-logo"]')).toBeTruthy();
+    expect(sidebar).toBeTruthy();
+    expect(sidebarDisclosure?.textContent).toContain("More in News & Events");
   });
 };

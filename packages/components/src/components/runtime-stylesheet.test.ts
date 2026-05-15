@@ -40,13 +40,22 @@ describe("component runtime stylesheet", () => {
   it("includes reusable content-page classes for article and filtered-list recipes", () => {
     expect(runtimeStylesheet).toContain(".fdic-content-layout");
     expect(runtimeStylesheet).toContain("var(--fdic-content-layout-sidebar-width, var(--fdic-layout-sidebar-width, 18rem))");
+    expect(runtimeStylesheet).toContain(".fdic-content-layout__sidebar-disclosure");
     expect(runtimeStylesheet).toContain(".fdic-section-nav");
+    expect(runtimeStylesheet).toContain(".fdic-section-nav li");
+    expect(runtimeStylesheet).toContain("box-sizing: border-box");
     expect(runtimeStylesheet).toContain('.fdic-section-nav [aria-current="page"]::before');
+    expect(runtimeStylesheet).toContain(".fdic-content-layout--detail-priority");
+    expect(runtimeStylesheet).toContain('grid-template-areas: "sidebar main"');
+    expect(runtimeStylesheet).toContain('"main"');
+    expect(runtimeStylesheet).toContain('"sidebar"');
     expect(runtimeStylesheet).toContain(".fdic-content-filter");
     expect(runtimeStylesheet).toContain(".fdic-content-filter__criteria");
     expect(runtimeStylesheet).toContain(".fdic-headline-list");
     expect(runtimeStylesheet).toContain(".fdic-article-media");
     expect(runtimeStylesheet).toContain("aspect-ratio: 16 / 9");
     expect(runtimeStylesheet).toContain(".fdic-related-stories");
+    expect(runtimeStylesheet).toContain(".fdic-event-detail-summary");
+    expect(runtimeStylesheet).toContain(".fdic-event-detail-summary__actions");
   });
 });
