@@ -202,11 +202,18 @@ export class FdInfotip extends LitElement {
     const preferredLeft = anchorRect.right - panelRect.width;
     const maxLeft = Math.max(viewportPadding, window.innerWidth - panelRect.width - viewportPadding);
     const left = Math.min(Math.max(viewportPadding, preferredLeft), maxLeft);
+    const anchorCenter = anchorRect.left + anchorRect.width / 2;
+    const caretInset = 12;
+    const caretLeft = Math.min(
+      Math.max(caretInset, anchorCenter - left),
+      Math.max(caretInset, panelRect.width - caretInset),
+    );
 
     panel.classList.toggle("fd-infotip__panel--below", !isTop);
     panel.style.position = "fixed";
     panel.style.top = `${Math.max(viewportPadding, top)}px`;
     panel.style.left = `${left}px`;
+    panel.style.setProperty("--fd-infotip-caret-left", `${caretLeft}px`);
   }
 
   private _onScrollResize = () => {
@@ -458,32 +465,20 @@ export class FdInfotip extends LitElement {
       fd-infotip .fd-infotip__caret {
         position: absolute;
         bottom: -6px;
-        right: 14px;
-        width: 12px;
-        height: 6px;
-        overflow: hidden;
-      }
-
-      fd-infotip .fd-infotip__caret::after {
-        content: "";
-        position: absolute;
-        top: -6px;
-        left: 0;
-        width: 12px;
-        height: 12px;
-        background: var(--fdic-color-bg-inverted, #212123);
-        transform: rotate(45deg);
-        transform-origin: center center;
+        left: var(--fd-infotip-caret-left, 50%);
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid var(--fdic-color-bg-inverted, #212123);
+        transform: translateX(-50%);
       }
 
       fd-infotip .fd-infotip__panel--below .fd-infotip__caret {
         bottom: unset;
         top: -6px;
-      }
-
-      fd-infotip .fd-infotip__panel--below .fd-infotip__caret::after {
-        top: unset;
-        bottom: -6px;
+        border-top: none;
+        border-bottom: 6px solid var(--fdic-color-bg-inverted, #212123);
       }
 
       @media (forced-colors: active) {
@@ -502,9 +497,13 @@ export class FdInfotip extends LitElement {
           forced-color-adjust: none;
         }
 
-        fd-infotip .fd-infotip__caret::after {
-          background: ButtonText;
+        fd-infotip .fd-infotip__caret {
+          border-top-color: ButtonText;
           forced-color-adjust: none;
+        }
+
+        fd-infotip .fd-infotip__panel--below .fd-infotip__caret {
+          border-bottom-color: ButtonText;
         }
       }
 
