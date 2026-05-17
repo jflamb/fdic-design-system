@@ -23,13 +23,10 @@ This roadmap was reviewed against the current repository state on May 17, 2026. 
 
 **Appears complete or superseded in the repo:**
 
+- [#66 Storybook browser and accessibility CI](https://github.com/jflamb/fdic-design-system/issues/66): the component-integrity workflow builds the component package, installs Playwright Chromium, and runs `npm run test:storybook`; first-class stories include accessibility enforcement; the pushed GitHub Actions run passed.
 - [#217 Sidebar Nav](https://github.com/jflamb/fdic-design-system/issues/217): `fd-sidebar-nav` is exported, documented, inventoried, and referenced by current composition guidance. Close or update the issue rather than treating it as unstarted roadmap work.
 - [#220 Dynamic Org Chart](https://github.com/jflamb/fdic-design-system/issues/220): the current system has the v1 outline/details pattern through `fd-org-outline` and `fd-org-details`. If a visual chart adapter is still wanted, split that post-v1 work into a narrower issue.
 - [#172 Card Group companion](https://github.com/jflamb/fdic-design-system/issues/172): the repo now includes `fd-card-group` source, docs, inventory, and stories. Re-scope any remaining grid/list limitations before scheduling more work.
-
-**Implemented but still needs release verification:**
-
-- [#66 Storybook browser and accessibility CI](https://github.com/jflamb/fdic-design-system/issues/66): the workflow installs Playwright Chromium and runs `npm run test:storybook`, and first-class stories include accessibility enforcement. Keep it open until GitHub Actions passes with the component package built before Storybook imports resolve.
 
 **Partially satisfied and needs refresh before scheduling:**
 
@@ -56,12 +53,11 @@ Work that raises confidence in the system as a real adoption target.
 Representative issues:
 
 - [#28 Make the code-block DocsOverview copy button functional or explicitly visual-only](https://github.com/jflamb/fdic-design-system/issues/28)
-- [#66 Enforce Storybook browser and accessibility tests in CI for qualifying components](https://github.com/jflamb/fdic-design-system/issues/66)
 - [#23 Evaluate dedicated real-browser component runner](https://github.com/jflamb/fdic-design-system/issues/23)
 
 Issue hygiene:
 
-- Close or re-scope [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), and [#172](https://github.com/jflamb/fdic-design-system/issues/172) before the next roadmap review. Keep [#66](https://github.com/jflamb/fdic-design-system/issues/66) open until the updated CI ordering passes on GitHub Actions.
+- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
 
 ### Next
 
