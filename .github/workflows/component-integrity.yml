@@ -30,6 +30,9 @@ jobs:
       - name: Run component tests
         run: npm run test:components
 
+      - name: Build component package for Storybook imports
+        run: npm run build:components
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 

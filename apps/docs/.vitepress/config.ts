@@ -49,6 +49,7 @@ export default defineConfig({
           { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
           { text: "Accessibility", link: "/guide/accessibility" },
+          { text: "Roadmap", link: "/guide/roadmap" },
           { text: "Patterns", link: "/guide/patterns" },
           { text: "Content Page Recipes", link: "/guide/content-page-recipes" },
           { text: "Form Workflows", link: "/guide/form-workflows" },
