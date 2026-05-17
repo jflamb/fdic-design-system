@@ -14,8 +14,6 @@ import {
   inferStorybookControl,
   kebabToCamel,
   loadApiMetadata,
-  reactGeneratedRoot,
-  reactIndexPath,
   registerAllComponents,
   registerExportComponents,
   registerRoot,
@@ -88,18 +86,6 @@ const additionalPublicModules = [
     rootExports: [],
   },
 ];
-const reactWrapperDefinitions = new Map([
-  ["fd-alert", {
-    events: [
-      {
-        propName: "onFdAlertDismiss",
-        eventName: "fd-alert-dismiss",
-        detailType: "FdAlertDismissDetail",
-      },
-    ],
-  }],
-]);
-
 const apiMetadata = loadApiMetadata();
 
 function formatLiteral(value) {
@@ -674,77 +660,8 @@ export function getComponentArgs(tagName: keyof typeof componentStoryApi) {
 `;
 }
 
-function getReactWrapperComponents() {
-  return componentInventory
-    .filter(
-      (component) =>
-        component.docs.kind === "first-class" &&
-        component.register.exportSubpath,
-    )
-    .map((component) => ({
-      tagName: component.tagName,
-      ...reactWrapperDefinitions.get(component.tagName),
-      component,
-    }));
-}
-
-function generateReactWrapperFile({ component, events = [] }) {
-  const registerImport = `@jflamb/fdic-ds-components/register/${component.tagName}`;
-  const componentImportName = `${component.className}Element`;
-  const createComponentImports = events.length > 0
-    ? "createComponent, type EventName"
-    : "createComponent";
-  const eventTypeImportBlock = events.length > 0
-    ? `import type { ${events.map((event) => event.detailType).join(", ")} } from "@jflamb/fdic-ds-components/public-events";\n`
-    : "";
-  const eventMap = events.length > 0
-    ? `,
-  events: {
-${events
-  .map(
-    (event) =>
-      `    ${JSON.stringify(event.propName)}: ${JSON.stringify(event.eventName)} as EventName<CustomEvent<${event.detailType}>>,`,
-  )
-  .join("\n")}
-  }`
-    : "";
-
-  return `// ${GENERATED_HEADER}
-import * as React from "react";
-import { ${createComponentImports} } from "@lit/react";
-import { ${component.className} as ${componentImportName} } from "@jflamb/fdic-ds-components";
-${eventTypeImportBlock}import "${registerImport}";
-
-export const ${component.className} = createComponent({
-  tagName: "${component.tagName}",
-  elementClass: ${componentImportName},
-  react: React,
-  displayName: "${component.className}"${eventMap}
-});
-
-export type ${component.className}Props = React.ComponentProps<typeof ${component.className}>;
-`;
-}
-
-function generateReactIndex() {
-  const wrappers = getReactWrapperComponents();
-
-  return `// ${GENERATED_HEADER}
-export const reactPackageStatus = "experimental-generated-wrappers";
-
-${wrappers
-  .map(
-    ({ component }) =>
-      `export { ${component.className} } from "./generated/${component.tagName}.js";
-export type { ${component.className}Props } from "./generated/${component.tagName}.js";`,
-  )
-  .join("\n")}
-`;
-}
-
 function writeGeneratedFiles() {
   ensureDir(registerRoot);
-  ensureDir(reactGeneratedRoot);
 
   writeText(packageComponentsIndexPath, generateComponentsIndexTs());
   writeText(path.join(registerRoot, "register-all.ts"), generateRegisterAllFile());
@@ -760,14 +677,6 @@ function writeGeneratedFiles() {
   writeText(storybookGeneratedPath, generateStorybookArgTypes());
   writeText(docsNavGeneratedPath, generateDocsNavigation());
   writeText(docsComponentsIndexPath, generateComponentsIndex());
-  writeText(reactIndexPath, generateReactIndex());
-
-  for (const wrapper of getReactWrapperComponents()) {
-    writeText(
-      path.join(reactGeneratedRoot, `${wrapper.component.tagName}.ts`),
-      generateReactWrapperFile(wrapper),
-    );
-  }
 
   const packageJson = JSON.parse(fs.readFileSync(componentsPackagePath, "utf8"));
   fs.writeFileSync(

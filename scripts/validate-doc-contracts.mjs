@@ -119,7 +119,7 @@ function validateConsumerContractLanguage(relativePath, markdown, errors) {
 
   assert(
     !markdown.includes("@fdic-ds/react"),
-    `${relativePath}: consumer-facing docs must not reference the private React workspace`,
+    `${relativePath}: consumer-facing docs must not reference a React adapter package`,
     errors,
   );
 }

@@ -5,7 +5,7 @@ An open source design system for government websites in the financial sector, bu
 ## Tech Stack
 
 - **Component authoring**: [Lit](https://lit.dev/) (LitElement) — all first-party components use Lit
-- **Build**: tsup for component and React wrapper packages
+- **Build**: tsup for the component package
 - **Testing**: Vitest with happy-dom environment; Storybook interaction and accessibility tests in Chromium
 - **Documentation**: [VitePress](https://vitepress.dev/) (`apps/docs/`) — the primary documentation site, deployed via GitHub Pages
 - **Component workbench**: [Storybook](https://storybook.js.org/) (`apps/storybook/`)
@@ -16,11 +16,10 @@ An open source design system for government websites in the financial sector, bu
 | Package | Purpose |
 |---------|---------|
 | `packages/components` | First-party Web Components (TypeScript + Lit) |
-| `packages/react` | Auto-generated React wrappers for React consumers |
 | `apps/docs` | VitePress documentation site |
 | `apps/storybook` | Storybook component workbench |
 
-Framework-specific packages adapt the first-party component APIs rather than becoming the source of truth for design decisions.
+The core design system is framework-agnostic and Web Component-first. Framework or CMS adapters may live in separate downstream packages, but they do not become the source of truth for design decisions.
 
 ## Getting Started
 
@@ -32,7 +31,7 @@ npm run build
 Build order matters because downstream packages depend on upstream outputs:
 
 ```
-npm run build:components  →  npm run build:react  →  npm run build:docs
+npm run build:components  →  npm run build:docs
 ```
 
 `npm run build` runs this full sequence.
@@ -41,7 +40,7 @@ npm run build:components  →  npm run build:react  →  npm run build:docs
 
 | Command | Purpose |
 |---------|---------|
-| `npm run build` | Full sequential build (components → react → docs) |
+| `npm run build` | Full sequential build (tokens → components → docs) |
 | `npm run test:components` | Run component tests (Vitest + happy-dom + axe-core) |
 | `npm run test:storybook` | Run browser-backed Storybook interaction and accessibility tests |
 | `npm run build:storybook` | Build Storybook for deployment |

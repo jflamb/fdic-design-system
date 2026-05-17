@@ -14,8 +14,6 @@ import {
   extractStaticProperties,
   kebabToCamel,
   loadApiMetadata,
-  reactGeneratedRoot,
-  reactIndexPath,
   repoRoot,
   standaloneDocComponents,
   storyPathFor,
@@ -33,14 +31,6 @@ const generatedFiles = [
   "apps/storybook/src/generated/component-arg-types.ts",
   "apps/docs/.vitepress/generated/component-navigation.ts",
   "apps/docs/components/index.md",
-  "packages/react/src/index.ts",
-  ...componentInventory
-    .filter(
-      (component) =>
-        component.docs.kind === "first-class" &&
-        component.register.exportSubpath,
-    )
-    .map((component) => `packages/react/src/generated/${component.tagName}.ts`),
   ...registerExportComponents.map(
     (component) => `packages/components/src/register/${component.sourceFile}`,
   ),
