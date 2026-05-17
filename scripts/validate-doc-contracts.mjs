@@ -71,26 +71,64 @@ function collectPublishedTokenNames() {
   return names;
 }
 
-function validateDocImports(relativePath, markdown, errors) {
+function collectPackageExports(packageName) {
+  const packageJson = packageName === "@jflamb/fdic-ds-components"
+    ? JSON.parse(read("packages/components/package.json"))
+    : JSON.parse(read("packages/tokens/package.json"));
+
+  return packageJson.exports ?? {};
+}
+
+function packageExportKeyForSpecifier(packageName, specifier) {
+  if (specifier === packageName) return ".";
+  if (!specifier.startsWith(`${packageName}/`)) return null;
+
+  return `.${specifier.slice(packageName.length)}`;
+}
+
+function isSupportedPackageSpecifier(specifier, packageExports) {
+  for (const [packageName, exportsMap] of Object.entries(packageExports)) {
+    const exportKey = packageExportKeyForSpecifier(packageName, specifier);
+    if (!exportKey) continue;
+
+    if (Object.hasOwn(exportsMap, exportKey)) {
+      return true;
+    }
+
+    if (
+      packageName === "@jflamb/fdic-ds-components" &&
+      Object.hasOwn(exportsMap, "./register/*") &&
+      /^\.\/register\/fd-[a-z0-9-]+$/.test(exportKey)
+    ) {
+      const tagName = exportKey.replace("./register/", "");
+      return fs.existsSync(
+        path.join(repoRoot, `packages/components/src/register/${tagName}.ts`),
+      );
+    }
+
+    return false;
+  }
+
+  return !specifier.includes("@jflamb/fdic-ds");
+}
+
+function validateDocImports(relativePath, markdown, packageExports, errors) {
   const codeBlocks = extractFencedCodeBlocks(markdown);
 
   for (const block of codeBlocks) {
     const importMatches = [
       ...block.matchAll(/import\s+[^"'`\n]*?from\s+["']([^"']+)["']/g),
       ...block.matchAll(/import\s+["']([^"']+)["']/g),
+      ...block.matchAll(/@import\s+["']([^"']+)["']/g),
     ];
 
     for (const match of importMatches) {
       const specifier = match[1];
       if (!specifier.includes("fdic-ds")) continue;
 
-      const isAllowedPublicSpecifier =
-        specifier.startsWith("@jflamb/fdic-ds-components") ||
-        specifier.startsWith("@jflamb/fdic-ds-tokens");
-
       assert(
-        isAllowedPublicSpecifier,
-        `${relativePath}: unsupported package import in docs snippet: ${specifier}`,
+        isSupportedPackageSpecifier(specifier, packageExports),
+        `${relativePath}: docs snippet import is outside the published package contract: ${specifier}`,
         errors,
       );
     }
@@ -214,10 +252,14 @@ function validateFieldContractGuidance(errors) {
 function main() {
   const errors = [];
   const publishedTokenNames = collectPublishedTokenNames();
+  const packageExports = {
+    "@jflamb/fdic-ds-components": collectPackageExports("@jflamb/fdic-ds-components"),
+    "@jflamb/fdic-ds-tokens": collectPackageExports("@jflamb/fdic-ds-tokens"),
+  };
 
   for (const relativePath of targetedDocs) {
     const markdown = read(relativePath);
-    validateDocImports(relativePath, markdown, errors);
+    validateDocImports(relativePath, markdown, packageExports, errors);
     validateDocTokens(relativePath, markdown, publishedTokenNames, errors);
     validateConsumerContractLanguage(relativePath, markdown, errors);
   }

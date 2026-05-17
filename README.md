@@ -44,6 +44,8 @@ npm run build:components  →  npm run build:docs
 | `npm run test:components` | Run component tests (Vitest + happy-dom + axe-core) |
 | `npm run test:storybook` | Run browser-backed Storybook interaction and accessibility tests |
 | `npm run build:storybook` | Build Storybook for deployment |
+| `npm run validate:built-public-contract` | Verify built package exports and files match the supported public contract |
+| `npm run validate:release` | Run the full release-confidence validation path |
 | `npm run dev:docs` | Start VitePress dev server |
 | `npm run dev:storybook` | Start Storybook dev server |
 | `npm run dev-server:start -- docs\|storybook\|all` | Start or reuse managed local dev servers |
@@ -58,6 +60,8 @@ npm run build:components  →  npm run build:docs
 - `npm run test:components` runs the fast `packages/components` Vitest suite, including reusable `axe-core` audits for structural accessibility issues that `happy-dom` can catch reliably.
 - `npm run test:storybook` runs browser-backed Storybook interaction and accessibility tests in Chromium. It is part of the expected validation path for first-class component story files and their qualifying high-complexity flows.
 - `npm run build:storybook` verifies the Storybook workbench still builds cleanly for review and deployment.
+- `npm run validate:built-public-contract` runs after a build and verifies that the package export maps, built component entrypoints, register entrypoints, icon modules, token files, and internal exclusions match the actual public contract.
+- `npm run validate:release` runs the full release gate, including the built public-contract check after `npm run build`.
 
 ## Component Authoring
 

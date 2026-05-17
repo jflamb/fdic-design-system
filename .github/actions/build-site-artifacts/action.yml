@@ -23,3 +23,7 @@ runs:
     - name: Build Storybook
       shell: bash
       run: npm run build:storybook
+
+    - name: Validate built public contract
+      shell: bash
+      run: npm run validate:built-public-contract

@@ -67,7 +67,7 @@ Common types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`. Scope is typic
 This is an npm-workspaces monorepo. Build order matters because downstream packages depend on upstream outputs:
 
 ```
-npm run build:components  →  npm run build:react  →  npm run build:docs
+npm run build:components  →  npm run build:docs
 ```
 
 `npm run build` runs this full sequence. When working on components, you can run `npm run build:components` alone for faster iteration, but run the full build before opening a PR.
@@ -434,7 +434,8 @@ Before merging, run the checks that match the scope of the change:
 
 - `npm run test:components` — fast Vitest suite with axe-core accessibility audits
 - `npm run validate:components` — verify metadata, docs, stories, and generated files stay in sync
-- `npm run build` — full sequential build (components → react → docs)
+- `npm run build` — full sequential build (tokens → components → docs)
+- `npm run validate:built-public-contract` — after a build, verify package exports and built files match the supported public contract
 
 **Required when Storybook-sensitive behavior changes:**
 

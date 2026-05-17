@@ -126,6 +126,8 @@ Key workspace scripts (run from the repo root):
 | `npm run dev-server:status -- storybook|docs|all` | List running repo-scoped local dev servers, mark the current instance, and show working URLs |
 | `npm run dev-server:url -- storybook|docs|all` | Print the preferred working URL for each running local dev server |
 | `npm run build:storybook` | Build Storybook for deployment |
+| `npm run validate:built-public-contract` | Verify built package exports and files match the supported public contract |
+| `npm run validate:release` | Run the full release-confidence validation path |
 | `npm run sync:components` | Regenerate component exports, register entrypoints, docs API blocks, and Storybook arg helpers from repo metadata |
 | `npm run validate:components` | Re-run generation and verify component metadata, docs, stories, and generated files stay in sync |
 | `npm run new:component -- --name foo --kind first-class` | Scaffold a new component, test, docs page, story, and metadata entry |
