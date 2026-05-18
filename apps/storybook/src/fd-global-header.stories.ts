@@ -5,6 +5,7 @@ import type {
 } from "@jflamb/fdic-ds-components";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
+import { ref } from "lit/directives/ref.js";
 import { expect, userEvent, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import {
@@ -22,6 +23,12 @@ type GlobalHeaderArgs = {
   search: FdGlobalHeaderSearchConfig | null;
   shy?: boolean;
   shyThreshold?: number;
+  scrollContainer?: HTMLElement | null;
+};
+
+type GlobalHeaderElement = HTMLElement & {
+  scrollContainer?: HTMLElement | null;
+  updateComplete: Promise<unknown>;
 };
 
 function waitForSettledFrame(canvasElement: Element) {
@@ -385,6 +392,84 @@ const renderSearchHandoff = (args: GlobalHeaderArgs) => {
   `;
 };
 
+const renderScrollContainerPrototype = (args: GlobalHeaderArgs) => {
+  let header: GlobalHeaderElement | null = null;
+  let scroller: HTMLElement | null = null;
+  const assignScrollContainer = () => {
+    if (header) {
+      header.scrollContainer = scroller;
+    }
+  };
+
+  return html`
+    <style>
+      .scroll-container-prototype {
+        height: 42rem;
+        min-width: 80rem;
+        overflow: auto;
+        background: var(--fdic-color-bg-base, #ffffff);
+        border: 1px solid var(--fdic-color-border-default, #c9c9c9);
+      }
+
+      .scroll-container-prototype > fd-global-header[shy] {
+        width: 80rem;
+        max-width: none;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+      }
+
+      .scroll-container-prototype__content {
+        padding-top: 120px;
+        min-height: 120rem;
+      }
+    </style>
+    <div
+      class="scroll-container-prototype"
+      ${ref((value) => {
+        scroller = value as HTMLElement | null;
+        assignScrollContainer();
+      })}
+    >
+      <fd-global-header
+        style="display:block;"
+        ${ref((value) => {
+          header = value as GlobalHeaderElement | null;
+          assignScrollContainer();
+        })}
+        .navigation=${args.navigation}
+        .search=${args.search}
+        .shy=${Boolean(args.shy)}
+        .shyThreshold=${args.shyThreshold}
+      >
+        <fd-button slot="utility" variant="subtle-inverted" aria-label="Apps">
+          <fd-icon
+            slot="icon-start"
+            name="squares-four"
+            aria-hidden="true"
+            style="--fd-icon-size:1.75rem;"
+          ></fd-icon>
+        </fd-button>
+        <fd-button
+          slot="utility"
+          variant="subtle-inverted"
+          aria-label="Profile"
+        >
+          <fd-icon
+            slot="icon-start"
+            name="user-circle"
+            aria-hidden="true"
+            style="--fd-icon-size:1.75rem;"
+          ></fd-icon>
+        </fd-button>
+      </fd-global-header>
+      <div class="scroll-container-prototype__content">
+        ${renderBackdropContent(false, true)}
+      </div>
+    </div>
+  `;
+};
+
 const meta = {
   title: "Components/Global Header",
   tags: ["autodocs"],
@@ -409,6 +494,12 @@ const meta = {
     search: {
       control: "object",
       description: "Consumer-provided search configuration.",
+    },
+    scrollContainer: {
+      control: false,
+      table: {
+        disable: true,
+      },
     },
   },
   args: {
@@ -690,6 +781,55 @@ ShyHeader.play = async ({ canvasElement }) => {
   });
 
   previewWindow?.scrollTo(0, 0);
+};
+
+export const ExplicitScrollContainer: Story = {
+  args: {
+    ...createStoryArgs(),
+    shy: true,
+    shyThreshold: 64,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows the prototype explicit `scrollContainer` property for application shells that scroll inside one owned element. The component observes only the supplied element; layout reservation remains application-owned.",
+      },
+    },
+  },
+  render: (args) => renderScrollContainerPrototype(args),
+};
+
+ExplicitScrollContainer.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as GlobalHeaderElement | null;
+  const scroller = canvasElement.querySelector(
+    ".scroll-container-prototype",
+  ) as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+    expect(scroller).toBeTruthy();
+    expect(host?.scrollContainer).toBe(scroller);
+  });
+
+  const base = host?.shadowRoot?.querySelector(".base") as HTMLElement | null;
+  expect(base).toBeTruthy();
+
+  scroller!.scrollTop = 160;
+  scroller!.dispatchEvent(new Event("scroll"));
+  await waitFor(() => {
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+  });
+
+  scroller!.scrollTop = 32;
+  scroller!.dispatchEvent(new Event("scroll"));
+  await waitFor(() => {
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("false");
+  });
 };
 
 export const MobileDefault: Story = {

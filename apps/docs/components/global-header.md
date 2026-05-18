@@ -127,12 +127,14 @@ For async or CMS-backed search, use the header event as a handoff point:
 
 - Set `shy` to opt into the sticky hide/reveal behavior. Leave it unset to preserve the current in-flow header behavior.
 - Prefer enabling `shy` only on routes that actually overflow vertically. Short pages usually read better with the simpler in-flow header.
-- When `shy` is enabled the header switches to `position: fixed` and exposes `--fd-global-header-shy-height` on the host element. Use the shared `.fdic-page[data-page-overflow="true"]` shell or reserve equivalent space in the document flow.
+- When `shy` is enabled the header switches to `position: fixed` and exposes `--fd-global-header-shy-height` on the host element. Use the shared `.fdic-page[data-page-overflow="true"]` shell or reserve equivalent space in the document flow. The component does not insert a spacer or otherwise reserve layout automatically.
 - On desktop, scrolling down past the threshold hides the full header and reveals a **compact sticky header** with the brand, utility actions, and a menu toggle for accessing the full navigation. Scrolling back up reveals the full header. The transition between states is animated (250ms ease).
 - On mobile, scrolling down hides the header entirely (`translateY(-100%)`). Scrolling up reveals it. There is no compact mobile variant.
 - Use `shyThreshold` when the page needs a threshold that differs from the header's own height.
-- The component owns scroll tracking, hide/reveal state, transition timing, and overlay awareness.
-- The application owns whether shy mode should be enabled, any `shyThreshold` override, and surrounding page layout (including reserving space for the fixed header).
+- By default, the component observes `window` scrolling. If a route scrolls inside one application-owned element, assign that element to the property-only `scrollContainer` API. Set `scrollContainer = null` to return to window scrolling.
+- The component owns explicit scroll tracking, hide/reveal state, transition timing, and overlay awareness.
+- The application owns whether shy mode should be enabled, any `shyThreshold` override, choosing any explicit `scrollContainer`, and surrounding page layout (including reserving space for the fixed header).
+- **No auto-detection:** `fd-global-header` does not search for scrollable ancestors, infer route shells, or coordinate nested scroll containers. Pass the exact scroll element only when the application owns that shell.
 - **Placement requirement:** Shy mode uses `position: fixed`. The header must be a direct child of `<body>` or an ancestor without `transform`, `filter`, or `perspective` — these CSS properties create a new containing block and break fixed positioning.
 
 ```html
@@ -159,6 +161,17 @@ if (header && shell) {
   header.search = resolved.search ?? null;
   syncShyState();
   window.addEventListener("resize", syncShyState, { passive: true });
+}
+```
+
+When a route scrolls inside an explicit shell element, assign that element as a property after both elements exist:
+
+```ts
+const header = document.querySelector("fd-global-header");
+const scrollShell = document.querySelector<HTMLElement>("[data-route-scroll]");
+
+if (header) {
+  header.scrollContainer = scrollShell ?? null;
 }
 ```
 
@@ -326,9 +339,11 @@ const content = createFdGlobalHeaderContentFromDrupal({
 | `search` | `FdGlobalHeaderSearchConfig \| null` | `null` | Optional header-search configuration. When present, the component renders desktop and mobile search surfaces and derives suggestions from `navigation`. |
 | `shy` | `boolean` | `false` | Opt-in sticky hide/reveal behavior. When `true`, the header uses `position: fixed` and exposes `--fd-global-header-shy-height`. On desktop, scrolling down transitions to a compact header. Reveals the full header on upward scroll or immediate interaction. |
 | `shyThreshold` | `number \| undefined` | `undefined` | Optional downward-scroll threshold in pixels before shy behavior engages. When omitted, `fd-global-header` uses its own rendered height. |
+| `scrollContainer` | `HTMLElement \| null \| undefined` | `null` | Property-only explicit scroll target for shy-header mode. When unset or `null`, the header observes `window` scrolling. Set this to one application-owned scroll container when a route scrolls inside an element; the component does not automatically detect scroll ancestors or reserve layout space. |
 
 - `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, shy-header scroll tracking, and compact desktop state when `shy` is enabled.
 - The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.
+- `scrollContainer` is a property-only prototype for one explicit app-owned scroll element; set it to `null` to return shy tracking to `window`.
 - Assign a new array or object when updating `navigation` or `search` so Lit can detect the change.
 
 ## Slots
@@ -444,7 +459,7 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - Header search does not provide an async provider contract, debounce lifecycle, remote grouped suggestions, or an in-header loading/error state in v1.
 - Utility-slot content does not get a dedicated alternate mobile placement contract in v1.
 - Shy mode uses `position: fixed`, which positions the header relative to the viewport. It requires the header to be a direct child of `<body>` or an ancestor without `transform`, `filter`, `perspective`, or `will-change` set — any of these on an ancestor creates a new containing block and breaks fixed positioning. Do not enable `shy` when the header lives inside a constrained shell, embedded app frame, or transformed container.
-- Configurable scroll-container support (e.g., observing a scrollable ancestor other than `window`) and broader shell composition are intentionally deferred.
+- Shy mode supports either `window` scrolling or one explicit `scrollContainer` property supplied by the application. Automatic scroll-container detection, nested-scroll choreography, and automatic layout reservation are intentionally out of scope for v1.
 
 ## Related components
 

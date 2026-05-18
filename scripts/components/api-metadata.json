@@ -3067,9 +3067,15 @@
           "type": "`number \\| undefined`",
           "defaultValue": "`undefined`",
           "description": "Optional downward-scroll threshold in pixels before shy behavior engages. When omitted, `fd-global-header` uses its own rendered height."
+        },
+        {
+          "name": "scrollContainer",
+          "type": "`HTMLElement \\| null \\| undefined`",
+          "defaultValue": "`null`",
+          "description": "Property-only explicit scroll target for shy-header mode. When unset or `null`, the header observes `window` scrolling. Set this to one application-owned scroll container when a route scrolls inside an element; the component does not automatically detect scroll ancestors or reserve layout space."
         }
       ],
-      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, shy-header scroll tracking, and compact desktop state when `shy` is enabled.\n- The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
+      "after": "- `fd-global-header` owns desktop menu preview state, mobile drill-down state, the shared query string coordinated with `fd-header-search`, shy-header scroll tracking, and compact desktop state when `shy` is enabled.\n- The application owns navigation data, current-link flags, routing, any custom submit handling, and page-layout decisions related to sticky shy mode.\n- `scrollContainer` is a property-only prototype for one explicit app-owned scroll element; set it to `null` to return shy tracking to `window`.\n- Assign a new array or object when updating `navigation` or `search` so Lit can detect the change."
     },
     "slots": {
       "rows": [

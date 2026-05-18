@@ -121,6 +121,7 @@ const config: StorybookConfig = {
     optimizeDepsInclude.add("axe-core");
     optimizeDepsInclude.add("lit/directives/style-map.js");
     optimizeDepsInclude.add("lit/directives/repeat.js");
+    optimizeDepsInclude.add("lit/directives/ref.js");
     existingConfig.optimizeDeps.include = [...optimizeDepsInclude];
 
     return existingConfig;

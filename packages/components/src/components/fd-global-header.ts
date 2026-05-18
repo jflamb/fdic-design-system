@@ -277,6 +277,7 @@ export class FdGlobalHeader extends LitElement {
     search: { attribute: false },
     shy: { type: Boolean, reflect: true },
     shyThreshold: { type: Number, attribute: "shy-threshold" },
+    scrollContainer: { attribute: false },
     _activePanelId: { state: true },
     _menuOpen: { state: true },
     _selectedSectionIndex: { state: true },
@@ -1916,6 +1917,7 @@ export class FdGlobalHeader extends LitElement {
   declare search: FdGlobalHeaderSearchConfig | null;
   declare shy: boolean;
   declare shyThreshold: number | undefined;
+  declare scrollContainer: HTMLElement | null | undefined;
   declare _activePanelId: string | null;
   declare _menuOpen: boolean;
   declare _selectedSectionIndex: number | null;
@@ -1961,6 +1963,7 @@ export class FdGlobalHeader extends LitElement {
   private _shyPendingScrollY = 0;
   private _shyScrollAnimationFrame: number | null = null;
   private _shyScrollListening = false;
+  private _shyScrollTarget: Window | HTMLElement | null = null;
   private _shyHeightSynced = false;
   private readonly _onDocumentPointerDownBound =
     this._handleDocumentPointerDown.bind(this);
@@ -1972,7 +1975,7 @@ export class FdGlobalHeader extends LitElement {
     }
 
     if (this._isCompactDesktopShyActive()) {
-      this._syncShyTrackingFromWindow();
+      this._syncShyTrackingFromScrollTarget();
       return;
     }
 
@@ -2000,7 +2003,7 @@ export class FdGlobalHeader extends LitElement {
   ) => {
     this._prefersReducedMotionEnabled = event.matches;
   };
-  private readonly _onWindowScrollBound = () => {
+  private readonly _onShyScrollBound = () => {
     this._queueShyScrollEvaluation();
   };
   private readonly _onWindowResizeBound = () => {
@@ -2017,6 +2020,7 @@ export class FdGlobalHeader extends LitElement {
     this.search = null;
     this.shy = false;
     this.shyThreshold = undefined;
+    this.scrollContainer = null;
     this._activePanelId = null;
     this._menuOpen = false;
     this._selectedSectionIndex = null;
@@ -2062,7 +2066,7 @@ export class FdGlobalHeader extends LitElement {
     );
     document.addEventListener("keydown", this._onDocumentKeyDownBound, true);
     this.addEventListener("focusin", this._onFocusInBound);
-    this._syncShyTrackingFromWindow();
+    this._syncShyTrackingFromScrollTarget();
     if (this.shy) {
       this._attachShyScrollListener();
     }
@@ -2108,17 +2112,20 @@ export class FdGlobalHeader extends LitElement {
 
     if (changed.has("shy")) {
       this._setShyHiddenState(false, { immediate: true });
-      this._syncShyTrackingFromWindow();
+      this._syncShyTrackingFromScrollTarget();
       if (!this.shy) {
         this._compactDesktopMenuVisible = false;
         this._compactDesktopSearchExpanded = false;
       }
-    } else if (this.shy && changed.has("shyThreshold")) {
-      const currentScrollY = this._getWindowScrollY();
+    } else if (
+      this.shy &&
+      (changed.has("shyThreshold") || changed.has("scrollContainer"))
+    ) {
+      const currentScrollY = this._getShyScrollY();
       if (currentScrollY <= this._getResolvedShyThreshold()) {
         this._setShyHiddenState(false);
       }
-      this._syncShyTrackingFromWindow();
+      this._syncShyTrackingFromScrollTarget();
     }
 
     this._captureMegaMenuHeight(changed);
@@ -2184,6 +2191,11 @@ export class FdGlobalHeader extends LitElement {
       }
     }
 
+    if (this.shy && changed.has("scrollContainer")) {
+      this._detachShyScrollListener();
+      this._attachShyScrollListener();
+    }
+
     if (
       this.shy &&
       (changed.has("_menuOpen") ||
@@ -2192,12 +2204,12 @@ export class FdGlobalHeader extends LitElement {
     ) {
       if (this._hasOpenOverlay()) {
         if (this._isCompactDesktopShyActive()) {
-          this._syncShyTrackingFromWindow();
+          this._syncShyTrackingFromScrollTarget();
         } else {
           this._revealShyHeader({ syncTracking: true });
         }
       } else {
-        this._syncShyTrackingFromWindow();
+        this._syncShyTrackingFromScrollTarget();
       }
     }
 
@@ -2269,7 +2281,19 @@ export class FdGlobalHeader extends LitElement {
     return this._prefersReducedMotionEnabled;
   }
 
-  private _getWindowScrollY() {
+  private _getShyScrollTarget(): Window | HTMLElement | null {
+    if (this.scrollContainer) {
+      return this.scrollContainer;
+    }
+
+    return typeof window === "undefined" ? null : window;
+  }
+
+  private _getShyScrollY() {
+    if (this.scrollContainer) {
+      return Math.max(this.scrollContainer.scrollTop || 0, 0);
+    }
+
     if (typeof window === "undefined") {
       return 0;
     }
@@ -2277,8 +2301,8 @@ export class FdGlobalHeader extends LitElement {
     return Math.max(window.scrollY || window.pageYOffset || 0, 0);
   }
 
-  private _syncShyTrackingFromWindow() {
-    const currentScrollY = this._getWindowScrollY();
+  private _syncShyTrackingFromScrollTarget() {
+    const currentScrollY = this._getShyScrollY();
     this._shyLastScrollY = currentScrollY;
     this._shyPendingScrollY = currentScrollY;
   }
@@ -2342,7 +2366,7 @@ export class FdGlobalHeader extends LitElement {
       return;
     }
 
-    this._shyPendingScrollY = this._getWindowScrollY();
+    this._shyPendingScrollY = this._getShyScrollY();
     if (this._shyScrollAnimationFrame != null) {
       return;
     }
@@ -2354,29 +2378,36 @@ export class FdGlobalHeader extends LitElement {
   }
 
   private _attachShyScrollListener() {
-    if (this._shyScrollListening || typeof window === "undefined") {
+    if (this._shyScrollListening) {
       return;
     }
 
-    window.addEventListener("scroll", this._onWindowScrollBound, {
+    const target = this._getShyScrollTarget();
+    if (!target) {
+      return;
+    }
+
+    target.addEventListener("scroll", this._onShyScrollBound, {
       passive: true,
     });
     this._shyScrollListening = true;
-    this._syncShyTrackingFromWindow();
+    this._shyScrollTarget = target;
+    this._syncShyTrackingFromScrollTarget();
   }
 
   private _detachShyScrollListener() {
-    if (this._shyScrollAnimationFrame != null) {
+    if (this._shyScrollAnimationFrame != null && typeof window !== "undefined") {
       window.cancelAnimationFrame(this._shyScrollAnimationFrame);
       this._shyScrollAnimationFrame = null;
     }
 
-    if (!this._shyScrollListening || typeof window === "undefined") {
+    if (!this._shyScrollListening) {
       return;
     }
 
-    window.removeEventListener("scroll", this._onWindowScrollBound);
+    this._shyScrollTarget?.removeEventListener("scroll", this._onShyScrollBound);
     this._shyScrollListening = false;
+    this._shyScrollTarget = null;
   }
 
   // ---------------------------------------------------------------------------
@@ -2468,7 +2499,7 @@ export class FdGlobalHeader extends LitElement {
   }: { immediate?: boolean; syncTracking?: boolean } = {}) {
     this._setShyHiddenState(false, { immediate });
     if (syncTracking) {
-      this._syncShyTrackingFromWindow();
+      this._syncShyTrackingFromScrollTarget();
     }
   }
 
@@ -2479,7 +2510,7 @@ export class FdGlobalHeader extends LitElement {
 
     if (this._hasOpenOverlay()) {
       if (this._isCompactDesktopShyActive()) {
-        this._syncShyTrackingFromWindow();
+        this._syncShyTrackingFromScrollTarget();
       } else {
         this._revealShyHeader({ syncTracking: true });
       }

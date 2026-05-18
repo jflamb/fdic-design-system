@@ -54,7 +54,7 @@ Use the [Page Shell](/guide/foundations/page-shell) foundation for width, gutter
 | Page identity | `fd-page-header` anatomy and slots | Breadcrumb data, page title, description, page-level actions |
 | Local navigation | `fd-sidebar-nav` and `fd-sidebar-menu` component behavior | Route tree, current route, whether local nav appears on a route |
 | Search | Header suggestion filtering and cancelable submit event | Remote search, loading, empty, error, analytics, results-page focus, URL state |
-| Shy-header behavior | Hide/reveal state when `shy` is enabled, header height custom property, reduced-motion handling | Whether to enable `shy`, layout reservation, overflow detection, nested-scroll decisions |
+| Shy-header behavior | Hide/reveal state when `shy` is enabled, explicit scroll-target tracking, header height custom property, reduced-motion handling | Whether to enable `shy`, layout reservation, overflow detection, any explicit `scrollContainer` choice |
 | CMS/framework integration | Published package entrypoints, tokens, data helper contracts | Data fetching, caching, permissions, routing, Drupal or framework-specific adapters |
 
 ## Supported composition recipes
@@ -118,12 +118,12 @@ Avoid shy mode when:
 
 - the page is short or task dense
 - the header sits inside a transformed or constrained application frame
-- the route scrolls inside a nested container
+- the route scrolls through multiple competing containers
 - other sticky shell regions would overlap without explicit choreography
 
-The design system currently supports `window` scrolling only. Do not infer nested scroll-container support from the shell recipes. If a product needs nested scrolling, treat it as a future explicit API decision, not a theme workaround.
+Layout reservation remains application-owned in v1. Use `.fdic-page[data-page-overflow="true"]` and `--fd-global-header-shy-height` as documented in [Page Shell](/guide/foundations/page-shell). Do not expect `fd-global-header` to insert a spacer, resize the page shell, or compensate for fixed positioning automatically.
 
-Layout reservation remains application-owned in v1. Use `.fdic-page[data-page-overflow="true"]` and `--fd-global-header-shy-height` as documented in [Page Shell](/guide/foundations/page-shell).
+By default, shy mode observes `window` scrolling. If a route scrolls inside one application-owned element, set the `scrollContainer` property to that element after both the header and scroll shell exist. This is an explicit handoff only; the design system does not detect scrollable ancestors or coordinate nested scroll regions.
 
 ## Utility slot policy
 
@@ -203,7 +203,7 @@ These are intentionally not part of the current shell contract:
 - condensed global-header variant
 - automatic layout spacer insertion by `fd-global-header`
 - automatic scroll-container detection
-- nested scroll-container support
+- nested scroll-container choreography
 - global-header ownership of local navigation
 - remote search providers inside the header
 - in-header loading, empty, or error states for search results

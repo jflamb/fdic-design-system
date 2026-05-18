@@ -420,12 +420,14 @@ export const componentStoryApi = {
     "search": { control: "text" },
     "shy": { control: "boolean" },
     "shyThreshold": { control: "text" },
+    "scrollContainer": { control: "text" },
     },
     args: {
     "navigation": "[]",
     "search": null,
     "shy": false,
     "shyThreshold": undefined,
+    "scrollContainer": null,
     },
   },
   "fd-header-search": {

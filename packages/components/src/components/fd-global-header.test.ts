@@ -192,6 +192,12 @@ async function dispatchScroll(scrollY: number) {
   await nextFrame();
 }
 
+async function dispatchElementScroll(target: HTMLElement, scrollTop: number) {
+  target.scrollTop = scrollTop;
+  target.dispatchEvent(new Event("scroll"));
+  await nextFrame();
+}
+
 async function createHeader({
   mobile = false,
   shy = false,
@@ -210,6 +216,7 @@ async function createHeader({
     search: ReturnType<typeof createFdGlobalHeaderReferenceSearch>;
     shy: boolean;
     shyThreshold?: number;
+    scrollContainer?: HTMLElement | null;
     updateComplete: Promise<unknown>;
   };
 
@@ -879,6 +886,81 @@ describe("fd-global-header", () => {
     expect(base?.getAttribute("style")).toContain(
       "--_fd-global-header-shy-duration:200ms",
     );
+  });
+
+  it("can track an explicit scroll container for shy mode", async () => {
+    const el = await createHeader({ shy: false, shyThreshold: 64 });
+    const base = getBase(el);
+    const scroller = document.createElement("div");
+    document.body.appendChild(scroller);
+
+    const windowAddSpy = vi.spyOn(window, "addEventListener");
+    const containerAddSpy = vi.spyOn(scroller, "addEventListener");
+
+    el.scrollContainer = scroller;
+    el.shy = true;
+    await el.updateComplete;
+
+    expect(
+      containerAddSpy.mock.calls.some(
+        ([type, , options]) =>
+          type === "scroll" &&
+          typeof options === "object" &&
+          options != null &&
+          "passive" in options &&
+          options.passive === true,
+      ),
+    ).toBe(true);
+    expect(windowAddSpy.mock.calls.some(([type]) => type === "scroll")).toBe(
+      false,
+    );
+
+    await dispatchElementScroll(scroller, 120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+
+    await dispatchElementScroll(scroller, 110);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+
+    containerAddSpy.mockRestore();
+    windowAddSpy.mockRestore();
+  });
+
+  it("moves shy scroll tracking when the explicit scroll container changes", async () => {
+    const firstScroller = document.createElement("div");
+    const secondScroller = document.createElement("div");
+    document.body.append(firstScroller, secondScroller);
+    const firstRemoveSpy = vi.spyOn(firstScroller, "removeEventListener");
+    const secondAddSpy = vi.spyOn(secondScroller, "addEventListener");
+    const el = await createHeader({ shy: false, shyThreshold: 64 });
+
+    el.scrollContainer = firstScroller;
+    el.shy = true;
+    await el.updateComplete;
+
+    el.scrollContainer = secondScroller;
+    await el.updateComplete;
+
+    expect(
+      firstRemoveSpy.mock.calls.some(([type]) => type === "scroll"),
+    ).toBe(true);
+    expect(secondAddSpy.mock.calls.some(([type]) => type === "scroll")).toBe(
+      true,
+    );
+
+    await dispatchElementScroll(firstScroller, 120);
+    await el.updateComplete;
+    expect(getBase(el)?.getAttribute("data-shy-hidden")).toBe("false");
+
+    await dispatchElementScroll(secondScroller, 120);
+    await el.updateComplete;
+    expect(getBase(el)?.getAttribute("data-shy-hidden")).toBe("true");
+
+    firstRemoveSpy.mockRestore();
+    secondAddSpy.mockRestore();
   });
 
   it("uses the rendered header height as the default shy threshold", async () => {
