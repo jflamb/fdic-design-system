@@ -445,6 +445,7 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - **Keyboard model follows the approved header interaction pattern without giving up semantics** — Top-level desktop items support Left, Right, Home, End, and ArrowDown convenience. Mega-menu columns support directional movement between rows and columns. Mobile drill-down and search surfaces stay link/button based.
 - **Focus restoration is component-owned only for ephemeral surfaces** — Closing the desktop panel, mobile drawer, or mobile search surface returns focus to the invoking control when it still exists. Broader page-level focus after navigation remains application-owned.
 - **Shy mode never hides the header from focused users** — When `shy` is enabled, focus moving into the header reveals it immediately and keeps it visible while the desktop panel, mobile drawer, or mobile search surface is open. In the compact desktop state, the full navigation remains accessible via the compact menu toggle button.
+- **Shy mode keeps landmarks stable** — The translated mobile shy state does not add `aria-hidden` or `inert` to the header. Toggling landmark availability on scroll would make focus behavior less predictable; use concrete assistive-technology evidence before changing that contract.
 - **Compact-mode transitions respect reduced motion** — The animated transition between full and compact header states (padding, scale, opacity) is suppressed when users request reduced motion.
 - **Mobile overlays behave like true modal surfaces only while open** — The menu drawer and mobile search shell trap focus while open, restore focus to their invoking control on close, and do not keep dialog semantics attached when hidden.
 - **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
@@ -460,6 +461,7 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - Utility-slot content does not get a dedicated alternate mobile placement contract in v1.
 - Shy mode uses `position: fixed`, which positions the header relative to the viewport. It requires the header to be a direct child of `<body>` or an ancestor without `transform`, `filter`, `perspective`, or `will-change` set — any of these on an ancestor creates a new containing block and breaks fixed positioning. Do not enable `shy` when the header lives inside a constrained shell, embedded app frame, or transformed container.
 - Shy mode supports either `window` scrolling or one explicit `scrollContainer` property supplied by the application. Automatic scroll-container detection, nested-scroll choreography, and automatic layout reservation are intentionally out of scope for v1.
+- Shy mode does not change assistive-technology exposure based on scroll position. If product testing shows that translated-but-exposed header content is confusing in a specific shell, document the evidence before adding route-specific semantics.
 
 ## Related components
 

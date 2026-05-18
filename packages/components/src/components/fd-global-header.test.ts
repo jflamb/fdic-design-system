@@ -1198,6 +1198,55 @@ describe("fd-global-header", () => {
     ).toBe("true");
   });
 
+  it("keeps the translated mobile shy header semantically stable and reveals on focus", async () => {
+    const el = await createHeader({
+      mobile: true,
+      shy: true,
+      shyThreshold: 64,
+    });
+    const base = getBase(el);
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(el.hasAttribute("aria-hidden")).toBe(false);
+    expect(base?.hasAttribute("aria-hidden")).toBe(false);
+    expect(el.hasAttribute("inert")).toBe(false);
+    expect(base?.hasAttribute("inert")).toBe(false);
+
+    await expectNoAxeViolations(el.shadowRoot!);
+
+    const menuToggle = el.shadowRoot?.querySelector(
+      "[data-mobile-toggle='menu']",
+    ) as HTMLButtonElement | null;
+
+    expect(menuToggle).toBeTruthy();
+    menuToggle!.focus();
+    await el.updateComplete;
+    await nextFrame();
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("false");
+    expect(el.shadowRoot?.activeElement).toBe(menuToggle);
+  });
+
+  it("keeps the compact desktop shy header semantically stable", async () => {
+    const el = await createHeader({ shy: true, shyThreshold: 64 });
+    const base = getBase(el);
+
+    await dispatchScroll(120);
+    await el.updateComplete;
+
+    expect(base?.getAttribute("data-shy-hidden")).toBe("true");
+    expect(base?.getAttribute("data-compact-desktop")).toBe("true");
+    expect(el.hasAttribute("aria-hidden")).toBe(false);
+    expect(base?.hasAttribute("aria-hidden")).toBe(false);
+    expect(el.hasAttribute("inert")).toBe(false);
+    expect(base?.hasAttribute("inert")).toBe(false);
+
+    await expectNoAxeViolations(el.shadowRoot!);
+  });
+
   it("Escape closes the desktop mega-menu and returns focus to the active trigger", async () => {
     const el = await createHeader();
     const trigger = getPanelTrigger(el, "news-events");

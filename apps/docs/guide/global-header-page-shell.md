@@ -173,6 +173,8 @@ Every shell composition must preserve:
 
 Do not use scroll position alone to change landmark semantics. The current shy-header contract keeps the header semantically stable while translated out of view. Any future `aria-hidden` or assistive-technology exposure change needs concrete testing evidence.
 
+In v1, do not add route-level `aria-hidden` or `inert` behavior to the global header just because shy mode translated it off screen. Focus entering the header must reveal it, and the global navigation landmark should not appear and disappear from assistive technology on ordinary scroll.
+
 ## CMS and framework boundary
 
 CMS and framework layers may adapt source data into the design-system contract. They should not move design authority into the integration layer.
