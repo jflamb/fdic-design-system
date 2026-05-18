@@ -24,6 +24,7 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 **Recently completed:**
 
 - [#28 Code-block copy button](https://github.com/jflamb/fdic-design-system/issues/28): the DocsOverview story copy button is functional, exposes a copied state, and has Storybook coverage.
+- [#23 Evaluate dedicated real-browser component runner](https://github.com/jflamb/fdic-design-system/issues/23): the testing strategy now records the decision to keep the current Vitest happy-dom plus Storybook browser-test model for v1, with explicit triggers for revisiting a dedicated runner.
 - [#211 Add structured metadata support to Media Item](https://github.com/jflamb/fdic-design-system/issues/211): `fd-media-item` now supports structured metadata fields with the authored `metadata` string preserved as the compatibility override.
 - [#168 Evaluate structured date semantics for fd-event](https://github.com/jflamb/fdic-design-system/issues/168): `fd-event` now keeps visible month/day author-controlled while exposing machine-readable `date`, `start-date`, and `end-date` attributes.
 - [#205 Add structured datetime support to Social Media Item](https://github.com/jflamb/fdic-design-system/issues/205): `fd-social-media-item` now keeps visible `timestamp` text author-controlled while exposing optional machine-readable `datetime` through native `<time datetime>` semantics.
@@ -52,13 +53,9 @@ Work that raises confidence in the system as a real adoption target.
 - Prove the CMS integration path through server-rendered examples before adding any framework-specific adapter package.
 - Clean up completed or superseded issues so the open backlog does not misrepresent v1 status.
 
-Representative issues:
-
-- [#23 Evaluate dedicated real-browser component runner](https://github.com/jflamb/fdic-design-system/issues/23)
-
 Issue hygiene:
 
-- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#80](https://github.com/jflamb/fdic-design-system/issues/80), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
+- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#23](https://github.com/jflamb/fdic-design-system/issues/23), [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#80](https://github.com/jflamb/fdic-design-system/issues/80), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
 
 ### Next
 

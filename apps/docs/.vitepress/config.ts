@@ -45,6 +45,7 @@ export default defineConfig({
           { text: "Overview", link: "/guide/" },
           { text: "Getting Started", link: "/guide/getting-started" },
           { text: "Browser Support", link: "/guide/browser-support" },
+          { text: "Testing Strategy", link: "/guide/testing-strategy" },
           { text: "Using Tokens", link: "/guide/using-tokens" },
           { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
