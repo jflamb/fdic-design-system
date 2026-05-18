@@ -159,6 +159,78 @@ To override for a specific input, set `--fd-input-icon-size`:
 - **Character counts show remaining** for screen readers ("42 characters remaining") while the visual display uses a compact format ("208 / 250").
 - **Do not put critical instructions in placeholder text** — use `fd-label`'s `description` attribute for persistent instructions.
 
+## Single-line input recipes
+
+`fd-input` forwards the `type`, `autocomplete`, `inputmode`, `pattern`, and length attributes to the internal native `<input>`. Use those native contracts first, then add authored labels, descriptions, and `fd-message` copy around them.
+
+### Email address
+
+Use `type="email"` for email addresses and `autocomplete="email"` when the field asks for the user's contact email. Keep validation copy specific to the problem: missing value, invalid email format, or confirmation mismatch.
+
+```html
+<form novalidate>
+  <fd-label for="email" label="Email address" required
+    description="We will use this email for updates about your submission."></fd-label>
+  <fd-input id="email" name="email" type="email" autocomplete="email"
+    required placeholder="name@example.gov"></fd-input>
+  <fd-message for="email" state="error"
+    message="Enter an email address in the format name@example.gov"></fd-message>
+</form>
+```
+
+Use visible help text for requirements that native email validation cannot explain, such as "Use your work email" or "Enter the same email address again." Do not rely on placeholder text as the only format instruction.
+
+### Password
+
+Use `type="password"` for sensitive entry. Set `autocomplete="current-password"` for sign-in forms and `autocomplete="new-password"` for create-password or reset-password flows. Pair password fields with a suffix reveal button only when the product allows users to inspect the value they entered.
+
+```html
+<fd-label for="password" label="Password" required></fd-label>
+<fd-input id="password" name="password" type="password"
+  autocomplete="current-password" required>
+  <button slot="suffix" type="button"
+    aria-label="Toggle password visibility" aria-pressed="false">
+    <fd-icon name="eye" aria-hidden="true"></fd-icon>
+  </button>
+</fd-input>
+```
+
+Use a stable `aria-label` with `aria-pressed` for reveal controls. Do not change the accessible label from "Toggle password visibility" to state-specific labels such as "Show password" or "Hide password" unless you also verify the announcement behavior in the target assistive technologies.
+
+### Search
+
+Use `type="search"` when the field submits a search query or filters a known result set. Use plain `type="text"` when the field collects a value that is not actually a search, such as an account number, case number, or confirmation code.
+
+```html
+<fd-label for="site-search" label="Search FDIC.gov"></fd-label>
+<fd-input id="site-search" name="q" type="search"
+  autocomplete="off" placeholder="Search by keyword">
+  <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
+  <button slot="suffix" type="button" aria-label="Clear search field">
+    <fd-icon name="x" aria-hidden="true"></fd-icon>
+  </button>
+</fd-input>
+```
+
+Use a decorative prefix icon only when the visible label already names the purpose. Clear buttons should be hidden when the field is empty, disabled, or readonly, and should return focus to the input after clearing.
+
+### URL
+
+Use `type="url"` when the user must enter a web address. Use `autocomplete="url"` when the value is the user's or organization's website. Label the field by the kind of URL requested, not just "URL."
+
+```html
+<form novalidate>
+  <fd-label for="website" label="Bank website" required
+    description="Enter the public website for the institution."></fd-label>
+  <fd-input id="website" name="website" type="url"
+    autocomplete="url" required placeholder="https://www.examplebank.com"></fd-input>
+  <fd-message for="website" state="error"
+    message="Enter a full web address that starts with http:// or https://"></fd-message>
+</form>
+```
+
+Use validation copy that explains the expected format. If the product requires only government, FDIC, or institution-owned domains, document that rule in the description and validate it in application logic.
+
 ## Accessibility
 
 - `fd-input` renders a native `<input>` in **shadow DOM** and participates in form submission via `ElementInternals` (form-associated custom element).

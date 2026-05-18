@@ -31,7 +31,11 @@ type InputArgs = {
   messageText: string;
 };
 
-type FdInputHost = HTMLElement & { value?: string };
+type FdInputHost = HTMLElement & {
+  type?: string;
+  value?: string;
+  updateComplete?: Promise<unknown>;
+};
 type FdMessageHost = HTMLElement & {
   state?: string;
   message?: string;
@@ -280,6 +284,94 @@ export const HelperText: Story = {
   },
 };
 
+export const EmailAddress: Story = {
+  render: () => html`
+    <form novalidate style="max-width: 328px;">
+      <fd-label
+        for="email-address"
+        label="Email address"
+        required
+        description="We will use this email for updates about your submission."
+      ></fd-label>
+      <fd-input
+        id="email-address"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder="name@example.gov"
+      ></fd-input>
+      <fd-message
+        for="email-address"
+        state="default"
+        message="Use the format name@example.gov"
+        live="off"
+      ></fd-message>
+    </form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use `type=\"email\"` with `autocomplete=\"email\"` for contact email fields. Keep validation copy specific to the missing or malformed email value.",
+      },
+    },
+  },
+};
+
+EmailAddress.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-input") as FdInputHost | null;
+  const input = host?.shadowRoot?.querySelector("[part=native]") as HTMLInputElement | null;
+
+  expect(input?.type).toBe("email");
+  expect(input?.autocomplete).toBe("email");
+  expect(input?.required).toBe(true);
+};
+
+export const UrlField: Story = {
+  render: () => html`
+    <form novalidate style="max-width: 328px;">
+      <fd-label
+        for="bank-website"
+        label="Bank website"
+        required
+        description="Enter the public website for the institution."
+      ></fd-label>
+      <fd-input
+        id="bank-website"
+        name="website"
+        type="url"
+        autocomplete="url"
+        required
+        placeholder="https://www.examplebank.com"
+      ></fd-input>
+      <fd-message
+        for="bank-website"
+        state="default"
+        message="Include http:// or https://"
+        live="off"
+      ></fd-message>
+    </form>
+  `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use `type=\"url\"` for web addresses and label the field by the URL being requested, such as bank website or agency website.",
+      },
+    },
+  },
+};
+
+UrlField.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-input") as FdInputHost | null;
+  const input = host?.shadowRoot?.querySelector("[part=native]") as HTMLInputElement | null;
+
+  expect(input?.type).toBe("url");
+  expect(input?.autocomplete).toBe("url");
+  expect(input?.placeholder).toBe("https://www.examplebank.com");
+};
+
 // --- Fast-follow stories (pattern, minlength, live, numeric identifier) ---
 
 export const PatternValidation: Story = {
@@ -496,18 +588,38 @@ export const WithPrefixIcon: Story = {
   render: () => html`
     <div style="max-width: 328px;">
       <fd-label for="search-prefix" label="Search accounts"></fd-label>
-      <fd-input id="search-prefix" placeholder="Search by name or number">
+      <fd-input
+        id="search-prefix"
+        name="account-search"
+        type="search"
+        autocomplete="off"
+        placeholder="Search by name or number"
+      >
         <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
       </fd-input>
     </div>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use `type=\"search\"` when the field submits a query or filters a known set of results. The prefix icon is decorative because the visible label carries the purpose.",
+      },
+    },
+  },
 };
 
 export const WithClearButton: Story = {
   render: () => html`
     <div style="max-width: 328px;">
       <fd-label for="search-clear" label="Search accounts"></fd-label>
-      <fd-input id="search-clear" value="FDIC-insured banks">
+      <fd-input
+        id="search-clear"
+        name="account-search"
+        type="search"
+        autocomplete="off"
+        value="FDIC-insured banks"
+      >
         <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
         <button slot="suffix" type="button"
           aria-label="Clear search field"
@@ -524,13 +636,52 @@ export const WithClearButton: Story = {
       </fd-input>
     </div>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Clear buttons are suffix actions. After clearing, dispatch a standard `input` event and return focus to the input.",
+      },
+    },
+  },
+};
+
+WithClearButton.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-input") as FdInputHost | null;
+  const input = host?.shadowRoot?.querySelector("[part=native]") as HTMLInputElement | null;
+  const clearButton = canvasElement.querySelector(
+    'button[slot="suffix"]',
+  ) as HTMLButtonElement | null;
+
+  expect(input?.type).toBe("search");
+  expect(host?.value).toBe("FDIC-insured banks");
+
+  let inputEventCount = 0;
+  host?.addEventListener("input", () => {
+    inputEventCount += 1;
+  });
+
+  await userEvent.click(clearButton!);
+
+  await waitFor(() => {
+    expect(host?.value).toBe("");
+    expect(input?.value).toBe("");
+    expect(inputEventCount).toBe(1);
+    expect(host?.shadowRoot?.activeElement).toBe(input);
+  });
 };
 
 export const WithPasswordReveal: Story = {
   render: () => html`
     <div style="max-width: 328px;">
       <fd-label for="pw-reveal" label="Password" required></fd-label>
-      <fd-input id="pw-reveal" type="password" name="password" required>
+      <fd-input
+        id="pw-reveal"
+        type="password"
+        name="password"
+        autocomplete="current-password"
+        required
+      >
         <button slot="suffix" type="button"
           aria-label="Toggle password visibility"
           aria-pressed="false"
@@ -548,6 +699,42 @@ export const WithPasswordReveal: Story = {
       </fd-input>
     </div>
   `,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Password reveal uses a stable accessible label and `aria-pressed`. Use `autocomplete=\"current-password\"` for sign-in and `new-password` for create or reset flows.",
+      },
+    },
+  },
+};
+
+WithPasswordReveal.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector("fd-input") as FdInputHost | null;
+  const input = host?.shadowRoot?.querySelector("[part=native]") as HTMLInputElement | null;
+  const toggle = canvasElement.querySelector(
+    'button[slot="suffix"]',
+  ) as HTMLButtonElement | null;
+
+  expect(input?.type).toBe("password");
+  expect(input?.autocomplete).toBe("current-password");
+  expect(toggle?.getAttribute("aria-pressed")).toBe("false");
+
+  await userEvent.click(toggle!);
+
+  await waitFor(() => {
+    expect(host?.type).toBe("text");
+    expect(input?.type).toBe("text");
+    expect(toggle?.getAttribute("aria-pressed")).toBe("true");
+  });
+
+  await userEvent.click(toggle!);
+
+  await waitFor(() => {
+    expect(host?.type).toBe("password");
+    expect(input?.type).toBe("password");
+    expect(toggle?.getAttribute("aria-pressed")).toBe("false");
+  });
 };
 
 export const PrefixSuffixDisabled: Story = {
@@ -680,10 +867,52 @@ export const DocsOverview: Story = {
           <fd-label for="docs-prefix" label="Search institutions"></fd-label>
           <fd-input
             id="docs-prefix"
+            type="search"
+            autocomplete="off"
             placeholder="Bank name or CERT number"
           >
             <fd-icon slot="prefix" name="magnifying-glass" aria-hidden="true"></fd-icon>
           </fd-input>
+        </div>
+      </div>
+
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>Email</p>
+        <div style="max-width: 328px;">
+          <fd-label
+            for="docs-email"
+            label="Email address"
+            required
+            description="We will use this email for updates about your submission."
+          ></fd-label>
+          <fd-input
+            id="docs-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="name@example.gov"
+          ></fd-input>
+        </div>
+      </div>
+
+      <div class=${DOCS_OVERVIEW_SECTION_CLASS}>
+        <p class=${DOCS_OVERVIEW_HEADING_CLASS}>URL</p>
+        <div style="max-width: 328px;">
+          <fd-label
+            for="docs-url"
+            label="Bank website"
+            required
+            description="Enter the public website for the institution."
+          ></fd-label>
+          <fd-input
+            id="docs-url"
+            name="website"
+            type="url"
+            autocomplete="url"
+            required
+            placeholder="https://www.examplebank.com"
+          ></fd-input>
         </div>
       </div>
 

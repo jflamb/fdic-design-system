@@ -26,6 +26,7 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 - [#28 Code-block copy button](https://github.com/jflamb/fdic-design-system/issues/28): the DocsOverview story copy button is functional, exposes a copied state, and has Storybook coverage.
 - [#211 Add structured metadata support to Media Item](https://github.com/jflamb/fdic-design-system/issues/211): `fd-media-item` now supports structured metadata fields with the authored `metadata` string preserved as the compatibility override.
 - [#168 Evaluate structured date semantics for fd-event](https://github.com/jflamb/fdic-design-system/issues/168): `fd-event` now keeps visible month/day author-controlled while exposing machine-readable `date`, `start-date`, and `end-date` attributes.
+- [#205 Add structured datetime support to Social Media Item](https://github.com/jflamb/fdic-design-system/issues/205): `fd-social-media-item` now keeps visible `timestamp` text author-controlled while exposing optional machine-readable `datetime` through native `<time datetime>` semantics.
 
 **Appears complete or superseded in the repo:**
 
@@ -40,7 +41,6 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 
 **Still valid as roadmap candidates:**
 
-- [#205](https://github.com/jflamb/fdic-design-system/issues/205): structured datetime support for Social Media Item remains the next structured-content gap and should reuse the `fd-media-item` and `fd-event` patterns.
 - [#112](https://github.com/jflamb/fdic-design-system/issues/112), [#125](https://github.com/jflamb/fdic-design-system/issues/125), [#126](https://github.com/jflamb/fdic-design-system/issues/126), [#127](https://github.com/jflamb/fdic-design-system/issues/127), [#145](https://github.com/jflamb/fdic-design-system/issues/145), [#146](https://github.com/jflamb/fdic-design-system/issues/146), and [#108](https://github.com/jflamb/fdic-design-system/issues/108): navigation, search, header, breadcrumb, and pagination limitations remain useful but should be driven by adopter evidence.
 - [#95](https://github.com/jflamb/fdic-design-system/issues/95), [#159](https://github.com/jflamb/fdic-design-system/issues/159), [#179](https://github.com/jflamb/fdic-design-system/issues/179), and [#99](https://github.com/jflamb/fdic-design-system/issues/99): feedback and recovery patterns remain relevant, but most need product-flow evidence before component API work.
 - [#79](https://github.com/jflamb/fdic-design-system/issues/79), [#91](https://github.com/jflamb/fdic-design-system/issues/91), [#153](https://github.com/jflamb/fdic-design-system/issues/153), [#154](https://github.com/jflamb/fdic-design-system/issues/154), and [#200](https://github.com/jflamb/fdic-design-system/issues/200): advanced authoring and media/content semantics remain future candidates, not near-term adoption blockers.
@@ -61,7 +61,7 @@ Representative issues:
 
 Issue hygiene:
 
-- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
+- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
 
 ### Next
 
@@ -74,7 +74,6 @@ Work that directly improves high-stakes user tasks and the first Drupal/CMS adop
 Representative issues:
 
 - [#80 Refresh fd-input guidance around remaining email, URL, and validation gaps](https://github.com/jflamb/fdic-design-system/issues/80)
-- [#205 Add structured datetime support to Social Media Item](https://github.com/jflamb/fdic-design-system/issues/205)
 - [#112 Define async search integration and richer results patterns](https://github.com/jflamb/fdic-design-system/issues/112)
 
 ### Later
@@ -134,7 +133,7 @@ Hold when:
 - the issue only improves author convenience without improving user comprehension
 - the design source of truth does not yet show the required states
 
-Key issues: [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#163](https://github.com/jflamb/fdic-design-system/issues/163), [#200](https://github.com/jflamb/fdic-design-system/issues/200).
+Key issues: [#163](https://github.com/jflamb/fdic-design-system/issues/163), [#200](https://github.com/jflamb/fdic-design-system/issues/200).
 
 ### Navigation, Search, and Page Shells
 
