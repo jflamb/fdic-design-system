@@ -23,6 +23,37 @@
   caption="Desktop and mobile reference-aligned search stories using the exact FDICnet main-menu fixture data."
 />
 
+## Search handoff
+
+`fd-header-search` and `fd-global-header` use the same submit detail shape. In the full header, listen for `fd-global-header-search-submit`; when using this primitive directly, listen for `fd-header-search-submit`.
+
+The event is cancelable. If you cancel it, the application owns the next step:
+
+- route to a search-results page or update an application-owned results region
+- announce loading, empty, and error states near those results
+- preserve the query in the URL or page state
+- record analytics from the event detail
+- move focus intentionally after route or results updates
+
+```ts
+const search = document.querySelector("fd-header-search");
+
+search?.addEventListener("fd-header-search-submit", (event) => {
+  event.preventDefault();
+
+  const { query, href, firstMatchHref, surface } = event.detail;
+
+  updateSearchRoute({
+    query,
+    fallbackHref: href,
+    matchedDestination: firstMatchHref ?? null,
+    surface,
+  });
+});
+```
+
+Do not use the header search panel as a remote results surface. It is a local suggestion surface for known destinations. Full search results need page-level context, recovery copy, and focus behavior outside this component.
+
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
 

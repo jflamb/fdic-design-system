@@ -1,6 +1,7 @@
 import type {
   FdGlobalHeaderNavigationItem,
   FdGlobalHeaderSearchConfig,
+  FdGlobalHeaderSearchSubmitDetail,
 } from "@jflamb/fdic-ds-components";
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
@@ -330,6 +331,60 @@ const renderHeader = (
   </div>
 `;
 
+const renderSearchHandoff = (args: GlobalHeaderArgs) => {
+  const handleSearchSubmit = (
+    event: CustomEvent<FdGlobalHeaderSearchSubmitDetail>,
+  ) => {
+    event.preventDefault();
+    const status = (event.currentTarget as HTMLElement | null)?.parentElement
+      ?.querySelector<HTMLElement>("#search-handoff-status");
+    if (!status) return;
+
+    const { query, href, firstMatchHref, surface } = event.detail;
+    status.dataset.query = query;
+    status.dataset.href = href;
+    status.dataset.firstMatchHref = firstMatchHref ?? "";
+    status.dataset.surface = surface;
+    status.textContent = `Application handled "${query}" from ${surface} search and would route to ${href}.`;
+  };
+
+  return html`
+    <div
+      style=${[
+        "min-height: 100vh",
+        "background: var(--fdic-color-bg-base, #ffffff)",
+        "position: relative",
+        "isolation: isolate",
+      ].join("; ")}
+    >
+      <fd-global-header
+        style="display:block;"
+        .navigation=${args.navigation}
+        .search=${args.search}
+        @fd-global-header-search-submit=${handleSearchSubmit}
+      ></fd-global-header>
+      <main
+        style="padding: 2rem; background: var(--fdic-color-bg-container, #f5f8fb); min-height: calc(100vh - 131px);"
+      >
+        <section
+          aria-labelledby="search-handoff-title"
+          style="max-width: 48rem; display: grid; gap: 1rem;"
+        >
+          <h2 id="search-handoff-title">Search handoff</h2>
+          <p>
+            The header emits a cancelable submit event. The application can
+            prevent default navigation, preserve the fallback URL, and route to
+            its own search results page.
+          </p>
+          <p id="search-handoff-status" role="status">
+            Waiting for a search submission.
+          </p>
+        </section>
+      </main>
+    </div>
+  `;
+};
+
 const meta = {
   title: "Components/Global Header",
   tags: ["autodocs"],
@@ -453,6 +508,54 @@ SearchOpen.play = async ({ canvasElement }) => {
     const panel = searchHost?.shadowRoot?.querySelector(".panel");
     expect(panel).toBeTruthy();
     expect(panel).not.toHaveAttribute("hidden");
+  });
+};
+
+export const SearchHandoff: Story = {
+  args: createStoryArgs(),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows the recommended async/search-results integration boundary: cancel `fd-global-header-search-submit`, preserve the explicit fallback URL, and let the application route or fetch results outside the header component.",
+      },
+    },
+  },
+  render: (args) => renderSearchHandoff(args),
+};
+
+SearchHandoff.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector(
+    "fd-global-header",
+  ) as HTMLElement | null;
+
+  await waitFor(() => {
+    expect(host?.shadowRoot).toBeTruthy();
+  });
+
+  const searchHost = host?.shadowRoot?.querySelector(
+    '[data-search-surface="desktop"]',
+  ) as HTMLElement | null;
+  const input = searchHost?.shadowRoot?.querySelector(
+    ".native",
+  ) as HTMLInputElement | null;
+  const status = canvasElement.querySelector(
+    "#search-handoff-status",
+  ) as HTMLElement | null;
+
+  expect(input).toBeTruthy();
+  expect(status).toBeTruthy();
+
+  await userEvent.click(input!);
+  await userEvent.type(input!, "not a menu destination");
+  await userEvent.keyboard("{Enter}");
+
+  await waitFor(() => {
+    expect(status?.dataset.query).toBe("not a menu destination");
+    expect(status?.dataset.href).toContain("/search");
+    expect(status?.dataset.href).toContain("q=not+a+menu+destination");
+    expect(status?.dataset.firstMatchHref).toBe("");
+    expect(status?.dataset.surface).toBe("desktop");
   });
 };
 

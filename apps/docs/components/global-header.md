@@ -75,6 +75,54 @@ if (header) {
 3. Assign a fresh `navigation` array and `search` object to `fd-global-header`.
 4. Handle routing or search submit interception at the application layer when needed.
 
+### Search integration
+
+`fd-global-header` provides local header suggestions and one cancelable submit event. It does not fetch remote search results, debounce a remote provider, render grouped results, or own a search-results page.
+
+Use this split for v1:
+
+- Use `search.items` for deterministic local suggestions such as known navigation destinations.
+- Use `search.action` as the explicit fallback results URL.
+- Listen for `fd-global-header-search-submit` when the application or CMS router needs to handle the query itself.
+- Call `event.preventDefault()` only when the application will take over navigation, fetching, or routing.
+- Keep loading, empty, error, analytics, and results-page focus behavior outside the header component.
+
+```ts
+const header = document.querySelector("fd-global-header");
+
+header?.addEventListener("fd-global-header-search-submit", (event) => {
+  event.preventDefault();
+
+  const { query, href, firstMatchHref, surface } = event.detail;
+
+  analytics.track("header_search_submit", {
+    query,
+    surface,
+    matchedDestination: firstMatchHref ?? null,
+  });
+
+  // Preserve the component-built fallback URL so query-string behavior stays
+  // aligned with the public header contract.
+  router.navigate(href);
+});
+```
+
+If the event is not canceled, the component navigates to the first direct local match when one exists. Otherwise it navigates to the fallback URL built from `search.action`, `paramName`, and the submitted query.
+
+For async or CMS-backed search, use the header event as a handoff point:
+
+1. Cancel the submit event.
+2. Move focus or route to the application-owned results region or results page.
+3. Show loading state in that region, not inside the header suggestion panel.
+4. Render no-results and error recovery where the full context is available.
+5. Preserve the query in the URL so refresh, copy link, and browser history behavior stay trustworthy.
+
+<StoryEmbed
+  storyId="components-global-header--search-handoff"
+  height="420"
+  caption="Search handoff — cancel the global-header submit event, preserve the fallback URL, and let the application route to its own results experience."
+/>
+
 ### Shy header adoption
 
 - Set `shy` to opt into the sticky hide/reveal behavior. Leave it unset to preserve the current in-flow header behavior.
@@ -371,6 +419,11 @@ const content = createFdGlobalHeaderContentFromDrupal({
   <p>If no direct destination matches the query, the component falls back to the configured search results URL. Make sure that destination exists and is understandable to users.</p>
 </div>
 
+<div class="fdic-content-rule">
+  <strong>Keep remote search state out of the header.</strong>
+  <p>Loading, no-results, and error copy belongs with the application-owned results page or region, where people can review the full query context and recover without losing their place.</p>
+</div>
+
 ## Accessibility
 
 - **Semantics stay native** — Top-level direct destinations render as links. Grouped destinations render as disclosure buttons. Desktop panel and mobile drill-down content render as navigation structures, not action menus.
@@ -382,11 +435,13 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - **Closed content stays out of the tab order** — The component hides closed desktop and mobile surfaces so keyboard users do not tab into unavailable content.
 - **Reduced motion is honored across the full component** — Non-essential transitions and animations are suppressed when users request reduced motion, including overlay, mega-menu, and shy-header state changes.
 - **Search is local and deterministic in v1** — Suggestions are derived only from the supplied navigation tree and search configuration. The fallback submission path is explicit and testable.
+- **Async results are application-owned** — If a site cancels the submit event to fetch or route, the application must manage loading announcements, no-results copy, error recovery, analytics, URL state, and focus on the results page or region.
 - **Multiple instances are supported** — The component does not rely on global IDs or singleton state. If multiple headers render in Storybook or docs, their controls do not collide.
 
 ## Known limitations
 
 - The component expects navigation and search data to be supplied by the application. It does not fetch CMS data or search results.
+- Header search does not provide an async provider contract, debounce lifecycle, remote grouped suggestions, or an in-header loading/error state in v1.
 - Utility-slot content does not get a dedicated alternate mobile placement contract in v1.
 - Shy mode uses `position: fixed`, which positions the header relative to the viewport. It requires the header to be a direct child of `<body>` or an ancestor without `transform`, `filter`, `perspective`, or `will-change` set — any of these on an ancestor creates a new containing block and breaks fixed positioning. Do not enable `shy` when the header lives inside a constrained shell, embedded app frame, or transformed container.
 - Configurable scroll-container support (e.g., observing a scrollable ancestor other than `window`) and broader shell composition are intentionally deferred.
