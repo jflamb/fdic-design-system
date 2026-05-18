@@ -454,3 +454,9 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - [Icon](/components/icon)
 - [Input](/components/input)
 - [Menu](/components/menu)
+
+## Related guidance
+
+- [Global Header And Page Shell Composition](/guide/global-header-page-shell)
+- [Navigation Shell Reference](/guide/navigation-shell-reference)
+- [CMS Integration](/guide/cms-integration)

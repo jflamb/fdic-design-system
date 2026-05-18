@@ -85,7 +85,7 @@ fdic_design_system:
 
 ### Drupal global header source mapping
 
-The components package publishes `fd-global-header-drupal` for turning a Drupal menu tree into the `fd-global-header` navigation data model.
+The components package publishes `fd-global-header-drupal` for turning a Drupal menu tree into the `fd-global-header` navigation data model. Drupal-specific integration layers should own routing, caching, permissions, and source payload handling outside the core design-system package.
 
 ```ts
 import {
@@ -201,6 +201,7 @@ Keep those classes at the authored page layer. They should not replace semantic 
 
 - [Canonical CMS Filing Reference](/guide/cms-filing-reference)
 - [Navigation Shell Reference](/guide/navigation-shell-reference)
+- [Global Header And Page Shell Composition](/guide/global-header-page-shell)
 - [Using Tokens In Your Project](/guide/using-tokens)
 - [Composition Patterns](/guide/foundations/composition-patterns)
 - [Getting Started](/guide/getting-started)

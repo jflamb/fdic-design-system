@@ -49,6 +49,7 @@ export default defineConfig({
           { text: "Using Tokens", link: "/guide/using-tokens" },
           { text: "CMS Integration", link: "/guide/cms-integration" },
           { text: "Choosing a Component", link: "/guide/choosing-a-component" },
+          { text: "Global Header And Page Shell", link: "/guide/global-header-page-shell" },
           { text: "Accessibility", link: "/guide/accessibility" },
           { text: "Roadmap", link: "/guide/roadmap" },
           { text: "Patterns", link: "/guide/patterns" },

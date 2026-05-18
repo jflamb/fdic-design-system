@@ -6,6 +6,10 @@ contract for the FDIC Design System.
 Use it when a page, shell component, or full-bleed section needs to align with
 the rest of the page at desktop, tablet, and mobile widths.
 
+For global-header ownership, local navigation, utility-slot policy, search
+handoff, and shell composition decisions, use
+[Global Header And Page Shell Composition](/guide/global-header-page-shell).
+
 ## Contract summary
 
 Most top-level page sections should follow this model:
@@ -177,4 +181,5 @@ exceptions.
 
 - [Spacing and Layout](./spacing-layout.md)
 - [Composition Patterns](./composition-patterns.md)
+- [Global Header And Page Shell Composition](/guide/global-header-page-shell)
 - [CMS Integration](/guide/cms-integration)

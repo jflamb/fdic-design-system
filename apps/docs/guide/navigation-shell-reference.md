@@ -193,6 +193,7 @@ if (shell && header) {
 ## Related guidance
 
 - [CMS Integration](/guide/cms-integration)
+- [Global Header And Page Shell Composition](/guide/global-header-page-shell)
 - [Canonical CMS Filing Reference](/guide/cms-filing-reference)
 - [Getting Started](/guide/getting-started)
 - [Global Header](/components/global-header)
