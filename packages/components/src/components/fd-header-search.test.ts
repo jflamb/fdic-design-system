@@ -157,8 +157,7 @@ describe("fd-header-search", () => {
       input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
     }
 
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 220));
-    await el.updateComplete;
+    await waitForSearchResult(el, "#global-messages");
 
     const form = el.shadowRoot?.querySelector("form") as HTMLFormElement | null;
     form?.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
