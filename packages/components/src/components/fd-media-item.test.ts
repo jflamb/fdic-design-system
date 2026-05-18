@@ -12,6 +12,17 @@ async function createMediaItem() {
       target?: string;
       rel?: string;
       metadata: string;
+      mediaType: string;
+      duration?: string;
+      durationLabel: string;
+      level: string;
+      publishedDate?: string;
+      publishedLabel: string;
+      updatedDate?: string;
+      updatedLabel: string;
+      captionsLabel: string;
+      transcriptHref?: string;
+      transcriptLabel: string;
       imageSrc?: string;
       imageAlt: string;
     }
@@ -134,6 +145,83 @@ describe("FdMediaItem", () => {
 
     expect(queryShadow(el, "[part=media]")).toBeNull();
     expect(queryShadow(el, "[part=metadata]")).toBeNull();
+  });
+
+  it("generates structured metadata when authored metadata is omitted", async () => {
+    const el = await createMediaItem();
+    el.heading = "Safeguarding Customer Credit Card Data: PCI Compliance";
+    el.mediaType = "Video";
+    el.duration = "PT1H3M";
+    el.durationLabel = "1h 3m";
+    el.level = "Beginner";
+    el.captionsLabel = "Captions available";
+    el.updatedDate = "2023-10-01";
+    el.updatedLabel = "Updated Oct 2023";
+    el.transcriptHref = "/training/pci-compliance/transcript";
+    await el.updateComplete;
+
+    const metadata = queryShadow(el, "[part~='metadata-list']");
+    const items = el.shadowRoot?.querySelectorAll("[part~='metadata-item']") ?? [];
+    const duration = queryShadow<HTMLDataElement>(el, "data");
+    const updated = queryShadow<HTMLTimeElement>(el, "time");
+    const transcript = queryShadow<HTMLAnchorElement>(el, "[part~='transcript-link']");
+
+    expect(metadata?.tagName.toLowerCase()).toBe("ul");
+    expect([...items].map((item) => item.textContent?.trim())).toEqual([
+      "Video",
+      "1h 3m",
+      "Beginner",
+      "Captions available",
+      "Updated Oct 2023",
+      "Transcript",
+    ]);
+    expect(duration?.getAttribute("value")).toBe("PT1H3M");
+    expect(updated?.getAttribute("datetime")).toBe("2023-10-01");
+    expect(transcript?.getAttribute("href")).toBe(
+      "/training/pci-compliance/transcript",
+    );
+    expect(transcript?.getAttribute("aria-label")).toBe(
+      "Transcript for Safeguarding Customer Credit Card Data: PCI Compliance",
+    );
+  });
+
+  it("keeps authored metadata as the visible compatibility override", async () => {
+    const el = await createMediaItem();
+    el.heading = "Authored media item";
+    el.metadata = "1h 3m  ·  Beginner  ·  2 months ago";
+    el.mediaType = "Video";
+    el.duration = "PT1H3M";
+    el.durationLabel = "1h 3m";
+    el.updatedDate = "2023-10-01";
+    el.updatedLabel = "Updated Oct 2023";
+    await el.updateComplete;
+
+    const metadata = queryShadow(el, "[part=metadata]");
+
+    expect(metadata?.tagName.toLowerCase()).toBe("p");
+    expect(metadata?.textContent?.trim()).toBe(
+      "1h 3m  ·  Beginner  ·  2 months ago",
+    );
+    expect(queryShadow(el, "[part~='metadata-list']")).toBeNull();
+    expect(queryShadow(el, "time")).toBeNull();
+    expect(queryShadow(el, "data")).toBeNull();
+  });
+
+  it("omits blank structured metadata values", async () => {
+    const el = await createMediaItem();
+    el.heading = "Sparse media item";
+    el.mediaType = " ";
+    el.durationLabel = "";
+    el.level = "Intermediate";
+    el.publishedDate = " ";
+    el.publishedLabel = " ";
+    await el.updateComplete;
+
+    const items = el.shadowRoot?.querySelectorAll("[part~='metadata-item']") ?? [];
+
+    expect([...items].map((item) => item.textContent?.trim())).toEqual([
+      "Intermediate",
+    ]);
   });
 
   it("does not duplicate metadata when href has no linked content", async () => {

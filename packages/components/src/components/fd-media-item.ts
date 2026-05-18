@@ -15,6 +15,17 @@ export class FdMediaItem extends LitElement {
     target: { reflect: true },
     rel: { reflect: true },
     metadata: { reflect: true },
+    mediaType: { attribute: "media-type", reflect: true },
+    duration: { reflect: true },
+    durationLabel: { attribute: "duration-label", reflect: true },
+    level: { reflect: true },
+    publishedDate: { attribute: "published-date", reflect: true },
+    publishedLabel: { attribute: "published-label", reflect: true },
+    updatedDate: { attribute: "updated-date", reflect: true },
+    updatedLabel: { attribute: "updated-label", reflect: true },
+    captionsLabel: { attribute: "captions-label", reflect: true },
+    transcriptHref: { attribute: "transcript-href", reflect: true },
+    transcriptLabel: { attribute: "transcript-label", reflect: true },
     imageSrc: { attribute: "image-src", reflect: true },
     imageAlt: { attribute: "image-alt", reflect: true },
   };
@@ -142,7 +153,7 @@ export class FdMediaItem extends LitElement {
       text-decoration-line: none;
     }
 
-    [part="metadata"] {
+    [part~="metadata"] {
       margin: 0;
       color: var(
         --fd-media-item-metadata-color,
@@ -155,14 +166,64 @@ export class FdMediaItem extends LitElement {
       font-weight: 400;
       line-height: var(--fd-media-item-metadata-line-height, 1.375);
       overflow-wrap: anywhere;
+    }
+
+    [part="metadata"] {
       white-space: pre-wrap;
+    }
+
+    [part~="metadata-list"] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      padding: 0;
+      list-style: none;
+      white-space: normal;
+    }
+
+    [part~="metadata-item"] {
+      display: inline-flex;
+      align-items: center;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+
+    [part~="metadata-item"] + [part~="metadata-item"] {
+      margin-inline-start: var(--fd-media-item-metadata-separator-gap, 6px);
+      padding-inline-start: var(--fd-media-item-metadata-separator-gap, 6px);
+      border-inline-start: 1px solid currentColor;
+    }
+
+    [part~="transcript-link"] {
+      color: var(--fd-media-item-transcript-link-color, var(--fdic-color-text-link, #1278b0));
+      border-radius: var(--fdic-corner-radius-2xs, 2px);
+      outline-color: transparent;
+      text-decoration-line: underline;
+      text-decoration-thickness: var(--fd-media-item-link-underline-thickness, 1px);
+      text-underline-offset: 0.12em;
+      text-decoration-skip-ink: auto;
+    }
+
+    [part~="transcript-link"]:hover,
+    [part~="transcript-link"]:focus-visible {
+      text-decoration-thickness: var(
+        --fd-media-item-link-underline-thickness-emphasis,
+        2px
+      );
+    }
+
+    [part~="transcript-link"]:focus-visible {
+      box-shadow: 0 0 0 var(--fdic-focus-gap-width, 2px)
+          var(--fd-media-item-focus-gap, var(--fdic-focus-gap-color)),
+        0 0 0 var(--fdic-focus-ring-width, 4px)
+          var(--fd-media-item-focus-ring, var(--fdic-focus-ring-color));
     }
 
     ${forcedColorsMediaFrame}
 
     @media (forced-colors: active) {
       [part~="title"],
-      [part="metadata"] {
+      [part~="metadata"] {
         color: CanvasText;
       }
 
@@ -173,6 +234,10 @@ export class FdMediaItem extends LitElement {
       [part~="title-link"] [part~="title"] {
         color: LinkText;
       }
+
+      [part~="transcript-link"] {
+        color: LinkText;
+      }
     }
   `;
 
@@ -181,6 +246,17 @@ export class FdMediaItem extends LitElement {
   declare target: string | undefined;
   declare rel: string | undefined;
   declare metadata: string;
+  declare mediaType: string;
+  declare duration: string | undefined;
+  declare durationLabel: string;
+  declare level: string;
+  declare publishedDate: string | undefined;
+  declare publishedLabel: string;
+  declare updatedDate: string | undefined;
+  declare updatedLabel: string;
+  declare captionsLabel: string;
+  declare transcriptHref: string | undefined;
+  declare transcriptLabel: string;
   declare imageSrc: string | undefined;
   declare imageAlt: string;
 
@@ -193,6 +269,17 @@ export class FdMediaItem extends LitElement {
     this.target = undefined;
     this.rel = undefined;
     this.metadata = "";
+    this.mediaType = "";
+    this.duration = undefined;
+    this.durationLabel = "";
+    this.level = "";
+    this.publishedDate = undefined;
+    this.publishedLabel = "";
+    this.updatedDate = undefined;
+    this.updatedLabel = "";
+    this.captionsLabel = "";
+    this.transcriptHref = undefined;
+    this.transcriptLabel = "";
     this.imageSrc = undefined;
     this.imageAlt = "";
   }
@@ -275,6 +362,100 @@ export class FdMediaItem extends LitElement {
     `;
   }
 
+  private renderDateMetadata(date: string | undefined, label: string) {
+    const trimmedDate = date?.trim() || undefined;
+    const trimmedLabel = label.trim();
+
+    if (!trimmedDate && !trimmedLabel) {
+      return nothing;
+    }
+
+    if (trimmedDate) {
+      return html`<time datetime=${trimmedDate}>${trimmedLabel || trimmedDate}</time>`;
+    }
+
+    return trimmedLabel;
+  }
+
+  private getStructuredMetadataItems(heading: string) {
+    const mediaType = this.mediaType?.trim() ?? "";
+    const duration = this.duration?.trim() || undefined;
+    const durationLabel = this.durationLabel?.trim() ?? "";
+    const level = this.level?.trim() ?? "";
+    const captionsLabel = this.captionsLabel?.trim() ?? "";
+    const publishedDate = this.publishedDate?.trim() || undefined;
+    const publishedLabel = this.publishedLabel?.trim() ?? "";
+    const updatedDate = this.updatedDate?.trim() || undefined;
+    const updatedLabel = this.updatedLabel?.trim() ?? "";
+    const transcriptHref = this.transcriptHref?.trim() || undefined;
+    const transcriptLabel = this.transcriptLabel?.trim() || "Transcript";
+    const items = [];
+
+    if (mediaType) {
+      items.push(html`${mediaType}`);
+    }
+
+    if (duration || durationLabel) {
+      items.push(
+        duration
+          ? html`<data value=${duration}>${durationLabel || duration}</data>`
+          : html`${durationLabel}`,
+      );
+    }
+
+    if (level) {
+      items.push(html`${level}`);
+    }
+
+    if (captionsLabel) {
+      items.push(html`${captionsLabel}`);
+    }
+
+    if (publishedDate || publishedLabel) {
+      items.push(this.renderDateMetadata(publishedDate, publishedLabel));
+    }
+
+    if (updatedDate || updatedLabel) {
+      items.push(this.renderDateMetadata(updatedDate, updatedLabel));
+    }
+
+    if (transcriptHref) {
+      items.push(html`
+        <a
+          part="transcript-link"
+          href=${transcriptHref}
+          aria-label=${ifDefined(
+            heading ? `${transcriptLabel} for ${heading}` : undefined,
+          )}
+        >
+          ${transcriptLabel}
+        </a>
+      `);
+    }
+
+    return items;
+  }
+
+  private renderMetadata(metadata: string, heading: string) {
+    if (metadata) {
+      return html`<p part="metadata">${metadata}</p>`;
+    }
+
+    const metadataItems = this.getStructuredMetadataItems(heading);
+
+    if (!metadataItems.length) {
+      return nothing;
+    }
+
+    return html`
+      <ul part="metadata metadata-list">
+        ${metadataItems.map(
+          (item) => html`<li part="metadata-item">${item}</li>`,
+        )}
+      </ul>
+    `;
+  }
+
   private renderContent(
     heading: string,
     href: string | undefined,
@@ -283,9 +464,7 @@ export class FdMediaItem extends LitElement {
     imageAlt: string,
   ) {
     const hasLinkedTarget = Boolean(href && (heading || (imageSrc && imageAlt)));
-    const metadataTemplate = metadata
-      ? html`<p part="metadata">${metadata}</p>`
-      : nothing;
+    const metadataTemplate = this.renderMetadata(metadata, heading);
 
     if (hasLinkedTarget && href) {
       return html`

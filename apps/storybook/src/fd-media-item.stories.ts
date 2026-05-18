@@ -20,6 +20,17 @@ type MediaItemArgs = {
   target?: string;
   rel?: string;
   metadata: string;
+  mediaType: string;
+  duration?: string;
+  durationLabel: string;
+  level: string;
+  publishedDate?: string;
+  publishedLabel: string;
+  updatedDate?: string;
+  updatedLabel: string;
+  captionsLabel: string;
+  transcriptHref?: string;
+  transcriptLabel: string;
   imageSrc?: string;
   imageAlt: string;
 };
@@ -32,6 +43,17 @@ const renderMediaItem = (args: MediaItemArgs) => html`
       target=${ifDefined(args.target)}
       rel=${ifDefined(args.rel)}
       metadata=${args.metadata}
+      media-type=${ifDefined(args.mediaType || undefined)}
+      duration=${ifDefined(args.duration)}
+      duration-label=${ifDefined(args.durationLabel || undefined)}
+      level=${ifDefined(args.level || undefined)}
+      published-date=${ifDefined(args.publishedDate)}
+      published-label=${ifDefined(args.publishedLabel || undefined)}
+      updated-date=${ifDefined(args.updatedDate)}
+      updated-label=${ifDefined(args.updatedLabel || undefined)}
+      captions-label=${ifDefined(args.captionsLabel || undefined)}
+      transcript-href=${ifDefined(args.transcriptHref)}
+      transcript-label=${ifDefined(args.transcriptLabel || undefined)}
       image-src=${ifDefined(args.imageSrc)}
       image-alt=${args.imageAlt}
     ></fd-media-item>
@@ -62,6 +84,17 @@ const meta = {
     target: undefined,
     rel: undefined,
     metadata: "1h 3m  ·  Beginner  ·  2 months ago",
+    mediaType: "",
+    duration: undefined,
+    durationLabel: "",
+    level: "",
+    publishedDate: undefined,
+    publishedLabel: "",
+    updatedDate: undefined,
+    updatedLabel: "",
+    captionsLabel: "",
+    transcriptHref: undefined,
+    transcriptLabel: "",
     imageSrc: pciCompliance,
     imageAlt: "Illustration of a protected credit card transaction.",
   },
@@ -95,6 +128,43 @@ export const TextOnly: Story = {
   },
 };
 
+export const StructuredMetadata: Story = {
+  args: {
+    metadata: "",
+    mediaType: "Video",
+    duration: "PT1H3M",
+    durationLabel: "1h 3m",
+    level: "Beginner",
+    updatedDate: "2023-10-01",
+    updatedLabel: "Updated Oct 2023",
+    captionsLabel: "Captions available",
+    transcriptHref: "/resources/bankers/information-technology/transcript/",
+    transcriptLabel: "Transcript",
+  },
+};
+
+StructuredMetadata.play = async ({ canvasElement }) => {
+  const item = canvasElement.querySelector("fd-media-item");
+  const metadataItems =
+    item?.shadowRoot?.querySelectorAll("[part~='metadata-item']") ?? [];
+  const duration = item?.shadowRoot?.querySelector<HTMLDataElement>("data");
+  const updated = item?.shadowRoot?.querySelector<HTMLTimeElement>("time");
+  const transcript =
+    item?.shadowRoot?.querySelector<HTMLAnchorElement>("[part~='transcript-link']");
+
+  expect([...metadataItems].map((entry) => entry.textContent?.trim())).toEqual([
+    "Video",
+    "1h 3m",
+    "Beginner",
+    "Captions available",
+    "Updated Oct 2023",
+    "Transcript",
+  ]);
+  expect(duration?.getAttribute("value")).toBe("PT1H3M");
+  expect(updated?.getAttribute("datetime")).toBe("2023-10-01");
+  expect(transcript?.getAttribute("aria-label")).toContain("Transcript for");
+};
+
 export const DocsOverview: Story = {
   render: () => html`
     <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
@@ -104,6 +174,17 @@ export const DocsOverview: Story = {
           heading: "Safeguarding Customer Credit Card Data: PCI Compliance",
           href: "https://www.fdic.gov/resources/bankers/information-technology/",
           metadata: "1h 3m  ·  Beginner  ·  2 months ago",
+          mediaType: "",
+          duration: undefined,
+          durationLabel: "",
+          level: "",
+          publishedDate: undefined,
+          publishedLabel: "",
+          updatedDate: undefined,
+          updatedLabel: "",
+          captionsLabel: "",
+          transcriptHref: undefined,
+          transcriptLabel: "",
           imageSrc: pciCompliance,
           imageAlt: "Illustration of a protected credit card transaction.",
         })}

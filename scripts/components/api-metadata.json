@@ -5678,7 +5678,73 @@
           "name": "metadata",
           "type": "`string`",
           "defaultValue": "``",
-          "description": "Visible supporting metadata such as duration, level, date, or update status."
+          "description": "Authored visible supporting metadata. When this string is non-empty, structured metadata fields are ignored for visible rendering."
+        },
+        {
+          "name": "media-type",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Structured visible media type text such as `Video`, `Webinar`, or `Recording`. Used only when `metadata` is empty."
+        },
+        {
+          "name": "duration",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Machine-readable media duration, preferably an ISO 8601 duration such as `PT1H3M`. Used only when `metadata` is empty."
+        },
+        {
+          "name": "duration-label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible duration text such as `1h 3m`. Used only when `metadata` is empty."
+        },
+        {
+          "name": "level",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible audience or difficulty level text. Used only when `metadata` is empty."
+        },
+        {
+          "name": "published-date",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Machine-readable publication date for a generated metadata `<time>` element. Use `YYYY-MM-DD` when possible. Used only when `metadata` is empty."
+        },
+        {
+          "name": "published-label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible publication date label. Used only when `metadata` is empty."
+        },
+        {
+          "name": "updated-date",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Machine-readable updated date for a generated metadata `<time>` element. Use `YYYY-MM-DD` when possible. Used only when `metadata` is empty."
+        },
+        {
+          "name": "updated-label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible updated date label. Used only when `metadata` is empty."
+        },
+        {
+          "name": "captions-label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible caption availability text such as `Captions available`. Used only when `metadata` is empty."
+        },
+        {
+          "name": "transcript-href",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional transcript URL rendered as a secondary metadata link outside the primary media title link. Used only when `metadata` is empty."
+        },
+        {
+          "name": "transcript-label",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible transcript link text. Defaults to `Transcript` when `transcript-href` is set and this value is empty."
         },
         {
           "name": "image-src",
@@ -5693,7 +5759,7 @@
           "description": "Alternative text for the thumbnail when it is not already named by the linked heading. Linked thumbnails use empty alt text when a heading is present. Image-only links require non-empty `image-alt`."
         }
       ],
-      "after": "`fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and heading share one native link and one tab stop; metadata remains outside the link. The global HTML `title` attribute is migrated to `heading` and removed from the host to avoid browser tooltips."
+      "after": "`fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and heading share one native link and one tab stop; metadata remains outside the link. The global HTML `title` attribute is migrated to `heading` and removed from the host to avoid browser tooltips.\n- Use `metadata` for authored display text. Use structured metadata fields when source systems own the facts and pages need durable date, duration, transcript, or media-type semantics. If `metadata` is non-empty, the component renders it verbatim and does not generate structured metadata."
     },
     "slots": {
       "rows": [],
@@ -5756,6 +5822,16 @@
           "description": "Metadata font size."
         },
         {
+          "name": "--fd-media-item-metadata-separator-gap",
+          "default": "`6px`",
+          "description": "Inline gap around generated structured metadata separators."
+        },
+        {
+          "name": "--fd-media-item-transcript-link-color",
+          "default": "`var(--fdic-color-text-link, #1278b0)`",
+          "description": "Transcript metadata link color."
+        },
+        {
           "name": "--fd-media-item-focus-gap",
           "default": "`var(--fdic-focus-gap-color)`",
           "description": "Inner gap color for media-link focus."
@@ -5804,7 +5880,19 @@
         },
         {
           "name": "metadata",
-          "description": "Visible supporting metadata."
+          "description": "Visible authored metadata paragraph or generated structured metadata list."
+        },
+        {
+          "name": "metadata-list",
+          "description": "Generated structured metadata list. Rendered only when `metadata` is empty and structured fields are present."
+        },
+        {
+          "name": "metadata-item",
+          "description": "Individual generated structured metadata item."
+        },
+        {
+          "name": "transcript-link",
+          "description": "Optional generated transcript metadata link."
         }
       ],
       "after": ""

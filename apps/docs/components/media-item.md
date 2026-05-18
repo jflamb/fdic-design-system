@@ -39,10 +39,35 @@ The Media Item component presents one multimedia resource with a linked thumbnai
 ></fd-media-item>
 ```
 
+### Structured metadata
+
+Use structured metadata when the source system owns the facts and pages need durable dates, duration, transcript, or media-type semantics. Leave `metadata` empty so the component can generate the visible metadata list.
+
+```html
+<fd-media-item
+  heading="Safeguarding Customer Credit Card Data: PCI Compliance"
+  href="/resources/bankers/information-technology/"
+  media-type="Video"
+  duration="PT1H3M"
+  duration-label="1h 3m"
+  level="Beginner"
+  updated-date="2023-10-01"
+  updated-label="Updated Oct 2023"
+  captions-label="Captions available"
+  transcript-href="/resources/bankers/information-technology/transcript/"
+  transcript-label="Transcript"
+  image-src="/images/media/pci-compliance.png"
+  image-alt="Illustration of a protected credit card transaction."
+></fd-media-item>
+```
+
 ### Implementation guide
 
 - **Use a descriptive heading.** The heading is the link name when `href` is present, so it should make sense out of context.
-- **Keep metadata concise.** Use short display text such as duration, level, date, or update status. Do not pack long descriptions into metadata.
+- **Choose one metadata path.** Use `metadata` for authored display text. Use structured fields for CMS-owned facts such as media type, duration, level, dates, caption availability, and transcript links. If `metadata` is non-empty, it renders verbatim and structured metadata fields are ignored for visible output.
+- **Keep metadata concise.** Use short display text such as duration, level, date, or update status. Do not pack long descriptions into either authored or generated metadata.
+- **Use real machine-readable values.** Use ISO 8601 duration values such as `PT1H3M` for `duration` and date values such as `2023-10-01` for date attributes. The visible labels stay author-controlled.
+- **Keep transcript links explicit.** Use a short transcript label such as `Transcript`. The component renders it as a secondary metadata link outside the primary media title link.
 - **Write useful image alt text.** If the thumbnail adds information and no `href` is present, describe that information. When `href` and `heading` are present, the linked thumbnail is treated as decorative so the link name stays focused on the heading. Image-only linked items need meaningful `image-alt`.
 - **Use one destination.** Do not add a second duplicate link around the thumbnail or heading. The component uses one native link for both.
 
@@ -55,11 +80,23 @@ The Media Item component presents one multimedia resource with a linked thumbnai
 | `href` | `string \| undefined` | `undefined` | Destination URL for the combined thumbnail and heading link. If omitted or blank, the heading renders as static text. |
 | `target` | `string \| undefined` | `undefined` | Native media-link target. Applies only when `href` is set. |
 | `rel` | `string \| undefined` | `undefined` | Native media-link relationship tokens. When `target="_blank"`, `fd-media-item` always adds `noopener noreferrer`. |
-| `metadata` | `string` | `` | Visible supporting metadata such as duration, level, date, or update status. |
+| `metadata` | `string` | `` | Authored visible supporting metadata. When this string is non-empty, structured metadata fields are ignored for visible rendering. |
+| `media-type` | `string` | `` | Structured visible media type text such as `Video`, `Webinar`, or `Recording`. Used only when `metadata` is empty. |
+| `duration` | `string \| undefined` | `undefined` | Machine-readable media duration, preferably an ISO 8601 duration such as `PT1H3M`. Used only when `metadata` is empty. |
+| `duration-label` | `string` | `` | Visible duration text such as `1h 3m`. Used only when `metadata` is empty. |
+| `level` | `string` | `` | Visible audience or difficulty level text. Used only when `metadata` is empty. |
+| `published-date` | `string \| undefined` | `undefined` | Machine-readable publication date for a generated metadata `<time>` element. Use `YYYY-MM-DD` when possible. Used only when `metadata` is empty. |
+| `published-label` | `string` | `` | Visible publication date label. Used only when `metadata` is empty. |
+| `updated-date` | `string \| undefined` | `undefined` | Machine-readable updated date for a generated metadata `<time>` element. Use `YYYY-MM-DD` when possible. Used only when `metadata` is empty. |
+| `updated-label` | `string` | `` | Visible updated date label. Used only when `metadata` is empty. |
+| `captions-label` | `string` | `` | Visible caption availability text such as `Captions available`. Used only when `metadata` is empty. |
+| `transcript-href` | `string \| undefined` | `undefined` | Optional transcript URL rendered as a secondary metadata link outside the primary media title link. Used only when `metadata` is empty. |
+| `transcript-label` | `string` | `` | Visible transcript link text. Defaults to `Transcript` when `transcript-href` is set and this value is empty. |
 | `image-src` | `string \| undefined` | `undefined` | Thumbnail image URL. |
 | `image-alt` | `string` | `` | Alternative text for the thumbnail when it is not already named by the linked heading. Linked thumbnails use empty alt text when a heading is present. Image-only links require non-empty `image-alt`. |
 
 `fd-media-item` keeps the host shell static. When `href` is set, the thumbnail and heading share one native link and one tab stop; metadata remains outside the link. The global HTML `title` attribute is migrated to `heading` and removed from the host to avoid browser tooltips.
+- Use `metadata` for authored display text. Use structured metadata fields when source systems own the facts and pages need durable date, duration, transcript, or media-type semantics. If `metadata` is non-empty, the component renders it verbatim and does not generate structured metadata.
 
 ## CSS custom properties
 
@@ -75,6 +112,8 @@ The Media Item component presents one multimedia resource with a linked thumbnai
 | `--fd-media-item-title-radius` | `var(--fdic-corner-radius-2xs, 2px)` | Corner radius for linked heading focus-decoration fragments. |
 | `--fd-media-item-metadata-color` | `var(--fdic-color-text-secondary, #595961)` | Metadata text color. |
 | `--fd-media-item-metadata-font-size` | `var(--fdic-font-size-body, 18px)` | Metadata font size. |
+| `--fd-media-item-metadata-separator-gap` | `6px` | Inline gap around generated structured metadata separators. |
+| `--fd-media-item-transcript-link-color` | `var(--fdic-color-text-link, #1278b0)` | Transcript metadata link color. |
 | `--fd-media-item-focus-gap` | `var(--fdic-focus-gap-color)` | Inner gap color for media-link focus. |
 | `--fd-media-item-focus-ring` | `var(--fdic-focus-ring-color)` | Outer ring color for media-link focus. |
 
@@ -90,7 +129,10 @@ The Media Item component presents one multimedia resource with a linked thumbnai
 | `title-link` | Native link wrapping the thumbnail and heading when `href` is present. |
 | `title-link-text` | Linked heading text inside the native media link. |
 | `title-text` | Static heading text when `href` is omitted. |
-| `metadata` | Visible supporting metadata. |
+| `metadata` | Visible authored metadata paragraph or generated structured metadata list. |
+| `metadata-list` | Generated structured metadata list. Rendered only when `metadata` is empty and structured fields are present. |
+| `metadata-item` | Individual generated structured metadata item. |
+| `transcript-link` | Optional generated transcript metadata link. |
 <!-- GENERATED_COMPONENT_API:END -->
 
 ## Accessibility
@@ -104,8 +146,8 @@ The Media Item component presents one multimedia resource with a linked thumbnai
 
 ## Known limitations
 
-- The component does not include embedded playback, transcript links, caption status, duration parsing, media-type badges, sorting, filtering, loading, or empty states.
-- Metadata is a single display string in v1. Structured duration, level, and date fields are deferred.
+- The component does not include embedded playback, automatic transcript or caption detection, duration parsing, media-type badges, sorting, filtering, loading, or empty states.
+- Structured metadata is intentionally narrow. It supports generated visible metadata and basic machine-readable date and duration attributes, not a full media gallery model.
 
 ## Related components
 
