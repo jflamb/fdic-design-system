@@ -130,6 +130,7 @@ For async or CMS-backed search, use the header event as a handoff point:
 - When `shy` is enabled the header switches to `position: fixed` and exposes `--fd-global-header-shy-height` on the host element. Use the shared `.fdic-page[data-page-overflow="true"]` shell or reserve equivalent space in the document flow. The component does not insert a spacer or otherwise reserve layout automatically.
 - On desktop, scrolling down past the threshold hides the full header and reveals a **compact sticky header** with the brand, utility actions, and a menu toggle for accessing the full navigation. Scrolling back up reveals the full header. The transition between states is animated (250ms ease).
 - On mobile, scrolling down hides the header entirely (`translateY(-100%)`). Scrolling up reveals it. There is no compact mobile variant.
+- Treat the desktop compact sticky state as the v1 reduced-chrome behavior. Do not build a second condensed global-header variant unless adopter evidence shows the compact state cannot support the shell need.
 - Use `shyThreshold` when the page needs a threshold that differs from the header's own height.
 - By default, the component observes `window` scrolling. If a route scrolls inside one application-owned element, assign that element to the property-only `scrollContainer` API. Set `scrollContainer = null` to return to window scrolling.
 - The component owns explicit scroll tracking, hide/reveal state, transition timing, and overlay awareness.
@@ -462,6 +463,7 @@ const content = createFdGlobalHeaderContentFromDrupal({
 - Shy mode uses `position: fixed`, which positions the header relative to the viewport. It requires the header to be a direct child of `<body>` or an ancestor without `transform`, `filter`, `perspective`, or `will-change` set — any of these on an ancestor creates a new containing block and breaks fixed positioning. Do not enable `shy` when the header lives inside a constrained shell, embedded app frame, or transformed container.
 - Shy mode supports either `window` scrolling or one explicit `scrollContainer` property supplied by the application. Automatic scroll-container detection, nested-scroll choreography, and automatic layout reservation are intentionally out of scope for v1.
 - Shy mode does not change assistive-technology exposure based on scroll position. If product testing shows that translated-but-exposed header content is confusing in a specific shell, document the evidence before adding route-specific semantics.
+- `fd-global-header` does not coordinate stacked sticky regions such as local navigation bars, alert rails, or app-owned toolbars. Keep that choreography in the page shell until a specific adopter case proves a shared contract is needed.
 
 ## Related components
 

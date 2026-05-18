@@ -125,6 +125,10 @@ Layout reservation remains application-owned in v1. Use `.fdic-page[data-page-ov
 
 By default, shy mode observes `window` scrolling. If a route scrolls inside one application-owned element, set the `scrollContainer` property to that element after both the header and scroll shell exist. This is an explicit handoff only; the design system does not detect scrollable ancestors or coordinate nested scroll regions.
 
+The existing desktop compact sticky state is the v1 reduced-chrome pattern for shy mode. It preserves brand, utility actions, search access, and a menu toggle for the full navigation. A separate condensed global-header variant would need a distinct design and accessibility review before becoming part of the public contract.
+
+Stacked sticky regions remain application-owned. If a route also has sticky local navigation, alert rails, task toolbars, or anchored filters, the shell must decide offsets, z-index ordering, overlap rules, and focus behavior. Do not make `fd-global-header` responsible for coordinating those regions through route-specific scripts or theme overrides.
+
 ## Utility slot policy
 
 The `utility` slot is for durable shell actions that remain useful across routes:
@@ -206,6 +210,7 @@ These are intentionally not part of the current shell contract:
 - automatic layout spacer insertion by `fd-global-header`
 - automatic scroll-container detection
 - nested scroll-container choreography
+- stacked sticky-region coordination between the global header and app-owned chrome
 - global-header ownership of local navigation
 - remote search providers inside the header
 - in-header loading, empty, or error states for search results
