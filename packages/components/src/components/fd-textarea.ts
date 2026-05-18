@@ -57,6 +57,7 @@ export class FdTextarea extends LitElement {
 
   private _formController: SingleValueFormController;
   private _siblingObserver: MutationObserver | null = null;
+  private _pendingDiscovery: number | null = null;
   private _charCountId: string;
   private _srCharCountId: string;
   private _announced80 = false;
@@ -185,9 +186,23 @@ export class FdTextarea extends LitElement {
     return (messages[0] as FdMessage | undefined) ?? null;
   }
 
+  private _resolveMessageState(message: FdMessage | null): MessageState {
+    const stateAttr = message?.getAttribute("state");
+    if (
+      stateAttr === "error" ||
+      stateAttr === "warning" ||
+      stateAttr === "success" ||
+      stateAttr === "default"
+    ) {
+      return stateAttr;
+    }
+
+    return (message?.state as MessageState) ?? "default";
+  }
+
   private _discoverSiblings() {
     const message = this._findMessage();
-    this._messageState = (message?.state as MessageState) ?? "default";
+    this._messageState = this._resolveMessageState(message);
     this.requestUpdate();
   }
 
@@ -195,13 +210,17 @@ export class FdTextarea extends LitElement {
     this._stopObservingSiblings();
     const rootNode = this.getRootNode();
     const observeTarget =
-      rootNode instanceof Document
-        ? rootNode.body
-        : rootNode instanceof ShadowRoot
-          ? (rootNode as unknown as Node)
-          : this.parentElement || document.body;
+      this.parentElement ||
+      (rootNode instanceof ShadowRoot
+        ? (rootNode as unknown as Node)
+        : document.body);
     this._siblingObserver = new MutationObserver(() => {
-      this._discoverSiblings();
+      if (this._pendingDiscovery == null) {
+        this._pendingDiscovery = requestAnimationFrame(() => {
+          this._pendingDiscovery = null;
+          this._discoverSiblings();
+        });
+      }
     });
     this._siblingObserver.observe(observeTarget, {
       childList: true,
@@ -212,6 +231,10 @@ export class FdTextarea extends LitElement {
   }
 
   private _stopObservingSiblings() {
+    if (this._pendingDiscovery != null) {
+      cancelAnimationFrame(this._pendingDiscovery);
+      this._pendingDiscovery = null;
+    }
     if (this._siblingObserver) {
       this._siblingObserver.disconnect();
       this._siblingObserver = null;

@@ -175,12 +175,12 @@ describe("fd-textarea", () => {
     document.body.appendChild(message);
     await message.updateComplete;
 
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-
-    const textarea = getInternal(el);
-    const describedBy = textarea!.getAttribute("aria-describedby") || "";
-    expect(describedBy).toContain(message.messageId);
+    await vi.waitFor(async () => {
+      await el.updateComplete;
+      const textarea = getInternal(el);
+      const describedBy = textarea!.getAttribute("aria-describedby") || "";
+      expect(describedBy).toContain(message.messageId);
+    });
   });
 
   it("wires aria-describedby from both fd-label and fd-message", async () => {
@@ -200,13 +200,13 @@ describe("fd-textarea", () => {
     document.body.appendChild(message);
     await message.updateComplete;
 
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-
-    const textarea = getInternal(el);
-    const describedBy = textarea!.getAttribute("aria-describedby") || "";
-    expect(describedBy).toContain(label.descriptionId);
-    expect(describedBy).toContain(message.messageId);
+    await vi.waitFor(async () => {
+      await el.updateComplete;
+      const textarea = getInternal(el);
+      const describedBy = textarea!.getAttribute("aria-describedby") || "";
+      expect(describedBy).toContain(label.descriptionId);
+      expect(describedBy).toContain(message.messageId);
+    });
   });
 
   it("does not surface invalid state before a visibility boundary", async () => {
@@ -295,10 +295,10 @@ describe("fd-textarea", () => {
     document.body.appendChild(message);
     await message.updateComplete;
 
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-
-    expect(el.getAttribute("data-state")).toBe("warning");
+    await vi.waitFor(async () => {
+      await el.updateComplete;
+      expect(el.getAttribute("data-state")).toBe("warning");
+    });
   });
 
   it("warns when multiple fd-message siblings target the same textarea", async () => {
@@ -318,12 +318,11 @@ describe("fd-textarea", () => {
 
     await first.updateComplete;
     await second.updateComplete;
-    await new Promise((r) => setTimeout(r, 50));
-    await el.updateComplete;
-
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Multiple fd-message"),
-    );
+    await vi.waitFor(() => {
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Multiple fd-message"),
+      );
+    });
     warnSpy.mockRestore();
   });
 
