@@ -49,6 +49,9 @@ jobs:
       - name: Run component tests
         run: npm run test:components
 
+      - name: Build component package for Storybook imports
+        run: npm run build:components
+
       - name: Install Playwright chromium browser
         shell: bash
         run: |
@@ -64,7 +67,7 @@ jobs:
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: playwright-report
           path: playwright-report
