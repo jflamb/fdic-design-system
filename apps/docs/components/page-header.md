@@ -50,6 +50,8 @@ header.breadcrumbs = [
 
 The last breadcrumb item renders as a non-interactive `<span>` with `aria-current="page"`. All preceding items render as links.
 
+On narrow containers (640px and below), breadcrumbs collapse to a single **Back** link that points to the immediate parent breadcrumb. Keep the parent breadcrumb label clear because it becomes the link's accessible name (`Back to …`) in the mobile presentation.
+
 ### With kicker and actions
 
 ```html
@@ -115,6 +117,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 |---|---|
 | `base` | Root container element. |
 | `breadcrumbs` | Breadcrumb `<nav>` element. |
+| `breadcrumb-back-link` | Mobile Back link rendered from the immediate parent breadcrumb. |
 | `nameplate` | Container for title and kicker. |
 | `kicker` | Kicker/eyebrow text element. |
 | `title` | `<h1>` heading element. |
@@ -133,6 +136,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 - Use `heading` for the page's primary heading — the component renders it as `<h1>`.
 - Keep breadcrumb labels short and descriptive. Match them to the actual page titles they link to.
 - Mark the last breadcrumb item's `href` to match the current page URL, even though the component renders it as a non-interactive span.
+- Put the immediate parent page directly before the current page in the `breadcrumbs` array. On mobile, that parent becomes the single Back link destination.
 - Use the `kicker` for short content-type labels, not full sentences.
 
 **Don't**
@@ -141,7 +145,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 - Don't slot multiple loose buttons side by side. Use `fd-button-group` so related page actions share one layout wrapper.
 - Don't mix button variants in the actions group. Keep page-level utility actions on `fd-button variant="subtle"` for a consistent hierarchy.
 - Don't use the actions slot for primary navigation — it's for page-level utility actions.
-- Don't include more than 5 breadcrumb levels — keep the hierarchy shallow and scannable.
+- Don't include more than 5 breadcrumb levels — keep the hierarchy shallow and scannable. Deep trails still collapse to the immediate parent on mobile.
 
 </div>
 
@@ -157,6 +161,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 - The breadcrumb trail renders inside a `<nav>` landmark with `aria-label="Breadcrumbs"` (customizable via the `breadcrumb-label` property).
 - Breadcrumbs use a semantic `<ol>` to convey ordered hierarchy to assistive technology.
 - The last breadcrumb item has `aria-current="page"` so screen readers announce it as the current location.
+- On narrow containers, the visible Back link navigates to the immediate parent breadcrumb and uses `aria-label="Back to …"` for context. The full trail remains the source hierarchy for wider layouts.
 - Separator icons between breadcrumbs are `aria-hidden="true"` and excluded from the accessible name.
 - The `heading` renders as `<h1>` — do not add another `<h1>` on the same page.
 - All interactive elements (breadcrumb links, action buttons) have visible focus indicators using the standard FDIC focus ring pattern.
@@ -171,7 +176,7 @@ Use an `fd-button-group` in the `actions` slot, and use `fd-button` with `varian
 
 - **No data fetching** — The component does not fetch breadcrumb data. Pass the `breadcrumbs` array from your application.
 - **No routing integration** — Breadcrumb links use standard `<a>` elements. For SPA routing, intercept clicks in your framework's router.
-- **No mobile back-link** — v1 does not collapse breadcrumbs to a "← Back" link on narrow viewports. This is a candidate for a future enhancement.
+- **Mobile back-link destination is derived** — The component derives the mobile Back link from the immediate parent breadcrumb. It does not support choosing a different ancestor level in v1.
 - **Heading level is fixed at `<h1>`** — The component always renders an `<h1>`. If you need a different heading level, use native HTML instead.
 
 ## Related components

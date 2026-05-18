@@ -8,6 +8,8 @@ export interface FdPageHeaderBreadcrumb {
 
 const SEPARATOR_SVG =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>';
+const BACK_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg>';
 
 /**
  * `fd-page-header` — Page-level header with breadcrumbs, title, optional kicker, and actions.
@@ -97,6 +99,48 @@ export class FdPageHeader extends LitElement {
         var(--fdic-font-size-body-small, 16px)
       );
       line-height: 1.375;
+    }
+
+    .breadcrumb-back-link {
+      display: none;
+      align-items: center;
+      gap: var(--fdic-spacing-2xs, 4px);
+      color: var(
+        --fd-page-header-breadcrumb-color,
+        var(--fdic-color-text-inverted, #ffffff)
+      );
+      font-size: var(
+        --fd-page-header-breadcrumb-font-size,
+        var(--fdic-font-size-body-small, 16px)
+      );
+      line-height: 1.375;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.12em;
+    }
+
+    .breadcrumb-back-link:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .breadcrumb-back-link:focus-visible {
+      outline: 2px solid var(--fdic-color-border-input-focus, #38b6ff);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .breadcrumb-back-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 16px;
+      block-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .breadcrumb-back-icon svg {
+      inline-size: 100%;
+      block-size: 100%;
     }
 
     .breadcrumb-item {
@@ -262,6 +306,14 @@ export class FdPageHeader extends LitElement {
       .actions {
         padding-block-end: 0;
       }
+
+      .breadcrumb-list[data-has-back-link="true"] {
+        display: none;
+      }
+
+      .breadcrumb-back-link {
+        display: inline-flex;
+      }
     }
 
     /* --- Print --- */
@@ -305,6 +357,10 @@ export class FdPageHeader extends LitElement {
         color: LinkText;
       }
 
+      .breadcrumb-back-link {
+        color: LinkText;
+      }
+
       .breadcrumb-current {
         color: CanvasText;
       }
@@ -318,6 +374,10 @@ export class FdPageHeader extends LitElement {
       }
 
       .breadcrumb-link:focus-visible {
+        outline-color: Highlight;
+      }
+
+      .breadcrumb-back-link:focus-visible {
         outline-color: Highlight;
       }
     }
@@ -402,6 +462,7 @@ export class FdPageHeader extends LitElement {
   private _renderBreadcrumbs() {
     const items = this.breadcrumbs;
     if (!Array.isArray(items) || items.length === 0) return nothing;
+    const backItem = items.length > 1 ? items[items.length - 2] : undefined;
 
     return html`
       <nav
@@ -409,7 +470,23 @@ export class FdPageHeader extends LitElement {
         class="breadcrumbs"
         aria-label=${this.breadcrumbLabel}
       >
-        <ol class="breadcrumb-list">
+        ${backItem
+          ? html`<a
+              part="breadcrumb-back-link"
+              class="breadcrumb-back-link"
+              href=${backItem.href}
+              aria-label=${`Back to ${backItem.label}`}
+            >
+              <span class="breadcrumb-back-icon" aria-hidden="true"
+                >${unsafeSVG(BACK_SVG)}</span
+              >
+              Back
+            </a>`
+          : nothing}
+        <ol
+          class="breadcrumb-list"
+          data-has-back-link=${String(Boolean(backItem))}
+        >
           ${items.map((item, index) => {
             const isLast = index === items.length - 1;
             return html`

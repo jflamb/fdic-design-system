@@ -30,6 +30,7 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 - [#125 Scope shy-header layout reservation and scroll-container support](https://github.com/jflamb/fdic-design-system/issues/125): shy mode now documents application-owned layout reservation, explicitly rules out automatic spacing, and supports one property-only `scrollContainer` target for app-owned scroll shells.
 - [#127 Evaluate shy-header accessibility exposure when translated](https://github.com/jflamb/fdic-design-system/issues/127): shy mode now keeps the translated header semantically stable, documents that scroll position must not toggle `aria-hidden` or `inert`, and tests focus-triggered reveal in the mobile translated state.
 - [#126 Evaluate condensed shy-header and shell coordination](https://github.com/jflamb/fdic-design-system/issues/126): the existing compact desktop shy state is now documented as the v1 reduced-chrome pattern, while separate condensed variants and stacked sticky-region choreography remain outside the component contract.
+- [#145 Mobile back-link breadcrumb variant](https://github.com/jflamb/fdic-design-system/issues/145): `fd-page-header` now collapses breadcrumb trails to a single mobile Back link that points to the immediate parent breadcrumb on narrow containers.
 - [#211 Add structured metadata support to Media Item](https://github.com/jflamb/fdic-design-system/issues/211): `fd-media-item` now supports structured metadata fields with the authored `metadata` string preserved as the compatibility override.
 - [#168 Evaluate structured date semantics for fd-event](https://github.com/jflamb/fdic-design-system/issues/168): `fd-event` now keeps visible month/day author-controlled while exposing machine-readable `date`, `start-date`, and `end-date` attributes.
 - [#205 Add structured datetime support to Social Media Item](https://github.com/jflamb/fdic-design-system/issues/205): `fd-social-media-item` now keeps visible `timestamp` text author-controlled while exposing optional machine-readable `datetime` through native `<time datetime>` semantics.
@@ -44,7 +45,7 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 
 **Still valid as roadmap candidates:**
 
-- [#145](https://github.com/jflamb/fdic-design-system/issues/145), [#146](https://github.com/jflamb/fdic-design-system/issues/146), and [#108](https://github.com/jflamb/fdic-design-system/issues/108): navigation, breadcrumb, and pagination limitations remain useful but should be driven by adopter evidence.
+- [#146](https://github.com/jflamb/fdic-design-system/issues/146) and [#108](https://github.com/jflamb/fdic-design-system/issues/108): breadcrumb and pagination limitations remain useful but should be driven by adopter evidence.
 - [#95](https://github.com/jflamb/fdic-design-system/issues/95), [#159](https://github.com/jflamb/fdic-design-system/issues/159), [#179](https://github.com/jflamb/fdic-design-system/issues/179), and [#99](https://github.com/jflamb/fdic-design-system/issues/99): feedback and recovery patterns remain relevant, but most need product-flow evidence before component API work.
 - [#79](https://github.com/jflamb/fdic-design-system/issues/79), [#91](https://github.com/jflamb/fdic-design-system/issues/91), [#153](https://github.com/jflamb/fdic-design-system/issues/153), [#154](https://github.com/jflamb/fdic-design-system/issues/154), and [#200](https://github.com/jflamb/fdic-design-system/issues/200): advanced authoring and media/content semantics remain future candidates, not near-term adoption blockers.
 
@@ -60,7 +61,7 @@ Work that raises confidence in the system as a real adoption target.
 
 Issue hygiene:
 
-- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#23](https://github.com/jflamb/fdic-design-system/issues/23), [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#80](https://github.com/jflamb/fdic-design-system/issues/80), [#112](https://github.com/jflamb/fdic-design-system/issues/112), [#113](https://github.com/jflamb/fdic-design-system/issues/113), [#125](https://github.com/jflamb/fdic-design-system/issues/125), [#126](https://github.com/jflamb/fdic-design-system/issues/126), [#127](https://github.com/jflamb/fdic-design-system/issues/127), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
+- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#23](https://github.com/jflamb/fdic-design-system/issues/23), [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#80](https://github.com/jflamb/fdic-design-system/issues/80), [#112](https://github.com/jflamb/fdic-design-system/issues/112), [#113](https://github.com/jflamb/fdic-design-system/issues/113), [#125](https://github.com/jflamb/fdic-design-system/issues/125), [#126](https://github.com/jflamb/fdic-design-system/issues/126), [#127](https://github.com/jflamb/fdic-design-system/issues/127), [#145](https://github.com/jflamb/fdic-design-system/issues/145), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
 
 ### Next
 
@@ -141,7 +142,7 @@ Hold when:
 - the feature would make a shell component own too much application state
 - the page pattern can be documented without adding component state
 
-Key issues: [#145](https://github.com/jflamb/fdic-design-system/issues/145), [#146](https://github.com/jflamb/fdic-design-system/issues/146), [#108](https://github.com/jflamb/fdic-design-system/issues/108).
+Key issues: [#146](https://github.com/jflamb/fdic-design-system/issues/146), [#108](https://github.com/jflamb/fdic-design-system/issues/108).
 
 ### Workflow Feedback and Recovery
 

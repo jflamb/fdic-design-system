@@ -71,6 +71,10 @@ function getBreadcrumbItems(el: any): Element[] {
   );
 }
 
+function getBreadcrumbBackLink(el: any): HTMLAnchorElement | null {
+  return el.shadowRoot?.querySelector(".breadcrumb-back-link") ?? null;
+}
+
 function getSeparators(el: any): Element[] {
   return Array.from(
     el.shadowRoot?.querySelectorAll(".breadcrumb-separator") ?? [],
@@ -111,6 +115,9 @@ describe("FdPageHeader", () => {
     expect(styles).toContain("var(--fdic-layout-gutter-tablet, 32px)");
     expect(styles).toContain("@container (max-width: 640px)");
     expect(styles).toContain("var(--fdic-layout-gutter-mobile, 16px)");
+    expect(styles).toContain(".breadcrumb-list[data-has-back-link=\"true\"]");
+    expect(styles).toContain(".breadcrumb-back-link");
+    expect(styles).toContain("display: inline-flex");
   });
 
   // --- Rendering ---
@@ -239,6 +246,34 @@ describe("FdPageHeader", () => {
     expect(ol?.tagName).toBe("OL");
   });
 
+  it("renders a mobile back link to the immediate parent breadcrumb", async () => {
+    const el = await createPageHeader(
+      { heading: "Leadership" },
+      { breadcrumbs: SAMPLE_BREADCRUMBS },
+    );
+    const backLink = getBreadcrumbBackLink(el);
+
+    expect(backLink).not.toBeNull();
+    expect(backLink?.textContent?.trim()).toBe("Back");
+    expect(backLink?.getAttribute("href")).toBe("/about");
+    expect(backLink?.getAttribute("aria-label")).toBe("Back to About");
+    expect(
+      backLink?.querySelector(".breadcrumb-back-icon")?.getAttribute(
+        "aria-hidden",
+      ),
+    ).toBe("true");
+  });
+
+  it("marks the full breadcrumb list as collapsible when a mobile back link exists", async () => {
+    const el = await createPageHeader(
+      { heading: "Leadership" },
+      { breadcrumbs: SAMPLE_BREADCRUMBS },
+    );
+    const list = getBreadcrumbNav(el)?.querySelector(".breadcrumb-list");
+
+    expect(list?.getAttribute("data-has-back-link")).toBe("true");
+  });
+
   // --- Actions slot ---
 
   it("hides actions container when no actions are slotted", async () => {
@@ -332,8 +367,11 @@ describe("FdPageHeader", () => {
       { breadcrumbs: [{ label: "Home", href: "/" }] },
     );
     const items = getBreadcrumbItems(el);
+    const list = getBreadcrumbNav(el)?.querySelector(".breadcrumb-list");
     expect(items.length).toBe(1);
+    expect(list?.getAttribute("data-has-back-link")).toBe("false");
     expect(getSeparators(el).length).toBe(0);
+    expect(getBreadcrumbBackLink(el)).toBeNull();
     const current = items[0].querySelector("[aria-current='page']");
     expect(current).not.toBeNull();
   });

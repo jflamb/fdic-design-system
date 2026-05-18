@@ -3464,6 +3464,10 @@
           "description": "Breadcrumb `<nav>` element."
         },
         {
+          "name": "breadcrumb-back-link",
+          "description": "Mobile Back link rendered from the immediate parent breadcrumb."
+        },
+        {
           "name": "nameplate",
           "description": "Container for title and kicker."
         },

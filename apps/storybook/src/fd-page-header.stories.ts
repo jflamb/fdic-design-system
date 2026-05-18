@@ -148,3 +148,53 @@ export const FullHeader: Story = {
     showActions: true,
   },
 };
+
+export const MobileBackLink: Story = {
+  name: "Mobile back link",
+  args: {
+    heading: "Deposit Insurance FAQ",
+    kicker: "Consumer Resources",
+    breadcrumbs: [
+      { label: "Home", href: "/" },
+      { label: "Consumer Resources", href: "/consumer-resources" },
+      {
+        label: "Deposit Insurance FAQ",
+        href: "/consumer-resources/deposit-insurance-faq",
+      },
+    ],
+    showActions: false,
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+    docs: {
+      description: {
+        story:
+          "Shows the mobile breadcrumb behavior: the full breadcrumb trail remains available for wider layouts, while narrow containers present a single Back link to the immediate parent page.",
+      },
+    },
+  },
+};
+
+MobileBackLink.play = async ({ canvasElement }) => {
+  const host = canvasElement.querySelector(
+    "fd-page-header",
+  ) as HTMLElement | null;
+  const backLink = host?.shadowRoot?.querySelector(
+    ".breadcrumb-back-link",
+  ) as HTMLAnchorElement | null;
+  const breadcrumbList = host?.shadowRoot?.querySelector(
+    ".breadcrumb-list",
+  ) as HTMLOListElement | null;
+
+  expect(backLink).toBeTruthy();
+  expect(backLink?.textContent?.trim()).toBe("Back");
+  expect(backLink?.getAttribute("href")).toBe("/consumer-resources");
+  expect(backLink?.getAttribute("aria-label")).toBe(
+    "Back to Consumer Resources",
+  );
+  expect(breadcrumbList?.getAttribute("data-has-back-link")).toBe("true");
+  expect(getComputedStyle(backLink!).display).toBe("inline-flex");
+  expect(getComputedStyle(breadcrumbList!).display).toBe("none");
+};
