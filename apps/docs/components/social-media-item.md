@@ -32,6 +32,7 @@ The Social Media Item component presents one static social post summary with a r
 ```html
 <fd-social-media-item
   timestamp="Aug. 26, 2024 · 9:25 AM"
+  datetime="2024-08-26T09:25:00-04:00"
   image-src="/images/social/unbanked-households.png"
   image-alt="Graphic stating that 75 percent of unbanked Hispanic households rely on cash."
   platforms="facebook youtube instagram x reddit linkedin threads"
@@ -60,6 +61,7 @@ The Social Media Item component presents one static social post summary with a r
 - **Write specific alt text.** If the image repeats visible text, summarize the important information. If the image is truly decorative, reconsider whether this component is the right pattern.
 - **Use supported platform tokens.** Supported tokens are `facebook`, `youtube`, `instagram`, `x`, `reddit`, `linkedin`, and `threads`.
 - **Keep timestamps readable.** `timestamp` is visible text in v1. Use the format your content workflow can maintain consistently.
+- **Pair visible timestamps with `datetime` when known.** `datetime` is machine-readable metadata for the authored timestamp text. Use a valid date or datetime string, and include a timezone offset such as `2024-08-26T09:25:00-04:00` when the time of day matters.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -67,6 +69,7 @@ The Social Media Item component presents one static social post summary with a r
 | Name | Type | Default | Description |
 |---|---|---|---|
 | `timestamp` | `string` | `` | Visible timestamp text for the post. |
+| `datetime` | `string \| undefined` | `undefined` | Machine-readable timestamp for the visible timestamp text. When present, the timestamp renders as `<time datetime>`. Include a timezone offset when the time of day matters. |
 | `image-src` | `string \| undefined` | `undefined` | Representative image URL for the social post. |
 | `image-alt` | `string` | `` | Alternative text for the representative image. Required when the image conveys post content. |
 | `facebook-href` | `string \| undefined` | `undefined` | Destination URL for the Facebook post link button. |
@@ -132,7 +135,7 @@ The Social Media Item component presents one static social post summary with a r
 
 ## Known limitations
 
-- The component does not provide structured machine-readable datetime metadata.
+- The component does not parse, localize, timezone-convert, sort, or filter timestamp text.
 - The component does not own loading, moderation, sorting, filtering, analytics, or social API integration.
 
 ## Related components

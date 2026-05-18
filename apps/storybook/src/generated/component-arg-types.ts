@@ -745,6 +745,7 @@ export const componentStoryApi = {
   "fd-social-media-item": {
     argTypes: {
     "timestamp": { control: "text" },
+    "datetime": { control: "text" },
     "imageSrc": { control: "text" },
     "imageAlt": { control: "text" },
     "facebookHref": { control: "text" },
@@ -758,6 +759,7 @@ export const componentStoryApi = {
     },
     args: {
     "timestamp": "",
+    "datetime": undefined,
     "imageSrc": undefined,
     "imageAlt": "",
     "facebookHref": undefined,

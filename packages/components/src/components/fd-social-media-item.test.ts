@@ -5,6 +5,7 @@ import { expectNoAxeViolations } from "./test-a11y.js";
 async function createSocialMediaItem(
   props: Partial<HTMLElement & {
     timestamp: string;
+    datetime?: string;
     imageSrc?: string;
     imageAlt: string;
     platforms: string[];
@@ -21,6 +22,7 @@ async function createSocialMediaItem(
   const el = document.createElement("fd-social-media-item") as HTMLElement & {
     updateComplete: Promise<void>;
     timestamp: string;
+    datetime?: string;
     imageSrc?: string;
     imageAlt: string;
     platforms: string[];
@@ -66,6 +68,52 @@ describe("FdSocialMediaItem", () => {
     expect(image?.getAttribute("alt")).toContain("75 percent");
     expect(timestamp?.textContent).toContain("Aug. 26");
     expect(platforms).toHaveLength(3);
+  });
+
+  it("renders the visible timestamp as time when datetime is provided", async () => {
+    const el = await createSocialMediaItem({
+      timestamp: "Aug. 26, 2024 · 9:25 AM",
+      datetime: "2024-08-26T09:25:00-04:00",
+    });
+
+    const timestamp = el.shadowRoot?.querySelector<HTMLTimeElement>("[part=timestamp]");
+
+    expect(timestamp?.tagName.toLowerCase()).toBe("time");
+    expect(timestamp?.getAttribute("datetime")).toBe("2024-08-26T09:25:00-04:00");
+    expect(timestamp?.textContent).toBe("Aug. 26, 2024 · 9:25 AM");
+  });
+
+  it("keeps the visible timestamp as authored text when datetime is blank", async () => {
+    const el = await createSocialMediaItem({
+      timestamp: "Aug. 26, 2024 · 9:25 AM",
+      datetime: " ",
+    });
+
+    const timestamp = el.shadowRoot?.querySelector("[part=timestamp]");
+
+    expect(timestamp?.tagName.toLowerCase()).toBe("p");
+    expect(timestamp?.hasAttribute("datetime")).toBe(false);
+    expect(timestamp?.textContent).toBe("Aug. 26, 2024 · 9:25 AM");
+  });
+
+  it("keeps the visible timestamp as authored text when datetime is omitted", async () => {
+    const el = await createSocialMediaItem({
+      timestamp: "Aug. 26, 2024 · 9:25 AM",
+    });
+
+    const timestamp = el.shadowRoot?.querySelector("[part=timestamp]");
+
+    expect(timestamp?.tagName.toLowerCase()).toBe("p");
+    expect(timestamp?.hasAttribute("datetime")).toBe(false);
+    expect(timestamp?.textContent).toBe("Aug. 26, 2024 · 9:25 AM");
+  });
+
+  it("omits the timestamp when datetime is provided without visible text", async () => {
+    const el = await createSocialMediaItem({
+      datetime: "2024-08-26T09:25:00-04:00",
+    });
+
+    expect(el.shadowRoot?.querySelector("[part=timestamp]")).toBeNull();
   });
 
   it("preserves native links authored in the default slot", async () => {

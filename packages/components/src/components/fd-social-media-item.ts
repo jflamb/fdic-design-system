@@ -82,6 +82,7 @@ function normalizePlatforms(value: SocialMediaPlatform[] | string | undefined) {
 export class FdSocialMediaItem extends LitElement {
   static properties = {
     timestamp: { reflect: true },
+    datetime: { reflect: true },
     imageSrc: { attribute: "image-src", reflect: true },
     imageAlt: { attribute: "image-alt", reflect: true },
     facebookHref: { attribute: "facebook-href", reflect: true },
@@ -156,6 +157,7 @@ export class FdSocialMediaItem extends LitElement {
 
     [part="timestamp"],
     [part="platform-label"] {
+      display: block;
       margin: 0;
       color: var(
         --fd-social-media-item-supporting-color,
@@ -282,6 +284,7 @@ export class FdSocialMediaItem extends LitElement {
   `;
 
   declare timestamp: string;
+  declare datetime: string | undefined;
   declare imageSrc: string | undefined;
   declare imageAlt: string;
   declare facebookHref: string | undefined;
@@ -298,6 +301,7 @@ export class FdSocialMediaItem extends LitElement {
   constructor() {
     super();
     this.timestamp = "";
+    this.datetime = undefined;
     this.imageSrc = undefined;
     this.imageAlt = "";
     this.facebookHref = undefined;
@@ -394,8 +398,19 @@ export class FdSocialMediaItem extends LitElement {
     `;
   }
 
+  private renderTimestamp(timestamp: string | undefined, datetime: string | undefined) {
+    if (!timestamp) {
+      return nothing;
+    }
+
+    return datetime
+      ? html`<time part="timestamp" datetime=${datetime}>${timestamp}</time>`
+      : html`<p part="timestamp">${timestamp}</p>`;
+  }
+
   render() {
     const timestamp = this.timestamp?.trim();
+    const datetime = this.datetime?.trim();
     const imageSrc = this.imageSrc?.trim();
     const imageAlt = this.imageAlt?.trim();
     const platforms = normalizePlatforms(this.platforms);
@@ -411,7 +426,7 @@ export class FdSocialMediaItem extends LitElement {
             `
           : nothing}
         <div part="content">
-          ${timestamp ? html`<p part="timestamp">${timestamp}</p>` : nothing}
+          ${this.renderTimestamp(timestamp, datetime)}
           <div part="body">
             <slot></slot>
           </div>

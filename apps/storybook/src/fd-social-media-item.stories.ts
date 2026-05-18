@@ -16,6 +16,7 @@ import {
 
 type SocialMediaItemArgs = {
   timestamp: string;
+  datetime?: string;
   imageSrc?: string;
   imageAlt: string;
   platforms: string[];
@@ -42,6 +43,7 @@ const renderSocialMediaItem = (args: SocialMediaItemArgs) => html`
   <div style="inline-size:min(100%, 320px);">
     <fd-social-media-item
       timestamp=${args.timestamp}
+      datetime=${ifDefined(args.datetime)}
       image-src=${ifDefined(args.imageSrc)}
       image-alt=${args.imageAlt}
       facebook-href=${ifDefined(args.facebookHref)}
@@ -89,6 +91,7 @@ const meta = {
   args: {
     ...getComponentArgs("fd-social-media-item"),
     timestamp: "Aug. 26, 2024 · 9:25 AM",
+    datetime: "2024-08-26T09:25:00-04:00",
     imageSrc: socialGraphic,
     imageAlt:
       "Graphic stating that 75 percent of unbanked Hispanic households rely on cash.",
@@ -112,11 +115,14 @@ export const Playground: Story = {};
 Playground.play = async ({ canvasElement }) => {
   const item = canvasElement.querySelector("fd-social-media-item");
   const image = item?.shadowRoot?.querySelector<HTMLImageElement>("[part=image]");
+  const timestamp = item?.shadowRoot?.querySelector<HTMLTimeElement>("[part=timestamp]");
   const platformItems = item?.shadowRoot?.querySelectorAll("[part=platform-item]");
   const platformLinks = item?.shadowRoot?.querySelectorAll("fd-button[part=platform-link]");
 
   expect(item?.getAttribute("tabindex")).toBeNull();
   expect(image?.getAttribute("alt")).toContain("75 percent");
+  expect(timestamp?.tagName.toLowerCase()).toBe("time");
+  expect(timestamp?.getAttribute("datetime")).toBe("2024-08-26T09:25:00-04:00");
   expect(platformItems).toHaveLength(7);
   expect(platformLinks?.[0]?.getAttribute("href")).toContain("facebook.com");
   expect(platformLinks?.[0]?.getAttribute("aria-label")).toBe("View post on Facebook");
@@ -139,6 +145,7 @@ export const DocsOverview: Story = {
         <strong class=${DOCS_OVERVIEW_HEADING_CLASS}>Static item</strong>
         ${renderSocialMediaItem({
           timestamp: "Aug. 26, 2024 · 9:25 AM",
+          datetime: "2024-08-26T09:25:00-04:00",
           imageSrc: socialGraphic,
           imageAlt:
             "Graphic stating that 75 percent of unbanked Hispanic households rely on cash.",

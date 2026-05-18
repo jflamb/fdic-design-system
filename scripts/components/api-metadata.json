@@ -5379,6 +5379,12 @@
           "description": "Visible timestamp text for the post."
         },
         {
+          "name": "datetime",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Machine-readable timestamp for the visible timestamp text. When present, the timestamp renders as `<time datetime>`. Include a timezone offset when the time of day matters."
+        },
+        {
           "name": "image-src",
           "type": "`string \\| undefined`",
           "defaultValue": "`undefined`",
