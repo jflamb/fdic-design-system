@@ -27,6 +27,7 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 - [#211 Add structured metadata support to Media Item](https://github.com/jflamb/fdic-design-system/issues/211): `fd-media-item` now supports structured metadata fields with the authored `metadata` string preserved as the compatibility override.
 - [#168 Evaluate structured date semantics for fd-event](https://github.com/jflamb/fdic-design-system/issues/168): `fd-event` now keeps visible month/day author-controlled while exposing machine-readable `date`, `start-date`, and `end-date` attributes.
 - [#205 Add structured datetime support to Social Media Item](https://github.com/jflamb/fdic-design-system/issues/205): `fd-social-media-item` now keeps visible `timestamp` text author-controlled while exposing optional machine-readable `datetime` through native `<time datetime>` semantics.
+- [#80 Refresh fd-input guidance around remaining email, URL, and validation gaps](https://github.com/jflamb/fdic-design-system/issues/80): `fd-input` docs and Storybook now include explicit email, password, search, and URL recipes with autocomplete, validation-copy, clear-button, and password-reveal guidance.
 
 **Appears complete or superseded in the repo:**
 
@@ -34,10 +35,6 @@ This roadmap was reviewed against the current repository state on May 18, 2026. 
 - [#217 Sidebar Nav](https://github.com/jflamb/fdic-design-system/issues/217): `fd-sidebar-nav` is exported, documented, inventoried, and referenced by current composition guidance. Close or update the issue rather than treating it as unstarted roadmap work.
 - [#220 Dynamic Org Chart](https://github.com/jflamb/fdic-design-system/issues/220): the current system has the v1 outline/details pattern through `fd-org-outline` and `fd-org-details`. If a visual chart adapter is still wanted, split that post-v1 work into a narrower issue.
 - [#172 Card Group companion](https://github.com/jflamb/fdic-design-system/issues/172): the repo now includes `fd-card-group` source, docs, inventory, and stories. Re-scope any remaining grid/list limitations before scheduling more work.
-
-**Partially satisfied and needs refresh before scheduling:**
-
-- [#80 Input guidance and recipes](https://github.com/jflamb/fdic-design-system/issues/80): current docs and stories already cover search, clear buttons, password reveal, prefixes, suffixes, patterns, minimum length, and numeric identifiers. Refresh the issue around any remaining email, URL, validation-copy, or acceptance-test gaps.
 
 **Still valid as roadmap candidates:**
 
@@ -61,19 +58,17 @@ Representative issues:
 
 Issue hygiene:
 
-- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
+- Keep the closed issue set visible during the next review so newly opened work does not duplicate [#28](https://github.com/jflamb/fdic-design-system/issues/28), [#66](https://github.com/jflamb/fdic-design-system/issues/66), [#80](https://github.com/jflamb/fdic-design-system/issues/80), [#168](https://github.com/jflamb/fdic-design-system/issues/168), [#205](https://github.com/jflamb/fdic-design-system/issues/205), [#211](https://github.com/jflamb/fdic-design-system/issues/211), [#217](https://github.com/jflamb/fdic-design-system/issues/217), [#220](https://github.com/jflamb/fdic-design-system/issues/220), or [#172](https://github.com/jflamb/fdic-design-system/issues/172). Use [#222](https://github.com/jflamb/fdic-design-system/issues/222) for any post-v1 org-chart visual adapter research.
 
 ### Next
 
 Work that directly improves high-stakes user tasks and the first Drupal/CMS adoption path.
 
-- Refresh form and data-entry guidance before adding narrow input variants.
 - Resolve structured metadata for dated, time-based, and media content so public pages can expose machine-readable facts without custom one-off markup.
 - Clarify navigation and search behavior where page shells, global header behavior, and local navigation meet.
 
 Representative issues:
 
-- [#80 Refresh fd-input guidance around remaining email, URL, and validation gaps](https://github.com/jflamb/fdic-design-system/issues/80)
 - [#112 Define async search integration and richer results patterns](https://github.com/jflamb/fdic-design-system/issues/112)
 
 ### Later
@@ -113,7 +108,7 @@ Hold when:
 - the component would duplicate browser behavior without improving clarity or accessibility
 - the workflow needs policy or content decisions before component work can start
 
-Key issues: [#80](https://github.com/jflamb/fdic-design-system/issues/80), [#88](https://github.com/jflamb/fdic-design-system/issues/88), [#159](https://github.com/jflamb/fdic-design-system/issues/159).
+Key issues: [#88](https://github.com/jflamb/fdic-design-system/issues/88), [#159](https://github.com/jflamb/fdic-design-system/issues/159).
 
 Parked until adopter evidence is stronger: [#81](https://github.com/jflamb/fdic-design-system/issues/81), [#82](https://github.com/jflamb/fdic-design-system/issues/82).
 
