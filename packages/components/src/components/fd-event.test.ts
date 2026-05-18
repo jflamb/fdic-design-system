@@ -9,6 +9,9 @@ async function createEvent() {
       updateComplete: Promise<void>;
       month: string;
       day: string;
+      date?: string;
+      startDate?: string;
+      endDate?: string;
       title: string;
       href?: string;
       target?: string;
@@ -180,6 +183,64 @@ describe("FdEvent", () => {
 
     expect(queryShadow(el, "[part=month]")?.textContent).toBe("SEP");
     expect(queryShadow(el, "[part=day]")?.textContent).toBe("18");
+  });
+
+  it("renders a machine-readable time element when date is provided", async () => {
+    const el = await createEvent();
+    el.month = "SEP";
+    el.day = "18";
+    el.date = "2026-09-18";
+    await el.updateComplete;
+
+    const dateBlock = queryShadow<HTMLTimeElement>(el, "[part=date]");
+
+    expect(dateBlock?.tagName.toLowerCase()).toBe("time");
+    expect(dateBlock?.getAttribute("datetime")).toBe("2026-09-18");
+    expect(queryShadow(el, "[part=month]")?.textContent).toBe("SEP");
+    expect(queryShadow(el, "[part=day]")?.textContent).toBe("18");
+  });
+
+  it("uses start-date for datetime when date is omitted", async () => {
+    const el = await createEvent();
+    el.month = "SEP";
+    el.day = "18";
+    el.startDate = "2026-09-18T13:00:00-04:00";
+    el.endDate = "2026-09-18T14:00:00-04:00";
+    await el.updateComplete;
+
+    const dateBlock = queryShadow<HTMLTimeElement>(el, "[part=date]");
+
+    expect(dateBlock?.tagName.toLowerCase()).toBe("time");
+    expect(dateBlock?.getAttribute("datetime")).toBe(
+      "2026-09-18T13:00:00-04:00",
+    );
+    expect(el.getAttribute("end-date")).toBe("2026-09-18T14:00:00-04:00");
+  });
+
+  it("keeps date as the datetime precedence when date and start-date are set", async () => {
+    const el = await createEvent();
+    el.month = "SEP";
+    el.day = "18";
+    el.date = "2026-09-18";
+    el.startDate = "2026-09-18T13:00:00-04:00";
+    await el.updateComplete;
+
+    expect(queryShadow<HTMLTimeElement>(el, "[part=date]")?.dateTime).toBe(
+      "2026-09-18",
+    );
+  });
+
+  it("keeps the date block as a div when structured dates are blank", async () => {
+    const el = await createEvent();
+    el.month = " SEP ";
+    el.day = " 18 ";
+    el.date = " ";
+    el.startDate = " ";
+    await el.updateComplete;
+
+    const dateBlock = queryShadow<HTMLElement>(el, "[part=date]");
+
+    expect(dateBlock?.tagName.toLowerCase()).toBe("div");
   });
 
   it("uses visual-aligned date block token defaults", () => {

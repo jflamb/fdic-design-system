@@ -22,6 +22,9 @@ export class FdEvent extends LitElement {
     tone: { reflect: true },
     month: { reflect: true },
     day: { reflect: true },
+    date: { reflect: true },
+    startDate: { attribute: "start-date", reflect: true },
+    endDate: { attribute: "end-date", reflect: true },
     title: { reflect: true },
     href: { reflect: true },
     target: { reflect: true },
@@ -266,10 +269,10 @@ export class FdEvent extends LitElement {
       overflow-wrap: anywhere;
     }
 
-    [part="metadata-item"] + [part="metadata-item"]::before {
-      content: "|";
-      margin-inline: var(--fd-event-metadata-separator-gap, 6px);
-      color: currentColor;
+    [part="metadata-item"] + [part="metadata-item"] {
+      margin-inline-start: var(--fd-event-metadata-separator-gap, 6px);
+      padding-inline-start: var(--fd-event-metadata-separator-gap, 6px);
+      border-inline-start: 1px solid currentColor;
     }
 
     @media (forced-colors: active) {
@@ -291,6 +294,9 @@ export class FdEvent extends LitElement {
   declare tone: EventTone;
   declare month: string;
   declare day: string;
+  declare date: string | undefined;
+  declare startDate: string | undefined;
+  declare endDate: string | undefined;
   declare title: string;
   declare href: string | undefined;
   declare target: string | undefined;
@@ -304,6 +310,9 @@ export class FdEvent extends LitElement {
     this.tone = "neutral";
     this.month = "";
     this.day = "";
+    this.date = undefined;
+    this.startDate = undefined;
+    this.endDate = undefined;
     this.title = "";
     this.href = undefined;
     this.target = undefined;
@@ -311,11 +320,27 @@ export class FdEvent extends LitElement {
     this.metadata = [];
   }
 
+  private renderDateBlock(month: string, day: string, datetime: string | undefined) {
+    const content = html`
+      <span part="month">${month}</span>
+      <span part="day">${day}</span>
+    `;
+
+    if (datetime) {
+      return html`<time part="date" datetime=${datetime}>${content}</time>`;
+    }
+
+    return html`<div part="date">${content}</div>`;
+  }
+
   render() {
     const tone = normalizeEventTone(this.tone);
     const title = this.title.trim();
     const month = this.month.trim();
     const day = this.day.trim();
+    const date = this.date?.trim() || undefined;
+    const startDate = this.startDate?.trim() || undefined;
+    const datetime = date || startDate;
     const href = this.href?.trim() || undefined;
     const target = this.target?.trim() || undefined;
     const rel = normalizeLinkRel(target, this.rel?.trim() || undefined);
@@ -325,10 +350,7 @@ export class FdEvent extends LitElement {
       : html`<p id=${this._titleId} class="title-text">${title}</p>`;
 
     const contentTemplate = html`
-      <div part="date">
-        <p part="month">${month}</p>
-        <p part="day">${day}</p>
-      </div>
+      ${this.renderDateBlock(month, day, datetime)}
       <div part="content">
         <div part="title">${title ? titleTemplate : nothing}</div>
         ${metadata.length

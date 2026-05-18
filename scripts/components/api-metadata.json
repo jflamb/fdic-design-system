@@ -4145,6 +4145,24 @@
           "description": "Visible day text shown in the date block."
         },
         {
+          "name": "date",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Machine-readable single-day event date for the internal date block `<time datetime>`. Use `YYYY-MM-DD` when possible. Visible `month` and `day` text remains author-controlled."
+        },
+        {
+          "name": "start-date",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Machine-readable event start date or datetime used for `<time datetime>` when `date` is omitted."
+        },
+        {
+          "name": "end-date",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Optional machine-readable event end date or datetime reflected on the host for source-system and integration use. The component does not render a date range in v1."
+        },
+        {
           "name": "title",
           "type": "`string`",
           "defaultValue": "`\"\"`",
@@ -4175,7 +4193,7 @@
           "description": "Lightweight metadata items rendered in a single wrapped list below the title. Set this as a JavaScript property."
         }
       ],
-      "after": "- `fd-event` is static in v1. It owns presentation only; the application owns event routing, sorting, filtering, analytics, and lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native title link when present."
+      "after": "- `fd-event` keeps visible date display author-controlled. Use `date`, or `start-date` when `date` is omitted, to expose machine-readable semantics without asking the component to parse, localize, or format dates.\n- `fd-event` is static in v1. It owns presentation only; the application owns event routing, sorting, filtering, analytics, and lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native title link when present."
     },
     "slots": {
       "rows": [],

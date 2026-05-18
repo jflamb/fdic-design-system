@@ -16,6 +16,9 @@ type EventArgs = {
   tone: "neutral" | "cool" | "warm";
   month: string;
   day: string;
+  date?: string;
+  startDate?: string;
+  endDate?: string;
   title: string;
   href?: string;
   metadataMode: "one" | "two" | "three";
@@ -32,6 +35,9 @@ const renderEvent = (args: EventArgs) => html`
     tone=${args.tone}
     month=${args.month}
     day=${args.day}
+    date=${args.date ?? ""}
+    start-date=${args.startDate ?? ""}
+    end-date=${args.endDate ?? ""}
     title=${args.title}
     href=${args.href ?? ""}
     .metadata=${METADATA_PRESETS[args.metadataMode]}
@@ -66,6 +72,9 @@ const meta = {
     tone: "cool",
     month: "SEP",
     day: "18",
+    date: "2026-09-18",
+    startDate: undefined,
+    endDate: undefined,
     title: "FFIEC International Banking Conference",
     href: "/events/ffiec-international-banking-conference",
     metadataMode: "two",
@@ -81,8 +90,10 @@ export const Playground: Story = {};
 Playground.play = async ({ canvasElement }) => {
   const event = canvasElement.querySelector("fd-event");
   const title = event?.shadowRoot?.querySelector(".title-link");
+  const date = event?.shadowRoot?.querySelector<HTMLTimeElement>("[part=date]");
 
   expect(title?.textContent).toContain("FFIEC");
+  expect(date?.getAttribute("datetime")).toBe("2026-09-18");
   expect(event?.getAttribute("tabindex")).toBeNull();
 };
 
@@ -104,6 +115,29 @@ export const Official: Story = {
   },
 };
 
+export const StructuredDate: Story = {
+  args: {
+    tone: "cool",
+    month: "SEP",
+    day: "18",
+    date: undefined,
+    startDate: "2026-09-18T13:00:00-04:00",
+    endDate: "2026-09-18T14:00:00-04:00",
+    title: "FFIEC International Banking Conference",
+    href: "/events/ffiec-international-banking-conference",
+    metadataMode: "three",
+  },
+};
+
+StructuredDate.play = async ({ canvasElement }) => {
+  const event = canvasElement.querySelector("fd-event");
+  const date = event?.shadowRoot?.querySelector<HTMLTimeElement>("[part=date]");
+
+  expect(date?.tagName.toLowerCase()).toBe("time");
+  expect(date?.getAttribute("datetime")).toBe("2026-09-18T13:00:00-04:00");
+  expect(event?.getAttribute("end-date")).toBe("2026-09-18T14:00:00-04:00");
+};
+
 export const DocsOverview: Story = {
   render: () => html`
     <div class=${DOCS_OVERVIEW_SPACIOUS_STACK_CLASS}>
@@ -114,6 +148,9 @@ export const DocsOverview: Story = {
             tone: "warm",
             month: "SEP",
             day: "18",
+            date: "2026-09-18",
+            startDate: undefined,
+            endDate: undefined,
             title: "Community Banking Forum",
             href: "/events/community-banking-forum",
             metadataMode: "two",
@@ -122,6 +159,9 @@ export const DocsOverview: Story = {
             tone: "neutral",
             month: "SEP",
             day: "18",
+            date: "2026-09-18",
+            startDate: undefined,
+            endDate: undefined,
             title: "Board Meeting",
             href: undefined,
             metadataMode: "two",
@@ -130,6 +170,9 @@ export const DocsOverview: Story = {
             tone: "cool",
             month: "SEP",
             day: "18",
+            date: "2026-09-18",
+            startDate: undefined,
+            endDate: undefined,
             title: "FFIEC International Banking Conference",
             href: "/events/ffiec-international-banking-conference",
             metadataMode: "three",

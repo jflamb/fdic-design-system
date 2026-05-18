@@ -35,6 +35,7 @@ The Event component presents a dated event summary with a visible month and day 
   tone="cool"
   month="SEP"
   day="18"
+  date="2026-09-18"
   title="FFIEC International Banking Conference"
   href="/events/ffiec-international-banking-conference"
 ></fd-event>
@@ -46,11 +47,29 @@ The Event component presents a dated event summary with a visible month and day 
 </script>
 ```
 
+### Structured date
+
+Use `date` when the visible month and day represent a single calendar date. The component keeps `month` and `day` author-controlled, but wraps the visible date block in a machine-readable `<time datetime>` element.
+
+```html
+<fd-event
+  tone="cool"
+  month="SEP"
+  day="18"
+  date="2026-09-18"
+  title="FFIEC International Banking Conference"
+  href="/events/ffiec-international-banking-conference"
+></fd-event>
+```
+
+Use `start-date` and `end-date` when the source system owns a range or timestamp. `start-date` supplies the internal `<time datetime>` value when `date` is omitted. `end-date` is reflected for CMS and integration use, but the component does not render a visible date range in v1.
+
 ### Implementation guide
 
 - **Use `href` when the whole row should open one destination.** When `href` is present, `fd-event` renders one native link target for the complete event row instead of exposing only the title text as the click target.
 - **Pass metadata as a JavaScript property.** Use `metadata` for short supporting details so the component can keep punctuation and wrapping consistent.
-- **Use visible month and day text.** The date block is part of the event content. Treat it as user-facing information, not as purely decorative ornament.
+- **Use visible month and day text.** The date block is part of the event content. Treat it as user-facing information, not as purely decorative ornament. Add `date` or `start-date` when the same fact should be machine-readable.
+- **Keep date formatting outside the component.** `fd-event` does not parse, localize, or derive visible month/day text. The CMS or application should provide both the visible label and the machine-readable value.
 - **Use tone as supporting context only.** Follow the Figma guidance: `warm` for official public-facing events, `neutral` for past events, and `cool` for future events. Do not rely on tone alone to convey timing.
 - **Let the date chip keep its shipped tone defaults.** The default warm/cool/neutral surfaces and hover states are part of the component contract and already match the Figma spec for event chips. Only override the tone hooks when a product has a documented token mapping change.
 - **Do not add extra spacing inside the date chip.** The month/day stack uses trimmed text-box approximations and a tighter internal gap so it keeps the compact Figma rhythm without requiring custom CMS overrides.
@@ -64,12 +83,16 @@ The Event component presents a dated event summary with a visible month and day 
 | `tone` | `"neutral" \| "cool" \| "warm"` | `neutral` | Decorative tone applied to the visible month and day block. |
 | `month` | `string` | `` | Visible month text shown in the date block. Author uppercase abbreviations when that presentation matters. |
 | `day` | `string` | `` | Visible day text shown in the date block. |
+| `date` | `string \| undefined` | `undefined` | Machine-readable single-day event date for the internal date block `<time datetime>`. Use `YYYY-MM-DD` when possible. Visible `month` and `day` text remains author-controlled. |
+| `start-date` | `string \| undefined` | `undefined` | Machine-readable event start date or datetime used for `<time datetime>` when `date` is omitted. |
+| `end-date` | `string \| undefined` | `undefined` | Optional machine-readable event end date or datetime reflected on the host for source-system and integration use. The component does not render a date range in v1. |
 | `title` | `string` | `` | Visible event title. When `href` is supplied, the title renders as the primary native link. |
 | `href` | `string \| undefined` | `undefined` | Optional destination for the event title. When omitted, the title renders as plain text. |
 | `target` | `string \| undefined` | `undefined` | Native link target applied to the title link. |
 | `rel` | `string \| undefined` | `undefined` | Native relationship tokens applied to the title link. `target="_blank"` always adds `noopener noreferrer`. |
 | `metadata` | `string[]` | `[]` | Lightweight metadata items rendered in a single wrapped list below the title. Set this as a JavaScript property. |
 
+- `fd-event` keeps visible date display author-controlled. Use `date`, or `start-date` when `date` is omitted, to expose machine-readable semantics without asking the component to parse, localize, or format dates.
 - `fd-event` is static in v1. It owns presentation only; the application owns event routing, sorting, filtering, analytics, and lifecycle.
 - The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native title link when present.
 
@@ -110,7 +133,7 @@ The Event component presents a dated event summary with a visible month and day 
 ## Known limitations
 
 - Metadata is provided through the **`metadata` JavaScript property**, not through arbitrary slotted markup.
-- The component intentionally accepts **visible month and day strings**, not parsed dates or timezone-aware date objects, in v1.
+- The component intentionally accepts **visible month and day strings**. Structured date attributes add machine-readable semantics, but do not add parsing, localization, timezone conversion, or visible date-range formatting.
 - Event does not provide action buttons, dismissal, selection, or expanded details in v1.
 
 ## Related components
