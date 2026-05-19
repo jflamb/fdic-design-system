@@ -120,7 +120,7 @@ function createDrupalStoryArgs(): GlobalHeaderArgs {
       action: "/search",
       label: "Search FDICnet",
       placeholder: "Search FDICnet",
-      submitLabel: "Open first matching result",
+      submitLabel: "Submit search",
       searchAllLabel: "Search all FDICnet",
     },
   });

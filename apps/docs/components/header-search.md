@@ -63,7 +63,7 @@ Do not use the header search panel as a remote results surface. It is a local su
 | `action` | `string` | `/search` | Fallback results URL used when submit is not canceled and no direct result is selected. |
 | `label` | `string` | `Search` | Accessible label announced for the search control. |
 | `placeholder` | `string` | `Search` | Placeholder text shown inside the native search input. |
-| `submit-label` | `string` | `"Open first matching result"` | Accessible label for the submit control. |
+| `submit-label` | `string` | `"Submit search"` | Accessible label for the submit control. |
 | `search-all-label` | `string` | `"Search all"` | Reserved label for broader search affordances supplied by the application contract. |
 | `param-name` | `string` | `"q"` | Query-string parameter name used when constructing the fallback search URL. |
 | `items` | `FdHeaderSearchItem[]` | `[]` | Consumer-provided suggestion corpus. Set this as a JavaScript property; it is not reflected to an HTML attribute. |
@@ -92,13 +92,24 @@ Do not use the header search panel as a remote results surface. It is a local su
 
 | Name | Description |
 |---|---|
-| `form` | Input row containing the label, query field, clear affordance, and submit control. |
+| `form` | Input row containing the label, query field, and submit control. |
 | `results` | Desktop suggestion panel surface. |
 <!-- GENERATED_COMPONENT_API:END -->
+
+## Compact search pattern
+
+The global-header search uses a compact pattern: a placeholder cue (`Search FDICnet`) plus an always-visible submit button at the end of the field.
+
+- The placeholder is the visible cue, but it is never the only accessible name. A hidden `<label>` (`label`) provides the programmatic name, so the input has a real accessible name independent of placeholder text.
+- The magnifying-glass icon belongs to the submit button at the trailing end of the field. There is no leading icon, and the field shows no `/` shortcut hint.
+- The submit button has its own accessible name (`submit-label`, default `Submit search`) so it is not confused with the input.
+- This compact label-by-placeholder arrangement is an intentional header-search exception. Do not generalize it to other form fields, which should keep persistent visible labels.
 
 ## Accessibility
 
 - The input stays a native search field with an attached suggestion list of real links.
+- The input, submit button, and suggestion links each show a visible focus indicator; the grouped field focus ring appears only when the input itself is focused, so a focused button is not masked by the group treatment.
+- The visible clear button is currently suppressed. Keyboard users clear the field with Escape: the first Escape closes an open suggestion surface, and a subsequent Escape clears the query.
 - Desktop suggestions stay attached to the input; mobile suggestions reuse `fd-drawer` for modal presentation, focus trapping, and focus restoration while the mobile surface is open.
 - The component emits cancelable submit and activate events before navigation so applications can route without losing semantics.
 - Non-essential motion should be reducible by the consuming surface; in the global-header family, reduced-motion handling is applied at the header level.

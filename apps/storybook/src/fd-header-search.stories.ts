@@ -62,7 +62,7 @@ const meta = {
         .open=${args.open}
         label="Search FDICnet"
         placeholder="Search FDICnet"
-        submit-label="Open first matching result"
+        submit-label="Submit search"
         search-all-label="Search all FDICnet"
       ></fd-header-search>
     </div>

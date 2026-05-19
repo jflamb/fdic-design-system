@@ -3190,7 +3190,7 @@
         {
           "name": "submit-label",
           "type": "`string`",
-          "defaultValue": "`\"Open first matching result\"`",
+          "defaultValue": "`\"Submit search\"`",
           "description": "Accessible label for the submit control."
         },
         {
@@ -3269,7 +3269,7 @@
       "rows": [
         {
           "name": "form",
-          "description": "Input row containing the label, query field, clear affordance, and submit control."
+          "description": "Input row containing the label, query field, and submit control."
         },
         {
           "name": "results",

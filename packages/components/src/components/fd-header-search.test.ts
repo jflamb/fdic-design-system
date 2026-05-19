@@ -121,19 +121,64 @@ describe("fd-header-search", () => {
     expect(getInput(first)?.id).not.toBe(getInput(second)?.id);
   });
 
-  it("renders the desktop slash shortcut as a subtle fd-button aligned in the action rail", async () => {
+  it("exposes an accessible name and placeholder for the search input", async () => {
+    const el = await createSearch();
+    el.setAttribute("label", "Search FDICnet");
+    el.setAttribute("placeholder", "Search FDICnet");
+    await el.updateComplete;
+
+    const input = getInput(el);
+    const label = el.shadowRoot?.querySelector("label.label");
+    const srLabel = el.shadowRoot?.querySelector("label.label .sr-only");
+
+    expect(input?.getAttribute("placeholder")).toBe("Search FDICnet");
+    expect(srLabel?.textContent?.trim()).toBe("Search FDICnet");
+    expect(input?.id).toBeTruthy();
+    expect(label?.getAttribute("for")).toBe(input?.id);
+  });
+
+  it("renders an always-visible submit button with a magnifying-glass icon", async () => {
+    const el = await createSearch();
+    el.setAttribute("submit-label", "Submit search");
+    await el.updateComplete;
+
+    const submit = el.shadowRoot?.querySelector(
+      "fd-button.submit",
+    ) as HTMLElement | null;
+    const icon = submit?.querySelector("fd-icon");
+
+    expect(submit).not.toBeNull();
+    expect(submit?.getAttribute("aria-label")).toBe("Submit search");
+    expect(icon?.getAttribute("name")).toBe("magnifying-glass");
+  });
+
+  it("does not render a leading icon or the slash shortcut affordance", async () => {
     const el = await createSearch();
 
-    const shortcut = el.shadowRoot?.querySelector(
-      "fd-button.shortcut",
-    ) as HTMLElement | null;
-    const actions = el.shadowRoot?.querySelector(".actions") as HTMLElement | null;
+    expect(el.shadowRoot?.querySelector("label.label fd-icon")).toBeNull();
+    expect(el.shadowRoot?.querySelector("fd-button.shortcut")).toBeNull();
+    expect(el.shadowRoot?.querySelector(".shortcut-hint")).toBeNull();
+  });
 
-    expect(shortcut).not.toBeNull();
-    expect(shortcut?.getAttribute("variant")).toBe("subtle");
-    expect(shortcut?.getAttribute("aria-hidden")).toBe("true");
-    expect(shortcut?.textContent?.trim()).toBe("/");
-    expect(actions?.hasAttribute("hidden")).toBe(false);
+  it("submits the search when the submit button is clicked", async () => {
+    const el = await createSearch();
+    const submitSpy = vi.fn((event: Event) => event.preventDefault());
+    el.addEventListener("fd-header-search-submit", submitSpy);
+
+    const input = getInput(el);
+    if (input) {
+      input.value = "Global Messages";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+    await el.updateComplete;
+
+    const submit = el.shadowRoot?.querySelector(
+      "fd-button.submit",
+    ) as HTMLElement | null;
+    submit?.click();
+
+    expect(submitSpy).toHaveBeenCalled();
+    expect(submitSpy.mock.calls[0]?.[0]?.detail?.query).toBe("Global Messages");
   });
 
   it("matches aliases and acronyms using the reference search ranking", () => {
@@ -236,7 +281,7 @@ describe("fd-header-search", () => {
     expect(setTimeoutSpy).not.toHaveBeenCalled();
   });
 
-  it("renders clear and go actions as fd-button controls", async () => {
+  it("renders the submit action as an fd-button and keeps the clear button hidden", async () => {
     const el = await createSearch();
     const input = getInput(el);
 
@@ -255,12 +300,9 @@ describe("fd-header-search", () => {
     const clear = el.shadowRoot?.querySelector("fd-button.clear");
     const submit = el.shadowRoot?.querySelector("fd-button.submit");
 
-    expect(clear).not.toBeNull();
+    expect(clear).toBeNull();
     expect(submit).not.toBeNull();
     expect(customElements.get("fd-button")).toBeDefined();
-    expect(
-      clear?.querySelector('[slot="icon-start"]')?.innerHTML,
-    ).not.toContain('opacity="0.2"');
     expect(
       submit?.querySelector('[slot="icon-start"]')?.innerHTML,
     ).not.toContain('opacity="0.2"');
@@ -313,6 +355,36 @@ describe("fd-header-search", () => {
     }
   });
 
+  it("clears the input on Escape once the suggestion panel is closed", async () => {
+    const el = await createSearch();
+    const input = getInput(el);
+
+    input?.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
+    if (input) {
+      input.value = "news";
+      input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    }
+
+    await waitForSearchResult(el, "#fdicnews");
+
+    input?.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Escape", bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+
+    expect(el.open).toBe(false);
+    expect(el.value).toBe("news");
+
+    input?.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Escape", bubbles: true, composed: true }),
+    );
+    await el.updateComplete;
+
+    expect(el.value).toBe("");
+  });
+
   it("closes the mobile search surface when Escape is pressed", async () => {
     const el = await createSearch({ surface: "mobile", open: true });
     const openChangeSpy = vi.fn();
@@ -345,12 +417,6 @@ describe("fd-header-search", () => {
     expect(
       buildHeaderSearchFallbackHref("/search", "query", "Deposit Insurance"),
     ).toContain("query=Deposit+Insurance");
-  });
-
-  it("hides the desktop shortcut button on the mobile surface", async () => {
-    const el = await createSearch({ surface: "mobile" });
-
-    expect(el.shadowRoot?.querySelector("fd-button.shortcut")).toBeNull();
   });
 
   it("opens the desktop result panel after a matching query", async () => {

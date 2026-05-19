@@ -3812,7 +3812,7 @@ export class FdGlobalHeader extends LitElement {
         .action=${this.search.action}
         .label=${this.search.label || "Search FDICnet"}
         .placeholder=${this.search.placeholder || "Search FDICnet"}
-        .submitLabel=${this.search.submitLabel || "Open first matching result"}
+        .submitLabel=${this.search.submitLabel || "Submit search"}
         .searchAllLabel=${this.search.searchAllLabel || "Search all FDICnet"}
         .paramName=${this.search.paramName || "q"}
         .items=${this._getSearchItems()}
@@ -3893,7 +3893,7 @@ export class FdGlobalHeader extends LitElement {
         .action=${this.search.action}
         .label=${this.search.label || "Search FDICnet"}
         .placeholder=${this.search.placeholder || "Search FDICnet"}
-        .submitLabel=${this.search.submitLabel || "Open first matching result"}
+        .submitLabel=${this.search.submitLabel || "Submit search"}
         .searchAllLabel=${this.search.searchAllLabel || "Search all FDICnet"}
         .paramName=${this.search.paramName || "q"}
         .items=${this._getSearchItems()}

@@ -6,10 +6,7 @@ import {
   extractHeaderSearchAliasData,
   normalizeHeaderSearchText,
 } from "./fd-header-search-utils.js";
-import {
-  REGULAR_CARET_RIGHT_ICON_SVG,
-  REGULAR_X_ICON_SVG,
-} from "./regular-icons.js";
+import { REGULAR_X_ICON_SVG } from "./regular-icons.js";
 
 export type HeaderSearchSurface = "desktop" | "mobile";
 
@@ -216,12 +213,6 @@ export class FdHeaderSearch extends LitElement {
       gap: 0.5rem;
     }
 
-    .label fd-icon {
-      flex: none;
-      color: var(--fdic-color-icon-primary, #424244);
-      --fd-icon-size: 1.375rem;
-    }
-
     .native {
       flex: 1 1 auto;
       min-width: 0;
@@ -316,29 +307,10 @@ export class FdHeaderSearch extends LitElement {
       border-end-end-radius: 2px;
     }
 
-    .shortcut::part(base) {
-      --fd-button-bg-disabled: transparent;
-      --fd-button-text-disabled: var(--fdic-color-text-secondary, #4b5b69);
-      border-start-end-radius: 2px;
-      border-end-end-radius: 2px;
-    }
-
-    .shortcut::part(label) {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      color: var(--fdic-color-text-secondary, #4b5b69);
-      font-size: var(--fd-header-search-shortcut-font-size, 1.25rem);
-      font-weight: 600;
-      line-height: 1;
-      padding-block-end: var(--fd-header-search-shortcut-offset-block-end, 0.12em);
-    }
-
     .actions[hidden] {
       display: none;
     }
-    .field:focus-within .input-row {
+    .input-row:has(.native:focus) {
       border-color: transparent;
       outline: 2px solid transparent;
       outline-offset: 2px;
@@ -408,8 +380,7 @@ export class FdHeaderSearch extends LitElement {
     }
 
     .result-meta,
-    .status,
-    .shortcut-hint {
+    .status {
       color: var(--fdic-color-text-secondary, #4b5b69);
       font-size: 0.9375rem;
       line-height: 1.35;
@@ -467,11 +438,6 @@ export class FdHeaderSearch extends LitElement {
           var(--fdic-focus-gap-width, 2px) + var(--fdic-focus-ring-width, 4px)
         )
           var(--fdic-focus-ring-color, #38b6ff);
-    }
-
-    .shortcut-hint {
-      display: none;
-      margin: 0;
     }
 
     :host([surface="mobile"]) .status {
@@ -536,7 +502,7 @@ export class FdHeaderSearch extends LitElement {
     this.action = "/search";
     this.label = "Search";
     this.placeholder = "Search";
-    this.submitLabel = "Open first matching result";
+    this.submitLabel = "Submit search";
     this.searchAllLabel = "Search all";
     this.paramName = "q";
     this.items = [];
@@ -728,10 +694,6 @@ export class FdHeaderSearch extends LitElement {
     this.focus();
   }
 
-  private _handleSubmitAction(event: Event) {
-    this._handleSubmit(event);
-  }
-
   private _activateSuggestion(item: FdHeaderSearchItem) {
     const activateEvent =
       new CustomEvent<FdHeaderSearchActivateDetail>("fd-header-search-activate", {
@@ -789,14 +751,15 @@ export class FdHeaderSearch extends LitElement {
     const resultsCount = this._results.length;
 
     if (event.key === "Escape") {
-      if (this.surface === "desktop" && this.open) {
+      if (this.open) {
         event.preventDefault();
         this._setOpen(false);
+        return;
       }
 
-      if (this.surface === "mobile" && this.open) {
+      if (this.value) {
         event.preventDefault();
-        this._setOpen(false);
+        this._handleClear();
       }
 
       return;
@@ -934,12 +897,11 @@ export class FdHeaderSearch extends LitElement {
     `;
   }
 
-  private _renderField(showShortcut = false) {
+  private _renderField() {
     const trimmedValue = this.value.trim();
-    const showClear = Boolean(trimmedValue);
-    const showSubmit = this.surface === "mobile" || this._hasFocusWithin;
-    const showShortcutHint = showShortcut && !trimmedValue && !showSubmit;
-    const actionCount = Number(showClear) + Number(showSubmit);
+    // Clear button is temporarily hidden; the markup and _handleClear stay wired for re-enabling.
+    const showClear = false;
+    const actionCount = Number(showClear) + 1;
     const inputId = `${this._baseId}-${this.surface}-input`;
     const resultsId = `${this._baseId}-${this.surface}-results`;
     const statusId = `${this._baseId}-${this.surface}-status`;
@@ -956,7 +918,6 @@ export class FdHeaderSearch extends LitElement {
           <div class="input-row" part="form">
             <label class="label" for=${inputId}>
               <span class="sr-only">${this.label || "Search"}</span>
-              <fd-icon name="magnifying-glass" aria-hidden="true"></fd-icon>
               <input
                 id=${inputId}
                 class="native"
@@ -972,19 +933,7 @@ export class FdHeaderSearch extends LitElement {
                 @keydown=${this._handleInputKeydown}
               />
             </label>
-            <div class="actions" ?hidden=${actionCount === 0 && !showShortcutHint}>
-              ${showShortcutHint
-                ? html`
-                    <fd-button
-                      class="shortcut"
-                      variant="subtle"
-                      disabled
-                      aria-hidden="true"
-                    >
-                      /
-                    </fd-button>
-                  `
-                : nothing}
+            <div class="actions">
               ${showClear
                 ? html`
                     <fd-button
@@ -1003,25 +952,18 @@ export class FdHeaderSearch extends LitElement {
                     </fd-button>
                   `
                 : nothing}
-              ${showSubmit
-                ? html`
-                    <fd-button
-                      class="submit"
-                      variant="subtle"
-                      aria-label=${this.submitLabel ||
-                      "Open first matching result"}
-                      @click=${this._handleSubmitAction}
-                    >
-                      <span
-                        slot="icon-start"
-                        class="regular-icon"
-                        aria-hidden="true"
-                      >
-                        ${unsafeSVG(REGULAR_CARET_RIGHT_ICON_SVG)}
-                      </span>
-                    </fd-button>
-                  `
-                : nothing}
+              <fd-button
+                class="submit"
+                type="submit"
+                variant="subtle"
+                aria-label=${this.submitLabel || "Submit search"}
+              >
+                <fd-icon
+                  slot="icon-start"
+                  name="magnifying-glass"
+                  aria-hidden="true"
+                ></fd-icon>
+              </fd-button>
             </div>
           </div>
         </form>
@@ -1035,7 +977,7 @@ export class FdHeaderSearch extends LitElement {
 
     return html`
       <div class="root">
-        ${this._renderField(true)}
+        ${this._renderField()}
         <section
           class="panel"
           part="results"
@@ -1057,13 +999,7 @@ export class FdHeaderSearch extends LitElement {
     return html`
       <div class="root root--mobile">
         <div class="mobile-header">
-          ${this._renderField(false)}
-          <p
-            class="shortcut-hint"
-            data-visible=${String(this.open)}
-          >
-            Press <span aria-hidden="true">/</span> to jump to search.
-          </p>
+          ${this._renderField()}
         </div>
         <div class="mobile-results-group">
           ${this._renderResultsList(resultsId)}
