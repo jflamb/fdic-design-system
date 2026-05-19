@@ -97,7 +97,7 @@ export type { FdSidebarNavRoot, FdSidebarNavItem } from "./components/fd-sidebar
 export type { FdSidebarMenuRoot, FdSidebarMenuItem } from "./components/fd-sidebar-menu.js";
 export type { FdOrgActingMeta, FdOrgConflictMeta, FdOrgDiagnostic, FdOrgFilterState, FdOrgInputNode, FdOrgNode, FdOrgNodeType, FdOrgNormalizeResult, FdOrgPhotoResolver, FdOrgPrintDecision, FdOrgPrintScope, FdOrgSearchResult, FdOrgSelectDetail, FdOrgSourceKind, FdOrgSourceMeta, FdOrgSourceStatus, FdOrgTree } from "./components/fd-org-outline.js";
 export type { InfotipTriggerMode, InfotipVariant } from "./components/fd-infotip.js";
-export type { PersonVariant } from "./components/fd-person.js";
+export type { PersonVariant, PersonImagePosition } from "./components/fd-person.js";
 export type { Placement } from "./components/placement.js";
 export type {
   FdActionDetail,

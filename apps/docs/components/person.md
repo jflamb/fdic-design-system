@@ -87,7 +87,7 @@ The Person component renders governed people displays for attribution, contact l
 - **Let the variant own the projection.** For example, `byline` ignores `title`, `phone`, `location`, `profile-url`, and `summary` even when those fields exist on the source node.
 - **Use responsive image output for featured variants.** `spotlight` and `profile-card` should receive high-resolution sources, typically a 2x image at least 560px on the long edge, through `image-srcset`.
 - **Avoid whole-card links in v1.** `profile-card` links the visible name only. This keeps one clear native link without wrapping the image, title, and organization in a broad interactive region.
-- **Use placeholders only for profile-card grids.** Grid layouts keep a stable image slot with initials when `image-src` is missing. Other variants omit the image and reflow.
+- **Image-bearing variants fall back to a silhouette placeholder.** When `image-src` is missing, `contact-with-image`, `contact-details`, `spotlight`, and `profile-card` render a decorative person silhouette so the layout keeps a stable image slot — important for `profile-card` grids. The `byline`, `contact`, and `name-title` variants never render an image.
 
 <!-- GENERATED_COMPONENT_API:START -->
 ## Properties
@@ -117,11 +117,11 @@ The Person component renders governed people displays for attribution, contact l
 
 | Name | Default | Description |
 |---|---|---|
-| `--fd-person-compact-gap` | `var(--fdic-spacing-xs, 8px)` | Gap between image and text for compact variants. |
+| `--fd-person-compact-gap` | `var(--fdic-spacing-sm, 12px)` | Gap between image and text for compact variants. |
 | `--fd-person-standard-gap` | `var(--fdic-spacing-md, 16px)` | Gap between image and text for `contact-details`. |
 | `--fd-person-featured-gap` | `var(--fdic-spacing-md, 16px)` | Gap between image and content for featured variants. |
-| `--fd-person-name-font-size` | `var(--fdic-font-size-body, 18px)` | Name text size for compact and standard variants. |
-| `--fd-person-featured-name-font-size` | `var(--fdic-font-size-heading-4, 24px)` | Name text size for `spotlight` and `profile-card`. |
+| `--fd-person-name-font-size` | `var(--fdic-font-size-body, 1.125rem)` | Name text size for compact and standard variants. |
+| `--fd-person-featured-name-font-size` | `var(--fdic-font-size-h3, 1.40625rem)` | Name text size for `spotlight` and `profile-card`. |
 | `--fd-person-meta-color` | `var(--fdic-color-text-secondary, #595961)` | Title, organization, and supporting metadata color. |
 | `--fd-person-small-image-size` | `56px` | Rendered avatar size for `contact-with-image`. |
 | `--fd-person-standard-image-size` | `112px` | Rendered avatar size for `contact-details`. |

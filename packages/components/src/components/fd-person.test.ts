@@ -127,6 +127,30 @@ describe("FdPerson", () => {
     expect(el.shadowRoot?.textContent).not.toContain("Ignored office");
   });
 
+  it("renders the name-title variant as text with no image or links", async () => {
+    const el = await createPerson();
+    el.variant = "name-title";
+    el.name = "Dana Brooks";
+    el.title = "Records Officer";
+    el.organization = "Office of the Inspector General";
+    el.email = "dana.brooks@example.gov";
+    el.profileUrl = "/people/dana-brooks";
+    el.imageSrc = "/people/dana.jpg";
+    await el.updateComplete;
+
+    const links = el.shadowRoot?.querySelectorAll("a") ?? [];
+
+    expect(queryShadow(el, "[part=name]")?.textContent?.trim()).toBe(
+      "Dana Brooks",
+    );
+    expect(el.shadowRoot?.textContent).toContain("Records Officer");
+    expect(el.shadowRoot?.textContent).toContain(
+      "Office of the Inspector General",
+    );
+    expect(links).toHaveLength(0);
+    expect(queryShadow(el, "[part=image]")).toBeNull();
+  });
+
   it("scopes spotlight to a single featured person with one optional profile CTA", async () => {
     const el = await createPerson();
     el.variant = "spotlight";

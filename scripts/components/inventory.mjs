@@ -1319,7 +1319,7 @@ export const componentInventory = [
       includeInRegisterAll: true,
       dependencies: []
     },
-    typeExports: ["PersonVariant"]
+    typeExports: ["PersonVariant", "PersonImagePosition"]
   },
   // New component entries are inserted above this line by the scaffold script.
 ];

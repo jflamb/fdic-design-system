@@ -6709,7 +6709,7 @@
       "rows": [
         {
           "name": "--fd-person-compact-gap",
-          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "default": "`var(--fdic-spacing-sm, 12px)`",
           "description": "Gap between image and text for compact variants."
         },
         {
@@ -6724,12 +6724,12 @@
         },
         {
           "name": "--fd-person-name-font-size",
-          "default": "`var(--fdic-font-size-body, 18px)`",
+          "default": "`var(--fdic-font-size-body, 1.125rem)`",
           "description": "Name text size for compact and standard variants."
         },
         {
           "name": "--fd-person-featured-name-font-size",
-          "default": "`var(--fdic-font-size-heading-4, 24px)`",
+          "default": "`var(--fdic-font-size-h3, 1.40625rem)`",
           "description": "Name text size for `spotlight` and `profile-card`."
         },
         {
