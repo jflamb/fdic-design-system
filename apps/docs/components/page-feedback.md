@@ -144,6 +144,47 @@ Use it this way:
 </script>
 ```
 
+### Submitting reports with host-owned status
+
+For async submit, cancel `fd-page-feedback-report-submit`, keep the report view open while the host sends the report, then set `feedback.view = "thanks"` only after the host has confirmed receipt. Do not show a fake success state before the request succeeds.
+
+```html
+<div id="page-feedback-region">
+  <fd-page-feedback></fd-page-feedback>
+  <p id="page-feedback-status" role="status"></p>
+</div>
+
+<script type="module">
+  const region = document.querySelector("#page-feedback-region");
+  const feedback = region.querySelector("fd-page-feedback");
+  const status = region.querySelector("#page-feedback-status");
+
+  feedback.addEventListener("fd-page-feedback-report-submit", async (event) => {
+    const { tryingToDo, wentWrong } = event.detail;
+
+    event.preventDefault();
+    region.setAttribute("aria-busy", "true");
+    status.textContent = "Sending report…";
+
+    try {
+      await sendPageFeedback({ tryingToDo, wentWrong });
+      status.textContent = "";
+      feedback.view = "thanks";
+    } catch {
+      status.textContent = "We could not send your report. Try again.";
+    } finally {
+      region.removeAttribute("aria-busy");
+    }
+  });
+</script>
+```
+
+Transport feedback is host-owned. Keep the built-in Send and Cancel controls available by keyboard while the request is pending; use `aria-busy` on a host-owned wrapper or a polite status message instead of disabling the whole flow. When transport fails, announce what happened and how to recover. The report view remains open because the host canceled the submit event, and focus naturally remains on the Send control because the host has not changed the component view.
+
+Pending indicators should not rely on motion alone. If the host adds a spinner or progress treatment, pair it with a short text label such as “Sending report…” and respect `prefers-reduced-motion: reduce`.
+
+Field-level validation is a known v1 gap. The host can inspect `tryingToDo` and `wentWrong`, cancel the submit event, keep the report view open, and announce a wrapper-level message such as “Enter what you were trying to do, then send the report again.” The component does not yet expose supported hooks for adding field-level error text, setting `aria-invalid`, or moving focus to the first invalid report field. Do not reach into the component's shadow DOM to add those behaviors; that API decision is deferred.
+
 Key integration rules:
 
 - **Set `survey-href` whenever the “No” path should offer a deeper survey.** If `survey-href` is omitted, the survey state still renders its explanatory copy and Cancel action, but it has no survey link.
@@ -168,7 +209,7 @@ Key integration rules:
 ## Known limitations
 
 - **Copy surface is intentionally narrow** — v1 does not expose separate properties for each label, heading, or message in the flow.
-- **No built-in inline validation UI** — the report state emits a cancelable submit event, but it does not ship field-level error messaging in v1.
+- **No built-in inline validation UI** — the report state emits a cancelable submit event, but it does not ship field-level error messaging, invalid-field state, or supported field-focus hooks in v1.
 - **No loading or failure state** — if the host needs transport progress or failure messaging, it should cancel submit and manage the next visible state itself.
 - **Survey path is URL-based** — embedded survey integrations or richer survey callbacks are out of scope for v1.
 

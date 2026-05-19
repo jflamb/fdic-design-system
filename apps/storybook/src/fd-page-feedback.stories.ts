@@ -20,8 +20,41 @@ type PageFeedbackArgs = {
   surveyRel: string;
 };
 
+type PageFeedbackHost = HTMLElement & {
+  view: PageFeedbackArgs["view"];
+  updateComplete?: Promise<void>;
+};
+
 const FRAME_STYLE =
   "display: block; max-width: 1440px; background: var(--fdic-color-bg-base, #ffffff);";
+const RECIPE_STATUS_STYLE =
+  "margin-block-start: 0.75rem; font: var(--fdic-font-size-body-small, 1rem)/1.375 var(--fdic-font-family-sans-serif, sans-serif); color: var(--fdic-color-text-secondary, #595961);";
+
+const getInnerButton = (
+  host: PageFeedbackHost | null,
+  selector: string,
+): HTMLButtonElement | null =>
+  host?.shadowRoot
+    ?.querySelector(selector)
+    ?.shadowRoot?.querySelector("[part=base]") as HTMLButtonElement | null;
+
+const getNativeTextarea = (host: HTMLElement | undefined) =>
+  host?.shadowRoot?.querySelector("[part=native]") as HTMLTextAreaElement | null;
+
+const setReportValue = (host: HTMLElement | undefined, value: string) => {
+  const native = getNativeTextarea(host);
+  if (!native) {
+    return;
+  }
+
+  native.value = value;
+  native.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+};
+
+const waitForFeedbackUpdate = async (host: PageFeedbackHost | null) => {
+  await host?.updateComplete;
+  await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+};
 
 const renderFeedback = (args: PageFeedbackArgs) => html`
   <div style=${FRAME_STYLE}>
@@ -109,9 +142,10 @@ export const PromptToSurvey: Story = {
 export const PromptToReport: Story = {
   play: async ({ canvasElement }) => {
     const host = canvasElement.querySelector("fd-page-feedback") as HTMLElement | null;
-    const reportButton = host?.shadowRoot
-      ?.querySelector('fd-button[data-focus-target="report-trigger"]')
-      ?.shadowRoot?.querySelector("[part=base]") as HTMLButtonElement | null;
+    const reportButton = getInnerButton(
+      host as PageFeedbackHost | null,
+      'fd-button[data-focus-target="report-trigger"]',
+    );
 
     reportButton?.click();
 
@@ -120,6 +154,166 @@ export const PromptToReport: Story = {
       expect(host?.shadowRoot?.activeElement).toBe(
         host?.shadowRoot?.querySelector("fd-textarea"),
       );
+    });
+  },
+};
+
+export const ReportSubmitAsync: Story = {
+  render: () => {
+    const statusId = "page-feedback-async-status";
+
+    const setBusy = (root: HTMLElement, busy: boolean) => {
+      const status = root.querySelector<HTMLElement>(`#${statusId}`);
+
+      if (busy) {
+        root.setAttribute("aria-busy", "true");
+        if (status) {
+          status.textContent = "Sending report…";
+        }
+      } else {
+        root.removeAttribute("aria-busy");
+      }
+    };
+
+    const handleSubmit = (event: Event) => {
+      event.preventDefault();
+
+      const feedback = event.currentTarget as PageFeedbackHost;
+      const root = feedback.closest("[data-page-feedback-recipe]") as HTMLElement | null;
+      const status = root?.querySelector<HTMLElement>(`#${statusId}`);
+
+      if (!root || root.dataset.pending === "true") {
+        return;
+      }
+
+      root.dataset.submitCanceled = "true";
+      root.dataset.pending = "true";
+      setBusy(root, true);
+
+      window.setTimeout(() => {
+        root.dataset.pending = "false";
+        setBusy(root, false);
+        if (status) {
+          status.textContent = "";
+        }
+        feedback.view = "thanks";
+      }, 500);
+    };
+
+    return html`
+      <div data-page-feedback-recipe style=${FRAME_STYLE}>
+        <fd-page-feedback
+          view="report"
+          @fd-page-feedback-report-submit=${handleSubmit}
+        ></fd-page-feedback>
+        <p
+          id=${statusId}
+          data-recipe-status
+          role="status"
+          style=${RECIPE_STATUS_STYLE}
+        ></p>
+      </div>
+    `;
+  },
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector("fd-page-feedback") as PageFeedbackHost | null;
+    const root = canvasElement.querySelector(
+      "[data-page-feedback-recipe]",
+    ) as HTMLElement | null;
+    const textareas = Array.from(
+      host?.shadowRoot?.querySelectorAll("fd-textarea") ?? [],
+    ) as HTMLElement[];
+    const [trying, wrong] = textareas;
+
+    setReportValue(trying, "Find deposit insurance guidance");
+    setReportValue(wrong, "The page sent me to a broken link.");
+    await waitForFeedbackUpdate(host);
+
+    getInnerButton(host, "fd-button.send-button")?.click();
+
+    expect(host?.getAttribute("view")).toBe("report");
+    expect(root?.dataset.submitCanceled).toBe("true");
+    expect(root?.dataset.pending).toBe("true");
+    expect(root?.getAttribute("aria-busy")).toBe("true");
+    expect(canvasElement.querySelector("[data-recipe-status]")?.textContent).toBe(
+      "Sending report…",
+    );
+
+    await waitFor(() => {
+      expect(host?.getAttribute("view")).toBe("thanks");
+      expect(root?.dataset.pending).toBe("false");
+      expect(root?.hasAttribute("aria-busy")).toBe(false);
+    });
+  },
+};
+
+export const ReportSubmitValidationBoundary: Story = {
+  render: () => {
+    const statusId = "page-feedback-validation-status";
+
+    const handleSubmit = (event: Event) => {
+      const submit = event as CustomEvent<{ tryingToDo: string; wentWrong: string }>;
+      const feedback = event.currentTarget as PageFeedbackHost;
+      const root = feedback.closest("[data-page-feedback-recipe]") as HTMLElement | null;
+      const status = root?.querySelector<HTMLElement>(`#${statusId}`);
+
+      event.preventDefault();
+
+      if (!submit.detail.tryingToDo.trim()) {
+        if (root) {
+          root.dataset.submitCanceled = "true";
+        }
+        if (status) {
+          status.textContent =
+            "Enter what you were trying to do, then send the report again.";
+        }
+        return;
+      }
+
+      feedback.view = "thanks";
+    };
+
+    return html`
+      <div data-page-feedback-recipe style=${FRAME_STYLE}>
+        <fd-page-feedback
+          view="report"
+          @fd-page-feedback-report-submit=${handleSubmit}
+        ></fd-page-feedback>
+        <p
+          id=${statusId}
+          data-recipe-status
+          role="status"
+          style=${RECIPE_STATUS_STYLE}
+        ></p>
+      </div>
+    `;
+  },
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector("fd-page-feedback") as PageFeedbackHost | null;
+    const root = canvasElement.querySelector(
+      "[data-page-feedback-recipe]",
+    ) as HTMLElement | null;
+
+    getInnerButton(host, "fd-button.send-button")?.click();
+
+    expect(host?.getAttribute("view")).toBe("report");
+    expect(root?.dataset.submitCanceled).toBe("true");
+    expect(canvasElement.querySelector("[data-recipe-status]")?.textContent).toBe(
+      "Enter what you were trying to do, then send the report again.",
+    );
+
+    const [trying, wrong] = Array.from(
+      host?.shadowRoot?.querySelectorAll("fd-textarea") ?? [],
+    ) as HTMLElement[];
+
+    setReportValue(trying, "Find deposit insurance guidance");
+    setReportValue(wrong, "The page sent me to a broken link.");
+    await waitForFeedbackUpdate(host);
+
+    getInnerButton(host, "fd-button.send-button")?.click();
+
+    await waitFor(() => {
+      expect(host?.getAttribute("view")).toBe("thanks");
     });
   },
 };
