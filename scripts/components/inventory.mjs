@@ -1299,6 +1299,28 @@ export const componentInventory = [
     },
     typeExports: ["InfotipTriggerMode", "InfotipVariant"]
   },
+  {
+    tagName: "fd-person",
+    className: "FdPerson",
+    sourceFile: "fd-person.ts",
+    docs: {
+      kind: "first-class",
+      title: "Person",
+      slug: "person",
+      category: "visual-media",
+      order: 135
+    },
+    storybook: {
+      title: "Components/Person",
+      file: "fd-person.stories.ts"
+    },
+    register: {
+      exportSubpath: true,
+      includeInRegisterAll: true,
+      dependencies: []
+    },
+    typeExports: ["PersonVariant"]
+  },
   // New component entries are inserted above this line by the scaffold script.
 ];
 

@@ -75,6 +75,7 @@ export const componentSidebarGroups = [
       { text: "Icon", link: "/components/icon" },
       { text: "Social Media List", link: "/components/social-media-list" },
       { text: "Media Item", link: "/components/media-item" },
+      { text: "Person", link: "/components/person" },
       { text: "Media List", link: "/components/media-list" }
     ]
   }

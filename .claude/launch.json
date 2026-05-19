@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "storybook", "--workspace", "@fdic-ds/storybook", "--", "--host", "127.0.0.1"],
       "port": 6006
+    },
+    {
+      "name": "Storybook Preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "storybook", "--workspace", "@fdic-ds/storybook", "--", "--host", "127.0.0.1", "--port", "6017", "--no-open"],
+      "port": 6017
     }
   ]
 }

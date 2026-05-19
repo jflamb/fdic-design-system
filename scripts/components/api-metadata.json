@@ -6594,5 +6594,252 @@
       ],
       "after": ""
     }
+  },
+  "fd-person": {
+    "properties": {
+      "rows": [
+        {
+          "name": "variant",
+          "type": "`\"byline\"` \\| `\"contact\"` \\| `\"contact-with-image\"` \\| `\"contact-details\"` \\| `\"name-title\"` \\| `\"spotlight\"` \\| `\"profile-card\"`",
+          "defaultValue": "`\"contact\"`",
+          "description": "Purpose-named display projection. Unsupported values fall back to `contact`."
+        },
+        {
+          "name": "name",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible person name. Used as the article label when present."
+        },
+        {
+          "name": "title",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible job title or role label for variants that render role metadata."
+        },
+        {
+          "name": "organization",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Visible division, office, or organization text."
+        },
+        {
+          "name": "email",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Email address used to generate `mailto:` links in variants that render contact behavior."
+        },
+        {
+          "name": "phone",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Reserved source field. No current Person variant renders phone."
+        },
+        {
+          "name": "location",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Reserved source field. No current Person variant renders location."
+        },
+        {
+          "name": "profile-url",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Profile destination for `spotlight` CTA links and `profile-card` name links."
+        },
+        {
+          "name": "profile-label",
+          "type": "`string`",
+          "defaultValue": "`\"Read more\"`",
+          "description": "Visible CTA label used by `spotlight` when `profile-url` is present."
+        },
+        {
+          "name": "target",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native target for profile links. Email links ignore this value."
+        },
+        {
+          "name": "rel",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Native relationship tokens for profile links. Blank-target links always include `noopener noreferrer`."
+        },
+        {
+          "name": "image-src",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Headshot image URL for variants that render images."
+        },
+        {
+          "name": "image-srcset",
+          "type": "`string \\| undefined`",
+          "defaultValue": "`undefined`",
+          "description": "Responsive image candidates for high-density and featured Person images."
+        },
+        {
+          "name": "image-alt",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Fallback alternative text used only when no visible person name is present. Headshots are decorative when the name is visible."
+        },
+        {
+          "name": "image-position",
+          "type": "`\"left\"` \\| `\"top\"`",
+          "defaultValue": "`\"left\"`",
+          "description": "Image placement for row-capable variants (`contact-with-image`, `contact-details`). `top` stacks the image above the text; featured variants are always stacked."
+        },
+        {
+          "name": "summary",
+          "type": "`string`",
+          "defaultValue": "``",
+          "description": "Short details or body-summary text rendered by `contact-details` and `spotlight`."
+        }
+      ],
+      "after": "`fd-person` uses controlled variant projections. Populated fields are ignored when the active variant does not render them, which keeps Drupal Person view modes governed instead of editor-assembled."
+    },
+    "slots": {
+      "rows": [],
+      "after": "`fd-person` does not expose slots in v1."
+    },
+    "events": {
+      "rows": [],
+      "after": "`fd-person` does not emit custom events in v1. Native link events bubble from rendered email and profile links."
+    },
+    "cssProperties": {
+      "rows": [
+        {
+          "name": "--fd-person-compact-gap",
+          "default": "`var(--fdic-spacing-xs, 8px)`",
+          "description": "Gap between image and text for compact variants."
+        },
+        {
+          "name": "--fd-person-standard-gap",
+          "default": "`var(--fdic-spacing-md, 16px)`",
+          "description": "Gap between image and text for `contact-details`."
+        },
+        {
+          "name": "--fd-person-featured-gap",
+          "default": "`var(--fdic-spacing-md, 16px)`",
+          "description": "Gap between image and content for featured variants."
+        },
+        {
+          "name": "--fd-person-name-font-size",
+          "default": "`var(--fdic-font-size-body, 18px)`",
+          "description": "Name text size for compact and standard variants."
+        },
+        {
+          "name": "--fd-person-featured-name-font-size",
+          "default": "`var(--fdic-font-size-heading-4, 24px)`",
+          "description": "Name text size for `spotlight` and `profile-card`."
+        },
+        {
+          "name": "--fd-person-meta-color",
+          "default": "`var(--fdic-color-text-secondary, #595961)`",
+          "description": "Title, organization, and supporting metadata color."
+        },
+        {
+          "name": "--fd-person-small-image-size",
+          "default": "`56px`",
+          "description": "Rendered avatar size for `contact-with-image`."
+        },
+        {
+          "name": "--fd-person-standard-image-size",
+          "default": "`112px`",
+          "description": "Rendered avatar size for `contact-details`."
+        },
+        {
+          "name": "--fd-person-spotlight-image-size",
+          "default": "`240px`",
+          "description": "Maximum rendered featured image width for `spotlight`."
+        },
+        {
+          "name": "--fd-person-spotlight-image-aspect-ratio",
+          "default": "`4 / 5`",
+          "description": "Featured image ratio for `spotlight`."
+        },
+        {
+          "name": "--fd-person-profile-card-image-size",
+          "default": "`192px`",
+          "description": "Preferred profile-card image size before container constraints."
+        },
+        {
+          "name": "--fd-person-profile-card-image-aspect-ratio",
+          "default": "`1 / 1`",
+          "description": "Featured image ratio for `profile-card` grid items."
+        },
+        {
+          "name": "--fd-person-focus-gap",
+          "default": "`var(--fdic-focus-gap-color, #ffffff)`",
+          "description": "Inner gap color for focused links."
+        },
+        {
+          "name": "--fd-person-focus-ring",
+          "default": "`var(--fdic-focus-ring-color, #38b6ff)`",
+          "description": "Outer ring color for focused links."
+        }
+      ],
+      "after": "Use image-size hooks for integration alignment only. Do not create new visual-size variants; choose the purpose-named variant that matches the content use case."
+    },
+    "shadowParts": {
+      "rows": [
+        {
+          "name": "base",
+          "description": "Root article wrapper. Also includes the active variant name as a part token."
+        },
+        {
+          "name": "content",
+          "description": "Text and link content wrapper."
+        },
+        {
+          "name": "identity",
+          "description": "Tight grouping of name, metadata, and inline contact text within `content`."
+        },
+        {
+          "name": "name",
+          "description": "Visible person name wrapper."
+        },
+        {
+          "name": "email-link",
+          "description": "Native mailto link rendered by contact variants."
+        },
+        {
+          "name": "profile-link",
+          "description": "Native profile link rendered by featured variants."
+        },
+        {
+          "name": "profile-cta",
+          "description": "CTA profile link rendered by `spotlight`."
+        },
+        {
+          "name": "meta",
+          "description": "Title and organization metadata text."
+        },
+        {
+          "name": "summary",
+          "description": "Short details or body-summary text."
+        },
+        {
+          "name": "contact-list",
+          "description": "List wrapper for rendered contact links."
+        },
+        {
+          "name": "contact-item",
+          "description": "Individual contact list item."
+        },
+        {
+          "name": "image-frame",
+          "description": "Headshot or placeholder frame."
+        },
+        {
+          "name": "image",
+          "description": "Native headshot image. Renders with empty alt text when the visible name is present."
+        },
+        {
+          "name": "placeholder",
+          "description": "Decorative person-silhouette fallback shown by image-bearing variants when no headshot is supplied."
+        }
+      ],
+      "after": "Variant-specific part tokens include `byline`, `contact`, `contact-with-image`, `contact-details`, `name-title`, `spotlight`, and `profile-card` on the root `base` part."
+    }
   }
 }
