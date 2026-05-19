@@ -374,6 +374,7 @@ export class FdTile extends LitElement {
   declare links: FdTileLinkItem[];
 
   private readonly _titleId = `fd-tile-title-${tileTitleIds++}`;
+  private _slottedLinks: FdTileLinkItem[] = [];
 
   constructor() {
     super();
@@ -389,13 +390,41 @@ export class FdTile extends LitElement {
     this.links = [];
   }
 
-  private _getNormalizedLinks() {
-    return (Array.isArray(this.links) ? this.links : [])
+  private _normalizeLinks(links: FdTileLinkItem[]) {
+    return (Array.isArray(links) ? links : [])
       .filter(
         (link): link is FdTileLinkItem =>
           Boolean(link?.label?.trim()) && Boolean(link?.href?.trim()),
       )
       .slice(0, 4);
+  }
+
+  private _getPropertyLinks() {
+    return this._normalizeLinks(this.links);
+  }
+
+  private _getRenderedLinks() {
+    const propertyLinks = this._getPropertyLinks();
+    return propertyLinks.length ? propertyLinks : this._slottedLinks;
+  }
+
+  private _handleSupportingLinkSlotChange(event: Event) {
+    const slot = event.currentTarget as HTMLSlotElement;
+    this._slottedLinks = this._normalizeLinks(
+      slot
+        .assignedElements({ flatten: true })
+        .filter(
+          (element): element is HTMLAnchorElement =>
+            element instanceof HTMLAnchorElement,
+        )
+        .map((anchor) => ({
+          label: anchor.textContent?.trim() ?? "",
+          href: anchor.getAttribute("href")?.trim() ?? "",
+          target: anchor.getAttribute("target")?.trim() || undefined,
+          rel: anchor.getAttribute("rel")?.trim() || undefined,
+        })),
+    );
+    this.requestUpdate();
   }
 
   private _renderTitle() {
@@ -420,7 +449,7 @@ export class FdTile extends LitElement {
   }
 
   private _renderLinks() {
-    const links = this._getNormalizedLinks();
+    const links = this._getRenderedLinks();
 
     if (!links.length) {
       return nothing;
@@ -451,7 +480,7 @@ export class FdTile extends LitElement {
   render() {
     const title = this.title.trim();
     const description = this.description?.trim();
-    const links = this._getNormalizedLinks();
+    const links = this._getRenderedLinks();
     const compact = !description && links.length === 0;
     const tone = normalizeTileTone(this.tone);
     const visualType = normalizeTileVisualType(this.visualType, tone);
@@ -492,6 +521,11 @@ export class FdTile extends LitElement {
               </div>
             `}
         ${this._renderLinks()}
+        <slot
+          name="supporting-link"
+          hidden
+          @slotchange=${this._handleSupportingLinkSlotChange}
+        ></slot>
       </article>
     `;
   }

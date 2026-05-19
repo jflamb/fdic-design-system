@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/web-components-vite";
 import { html } from "lit";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 import "@jflamb/fdic-ds-components/register-all";
 import type { FdTileLinkItem } from "@jflamb/fdic-ds-components";
 import {
@@ -158,6 +158,37 @@ export const WithFourLinks: Story = {
     linksMode: "four",
     width: "lg",
   },
+};
+
+export const MarkupSupportingLinks: Story = {
+  render: () => html`
+    <div style=${`${TILE_FRAME_STYLE} --tile-frame-width:${WIDTH_PRESETS.md};`}>
+      <fd-tile
+        tone="cool"
+        icon-name="download"
+        title="Benefits"
+        href="/benefits"
+        description="Review insurance, leave, and retirement resources in one place."
+      >
+        <a slot="supporting-link" href="/benefits/overview">Plan overview</a>
+        <a slot="supporting-link" href="/benefits/deadlines">Enrollment deadlines</a>
+      </fd-tile>
+    </div>
+  `,
+};
+
+MarkupSupportingLinks.play = async ({ canvasElement }) => {
+  const tile = canvasElement.querySelector("fd-tile");
+
+  await waitFor(() => {
+    const links = Array.from(
+      tile?.shadowRoot?.querySelectorAll<HTMLAnchorElement>(".support-link") ?? [],
+    );
+
+    expect(links).toHaveLength(2);
+    expect(links[0]?.textContent?.trim()).toBe("Plan overview");
+    expect(links[0]?.getAttribute("href")).toBe("/benefits/overview");
+  });
 };
 
 export const DocsOverview: Story = {

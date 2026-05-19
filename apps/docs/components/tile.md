@@ -49,6 +49,23 @@ The Tile component presents one primary destination with a decorative circular i
 </script>
 ```
 
+### Markup-first supporting links
+
+Use the `supporting-link` slot when a CMS or server-rendered page can author plain anchors more reliably than setting the JavaScript `links` property.
+
+```html
+<fd-tile
+  tone="cool"
+  icon-name="download"
+  title="Benefits"
+  href="/benefits"
+  description="Review insurance, leave, and retirement resources in one place."
+>
+  <a slot="supporting-link" href="/benefits/overview">Plan overview</a>
+  <a slot="supporting-link" href="/benefits/deadlines">Enrollment deadlines</a>
+</fd-tile>
+```
+
 ### Implementation guide
 
 - **Keep the tile shell non-interactive.** The component renders a static article wrapper. Navigation belongs to the rendered native links, with the primary destination spanning the visual plus the title/description summary.
@@ -56,6 +73,8 @@ The Tile component presents one primary destination with a decorative circular i
 - **Use `visual-type="avatar"` for editorial identity snippets.** This keeps the tile layout while switching the decorative visual to the avatar placeholder treatment.
 - **Use `fd-tile-list` to set a shared grouped tone.** A standalone tile can choose its own `tone`, but direct children of `fd-tile-list` inherit the list's tone so one set cannot mix visual types. Tile visuals use the same rest and hover tone surfaces as `fd-event`.
 - **Set `links` as a JavaScript property.** Supporting links are structured data, not an HTML string or JSON attribute. This keeps the rendered link list predictable and avoids fragile parsing contracts.
+- **Use slotted anchors for server-rendered authoring.** When `links` has no valid entries, `fd-tile` reads up to four plain anchors assigned to `slot="supporting-link"` and renders them through the same internal supporting-link list. Do not slot buttons, lists, cards, or nested navigation.
+- **Prefer one source for supporting links.** If the `links` property has valid entries, it takes precedence over slotted `supporting-link` anchors so one tile cannot render two competing supporting-link stacks.
 - **Limit supporting links to closely related destinations.** The component renders at most the first four valid link objects. If the content needs more destinations, use a broader content list or page navigation instead of overloading one tile.
 - **Let the component size itself responsively.** `fd-tile` uses container queries internally, so the same API can render the small, medium, and large Figma family without a public size variant.
 
@@ -72,10 +91,19 @@ The Tile component presents one primary destination with a decorative circular i
 | `target` | `string \| undefined` | `undefined` | Native link target applied to the primary title link. |
 | `rel` | `string \| undefined` | `undefined` | Native relationship tokens applied to the primary title link. `target="_blank"` always adds `noopener noreferrer`. |
 | `description` | `string \| undefined` | `undefined` | Optional supporting copy rendered under the primary title. |
-| `links` | `FdTileLinkItem[]` | `[]` | Optional supporting links rendered below the description. Set this as a JavaScript property; the component renders at most the first four valid entries. |
+| `links` | `FdTileLinkItem[]` | `[]` | Optional supporting links rendered below the description. Set this as a JavaScript property; the component renders at most the first four valid entries and uses these entries before slotted supporting-link anchors. |
 
 - `fd-tile` is static in v1. It owns decorative framing and layout only; the application owns link destinations, text content, analytics, and any dynamic item lifecycle.
 - The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native links.
+
+## Slots
+
+| Name | Description |
+|---|---|
+| `supporting-link` | Plain anchor source markup for supporting links. Used only when the `links` property has no valid entries; the component renders at most the first four valid anchors through its internal supporting-link list. |
+
+- Use `slot="supporting-link"` only for plain anchors with visible text and `href` values.
+- Do not slot lists, buttons, cards, or nested navigation into Tile. Use `fd-tile-list`, Link Category, or page navigation for broader link collections.
 
 ## CSS custom properties
 
@@ -134,11 +162,11 @@ The Tile component presents one primary destination with a decorative circular i
 - The tile shell is **not focusable**. Keyboard users move directly to the native links in the plain tab order, with the primary link wrapping the visual and summary as one target when `href` is present.
 - The decorative icon stays **`aria-hidden`** through the internal `fd-visual`.
 - When the primary title has no `href`, it renders as plain text instead of a fake link.
-- Supporting links render as a semantic list when provided through the `links` property.
+- Supporting links render as a semantic list whether they are provided through the `links` property or authored as slotted `supporting-link` anchors.
 
 ## Known limitations
 
-- Supporting links are provided through a **JavaScript property**, not authored as arbitrary slotted markup.
+- Slotted supporting links only accept **plain anchors** assigned to `slot="supporting-link"`. Arbitrary slotted lists, cards, buttons, and nested navigation are intentionally unsupported.
 - The component intentionally caps its rendered supporting links at **four**.
 - Tile does not provide a blanket clickable-card, selectable, or dismissible variant in v1.
 

@@ -26,6 +26,14 @@ const config: StorybookConfig = {
       "firefox128",
       "safari17.5",
     ];
+    // Storybook's static preview intentionally bundles the component registry,
+    // a11y runner, and framework iframe into a few shared chunks. Keep Vite's
+    // chunk warning active for unexpected growth, but set the budget above the
+    // known Storybook-managed preview chunks so routine builds stay actionable.
+    existingConfig.build.chunkSizeWarningLimit = Math.max(
+      existingConfig.build.chunkSizeWarningLimit ?? 0,
+      900,
+    );
 
     const alias = existingConfig.resolve.alias;
     const componentIndexSource = resolve(

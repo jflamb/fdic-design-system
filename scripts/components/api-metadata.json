@@ -3873,14 +3873,19 @@
           "name": "links",
           "type": "`FdTileLinkItem[]`",
           "defaultValue": "`[]`",
-          "description": "Optional supporting links rendered below the description. Set this as a JavaScript property; the component renders at most the first four valid entries."
+          "description": "Optional supporting links rendered below the description. Set this as a JavaScript property; the component renders at most the first four valid entries and uses these entries before slotted supporting-link anchors."
         }
       ],
       "after": "- `fd-tile` is static in v1. It owns decorative framing and layout only; the application owns link destinations, text content, analytics, and any dynamic item lifecycle.\n- The host shell is intentionally non-interactive. Keyboard focus lands only on the rendered native links."
     },
     "slots": {
-      "rows": [],
-      "after": "- `fd-tile` does not expose consumer-authored content slots in v1. Use the documented properties so the component can keep its responsive layout and link structure consistent."
+      "rows": [
+        {
+          "name": "supporting-link",
+          "description": "Plain anchor source markup for supporting links. Used only when the `links` property has no valid entries; the component renders at most the first four valid anchors through its internal supporting-link list."
+        }
+      ],
+      "after": "- Use `slot=\"supporting-link\"` only for plain anchors with visible text and `href` values.\n- Do not slot lists, buttons, cards, or nested navigation into Tile. Use `fd-tile-list`, Link Category, or page navigation for broader link collections."
     },
     "events": {
       "rows": [],

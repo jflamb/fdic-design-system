@@ -86,6 +86,130 @@ describe("FdTile", () => {
     ]);
   });
 
+  it("renders supporting links from slotted anchors when links property is empty", async () => {
+    const el = await createTile({ title: "Benefits" });
+    const firstLink = document.createElement("a");
+    firstLink.slot = "supporting-link";
+    firstLink.setAttribute("href", "/benefits/overview");
+    firstLink.textContent = "Plan overview";
+
+    const secondLink = document.createElement("a");
+    secondLink.slot = "supporting-link";
+    secondLink.setAttribute("href", "/benefits/deadlines");
+    secondLink.target = "_blank";
+    secondLink.textContent = "Enrollment deadlines";
+
+    el.append(firstLink, secondLink);
+    el.shadowRoot
+      ?.querySelector<HTMLSlotElement>('slot[name="supporting-link"]')
+      ?.dispatchEvent(new Event("slotchange"));
+    await el.updateComplete;
+
+    const links = Array.from(
+      el.shadowRoot?.querySelectorAll<HTMLAnchorElement>(".support-link") ?? [],
+    );
+
+    expect(links.map((link) => link.textContent?.trim())).toEqual([
+      "Plan overview",
+      "Enrollment deadlines",
+    ]);
+    expect(links[0]?.getAttribute("href")).toBe("/benefits/overview");
+    expect(links[1]?.getAttribute("rel")).toBe("noopener noreferrer");
+  });
+
+  it("filters invalid slotted anchors, ignores non-anchors, and limits slotted links to four", async () => {
+    const el = await createTile({ title: "Benefits" });
+    const sourceLinks = [
+      ["Plan overview", "/benefits/overview"],
+      ["   ", "/benefits/blank-label"],
+      ["Missing href", ""],
+      ["Enrollment deadlines", "/benefits/deadlines"],
+      ["Eligibility", "/benefits/eligibility"],
+      ["Support contacts", "/benefits/support"],
+      ["Deferred", "/benefits/deferred"],
+    ] as const;
+    const sourceElements = sourceLinks.map(([label, href]) => {
+      const anchor = document.createElement("a");
+      anchor.slot = "supporting-link";
+      anchor.textContent = label;
+      if (href) {
+        anchor.setAttribute("href", href);
+      }
+      return anchor;
+    });
+    const nonAnchor = document.createElement("div");
+    nonAnchor.slot = "supporting-link";
+    nonAnchor.textContent = "Not a link";
+
+    el.append(nonAnchor, ...sourceElements);
+    el.shadowRoot
+      ?.querySelector<HTMLSlotElement>('slot[name="supporting-link"]')
+      ?.dispatchEvent(new Event("slotchange"));
+    await el.updateComplete;
+
+    const links = Array.from(
+      el.shadowRoot?.querySelectorAll<HTMLAnchorElement>(".support-link") ?? [],
+    );
+
+    expect(links.map((link) => link.textContent?.trim())).toEqual([
+      "Plan overview",
+      "Enrollment deadlines",
+      "Eligibility",
+      "Support contacts",
+    ]);
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "/benefits/overview",
+      "/benefits/deadlines",
+      "/benefits/eligibility",
+      "/benefits/support",
+    ]);
+  });
+
+  it("prefers property links over slotted supporting links", async () => {
+    const el = await createTile({
+      title: "Benefits",
+      links: [{ label: "Property link", href: "/property" }],
+    });
+    const slottedLink = document.createElement("a");
+    slottedLink.slot = "supporting-link";
+    slottedLink.setAttribute("href", "/slotted");
+    slottedLink.textContent = "Slotted link";
+
+    el.append(slottedLink);
+    el.shadowRoot
+      ?.querySelector<HTMLSlotElement>('slot[name="supporting-link"]')
+      ?.dispatchEvent(new Event("slotchange"));
+    await el.updateComplete;
+
+    const links = Array.from(
+      el.shadowRoot?.querySelectorAll<HTMLAnchorElement>(".support-link") ?? [],
+    );
+
+    expect(links).toHaveLength(1);
+    expect(links[0]?.textContent?.trim()).toBe("Property link");
+  });
+
+  it("keeps the supporting-link source slot hidden and passes an axe audit", async () => {
+    const el = await createTile({ title: "Benefits" });
+    const slottedLink = document.createElement("a");
+    slottedLink.slot = "supporting-link";
+    slottedLink.setAttribute("href", "/benefits/overview");
+    slottedLink.textContent = "Plan overview";
+
+    el.append(slottedLink);
+    el.shadowRoot
+      ?.querySelector<HTMLSlotElement>('slot[name="supporting-link"]')
+      ?.dispatchEvent(new Event("slotchange"));
+    await el.updateComplete;
+
+    const slot = el.shadowRoot?.querySelector<HTMLSlotElement>(
+      'slot[name="supporting-link"]',
+    );
+
+    expect(slot?.hasAttribute("hidden")).toBe(true);
+    await expectNoAxeViolations(el);
+  });
+
   it("aligns supporting links with the text column", () => {
     const styles = FdTile.styles.cssText;
 
