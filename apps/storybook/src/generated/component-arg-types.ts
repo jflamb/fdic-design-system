@@ -448,7 +448,7 @@ export const componentStoryApi = {
     "action": "/search",
     "label": "Search",
     "placeholder": "Search",
-    "submitLabel": "Open first matching result",
+    "submitLabel": "Submit search",
     "searchAllLabel": "Search all",
     "paramName": "q",
     "items": "[]",

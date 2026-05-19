@@ -108,7 +108,7 @@ export function createFdGlobalHeaderReferenceSearch(
     action,
     label: "Search FDICnet",
     placeholder: fdicNetMainMenuReferenceContent.header.searchPlaceholder || "Search FDICnet",
-    submitLabel: "Open first matching result",
+    submitLabel: "Submit search",
     searchAllLabel: "Search all FDICnet",
     paramName: "q",
     items: createHeaderSearchItemsFromNavigation(fdGlobalHeaderReferenceNavigation),
